@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Guestbook</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Guestbook</h1>
+
+  <form id="guestForm" autocomplete="off">
+    <input name="Name" placeholder="Your name" required />
+    <input name="Email" type="email" placeholder="Email" required />
+    <textarea name="Message" placeholder="Leave a message" rows="3" required></textarea>
+    <button type="submit">Send</button>
+    <p id="msg"></p>
+  </form>
+
+  <h2>Recent entries</h2>
+  <table id="entries">
+    <thead><tr></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <script src="app.js"></script>
+</body>
+</html>
