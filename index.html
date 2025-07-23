@@ -3,110 +3,201 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SPM Alkanes – Interactive</title>
-  <link rel="stylesheet" href="styles.css">
-  <!-- ChemDoodle Web-Components for the sketcher -->
-  <script src="https://web.chemdoodle.com/ChemDoodleWeb-9.5.0.js"></script>
+  <title>SPM Alkanes – Clean Theme</title>
+  <style>
+    :root{
+      --bg:#f7f7f7;
+      --panel:#fff;
+      --border:#ddd;
+      --text:#222;
+      --accent:#0078ff;
+      --radius:6px;
+    }
+    *{box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+    body{margin:0;background:var(--bg);color:var(--text);line-height:1.6;padding:1rem}
+    h1,h2{margin:.5rem 0;color:var(--accent)}
+    header{background:var(--panel);padding:1.5rem;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:1.5rem;text-align:center}
+    section{background:var(--panel);padding:1rem 1.5rem;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:1.5rem}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:.6rem .8rem;border:1px solid var(--border);text-align:center}
+    th{background:#f1f1f1}
+    img.tetra{display:block;margin:1rem auto;max-width:200px;border:1px solid var(--border);border-radius:var(--radius)}
+    .flex{display:flex;gap:1rem;flex-wrap:wrap}
+    .flex>div{flex:1 1 180px}
+    canvas{border:1px solid var(--border);border-radius:var(--radius);cursor:grab}
+    button{background:var(--accent);color:#fff;border:none;padding:.6rem 1rem;border-radius:var(--radius);cursor:pointer;margin:.25rem}
+    button:disabled{opacity:.6;cursor:not-allowed}
+    .correct{background:#43a047}
+    .wrong{background:#e53935}
+  </style>
 </head>
-<body>
 
+<body>
 <header>
-  <h1>Alkanes Reimagined</h1>
-  <p>Interactive SPM Chemistry</p>
+  <h1>SPM Alkanes – Clean Theme</h1>
+  <p>All you need for straight-chain alkanes (C₁–C₁₀)</p>
 </header>
 
-<main>
-  <!-- 1. INTRO -->
-  <section class="glass">
-    <h2>1️⃣ What Are Alkanes?</h2>
-    <p>Alkanes are <strong>saturated hydrocarbons</strong> – only single covalent bonds.</p>
-    <span class="tag">Tetrahedral 109.5°</span>
-  </section>
+<!-- Tetrahedral image -->
+<section>
+  <h2>1️⃣ Tetrahedral Geometry</h2>
+  <img class="tetra"
+       src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Methane-3D-balls.png/320px-Methane-3D-balls.png"
+       alt="Tetrahedral methane">
+  <p>Each carbon in alkanes sits at the centre of a <strong>tetrahedron</strong> (109.5° bond angles).</p>
+</section>
 
-  <!-- 2. GENERAL FORMULA -->
-  <section class="glass">
-    <h2>2️⃣ General Formula</h2>
-    <div class="formula">C<sub>n</sub>H<sub>2n+2</sub></div>
-  </section>
+<!-- Alkanes table -->
+<section>
+  <h2>2️⃣ First 10 Alkanes</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>C atoms</th><th>Name</th><th>Molecular Formula</th><th>Condensed Formula</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>Methane</td><td>CH₄</td><td>CH₄</td></tr>
+      <tr><td>2</td><td>Ethane</td><td>C₂H₆</td><td>CH₃–CH₃</td></tr>
+      <tr><td>3</td><td>Propane</td><td>C₃H₈</td><td>CH₃–CH₂–CH₃</td></tr>
+      <tr><td>4</td><td>Butane</td><td>C₄H₁₀</td><td>CH₃–CH₂–CH₂–CH₃</td></tr>
+      <tr><td>5</td><td>Pentane</td><td>C₅H₁₂</td><td>CH₃(CH₂)₃CH₃</td></tr>
+      <tr><td>6</td><td>Hexane</td><td>C₆H₁₄</td><td>CH₃(CH₂)₄CH₃</td></tr>
+      <tr><td>7</td><td>Heptane</td><td>C₇H₁₆</td><td>CH₃(CH₂)₅CH₃</td></tr>
+      <tr><td>8</td><td>Octane</td><td>C₈H₁₈</td><td>CH₃(CH₂)₆CH₃</td></tr>
+      <tr><td>9</td><td>Nonane</td><td>C₉H₂₀</td><td>CH₃(CH₂)₇CH₃</td></tr>
+      <tr><td>10</td><td>Decane</td><td>C₁₀H₂₂</td><td>CH₃(CH₂)₈CH₃</td></tr>
+    </tbody>
+  </table>
+</section>
 
-  <!-- 3. NAMES TABLE -->
-  <section class="glass">
-    <h2>3️⃣ First 10 Alkanes</h2>
-    <div class="table-scroll">
-      <table>
-        <thead><tr><th>C</th><th>Name</th><th>Formula</th></tr></thead>
-        <tbody>
-        <tr><td>1</td><td>Methane</td><td>CH₄</td></tr>
-        <tr><td>2</td><td>Ethane</td><td>C₂H₆</td></tr>
-        <tr><td>3</td><td>Propane</td><td>C₃H₈</td></tr>
-        <tr><td>4</td><td>Butane</td><td>C₄H₁₀</td></tr>
-        <tr><td>5</td><td>Pentane</td><td>C₅H₁₂</td></tr>
-        <tr><td>6</td><td>Hexane</td><td>C₆H₁₄</td></tr>
-        <tr><td>7</td><td>Heptane</td><td>C₇H₁₆</td></tr>
-        <tr><td>8</td><td>Octane</td><td>C₈H₁₈</td></tr>
-        <tr><td>9</td><td>Nonane</td><td>C₉H₂₀</td></tr>
-        <tr><td>10</td><td>Decane</td><td>C₁₀H₂₂</td></tr>
-        </tbody>
-      </table>
+<!-- Properties & Uses -->
+<section>
+  <h2>3️⃣ Properties & Uses</h2>
+  <div class="flex">
+    <div>
+      <strong>Properties</strong>
+      <ul>
+        <li>Non-polar → insoluble in water</li>
+        <li>Boiling point ↑ with chain length</li>
+        <li>Combustion → CO₂ + H₂O</li>
+      </ul>
     </div>
-  </section>
-
-  <!-- 4. STRUCTURES -->
-  <section class="glass">
-    <h2>4️⃣ Structural Formulas</h2>
-    <div class="flex">
-      <figure>
-        <figcaption>Methane</figcaption>
-        <code>CH₄</code>
-      </figure>
-      <figure>
-        <figcaption>Propane</figcaption>
-        <code>CH₃–CH₂–CH₃</code>
-      </figure>
+    <div>
+      <strong>Everyday Uses</strong>
+      <ul>
+        <li>Cooking gas: propane, butane</li>
+        <li>Petrol: octane</li>
+        <li>Paraffin wax</li>
+      </ul>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- 5. PROPERTIES -->
-  <section class="glass">
-    <h2>5️⃣ Properties</h2>
-    <ul>
-      <li>Non-polar → insoluble in water</li>
-      <li>Boiling point ↑ with chain length</li>
-      <li>Combustion: CₙH₂ₙ₊₂ + O₂ → CO₂ + H₂O</li>
-      <li>Substitution with halogens</li>
-    </ul>
-  </section>
+<!-- Mini Quiz -->
+<section>
+  <h2>4️⃣ Mini Quiz</h2>
+  <p><strong>Which of these is an alkane?</strong></p>
+  <button onclick="quiz(this,false)">A) Ethene</button>
+  <button onclick="quiz(this,true)">B) Ethane</button>
+  <button onclick="quiz(this,false)">C) Ethyne</button>
+  <p id="quizMsg"></p>
+</section>
 
-  <!-- 6. USES -->
-  <section class="glass">
-    <h2>6️⃣ Uses</h2>
-    <ul>
-      <li>Cooking gas (butane / propane)</li>
-      <li>Petrol (octane)</li>
-      <li>Paraffin wax & lubricants</li>
-    </ul>
-  </section>
+<!-- Draw Butane Simulator -->
+<section>
+  <h2>5️⃣ Draw Butane Yourself</h2>
+  <canvas id="canvas" width="480" height="300"></canvas>
+  <br>
+  <button onclick="addAtom('C')">Add C</button>
+  <button onclick="addAtom('H')">Add H</button>
+  <button onclick="resetCanvas()">Reset</button>
+  <button onclick="checkButane()">Is this butane?</button>
+  <p id="simMsg"></p>
+</section>
 
-  <!-- 7. MINI QUIZ (no tick) -->
-  <section class="glass quiz">
-    <h2>7️⃣ Mini Quiz</h2>
-    <p id="q">Which of these is an alkane?</p>
-    <button onclick="answer(this,false)">A) Ethene</button>
-    <button onclick="answer(this,true)">B) Ethane</button>
-    <button onclick="answer(this,false)">C) Ethyne</button>
-    <p id="quizMsg"></p>
-  </section>
+<script>
+/* ---------- Mini Quiz ---------- */
+function quiz(btn,correct){
+  [...btn.parentNode.querySelectorAll('button')].forEach(b=>b.disabled=true);
+  btn.classList.add(correct?'correct':'wrong');
+  document.getElementById('quizMsg').textContent=correct?'Correct!':'Try again!';
+}
 
-  <!-- 8. INTERACTIVE SKETCHER -->
-  <section class="glass sketcher">
-    <h2>🎨 Draw Butane Yourself!</h2>
-    <p>Drag carbon and hydrogen atoms from the palette, then bond them to build butane (C₄H₁₀).</p>
-    <canvas id="sketcher" width="420" height="300"></canvas>
-    <button onclick="checkButane()">Is this butane?</button>
-    <p id="sketchMsg"></p>
-  </section>
-</main>
+/* ---------- Simulator ---------- */
+const cv=document.getElementById('canvas'),ctx=cv.getContext('2d');
+let atoms=[],bonds=[],drag=null;
+const radius={C:15,H:10};
 
-<script src="app.js"></script>
+function addAtom(type){
+  atoms.push({type,x:50+Math.random()*380,y:50+Math.random()*200});
+  draw();
+}
+function resetCanvas(){
+  atoms=[];bonds=[];draw();
+  document.getElementById('simMsg').textContent='';
+}
+function draw(){
+  ctx.clearRect(0,0,cv.width,cv.height);
+  // bonds
+  bonds.forEach(b=>{
+    ctx.beginPath();
+    ctx.moveTo(atoms[b.a].x,atoms[b.a].y);
+    ctx.lineTo(atoms[b.b].x,atoms[b.b].y);
+    ctx.strokeStyle='#000';ctx.lineWidth=2;ctx.stroke();
+  });
+  // atoms
+  atoms.forEach((a,i)=>{
+    ctx.beginPath();
+    ctx.arc(a.x,a.y,radius[a.type],0,2*Math.PI);
+    ctx.fillStyle=a.type==='C'?'#444':'#0078ff';
+    ctx.fill();
+    ctx.fillStyle='#fff';
+    ctx.textAlign='center';
+    ctx.fillText(a.type,a.x,a.y+4);
+  });
+}
+function checkButane(){
+  const c=atoms.filter(a=>a.type==='C').length;
+  const h=atoms.filter(a=>a.type==='H').length;
+  const edges=bonds.length;
+  const msg=document.getElementById('simMsg');
+  if(c===4 && h===10 && edges===13){
+    msg.textContent='✅ Perfect! You built butane (C₄H₁₀).';
+    msg.style.color='green';
+  }else{
+    msg.textContent=`❌ You have ${c} C, ${h} H, ${edges} bonds – need 4 C, 10 H, 13 bonds.`;
+    msg.style.color='crimson';
+  }
+}
+/* mouse events */
+cv.onmousedown=e=>{
+  const rect=cv.getBoundingClientRect(),x=e.clientX-rect.left,y=e.clientY-rect.top;
+  const hit=atoms.findIndex(a=>(x-a.x)**2+(y-a.y)**2<radius[a.type]**2);
+  if(hit>=0)drag={idx:hit,x,y};
+};
+cv.onmousemove=e=>{
+  if(!drag)return;
+  const rect=cv.getBoundingClientRect();
+  atoms[drag.idx].x=e.clientX-rect.left;
+  atoms[drag.idx].y=e.clientY-rect.top;
+  draw();
+};
+cv.onmouseup=()=>drag=null;
+cv.ondblclick=e=>{
+  const rect=cv.getBoundingClientRect(),x=e.clientX-rect.left,y=e.clientY-rect.top;
+  const a1=atoms.findIndex(a=>(x-a.x)**2+(y-a.y)**2<radius[a.type]**2);
+  if(a1<0)return;
+  const a2=atoms.findIndex((a,i)=>i!==a1 && (x-a.x)**2+(y-a.y)**2<radius[a.type]**2);
+  if(a2>=0){
+    const exists=bonds.find(b=>(b.a===a1&&b.b===a2)||(b.a===a2&&b.b===a1));
+    if(exists){bonds.splice(bonds.indexOf(exists),1);}
+    else bonds.push({a:a1,b:a2});
+  }
+  draw();
+};
+/* starter */
+resetCanvas();
+</script>
 </body>
 </html>
