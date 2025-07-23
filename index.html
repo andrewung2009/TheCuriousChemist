@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SPM Alkanes – Accordion Course</title>
+  <title>Alkanes</title>
   <style>
     :root{
       --bg:#f7f7f7;
@@ -41,7 +41,7 @@
 </head>
 
 <body>
-<h1>SPM Alkanes – Accordion Course</h1>
+<h1>Alkanes</h1>
 
 <!-- 1️⃣ WHAT ARE ALKANES? -->
 <div class="accordion">
@@ -140,126 +140,4 @@
   </div>
 </div>
 
-<!-- 7️⃣ DRAW BUTANE SIMULATOR -->
-<div class="accordion">
-  <button class="accordion-header">7️⃣ Draw Butane Yourself</button>
-  <div class="accordion-body">
-    <p>Drag atoms, double-click to bond/un-bond, then test.</p>
-    <canvas id="canvas" width="520" height="300"></canvas>
-    <br>
-    <button onclick="addAtom('C')">Add C</button>
-    <button onclick="addAtom('H')">Add H</button>
-    <button onclick="resetCanvas()">Reset</button>
-    <button onclick="checkButane()">Is this butane?</button>
-    <p id="simMsg"></p>
-  </div>
-</div>
-
-<!-- 8️⃣ MINI QUIZ -->
-<div class="accordion">
-  <button class="accordion-header">8️⃣ Mini Quiz</button>
-  <div class="accordion-body">
-    <p><strong>Which of these is an alkane?</strong></p>
-    <button onclick="quiz(this,false)">A) Ethene</button>
-    <button onclick="quiz(this,true)">B) Ethane</button>
-    <button onclick="quiz(this,false)">C) Ethyne</button>
-    <p id="quizMsg"></p>
-  </div>
-</div>
-
-<script>
-/* ---------- Accordion behaviour ---------- */
-document.querySelectorAll('.accordion-header').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    const wasOpen=btn.classList.contains('open');
-    /* close all */
-    document.querySelectorAll('.accordion-header').forEach(b=>b.classList.remove('open'));
-    document.querySelectorAll('.accordion-body').forEach(b=>b.classList.remove('open'));
-    /* open clicked if it was closed */
-    if(!wasOpen){
-      btn.classList.add('open');
-      btn.nextElementSibling.classList.add('open');
-    }
-  });
-});
-
-/* ---------- Mini Quiz ---------- */
-function quiz(btn,correct){
-  [...btn.parentNode.querySelectorAll('button')].forEach(b=>b.disabled=true);
-  btn.classList.add(correct?'correct':'wrong');
-  document.getElementById('quizMsg').textContent=correct?'Correct!':'Try again!';
-}
-
-/* ---------- Simulator ---------- */
-const cv=document.getElementById('canvas'),ctx=cv.getContext('2d');
-let atoms=[],bonds=[],drag=null;
-const radius={C:15,H:10};
-
-function addAtom(type){
-  atoms.push({type,x:50+Math.random()*380,y:50+Math.random()*200});
-  draw();
-}
-function resetCanvas(){
-  atoms=[];bonds=[];draw();
-  document.getElementById('simMsg').textContent='';
-}
-function draw(){
-  ctx.clearRect(0,0,cv.width,cv.height);
-  bonds.forEach(b=>{
-    ctx.beginPath();
-    ctx.moveTo(atoms[b.a].x,atoms[b.a].y);
-    ctx.lineTo(atoms[b.b].x,atoms[b.b].y);
-    ctx.strokeStyle='#000';ctx.lineWidth=2;ctx.stroke();
-  });
-  atoms.forEach((a,i)=>{
-    ctx.beginPath();
-    ctx.arc(a.x,a.y,radius[a.type],0,2*Math.PI);
-    ctx.fillStyle=a.type==='C'?'#444':'#0078ff';
-    ctx.fill();
-    ctx.fillStyle='#fff';
-    ctx.textAlign='center';
-    ctx.fillText(a.type,a.x,a.y+4);
-  });
-}
-function checkButane(){
-  const c=atoms.filter(a=>a.type==='C').length;
-  const h=atoms.filter(a=>a.type==='H').length;
-  const edges=bonds.length;
-  const msg=document.getElementById('simMsg');
-  if(c===4 && h===10 && edges===13){
-    msg.textContent='✅ Perfect! You built butane (C₄H₁₀).';
-    msg.style.color='green';
-  }else{
-    msg.textContent=`❌ You have ${c} C, ${h} H, ${edges} bonds – need 4 C, 10 H, 13 bonds.`;
-    msg.style.color='crimson';
-  }
-}
-cv.onmousedown=e=>{
-  const rect=cv.getBoundingClientRect(),x=e.clientX-rect.left,y=e.clientY-rect.top;
-  const hit=atoms.findIndex(a=>(x-a.x)**2+(y-a.y)**2<radius[a.type]**2);
-  if(hit>=0)drag={idx:hit,x,y};
-};
-cv.onmousemove=e=>{
-  if(!drag)return;
-  const rect=cv.getBoundingClientRect();
-  atoms[drag.idx].x=e.clientX-rect.left;
-  atoms[drag.idx].y=e.clientY-rect.top;
-  draw();
-};
-cv.onmouseup=()=>drag=null;
-cv.ondblclick=e=>{
-  const rect=cv.getBoundingClientRect(),x=e.clientX-rect.left,y=e.clientY-rect.top;
-  const a1=atoms.findIndex(a=>(x-a.x)**2+(y-a.y)**2<radius[a.type]**2);
-  if(a1<0)return;
-  const a2=atoms.findIndex((a,i)=>i!==a1 && (x-a.x)**2+(y-a.y)**2<radius[a.type]**2);
-  if(a2>=0){
-    const exists=bonds.find(b=>(b.a===a1&&b.b===a2)||(b.a===a2&&b.b===a1));
-    if(exists){bonds.splice(bonds.indexOf(exists),1);}
-    else bonds.push({a:a1,b:a2});
-  }
-  draw();
-};
-resetCanvas();
-</script>
-</body>
-</html>
+<!-- 7️⃣
