@@ -1,27 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Guestbook</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8"/>
+  <title>SPM Alkanes Micro-Course</title>
+  <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-  <h1>Guestbook</h1>
+<header>
+  <h1>📚 SPM Alkanes Micro-Course</h1>
+  <p>Free, fast, fun revision for Chemistry</p>
+</header>
 
-  <form id="guestForm" autocomplete="off">
-    <input name="Name" placeholder="Your name" required />
-    <input name="Email" type="email" placeholder="Email" required />
-    <textarea name="Message" placeholder="Leave a message" rows="3" required></textarea>
-    <button type="submit">Send</button>
-    <p id="msg"></p>
-  </form>
+<nav>
+  <button onclick="scrollToSection('intro')">Intro</button>
+  <button onclick="scrollToSection('formula')">Formula</button>
+  <button onclick="scrollToSection('names')">Names</button>
+  <button onclick="scrollToSection('structures')">Structures</button>
+  <button onclick="scrollToSection('properties')">Properties</button>
+  <button onclick="scrollToSection('uses')">Uses</button>
+  <button onclick="scrollToSection('quiz')">Quiz</button>
+</nav>
 
-  <h2>Recent entries</h2>
-  <table id="entries">
-    <thead><tr></tr></thead>
-    <tbody></tbody>
+<section id="intro">
+  <h2>1️⃣ What Are Alkanes?</h2>
+  <p>Alkanes are <strong>saturated hydrocarbons</strong> – they contain <strong>only single covalent bonds</strong>.</p>
+  <div class="note">Each carbon forms 4 bonds → tetrahedral shape.</div>
+</section>
+
+<section id="formula">
+  <h2>2️⃣ General Formula</h2>
+  <p>C<sub>n</sub>H<sub>2n+2</sub></p>
+  <p class="eg">Example: n = 3 → C₃H₈ (propane)</p>
+</section>
+
+<section id="names">
+  <h2>3️⃣ First 10 Alkanes</h2>
+  <table>
+    <thead><tr><th>C atoms</th><th>Name</th><th>Formula</th></tr></thead>
+    <tbody>
+    <tr><td>1</td><td>Methane</td><td>CH₄</td></tr>
+    <tr><td>2</td><td>Ethane</td><td>C₂H₆</td></tr>
+    <tr><td>3</td><td>Propane</td><td>C₃H₈</td></tr>
+    <tr><td>4</td><td>Butane</td><td>C₄H₁₀</td></tr>
+    <tr><td>5</td><td>Pentane</td><td>C₅H₁₂</td></tr>
+    <tr><td>6</td><td>Hexane</td><td>C₆H₁₄</td></tr>
+    <tr><td>7</td><td>Heptane</td><td>C₇H₁₆</td></tr>
+    <tr><td>8</td><td>Octane</td><td>C₈H₁₈</td></tr>
+    <tr><td>9</td><td>Nonane</td><td>C₉H₂₀</td></tr>
+    <tr><td>10</td><td>Decane</td><td>C₁₀H₂₂</td></tr>
+    </tbody>
   </table>
+</section>
 
-  <script src="app.js"></script>
+<section id="structures">
+  <h2>4️⃣ Structural Formulas</h2>
+  <div class="flex">
+    <div>
+      <strong>Methane:</strong><br>
+      <code>CH₄</code>
+    </div>
+    <div>
+      <strong>Propane:</strong><br>
+      <code>CH₃–CH₂–CH₃</code>
+    </div>
+  </div>
+  <p><em>Try drawing butane → C₄H₁₀</em></p>
+</section>
+
+<section id="properties">
+  <h2>5️⃣ Properties</h2>
+  <ul>
+    <li>Non-polar → <strong>insoluble</strong> in water</li>
+    <li>Boiling point ↑ with chain length</li>
+    <li>Colourless, odourless (short chains)</li>
+    <li><strong>Combustion:</strong> CₙH₂ₙ₊₂ + O₂ → CO₂ + H₂O</li>
+    <li><strong>Substitution:</strong> reacts with halogens (e.g., Cl₂)</li>
+  </ul>
+</section>
+
+<section id="uses">
+  <h2>6️⃣ Uses</h2>
+  <ul>
+    <li>Cooking gas: propane & butane</li>
+    <li>Petrol: contains octane</li>
+    <li>Lubricants & waxes: longer alkanes</li>
+  </ul>
+</section>
+
+<section id="quiz">
+  <h2>7️⃣ Mini Quiz</h2>
+  <p id="question">Which of these is an alkane?</p>
+  <button class="opt" onclick="check(this,'B')">A) Ethene</button>
+  <button class="opt" onclick="check(this,'B')">B) Ethane ✅</button>
+  <button class="opt" onclick="check(this,'B')">C) Ethyne</button>
+  <p id="feedback"></p>
+
+  <h2>8️⃣ Practice Questions</h2>
+  <ol>
+    <li>What is the formula for hexane? <input data-ans="C6H14"/></li>
+    <li>Draw butane (C₄H₁₀) <textarea placeholder="CH3-CH2-CH2-CH3"></textarea></li>
+    <li>Name C₇H₁₆ <input data-ans="Heptane"/></li>
+    <li>State one physical & one chemical property <textarea></textarea></li>
+  </ol>
+  <button onclick="markPractice()">Mark My Answers</button>
+  <p id="practiceResult"></p>
+</section>
+
+<footer>
+  <p>Made with ❤️ for SPM students. Source on <a href="https://github.com/YOUR_USERNAME/YOUR_REPO">GitHub</a>.</p>
+</footer>
+
+<script src="app.js"></script>
 </body>
 </html>
