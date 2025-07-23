@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SPM Alkanes – Complete Micro-Course</title>
+  <title>SPM Alkanes – Systematic Micro-Course</title>
   <style>
     :root{
       --bg:#f7f7f7;
@@ -34,20 +34,37 @@
 
 <body>
 <header>
-  <h1>SPM Alkanes – Complete Micro-Course</h1>
-  <p>Everything you need for C₁–C₁₀ straight-chain alkanes</p>
+  <h1>SPM Alkanes – Systematic Micro-Course</h1>
+  <p>Step-by-step mastery of straight-chain alkanes (C₁–C₁₀)</p>
 </header>
 
-<!-- 1️⃣ Tetrahedral Geometry -->
+<!-- 1️⃣ WHAT ARE ALKANES? -->
 <section>
-  <h2>1️⃣ Tetrahedral Geometry</h2>
-  <img class="tetra" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Methane-3D-balls.png/320px-Methane-3D-balls.png" alt="Tetrahedral methane">
-  <p>Every carbon in alkanes sits at the centre of a <strong>tetrahedron</strong> with bond angles of <strong>109.5°</strong>.</p>
+  <h2>1️⃣ What Are Alkanes?</h2>
+  <ul>
+    <li><strong>Alkanes</strong> are <strong>saturated hydrocarbons</strong>.</li>
+    <li><strong>Saturated</strong> → contain <em>only single covalent bonds</em> between carbon atoms.</li>
+    <li><strong>Hydrocarbon</strong> → made of <em>carbon and hydrogen only</em>.</li>
+  </ul>
 </section>
 
-<!-- 2️⃣ First 10 Alkanes -->
+<!-- 2️⃣ TETRAHEDRAL GEOMETRY -->
 <section>
-  <h2>2️⃣ First 10 Alkanes</h2>
+  <h2>2️⃣ Tetrahedral Geometry</h2>
+  <img class="tetra" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Methane-3D-balls.png/320px-Methane-3D-balls.png" alt="Tetrahedral methane">
+  <p>Each carbon in alkanes sits at the centre of a <strong>tetrahedron</strong> with bond angles of <strong>109.5 °</strong>.</p>
+</section>
+
+<!-- 3️⃣ GENERAL FORMULA -->
+<section>
+  <h2>3️⃣ General Formula</h2>
+  <p>C<sub>n</sub>H<sub>2n+2</sub></p>
+  <p>Example: n = 4 → C₄H₁₀ (butane)</p>
+</section>
+
+<!-- 4️⃣ FIRST 10 ALKANES -->
+<section>
+  <h2>4️⃣ First 10 Alkanes</h2>
   <table>
     <thead>
       <tr>
@@ -69,19 +86,9 @@
   </table>
 </section>
 
-<!-- 3️⃣ What Are Alkanes? -->
+<!-- 5️⃣ COMMON REACTIONS -->
 <section>
-  <h2>3️⃣ What Are Alkanes?</h2>
-  <ul>
-    <li><strong>Alkanes</strong> are <strong>saturated hydrocarbons</strong>.</li>
-    <li><strong>Saturated</strong> → contain <em>only single covalent bonds</em> between carbon atoms.</li>
-    <li><strong>Hydrocarbon</strong> → made of <em>carbon and hydrogen only</em>.</li>
-  </ul>
-</section>
-
-<!-- 4️⃣ Common Reactions -->
-<section>
-  <h2>4️⃣ Common Reactions</h2>
+  <h2>5️⃣ Common Reactions</h2>
   <div class="flex">
     <div>
       <h3>1️⃣ Combustion</h3>
@@ -89,15 +96,15 @@
       <p><strong>Incomplete:</strong><br>CH₄ + O₂ → CO + H₂O</p>
     </div>
     <div>
-      <h3>2️⃣ Substitution</h3>
+      <h3>2️⃣ Substitution Reaction</h3>
       <p><strong>Chlorination (UV light):</strong><br>CH₄ + Cl₂ → CH₃Cl + HCl</p>
     </div>
   </div>
 </section>
 
-<!-- 5️⃣ Properties & Uses -->
+<!-- 6️⃣ PROPERTIES & USES -->
 <section>
-  <h2>5️⃣ Properties & Uses</h2>
+  <h2>6️⃣ Properties & Uses</h2>
   <div class="flex">
     <div>
       <strong>Properties</strong>
@@ -118,17 +125,7 @@
   </div>
 </section>
 
-<!-- 6️⃣ Mini Quiz -->
-<section>
-  <h2>6️⃣ Mini Quiz</h2>
-  <p><strong>Which of these is an alkane?</strong></p>
-  <button onclick="quiz(this,false)">A) Ethene</button>
-  <button onclick="quiz(this,true)">B) Ethane</button>
-  <button onclick="quiz(this,false)">C) Ethyne</button>
-  <p id="quizMsg"></p>
-</section>
-
-<!-- 7️⃣ Draw Butane Simulator -->
+<!-- 7️⃣ DRAW BUTANE SIMULATOR -->
 <section>
   <h2>7️⃣ Draw Butane Yourself</h2>
   <p>Drag atoms, double-click to bond/un-bond, then test.</p>
@@ -139,6 +136,16 @@
   <button onclick="resetCanvas()">Reset</button>
   <button onclick="checkButane()">Is this butane?</button>
   <p id="simMsg"></p>
+</section>
+
+<!-- 8️⃣ MINI QUIZ -->
+<section>
+  <h2>8️⃣ Mini Quiz</h2>
+  <p><strong>Which of these is an alkane?</strong></p>
+  <button onclick="quiz(this,false)">A) Ethene</button>
+  <button onclick="quiz(this,true)">B) Ethane</button>
+  <button onclick="quiz(this,false)">C) Ethyne</button>
+  <p id="quizMsg"></p>
 </section>
 
 <script>
@@ -164,14 +171,14 @@ function resetCanvas(){
 }
 function draw(){
   ctx.clearRect(0,0,cv.width,cv.height);
-  // bonds
+  /* bonds */
   bonds.forEach(b=>{
     ctx.beginPath();
     ctx.moveTo(atoms[b.a].x,atoms[b.a].y);
     ctx.lineTo(atoms[b.b].x,atoms[b.b].y);
     ctx.strokeStyle='#000';ctx.lineWidth=2;ctx.stroke();
   });
-  // atoms
+  /* atoms */
   atoms.forEach((a,i)=>{
     ctx.beginPath();
     ctx.arc(a.x,a.y,radius[a.type],0,2*Math.PI);
@@ -187,7 +194,7 @@ function checkButane(){
   const h=atoms.filter(a=>a.type==='H').length;
   const edges=bonds.length;
   const msg=document.getElementById('simMsg');
-  if(c===4 && h===10 && edges===13){ // 3*4+1
+  if(c===4 && h===10 && edges===13){
     msg.textContent='✅ Perfect! You built butane (C₄H₁₀).';
     msg.style.color='green';
   }else{
@@ -221,7 +228,6 @@ cv.ondblclick=e=>{
   }
   draw();
 };
-/* starter */
 resetCanvas();
 </script>
 </body>
