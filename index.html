@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Alkanes – Beautiful SPM Course</title>
+  <title>Alkanes</title>
   <style>
     :root{
       --bg:#f0f4f8;
@@ -15,16 +15,13 @@
       --mono:'Fira Code',monospace;
     }
     *{box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
-    body{margin:0;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;color:#333;line-height:1.6;padding:2rem}
+    body{margin:0;background:linear-gradient(135deg,var(--primary),var(--secondary));min-height:100vh;color:#333;line-height:1.6;padding:2rem}
     header{text-align:center;color:#fff;margin-bottom:2rem}
     header h1{font-size:2.5rem;margin:.3rem 0}
     nav{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:2rem}
     nav a{color:#fff;text-decoration:none;background:rgba(255,255,255,.2);padding:.6rem 1rem;border-radius:var(--radius);backdrop-filter:blur(8px)}
     nav a:hover{background:rgba(255,255,255,.3)}
-    .section{display:none}
-    .section:target{display:block;animation:fade .4s}
-    @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-    .glass{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);backdrop-filter:blur(8px);padding:2rem;margin-bottom:2rem}
+    .section{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);backdrop-filter:blur(8px);padding:2rem;margin-bottom:2rem}
     table{width:100%;border-collapse:collapse}
     th,td{padding:.7rem;border-bottom:1px solid #e5e5e5;text-align:center}
     th{background:#f7f9fc;font-weight:600}
@@ -34,7 +31,6 @@
     canvas{border:1px solid #e5e5e5;border-radius:var(--radius);background:#fff}
     button{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border:none;padding:.7rem 1.2rem;border-radius:var(--radius);cursor:pointer;font-weight:600}
     button:disabled{opacity:.5}
-    .quiz-btn{display:block;margin:.3rem 0}
     .correct{background:#38b000}
     .wrong{background:#e63946}
     @media(max-width:600px){body{padding:1rem}header h1{font-size:2rem}}
@@ -43,26 +39,22 @@
 </head>
 
 <body>
+<h1>✨ Alkanes SPM Course</h1>
+<p>Beautiful & interactive revision</p>
 
-<header>
-  <h1>Alkanes</h1>
-  <p>Beautiful SPM Chemistry Micro-Course</p>
-</header>
-
-<!-- Quick Nav -->
 <nav>
-  <a href="#intro">What are Alkanes?</a>
-  <a href="#geometry">Geometry</a>
-  <a href="#formula">Formula</a>
-  <a href="#table">10 Alkanes</a>
-  <a href="#reactions">Reactions</a>
-  <a href="#props">Properties & Uses</a>
-  <a href="#draw">Draw Butane</a>
-  <a href="#quiz">Quiz</a>
+  <a href="#intro">📚 What are Alkanes?</a>
+  <a href="#geometry">🔺 Geometry</a>
+  <a href="#formula">🧮 Formula</a>
+  <a href="#table">🔤 10 Alkanes</a>
+  <a href="#reactions">⚙️ Reactions</a>
+  <a href="#props">🧪 Properties & Uses</a>
+  <a href="#draw">🎨 Draw Butane</a>
+  <a href="#quiz">📝 Quiz</a>
 </nav>
 
 <!-- 1️⃣ INTRO -->
-<section id="intro" class="section glass">
+<section id="intro" class="section">
   <h2>📚 What Are Alkanes?</h2>
   <ul>
     <li><strong>Alkanes</strong> are <strong>saturated hydrocarbons</strong>.</li>
@@ -72,21 +64,21 @@
 </section>
 
 <!-- 2️⃣ GEOMETRY -->
-<section id="geometry" class="section glass">
+<section id="geometry" class="section">
   <h2>🔺 Tetrahedral Geometry</h2>
   <img class="tetra" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Methane-2D-dimensions.svg/1280px-Methane-2D-dimensions.svg.png" alt="Methane 2-D">
-  <p>Each carbon sits at the centre of a tetrahedron with bond angles of <strong>109.5°</strong>.</p>
+  <p>Every carbon sits at the centre of a <strong>tetrahedron</strong> with bond angles <strong>109.5°</strong>.</p>
 </section>
 
 <!-- 3️⃣ GENERAL FORMULA -->
-<section id="formula" class="section glass">
+<section id="formula" class="section">
   <h2>🧮 General Formula</h2>
   <p style="font-family:var(--mono);font-size:1.4rem">C<sub>n</sub>H<sub>2n+2</sub></p>
   <p>Example: n = 4 → C₄H₁₀ (butane)</p>
 </section>
 
 <!-- 4️⃣ FIRST 10 ALKANES -->
-<section id="table" class="section glass">
+<section id="table" class="section">
   <h2>🔤 First 10 Alkanes</h2>
   <table>
     <thead><tr><th>C atoms</th><th>Name</th><th>Formula</th><th>Condensed</th></tr></thead>
@@ -106,7 +98,7 @@
 </section>
 
 <!-- 5️⃣ REACTIONS -->
-<section id="reactions" class="section glass">
+<section id="reactions" class="section">
   <h2>⚙️ Common Reactions</h2>
   <div class="flex">
     <div>
@@ -116,13 +108,13 @@
     </div>
     <div>
       <h3>2️⃣ Substitution</h3>
-      <p>CH₄ + Cl₂ → CH₃Cl + HCl (UV light)</p>
+      <p>CH₄ + Cl₂ → CH₃Cl + HCl  (UV light)</p>
     </div>
   </div>
 </section>
 
 <!-- 6️⃣ PROPERTIES & USES -->
-<section id="props" class="section glass">
+<section id="props" class="section">
   <h2>🧪 Properties & Uses</h2>
   <div class="flex">
     <div>
@@ -144,21 +136,23 @@
   </div>
 </section>
 
-<!-- 7️⃣ DRAW BUTANE -->
-<section id="draw" class="section glass">
-  <h2>🎨 Draw Butane Yourself</h2>
-  <p>Drag atoms, double-click to bond/un-bond, then test.</p>
+<!-- 7️⃣ LIVE SKETCHER -->
+<section id="draw" class="section">
+  <h2>🎨 Live Sketcher (Drag Bonds)</h2>
+  <p>Drag atoms freely • <strong>drag from one atom to another</strong> to create / cycle bonds.</p>
+  <p><strong>Hold <kbd>Shift</kbd></strong> while dragging to cycle: single → double → triple → none.</p>
   <canvas id="canvas" width="520" height="300"></canvas>
   <br>
   <button onclick="addAtom('C')">Add C</button>
   <button onclick="addAtom('H')">Add H</button>
-  <button onclick="resetCanvas()">Reset</button>
-  <button onclick="checkButane()">Is this butane?</button>
+  <button onclick="eraseLast()">Erase Last</button>
+  <button onclick="resetCanvas()">Reset All</button>
+  <button onclick="checkButane()">Check Butane</button>
   <p id="simMsg"></p>
 </section>
 
 <!-- 8️⃣ MINI QUIZ -->
-<section id="quiz" class="section glass">
+<section id="quiz" class="section">
   <h2>📝 Mini Quiz</h2>
   <p>Which of these is an alkane?</p>
   <button class="quiz-btn" onclick="quiz(this,false)">A) Ethene</button>
@@ -168,7 +162,7 @@
 </section>
 
 <script>
-/* ---------- smooth scroll ---------- */
+/* ---------- smooth scroll nav ---------- */
 document.querySelectorAll('nav a').forEach(link=>{
   link.addEventListener('click',e=>{
     e.preventDefault();
@@ -176,20 +170,39 @@ document.querySelectorAll('nav a').forEach(link=>{
   });
 });
 
-/* ---------- mini quiz ---------- */
+/* ---------- mini quiz with retry button ---------- */
 function quiz(btn,correct){
   [...btn.parentNode.querySelectorAll('button')].forEach(b=>b.disabled=true);
   btn.classList.add(correct?'correct':'wrong');
-  document.getElementById('quizMsg').textContent=correct?'✅ Correct!':'❌ Try again!';
+  const msg=document.getElementById('quizMsg');
+  if(correct){
+    msg.innerHTML='✅ Correct!';
+  }else{
+    msg.innerHTML=`❌ Try again! <button onclick="resetQuiz()">Retry</button>`;
+  }
+}
+function resetQuiz(){
+  document.querySelectorAll('#quiz button').forEach(b=>{
+    b.disabled=false;
+    b.classList.remove('correct','wrong');
+  });
+  document.getElementById('quizMsg').innerHTML='';
 }
 
-/* ---------- butane builder ---------- */
+/* ---------- live sketcher ---------- */
 const cv=document.getElementById('canvas'),ctx=cv.getContext('2d');
-let atoms=[],bonds=[],drag=null;
+let atoms=[],bonds=[],dragAtom=null,dragBond=null;
 const radius={C:15,H:10};
 
 function addAtom(type){
   atoms.push({type,x:50+Math.random()*380,y:50+Math.random()*200});
+  draw();
+}
+function eraseLast(){
+  if(atoms.length===0)return;
+  const last=atoms.length-1;
+  bonds=bonds.filter(b=>b.a!==last && b.b!==last).map(b=>({a:b.a>last?b.a-1:b.a,b:b.b>last?b.b-1:b.b,order:b.order}));
+  atoms.pop();
   draw();
 }
 function resetCanvas(){
@@ -198,13 +211,25 @@ function resetCanvas(){
 }
 function draw(){
   ctx.clearRect(0,0,cv.width,cv.height);
+  // draw bonds (multi-line for double / triple)
   bonds.forEach(b=>{
-    ctx.beginPath();
-    ctx.moveTo(atoms[b.a].x,atoms[b.a].y);
-    ctx.lineTo(atoms[b.b].x,atoms[b.b].y);
-    ctx.strokeStyle='#000';ctx.lineWidth=2;ctx.stroke();
+    const [x1,y1]=[atoms[b.a].x,atoms[b.a].y];
+    const [x2,y2]=[atoms[b.b].x,atoms[b.b].y];
+    const dx=x2-x1,dy=y2-y1,ang=Math.atan2(dy,dx);
+    const off=4; // spacing between multi lines
+    ctx.strokeStyle='#000';
+    ctx.lineWidth=2;
+    for(let i=0;i<b.order;i++){
+      const ox=Math.sin(ang)*(i-(b.order-1)/2)*off;
+      const oy=-Math.cos(ang)*(i-(b.order-1)/2)*off;
+      ctx.beginPath();
+      ctx.moveTo(x1+ox,y1+oy);
+      ctx.lineTo(x2+ox,y2+oy);
+      ctx.stroke();
+    }
   });
-  atoms.forEach(a=>{
+  // draw atoms
+  atoms.forEach((a,i)=>{
     ctx.beginPath();
     ctx.arc(a.x,a.y,radius[a.type],0,2*Math.PI);
     ctx.fillStyle=a.type==='C'?'#444':'#0078ff';
@@ -217,39 +242,50 @@ function draw(){
 function checkButane(){
   const c=atoms.filter(a=>a.type==='C').length;
   const h=atoms.filter(a=>a.type==='H').length;
-  const edges=bonds.length;
+  let singleEdges=0;
+  bonds.forEach(b=>{singleEdges+=b.order});
   const msg=document.getElementById('simMsg');
-  if(c===4 && h===10 && edges===13){
+  if(c===4 && h===10 && singleEdges===13){
     msg.textContent='✅ Perfect! You built butane (C₄H₁₀).';
     msg.style.color='green';
   }else{
-    msg.textContent=`❌ You have ${c} C, ${h} H, ${edges} bonds – need 4 C, 10 H, 13 bonds.`;
+    msg.textContent=`❌ You have ${c} C, ${h} H, ${singleEdges} single-equivalent bonds – need 4 C, 10 H, 13 bonds.`;
     msg.style.color='crimson';
   }
 }
+
+/* mouse events */
 cv.onmousedown=e=>{
   const rect=cv.getBoundingClientRect(),x=e.clientX-rect.left,y=e.clientY-rect.top;
   const hit=atoms.findIndex(a=>(x-a.x)**2+(y-a.y)**2<radius[a.type]**2);
-  if(hit>=0)drag={idx:hit,x,y};
+  if(hit>=0){
+    if(e.shiftKey){ // start bond drag
+      dragBond={start:hit};
+    }else{ // move atom
+      dragAtom={idx:hit,x,y};
+    }
+  }
 };
 cv.onmousemove=e=>{
-  if(!drag)return;
-  const rect=cv.getBoundingClientRect();
-  atoms[drag.idx].x=e.clientX-rect.left;
-  atoms[drag.idx].y=e.clientY-rect.top;
-  draw();
-};
-cv.onmouseup=()=>drag=null;
-cv.ondblclick=e=>{
-  const rect=cv.getBoundingClientRect(),x=e.clientX-rect.left,y=e.clientY-rect.top;
-  const a1=atoms.findIndex(a=>(x-a.x)**2+(y-a.y)**2<radius[a.type]**2);
-  if(a1<0)return;
-  const a2=atoms.findIndex((a,i)=>i!==a1 && (x-a.x)**2+(y-a.y)**2<radius[a.type]**2);
-  if(a2>=0){
-    const exists=bonds.find(b=>(b.a===a1&&b.b===a2)||(b.a===a2&&b.b===a1));
-    if(exists){bonds.splice(bonds.indexOf(exists),1);}
-    else bonds.push({a:a1,b:a2});
+  if(dragAtom){
+    const rect=cv.getBoundingClientRect();
+    atoms[dragAtom.idx].x=e.clientX-rect.left;
+    atoms[dragAtom.idx].y=e.clientY-rect.top;
+    draw();
   }
+};
+cv.onmouseup=e=>{
+  if(dragBond){
+    const rect=cv.getBoundingClientRect(),x=e.clientX-rect.left,y=e.clientY-rect.top;
+    const end=atoms.findIndex(a=>(x-a.x)**2+(y-a.y)**2<radius[a.type]**2);
+    if(end>=0 && end!==dragBond.start){
+      const b=bonds.find(b=>(b.a===dragBond.start&&b.b===end)||(b.a===end&&b.b===dragBond.start));
+      if(b){b.order=(b.order+1)%4;if(b.order===0) bonds.splice(bonds.indexOf(b),1);}
+      else bonds.push({a:dragBond.start,b:end,order:1});
+    }
+    dragBond=null;
+  }
+  dragAtom=null;
   draw();
 };
 resetCanvas();
