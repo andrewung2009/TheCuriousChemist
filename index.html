@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SPM Alkanes – Systematic Micro-Course</title>
+  <title>SPM Alkanes – Accordion Course</title>
   <style>
     :root{
       --bg:#f7f7f7;
@@ -15,9 +15,17 @@
     }
     *{box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
     body{margin:0;background:var(--bg);color:var(--text);line-height:1.6;padding:1rem}
-    h1,h2{margin:.5rem 0;color:var(--accent)}
-    header{background:var(--panel);padding:1.5rem;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:1.5rem;text-align:center}
-    section{background:var(--panel);padding:1rem 1.5rem;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:1.5rem}
+    h1{margin:0 0 .5rem;color:var(--accent);text-align:center}
+    .accordion{margin-bottom:.5rem;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--panel)}
+    .accordion-header{
+      width:100%;text-align:left;font-size:1rem;font-weight:600;
+      background:var(--panel);border:none;padding:.8rem 1rem;cursor:pointer;
+      display:flex;justify-content:space-between;align-items:center
+    }
+    .accordion-header::after{content:'▼';font-size:.8rem;transition:transform .3s}
+    .accordion-header.open::after{transform:rotate(180deg)}
+    .accordion-body{max-height:0;overflow:hidden;transition:max-height .3s ease;padding:0 1rem}
+    .accordion-body.open{max-height:2000px;padding:1rem}
     table{width:100%;border-collapse:collapse}
     th,td{padding:.6rem .8rem;border:1px solid var(--border);text-align:center}
     th{background:#f1f1f1}
@@ -33,122 +41,148 @@
 </head>
 
 <body>
-<header>
-  <h1>SPM Alkanes – Systematic Micro-Course</h1>
-  <p>Step-by-step mastery of straight-chain alkanes (C₁–C₁₀)</p>
-</header>
+<h1>SPM Alkanes – Accordion Course</h1>
 
 <!-- 1️⃣ WHAT ARE ALKANES? -->
-<section>
-  <h2>1️⃣ What Are Alkanes?</h2>
-  <ul>
-    <li><strong>Alkanes</strong> are <strong>saturated hydrocarbons</strong>.</li>
-    <li><strong>Saturated</strong> → contain <em>only single covalent bonds</em> between carbon atoms.</li>
-    <li><strong>Hydrocarbon</strong> → made of <em>carbon and hydrogen only</em>.</li>
-  </ul>
-</section>
+<div class="accordion">
+  <button class="accordion-header">1️⃣ What Are Alkanes?</button>
+  <div class="accordion-body">
+    <ul>
+      <li><strong>Alkanes</strong> are <strong>saturated hydrocarbons</strong>.</li>
+      <li><strong>Saturated</strong> → contain <em>only single covalent bonds</em> between carbon atoms.</li>
+      <li><strong>Hydrocarbon</strong> → made of <em>carbon and hydrogen only</em>.</li>
+    </ul>
+  </div>
+</div>
 
 <!-- 2️⃣ TETRAHEDRAL GEOMETRY -->
-<section>
-  <h2>2️⃣ Tetrahedral Geometry</h2>
-  <img class="tetra" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Methane-2D-dimensions.svg/1280px-Methane-2D-dimensions.svg.png" alt="Tetrahedral methane">
-  <p>Each carbon in alkanes sits at the centre of a <strong>tetrahedron</strong> with bond angles of <strong>109.5 °</strong>.</p>
-</section>
+<div class="accordion">
+  <button class="accordion-header">2️⃣ Tetrahedral Geometry</button>
+  <div class="accordion-body">
+    <img class="tetra" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Methane-2D-dimensions.svg/1280px-Methane-2D-dimensions.svg.png" alt="Methane 2-D">
+    <p>Each carbon in alkanes sits at the centre of a <strong>tetrahedron</strong> with bond angles of <strong>109.5 °</strong>.</p>
+  </div>
+</div>
 
 <!-- 3️⃣ GENERAL FORMULA -->
-<section>
-  <h2>3️⃣ General Formula</h2>
-  <p>C<sub>n</sub>H<sub>2n+2</sub></p>
-  <p>Example: n = 4 → C₄H₁₀ (butane)</p>
-</section>
+<div class="accordion">
+  <button class="accordion-header">3️⃣ General Formula</button>
+  <div class="accordion-body">
+    <p>C<sub>n</sub>H<sub>2n+2</sub></p>
+    <p>Example: n = 4 → C₄H₁₀ (butane)</p>
+  </div>
+</div>
 
 <!-- 4️⃣ FIRST 10 ALKANES -->
-<section>
-  <h2>4️⃣ First 10 Alkanes</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>C atoms</th><th>Name</th><th>Molecular Formula</th><th>Condensed Formula</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>1</td><td>Methane</td><td>CH₄</td><td>CH₄</td></tr>
-      <tr><td>2</td><td>Ethane</td><td>C₂H₆</td><td>CH₃–CH₃</td></tr>
-      <tr><td>3</td><td>Propane</td><td>C₃H₈</td><td>CH₃–CH₂–CH₃</td></tr>
-      <tr><td>4</td><td>Butane</td><td>C₄H₁₀</td><td>CH₃–CH₂–CH₂–CH₃</td></tr>
-      <tr><td>5</td><td>Pentane</td><td>C₅H₁₂</td><td>CH₃(CH₂)₃CH₃</td></tr>
-      <tr><td>6</td><td>Hexane</td><td>C₆H₁₄</td><td>CH₃(CH₂)₄CH₃</td></tr>
-      <tr><td>7</td><td>Heptane</td><td>C₇H₁₆</td><td>CH₃(CH₂)₅CH₃</td></tr>
-      <tr><td>8</td><td>Octane</td><td>C₈H₁₈</td><td>CH₃(CH₂)₆CH₃</td></tr>
-      <tr><td>9</td><td>Nonane</td><td>C₉H₂₀</td><td>CH₃(CH₂)₇CH₃</td></tr>
-      <tr><td>10</td><td>Decane</td><td>C₁₀H₂₂</td><td>CH₃(CH₂)₈CH₃</td></tr>
-    </tbody>
-  </table>
-</section>
+<div class="accordion">
+  <button class="accordion-header">4️⃣ First 10 Alkanes</button>
+  <div class="accordion-body">
+    <table>
+      <thead>
+        <tr><th>C atoms</th><th>Name</th><th>Molecular Formula</th><th>Condensed Formula</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Methane</td><td>CH₄</td><td>CH₄</td></tr>
+        <tr><td>2</td><td>Ethane</td><td>C₂H₆</td><td>CH₃–CH₃</td></tr>
+        <tr><td>3</td><td>Propane</td><td>C₃H₈</td><td>CH₃–CH₂–CH₃</td></tr>
+        <tr><td>4</td><td>Butane</td><td>C₄H₁₀</td><td>CH₃–CH₂–CH₂–CH₃</td></tr>
+        <tr><td>5</td><td>Pentane</td><td>C₅H₁₂</td><td>CH₃(CH₂)₃CH₃</td></tr>
+        <tr><td>6</td><td>Hexane</td><td>C₆H₁₄</td><td>CH₃(CH₂)₄CH₃</td></tr>
+        <tr><td>7</td><td>Heptane</td><td>C₇H₁₆</td><td>CH₃(CH₂)₅CH₃</td></tr>
+        <tr><td>8</td><td>Octane</td><td>C₈H₁₈</td><td>CH₃(CH₂)₆CH₃</td></tr>
+        <tr><td>9</td><td>Nonane</td><td>C₉H₂₀</td><td>CH₃(CH₂)₇CH₃</td></tr>
+        <tr><td>10</td><td>Decane</td><td>C₁₀H₂₂</td><td>CH₃(CH₂)₈CH₃</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <!-- 5️⃣ COMMON REACTIONS -->
-<section>
-  <h2>5️⃣ Common Reactions</h2>
-  <div class="flex">
-    <div>
-      <h3>1️⃣ Combustion</h3>
-      <p><strong>Complete:</strong><br>CH₄ + 2 O₂ → CO₂ + 2 H₂O</p>
-      <p><strong>Incomplete:</strong><br>CH₄ + O₂ → CO + H₂O</p>
-    </div>
-    <div>
-      <h3>2️⃣ Substitution Reaction</h3>
-      <p><strong>Chlorination (UV light):</strong><br>CH₄ + Cl₂ → CH₃Cl + HCl</p>
+<div class="accordion">
+  <button class="accordion-header">5️⃣ Common Reactions</button>
+  <div class="accordion-body">
+    <div class="flex">
+      <div>
+        <h3>1️⃣ Combustion</h3>
+        <p><strong>Complete:</strong><br>CH₄ + 2 O₂ → CO₂ + 2 H₂O</p>
+        <p><strong>Incomplete:</strong><br>CH₄ + O₂ → CO + H₂O</p>
+      </div>
+      <div>
+        <h3>2️⃣ Substitution Reaction</h3>
+        <p><strong>Chlorination (UV light):</strong><br>CH₄ + Cl₂ → CH₃Cl + HCl</p>
+      </div>
     </div>
   </div>
-</section>
+</div>
 
 <!-- 6️⃣ PROPERTIES & USES -->
-<section>
-  <h2>6️⃣ Properties & Uses</h2>
-  <div class="flex">
-    <div>
-      <strong>Properties</strong>
-      <ul>
-        <li>Non-polar → insoluble in water</li>
-        <li>Boiling point ↑ with chain length</li>
-        <li>Combustion → CO₂ + H₂O</li>
-      </ul>
-    </div>
-    <div>
-      <strong>Uses</strong>
-      <ul>
-        <li>Cooking gas: propane, butane</li>
-        <li>Petrol: octane</li>
-        <li>Paraffin wax</li>
-      </ul>
+<div class="accordion">
+  <button class="accordion-header">6️⃣ Properties & Uses</button>
+  <div class="accordion-body">
+    <div class="flex">
+      <div>
+        <strong>Properties</strong>
+        <ul>
+          <li>Non-polar → insoluble in water</li>
+          <li>Boiling point ↑ with chain length</li>
+          <li>Combustion → CO₂ + H₂O</li>
+        </ul>
+      </div>
+      <div>
+        <strong>Uses</strong>
+        <ul>
+          <li>Cooking gas: propane, butane</li>
+          <li>Petrol: octane</li>
+          <li>Paraffin wax</li>
+        </ul>
+      </div>
     </div>
   </div>
-</section>
+</div>
 
 <!-- 7️⃣ DRAW BUTANE SIMULATOR -->
-<section>
-  <h2>7️⃣ Draw Butane Yourself</h2>
-  <p>Drag atoms, double-click to bond/un-bond, then test.</p>
-  <canvas id="canvas" width="520" height="300"></canvas>
-  <br>
-  <button onclick="addAtom('C')">Add C</button>
-  <button onclick="addAtom('H')">Add H</button>
-  <button onclick="resetCanvas()">Reset</button>
-  <button onclick="checkButane()">Is this butane?</button>
-  <p id="simMsg"></p>
-</section>
+<div class="accordion">
+  <button class="accordion-header">7️⃣ Draw Butane Yourself</button>
+  <div class="accordion-body">
+    <p>Drag atoms, double-click to bond/un-bond, then test.</p>
+    <canvas id="canvas" width="520" height="300"></canvas>
+    <br>
+    <button onclick="addAtom('C')">Add C</button>
+    <button onclick="addAtom('H')">Add H</button>
+    <button onclick="resetCanvas()">Reset</button>
+    <button onclick="checkButane()">Is this butane?</button>
+    <p id="simMsg"></p>
+  </div>
+</div>
 
 <!-- 8️⃣ MINI QUIZ -->
-<section>
-  <h2>8️⃣ Mini Quiz</h2>
-  <p><strong>Which of these is an alkane?</strong></p>
-  <button onclick="quiz(this,false)">A) Ethene</button>
-  <button onclick="quiz(this,true)">B) Ethane</button>
-  <button onclick="quiz(this,false)">C) Ethyne</button>
-  <p id="quizMsg"></p>
-</section>
+<div class="accordion">
+  <button class="accordion-header">8️⃣ Mini Quiz</button>
+  <div class="accordion-body">
+    <p><strong>Which of these is an alkane?</strong></p>
+    <button onclick="quiz(this,false)">A) Ethene</button>
+    <button onclick="quiz(this,true)">B) Ethane</button>
+    <button onclick="quiz(this,false)">C) Ethyne</button>
+    <p id="quizMsg"></p>
+  </div>
+</div>
 
 <script>
+/* ---------- Accordion behaviour ---------- */
+document.querySelectorAll('.accordion-header').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const wasOpen=btn.classList.contains('open');
+    /* close all */
+    document.querySelectorAll('.accordion-header').forEach(b=>b.classList.remove('open'));
+    document.querySelectorAll('.accordion-body').forEach(b=>b.classList.remove('open'));
+    /* open clicked if it was closed */
+    if(!wasOpen){
+      btn.classList.add('open');
+      btn.nextElementSibling.classList.add('open');
+    }
+  });
+});
+
 /* ---------- Mini Quiz ---------- */
 function quiz(btn,correct){
   [...btn.parentNode.querySelectorAll('button')].forEach(b=>b.disabled=true);
@@ -171,14 +205,12 @@ function resetCanvas(){
 }
 function draw(){
   ctx.clearRect(0,0,cv.width,cv.height);
-  /* bonds */
   bonds.forEach(b=>{
     ctx.beginPath();
     ctx.moveTo(atoms[b.a].x,atoms[b.a].y);
     ctx.lineTo(atoms[b.b].x,atoms[b.b].y);
     ctx.strokeStyle='#000';ctx.lineWidth=2;ctx.stroke();
   });
-  /* atoms */
   atoms.forEach((a,i)=>{
     ctx.beginPath();
     ctx.arc(a.x,a.y,radius[a.type],0,2*Math.PI);
@@ -202,7 +234,6 @@ function checkButane(){
     msg.style.color='crimson';
   }
 }
-/* mouse events */
 cv.onmousedown=e=>{
   const rect=cv.getBoundingClientRect(),x=e.clientX-rect.left,y=e.clientY-rect.top;
   const hit=atoms.findIndex(a=>(x-a.x)**2+(y-a.y)**2<radius[a.type]**2);
