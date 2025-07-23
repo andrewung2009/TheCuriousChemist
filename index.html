@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SPM Alkanes – Clean Theme</title>
+  <title>SPM Alkanes – Complete Micro-Course</title>
   <style>
     :root{
       --bg:#f7f7f7;
@@ -23,8 +23,8 @@
     th{background:#f1f1f1}
     img.tetra{display:block;margin:1rem auto;max-width:200px;border:1px solid var(--border);border-radius:var(--radius)}
     .flex{display:flex;gap:1rem;flex-wrap:wrap}
-    .flex>div{flex:1 1 180px}
-    canvas{border:1px solid var(--border);border-radius:var(--radius);cursor:grab}
+    .flex>div{flex:1 1 300px}
+    canvas{border:1px solid var(--border);border-radius:var(--radius);cursor:grab;background:#fff}
     button{background:var(--accent);color:#fff;border:none;padding:.6rem 1rem;border-radius:var(--radius);cursor:pointer;margin:.25rem}
     button:disabled{opacity:.6;cursor:not-allowed}
     .correct{background:#43a047}
@@ -34,20 +34,18 @@
 
 <body>
 <header>
-  <h1>SPM Alkanes – Clean Theme</h1>
-  <p>All you need for straight-chain alkanes (C₁–C₁₀)</p>
+  <h1>SPM Alkanes – Complete Micro-Course</h1>
+  <p>Everything you need for C₁–C₁₀ straight-chain alkanes</p>
 </header>
 
-<!-- Tetrahedral image -->
+<!-- 1️⃣ Tetrahedral Geometry -->
 <section>
   <h2>1️⃣ Tetrahedral Geometry</h2>
-  <img class="tetra"
-       src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Methane-2D-dimensions.svg/1280px-Methane-2D-dimensions.svg.png"
-       alt="Tetrahedral methane">
-  <p>Each carbon in alkanes sits at the centre of a <strong>tetrahedron</strong> (109.5° bond angles).</p>
+  <img class="tetra" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Methane-3D-balls.png/320px-Methane-3D-balls.png" alt="Tetrahedral methane">
+  <p>Every carbon in alkanes sits at the centre of a <strong>tetrahedron</strong> with bond angles of <strong>109.5°</strong>.</p>
 </section>
 
-<!-- Alkanes table -->
+<!-- 2️⃣ First 10 Alkanes -->
 <section>
   <h2>2️⃣ First 10 Alkanes</h2>
   <table>
@@ -71,9 +69,35 @@
   </table>
 </section>
 
-<!-- Properties & Uses -->
+<!-- 3️⃣ What Are Alkanes? -->
 <section>
-  <h2>3️⃣ Properties & Uses</h2>
+  <h2>3️⃣ What Are Alkanes?</h2>
+  <ul>
+    <li><strong>Alkanes</strong> are <strong>saturated hydrocarbons</strong>.</li>
+    <li><strong>Saturated</strong> → contain <em>only single covalent bonds</em> between carbon atoms.</li>
+    <li><strong>Hydrocarbon</strong> → made of <em>carbon and hydrogen only</em>.</li>
+  </ul>
+</section>
+
+<!-- 4️⃣ Common Reactions -->
+<section>
+  <h2>4️⃣ Common Reactions</h2>
+  <div class="flex">
+    <div>
+      <h3>1️⃣ Combustion</h3>
+      <p><strong>Complete:</strong><br>CH₄ + 2 O₂ → CO₂ + 2 H₂O</p>
+      <p><strong>Incomplete:</strong><br>CH₄ + O₂ → CO + H₂O</p>
+    </div>
+    <div>
+      <h3>2️⃣ Substitution</h3>
+      <p><strong>Chlorination (UV light):</strong><br>CH₄ + Cl₂ → CH₃Cl + HCl</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5️⃣ Properties & Uses -->
+<section>
+  <h2>5️⃣ Properties & Uses</h2>
   <div class="flex">
     <div>
       <strong>Properties</strong>
@@ -84,7 +108,7 @@
       </ul>
     </div>
     <div>
-      <strong>Everyday Uses</strong>
+      <strong>Uses</strong>
       <ul>
         <li>Cooking gas: propane, butane</li>
         <li>Petrol: octane</li>
@@ -94,9 +118,9 @@
   </div>
 </section>
 
-<!-- Mini Quiz -->
+<!-- 6️⃣ Mini Quiz -->
 <section>
-  <h2>4️⃣ Mini Quiz</h2>
+  <h2>6️⃣ Mini Quiz</h2>
   <p><strong>Which of these is an alkane?</strong></p>
   <button onclick="quiz(this,false)">A) Ethene</button>
   <button onclick="quiz(this,true)">B) Ethane</button>
@@ -104,10 +128,11 @@
   <p id="quizMsg"></p>
 </section>
 
-<!-- Draw Butane Simulator -->
+<!-- 7️⃣ Draw Butane Simulator -->
 <section>
-  <h2>5️⃣ Draw Butane Yourself</h2>
-  <canvas id="canvas" width="480" height="300"></canvas>
+  <h2>7️⃣ Draw Butane Yourself</h2>
+  <p>Drag atoms, double-click to bond/un-bond, then test.</p>
+  <canvas id="canvas" width="520" height="300"></canvas>
   <br>
   <button onclick="addAtom('C')">Add C</button>
   <button onclick="addAtom('H')">Add H</button>
@@ -162,7 +187,7 @@ function checkButane(){
   const h=atoms.filter(a=>a.type==='H').length;
   const edges=bonds.length;
   const msg=document.getElementById('simMsg');
-  if(c===4 && h===10 && edges===13){
+  if(c===4 && h===10 && edges===13){ // 3*4+1
     msg.textContent='✅ Perfect! You built butane (C₄H₁₀).';
     msg.style.color='green';
   }else{
