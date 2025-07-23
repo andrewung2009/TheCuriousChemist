@@ -1,28 +1,34 @@
-function scrollToSection(id){
-  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+/* ---------- MINI QUIZ ---------- */
+function answer(btn, isCorrect){
+  [...btn.parentNode.querySelectorAll('button')].forEach(b=>b.disabled=true);
+  btn.classList.add(isCorrect ? 'correct' : 'wrong');
+  document.getElementById('quizMsg').textContent =
+    isCorrect ? 'Correct!' : 'Try again!';
 }
 
-function check(btn,correct){
-  [...btn.parentNode.querySelectorAll('.opt')].forEach(b=>{
-    b.disabled=true;
-    if(b.textContent.includes(correct)) b.classList.add('correct');
-  });
-  if(btn.textContent.includes(correct)){
-    document.getElementById('feedback').textContent='Correct!';
+/* ---------- SKETCHER ---------- */
+// initialise ChemDoodle
+const sketcher = new ChemDoodle.SketcherCanvas('sketcher', 420, 300);
+sketcher.specs.bonds_width_2D = 1.4;
+sketcher.specs.atoms_font_size_2D = 14;
+
+function checkButane(){
+  const mol = sketcher.getMolecule();
+  if(!mol) {
+    document.getElementById('sketchMsg').textContent = 'Draw something first!';
+    return;
+  }
+  const cCount = mol.atoms.filter(a=>a.label==='C').length;
+  const hCount = mol.atoms.filter(a=>a.label==='H').length;
+  if(cCount===4 && hCount===10){
+    document.getElementById('sketchMsg').textContent = '✨ Perfect! You drew butane.';
   }else{
-    btn.classList.add('wrong');
-    document.getElementById('feedback').textContent='Try again!';
+    document.getElementById('sketchMsg').textContent =
+      `You have ${cCount} C and ${hCount} H – not butane (C₄H₁₀).`;
   }
 }
 
-function markPractice(){
-  let score=0;
-  [...document.querySelectorAll('input[data-ans]')].forEach(inp=>{
-    if(inp.value.trim().toLowerCase()===inp.dataset.ans.toLowerCase()){
-      inp.style.background='#c8e6c9'; score++;
-    }else{
-      inp.style.background='#ffcdd2';
-    }
-  });
-  document.getElementById('practiceResult').textContent=`You scored ${score}/3`;
+/* ---------- smooth scroll ---------- */
+function scrollToSection(id){
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
 }
