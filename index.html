@@ -3,141 +3,256 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Alkanes</title>
+  <title>Alkanes – Beautiful SPM Course</title>
   <style>
     :root{
-      --bg:#f7f7f7;
-      --panel:#fff;
-      --border:#ddd;
-      --text:#222;
-      --accent:#0078ff;
-      --radius:6px;
+      --bg:#f0f4f8;
+      --card:#ffffffee;
+      --primary:#667eea;
+      --secondary:#764ba2;
+      --radius:16px;
+      --shadow:0 8px 32px rgba(31,38,135,.15);
+      --mono:'Fira Code',monospace;
     }
     *{box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
-    body{margin:0;background:var(--bg);color:var(--text);line-height:1.6;padding:1rem}
-    h1{margin:0 0 .5rem;color:var(--accent);text-align:center}
-    .accordion{margin-bottom:.5rem;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--panel)}
-    .accordion-header{
-      width:100%;text-align:left;font-size:1rem;font-weight:600;
-      background:var(--panel);border:none;padding:.8rem 1rem;cursor:pointer;
-      display:flex;justify-content:space-between;align-items:center
-    }
-    .accordion-header::after{content:'▼';font-size:.8rem;transition:transform .3s}
-    .accordion-header.open::after{transform:rotate(180deg)}
-    .accordion-body{max-height:0;overflow:hidden;transition:max-height .3s ease;padding:0 1rem}
-    .accordion-body.open{max-height:2000px;padding:1rem}
+    body{margin:0;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;color:#333;line-height:1.6;padding:2rem}
+    header{text-align:center;color:#fff;margin-bottom:2rem}
+    header h1{font-size:2.5rem;margin:.3rem 0}
+    nav{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:2rem}
+    nav a{color:#fff;text-decoration:none;background:rgba(255,255,255,.2);padding:.6rem 1rem;border-radius:var(--radius);backdrop-filter:blur(8px)}
+    nav a:hover{background:rgba(255,255,255,.3)}
+    .section{display:none}
+    .section:target{display:block;animation:fade .4s}
+    @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+    .glass{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);backdrop-filter:blur(8px);padding:2rem;margin-bottom:2rem}
     table{width:100%;border-collapse:collapse}
-    th,td{padding:.6rem .8rem;border:1px solid var(--border);text-align:center}
-    th{background:#f1f1f1}
-    img.tetra{display:block;margin:1rem auto;max-width:200px;border:1px solid var(--border);border-radius:var(--radius)}
+    th,td{padding:.7rem;border-bottom:1px solid #e5e5e5;text-align:center}
+    th{background:#f7f9fc;font-weight:600}
+    img.tetra{display:block;margin:1rem auto;max-width:180px;border-radius:var(--radius)}
     .flex{display:flex;gap:1rem;flex-wrap:wrap}
-    .flex>div{flex:1 1 300px}
-    canvas{border:1px solid var(--border);border-radius:var(--radius);cursor:grab;background:#fff}
-    button{background:var(--accent);color:#fff;border:none;padding:.6rem 1rem;border-radius:var(--radius);cursor:pointer;margin:.25rem}
-    button:disabled{opacity:.6;cursor:not-allowed}
-    .correct{background:#43a047}
-    .wrong{background:#e53935}
+    .flex>div{flex:1 1 250px}
+    canvas{border:1px solid #e5e5e5;border-radius:var(--radius);background:#fff}
+    button{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border:none;padding:.7rem 1.2rem;border-radius:var(--radius);cursor:pointer;font-weight:600}
+    button:disabled{opacity:.5}
+    .quiz-btn{display:block;margin:.3rem 0}
+    .correct{background:#38b000}
+    .wrong{background:#e63946}
+    @media(max-width:600px){body{padding:1rem}header h1{font-size:2rem}}
   </style>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
 </head>
 
 <body>
-<h1>Alkanes</h1>
 
-<!-- 1️⃣ WHAT ARE ALKANES? -->
-<div class="accordion">
-  <button class="accordion-header">1️⃣ What Are Alkanes?</button>
-  <div class="accordion-body">
-    <ul>
-      <li><strong>Alkanes</strong> are <strong>saturated hydrocarbons</strong>.</li>
-      <li><strong>Saturated</strong> → contain <em>only single covalent bonds</em> between carbon atoms.</li>
-      <li><strong>Hydrocarbon</strong> → made of <em>carbon and hydrogen only</em>.</li>
-    </ul>
-  </div>
-</div>
+<header>
+  <h1>Alkanes</h1>
+  <p>Beautiful SPM Chemistry Micro-Course</p>
+</header>
 
-<!-- 2️⃣ TETRAHEDRAL GEOMETRY -->
-<div class="accordion">
-  <button class="accordion-header">2️⃣ Tetrahedral Geometry</button>
-  <div class="accordion-body">
-    <img class="tetra" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Methane-2D-dimensions.svg/1280px-Methane-2D-dimensions.svg.png" alt="Methane 2-D">
-    <p>Each carbon in alkanes sits at the centre of a <strong>tetrahedron</strong> with bond angles of <strong>109.5 °</strong>.</p>
-  </div>
-</div>
+<!-- Quick Nav -->
+<nav>
+  <a href="#intro">What are Alkanes?</a>
+  <a href="#geometry">Geometry</a>
+  <a href="#formula">Formula</a>
+  <a href="#table">10 Alkanes</a>
+  <a href="#reactions">Reactions</a>
+  <a href="#props">Properties & Uses</a>
+  <a href="#draw">Draw Butane</a>
+  <a href="#quiz">Quiz</a>
+</nav>
+
+<!-- 1️⃣ INTRO -->
+<section id="intro" class="section glass">
+  <h2>📚 What Are Alkanes?</h2>
+  <ul>
+    <li><strong>Alkanes</strong> are <strong>saturated hydrocarbons</strong>.</li>
+    <li><strong>Saturated</strong> → only single covalent bonds.</li>
+    <li><strong>Hydrocarbon</strong> → carbon & hydrogen only.</li>
+  </ul>
+</section>
+
+<!-- 2️⃣ GEOMETRY -->
+<section id="geometry" class="section glass">
+  <h2>🔺 Tetrahedral Geometry</h2>
+  <img class="tetra" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Methane-2D-dimensions.svg/1280px-Methane-2D-dimensions.svg.png" alt="Methane 2-D">
+  <p>Each carbon sits at the centre of a tetrahedron with bond angles of <strong>109.5°</strong>.</p>
+</section>
 
 <!-- 3️⃣ GENERAL FORMULA -->
-<div class="accordion">
-  <button class="accordion-header">3️⃣ General Formula</button>
-  <div class="accordion-body">
-    <p>C<sub>n</sub>H<sub>2n+2</sub></p>
-    <p>Example: n = 4 → C₄H₁₀ (butane)</p>
-  </div>
-</div>
+<section id="formula" class="section glass">
+  <h2>🧮 General Formula</h2>
+  <p style="font-family:var(--mono);font-size:1.4rem">C<sub>n</sub>H<sub>2n+2</sub></p>
+  <p>Example: n = 4 → C₄H₁₀ (butane)</p>
+</section>
 
 <!-- 4️⃣ FIRST 10 ALKANES -->
-<div class="accordion">
-  <button class="accordion-header">4️⃣ First 10 Alkanes</button>
-  <div class="accordion-body">
-    <table>
-      <thead>
-        <tr><th>C atoms</th><th>Name</th><th>Molecular Formula</th><th>Condensed Formula</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>1</td><td>Methane</td><td>CH₄</td><td>CH₄</td></tr>
-        <tr><td>2</td><td>Ethane</td><td>C₂H₆</td><td>CH₃–CH₃</td></tr>
-        <tr><td>3</td><td>Propane</td><td>C₃H₈</td><td>CH₃–CH₂–CH₃</td></tr>
-        <tr><td>4</td><td>Butane</td><td>C₄H₁₀</td><td>CH₃–CH₂–CH₂–CH₃</td></tr>
-        <tr><td>5</td><td>Pentane</td><td>C₅H₁₂</td><td>CH₃(CH₂)₃CH₃</td></tr>
-        <tr><td>6</td><td>Hexane</td><td>C₆H₁₄</td><td>CH₃(CH₂)₄CH₃</td></tr>
-        <tr><td>7</td><td>Heptane</td><td>C₇H₁₆</td><td>CH₃(CH₂)₅CH₃</td></tr>
-        <tr><td>8</td><td>Octane</td><td>C₈H₁₈</td><td>CH₃(CH₂)₆CH₃</td></tr>
-        <tr><td>9</td><td>Nonane</td><td>C₉H₂₀</td><td>CH₃(CH₂)₇CH₃</td></tr>
-        <tr><td>10</td><td>Decane</td><td>C₁₀H₂₂</td><td>CH₃(CH₂)₈CH₃</td></tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+<section id="table" class="section glass">
+  <h2>🔤 First 10 Alkanes</h2>
+  <table>
+    <thead><tr><th>C atoms</th><th>Name</th><th>Formula</th><th>Condensed</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Methane</td><td>CH₄</td><td>CH₄</td></tr>
+      <tr><td>2</td><td>Ethane</td><td>C₂H₆</td><td>CH₃–CH₃</td></tr>
+      <tr><td>3</td><td>Propane</td><td>C₃H₈</td><td>CH₃–CH₂–CH₃</td></tr>
+      <tr><td>4</td><td>Butane</td><td>C₄H₁₀</td><td>CH₃–CH₂–CH₂–CH₃</td></tr>
+      <tr><td>5</td><td>Pentane</td><td>C₅H₁₂</td><td>CH₃(CH₂)₃CH₃</td></tr>
+      <tr><td>6</td><td>Hexane</td><td>C₆H₁₄</td><td>CH₃(CH₂)₄CH₃</td></tr>
+      <tr><td>7</td><td>Heptane</td><td>C₇H₁₆</td><td>CH₃(CH₂)₅CH₃</td></tr>
+      <tr><td>8</td><td>Octane</td><td>C₈H₁₈</td><td>CH₃(CH₂)₆CH₃</td></tr>
+      <tr><td>9</td><td>Nonane</td><td>C₉H₂₀</td><td>CH₃(CH₂)₇CH₃</td></tr>
+      <tr><td>10</td><td>Decane</td><td>C₁₀H₂₂</td><td>CH₃(CH₂)₈CH₃</td></tr>
+    </tbody>
+  </table>
+</section>
 
-<!-- 5️⃣ COMMON REACTIONS -->
-<div class="accordion">
-  <button class="accordion-header">5️⃣ Common Reactions</button>
-  <div class="accordion-body">
-    <div class="flex">
-      <div>
-        <h3>1️⃣ Combustion</h3>
-        <p><strong>Complete:</strong><br>CH₄ + 2 O₂ → CO₂ + 2 H₂O</p>
-        <p><strong>Incomplete:</strong><br>CH₄ + O₂ → CO + H₂O</p>
-      </div>
-      <div>
-        <h3>2️⃣ Substitution Reaction</h3>
-        <p><strong>Chlorination (UV light):</strong><br>CH₄ + Cl₂ → CH₃Cl + HCl</p>
-      </div>
+<!-- 5️⃣ REACTIONS -->
+<section id="reactions" class="section glass">
+  <h2>⚙️ Common Reactions</h2>
+  <div class="flex">
+    <div>
+      <h3>1️⃣ Combustion</h3>
+      <p>Complete: CH₄ + 2 O₂ → CO₂ + 2 H₂O</p>
+      <p>Incomplete: CH₄ + O₂ → CO + H₂O</p>
+    </div>
+    <div>
+      <h3>2️⃣ Substitution</h3>
+      <p>CH₄ + Cl₂ → CH₃Cl + HCl (UV light)</p>
     </div>
   </div>
-</div>
+</section>
 
 <!-- 6️⃣ PROPERTIES & USES -->
-<div class="accordion">
-  <button class="accordion-header">6️⃣ Properties & Uses</button>
-  <div class="accordion-body">
-    <div class="flex">
-      <div>
-        <strong>Properties</strong>
-        <ul>
-          <li>Non-polar → insoluble in water</li>
-          <li>Boiling point ↑ with chain length</li>
-          <li>Combustion → CO₂ + H₂O</li>
-        </ul>
-      </div>
-      <div>
-        <strong>Uses</strong>
-        <ul>
-          <li>Cooking gas: propane, butane</li>
-          <li>Petrol: octane</li>
-          <li>Paraffin wax</li>
-        </ul>
-      </div>
+<section id="props" class="section glass">
+  <h2>🧪 Properties & Uses</h2>
+  <div class="flex">
+    <div>
+      <strong>Properties</strong>
+      <ul>
+        <li>Non-polar → insoluble in water</li>
+        <li>Boiling point ↑ with chain length</li>
+        <li>Combustion → CO₂ + H₂O</li>
+      </ul>
+    </div>
+    <div>
+      <strong>Uses</strong>
+      <ul>
+        <li>Cooking gas: propane, butane</li>
+        <li>Petrol: octane</li>
+        <li>Paraffin wax</li>
+      </ul>
     </div>
   </div>
-</div>
+</section>
 
-<!-- 7️⃣
+<!-- 7️⃣ DRAW BUTANE -->
+<section id="draw" class="section glass">
+  <h2>🎨 Draw Butane Yourself</h2>
+  <p>Drag atoms, double-click to bond/un-bond, then test.</p>
+  <canvas id="canvas" width="520" height="300"></canvas>
+  <br>
+  <button onclick="addAtom('C')">Add C</button>
+  <button onclick="addAtom('H')">Add H</button>
+  <button onclick="resetCanvas()">Reset</button>
+  <button onclick="checkButane()">Is this butane?</button>
+  <p id="simMsg"></p>
+</section>
+
+<!-- 8️⃣ MINI QUIZ -->
+<section id="quiz" class="section glass">
+  <h2>📝 Mini Quiz</h2>
+  <p>Which of these is an alkane?</p>
+  <button class="quiz-btn" onclick="quiz(this,false)">A) Ethene</button>
+  <button class="quiz-btn" onclick="quiz(this,true)">B) Ethane</button>
+  <button class="quiz-btn" onclick="quiz(this,false)">C) Ethyne</button>
+  <p id="quizMsg"></p>
+</section>
+
+<script>
+/* ---------- smooth scroll ---------- */
+document.querySelectorAll('nav a').forEach(link=>{
+  link.addEventListener('click',e=>{
+    e.preventDefault();
+    document.querySelector(link.hash).scrollIntoView({behavior:'smooth'});
+  });
+});
+
+/* ---------- mini quiz ---------- */
+function quiz(btn,correct){
+  [...btn.parentNode.querySelectorAll('button')].forEach(b=>b.disabled=true);
+  btn.classList.add(correct?'correct':'wrong');
+  document.getElementById('quizMsg').textContent=correct?'✅ Correct!':'❌ Try again!';
+}
+
+/* ---------- butane builder ---------- */
+const cv=document.getElementById('canvas'),ctx=cv.getContext('2d');
+let atoms=[],bonds=[],drag=null;
+const radius={C:15,H:10};
+
+function addAtom(type){
+  atoms.push({type,x:50+Math.random()*380,y:50+Math.random()*200});
+  draw();
+}
+function resetCanvas(){
+  atoms=[];bonds=[];draw();
+  document.getElementById('simMsg').textContent='';
+}
+function draw(){
+  ctx.clearRect(0,0,cv.width,cv.height);
+  bonds.forEach(b=>{
+    ctx.beginPath();
+    ctx.moveTo(atoms[b.a].x,atoms[b.a].y);
+    ctx.lineTo(atoms[b.b].x,atoms[b.b].y);
+    ctx.strokeStyle='#000';ctx.lineWidth=2;ctx.stroke();
+  });
+  atoms.forEach(a=>{
+    ctx.beginPath();
+    ctx.arc(a.x,a.y,radius[a.type],0,2*Math.PI);
+    ctx.fillStyle=a.type==='C'?'#444':'#0078ff';
+    ctx.fill();
+    ctx.fillStyle='#fff';
+    ctx.textAlign='center';
+    ctx.fillText(a.type,a.x,a.y+4);
+  });
+}
+function checkButane(){
+  const c=atoms.filter(a=>a.type==='C').length;
+  const h=atoms.filter(a=>a.type==='H').length;
+  const edges=bonds.length;
+  const msg=document.getElementById('simMsg');
+  if(c===4 && h===10 && edges===13){
+    msg.textContent='✅ Perfect! You built butane (C₄H₁₀).';
+    msg.style.color='green';
+  }else{
+    msg.textContent=`❌ You have ${c} C, ${h} H, ${edges} bonds – need 4 C, 10 H, 13 bonds.`;
+    msg.style.color='crimson';
+  }
+}
+cv.onmousedown=e=>{
+  const rect=cv.getBoundingClientRect(),x=e.clientX-rect.left,y=e.clientY-rect.top;
+  const hit=atoms.findIndex(a=>(x-a.x)**2+(y-a.y)**2<radius[a.type]**2);
+  if(hit>=0)drag={idx:hit,x,y};
+};
+cv.onmousemove=e=>{
+  if(!drag)return;
+  const rect=cv.getBoundingClientRect();
+  atoms[drag.idx].x=e.clientX-rect.left;
+  atoms[drag.idx].y=e.clientY-rect.top;
+  draw();
+};
+cv.onmouseup=()=>drag=null;
+cv.ondblclick=e=>{
+  const rect=cv.getBoundingClientRect(),x=e.clientX-rect.left,y=e.clientY-rect.top;
+  const a1=atoms.findIndex(a=>(x-a.x)**2+(y-a.y)**2<radius[a.type]**2);
+  if(a1<0)return;
+  const a2=atoms.findIndex((a,i)=>i!==a1 && (x-a.x)**2+(y-a.y)**2<radius[a.type]**2);
+  if(a2>=0){
+    const exists=bonds.find(b=>(b.a===a1&&b.b===a2)||(b.a===a2&&b.b===a1));
+    if(exists){bonds.splice(bonds.indexOf(exists),1);}
+    else bonds.push({a:a1,b:a2});
+  }
+  draw();
+};
+resetCanvas();
+</script>
+</body>
+</html>
