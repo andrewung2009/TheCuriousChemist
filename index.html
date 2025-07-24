@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Alkanes</title>
+  <title>Alkanes – SPM Micro-Course</title>
   <style>
     :root{
       --bg:#f0f4f8;
@@ -12,10 +12,8 @@
       --secondary:#764ba2;
       --radius:16px;
       --shadow:0 8px 32px rgba(31,38,135,.15);
-      --mono:'Fira Code',monospace;
     }
-    *{box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
-    body{margin:0;background:linear-gradient(135deg,var(--primary),var(--secondary));min-height:100vh;color:#333;line-height:1.6;padding:2rem}
+    body{margin:0;background:linear-gradient(135deg,var(--primary),var(--secondary));min-height:100vh;color:#333;line-height:1.6;padding:2rem;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
     header{text-align:center;color:#fff;margin-bottom:2rem}
     header h1{font-size:2.5rem;margin:.3rem 0}
     nav{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:2rem}
@@ -29,13 +27,11 @@
     .flex{display:flex;gap:1rem;flex-wrap:wrap}
     .flex>div{flex:1 1 250px}
     canvas{border:1px solid #e5e5e5;border-radius:var(--radius);background:#fff}
-    button{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border:none;padding:.7rem 1.2rem;border-radius:var(--radius);cursor:pointer;font-weight:600}
+    button{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border:none;padding:.7rem 1.2rem;border-radius:var(--radius);cursor:pointer;margin:.25rem}
     button:disabled{opacity:.5}
     .correct{background:#38b000}
     .wrong{background:#e63946}
-    @media(max-width:600px){body{padding:1rem}header h1{font-size:2rem}}
   </style>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -73,7 +69,7 @@
 <!-- 3️⃣ GENERAL FORMULA -->
 <section id="formula" class="section">
   <h2>🧮 General Formula</h2>
-  <p style="font-family:var(--mono);font-size:1.4rem">C<sub>n</sub>H<sub>2n+2</sub></p>
+  <p style="font-family:'Fira Code',monospace;font-size:1.4rem">C<sub>n</sub>H<sub>2n+2</sub></p>
   <p>Example: n = 4 → C₄H₁₀ (butane)</p>
 </section>
 
@@ -92,7 +88,7 @@
       <tr><td>7</td><td>Heptane</td><td>C₇H₁₆</td><td>CH₃(CH₂)₅CH₃</td></tr>
       <tr><td>8</td><td>Octane</td><td>C₈H₁₈</td><td>CH₃(CH₂)₆CH₃</td></tr>
       <tr><td>9</td><td>Nonane</td><td>C₉H₂₀</td><td>CH₃(CH₂)₇CH₃</td></tr>
-      <tr><td>10</td><td>Decane</td><td>C₁₀H₂₂</td><td>CH₃(CH₂)₈CH₃</td></tr>
+    <tr><td>10</td><td>Decane</td><td>C₁₀H₂₂</td><td>CH₃(CH₂)₈CH₃</td></tr>
     </tbody>
   </table>
 </section>
@@ -139,7 +135,7 @@
 <!-- 7️⃣ LIVE SKETCHER -->
 <section id="draw" class="section">
   <h2>🎨 Live Sketcher (Drag Bonds)</h2>
-  <p>Drag atoms freely • <strong>drag from one atom to another</strong> to create / cycle bonds.</p>
+  <p>Drag atoms • drag from one atom to another to create / cycle bonds.</p>
   <p><strong>Hold <kbd>Shift</kbd></strong> while dragging to cycle: single → double → triple → none.</p>
   <canvas id="canvas" width="520" height="300"></canvas>
   <br>
@@ -151,14 +147,10 @@
   <p id="simMsg"></p>
 </section>
 
-<!-- 8️⃣ MINI QUIZ -->
+<!-- 8️⃣ MINI QUIZ (submit + next) -->
 <section id="quiz" class="section">
-  <h2>📝 Mini Quiz</h2>
-  <p>Which of these is an alkane?</p>
-  <button class="quiz-btn" onclick="quiz(this,false)">A) Ethene</button>
-  <button class="quiz-btn" onclick="quiz(this,true)">B) Ethane</button>
-  <button class="quiz-btn" onclick="quiz(this,false)">C) Ethyne</button>
-  <p id="quizMsg"></p>
+  <h2>📝 Mini Quiz (10 Questions)</h2>
+  <div id="quizContainer"></div>
 </section>
 
 <script>
@@ -170,24 +162,82 @@ document.querySelectorAll('nav a').forEach(link=>{
   });
 });
 
-/* ---------- mini quiz with retry button ---------- */
-function quiz(btn,correct){
-  [...btn.parentNode.querySelectorAll('button')].forEach(b=>b.disabled=true);
-  btn.classList.add(correct?'correct':'wrong');
-  const msg=document.getElementById('quizMsg');
-  if(correct){
+/* ---------- 10-question quiz with submit & next ---------- */
+const quizData=[
+  {q:'What is the general formula for alkanes?',a:0,opts:['C<sub>n</sub>H<sub>2n+2</sub>','C<sub>n</sub>H<sub>2n</sub>','C<sub>n</sub>H<sub>2n-2</sub>','C<sub>n</sub>H<sub>n</sub>']},
+  {q:'Which of these is NOT an alkane?',a:2,opts:['Methane','Ethane','Propene','Butane']},
+  {q:'Alkanes are called saturated hydrocarbons because:',a:1,opts:['They have double bonds','They contain maximum hydrogen','They contain oxygen','They are soluble in water']},
+  {q:'Which alkane has the highest boiling point?',a:2,opts:['Methane','Butane','Pentane','Ethane']},
+  {q:'Which of these is a property of alkanes?',a:2,opts:['Soluble in water','Form acidic solutions','Non-polar','React easily with acids']},
+  {q:'Which statement about combustion of alkanes is true?',a:1,opts:['They produce only carbon monoxide','Complete combustion produces carbon dioxide and water','They don’t react with oxygen','They only burn with UV light']},
+  {q:'Which alkane is used as cooking gas?',a:1,opts:['Methane','Butane','Octane','Ethene']},
+  {q:'Which condition is needed for substitution reaction of methane with chlorine?',a:2,opts:['High pressure','High temperature only','UV light','Acid catalyst']},
+  {q:'Which gas indicates incomplete combustion?',a:2,opts:['CO₂','O₂','CO','H₂']},
+  {q:'Which pair is correct for a substitution reaction product?',a:0,opts:['CH₄ + Cl₂ → CH₃Cl + HCl','C₂H₆ + O₂ → CO₂ + H₂O','CH₄ + Br₂ → CO + Br₂','CH₄ + H₂O → C₂H₆ + CO₂']}
+];
+
+let currentQ=0, score=0, mistakes=[], selectedIndex=null;
+const quizContainer=document.getElementById('quizContainer');
+
+function buildQuiz(){
+  if(currentQ>=quizData.length){
+    showReview();
+    return;
+  }
+  selectedIndex=null;
+  const q=quizData[currentQ];
+  quizContainer.innerHTML=`
+    <p><strong>${currentQ+1}. ${q.q}</strong></p>
+    ${q.opts.map((opt,i)=>`<button class="opt" onclick="select(${i})">${opt}</button>`).join('')}
+    <p id="quizMsgQ"></p>
+    <button id="submitBtn" onclick="submit()">Submit</button>
+    <button id="nextBtn" onclick="next()" disabled>Next Question</button>
+  `;
+}
+
+function select(idx){
+  selectedIndex=idx;
+  document.querySelectorAll('.opt').forEach((b,i)=>b.classList.toggle('selected',i===idx));
+  document.getElementById('submitBtn').disabled=false;
+}
+
+function submit(){
+  const q=quizData[currentQ];
+  const msg=document.getElementById('quizMsgQ');
+  document.querySelectorAll('.opt').forEach(b=>b.disabled=true);
+  if(selectedIndex===q.a){
+    score++;
     msg.innerHTML='✅ Correct!';
   }else{
-    msg.innerHTML=`❌ Try again! <button onclick="resetQuiz()">Retry</button>`;
+    mistakes.push({...q,selected:selectedIndex});
+    msg.innerHTML=`❌ The correct answer is <strong>${q.opts[q.a]}</strong>.`;
   }
+  document.getElementById('submitBtn').disabled=true;
+  document.getElementById('nextBtn').disabled=false;
 }
-function resetQuiz(){
-  document.querySelectorAll('#quiz button').forEach(b=>{
-    b.disabled=false;
-    b.classList.remove('correct','wrong');
+
+function next(){
+  currentQ++;
+  buildQuiz();
+}
+
+function showReview(){
+  if(mistakes.length===0){
+    quizContainer.innerHTML=`<p>🎉 Perfect! You scored ${score}/10.</p>`;
+    return;
+  }
+  let html=`<p>📝 You scored ${score}/10. Review your mistakes below.</p>`;
+  mistakes.forEach(m=>{
+    html+=`<div style="margin:1rem 0">
+        <strong>${m.q}</strong><br>
+        <span style="color:red">Your answer: ${m.opts[m.selected]}</span><br>
+        <span style="color:green">Correct: ${m.opts[m.a]}</span>
+      </div>`;
   });
-  document.getElementById('quizMsg').innerHTML='';
+  quizContainer.innerHTML=html;
 }
+
+buildQuiz();
 
 /* ---------- live sketcher ---------- */
 const cv=document.getElementById('canvas'),ctx=cv.getContext('2d');
@@ -211,12 +261,11 @@ function resetCanvas(){
 }
 function draw(){
   ctx.clearRect(0,0,cv.width,cv.height);
-  // draw bonds (multi-line for double / triple)
   bonds.forEach(b=>{
     const [x1,y1]=[atoms[b.a].x,atoms[b.a].y];
     const [x2,y2]=[atoms[b.b].x,atoms[b.b].y];
     const dx=x2-x1,dy=y2-y1,ang=Math.atan2(dy,dx);
-    const off=4; // spacing between multi lines
+    const off=4;
     ctx.strokeStyle='#000';
     ctx.lineWidth=2;
     for(let i=0;i<b.order;i++){
@@ -228,7 +277,6 @@ function draw(){
       ctx.stroke();
     }
   });
-  // draw atoms
   atoms.forEach((a,i)=>{
     ctx.beginPath();
     ctx.arc(a.x,a.y,radius[a.type],0,2*Math.PI);
@@ -253,17 +301,11 @@ function checkButane(){
     msg.style.color='crimson';
   }
 }
-
-/* mouse events */
 cv.onmousedown=e=>{
   const rect=cv.getBoundingClientRect(),x=e.clientX-rect.left,y=e.clientY-rect.top;
   const hit=atoms.findIndex(a=>(x-a.x)**2+(y-a.y)**2<radius[a.type]**2);
   if(hit>=0){
-    if(e.shiftKey){ // start bond drag
-      dragBond={start:hit};
-    }else{ // move atom
-      dragAtom={idx:hit,x,y};
-    }
+    if(e.shiftKey){dragBond={start:hit};}else{dragAtom={idx:hit,x,y};}
   }
 };
 cv.onmousemove=e=>{
