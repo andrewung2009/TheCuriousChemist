@@ -66,8 +66,7 @@
       width: 100%;
       border-collapse: collapse;
     }
-    th,
-    td {
+    th, td {
       padding: 0.7rem;
       border-bottom: 1px solid #e5e5e5;
       text-align: center;
@@ -116,12 +115,8 @@
       transition: opacity 0.5s ease;
     }
     @media (max-width: 600px) {
-      body {
-        padding: 1rem;
-      }
-      header h1 {
-        font-size: 2rem;
-      }
+      body { padding: 1rem; }
+      header h1 { font-size: 2rem; }
     }
   </style>
 </head>
@@ -143,7 +138,6 @@
     <a href="#quiz">📝 20 MCQs</a>
   </nav>
 
-  <!-- 🎯 OBJECTIVES -->
   <section id="objectives" class="section">
     <h2>🎯 Objectives</h2>
     <ul>
@@ -157,7 +151,6 @@
     </ul>
   </section>
 
-  <!-- 1️⃣ INTRO -->
   <section id="intro" class="section">
     <h2>📚 What Are Alkanes?</h2>
     <ul>
@@ -167,22 +160,18 @@
     <img class="tetra" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Methane-CRC-MW-3D-balls.png/800px-Methane-CRC-MW-3D-balls.png" alt="Methane molecule" />
   </section>
 
-  <!-- 2️⃣ GENERAL FORMULA -->
   <section id="formula" class="section">
     <h2>🧮 General Formula</h2>
     <p style="font-family: var(--mono); font-size: 1.4rem">C<sub>n</sub>H<sub>2n+2</sub></p>
     <p>Example: n = 4 → C₄H₁₀ (butane)</p>
   </section>
 
-  <!-- 3️⃣ FIRST 10 ALKANES -->
   <section id="table" class="section">
     <h2>🔤 First 10 Alkanes</h2>
     <table>
       <thead>
         <tr>
-          <th>C atoms</th>
-          <th>Name</th>
-          <th>Formula</th>
+          <th>C atoms</th><th>Name</th><th>Formula</th>
         </tr>
       </thead>
       <tbody>
@@ -200,7 +189,6 @@
     </table>
   </section>
 
-  <!-- 4️⃣ PROPERTIES & USES -->
   <section id="props" class="section">
     <h2>🧪 Properties & Uses</h2>
     <div class="flex">
@@ -210,14 +198,12 @@
     </div>
   </section>
 
-  <!-- 5️⃣ FUN FACTS -->
   <section id="funfacts" class="section">
     <h2>💡 Did You Know?</h2>
     <p id="factBox">Click below to discover a fun fact about alkanes!</p>
     <button onclick="nextFact()">Next Fact</button>
   </section>
 
-  <!-- 6️⃣ DRAW -->
   <section id="draw" class="section">
     <h2>🎨 Draw Butane Yourself</h2>
     <p>Drag atoms • drag from one atom to another to create or cycle bonds.</p>
@@ -230,7 +216,6 @@
     <p id="simMsg"></p>
   </section>
 
-  <!-- 7️⃣ QUIZ -->
   <section id="quiz" class="section">
     <h2>📝 20 MCQs</h2>
     <div id="quizContainer"></div>
@@ -266,7 +251,7 @@
       }, 300);
     }
 
-   const quizData = [
+    const quizData = [
   {
     q: 'What is the general formula for alkanes?',
     a: 0,
@@ -489,7 +474,6 @@
   }
 ];
 
-      // (add more questions here, same as your previous 20!)
     ];
     let currentQ = 0, score = 0, mistakes = [], selectedIndex = null;
     const quizContainer = document.getElementById('quizContainer');
@@ -527,9 +511,7 @@
     function resetCanvas() { atoms = []; bonds = []; draw(); document.getElementById('simMsg').textContent = ''; }
     function draw() {
       ctx.clearRect(0, 0, cv.width, cv.height);
-      bonds.forEach(b => {
-        ctx.beginPath(); ctx.moveTo(atoms[b.a].x, atoms[b.a].y); ctx.lineTo(atoms[b.b].x, atoms[b.b].y); ctx.stroke();
-      });
+      bonds.forEach(b => { ctx.beginPath(); ctx.moveTo(atoms[b.a].x, atoms[b.a].y); ctx.lineTo(atoms[b.b].x, atoms[b.b].y); ctx.stroke(); });
       atoms.forEach(a => { ctx.beginPath(); ctx.arc(a.x, a.y, radius[a.type], 0, 2 * Math.PI); ctx.fill(); ctx.fillText(a.type, a.x, a.y); });
     }
     function checkButane() {
@@ -538,7 +520,6 @@
       const msg = document.getElementById('simMsg');
       msg.textContent = (c === 4 && h === 10) ? '✅ Looks like butane!' : '❌ Not quite yet.';
     }
-    cv.onmousedown = e => { /* drag code */ };
   </script>
 </body>
 </html>
