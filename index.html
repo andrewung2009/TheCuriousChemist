@@ -2,356 +2,336 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SPM Alkanes – The Most Comprehensive Learning Material</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Bootstrap + Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-  <!-- Custom styles -->
+  <title>Alkanes – SPM Micro-Course</title>
   <style>
-    body { scroll-behavior: smooth; }
-    .section { padding-top: 80px; margin-top: -80px; }
-    .navbar { background: #004d40 !important; }
-    .hero { background: linear-gradient(135deg,#00897b,#004d40); color:#fff; }
-    .card { border:none; box-shadow:0 2px 6px rgba(0,0,0,.1); }
-    .glossary { cursor: help; text-decoration: underline dotted; color:#00796b; }
-    .tooltip-inner { max-width: 300px; }
-    .quiz-box { background:#f5f5f5; border-left:5px solid #00796b; }
-    /* mini-game canvas */
-    #dragCanvas { border:1px solid #ccc; background:#fafafa; }
+    :root{
+      --bg:#f0f4f8;
+      --card:#ffffffee;
+      --primary:#667eea;
+      --secondary:#764ba2;
+      --radius:16px;
+      --shadow:0 8px 32px rgba(31,38,135,.15);
+      --mono:'Fira Code',monospace;
+      --selected:#e0e0ff;
+    }
+    *{box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+    body{margin:0;background:linear-gradient(135deg,var(--primary),var(--secondary));min-height:100vh;color:#333;line-height:1.6;padding:2rem}
+    header{text-align:center;color:#fff;margin-bottom:2rem}
+    header h1{font-size:2.5rem;margin:.3rem 0}
+    nav{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:2rem}
+    nav a{color:#fff;text-decoration:none;background:rgba(255,255,255,.2);padding:.6rem 1rem;border-radius:var(--radius);backdrop-filter:blur(8px)}
+    nav a:hover{background:rgba(255,255,255,.3)}
+    .section{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);backdrop-filter:blur(8px);padding:2rem;margin-bottom:2rem}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:.7rem;border-bottom:1px solid #e5e5e5;text-align:center}
+    th{background:#f7f9fc;font-weight:600}
+    img.tetra{display:block;margin:1rem auto;max-width:180px;border-radius:var(--radius)}
+    .flex{display:flex;gap:1rem;flex-wrap:wrap}
+    .flex>div{flex:1 1 250px}
+    canvas{border:1px solid #e5e5e5;border-radius:var(--radius);background:#fff}
+    button{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border:none;padding:.7rem 1.2rem;border-radius:var(--radius);cursor:pointer;margin:.25rem}
+    button:disabled{opacity:.5}
+    .correct{background:#38b000}
+    .wrong{background:#e63946}
+    .selected{background:var(--selected);border:2px solid var(--primary)}
+    @media(max-width:600px){body{padding:1rem}header h1{font-size:2rem}}
   </style>
 </head>
 
-<body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-offset="80">
+<body>
+<h1>✨ Alkanes SPM Course</h1>
+<p>Beautiful & interactive revision</p>
 
-<!-- NAVBAR -->
-<nav id="navbar" class="navbar navbar-expand-lg fixed-top navbar-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand fw-bold" href="#">Alkanes</a>
-    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navmenu">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navmenu">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link" href="#intro">Introduction</a></li>
-        <li class="nav-item"><a class="nav-link" href="#formula">General Formula</a></li>
-        <li class="nav-item"><a class="nav-link" href="#naming">Naming</a></li>
-        <li class="nav-item"><a class="nav-link" href="#isomerism">Isomers</a></li>
-        <li class="nav-item"><a class="nav-link" href="#properties">Properties</a></li>
-        <li class="nav-item"><a class="nav-link" href="#combustion">Combustion</a></li>
-        <li class="nav-item"><a class="nav-link" href="#uses">Uses</a></li>
-        <li class="nav-item"><a class="nav-link" href="#env">Environment</a></li>
-        <li class="nav-item"><a class="nav-link" href="#summary">Summary & Quiz</a></li>
+<nav>
+  <a href="#objectives">🎯 Objectives</a>
+  <a href="#intro">📚 What are Alkanes?</a>
+  <a href="#formula">🧮 Formula</a>
+  <a href="#table">🔤 10 Alkanes</a>
+  <a href="#props">🧪 Properties & Uses</a>
+  <a href="#draw">🎨 Draw Butane</a>
+  <a href="#quiz">📝 20 MCQs</a>
+</nav>
+
+<!-- 🎯 OBJECTIVES -->
+<section id="objectives" class="section">
+  <h2>🎯 Objectives</h2>
+  <p>By the end of this lesson, you will be able to:</p>
+  <ul>
+    <li>Define what alkanes are and explain why they are called saturated hydrocarbons.</li>
+    <li>State and apply the general formula for alkanes.</li>
+    <li>Name the first ten alkanes correctly.</li>
+    <li>Write and draw the molecular and structural formulas for simple alkanes.</li>
+    <li>Describe the physical properties of alkanes.</li>
+    <li>Explain the chemical properties of alkanes.</li>
+    <li>Give examples of common uses of alkanes.</li>
+    <li>Test your understanding using practice MCQs with explanations.</li>
+  </ul>
+</section>
+
+<!-- 1️⃣ INTRO -->
+<section id="intro" class="section">
+  <h2>📚 What Are Alkanes?</h2>
+  <ul>
+    <li><strong>Alkanes</strong> are <strong>saturated hydrocarbons</strong> – only single covalent bonds.</li>
+    <li>Each carbon forms four single bonds; chains can be straight or branched.</li>
+  </ul>
+  <img class="tetra" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Methane-CRC-MW-3D-balls.png/800px-Methane-CRC-MW-3D-balls.png" alt="Methane 3-D">
+</section>
+
+<!-- 2️⃣ GENERAL FORMULA -->
+<section id="formula" class="section">
+  <h2>🧮 General Formula</h2>
+  <p style="font-family:var(--mono);font-size:1.4rem">C<sub>n</sub>H<sub>2n+2</sub></p>
+  <p>Example: n = 3 → C₃H₈ (propane)</p>
+</section>
+
+<!-- 3️⃣ FIRST 10 ALKANES -->
+<section id="table" class="section">
+  <h2>🔤 First 10 Alkanes</h2>
+  <table>
+    <thead><tr><th>C atoms</th><th>Name</th>Formula</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Methane</td><td>CH₄</td></tr>
+      <tr><td>2</td><td>Ethane</td><td>C₂H₆</td></tr>
+      <tr><td>3</td><td>Propane</td><td>C₃H₈</td></tr>
+      <tr><td>4</td><td>Butane</td><td>C₄H₁₀</td></tr>
+      <tr><td>5</td><td>Pentane</td><td>C₅H₁₂</td></tr>
+      <tr><td>6</td><td>Hexane</td><td>C₆H₁₄</td></tr>
+      <tr><td>7</td><td>Heptane</td><td>C₇H₁₆</td></tr>
+      <tr><td>8</td><td>Octane</td><td>C₈H₁₈</td></tr>
+      <tr><td>9</td><td>Nonane</td><td>C₉H₂₀</td></tr>
+      <tr><td>10</td><td>Decane</td><td>C₁₀H₂₂</td></tr>
+    </tbody>
+  </table>
+  <img src="https://mammothmemory.net/images/user/base/Chemistry/9.%20Hydrocarbons/2.9.3%20Examples%20of%20alkanes%20found%20in%20crude%20oil.jpg" alt="Alkanes in crude oil" style="max-width:100%;border-radius:var(--radius);margin-top:1rem;">
+</section>
+
+<!-- 4️⃣ PROPERTIES & USES -->
+<section id="props" class="section">
+  <h2>🧪 Properties & Uses</h2>
+  <div class="flex">
+    <div>
+      <h3>Physical</h3>
+      <ul>
+        <li>Non-polar → insoluble in water</li>
+        <li>Boiling point ↑ with chain length</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Chemical</h3>
+      <ul>
+        <li>Combustion → CO₂ + H₂O</li>
+        <li>Substitution with halogens under UV light</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Uses</h3>
+      <ul>
+        <li>Methane: natural gas</li>
+        <li>Butane / propane: LPG</li>
+        <li>Octane: petrol</li>
       </ul>
     </div>
   </div>
-</nav>
+</section>
 
-<!-- HERO -->
-<header class="hero py-5">
-  <div class="container text-center">
-    <h1 class="fw-bold mb-3">✅ THE MOST COMPREHENSIVE SPM ALKANES LEARNING MATERIAL</h1>
-    <p class="lead">Form 4 Chemistry (KSSM) – Topic: Alkanes (Saturated Hydrocarbons)</p>
-  </div>
-</header>
+<!-- 5️⃣ LIVE SKETCHER -->
+<section id="draw" class="section">
+  <h2>🎨 Draw Butane Yourself</h2>
+  <p>Drag atoms • drag from one atom to another to create / cycle bonds.</p>
+  <p><strong>Hold <kbd>Shift</kbd></strong> while dragging to cycle: single → double → triple → none.</p>
+  <canvas id="canvas" width="520" height="300"></canvas>
+  <br>
+  <button onclick="addAtom('C')">Add C</button>
+  <button onclick="addAtom('H')">Add H</button>
+  <button onclick="eraseLast()">Erase Last</button>
+  <button onclick="resetCanvas()">Reset All</button>
+  <button onclick="checkButane()">Check Butane</button>
+  <p id="simMsg"></p>
+</section>
 
-<!-- MAIN -->
-<main class="container-fluid py-4">
-  <!-- 1. INTRODUCTION -->
-  <section id="intro" class="section">
-    <h2 class="mb-3">📂 1. Introduction to Alkanes</h2>
-    <h5>1.1 What are Alkanes?</h5>
-    <p><strong>Definition:</strong> Alkanes are the simplest type of <span class="glossary" data-bs-toggle="tooltip" title="Compounds made only of carbon (C) and hydrogen (H) atoms.">hydrocarbons</span>.</p>
-    <ul>
-      <li>They are called <strong>saturated</strong> because all carbon atoms are joined by <strong>single covalent bonds</strong> only.</li>
-      <li>Each carbon forms four bonds arranged in a <strong>tetrahedral</strong> shape.</li>
-      <li><strong>General Formula:</strong> C<sub>n</sub>H<sub>2n+2</sub></li>
-    </ul>
-    <table class="table table-bordered w-auto">
-      <thead class="table-light"><tr><th>Alkane</th><th>Molecular Formula</th></tr></thead>
-      <tbody>
-        <tr><td>Methane</td><td>CH₄</td></tr>
-        <tr><td>Ethane</td><td>C₂H₆</td></tr>
-        <tr><td>Propane</td><td>C₃H₈</td></tr>
-        <tr><td>Butane</td><td>C₄H₁₀</td></tr>
-      </tbody>
-    </table>
+<!-- 6️⃣ 20-MCQ QUIZ -->
+<section id="quiz" class="section">
+  <h2>📝 20 MCQs with Why</h2>
+  <div id="quizContainer"></div>
+</section>
 
-    <h5>1.2 Characteristics</h5>
-    <ul>
-      <li>Non-polar → do <strong>not</strong> dissolve in water.</li>
-      <li>Burn easily → used as fuels.</li>
-      <li>Low reactivity; mainly undergo <strong>combustion</strong>.</li>
-      <li>Found in <strong>natural gas, crude oil, petroleum</strong>.</li>
-    </ul>
-
-    <h5>1.3 Real-Life Examples</h5>
-    <table class="table table-sm table-striped w-auto">
-      <thead class="table-light"><tr><th>Alkane</th><th>Where it’s used</th></tr></thead>
-      <tbody>
-        <tr><td>Methane</td><td>Natural gas for cooking</td></tr>
-        <tr><td>Propane</td><td>Camping gas cylinders</td></tr>
-        <tr><td>Butane</td><td>Cigarette lighters</td></tr>
-        <tr><td>Octane</td><td>Main component of petrol</td></tr>
-        <tr><td>Paraffin wax</td><td>Candles</td></tr>
-      </tbody>
-    </table>
-    <p class="text-success"><i class="bi bi-lightbulb"></i> Fun Fact: The gas in your cooking stove is mostly <strong>methane</strong>!</p>
-  </section>
-
-  <!-- 2. GENERAL FORMULA -->
-  <section id="formula" class="section">
-    <h2 class="mb-3">🧮 2. General Formula</h2>
-    <h5>2.1 C<sub>n</sub>H<sub>2n+2</sub> Explained</h5>
-    <p>n = number of carbon atoms. Hydrogen count = 2n + 2 because the carbon chain is “open-ended”.</p>
-
-    <h5>2.2 Common Alkanes Table</h5>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead class="table-light"><tr><th>Alkane name</th><th>n</th><th>Molecular Formula</th></tr></thead>
-        <tbody id="formulaTable"></tbody>
-      </table>
-    </div>
-
-    <h5>2.3 Sample Calculations</h5>
-    <p><strong>Q:</strong> Find the molecular formula for an alkane with 7 carbon atoms.</p>
-    <p><strong>A:</strong> n = 7 → H = 2(7) + 2 = 16 → <strong>C₇H₁₆</strong></p>
-
-    <!-- Simple calculator -->
-    <div class="card p-3 w-auto">
-      <h6>Calculator Widget</h6>
-      <label>Number of carbon atoms (n):
-        <input type="number" id="nInput" class="form-control form-control-sm" min="1" max="50" value="7">
-      </label>
-      <button class="btn btn-sm btn-success mt-2" onclick="calcFormula()">Calculate</button>
-      <p class="mt-2 mb-0" id="calcResult"></p>
-    </div>
-  </section>
-
-  <!-- 3. NAMING -->
-  <section id="naming" class="section">
-    <h2 class="mb-3">📝 3. Naming Alkanes (Nomenclature)</h2>
-    <h5>3.1 Straight-Chain Alkanes</h5>
-    <ul>
-      <li>Use root for carbon count + “-ane”.</li>
-      <li>meth- (1), eth- (2), prop- (3), but- (4), pent- (5), hex- (6), hept- (7), oct- (8), non- (9), dec- (10).</li>
-    </ul>
-
-    <h5>3.2 Branched Alkanes</h5>
-    <ol>
-      <li>Find the longest continuous carbon chain → parent name.</li>
-      <li>Number chain to give branches lowest numbers.</li>
-      <li>Name branches: methyl (-CH₃), ethyl (-C₂H₅).</li>
-      <li>Combine → e.g., <strong>2-methylpropane</strong>.</li>
-    </ol>
-
-    <h5>3.3 Multiple Branches</h5>
-    <p>Use <em>di-, tri-</em> for identical branches.<br>
-      Example: <strong>2,3-dimethylbutane</strong></p>
-
-    <div class="card p-3 mt-3">
-      <h6>Drag & Drop: Build Molecules</h6>
-      <canvas id="dragCanvas" width="400" height="200"></canvas>
-      <small class="text-muted">Drag the CH₄ fragment to form ethane, propane, etc.</small>
-    </div>
-  </section>
-
-  <!-- 4. ISOMERISM -->
-  <section id="isomerism" class="section">
-    <h2 class="mb-3">🧩 4. Isomerism</h2>
-    <h5>4.1 What are Isomers?</h5>
-    <p>Compounds with the <strong>same molecular formula</strong> but <strong>different structural arrangements</strong>.</p>
-    <p>In alkanes → <strong>chain isomerism</strong>.</p>
-
-    <h5>4.2 Examples</h5>
-    <ul>
-      <li><strong>C₄H₁₀</strong>: n-butane vs isobutane (2-methylpropane).</li>
-      <li><strong>C₅H₁₂</strong>: n-pentane, 2-methylbutane, 2,2-dimethylpropane.</li>
-    </ul>
-
-    <h5>4.3 Why Important?</h5>
-    <ul>
-      <li>Different boiling points & physical properties.</li>
-      <li>Branched isomers → lower boiling points (weaker van der Waals forces).</li>
-    </ul>
-  </section>
-
-  <!-- 5. PHYSICAL PROPERTIES -->
-  <section id="properties" class="section">
-    <h2 class="mb-3">🔬 5. Physical Properties</h2>
-    <h5>5.1 States of Alkanes</h5>
-    <table class="table table-bordered w-auto">
-      <thead class="table-light"><tr><th>C Atoms</th><th>State at room temp</th></tr></thead>
-      <tbody>
-        <tr><td>1–4</td><td>Gas</td></tr>
-        <tr><td>5–17</td><td>Liquid</td></tr>
-        <tr><td>18+</td><td>Solid (waxy)</td></tr>
-      </tbody>
-    </table>
-
-    <h5>5.2 Melting & Boiling Points</h5>
-    <p>Increase with molecular size (stronger van der Waals). Branched → lower.</p>
-
-    <h5>5.3 Solubility</h5>
-    <p>Non-polar → insoluble in water; soluble in non-polar solvents.</p>
-
-    <h5>5.4 Density</h5>
-    <p>Less dense than water → oil spills float.</p>
-  </section>
-
-  <!-- 6. COMBUSTION -->
-  <section id="combustion" class="section">
-    <h2 class="mb-3">🔥 6. Combustion</h2>
-    <h5>6.1 Complete Combustion</h5>
-    <p>Enough O₂ → CO₂ + H₂O only.</p>
-    <p><strong>Example:</strong> CH₄ + 2O₂ → CO₂ + 2H₂O (blue flame).</p>
-
-    <h5>6.2 Incomplete Combustion</h5>
-    <p>Limited O₂ → CO or C (soot).</p>
-    <p><strong>Example:</strong> 2CH₄ + 3O₂ → 2CO + 4H₂O (yellow flame).</p>
-
-    <h5>6.3 Real Life</h5>
-    <ul>
-      <li>Incomplete combustion in engines → CO poisoning, smog.</li>
-      <li>Poor ventilation → household CO hazard.</li>
-    </ul>
-  </section>
-
-  <!-- 7. USES -->
-  <section id="uses" class="section">
-    <h2 class="mb-3">⚡ 7. Uses of Alkanes</h2>
-    <table class="table table-striped w-auto">
-      <thead class="table-light"><tr><th>Alkane Group</th><th>Example Uses</th></tr></thead>
-      <tbody>
-        <tr><td>Short-chain</td><td>Propane, butane → cooking gas, lighters</td></tr>
-        <tr><td>Medium-chain</td><td>Petrol, diesel → vehicle fuel</td></tr>
-        <tr><td>Long-chain</td><td>Lubricants, wax → candles, bitumen</td></tr>
-      </tbody>
-    </table>
-    <p class="text-success"><i class="bi bi-lightbulb"></i> Fact: Petrol is mainly <strong>octane</strong>!</p>
-  </section>
-
-  <!-- 8. ENVIRONMENTAL IMPACT -->
-  <section id="env" class="section">
-    <h2 class="mb-3">🌍 8. Environmental Impact</h2>
-    <ul>
-      <li>Burning alkanes → CO₂ → greenhouse gas → global warming.</li>
-      <li>Incomplete combustion → CO → poisonous.</li>
-      <li>Soot → air pollution, respiratory problems.</li>
-    </ul>
-    <h6>How to reduce:</h6>
-    <ul>
-      <li>Use cleaner fuels.</li>
-      <li>Improve engine design.</li>
-      <li>Switch to renewable energy.</li>
-    </ul>
-  </section>
-
-  <!-- 9. SUMMARY & QUIZ -->
-  <section id="summary" class="section">
-    <h2 class="mb-3">✅ 9. Summary & Final Quiz</h2>
-    <div class="row">
-      <div class="col-md-6">
-        <h5>Quick Summary</h5>
-        <ul>
-          <li>Alkanes = saturated hydrocarbons → CₙH₂ₙ₊₂.</li>
-          <li>Name by longest chain + branches.</li>
-          <li>Isomers → same formula, different structure.</li>
-          <li>Combustion → complete: CO₂ + H₂O; incomplete: CO or C.</li>
-          <li>Main use → fuels, but impact the environment.</li>
-        </ul>
-      </div>
-
-      <div class="col-md-6 quiz-box p-3">
-        <h5>Final Quiz</h5>
-        <ol>
-          <li>What is the general formula for alkanes?</li>
-          <li>Name the alkane with C₆H₁₄.</li>
-          <li>Give 2 isomers for C₄H₁₀.</li>
-          <li>What is produced during complete combustion?</li>
-          <li>Why are branched isomers lower in boiling point?</li>
-        </ol>
-        <button class="btn btn-outline-success btn-sm" onclick="generateCertificate()">Submit & Get Certificate</button>
-      </div>
-    </div>
-
-    <div class="mt-4">
-      <h6>Self-Check</h6>
-      <div class="form-check"><input class="form-check-input" type="checkbox" id="c1"><label class="form-check-label" for="c1">I know what alkanes are.</label></div>
-      <div class="form-check"><input class="form-check-input" type="checkbox" id="c2"><label class="form-check-label" for="c2">I can write the general formula.</label></div>
-      <div class="form-check"><input class="form-check-input" type="checkbox" id="c3"><label class="form-check-label" for="c3">I can name straight & branched alkanes.</label></div>
-      <div class="form-check"><input class="form-check-input" type="checkbox" id="c4"><label class="form-check-label" for="c4">I can draw isomers.</label></div>
-      <div class="form-check"><input class="form-check-input" type="checkbox" id="c5"><label class="form-check-label" for="c5">I can write balanced combustion equations.</label></div>
-      <div class="form-check"><input class="form-check-input" type="checkbox" id="c6"><label class="form-check-label" for="c6">I know how alkanes affect the environment.</label></div>
-    </div>
-  </section>
-</main>
-
-<!-- FOOTER -->
-<footer class="bg-dark text-light text-center py-3 mt-5">
-  <small>Made with ❤️ for SPM Chemistry students | &copy; 2025</small>
-</footer>
-
-<!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-/* fill formula table */
-const table = document.getElementById('formulaTable');
-['Methane','Ethane','Propane','Butane','Pentane','Hexane','Heptane','Octane','Nonane','Decane']
-  .forEach((n,i)=>{
-    const tr=document.createElement('tr');
-    tr.innerHTML=`<td>${n}</td><td>${i+1}</td><td>C${i+1}H${2*(i+1)+2}</td>`;
-    table.appendChild(tr);
+/* ---------- smooth scroll nav ---------- */
+document.querySelectorAll('nav a').forEach(link=>{
+  link.addEventListener('click',e=>{
+    e.preventDefault();
+    document.querySelector(link.hash).scrollIntoView({behavior:'smooth'});
+  });
 });
 
-/* calculator */
-function calcFormula(){
-  const n=document.getElementById('nInput').value;
-  document.getElementById('calcResult').textContent=`C${n}H${2*n+2}`;
+/* ---------- 20-question quiz ---------- */
+const quizData=[
+  {q:'What is the general formula for alkanes?',a:0,opts:['C<sub>n</sub>H<sub>2n+2</sub>','C<sub>n</sub>H<sub>2n</sub>','C<sub>n</sub>H<sub>2n-2</sub>','C<sub>n</sub>H<sub>n</sub>'],why:'Alkanes have only single bonds, hence C<sub>n</sub>H<sub>2n+2</sub>.'},
+  {q:'Which alkane has 4 carbon atoms?',a:2,opts:['Propane','Pentane','Butane','Hexane'],why:'But- prefix means four.'},
+  {q:'Alkanes are called saturated because:',a:3,opts:['They have double bonds','They have triple bonds','They have aromatic rings','They have only single bonds'],why:'"Saturated" means maximum hydrogen, i.e., only single bonds.'},
+  {q:'Which is an alkane?',a:3,opts:['Ethene','Ethyne','Ethanol','Ethane'],why:'Alkanes have only single bonds.'},
+  {q:'Boiling point increases with:',a:1,opts:['Shorter chain','Longer chain','More hydrogen','Less carbon'],why:'Longer chains → stronger van der Waals forces.'},
+  {q:'Complete combustion of alkanes produces:',a:2,opts:['CO + H₂','CO + H₂O','CO₂ + H₂O','C + H₂'],why:'Excess oxygen gives CO₂ + H₂O.'},
+  {q:'Which alkane is in LPG?',a:1,opts:['Methane','Butane','Octane','Decane'],why:'Butane (and propane) are liquefied for LPG.'},
+  {q:'Which condition is needed for methane + chlorine?',a:2,opts:['Pressure','Heat','UV light','Acid'],why:'UV light initiates free-radical substitution.'},
+  {q:'Which gas indicates incomplete combustion?',a:2,opts:['CO₂','O₂','CO','H₂'],why:'CO is produced when oxygen is insufficient.'},
+  {q:'C₅H₁₂ is:',a:0,opts:['Pentane','Hexane','Butane','Heptane'],why:'C₅H₂(5)+2 = C₅H₁₂ → pentane.'},
+  {q:'Short-chain alkanes are:',a:2,opts:['Solids','Liquids','Gases','Ions'],why:'Methane, ethane, propane, butane are gases at room temp.'},
+  {q:'Why insoluble in water?',a:2,opts:['Ionic','Polar','Non-polar','Acidic'],why:'Water is polar; alkanes are non-polar.'},
+  {q:'Methane + Br₂ gives:',a:0,opts:['CH₃Br + HBr','CH₂Br₂ + H₂','CHBr₃ + H₂O','CBr₄ + H₂O'],why:'UV light gives monobromination first.'},
+  {q:'Complete combustion of butane:',a:0,opts:['C₄H₁₀ + 6.5O₂ → 4CO₂ + 5H₂O','C₄H₁₀ + 2O₂ → 4CO + 5H₂O','C₄H₁₀ + O₂ → C + H₂O','C₄H₁₀ + 3O₂ → 4C + 5H₂'],why:'Balanced with excess O₂ gives CO₂ and H₂O.'},
+  {q:'Petrol contains mainly:',a:2,opts:['Methane','Butane','Octane','Decane'],why:'Octane is the reference component in petrol.'},
+  {q:'C₆H₁₄ is:',a:1,opts:['Pentane','Hexane','Heptane','Octane'],why:'Hex- means six.'},
+  {q:'Float on water because:',a:1,opts:['Denser','Less dense','Dissolve','Conduct'],why:'They are less dense and non-polar.'},
+  {q:'Physical property:',a:2,opts:['Combustion','Substitution','Insolubility','Chlorination'],why:'Insolubility is physical; reactions are chemical.'},
+  {q:'Burn easily due to:',a:0,opts:['Weak C-H bonds','Polarity','Solubility','Double bonds'],why:'C-H bonds release energy when burned.'},
+  {q:'Molecular formula shows:',a:1,opts:['Arrangement','Total atoms','Bond angles','Ions'],why:'It shows total atoms, not arrangement.'}
+];
+
+let currentQ=0, score=0, mistakes=[], selectedIndex=null;
+const quizContainer=document.getElementById('quizContainer');
+
+function buildQuiz(){
+  if(currentQ>=quizData.length){
+    quizContainer.innerHTML=`<p>🎉 Done! You scored ${score}/20.</p>` + (mistakes.length?'<p>Review mistakes below.</p>':'');
+    mistakes.forEach(m=>{
+      quizContainer.innerHTML+=`<div style="margin:1rem 0"><strong>${m.q}</strong><br><span style="color:red">You: ${m.opts[m.selected]}</span><br><span style="color:green">Correct: ${m.opts[m.a]}</span><br><em>${m.why}</em></div>`;
+    });
+    return;
+  }
+  selectedIndex=null;
+  const q=quizData[currentQ];
+  quizContainer.innerHTML=`
+    <p><strong>${currentQ+1}. ${q.q}</strong></p>
+    ${q.opts.map((opt,i)=>`<button class="opt" onclick="select(${i})">${opt}</button>`).join('')}
+    <p id="quizMsgQ"></p>
+    <button id="submitBtn" onclick="submit()">Submit</button>
+    <button id="nextBtn" onclick="next()" disabled>Next</button>
+  `;
 }
 
-/* certificate */
-function generateCertificate(){
-  const name=prompt("Enter your name:");
-  if(!name) return;
-  const cert=`🎉 Certificate of Completion\n\n${name} has successfully completed the SPM Alkanes course!\nDate: ${new Date().toLocaleDateString()}`;
-  const blob=new Blob([cert],{type:'text/plain'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download='Alkanes_Certificate.txt';
-  a.click();
+function select(idx){
+  selectedIndex=idx;
+  document.querySelectorAll('.opt').forEach((b,i)=>b.classList.toggle('selected',i===idx));
+  document.getElementById('submitBtn').disabled=false;
 }
 
-/* glossary tooltips */
-document.querySelectorAll('.glossary').forEach(el=>{
-  new bootstrap.Tooltip(el);
-});
+function submit(){
+  const q=quizData[currentQ];
+  const msg=document.getElementById('quizMsgQ');
+  document.querySelectorAll('.opt').forEach(b=>b.disabled=true);
+  if(selectedIndex===q.a){
+    score++;
+    msg.innerHTML='✅ Correct!';
+  }else{
+    mistakes.push(q);
+    msg.innerHTML=`❌ Correct: <strong>${q.opts[q.a]}</strong><br><em>${q.why}</em>`;
+  }
+  document.getElementById('submitBtn').disabled=true;
+  document.getElementById('nextBtn').disabled=false;
+}
 
-/* simple drag-drop mini-game (canvas) */
-const cvs=document.getElementById('dragCanvas');
-const ctx=cvs.getContext('2d');
-let molecule='CH₄';
-let x=50,y=100;
+function next(){
+  currentQ++;
+  buildQuiz();
+}
+
+buildQuiz();
+
+/* ---------- live sketcher ---------- */
+const cv=document.getElementById('canvas'),ctx=cv.getContext('2d');
+let atoms=[],bonds=[],dragAtom=null,dragBond=null;
+const radius={C:15,H:10};
+
+function addAtom(type){
+  atoms.push({type,x:50+Math.random()*380,y:50+Math.random()*200});
+  draw();
+}
+function eraseLast(){
+  if(atoms.length===0)return;
+  const last=atoms.length-1;
+  bonds=bonds.filter(b=>b.a!==last && b.b!==last).map(b=>({a:b.a>last?b.a-1:b.a,b:b.b>last?b.b-1:b.b,order:b.order}));
+  atoms.pop();
+  draw();
+}
+function resetCanvas(){
+  atoms=[];bonds=[];draw();
+  document.getElementById('simMsg').textContent='';
+}
 function draw(){
-  ctx.clearRect(0,0,cvs.width,cvs.height);
-  ctx.fillStyle='#00796b';
-  ctx.font='20px sans-serif';
-  ctx.fillText(molecule,x,y);
+  ctx.clearRect(0,0,cv.width,cv.height);
+  bonds.forEach(b=>{
+    const [x1,y1]=[atoms[b.a].x,atoms[b.a].y];
+    const [x2,y2]=[atoms[b.b].x,atoms[b.b].y];
+    const dx=x2-x1,dy=y2-y1,ang=Math.atan2(dy,dx);
+    const off=4;
+    ctx.strokeStyle='#000';
+    ctx.lineWidth=2;
+    for(let i=0;i<b.order;i++){
+      const ox=Math.sin(ang)*(i-(b.order-1)/2)*off;
+      const oy=-Math.cos(ang)*(i-(b.order-1)/2)*off;
+      ctx.beginPath();
+      ctx.moveTo(x1+ox,y1+oy);
+      ctx.lineTo(x2+ox,y2+oy);
+      ctx.stroke();
+    }
+  });
+  atoms.forEach((a,i)=>{
+    ctx.beginPath();
+    ctx.arc(a.x,a.y,radius[a.type],0,2*Math.PI);
+    ctx.fillStyle=a.type==='C'?'#444':'#0078ff';
+    ctx.fill();
+    ctx.fillStyle='#fff';
+    ctx.textAlign='center';
+    ctx.fillText(a.type,a.x,a.y+4);
+  });
 }
-cvs.onmousedown=e=>{
-  const rect=cvs.getBoundingClientRect();
-  const mx=e.clientX-rect.left;
-  const my=e.clientY-rect.top;
-  if(Math.abs(mx-x)<40 && Math.abs(my-y)<20){
-    document.onmousemove=e=>{
-      x=e.clientX-rect.left;
-      y=e.clientY-rect.top;
-      draw();
-    };
-    document.onmouseup=()=>{document.onmousemove=null;};
+function checkButane(){
+  const c=atoms.filter(a=>a.type==='C').length;
+  const h=atoms.filter(a=>a.type==='H').length;
+  let singleEdges=0;
+  bonds.forEach(b=>{singleEdges+=b.order});
+  const msg=document.getElementById('simMsg');
+  if(c===4 && h===10 && singleEdges===13){
+    msg.textContent='✅ Perfect! You built butane (C₄H₁₀).';
+    msg.style.color='green';
+  }else{
+    msg.textContent=`❌ You have ${c} C, ${h} H, ${singleEdges} single-equivalent bonds – need 4 C, 10 H, 13 bonds.`;
+    msg.style.color='crimson';
+  }
+}
+cv.onmousedown=e=>{
+  const rect=cv.getBoundingClientRect(),x=e.clientX-rect.left,y=e.clientY-rect.top;
+  const hit=atoms.findIndex(a=>(x-a.x)**2+(y-a.y)**2<radius[a.type]**2);
+  if(hit>=0){
+    if(e.shiftKey){dragBond={start:hit};}else{dragAtom={idx:hit,x,y};}
   }
 };
-draw();
+cv.onmousemove=e=>{
+  if(dragAtom){
+    const rect=cv.getBoundingClientRect();
+    atoms[dragAtom.idx].x=e.clientX-rect.left;
+    atoms[dragAtom.idx].y=e.clientY-rect.top;
+    draw();
+  }
+};
+cv.onmouseup=e=>{
+  if(dragBond){
+    const rect=cv.getBoundingClientRect(),x=e.clientX-rect.left,y=e.clientY-rect.top;
+    const end=atoms.findIndex(a=>(x-a.x)**2+(y-a.y)**2<radius[a.type]**2);
+    if(end>=0 && end!==dragBond.start){
+      const b=bonds.find(b=>(b.a===dragBond.start&b.b===end)||(b.a===end&&b.b===dragBond.start));
+      if(b){b.order=(b.order+1)%4;if(b.order===0) bonds.splice(bonds.indexOf(b),1);}
+      else bonds.push({a:dragBond.start,b:end,order:1});
+    }
+    dragBond=null;
+  }
+  dragAtom=null;
+  draw();
+};
+resetCanvas();
 </script>
 </body>
 </html>
