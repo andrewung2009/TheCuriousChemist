@@ -6,75 +6,74 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1>SPM Alkanes Interactive Learning Hub</h1>
-    <p>Master Alkanes step by step!</p>
-  </header>
-
-  <nav>
-    <ul>
-      <li><a href="#intro">Introduction</a></li>
-      <li><a href="#formula">General Formula</a></li>
-      <li><a href="#naming">Naming Alkanes</a></li>
-      <li><a href="#isomers">Isomerism</a></li>
-      <li><a href="#properties">Physical Properties</a></li>
-      <li><a href="#combustion">Combustion</a></li>
-      <li><a href="#uses">Uses</a></li>
-      <li><a href="#impact">Environmental Impact</a></li>
-      <li><a href="#quiz">Summary & Quiz</a></li>
-    </ul>
-  </nav>
+  <aside>
+    <h2>SPM Alkanes</h2>
+    <nav>
+      <ul>
+        <li><a href="#intro">Introduction</a></li>
+        <li><a href="#formula">General Formula</a></li>
+        <li><a href="#naming">Naming</a></li>
+        <li><a href="#isomers">Isomerism</a></li>
+        <li><a href="#properties">Properties</a></li>
+        <li><a href="#combustion">Combustion</a></li>
+        <li><a href="#uses">Uses</a></li>
+        <li><a href="#impact">Impact</a></li>
+        <li><a href="#quiz">Quiz</a></li>
+      </ul>
+    </nav>
+  </aside>
 
   <main>
+    <header>
+      <h1>SPM Alkanes Interactive Learning Hub</h1>
+      <p>Master the Alkanes chapter step by step, with clear notes & quizzes.</p>
+    </header>
+
     <section id="intro">
       <h2>Introduction to Alkanes</h2>
-      <p>Alkanes are the simplest hydrocarbons. They are saturated because they contain only single bonds.</p>
-      <p>Example: Methane (CH₄), Ethane (C₂H₆), Propane (C₃H₈).</p>
+      <p>Alkanes are the simplest hydrocarbons. They are saturated because they contain only single covalent bonds. Examples include methane (CH₄), ethane (C₂H₆) and propane (C₃H₈).</p>
     </section>
 
     <section id="formula">
       <h2>General Formula</h2>
-      <p>The general formula for alkanes is <strong>CₙH₂ₙ₊₂</strong>.</p>
-      <p>Example: If n = 4 → C₄H₁₀ (Butane).</p>
+      <p>The general formula for alkanes is <strong>CₙH₂ₙ₊₂</strong>. Example: For n = 4, the formula is C₄H₁₀ (butane).</p>
     </section>
 
     <section id="naming">
       <h2>Naming Alkanes</h2>
-      <p>Use the root name + “-ane”. E.g., 1 carbon = methane, 2 = ethane, 3 = propane.</p>
-      <p>For branches: find the longest chain, number the carbon atoms, name the branches.</p>
+      <p>Alkanes are named using the root for the number of carbons plus "-ane". For branched alkanes, find the longest chain, number it, and name branches accordingly.</p>
     </section>
 
     <section id="isomers">
       <h2>Isomerism</h2>
-      <p>Isomers have the same formula but different structures. Example: Butane → n-butane & isobutane.</p>
+      <p>Isomers have the same molecular formula but different structures. Example: Butane has n-butane and isobutane.</p>
     </section>
 
     <section id="properties">
       <h2>Physical Properties</h2>
-      <p>Boiling point increases with more carbons. Alkanes are non-polar and don’t mix with water.</p>
+      <p>Alkanes are non-polar and do not mix with water. Their boiling points increase with chain length, and branching lowers boiling points.</p>
     </section>
 
     <section id="combustion">
       <h2>Combustion</h2>
-      <p>Complete: Alkane + O₂ → CO₂ + H₂O.</p>
-      <p>Incomplete: Produces CO or soot.</p>
+      <p>Complete combustion produces CO₂ and H₂O. Incomplete combustion produces carbon monoxide or soot.</p>
     </section>
 
     <section id="uses">
-      <h2>Uses</h2>
-      <p>Used as fuels: cooking gas, petrol, candles.</p>
+      <h2>Uses of Alkanes</h2>
+      <p>Alkanes are used as fuels (gas, petrol) and in products like candles and lubricants.</p>
     </section>
 
     <section id="impact">
       <h2>Environmental Impact</h2>
-      <p>Burning alkanes produces CO₂ → global warming. Incomplete combustion → CO poisoning.</p>
+      <p>Burning alkanes produces CO₂ which contributes to global warming. Incomplete combustion can produce poisonous CO gas.</p>
     </section>
 
     <section id="quiz">
       <h2>Quick Quiz</h2>
       <p>What is the general formula for alkanes?</p>
-      <button onclick="checkAnswer()">Show Answer</button>
-      <p id="answer" style="display:none;">Answer: CₙH₂ₙ₊₂</p>
+      <button onclick="showAnswer()">Show Answer</button>
+      <p id="answer" class="hidden">Answer: CₙH₂ₙ₊₂</p>
     </section>
   </main>
 
