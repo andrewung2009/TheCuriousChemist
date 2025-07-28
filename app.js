@@ -1,4 +1,4 @@
-function checkAnswer() {
-  const ans = document.getElementById("answer");
-  ans.style.display = ans.style.display === "none" ? "block" : "none";
+function showAnswer() {
+  const answer = document.getElementById("answer");
+  answer.classList.toggle("hidden");
 }
