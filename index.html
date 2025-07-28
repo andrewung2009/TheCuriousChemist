@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Alkanes – SPM Micro-Course</title>
   <style>
     :root {
@@ -15,10 +15,7 @@
       --mono: 'Fira Code', monospace;
       --selected: #e0e0ff;
     }
-    * {
-      box-sizing: border-box;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    }
+    * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
     body {
       margin: 0;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -27,15 +24,8 @@
       line-height: 1.6;
       padding: 2rem;
     }
-    header {
-      text-align: center;
-      color: #fff;
-      margin-bottom: 2rem;
-    }
-    header h1 {
-      font-size: 2.5rem;
-      margin: 0.3rem 0;
-    }
+    header { text-align: center; color: #fff; margin-bottom: 2rem; }
+    header h1 { font-size: 2.5rem; margin: 0.3rem 0; }
     nav {
       display: flex;
       flex-wrap: wrap;
@@ -46,14 +36,12 @@
     nav a {
       color: #fff;
       text-decoration: none;
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255,255,255,0.2);
       padding: 0.6rem 1rem;
       border-radius: var(--radius);
       backdrop-filter: blur(8px);
     }
-    nav a:hover {
-      background: rgba(255, 255, 255, 0.3);
-    }
+    nav a:hover { background: rgba(255,255,255,0.3); }
     .section {
       background: var(--card);
       border-radius: var(--radius);
@@ -62,65 +50,27 @@
       padding: 2rem;
       margin-bottom: 2rem;
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    th, td {
-      padding: 0.7rem;
-      border-bottom: 1px solid #e5e5e5;
-      text-align: center;
-    }
-    th {
-      background: #f7f9fc;
-      font-weight: 600;
-    }
-    img.tetra {
-      display: block;
-      margin: 1rem auto;
-      max-width: 180px;
-      border-radius: var(--radius);
-    }
-    .flex {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-    .flex > div {
-      flex: 1 1 250px;
-    }
-    canvas {
-      border: 1px solid #e5e5e5;
-      border-radius: var(--radius);
-      background: #fff;
-    }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 0.7rem; border-bottom: 1px solid #e5e5e5; text-align: center; }
+    th { background: #f7f9fc; font-weight: 600; }
+    img.tetra { display: block; margin: 1rem auto; max-width: 180px; border-radius: var(--radius); }
+    .flex { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .flex > div { flex: 1 1 250px; }
+    canvas { border: 1px solid #e5e5e5; border-radius: var(--radius); background: #fff; }
     button {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: #fff;
-      border: none;
-      padding: 0.7rem 1.2rem;
-      border-radius: var(--radius);
-      cursor: pointer;
-      margin: 0.25rem;
-      user-select: none;
+      color: #fff; border: none; padding: 0.7rem 1.2rem;
+      border-radius: var(--radius); cursor: pointer; margin: 0.25rem; user-select: none;
     }
-    button:disabled {
-      opacity: 0.5;
-    }
-    .selected {
-      background: var(--selected);
-      border: 2px solid var(--primary);
-    }
-    #factBox {
-      transition: opacity 0.5s ease;
-    }
+    button:disabled { opacity: 0.5; }
+    .selected { background: var(--selected); border: 2px solid var(--primary); }
+    #factBox { transition: opacity 0.5s ease; }
     @media (max-width: 600px) {
       body { padding: 1rem; }
       header h1 { font-size: 2rem; }
     }
   </style>
 </head>
-
 <body>
   <header>
     <h1>✨ Alkanes SPM Course</h1>
@@ -157,7 +107,7 @@
       <li><strong>Alkanes</strong> are <strong>saturated hydrocarbons</strong> — they contain only single covalent bonds.</li>
       <li>Each carbon forms 4 single bonds, creating chains or branches.</li>
     </ul>
-    <img class="tetra" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Methane-CRC-MW-3D-balls.png/800px-Methane-CRC-MW-3D-balls.png" alt="Methane molecule" />
+    <img class="tetra" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Methane-CRC-MW-3D-balls.png/800px-Methane-CRC-MW-3D-balls.png" alt="Methane molecule"/>
   </section>
 
   <section id="formula" class="section">
@@ -169,11 +119,7 @@
   <section id="table" class="section">
     <h2>🔤 First 10 Alkanes</h2>
     <table>
-      <thead>
-        <tr>
-          <th>C atoms</th><th>Name</th><th>Formula</th>
-        </tr>
-      </thead>
+      <thead><tr><th>C atoms</th><th>Name</th><th>Formula</th></tr></thead>
       <tbody>
         <tr><td>1</td><td>Methane</td><td>CH₄</td></tr>
         <tr><td>2</td><td>Ethane</td><td>C₂H₆</td></tr>
@@ -222,6 +168,7 @@
   </section>
 
   <script>
+    /* Smooth scrolling */
     document.querySelectorAll('nav a').forEach(link => {
       link.addEventListener('click', e => {
         e.preventDefault();
@@ -229,6 +176,7 @@
       });
     });
 
+    /* Fun facts */
     const facts = [
       '💧 Alkanes are used in dry cleaning!',
       '🔥 Methane is your cooking gas!',
@@ -251,232 +199,133 @@
       }, 300);
     }
 
+    /* Quiz data */
     const quizData = [
-  {
-    q: 'What is the general formula for alkanes?',
-    a: 0,
-    opts: [
-      'CₙH₂ₙ₊₂',
-      'CₙH₂ₙ',
-      'CₙH₂ₙ₋₂',
-      'CₙHₙ'
-    ],
-    why: 'Alkanes have only single bonds so follow CₙH₂ₙ₊₂.'
-  },
-  {
-    q: 'Which alkane has 4 carbon atoms?',
-    a: 2,
-    opts: [
-      'Propane',
-      'Pentane',
-      'Butane',
-      'Hexane'
-    ],
-    why: 'The “but-” prefix means four carbons.'
-  },
-  {
-    q: 'Why are alkanes called saturated hydrocarbons?',
-    a: 3,
-    opts: [
-      'They have double bonds',
-      'They have triple bonds',
-      'They have aromatic rings',
-      'They have only single bonds'
-    ],
-    why: 'Saturated means maximum hydrogen atoms — so only single bonds.'
-  },
-  {
-    q: 'Which of these is an alkane?',
-    a: 3,
-    opts: [
-      'Ethene',
-      'Ethyne',
-      'Ethanol',
-      'Ethane'
-    ],
-    why: 'Ethane is an alkane (C₂H₆).'
-  },
-  {
-    q: 'How does the boiling point of alkanes change?',
-    a: 1,
-    opts: [
-      'It decreases with chain length',
-      'It increases with chain length',
-      'It stays the same',
-      'It depends only on hydrogen'
-    ],
-    why: 'Longer chains have stronger van der Waals forces.'
-  },
-  {
-    q: 'What are the products of complete combustion of alkanes?',
-    a: 2,
-    opts: [
-      'CO + H₂',
-      'CO + H₂O',
-      'CO₂ + H₂O',
-      'C + H₂'
-    ],
-    why: 'Complete combustion produces carbon dioxide and water.'
-  },
-  {
-    q: 'Which alkane is commonly used in LPG?',
-    a: 1,
-    opts: [
-      'Methane',
-      'Butane',
-      'Octane',
-      'Decane'
-    ],
-    why: 'Butane (and propane) are used in LPG cylinders.'
-  },
-  {
-    q: 'What condition is required for methane to react with chlorine?',
-    a: 2,
-    opts: [
-      'High pressure',
-      'Heat',
-      'UV light',
-      'Acid catalyst'
-    ],
-    why: 'UV light initiates free radical substitution.'
-  },
-  {
-    q: 'Which gas indicates incomplete combustion of alkanes?',
-    a: 2,
-    opts: [
-      'CO₂',
-      'O₂',
-      'CO',
-      'H₂'
-    ],
-    why: 'Carbon monoxide (CO) is formed with insufficient oxygen.'
-  },
-  {
-    q: 'What is the name of C₅H₁₂?',
-    a: 0,
-    opts: [
-      'Pentane',
-      'Hexane',
-      'Butane',
-      'Heptane'
-    ],
-    why: 'Five carbons: pentane.'
-  },
-  {
-    q: 'What is the physical state of short-chain alkanes at room temperature?',
-    a: 2,
-    opts: [
-      'Solid',
-      'Liquid',
-      'Gas',
-      'Plasma'
-    ],
-    why: 'Methane, ethane, propane, and butane are gases.'
-  },
-  {
-    q: 'Why are alkanes insoluble in water?',
-    a: 2,
-    opts: [
-      'They are ionic',
-      'They are polar',
-      'They are non-polar',
-      'They are acidic'
-    ],
-    why: 'Water is polar; alkanes are non-polar → they do not mix.'
-  },
-  {
-    q: 'What is formed when methane reacts with bromine under UV light?',
-    a: 0,
-    opts: [
-      'CH₃Br + HBr',
-      'CH₂Br₂ + H₂',
-      'CHBr₃ + H₂O',
-      'CBr₄ + H₂O'
-    ],
-    why: 'Substitution produces methyl bromide first.'
-  },
-  {
-    q: 'What is the balanced equation for complete combustion of butane?',
-    a: 0,
-    opts: [
-      'C₄H₁₀ + 6.5O₂ → 4CO₂ + 5H₂O',
-      'C₄H₁₀ + 2O₂ → 4CO + 5H₂O',
-      'C₄H₁₀ + O₂ → C + H₂O',
-      'C₄H₁₀ + 3O₂ → 4C + 5H₂'
-    ],
-    why: 'Complete combustion fully oxidizes carbon to CO₂.'
-  },
-  {
-    q: 'Which alkane is the main component of petrol (gasoline)?',
-    a: 2,
-    opts: [
-      'Methane',
-      'Butane',
-      'Octane',
-      'Decane'
-    ],
-    why: 'Octane is the reference hydrocarbon for petrol quality.'
-  },
-  {
-    q: 'What is the name of C₆H₁₄?',
-    a: 1,
-    opts: [
-      'Pentane',
-      'Hexane',
-      'Heptane',
-      'Octane'
-    ],
-    why: 'Hex- prefix means six carbons.'
-  },
-  {
-    q: 'Why do alkanes float on water?',
-    a: 1,
-    opts: [
-      'They are denser',
-      'They are less dense',
-      'They dissolve',
-      'They conduct electricity'
-    ],
-    why: 'Alkanes are less dense than water.'
-  },
-  {
-    q: 'Which is a physical property of alkanes?',
-    a: 2,
-    opts: [
-      'Combustion',
-      'Halogenation',
-      'Insolubility in water',
-      'Cracking'
-    ],
-    why: 'Insolubility is a physical property.'
-  },
-  {
-    q: 'Why do alkanes burn easily?',
-    a: 0,
-    opts: [
-      'They have weak C-H bonds',
-      'They are polar',
-      'They dissolve in water',
-      'They contain double bonds'
-    ],
-    why: 'Weak C-H bonds release energy easily.'
-  },
-  {
-    q: 'What does the molecular formula show?',
-    a: 1,
-    opts: [
-      'How atoms are arranged',
-      'Number of each type of atom',
-      'Bond angles',
-      'Charges on atoms'
-    ],
-    why: 'It shows the count of atoms but not arrangement.'
-  }
-];
-
+      {
+        q: 'What is the general formula for alkanes?',
+        a: 0,
+        opts: ['CₙH₂ₙ₊₂','CₙH₂ₙ','CₙH₂ₙ₋₂','CₙHₙ'],
+        why: 'Alkanes have only single bonds so follow CₙH₂ₙ₊₂.'
+      },
+      {
+        q: 'Which alkane has 4 carbon atoms?',
+        a: 2,
+        opts: ['Propane','Pentane','Butane','Hexane'],
+        why: 'The “but-” prefix means four carbons.'
+      },
+      {
+        q: 'Why are alkanes called saturated hydrocarbons?',
+        a: 3,
+        opts: ['They have double bonds','They have triple bonds','They have aromatic rings','They have only single bonds'],
+        why: 'Saturated means maximum hydrogen atoms — so only single bonds.'
+      },
+      {
+        q: 'Which of these is an alkane?',
+        a: 3,
+        opts: ['Ethene','Ethyne','Ethanol','Ethane'],
+        why: 'Ethane is an alkane (C₂H₆).'
+      },
+      {
+        q: 'How does the boiling point of alkanes change?',
+        a: 1,
+        opts: ['It decreases with chain length','It increases with chain length','It stays the same','It depends only on hydrogen'],
+        why: 'Longer chains have stronger van der Waals forces.'
+      },
+      {
+        q: 'What are the products of complete combustion of alkanes?',
+        a: 2,
+        opts: ['CO + H₂','CO + H₂O','CO₂ + H₂O','C + H₂'],
+        why: 'Complete combustion produces carbon dioxide and water.'
+      },
+      {
+        q: 'Which alkane is commonly used in LPG?',
+        a: 1,
+        opts: ['Methane','Butane','Octane','Decane'],
+        why: 'Butane (and propane) are used in LPG cylinders.'
+      },
+      {
+        q: 'What condition is required for methane to react with chlorine?',
+        a: 2,
+        opts: ['High pressure','Heat','UV light','Acid catalyst'],
+        why: 'UV light initiates free radical substitution.'
+      },
+      {
+        q: 'Which gas indicates incomplete combustion of alkanes?',
+        a: 2,
+        opts: ['CO₂','O₂','CO','H₂'],
+        why: 'Carbon monoxide (CO) is formed with insufficient oxygen.'
+      },
+      {
+        q: 'What is the name of C₅H₁₂?',
+        a: 0,
+        opts: ['Pentane','Hexane','Butane','Heptane'],
+        why: 'Five carbons: pentane.'
+      },
+      {
+        q: 'What is the physical state of short-chain alkanes at room temperature?',
+        a: 2,
+        opts: ['Solid','Liquid','Gas','Plasma'],
+        why: 'Methane, ethane, propane, and butane are gases.'
+      },
+      {
+        q: 'Why are alkanes insoluble in water?',
+        a: 2,
+        opts: ['They are ionic','They are polar','They are non-polar','They are acidic'],
+        why: 'Water is polar; alkanes are non-polar → they do not mix.'
+      },
+      {
+        q: 'What is formed when methane reacts with bromine under UV light?',
+        a: 0,
+        opts: ['CH₃Br + HBr','CH₂Br₂ + H₂','CHBr₃ + H₂O','CBr₄ + H₂O'],
+        why: 'Substitution produces methyl bromide first.'
+      },
+      {
+        q: 'What is the balanced equation for complete combustion of butane?',
+        a: 0,
+        opts: ['C₄H₁₀ + 6.5O₂ → 4CO₂ + 5H₂O','C₄H₁₀ + 2O₂ → 4CO + 5H₂O','C₄H₁₀ + O₂ → C + H₂O','C₄H₁₀ + 3O₂ → 4C + 5H₂'],
+        why: 'Complete combustion fully oxidizes carbon to CO₂.'
+      },
+      {
+        q: 'Which alkane is the main component of petrol (gasoline)?',
+        a: 2,
+        opts: ['Methane','Butane','Octane','Decane'],
+        why: 'Octane is the reference hydrocarbon for petrol quality.'
+      },
+      {
+        q: 'What is the name of C₆H₁₄?',
+        a: 1,
+        opts: ['Pentane','Hexane','Heptane','Octane'],
+        why: 'Hex- prefix means six carbons.'
+      },
+      {
+        q: 'Why do alkanes float on water?',
+        a: 1,
+        opts: ['They are denser','They are less dense','They dissolve','They conduct electricity'],
+        why: 'Alkanes are less dense than water.'
+      },
+      {
+        q: 'Which is a physical property of alkanes?',
+        a: 2,
+        opts: ['Combustion','Halogenation','Insolubility in water','Cracking'],
+        why: 'Insolubility is a physical property.'
+      },
+      {
+        q: 'Why do alkanes burn easily?',
+        a: 0,
+        opts: ['They have weak C-H bonds','They are polar','They dissolve in water','They contain double bonds'],
+        why: 'Weak C-H bonds release energy easily.'
+      },
+      {
+        q: 'What does the molecular formula show?',
+        a: 1,
+        opts: ['How atoms are arranged','Number of each type of atom','Bond angles','Charges on atoms'],
+        why: 'It shows the count of atoms but not arrangement.'
+      }
     ];
-    let currentQ = 0, score = 0, mistakes = [], selectedIndex = null;
+
+    let currentQ = 0, score = 0, selectedIndex = null;
     const quizContainer = document.getElementById('quizContainer');
+
     function buildQuiz() {
       if (currentQ >= quizData.length) {
         quizContainer.innerHTML = `<p>🎉 Done! Score: ${score}/${quizData.length}</p>`;
@@ -484,36 +333,77 @@
       }
       selectedIndex = null;
       const q = quizData[currentQ];
-      quizContainer.innerHTML = `<p><strong>${currentQ + 1}. ${q.q}</strong></p>` +
-        q.opts.map((opt, i) => `<button class="opt" onclick="select(${i})">${opt}</button>`).join('') +
-        `<p id="quizMsgQ"></p><button id="submitBtn" onclick="submit()">Submit</button><button id="nextBtn" onclick="next()" disabled>Next</button>`;
+      quizContainer.innerHTML = `
+        <p><strong>${currentQ + 1}. ${q.q}</strong></p>
+        ${q.opts.map((opt, i) => `<button class="opt" onclick="select(${i})">${opt}</button>`).join('')}
+        <p id="quizMsgQ"></p>
+        <button id="submitBtn" onclick="submit()">Submit</button>
+        <button id="nextBtn" onclick="next()" disabled>Next</button>
+      `;
     }
+
     function select(i) {
       selectedIndex = i;
       document.querySelectorAll('.opt').forEach((b, idx) => b.classList.toggle('selected', idx === i));
     }
+
     function submit() {
       const q = quizData[currentQ];
       const msg = document.getElementById('quizMsgQ');
-      if (selectedIndex === q.a) { score++; msg.textContent = '✅ Correct!'; } else { msg.textContent = `❌ ${q.why}`; }
+      if (selectedIndex === q.a) {
+        score++;
+        msg.textContent = '✅ Correct!';
+      } else {
+        msg.textContent = `❌ ${q.why}`;
+      }
       document.querySelectorAll('.opt').forEach(b => b.disabled = true);
       document.getElementById('submitBtn').disabled = true;
       document.getElementById('nextBtn').disabled = false;
     }
-    function next() { currentQ++; buildQuiz(); }
-    buildQuiz();
 
+    function next() {
+      currentQ++;
+      buildQuiz();
+    }
+    buildQuiz();    // Initial call
+
+    /* Drawing canvas */
     const cv = document.getElementById('canvas'), ctx = cv.getContext('2d');
-    let atoms = [], bonds = [], dragAtom = null, dragBond = null;
+    let atoms = [], bonds = [];
     const radius = { C: 15, H: 10 };
-    function addAtom(type) { atoms.push({ type, x: 50 + Math.random() * 380, y: 50 + Math.random() * 200 }); draw(); }
-    function eraseLast() { atoms.pop(); draw(); }
-    function resetCanvas() { atoms = []; bonds = []; draw(); document.getElementById('simMsg').textContent = ''; }
+
+    function addAtom(type) {
+      atoms.push({ type, x: 50 + Math.random() * 380, y: 50 + Math.random() * 200 });
+      draw();
+    }
+
+    function eraseLast() {
+      atoms.pop();
+      draw();
+    }
+
+    function resetCanvas() {
+      atoms = []; bonds = [];
+      draw();
+      document.getElementById('simMsg').textContent = '';
+    }
+
     function draw() {
       ctx.clearRect(0, 0, cv.width, cv.height);
-      bonds.forEach(b => { ctx.beginPath(); ctx.moveTo(atoms[b.a].x, atoms[b.a].y); ctx.lineTo(atoms[b.b].x, atoms[b.b].y); ctx.stroke(); });
-      atoms.forEach(a => { ctx.beginPath(); ctx.arc(a.x, a.y, radius[a.type], 0, 2 * Math.PI); ctx.fill(); ctx.fillText(a.type, a.x, a.y); });
+      bonds.forEach(b => {
+        ctx.beginPath();
+        ctx.moveTo(atoms[b.a].x, atoms[b.a].y);
+        ctx.lineTo(atoms[b.b].x, atoms[b.b].y);
+        ctx.stroke();
+      });
+      atoms.forEach(a => {
+        ctx.beginPath();
+        ctx.arc(a.x, a.y, radius[a.type], 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.fillText(a.type, a.x - 4, a.y + 4);
+      });
     }
+
     function checkButane() {
       const c = atoms.filter(a => a.type === 'C').length;
       const h = atoms.filter(a => a.type === 'H').length;
