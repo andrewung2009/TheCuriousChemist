@@ -266,8 +266,229 @@
       }, 300);
     }
 
-    const quizData = [
-      { q: 'What is the general formula for alkanes?', a: 0, opts: ['CₙH₂ₙ₊₂','CₙH₂ₙ','CₙHₙ','CₙH₄'], why: 'They have only single bonds.' },
+   const quizData = [
+  {
+    q: 'What is the general formula for alkanes?',
+    a: 0,
+    opts: [
+      'CₙH₂ₙ₊₂',
+      'CₙH₂ₙ',
+      'CₙH₂ₙ₋₂',
+      'CₙHₙ'
+    ],
+    why: 'Alkanes have only single bonds so follow CₙH₂ₙ₊₂.'
+  },
+  {
+    q: 'Which alkane has 4 carbon atoms?',
+    a: 2,
+    opts: [
+      'Propane',
+      'Pentane',
+      'Butane',
+      'Hexane'
+    ],
+    why: 'The “but-” prefix means four carbons.'
+  },
+  {
+    q: 'Why are alkanes called saturated hydrocarbons?',
+    a: 3,
+    opts: [
+      'They have double bonds',
+      'They have triple bonds',
+      'They have aromatic rings',
+      'They have only single bonds'
+    ],
+    why: 'Saturated means maximum hydrogen atoms — so only single bonds.'
+  },
+  {
+    q: 'Which of these is an alkane?',
+    a: 3,
+    opts: [
+      'Ethene',
+      'Ethyne',
+      'Ethanol',
+      'Ethane'
+    ],
+    why: 'Ethane is an alkane (C₂H₆).'
+  },
+  {
+    q: 'How does the boiling point of alkanes change?',
+    a: 1,
+    opts: [
+      'It decreases with chain length',
+      'It increases with chain length',
+      'It stays the same',
+      'It depends only on hydrogen'
+    ],
+    why: 'Longer chains have stronger van der Waals forces.'
+  },
+  {
+    q: 'What are the products of complete combustion of alkanes?',
+    a: 2,
+    opts: [
+      'CO + H₂',
+      'CO + H₂O',
+      'CO₂ + H₂O',
+      'C + H₂'
+    ],
+    why: 'Complete combustion produces carbon dioxide and water.'
+  },
+  {
+    q: 'Which alkane is commonly used in LPG?',
+    a: 1,
+    opts: [
+      'Methane',
+      'Butane',
+      'Octane',
+      'Decane'
+    ],
+    why: 'Butane (and propane) are used in LPG cylinders.'
+  },
+  {
+    q: 'What condition is required for methane to react with chlorine?',
+    a: 2,
+    opts: [
+      'High pressure',
+      'Heat',
+      'UV light',
+      'Acid catalyst'
+    ],
+    why: 'UV light initiates free radical substitution.'
+  },
+  {
+    q: 'Which gas indicates incomplete combustion of alkanes?',
+    a: 2,
+    opts: [
+      'CO₂',
+      'O₂',
+      'CO',
+      'H₂'
+    ],
+    why: 'Carbon monoxide (CO) is formed with insufficient oxygen.'
+  },
+  {
+    q: 'What is the name of C₅H₁₂?',
+    a: 0,
+    opts: [
+      'Pentane',
+      'Hexane',
+      'Butane',
+      'Heptane'
+    ],
+    why: 'Five carbons: pentane.'
+  },
+  {
+    q: 'What is the physical state of short-chain alkanes at room temperature?',
+    a: 2,
+    opts: [
+      'Solid',
+      'Liquid',
+      'Gas',
+      'Plasma'
+    ],
+    why: 'Methane, ethane, propane, and butane are gases.'
+  },
+  {
+    q: 'Why are alkanes insoluble in water?',
+    a: 2,
+    opts: [
+      'They are ionic',
+      'They are polar',
+      'They are non-polar',
+      'They are acidic'
+    ],
+    why: 'Water is polar; alkanes are non-polar → they do not mix.'
+  },
+  {
+    q: 'What is formed when methane reacts with bromine under UV light?',
+    a: 0,
+    opts: [
+      'CH₃Br + HBr',
+      'CH₂Br₂ + H₂',
+      'CHBr₃ + H₂O',
+      'CBr₄ + H₂O'
+    ],
+    why: 'Substitution produces methyl bromide first.'
+  },
+  {
+    q: 'What is the balanced equation for complete combustion of butane?',
+    a: 0,
+    opts: [
+      'C₄H₁₀ + 6.5O₂ → 4CO₂ + 5H₂O',
+      'C₄H₁₀ + 2O₂ → 4CO + 5H₂O',
+      'C₄H₁₀ + O₂ → C + H₂O',
+      'C₄H₁₀ + 3O₂ → 4C + 5H₂'
+    ],
+    why: 'Complete combustion fully oxidizes carbon to CO₂.'
+  },
+  {
+    q: 'Which alkane is the main component of petrol (gasoline)?',
+    a: 2,
+    opts: [
+      'Methane',
+      'Butane',
+      'Octane',
+      'Decane'
+    ],
+    why: 'Octane is the reference hydrocarbon for petrol quality.'
+  },
+  {
+    q: 'What is the name of C₆H₁₄?',
+    a: 1,
+    opts: [
+      'Pentane',
+      'Hexane',
+      'Heptane',
+      'Octane'
+    ],
+    why: 'Hex- prefix means six carbons.'
+  },
+  {
+    q: 'Why do alkanes float on water?',
+    a: 1,
+    opts: [
+      'They are denser',
+      'They are less dense',
+      'They dissolve',
+      'They conduct electricity'
+    ],
+    why: 'Alkanes are less dense than water.'
+  },
+  {
+    q: 'Which is a physical property of alkanes?',
+    a: 2,
+    opts: [
+      'Combustion',
+      'Halogenation',
+      'Insolubility in water',
+      'Cracking'
+    ],
+    why: 'Insolubility is a physical property.'
+  },
+  {
+    q: 'Why do alkanes burn easily?',
+    a: 0,
+    opts: [
+      'They have weak C-H bonds',
+      'They are polar',
+      'They dissolve in water',
+      'They contain double bonds'
+    ],
+    why: 'Weak C-H bonds release energy easily.'
+  },
+  {
+    q: 'What does the molecular formula show?',
+    a: 1,
+    opts: [
+      'How atoms are arranged',
+      'Number of each type of atom',
+      'Bond angles',
+      'Charges on atoms'
+    ],
+    why: 'It shows the count of atoms but not arrangement.'
+  }
+];
+
       // (add more questions here, same as your previous 20!)
     ];
     let currentQ = 0, score = 0, mistakes = [], selectedIndex = null;
