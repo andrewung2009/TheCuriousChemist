@@ -1,82 +1,357 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>SPM Alkanes Learning Hub</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>SPM Alkanes – The Most Comprehensive Learning Material</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Custom styles -->
+  <style>
+    body { scroll-behavior: smooth; }
+    .section { padding-top: 80px; margin-top: -80px; }
+    .navbar { background: #004d40 !important; }
+    .hero { background: linear-gradient(135deg,#00897b,#004d40); color:#fff; }
+    .card { border:none; box-shadow:0 2px 6px rgba(0,0,0,.1); }
+    .glossary { cursor: help; text-decoration: underline dotted; color:#00796b; }
+    .tooltip-inner { max-width: 300px; }
+    .quiz-box { background:#f5f5f5; border-left:5px solid #00796b; }
+    /* mini-game canvas */
+    #dragCanvas { border:1px solid #ccc; background:#fafafa; }
+  </style>
 </head>
-<body>
-  <aside>
-    <h2>SPM Alkanes</h2>
-    <nav>
-      <ul>
-        <li><a href="#intro">Introduction</a></li>
-        <li><a href="#formula">General Formula</a></li>
-        <li><a href="#naming">Naming</a></li>
-        <li><a href="#isomers">Isomerism</a></li>
-        <li><a href="#properties">Properties</a></li>
-        <li><a href="#combustion">Combustion</a></li>
-        <li><a href="#uses">Uses</a></li>
-        <li><a href="#impact">Impact</a></li>
-        <li><a href="#quiz">Quiz</a></li>
+
+<body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-offset="80">
+
+<!-- NAVBAR -->
+<nav id="navbar" class="navbar navbar-expand-lg fixed-top navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" href="#">Alkanes</a>
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navmenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navmenu">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="#intro">Introduction</a></li>
+        <li class="nav-item"><a class="nav-link" href="#formula">General Formula</a></li>
+        <li class="nav-item"><a class="nav-link" href="#naming">Naming</a></li>
+        <li class="nav-item"><a class="nav-link" href="#isomerism">Isomers</a></li>
+        <li class="nav-item"><a class="nav-link" href="#properties">Properties</a></li>
+        <li class="nav-item"><a class="nav-link" href="#combustion">Combustion</a></li>
+        <li class="nav-item"><a class="nav-link" href="#uses">Uses</a></li>
+        <li class="nav-item"><a class="nav-link" href="#env">Environment</a></li>
+        <li class="nav-item"><a class="nav-link" href="#summary">Summary & Quiz</a></li>
       </ul>
-    </nav>
-  </aside>
+    </div>
+  </div>
+</nav>
 
-  <main>
-    <header>
-      <h1>SPM Alkanes Interactive Learning Hub</h1>
-      <p>Master the Alkanes chapter step by step, with clear notes & quizzes.</p>
-    </header>
+<!-- HERO -->
+<header class="hero py-5">
+  <div class="container text-center">
+    <h1 class="fw-bold mb-3">✅ THE MOST COMPREHENSIVE SPM ALKANES LEARNING MATERIAL</h1>
+    <p class="lead">Form 4 Chemistry (KSSM) – Topic: Alkanes (Saturated Hydrocarbons)</p>
+  </div>
+</header>
 
-    <section id="intro">
-      <h2>Introduction to Alkanes</h2>
-      <p>Alkanes are the simplest hydrocarbons. They are saturated because they contain only single covalent bonds. Examples include methane (CH₄), ethane (C₂H₆) and propane (C₃H₈).</p>
-    </section>
+<!-- MAIN -->
+<main class="container-fluid py-4">
+  <!-- 1. INTRODUCTION -->
+  <section id="intro" class="section">
+    <h2 class="mb-3">📂 1. Introduction to Alkanes</h2>
+    <h5>1.1 What are Alkanes?</h5>
+    <p><strong>Definition:</strong> Alkanes are the simplest type of <span class="glossary" data-bs-toggle="tooltip" title="Compounds made only of carbon (C) and hydrogen (H) atoms.">hydrocarbons</span>.</p>
+    <ul>
+      <li>They are called <strong>saturated</strong> because all carbon atoms are joined by <strong>single covalent bonds</strong> only.</li>
+      <li>Each carbon forms four bonds arranged in a <strong>tetrahedral</strong> shape.</li>
+      <li><strong>General Formula:</strong> C<sub>n</sub>H<sub>2n+2</sub></li>
+    </ul>
+    <table class="table table-bordered w-auto">
+      <thead class="table-light"><tr><th>Alkane</th><th>Molecular Formula</th></tr></thead>
+      <tbody>
+        <tr><td>Methane</td><td>CH₄</td></tr>
+        <tr><td>Ethane</td><td>C₂H₆</td></tr>
+        <tr><td>Propane</td><td>C₃H₈</td></tr>
+        <tr><td>Butane</td><td>C₄H₁₀</td></tr>
+      </tbody>
+    </table>
 
-    <section id="formula">
-      <h2>General Formula</h2>
-      <p>The general formula for alkanes is <strong>CₙH₂ₙ₊₂</strong>. Example: For n = 4, the formula is C₄H₁₀ (butane).</p>
-    </section>
+    <h5>1.2 Characteristics</h5>
+    <ul>
+      <li>Non-polar → do <strong>not</strong> dissolve in water.</li>
+      <li>Burn easily → used as fuels.</li>
+      <li>Low reactivity; mainly undergo <strong>combustion</strong>.</li>
+      <li>Found in <strong>natural gas, crude oil, petroleum</strong>.</li>
+    </ul>
 
-    <section id="naming">
-      <h2>Naming Alkanes</h2>
-      <p>Alkanes are named using the root for the number of carbons plus "-ane". For branched alkanes, find the longest chain, number it, and name branches accordingly.</p>
-    </section>
+    <h5>1.3 Real-Life Examples</h5>
+    <table class="table table-sm table-striped w-auto">
+      <thead class="table-light"><tr><th>Alkane</th><th>Where it’s used</th></tr></thead>
+      <tbody>
+        <tr><td>Methane</td><td>Natural gas for cooking</td></tr>
+        <tr><td>Propane</td><td>Camping gas cylinders</td></tr>
+        <tr><td>Butane</td><td>Cigarette lighters</td></tr>
+        <tr><td>Octane</td><td>Main component of petrol</td></tr>
+        <tr><td>Paraffin wax</td><td>Candles</td></tr>
+      </tbody>
+    </table>
+    <p class="text-success"><i class="bi bi-lightbulb"></i> Fun Fact: The gas in your cooking stove is mostly <strong>methane</strong>!</p>
+  </section>
 
-    <section id="isomers">
-      <h2>Isomerism</h2>
-      <p>Isomers have the same molecular formula but different structures. Example: Butane has n-butane and isobutane.</p>
-    </section>
+  <!-- 2. GENERAL FORMULA -->
+  <section id="formula" class="section">
+    <h2 class="mb-3">🧮 2. General Formula</h2>
+    <h5>2.1 C<sub>n</sub>H<sub>2n+2</sub> Explained</h5>
+    <p>n = number of carbon atoms. Hydrogen count = 2n + 2 because the carbon chain is “open-ended”.</p>
 
-    <section id="properties">
-      <h2>Physical Properties</h2>
-      <p>Alkanes are non-polar and do not mix with water. Their boiling points increase with chain length, and branching lowers boiling points.</p>
-    </section>
+    <h5>2.2 Common Alkanes Table</h5>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead class="table-light"><tr><th>Alkane name</th><th>n</th><th>Molecular Formula</th></tr></thead>
+        <tbody id="formulaTable"></tbody>
+      </table>
+    </div>
 
-    <section id="combustion">
-      <h2>Combustion</h2>
-      <p>Complete combustion produces CO₂ and H₂O. Incomplete combustion produces carbon monoxide or soot.</p>
-    </section>
+    <h5>2.3 Sample Calculations</h5>
+    <p><strong>Q:</strong> Find the molecular formula for an alkane with 7 carbon atoms.</p>
+    <p><strong>A:</strong> n = 7 → H = 2(7) + 2 = 16 → <strong>C₇H₁₆</strong></p>
 
-    <section id="uses">
-      <h2>Uses of Alkanes</h2>
-      <p>Alkanes are used as fuels (gas, petrol) and in products like candles and lubricants.</p>
-    </section>
+    <!-- Simple calculator -->
+    <div class="card p-3 w-auto">
+      <h6>Calculator Widget</h6>
+      <label>Number of carbon atoms (n):
+        <input type="number" id="nInput" class="form-control form-control-sm" min="1" max="50" value="7">
+      </label>
+      <button class="btn btn-sm btn-success mt-2" onclick="calcFormula()">Calculate</button>
+      <p class="mt-2 mb-0" id="calcResult"></p>
+    </div>
+  </section>
 
-    <section id="impact">
-      <h2>Environmental Impact</h2>
-      <p>Burning alkanes produces CO₂ which contributes to global warming. Incomplete combustion can produce poisonous CO gas.</p>
-    </section>
+  <!-- 3. NAMING -->
+  <section id="naming" class="section">
+    <h2 class="mb-3">📝 3. Naming Alkanes (Nomenclature)</h2>
+    <h5>3.1 Straight-Chain Alkanes</h5>
+    <ul>
+      <li>Use root for carbon count + “-ane”.</li>
+      <li>meth- (1), eth- (2), prop- (3), but- (4), pent- (5), hex- (6), hept- (7), oct- (8), non- (9), dec- (10).</li>
+    </ul>
 
-    <section id="quiz">
-      <h2>Quick Quiz</h2>
-      <p>What is the general formula for alkanes?</p>
-      <button onclick="showAnswer()">Show Answer</button>
-      <p id="answer" class="hidden">Answer: CₙH₂ₙ₊₂</p>
-    </section>
-  </main>
+    <h5>3.2 Branched Alkanes</h5>
+    <ol>
+      <li>Find the longest continuous carbon chain → parent name.</li>
+      <li>Number chain to give branches lowest numbers.</li>
+      <li>Name branches: methyl (-CH₃), ethyl (-C₂H₅).</li>
+      <li>Combine → e.g., <strong>2-methylpropane</strong>.</li>
+    </ol>
 
-  <script src="script.js"></script>
+    <h5>3.3 Multiple Branches</h5>
+    <p>Use <em>di-, tri-</em> for identical branches.<br>
+      Example: <strong>2,3-dimethylbutane</strong></p>
+
+    <div class="card p-3 mt-3">
+      <h6>Drag & Drop: Build Molecules</h6>
+      <canvas id="dragCanvas" width="400" height="200"></canvas>
+      <small class="text-muted">Drag the CH₄ fragment to form ethane, propane, etc.</small>
+    </div>
+  </section>
+
+  <!-- 4. ISOMERISM -->
+  <section id="isomerism" class="section">
+    <h2 class="mb-3">🧩 4. Isomerism</h2>
+    <h5>4.1 What are Isomers?</h5>
+    <p>Compounds with the <strong>same molecular formula</strong> but <strong>different structural arrangements</strong>.</p>
+    <p>In alkanes → <strong>chain isomerism</strong>.</p>
+
+    <h5>4.2 Examples</h5>
+    <ul>
+      <li><strong>C₄H₁₀</strong>: n-butane vs isobutane (2-methylpropane).</li>
+      <li><strong>C₅H₁₂</strong>: n-pentane, 2-methylbutane, 2,2-dimethylpropane.</li>
+    </ul>
+
+    <h5>4.3 Why Important?</h5>
+    <ul>
+      <li>Different boiling points & physical properties.</li>
+      <li>Branched isomers → lower boiling points (weaker van der Waals forces).</li>
+    </ul>
+  </section>
+
+  <!-- 5. PHYSICAL PROPERTIES -->
+  <section id="properties" class="section">
+    <h2 class="mb-3">🔬 5. Physical Properties</h2>
+    <h5>5.1 States of Alkanes</h5>
+    <table class="table table-bordered w-auto">
+      <thead class="table-light"><tr><th>C Atoms</th><th>State at room temp</th></tr></thead>
+      <tbody>
+        <tr><td>1–4</td><td>Gas</td></tr>
+        <tr><td>5–17</td><td>Liquid</td></tr>
+        <tr><td>18+</td><td>Solid (waxy)</td></tr>
+      </tbody>
+    </table>
+
+    <h5>5.2 Melting & Boiling Points</h5>
+    <p>Increase with molecular size (stronger van der Waals). Branched → lower.</p>
+
+    <h5>5.3 Solubility</h5>
+    <p>Non-polar → insoluble in water; soluble in non-polar solvents.</p>
+
+    <h5>5.4 Density</h5>
+    <p>Less dense than water → oil spills float.</p>
+  </section>
+
+  <!-- 6. COMBUSTION -->
+  <section id="combustion" class="section">
+    <h2 class="mb-3">🔥 6. Combustion</h2>
+    <h5>6.1 Complete Combustion</h5>
+    <p>Enough O₂ → CO₂ + H₂O only.</p>
+    <p><strong>Example:</strong> CH₄ + 2O₂ → CO₂ + 2H₂O (blue flame).</p>
+
+    <h5>6.2 Incomplete Combustion</h5>
+    <p>Limited O₂ → CO or C (soot).</p>
+    <p><strong>Example:</strong> 2CH₄ + 3O₂ → 2CO + 4H₂O (yellow flame).</p>
+
+    <h5>6.3 Real Life</h5>
+    <ul>
+      <li>Incomplete combustion in engines → CO poisoning, smog.</li>
+      <li>Poor ventilation → household CO hazard.</li>
+    </ul>
+  </section>
+
+  <!-- 7. USES -->
+  <section id="uses" class="section">
+    <h2 class="mb-3">⚡ 7. Uses of Alkanes</h2>
+    <table class="table table-striped w-auto">
+      <thead class="table-light"><tr><th>Alkane Group</th><th>Example Uses</th></tr></thead>
+      <tbody>
+        <tr><td>Short-chain</td><td>Propane, butane → cooking gas, lighters</td></tr>
+        <tr><td>Medium-chain</td><td>Petrol, diesel → vehicle fuel</td></tr>
+        <tr><td>Long-chain</td><td>Lubricants, wax → candles, bitumen</td></tr>
+      </tbody>
+    </table>
+    <p class="text-success"><i class="bi bi-lightbulb"></i> Fact: Petrol is mainly <strong>octane</strong>!</p>
+  </section>
+
+  <!-- 8. ENVIRONMENTAL IMPACT -->
+  <section id="env" class="section">
+    <h2 class="mb-3">🌍 8. Environmental Impact</h2>
+    <ul>
+      <li>Burning alkanes → CO₂ → greenhouse gas → global warming.</li>
+      <li>Incomplete combustion → CO → poisonous.</li>
+      <li>Soot → air pollution, respiratory problems.</li>
+    </ul>
+    <h6>How to reduce:</h6>
+    <ul>
+      <li>Use cleaner fuels.</li>
+      <li>Improve engine design.</li>
+      <li>Switch to renewable energy.</li>
+    </ul>
+  </section>
+
+  <!-- 9. SUMMARY & QUIZ -->
+  <section id="summary" class="section">
+    <h2 class="mb-3">✅ 9. Summary & Final Quiz</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <h5>Quick Summary</h5>
+        <ul>
+          <li>Alkanes = saturated hydrocarbons → CₙH₂ₙ₊₂.</li>
+          <li>Name by longest chain + branches.</li>
+          <li>Isomers → same formula, different structure.</li>
+          <li>Combustion → complete: CO₂ + H₂O; incomplete: CO or C.</li>
+          <li>Main use → fuels, but impact the environment.</li>
+        </ul>
+      </div>
+
+      <div class="col-md-6 quiz-box p-3">
+        <h5>Final Quiz</h5>
+        <ol>
+          <li>What is the general formula for alkanes?</li>
+          <li>Name the alkane with C₆H₁₄.</li>
+          <li>Give 2 isomers for C₄H₁₀.</li>
+          <li>What is produced during complete combustion?</li>
+          <li>Why are branched isomers lower in boiling point?</li>
+        </ol>
+        <button class="btn btn-outline-success btn-sm" onclick="generateCertificate()">Submit & Get Certificate</button>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <h6>Self-Check</h6>
+      <div class="form-check"><input class="form-check-input" type="checkbox" id="c1"><label class="form-check-label" for="c1">I know what alkanes are.</label></div>
+      <div class="form-check"><input class="form-check-input" type="checkbox" id="c2"><label class="form-check-label" for="c2">I can write the general formula.</label></div>
+      <div class="form-check"><input class="form-check-input" type="checkbox" id="c3"><label class="form-check-label" for="c3">I can name straight & branched alkanes.</label></div>
+      <div class="form-check"><input class="form-check-input" type="checkbox" id="c4"><label class="form-check-label" for="c4">I can draw isomers.</label></div>
+      <div class="form-check"><input class="form-check-input" type="checkbox" id="c5"><label class="form-check-label" for="c5">I can write balanced combustion equations.</label></div>
+      <div class="form-check"><input class="form-check-input" type="checkbox" id="c6"><label class="form-check-label" for="c6">I know how alkanes affect the environment.</label></div>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-dark text-light text-center py-3 mt-5">
+  <small>Made with ❤️ for SPM Chemistry students | &copy; 2025</small>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+/* fill formula table */
+const table = document.getElementById('formulaTable');
+['Methane','Ethane','Propane','Butane','Pentane','Hexane','Heptane','Octane','Nonane','Decane']
+  .forEach((n,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${n}</td><td>${i+1}</td><td>C${i+1}H${2*(i+1)+2}</td>`;
+    table.appendChild(tr);
+});
+
+/* calculator */
+function calcFormula(){
+  const n=document.getElementById('nInput').value;
+  document.getElementById('calcResult').textContent=`C${n}H${2*n+2}`;
+}
+
+/* certificate */
+function generateCertificate(){
+  const name=prompt("Enter your name:");
+  if(!name) return;
+  const cert=`🎉 Certificate of Completion\n\n${name} has successfully completed the SPM Alkanes course!\nDate: ${new Date().toLocaleDateString()}`;
+  const blob=new Blob([cert],{type:'text/plain'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='Alkanes_Certificate.txt';
+  a.click();
+}
+
+/* glossary tooltips */
+document.querySelectorAll('.glossary').forEach(el=>{
+  new bootstrap.Tooltip(el);
+});
+
+/* simple drag-drop mini-game (canvas) */
+const cvs=document.getElementById('dragCanvas');
+const ctx=cvs.getContext('2d');
+let molecule='CH₄';
+let x=50,y=100;
+function draw(){
+  ctx.clearRect(0,0,cvs.width,cvs.height);
+  ctx.fillStyle='#00796b';
+  ctx.font='20px sans-serif';
+  ctx.fillText(molecule,x,y);
+}
+cvs.onmousedown=e=>{
+  const rect=cvs.getBoundingClientRect();
+  const mx=e.clientX-rect.left;
+  const my=e.clientY-rect.top;
+  if(Math.abs(mx-x)<40 && Math.abs(my-y)<20){
+    document.onmousemove=e=>{
+      x=e.clientX-rect.left;
+      y=e.clientY-rect.top;
+      draw();
+    };
+    document.onmouseup=()=>{document.onmousemove=null;};
+  }
+};
+draw();
+</script>
 </body>
 </html>
