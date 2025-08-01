@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Alkanes – SPM Micro-Course</title>
   <style>
     :root {
@@ -14,7 +14,7 @@
       --shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
       --selected: #e0e0ff;
     }
-    * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+    * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystem, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
     body {
       margin: 0;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -26,19 +26,11 @@
     header { text-align: center; color: #fff; margin-bottom: 2rem; }
     header h1 { font-size: 2.5rem; margin: 0.3rem 0; }
     nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      justify-content: center;
-      margin-bottom: 2rem;
+      display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 2rem;
     }
     nav a {
-      color: #fff;
-      text-decoration: none;
-      background: rgba(255,255,255,0.2);
-      padding: 0.6rem 1rem;
-      border-radius: var(--radius);
-      backdrop-filter: blur(8px);
+      color: #fff; text-decoration: none; background: rgba(255,255,255,0.2); padding: 0.6rem 1rem;
+      border-radius: var(--radius); backdrop-filter: blur(8px);
     }
     nav a:hover { background: rgba(255,255,255,0.3); }
     .section {
@@ -52,10 +44,6 @@
     table { width: 100%; border-collapse: collapse; }
     th, td { padding: 0.7rem; border-bottom: 1px solid #e5e5e5; text-align: center; }
     th { background: #f7f9fc; font-weight: 600; }
-    img.tetra { display: block; margin: 1rem auto; max-width: 180px; border-radius: var(--radius); }
-    .flex { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .flex > div { flex: 1 1 250px; }
-    canvas { border: 1px solid #e5e5e5; border-radius: var(--radius); background: #fff; }
     button {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: #fff; border: none; padding: 0.7rem 1.2rem;
@@ -99,8 +87,8 @@
     <li>Apply the general formula for alkanes.</li>
     <li>Name the first ten alkanes correctly.</li>
     <li>Draw molecular and structural formulas.</li>
-    <li>Describe physical & chemical properties.</li>
-    <li>Give real-life uses of alkanes.</li>
+    <li>Describe physical and chemical properties.</li>
+    <li>Explain real-life uses of alkanes.</li>
     <li>Test your knowledge with quizzes.</li>
   </ul>
 </section>
@@ -109,9 +97,8 @@
   <h2>📚 What Are Alkanes?</h2>
   <ul>
     <li><strong>Alkanes</strong> are <strong>saturated hydrocarbons</strong> — only single covalent bonds.</li>
-    <li>Each carbon makes 4 single bonds, forming chains or branches.</li>
+    <li>Each carbon forms 4 single bonds, creating chains or branches.</li>
   </ul>
-  <img class="tetra" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Methane-CRC-MW-3D-balls.png/800px-Methane-CRC-MW-3D-balls.png" alt="Methane molecule"/>
 </section>
 
 <section id="formula" class="section">
@@ -123,7 +110,7 @@
 <section id="table" class="section">
   <h2>🔤 First 10 Alkanes</h2>
   <table>
-    <thead><tr><th>C atoms</th><th>Name</th><th>Formula</th></tr></thead>
+    <thead><tr><th>Carbon Atoms</th><th>Name</th><th>Formula</th></tr></thead>
     <tbody>
       <tr><td>1</td><td>Methane</td><td>CH₄</td></tr>
       <tr><td>2</td><td>Ethane</td><td>C₂H₆</td></tr>
@@ -139,48 +126,26 @@
   </table>
 </section>
 
-<!-- rest unchanged: properties, fun facts, drawing tool, quizzes... -->
-
-<!-- I’ll continue this in the next part if you want the rest! Just say “Yes, give me the continuation!” and I’ll paste the rest with all JS fixes & new features. -->
 <section id="props" class="section">
   <h2>🧪 Properties & Uses</h2>
   <div class="flex">
-    <div>
-      <h3>Physical</h3>
-      <ul>
-        <li>Non-polar → insoluble in water</li>
-        <li>Boiling point ↑ with longer chains</li>
-      </ul>
-    </div>
-    <div>
-      <h3>Chemical</h3>
-      <ul>
-        <li>Combusts to CO₂ and H₂O</li>
-        <li>Substitution with halogens (UV light)</li>
-      </ul>
-    </div>
-    <div>
-      <h3>Uses</h3>
-      <ul>
-        <li>Methane: cooking gas</li>
-        <li>Butane/Propane: LPG</li>
-        <li>Octane: petrol</li>
-      </ul>
-    </div>
+    <div><h3>Physical</h3><ul><li>Non-polar → insoluble in water</li><li>Boiling point increases with chain length</li></ul></div>
+    <div><h3>Chemical</h3><ul><li>Combusts to carbon dioxide and water</li><li>Undergoes substitution with halogens under ultraviolet light</li></ul></div>
+    <div><h3>Uses</h3><ul><li>Methane: cooking gas</li><li>Butane/Propane: liquefied petroleum gas (LPG)</li><li>Octane: petrol</li></ul></div>
   </div>
 </section>
 
 <section id="funfacts" class="section">
   <h2>💡 Did You Know?</h2>
-  <p id="factBox">Click below for a fun fact!</p>
+  <p id="factBox">Click below to see a fun fact!</p>
   <button onclick="nextFact()">Next Fact</button>
 </section>
 
 <section id="draw" class="section">
   <h2>🎨 Draw Butane</h2>
-  <canvas id="canvas" width="500" height="300"></canvas><br/>
-  <button onclick="addAtom('C')">Add C</button>
-  <button onclick="addAtom('H')">Add H</button>
+  <canvas id="canvas" width="500" height="300"></canvas><br>
+  <button onclick="addAtom('C')">Add Carbon</button>
+  <button onclick="addAtom('H')">Add Hydrogen</button>
   <button onclick="eraseLast()">Erase Last</button>
   <button onclick="resetCanvas()">Reset</button>
   <button onclick="checkButane()">Check Butane</button>
@@ -188,7 +153,7 @@
 </section>
 
 <section id="quiz" class="section">
-  <h2>📝 20 MCQs</h2>
+  <h2>📝 20 Multiple Choice Questions</h2>
   <div id="quizContainer"></div>
 </section>
 
@@ -200,10 +165,10 @@
 <section id="misconceptions" class="section">
   <h2>⚡ Common Misconceptions</h2>
   <ul>
-    <li>❌ Alkanes are unsaturated → (They are saturated!)</li>
-    <li>❌ Alkanes dissolve in water → (They are non-polar!)</li>
-    <li>❌ Combustion gives only CO → (It gives CO₂ + H₂O!)</li>
-    <li>❌ All hydrocarbons are alkanes → (No! Alkenes & alkynes too!)</li>
+    <li>❌ Alkanes are unsaturated → They are saturated!</li>
+    <li>❌ Alkanes dissolve in water → They are non-polar!</li>
+    <li>❌ Combustion only gives carbon monoxide → It gives carbon dioxide and water!</li>
+    <li>❌ All hydrocarbons are alkanes → There are alkenes and alkynes too!</li>
   </ul>
 </section>
 
@@ -213,12 +178,12 @@
   <label><input type="checkbox"> Apply the general formula for alkanes</label><br>
   <label><input type="checkbox"> Name the first ten alkanes</label><br>
   <label><input type="checkbox"> Draw molecular and structural formulas</label><br>
-  <label><input type="checkbox"> Describe properties and uses</label><br>
+  <label><input type="checkbox"> Describe physical and chemical properties</label><br>
+  <label><input type="checkbox"> Explain real-life uses of alkanes</label><br>
   <label><input type="checkbox"> Test my knowledge with quizzes</label>
 </section>
 
 <script>
-// Smooth scrolling nav
 document.querySelectorAll('nav a').forEach(link => {
   link.addEventListener('click', e => {
     e.preventDefault();
@@ -226,53 +191,57 @@ document.querySelectorAll('nav a').forEach(link => {
   });
 });
 
-// Fun Facts
 const facts = [
-  "Alkanes used in dry cleaning!",
-  "Methane is cooking gas!",
-  "Octane rating comes from octane!",
+  "Alkanes are used in dry cleaning!",
+  "Methane is common cooking gas!",
+  "The octane rating in petrol comes from octane!",
   "Paraffin wax is an alkane!",
-  "Hexane extracts oils!",
+  "Hexane helps extract oils!",
   "Alkanes crack to make alkenes!",
-  "Natural gas = methane + ethane!"
+  "Natural gas is mainly methane and ethane!"
 ];
 let lastFact = -1;
 function nextFact() {
   const box = document.getElementById('factBox');
   box.style.opacity = 0;
   setTimeout(() => {
-    let idx;
-    do { idx = Math.floor(Math.random() * facts.length); } while (idx === lastFact);
+    let idx; do { idx = Math.floor(Math.random() * facts.length); } while (idx === lastFact);
     lastFact = idx;
     box.textContent = facts[idx];
     box.style.opacity = 1;
   }, 300);
 }
 
-// Quiz MCQs
 const quizData = [
-  {q:"General formula for alkanes?", a:0, opts:["CₙH₂ₙ₊₂","CₙH₂ₙ","CₙH₂ₙ₋₂","CₙHₙ"], why:"Alkanes have only single bonds."},
-  {q:"Alkane with 4 carbon atoms?", a:2, opts:["Propane","Pentane","Butane","Hexane"], why:"But- means four."},
-  {q:"Why saturated?", a:3, opts:["Double bonds","Triple bonds","Aromatic","Only single bonds"], why:"Saturated = max H."},
-  {q:"Which is an alkane?", a:3, opts:["Ethene","Ethyne","Ethanol","Ethane"], why:"Ethane = alkane."},
-  {q:"BP trend?", a:1, opts:["Decreases","Increases","Same","Only H"], why:"Longer chain → higher BP."},
-  {q:"Complete combustion?", a:2, opts:["CO + H₂","CO + H₂O","CO₂ + H₂O","C + H₂"], why:"Fully oxidizes to CO₂ & H₂O."},
-  {q:"LPG alkane?", a:1, opts:["Methane","Butane","Octane","Decane"], why:"Butane used in LPG."},
-  {q:"Methane + Cl₂ needs?", a:2, opts:["Pressure","Heat","UV light","Catalyst"], why:"UV initiates substitution."},
-  {q:"Incomplete combustion gas?", a:2, opts:["CO₂","O₂","CO","H₂"], why:"CO = poisonous gas."},
-  {q:"Name for C₅H₁₂?", a:0, opts:["Pentane","Hexane","Butane","Heptane"], why:"5C = pentane."},
-  {q:"Short-chain state at room temp?", a:2, opts:["Solid","Liquid","Gas","Plasma"], why:"Small alkanes = gases."},
-  {q:"Why insoluble in water?", a:2, opts:["Ionic","Polar","Non-polar","Acidic"], why:"Water polar, alkanes not."},
-  {q:"Methane + Br₂ under UV?", a:0, opts:["CH₃Br + HBr","CH₂Br₂ + H₂","CHBr₃ + H₂O","CBr₄ + H₂O"], why:"Substitution."},
-  {q:"Combustion of butane?", a:0, opts:["C₄H₁₀ + 6.5O₂ → 4CO₂ + 5H₂O","Wrong","Wrong","Wrong"], why:"Balanced reaction."},
-  {q:"Main petrol alkane?", a:2, opts:["Methane","Butane","Octane","Decane"], why:"Octane gives rating."},
-  {q:"Name for C₆H₁₄?", a:1, opts:["Pentane","Hexane","Heptane","Octane"], why:"6C = hexane."},
-  {q:"Why float on water?", a:1, opts:["Denser","Less dense","Dissolve","Conduct"], why:"Lower density."},
-  {q:"Physical property?", a:2, opts:["Combustion","Halogenation","Insoluble in water","Cracking"], why:"Insolubility = physical."},
-  {q:"Why burn easily?", a:0, opts:["Weak C-H","Polar","Dissolve","Double bonds"], why:"Weak C-H → easy burn."},
-  {q:"Molecular formula shows?", a:1, opts:["Arrangement","Count","Bond angles","Charges"], why:"Just atom count."}
+  { q: "What is the general formula for alkanes?", a: 0, opts: ["CₙH₂ₙ₊₂", "CₙH₂ₙ", "CₙH₂ₙ₋₂", "CₙHₙ"], why: "Alkanes have only single bonds." },
+  { q: "Which alkane has 4 carbon atoms?", a: 2, opts: ["Propane", "Pentane", "Butane", "Hexane"], why: "But- means four." },
+  { q: "Why are alkanes called saturated?", a: 3, opts: ["Double bonds", "Triple bonds", "Aromatic", "Only single bonds"], why: "Saturated means max hydrogen." },
+  { q: "Which one is an alkane?", a: 3, opts: ["Ethene", "Ethyne", "Ethanol", "Ethane"], why: "Ethane is an alkane." },
+  { q: "How does boiling point change?", a: 1, opts: ["Decreases", "Increases", "Same", "Depends only on hydrogen"], why: "Longer chains → higher boiling point." },
+  { q: "Complete combustion produces?", a: 2, opts: ["CO + H₂", "CO + H₂O", "CO₂ + H₂O", "C + H₂"], why: "Fully oxidizes to carbon dioxide and water." },
+  { q: "Which alkane is used in liquefied petroleum gas (LPG)?", a: 1, opts: ["Methane", "Butane", "Octane", "Decane"], why: "Butane is used in LPG." },
+  { q: "Methane reacts with chlorine under?", a: 2, opts: ["High pressure", "Heat", "Ultraviolet light", "Acid catalyst"], why: "UV light starts the reaction." },
+  { q: "Incomplete combustion produces?", a: 2, opts: ["CO₂", "O₂", "CO", "H₂"], why: "CO is carbon monoxide." },
+  { q: "What is C₅H₁₂?", a: 0, opts: ["Pentane", "Hexane", "Butane", "Heptane"], why: "Five carbons means pentane." },
+  { q: "State of small alkanes at room temp?", a: 2, opts: ["Solid", "Liquid", "Gas", "Plasma"], why: "Small alkanes are gases." },
+  { q: "Why don't alkanes dissolve in water?", a: 2, opts: ["Ionic", "Polar", "Non-polar", "Acidic"], why: "Water is polar, alkanes aren't." },
+  { q: "Methane + bromine under UV?", a: 0, opts: ["CH₃Br + HBr", "CH₂Br₂ + H₂", "CHBr₃ + H₂O", "CBr₄ + H₂O"], why: "It forms methyl bromide." },
+  { q: "Balanced equation for butane combustion?", a: 0, opts: [
+    "C₄H₁₀ + 6.5O₂ → 4CO₂ + 5H₂O",
+    "C₄H₁₀ + 2O₂ → 4CO + 5H₂O",
+    "C₄H₁₀ + O₂ → C + H₂O",
+    "C₄H₁₀ + 3O₂ → 4C + 5H₂"
+  ], why: "Complete combustion fully oxidizes carbon." },
+  { q: "Main petrol alkane?", a: 2, opts: ["Methane", "Butane", "Octane", "Decane"], why: "Octane gives petrol its rating." },
+  { q: "What is C₆H₁₄?", a: 1, opts: ["Pentane", "Hexane", "Heptane", "Octane"], why: "Hexane means six carbons." },
+  { q: "Why do alkanes float on water?", a: 1, opts: ["Denser", "Less dense", "Dissolve", "Conduct"], why: "Alkanes are less dense." },
+  { q: "Which is a physical property?", a: 2, opts: ["Combustion", "Halogenation", "Insoluble in water", "Cracking"], why: "Insolubility is physical." },
+  { q: "Why do alkanes burn easily?", a: 0, opts: ["Weak C-H bonds", "Polar", "Dissolve", "Contain double bonds"], why: "Weak C-H bonds break easily." },
+  { q: "What does a molecular formula show?", a: 1, opts: ["Arrangement", "Count", "Bond angles", "Charges"], why: "It shows how many atoms only." }
 ];
+
 let currentQ = 0, score = 0, selected = null;
+
 function buildQuiz() {
   const c = document.getElementById('quizContainer');
   if (currentQ >= quizData.length) {
@@ -285,76 +254,100 @@ function buildQuiz() {
     q.opts.map((o,i)=>`<button class="opt" onclick="select(${i})">${o}</button>`).join('') +
     `<p id="quizMsgQ"></p><button id="submitBtn" onclick="submit()">Submit</button> <button id="nextBtn" onclick="next()" disabled>Next</button>`;
 }
+
 function select(i) {
   selected = i;
   document.querySelectorAll('.opt').forEach((b,j)=>b.classList.toggle('selected', j===i));
 }
+
 function submit() {
   const q = quizData[currentQ];
   const m = document.getElementById('quizMsgQ');
   if (selected === q.a) { score++; m.textContent = "✅ Correct!"; }
   else { m.textContent = `❌ ${q.why}`; }
   document.querySelectorAll('.opt').forEach(b => b.disabled = true);
-  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('submit
+Btn').disabled = true;
   document.getElementById('nextBtn').disabled = false;
 }
-function next() { currentQ++; buildQuiz(); }
+
+function next() {
+  currentQ++;
+  buildQuiz();
+}
+
 buildQuiz();
 
-// True/False
-const tfData = [
-  {q:"Alkanes have only single bonds.",a:true},
-  {q:"Alkanes are soluble in water.",a:false},
-  {q:"Octane is in petrol.",a:true},
-  {q:"Methane is unsaturated.",a:false},
-  {q:"Combustion = CO₂ + H₂O.",a:true}
+const tfQuestions = [
+  ["Alkanes are saturated hydrocarbons.", true],
+  ["Alkanes have double bonds.", false],
+  ["Methane is the first alkane.", true],
+  ["Octane is used in cooking gas.", false],
+  ["Alkanes dissolve easily in water.", false],
+  ["Boiling point increases with longer chains.", true],
+  ["Combustion produces carbon dioxide and water.", true],
+  ["Alkanes can react with halogens under UV.", true]
 ];
-let currentTF = 0, tfScore = 0;
+
 function buildTF() {
   const c = document.getElementById('tfContainer');
-  if (currentTF >= tfData.length) {
-    c.innerHTML = `<p>✅ Done! Score: ${tfScore}/${tfData.length}</p>`;
-    return;
-  }
-  const q = tfData[currentTF];
-  c.innerHTML = `<p><strong>${currentTF+1}. ${q.q}</strong></p>
-    <button onclick="submitTF(true)">True</button>
-    <button onclick="submitTF(false)">False</button>
-    <p id="tfMsg"></p>`;
+  tfQuestions.forEach((q,i)=>{
+    const div = document.createElement('div');
+    div.innerHTML = `<p>${q[0]}</p>
+    <button onclick="answerTF(${i}, true)">True</button>
+    <button onclick="answerTF(${i}, false)">False</button>
+    <span id="tfMsg${i}"></span>`;
+    c.appendChild(div);
+  });
 }
-function submitTF(ans) {
-  const correct = tfData[currentTF].a;
-  document.getElementById('tfMsg').textContent = ans === correct ? "✅ Correct!" : `❌ It's ${correct}`;
-  if (ans === correct) tfScore++;
-  currentTF++;
-  setTimeout(buildTF, 1000);
+
+function answerTF(i, ans) {
+  document.getElementById('tfMsg'+i).textContent =
+    ans === tfQuestions[i][1] ? "✅ Correct!" : "❌ Wrong.";
 }
+
 buildTF();
 
-// Drawing
-const cv = document.getElementById('canvas'), ctx = cv.getContext('2d');
-let atoms = [], bonds = [];
-const radius = {C:15, H:10};
-function addAtom(t) {
-  atoms.push({type:t, x:50+Math.random()*400, y:50+Math.random()*200});
-  draw();
+// Simple Draw Butane
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let atoms = [];
+function addAtom(type) {
+  const x = Math.random() * 400 + 50;
+  const y = Math.random() * 200 + 50;
+  atoms.push({type,x,y});
+  drawCanvas();
 }
-function eraseLast() { atoms.pop(); draw(); }
-function resetCanvas() { atoms=[]; bonds=[]; draw(); document.getElementById('simMsg').textContent = ""; }
-function draw() {
-  ctx.clearRect(0,0,cv.width,cv.height);
-  atoms.forEach(a=>{
+function eraseLast() {
+  atoms.pop();
+  drawCanvas();
+}
+function resetCanvas() {
+  atoms = [];
+  drawCanvas();
+}
+function drawCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  atoms.forEach(a => {
     ctx.beginPath();
-    ctx.arc(a.x,a.y,radius[a.type],0,2*Math.PI);
+    ctx.arc(a.x, a.y, 20, 0, Math.PI * 2);
+    ctx.fillStyle = a.type === 'C' ? '#333' : '#ccc';
     ctx.fill();
-    ctx.fillText(a.type,a.x-4,a.y+4);
+    ctx.fillStyle = '#fff';
+    ctx.fillText(a.type, a.x - 5, a.y + 5);
   });
 }
 function checkButane() {
-  const c = atoms.filter(a=>a.type==='C').length;
-  const h = atoms.filter(a=>a.type==='H').length;
-  document.getElementById('simMsg').textContent = (c===4 && h===10) ? "✅ Butane!" : "❌ Not butane yet.";
+  const msg = document.getElementById('simMsg');
+  const cCount = atoms.filter(a => a.type === 'C').length;
+  const hCount = atoms.filter(a => a.type === 'H').length;
+  if (cCount === 4 && hCount === 10) {
+    msg.textContent = "✅ Looks like Butane!";
+  } else {
+    msg.textContent = `❌ You have ${cCount} C and ${hCount} H. Should be 4 C and 10 H.`;
+  }
 }
 </script>
+
 </body>
 </html>
