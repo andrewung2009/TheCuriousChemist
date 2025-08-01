@@ -1,386 +1,356 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-UTF-8">
-  <title>SPM Alkanes Micro-Course</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SPM Alkanes Masterclass</title>
   <style>
     body {
-      font-family: Arial, sans-serif; 
-      line-height: 1.6; 
-      margin: 2rem;
-      background: #f7f9fb;
-      color: #222;
+      font-family: Inter, Helvetica Neue, Helvetica, Arial, sans-serif;
+      margin: 0;
+      background: #f9fafb;
+      color: #1f2937;
+      line-height: 1.7;
     }
-    h1, h2 {
-      color: #334;
-    }
-    nav a {
-      margin-right: 1rem;
-      text-decoration: none;
-      color: #0066cc;
-    }
-    section {
-      margin-bottom: 2rem;
-      padding: 1rem;
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-    }
-    table {
-      border-collapse: collapse;
-      width: 100%;
-    }
-    th, td {
-      padding: 0.5rem;
-      border: 1px solid #ccc;
+    header {
+      background: linear-gradient(90deg, #4f46e5, #7c3aed);
+      color: white;
+      padding: 3rem 1rem;
       text-align: center;
     }
-    .selected {
-      background: #ddf;
+    header h1 {
+      margin: 0 0 0.5rem;
+      font-size: 2.5rem;
+      font-weight: 600;
+    }
+    header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+    main {
+      max-width: 960px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      padding: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+    h2 {
+      font-size: 1.8rem;
+      margin: 0 0 1rem;
+      font-weight: 600;
+    }
+    p {
+      margin: 0.5rem 0;
+      font-size: 1.05rem;
     }
     button {
-      margin: 0.3rem;
-      padding: 0.4rem 0.8rem;
+      background: linear-gradient(90deg, #4f46e5, #7c3aed);
+      color: #fff;
+      border: none;
+      padding: 0.8rem 1.4rem;
+      margin: 0.5rem 0.5rem 0 0;
+      border-radius: 8px;
       cursor: pointer;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
     }
-    .drag {
-      background: #eef;
-      border: 1px solid #99c;
-      padding: 0.5rem;
-      margin: 0.3rem;
+    button:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    table th, table td {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    table th {
+      background: #f3f4f6;
+      font-weight: 600;
+    }
+    .progress-bar {
+      height: 10px;
+      background: #e5e7eb;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+    .progress {
+      height: 100%;
+      background: linear-gradient(90deg, #4f46e5, #7c3aed);
+      width: 0%;
+      transition: width 0.3s;
+    }
+    .feedback {
+      margin-top: 0.75rem;
+      font-weight: 600;
+    }
+    footer {
+      text-align: center;
+      padding: 3rem 1rem;
+      font-size: 0.9rem;
+      color: #6b7280;
+    }
+    #drag-container div, #drop-container div {
       cursor: grab;
-      display: inline-block;
-    }
-    .pair {
-      margin: 0.5rem 0;
-    }
-    .drop {
-      display: inline-block;
-      min-width: 100px;
-      background: #ffc;
-      padding: 0.3rem;
-      border: 1px dashed #cc9;
-      margin-left: 1rem;
+      user-select: none;
+      transition: background 0.2s;
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1>SPM Alkanes Masterclass</h1>
+    <p>Comprehensive notes and quizzes to master Alkanes.</p>
+  </header>
 
-  <h1>✨ SPM Alkanes Micro-Course</h1>
-  <nav>
-    <a href="#objectives">Objectives</a>
-    <a href="#intro">What are Alkanes?</a>
-    <a href="#formula">General Formula</a>
-    <a href="#table">First 10 Alkanes</a>
-    <a href="#props">Properties & Uses</a>
-    <a href="#selfcheck">Self-Check</a>
-    <a href="#quiz">MCQs</a>
-    <a href="#truefalse">True/False</a>
-    <a href="#match">Drag & Drop</a>
-  </nav>
+  <main>
+    <div class="card">
+      <h2>✅ Alkanes Notes</h2>
+      <p><strong>Definition:</strong> Alkanes are saturated hydrocarbons — only single bonds, carbon & hydrogen only.</p>
+      <p><strong>General Formula:</strong> CnH₂n₊₂</p>
+      <p><strong>Structure:</strong> Tetrahedral geometry (~109.5°), displayed & structural formulas.</p>
+      <p><strong>Naming:</strong></p>
+      <table>
+        <thead>
+          <tr><th>Carbon Atoms</th><th>Name</th><th>Formula</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Methane</td><td>CH₄</td></tr>
+          <tr><td>2</td><td>Ethane</td><td>C₂H₆</td></tr>
+          <tr><td>3</td><td>Propane</td><td>C₃H₈</td></tr>
+          <tr><td>4</td><td>Butane</td><td>C₄H₁₀</td></tr>
+          <tr><td>5</td><td>Pentane</td><td>C₅H₁₂</td></tr>
+          <tr><td>6</td><td>Hexane</td><td>C₆H₁₄</td></tr>
+          <tr><td>7</td><td>Heptane</td><td>C₇H₁₆</td></tr>
+          <tr><td>8</td><td>Octane</td><td>C₈H₁₈</td></tr>
+          <tr><td>9</td><td>Nonane</td><td>C₉H₂₀</td></tr>
+          <tr><td>10</td><td>Decane</td><td>C₁₀H₂₂</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Physical Properties:</strong> First 4: gases; Pentane+ are liquids. Insoluble in water, soluble in organic solvents. Boiling point ↑ with chain length.</p>
+      <p><strong>Chemical Properties:</strong> Combustion (complete & incomplete) + substitution reaction (halogenation with UV light).</p>
+      <p><strong>Uses:</strong> Fuels (natural gas, LPG), petrol, lubricants, wax, asphalt.</p>
+    </div>
 
-  <section id="objectives">
-    <h2>Objectives</h2>
-    <ul>
-      <li>Define alkanes as saturated hydrocarbons.</li>
-      <li>Apply the general formula CₙH₂ₙ₊₂.</li>
-      <li>Name the first 10 alkanes correctly.</li>
-      <li>State physical and chemical properties.</li>
-      <li>Give real-life uses of alkanes.</li>
-      <li>Test your knowledge with quizzes.</li>
-    </ul>
-  </section>
+    <div class="card">
+      <h2>✅ Multiple Choice Quiz</h2>
+      <div id="mcq-question"></div>
+      <div id="mcq-options"></div>
+      <button onclick="retryMCQ()">Retry MCQ Quiz</button>
+      <div id="mcq-feedback" class="feedback"></div>
+      <div class="progress-bar"><div id="mcq-progress" class="progress"></div></div>
+    </div>
 
-  <section id="intro">
-    <h2>What are Alkanes?</h2>
-    <p>Alkanes are saturated hydrocarbons. They contain only single covalent bonds between carbon atoms. This means each carbon is bonded to as many hydrogen atoms as possible.</p>
-  </section>
+    <div class="card">
+      <h2>✅ True or False Quiz</h2>
+      <div id="tf-question"></div>
+      <button onclick="submitTF(true)">True</button>
+      <button onclick="submitTF(false)">False</button>
+      <button onclick="retryTF()">Retry True/False</button>
+      <div id="tf-feedback" class="feedback"></div>
+      <div class="progress-bar"><div id="tf-progress" class="progress"></div></div>
+    </div>
 
-  <section id="formula">
-    <h2>General Formula</h2>
-    <p>General formula for alkanes: <strong>CₙH₂ₙ₊₂</strong></p>
-    <p>Example: Butane → n = 4 → C₄H₁₀</p>
-  </section>
+    <div class="card">
+      <h2>✅ Match the Alkanes</h2>
+      <p>Drag the formula to match the correct name.</p>
+      <div id="drag-container"></div>
+      <div id="drop-container"></div>
+      <button onclick="checkMatch()">Check Answers</button>
+      <div id="match-feedback" class="feedback"></div>
+      <div class="progress-bar"><div id="match-progress" class="progress"></div></div>
+    </div>
+  </main>
 
-  <section id="table">
-    <h2>First 10 Alkanes</h2>
-    <table>
-      <tr><th>Carbon Atoms</th><th>Name</th><th>Formula</th></tr>
-      <tr><td>1</td><td>Methane</td><td>CH₄</td></tr>
-      <tr><td>2</td><td>Ethane</td><td>C₂H₆</td></tr>
-      <tr><td>3</td><td>Propane</td><td>C₃H₈</td></tr>
-      <tr><td>4</td><td>Butane</td><td>C₄H₁₀</td></tr>
-      <tr><td>5</td><td>Pentane</td><td>C₅H₁₂</td></tr>
-      <tr><td>6</td><td>Hexane</td><td>C₆H₁₄</td></tr>
-      <tr><td>7</td><td>Heptane</td><td>C₇H₁₆</td></tr>
-      <tr><td>8</td><td>Octane</td><td>C₈H₁₈</td></tr>
-      <tr><td>9</td><td>Nonane</td><td>C₉H₂₀</td></tr>
-      <tr><td>10</td><td>Decane</td><td>C₁₀H₂₂</td></tr>
-    </table>
-  </section>
-
-  <section id="props">
-    <h2>Properties & Uses</h2>
-    <ul>
-      <li><strong>Physical:</strong> Non-polar, insoluble in water, boiling point increases with chain length.</li>
-      <li><strong>Chemical:</strong> Combust to form CO₂ + H₂O; react with halogens under UV light.</li>
-      <li><strong>Uses:</strong> Methane for cooking gas; Butane/Propane for Liquefied Petroleum Gas (LPG); Octane in petrol.</li>
-    </ul>
-  </section>
-
-  <section id="selfcheck">
-    <h2>Self-Check</h2>
-    <label><input type="checkbox"> I can define alkanes.</label><br>
-    <label><input type="checkbox"> I know the general formula.</label><br>
-    <label><input type="checkbox"> I can name 10 alkanes.</label><br>
-    <label><input type="checkbox"> I know the properties and uses.</label><br>
-  </section>
-
-  <section id="quiz">
-    <h2>20 MCQs</h2>
-    <div id="quizContainer"></div>
-  </section>
-
-  <section id="truefalse">
-    <h2>5 True/False</h2>
-    <div id="tfContainer"></div>
-  </section>
-
-  <section id="match">
-    <h2>Match Alkane Names to Formulas</h2>
-    <div id="matchArea"></div>
-    <div id="dragContainer"></div>
-    <button onclick="checkMatch()">Check Match</button>
-    <p id="matchResult"></p>
-  </section>
-
-<script>
-// Smooth scroll
-document.querySelectorAll('nav a').forEach(link => {
-  link.onclick = e => {
-    e.preventDefault();
-    document.querySelector(link.getAttribute('href')).scrollIntoView({behavior:'smooth'});
-  };
-});
-
-// MCQ Quiz (20 questions from previous answer)
-const quizData = [...]; // Paste your 20 MCQ questions here, same as before
-
-// True/False (5 questions from previous answer)
-const tfData = [...]; // Same as before
-
-// Drag & Drop
-const pairs = [
-  { name: 'Methane', formula: 'CH₄' },
-  { name: 'Ethane', formula: 'C₂H₆' },
-  { name: 'Propane', formula: 'C₃H₈' },
-  { name: 'Butane', formula: 'C₄H₁₀' },
-  { name: 'Pentane', formula: 'C₅H₁₂' },
-];
-function shuffle(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random()*(i+1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-}
-function buildMatch() {
-  const matchArea = document.getElementById('matchArea');
-  const dragContainer = document.getElementById('dragContainer');
-  shuffle(pairs);
-  matchArea.innerHTML = pairs.map(p => `<div class="pair">${p.name} <span id="${p.name}" class="drop">Drop here</span></div>`).join('');
-  dragContainer.innerHTML = shuffle([...pairs]).map(p => `<div class="drag" draggable="true" data="${p.formula}">${p.formula}</div>`).join('');
-  document.querySelectorAll('.drag').forEach(el => {
-    el.addEventListener('dragstart', e => {
-      e.dataTransfer.setData('text/plain', el.getAttribute('data'));
-    });
-  });
-  document.querySelectorAll('.drop').forEach(el => {
-    el.addEventListener('dragover', e => e.preventDefault());
-    el.addEventListener('drop', e => {
-      const d = e.dataTransfer.getData('text/plain');
-      el.textContent = d;
-      el.setAttribute('data', d);
-    });
-  });
-}
-function checkMatch() {
-  let s = 0;
-  pairs.forEach(p => {
-    const d = document.getElementById(p.name);
-    if (d.getAttribute('data') === p.formula) s++;
-  });
-  document.getElementById('matchResult').innerText = `✅ Matched ${s}/${pairs.length}`;
-}
-buildMatch();
-</script>
-
-</body>
-</html>
-
-<head>
-  <meta charset="UTF-8" />
-  <title>SPM Alkanes Micro-Course</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 2rem; }
-    h1, h2 { color: #334; }
-    section { margin-bottom: 2rem; }
-    button { margin: 0.3rem; }
-    .selected { background: #ddf; }
-    .drag { background: #eef; border: 1px solid #99c; padding: 0.5rem; margin: 0.3rem; cursor: grab; display: inline-block; }
-    .pair { margin: 0.5rem 0; }
-    .drop { display: inline-block; min-width: 100px; background: #ffc; padding: 0.3rem; border: 1px dashed #cc9; margin-left: 1rem; }
-  </style>
-</head>
-<body>
-  <h1>SPM Alkanes Micro-Course</h1>
-
-  <section id="quiz">
-    <h2>20 MCQs</h2>
-    <div id="quizContainer"></div>
-  </section>
-
-  <section id="truefalse">
-    <h2>5 True/False Questions</h2>
-    <div id="tfContainer"></div>
-  </section>
-
-  <section id="match">
-    <h2>Match Alkanes to Formulas</h2>
-    <div id="matchArea"></div>
-    <div id="dragContainer"></div>
-    <button onclick="checkMatch()">Check Match</button>
-    <p id="matchResult"></p>
-  </section>
-
+  <footer>
+    &copy; 2025 SPM Alkanes Masterclass. Designed for modern learning.
+  </footer>
   <script>
-    const quizData = [
-      { q: '1) What is the general formula for alkanes?', a: 0, opts: ['CₙH₂ₙ₊₂', 'CₙH₂ₙ', 'CₙH₂ₙ₋₂', 'CₙHₙ'], why: 'Alkanes are saturated hydrocarbons with single bonds only.' },
-      { q: '2) What is the molecular formula for propane?', a: 2, opts: ['C₂H₄', 'C₄H₁₀', 'C₃H₈', 'C₅H₁₂'], why: 'Propane has 3 carbons → C₃H₈.' },
-      { q: '3) Which alkane has 6 carbon atoms?', a: 1, opts: ['Pentane', 'Hexane', 'Heptane', 'Octane'], why: 'Hex- means six.' },
-      { q: '4) What type of bonds do alkanes have?', a: 3, opts: ['Double', 'Triple', 'Ionic', 'Single covalent'], why: 'Alkanes only have single covalent bonds.' },
-      { q: '5) What is methane commonly used for?', a: 1, opts: ['Car polish', 'Cooking fuel', 'Pesticide', 'Plastic'], why: 'Methane is the main component of natural gas for cooking.' },
-      { q: '6) Which alkane is used in petrol?', a: 0, opts: ['Octane', 'Ethane', 'Nonane', 'Methane'], why: 'Octane is used to rate petrol quality.' },
-      { q: '7) What is the name of C₅H₁₂?', a: 1, opts: ['Butane', 'Pentane', 'Propane', 'Hexane'], why: 'Pent- means five carbon atoms.' },
-      { q: '8) Which statement is true about alkanes?', a: 0, opts: ['They are saturated hydrocarbons.', 'They contain double bonds.', 'They are acidic.', 'They react easily with water.'], why: 'They are saturated hydrocarbons.' },
-      { q: '9) Which is the lightest alkane?', a: 2, opts: ['Ethane', 'Butane', 'Methane', 'Pentane'], why: 'Methane is the simplest alkane, CH₄.' },
-      { q: '10) What happens to boiling point as the carbon chain increases?', a: 1, opts: ['Decreases', 'Increases', 'Stays the same', 'Becomes zero'], why: 'Longer chains = higher boiling points due to stronger London forces.' },
-      { q: '11) Which gas is used in liquefied petroleum gas (LPG)?', a: 3, opts: ['Methane', 'Ethane', 'Pentane', 'Propane/Butane'], why: 'LPG = Propane and Butane mix.' },
-      { q: '12) Which alkane has the highest boiling point?', a: 1, opts: ['Methane', 'Decane', 'Ethane', 'Propane'], why: 'More carbons = higher boiling point. Decane has 10.' },
-      { q: '13) Which is NOT an alkane?', a: 2, opts: ['Methane', 'Heptane', 'Ethene', 'Octane'], why: 'Ethene is an alkene (double bond).' },
-      { q: '14) How many hydrogens in C₆H₁₄?', a: 2, opts: ['10', '12', '14', '16'], why: 'Apply CₙH₂ₙ₊₂ → C₆H₁₄.' },
-      { q: '15) Which process breaks alkanes into alkenes?', a: 1, opts: ['Polymerisation', 'Cracking', 'Hydration', 'Fermentation'], why: 'Cracking splits large hydrocarbons.' },
-      { q: '16) Which describes alkanes best?', a: 0, opts: ['Non-polar', 'Highly soluble in water', 'Ionic', 'Reactive with acids'], why: 'They are non-polar hydrocarbons.' },
-      { q: '17) What is the use of paraffin wax?', a: 1, opts: ['Rocket fuel', 'Candle making', 'Glass cleaning', 'Acid testing'], why: 'Paraffin wax (solid alkane) used for candles.' },
-      { q: '18) What happens during combustion of alkanes?', a: 0, opts: ['Produces CO₂ and H₂O', 'Makes acid', 'Forms ozone', 'No reaction'], why: 'Complete combustion: CO₂ + H₂O.' },
-      { q: '19) Which alkane is gaseous at room temperature?', a: 0, opts: ['Methane', 'Hexane', 'Octane', 'Decane'], why: 'Short-chain alkanes like methane are gases at room temp.' },
-      { q: '20) Which word means “saturated” for alkanes?', a: 2, opts: ['Reactive', 'Unsaturated', 'Full of single bonds', 'Ionised'], why: 'Saturated means no double/triple bonds.' },
+    // ✅ Full 20 MCQ questions
+    const mcqQuestions = [
+      { q: "Which of these is an alkane?", o: ["Ethene", "Butane", "Propyne", "Benzene"], a: "Butane" },
+      { q: "General formula for alkanes?", o: ["CnH2n", "CnH2n+2", "CnH2n-2", "CnHn"], a: "CnH2n+2" },
+      { q: "Shape of carbon bonds in alkanes?", o: ["Linear", "Bent", "Trigonal", "Tetrahedral"], a: "Tetrahedral" },
+      { q: "First 4 alkanes are?", o: ["Liquids", "Gases", "Solids", "Plasma"], a: "Gases" },
+      { q: "Methane is a?", o: ["Alkene", "Alkyne", "Alkane", "Alcohol"], a: "Alkane" },
+      { q: "Substitution reaction happens in?", o: ["UV light", "Dark room", "Cold water", "Vacuum"], a: "UV light" },
+      { q: "What does complete combustion of alkanes produce?", o: ["CO", "H2", "CO2 and H2O", "O2"], a: "CO2 and H2O" },
+      { q: "Insoluble in?", o: ["Organic solvents", "Water", "Petrol", "Oil"], a: "Water" },
+      { q: "Boiling point increases with?", o: ["Chain length", "Light", "UV exposure", "Substitution"], a: "Chain length" },
+      { q: "Octane is mainly used in?", o: ["Paint", "Plastic", "Petrol", "Lubricant"], a: "Petrol" },
+      { q: "What is the bond angle in alkanes?", o: ["90°", "120°", "109.5°", "180°"], a: "109.5°" },
+      { q: "Pentane is a?", o: ["Liquid", "Gas", "Solid", "Plasma"], a: "Liquid" },
+      { q: "Which alkane has 4 carbon atoms?", o: ["Pentane", "Hexane", "Butane", "Methane"], a: "Butane" },
+      { q: "Displayed formula shows?", o: ["Atoms only", "Bonds only", "All bonds & atoms", "None"], a: "All bonds & atoms" },
+      { q: "Alkanes react with halogens by?", o: ["Addition", "Substitution", "Combustion", "Fermentation"], a: "Substitution" },
+      { q: "Natural gas mainly contains?", o: ["Butane", "Methane", "Propane", "Ethane"], a: "Methane" },
+      { q: "LPG stands for?", o: ["Liquid Petrol Gas", "Liquid Propane Gas", "Liquefied Petroleum Gas", "Liquid Paraffin Gas"], a: "Liquefied Petroleum Gas" },
+      { q: "Alkanes are:", o: ["Aromatic", "Saturated", "Unsaturated", "Ionic"], a: "Saturated" },
+      { q: "Which is not an alkane?", o: ["Methane", "Ethane", "Propane", "Ethene"], a: "Ethene" },
+      { q: "Combustion of alkanes releases?", o: ["Energy", "Cold", "No heat", "Chlorine"], a: "Energy" }
     ];
+    let mcqIndex = 0, mcqScore = 0;
 
-    let qIdx = 0, qScore = 0, selected = null;
-    const quizContainer = document.getElementById('quizContainer');
-    function buildQuiz() {
-      if (qIdx >= quizData.length) {
-        quizContainer.innerHTML = `<p>✅ Quiz complete! Your score: ${qScore}/${quizData.length}</p>`;
+    function loadMCQ() {
+      if (mcqIndex >= mcqQuestions.length) {
+        document.getElementById("mcq-question").innerHTML = `✅ Done! Your score: ${mcqScore}/${mcqQuestions.length}`;
+        document.getElementById("mcq-options").innerHTML = "";
         return;
       }
-      selected = null;
-      const q = quizData[qIdx];
-      quizContainer.innerHTML = `
-        <p>${q.q}</p>
-        ${q.opts.map((opt, i) => `<button onclick="select(${i})">${opt}</button>`).join(' ')}
-        <p id="msg"></p>
-        <button onclick="submit()">Submit</button>
-        <button id="nextBtn" onclick="next()" disabled>Next</button>
-      `;
+      const q = mcqQuestions[mcqIndex];
+      document.getElementById("mcq-question").innerText = q.q;
+      document.getElementById("mcq-options").innerHTML = "";
+      q.o.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.innerText = opt;
+        btn.onclick = () => submitMCQ(opt);
+        document.getElementById("mcq-options").appendChild(btn);
+      });
+      document.getElementById("mcq-feedback").innerText = "";
+      updateProgress("mcq-progress", mcqIndex, mcqQuestions.length);
     }
-    function select(i) {
-      selected = i;
-      document.querySelectorAll('#quizContainer button').forEach(b => b.classList.remove('selected'));
-      document.querySelectorAll('#quizContainer button')[i].classList.add('selected');
+    function submitMCQ(ans) {
+      const correct = mcqQuestions[mcqIndex].a;
+      if (ans === correct) {
+        mcqScore++;
+        document.getElementById("mcq-feedback").innerText = "✅ Correct!";
+      } else {
+        document.getElementById("mcq-feedback").innerText = `❌ Wrong! Correct: ${correct}`;
+      }
+      mcqIndex++;
+      setTimeout(loadMCQ, 800);
     }
-    function submit() {
-      const q = quizData[qIdx];
-      if (selected === null) return;
-      if (selected === q.a) { qScore++; document.getElementById('msg').innerText = '✅ Correct!'; }
-      else { document.getElementById('msg').innerText = `❌ ${q.why}`; }
-      document.getElementById('nextBtn').disabled = false;
+    function retryMCQ() {
+      mcqIndex = 0; mcqScore = 0; loadMCQ();
     }
-    function next() { qIdx++; buildQuiz(); }
-    buildQuiz();
 
-    const tfData = [
-      { q: 'Alkanes are saturated hydrocarbons.', a: true },
-      { q: 'Methane is an alkene.', a: false },
-      { q: 'Octane has 8 carbon atoms.', a: true },
-      { q: 'Alkanes have double bonds.', a: false },
-      { q: 'Pentane is C₅H₁₂.', a: true },
+    // ✅ TF
+    const tfQuestions = [
+      { q: "Alkanes are saturated.", a: true },
+      { q: "Methane has 2 carbons.", a: false },
+      { q: "Alkanes dissolve in water.", a: false },
+      { q: "Combustion produces CO2 & H2O.", a: true },
+      { q: "Alkanes react with halogens.", a: true }
     ];
-    let tfIdx = 0, tfScore = 0;
-    const tfContainer = document.getElementById('tfContainer');
-    function buildTF() {
-      if (tfIdx >= tfData.length) {
-        tfContainer.innerHTML = `<p>✅ True/False complete! Score: ${tfScore}/${tfData.length}</p>`;
+    let tfIndex = 0, tfScore = 0;
+
+    function loadTF() {
+      if (tfIndex >= tfQuestions.length) {
+        document.getElementById("tf-question").innerHTML = `✅ Done! Your score: ${tfScore}/${tfQuestions.length}`;
         return;
       }
-      const q = tfData[tfIdx];
-      tfContainer.innerHTML = `
-        <p>${q.q}</p>
-        <button onclick="submitTF(true)">True</button>
-        <button onclick="submitTF(false)">False</button>
-      `;
+      document.getElementById("tf-question").innerText = tfQuestions[tfIndex].q;
+      document.getElementById("tf-feedback").innerText = "";
+      updateProgress("tf-progress", tfIndex, tfQuestions.length);
     }
     function submitTF(ans) {
-      if (ans === tfData[tfIdx].a) tfScore++;
-      tfIdx++;
-      buildTF();
+      if (ans === tfQuestions[tfIndex].a) {
+        tfScore++;
+        document.getElementById("tf-feedback").innerText = "✅ Correct!";
+      } else {
+        document.getElementById("tf-feedback").innerText = "❌ Wrong!";
+      }
+      tfIndex++;
+      setTimeout(loadTF, 800);
     }
-    buildTF();
+    function retryTF() {
+      tfIndex = 0; tfScore = 0; loadTF();
+    }
 
+    // ✅ Match the Alkanes
     const pairs = [
-      { name: 'Methane', formula: 'CH₄' },
-      { name: 'Ethane', formula: 'C₂H₆' },
-      { name: 'Propane', formula: 'C₃H₈' },
-      { name: 'Butane', formula: 'C₄H₁₀' },
-      { name: 'Pentane', formula: 'C₅H₁₂' },
+      ["Methane", "CH₄"],
+      ["Ethane", "C₂H₆"],
+      ["Propane", "C₃H₈"],
+      ["Butane", "C₄H₁₀"],
+      ["Pentane", "C₅H₁₂"]
     ];
-    function shuffle(arr) {
-      for (let i = arr.length - 1; i > 0; i--) {
+    let matchedCount = 0;
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
+        [array[i], array[j]] = [array[j], array[i]];
       }
     }
-    function buildMatch() {
-      const matchArea = document.getElementById('matchArea');
-      const dragContainer = document.getElementById('dragContainer');
-      shuffle(pairs);
-      const drops = pairs.map(p => `<div class="pair">${p.name}<span id="${p.name}" class="drop">Drop here</span></div>`).join('');
-      const drags = pairs.map(p => `<div class="drag" draggable="true" data="${p.formula}">${p.formula}</div>`).join('');
-      matchArea.innerHTML = drops;
-      dragContainer.innerHTML = drags;
 
-      document.querySelectorAll('.drag').forEach(item => {
-        item.addEventListener('dragstart', e => {
-          e.dataTransfer.setData('text/plain', item.getAttribute('data'));
-        });
+    function loadMatch() {
+      const drag = document.getElementById("drag-container");
+      const drop = document.getElementById("drop-container");
+      drag.innerHTML = "";
+      drop.innerHTML = "";
+      matchedCount = 0;
+
+      // Chemical formulas stay ordered; names shuffled
+      const shuffled = pairs.slice();
+      shuffle(shuffled);
+
+      // Drag: Formulas ordered
+      pairs.forEach(pair => {
+        const d = document.createElement("div");
+        d.innerText = pair[1];
+        d.draggable = true;
+        d.ondragstart = e => e.dataTransfer.setData("text", pair[1]);
+        d.style.margin = "5px";
+        d.style.padding = "10px";
+        d.style.background = "#e2e8f0";
+        d.style.borderRadius = "8px";
+        drag.appendChild(d);
       });
-      document.querySelectorAll('.drop').forEach(drop => {
-        drop.addEventListener('dragover', e => e.preventDefault());
-        drop.addEventListener('drop', e => {
-          const data = e.dataTransfer.getData('text/plain');
-          drop.textContent = data;
-          drop.setAttribute('data', data);
-        });
+
+      shuffled.forEach(pair => {
+        const target = document.createElement("div");
+        target.innerText = pair[0];
+        target.ondragover = e => e.preventDefault();
+        target.ondrop = e => {
+          const data = e.dataTransfer.getData("text");
+          if (data === pair[1]) {
+            target.innerText = pair[0] + " → " + data;
+            target.style.background = "#bbf7d0";
+            matchedCount++;
+          } else {
+            target.innerText = pair[0] + " → " + data;
+            target.style.background = "#fecaca";
+          }
+          updateProgress("match-progress", matchedCount, pairs.length);
+        };
+        target.style.margin = "5px";
+        target.style.padding = "10px";
+        target.style.background = "#f1f5f9";
+        target.style.borderRadius = "8px";
+        drop.appendChild(target);
       });
     }
     function checkMatch() {
-      let score = 0;
-      pairs.forEach(p => {
-        const drop = document.getElementById(p.name);
-        if (drop.getAttribute('data') === p.formula) score++;
-      });
-      document.getElementById('matchResult').innerText = `✅ Matched ${score}/${pairs.length}`;
+      if (matchedCount === pairs.length) {
+        document.getElementById("match-feedback").innerText = "✅ All matched!";
+      } else {
+        document.getElementById("match-feedback").innerText = `✅ ${matchedCount}/${pairs.length} matched correctly.`;
+      }
     }
-    buildMatch();
+
+    function updateProgress(id, index, total) {
+      const p = ((index) / total) * 100;
+      document.getElementById(id).style.width = p + "%";
+    }
+
+    window.onload = () => {
+      loadMCQ();
+      loadTF();
+      loadMatch();
+    };
   </script>
 </body>
 </html>
