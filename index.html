@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Group 1 Elements (Alkali Metals) - Detailed</title>
+  <title>Group 1 Elements (Alkali Metals) - Horizontal Layout</title>
   <style>
     * {
       margin: 0;
@@ -33,34 +33,16 @@
       padding: 20px;
     }
 
-    h1 {
-      position: absolute;
-      top: 15px;
-      left: 0;
-      right: 0;
-      text-align: center;
-      color: #2c3e50;
-      font-size: 1.5rem;
-      pointer-events: none;
-      z-index: 10;
-      background: rgba(255, 255, 255, 0.85);
-      padding: 8px 16px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      margin: 0 auto;
-      width: fit-content;
-      max-width: 90%;
-    }
-
-    .group-column {
+    .group-row {
       display: flex;
-      flex-direction: column;
-      gap: 12px;
+      flex-direction: row;
+      gap: 15px;
       justify-content: center;
       align-items: center;
       height: 100%;
-      padding: 60px 20px 40px 20px;
-      box-sizing: borderdiv>
+      padding: 20px;
+      box-sizing: border-box;
+      flex-wrap: nowrap;
     }
 
     .element {
@@ -210,10 +192,9 @@
 
     /* Responsive adjustments */
     @media (max-width: 768px) {
-      h1 {
-        font-size: 1.2rem;
-        top: 10px;
-        padding: 6px 12px;
+      .group-row {
+        gap: 10px;
+        padding: 15px;
       }
       
       .element {
@@ -244,14 +225,14 @@
     }
 
     @media (max-width: 480px) {
-      h1 {
-        font-size: 1rem;
-        top: 8px;
+      .group-row {
+        gap: 8px;
+        padding: 10px;
       }
       
       .element {
-        width: 75px;
-        height: 75px;
+        width: 70px;
+        height: 70px;
       }
       
       .element strong {
@@ -259,7 +240,7 @@
       }
       
       .element small {
-        font-size: 0.6rem;
+        font-size: 0.55rem;
       }
       
       .detail-content {
@@ -274,12 +255,26 @@
         font-size: 1.1rem;
       }
     }
+
+    @media (max-width: 360px) {
+      .element {
+        width: 60px;
+        height: 60px;
+      }
+      
+      .element strong {
+        font-size: 0.9rem;
+      }
+      
+      .element small {
+        font-size: 0.5rem;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Group 1: Alkali Metals</h1>
-    <div class="group-column" id="group-column">
+    <div class="group-row" id="group-row">
       <!-- Elements will be added here by JavaScript -->
     </div>
 
@@ -388,9 +383,9 @@
       }
     ];
 
-    const groupColumn = document.getElementById('group-column');
+    const groupRow = document.getElementById('group-row');
 
-    // Add Group 1 elements to the column
+    // Add Group 1 elements to the row
     group1Elements.forEach(el => {
       const element = document.createElement('div');
       element.className = 'element';
@@ -405,7 +400,7 @@
         showElementDetail(el);
       };
       
-      groupColumn.appendChild(element);
+      groupRow.appendChild(element);
     });
 
     // Detail Popup
