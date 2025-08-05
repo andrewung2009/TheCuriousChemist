@@ -3,351 +3,456 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SPM Alkanes Notes</title>
+  <title>Group 1 Elements (Alkali Metals) - Detailed</title>
   <style>
-    body {
-      font-family: Inter, Helvetica Neue, Helvetica, Arial, sans-serif;
+    * {
       margin: 0;
-      background: #f9fafb;
-      color: #1f2937;
-      line-height: 1.7;
+      padding: 0;
+      box-sizing: border-box;
     }
-    header {
-      background: linear-gradient(90deg, #4f46e5, #7c3aed);
-      color: white;
-      padding: 3rem 1rem;
-      text-align: center;
-    }
-    header h1 {
-      margin: 0 0 0.5rem;
-      font-size: 2.5rem;
-      font-weight: 600;
-    }
-    header p {
-      font-size: 1.2rem;
-      opacity: 0.9;
-    }
-    main {
-      max-width: 960px;
-      margin: 3rem auto;
-      padding: 0 1.5rem;
-    }
-    .card {
-      background: #ffffff;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-      padding: 2.5rem;
-      margin-bottom: 2.5rem;
-    }
-    h2 {
-      font-size: 1.8rem;
-      margin: 0 0 1rem;
-      font-weight: 600;
-    }
-    p {
-      margin: 0.5rem 0;
-      font-size: 1.05rem;
-    }
-    button {
-      background: linear-gradient(90deg, #4f46e5, #7c3aed);
-      color: #fff;
-      border: none;
-      padding: 0.8rem 1.4rem;
-      margin: 0.5rem 0.5rem 0 0;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1rem;
-      font-weight: 500;
-      transition: all 0.2s ease;
-    }
-    button:hover {
-      opacity: 0.9;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1rem;
-    }
-    table th, table td {
-      text-align: left;
-      padding: 0.75rem 1rem;
-      border-bottom: 1px solid #e5e7eb;
-    }
-    table th {
-      background: #f3f4f6;
-      font-weight: 600;
-    }
-    .progress-bar {
-      height: 10px;
-      background: #e5e7eb;
-      border-radius: 5px;
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f2f5;
+      color: #2c3e50;
       overflow: hidden;
-      margin-top: 1rem;
-    }
-    .progress {
-      height: 100%;
-      background: linear-gradient(90deg, #4f46e5, #7c3aed);
-      width: 0%;
-      transition: width 0.3s;
-    }
-    .feedback {
-      margin-top: 0.75rem;
-      font-weight: 600;
-    }
-    footer {
-      text-align: center;
-      padding: 3rem 1rem;
-      font-size: 0.9rem;
-      color: #6b7280;
-    }
-    #drag-container div, #drop-container div {
-      cursor: grab;
       user-select: none;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    h1 {
+      position: absolute;
+      top: 15px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: #2c3e50;
+      font-size: 1.5rem;
+      pointer-events: none;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 8px 16px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin: 0 auto;
+      width: fit-content;
+      max-width: 90%;
+    }
+
+    .group-column {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      padding: 60px 20px 40px 20px;
+      box-sizing: borderdiv>
+    }
+
+    .element {
+      width: 100px;
+      height: 100px;
+      background: #ff6b6b; /* Group 1 color */
+      color: white;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-weight: 600;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+      flex-shrink: 0;
+    }
+
+    .element:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    .element strong {
+      font-size: 1.5rem;
+      margin-bottom: 3px;
+    }
+
+    .element small {
+      font-size: 0.75rem;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    /* Detail Popup */
+    .detail-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      padding: 20px;
+    }
+
+    .detail-popup.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .detail-content {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      max-width: 95%;
+      width: 600px;
+      max-height: 85vh;
+      overflow-y: auto;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+
+    .detail-popup.active .detail-content {
+      transform: scale(1);
+    }
+
+    .detail-content h2 {
+      color: #2c3e50;
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+      text-align: center;
+      border-bottom: 2px solid #ff6b6b;
+      padding-bottom: 10px;
+    }
+
+    .detail-content h3 {
+      color: #ff6b6b;
+      margin: 15px 0 8px 0;
+      font-size: 1.2rem;
+    }
+
+    .detail-content p {
+      margin: 8px 0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .detail-content pre {
+      background: #f8f9fa;
+      padding: 12px;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      overflow-x: auto;
+      margin: 10px 0;
+      border-left: 4px solid #ff6b6b;
+    }
+
+    .observation {
+      background: #e8f4ff;
+      padding: 12px;
+      border-radius: 8px;
+      margin: 10px 0;
+      border-left: 4px solid #4dabf7;
+    }
+
+    .uses {
+      background: #fff4e8;
+      padding: 12px;
+      border-radius: 8px;
+      margin: 10px 0;
+      border-left: 4px solid #ffa94d;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 1.3rem;
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      width: 35px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
       transition: background 0.2s;
+      z-index: 1001;
+    }
+
+    .close-btn:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.2rem;
+        top: 10px;
+        padding: 6px 12px;
+      }
+      
+      .element {
+        width: 85px;
+        height: 85px;
+      }
+      
+      .element strong {
+        font-size: 1.3rem;
+      }
+      
+      .element small {
+        font-size: 0.65rem;
+      }
+      
+      .detail-content {
+        width: 95%;
+        padding: 20px;
+      }
+      
+      .detail-content h2 {
+        font-size: 1.5rem;
+      }
+      
+      .detail-content p {
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1rem;
+        top: 8px;
+      }
+      
+      .element {
+        width: 75px;
+        height: 75px;
+      }
+      
+      .element strong {
+        font-size: 1.1rem;
+      }
+      
+      .element small {
+        font-size: 0.6rem;
+      }
+      
+      .detail-content {
+        padding: 15px;
+      }
+      
+      .detail-content h2 {
+        font-size: 1.3rem;
+      }
+      
+      .detail-content h3 {
+        font-size: 1.1rem;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>SPM Alkanes Masterclass</h1>
-    <p>Comprehensive notes and quizzes to master Alkanes.</p>
-  </header>
-
-  <main>
-    <div class="card">
-      <h2>✅ Alkanes Notes</h2>
-      <p><strong>Definition:</strong> Alkanes are saturated hydrocarbons — only single bonds, carbon & hydrogen only.</p>
-      <p><strong>General Formula:</strong> CnH₂n₊₂</p>
-      <p><strong>Structure:</strong> Tetrahedral geometry (~109.5°)</p>
-      <p><strong>Naming:</strong></p>
-      <table>
-        <thead>
-          <tr><th>Carbon Atoms</th><th>Name</th><th>Formula</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>1</td><td>Methane</td><td>CH₄</td></tr>
-          <tr><td>2</td><td>Ethane</td><td>C₂H₆</td></tr>
-          <tr><td>3</td><td>Propane</td><td>C₃H₈</td></tr>
-          <tr><td>4</td><td>Butane</td><td>C₄H₁₀</td></tr>
-          <tr><td>5</td><td>Pentane</td><td>C₅H₁₂</td></tr>
-          <tr><td>6</td><td>Hexane</td><td>C₆H₁₄</td></tr>
-          <tr><td>7</td><td>Heptane</td><td>C₇H₁₆</td></tr>
-          <tr><td>8</td><td>Octane</td><td>C₈H₁₈</td></tr>
-          <tr><td>9</td><td>Nonane</td><td>C₉H₂₀</td></tr>
-          <tr><td>10</td><td>Decane</td><td>C₁₀H₂₂</td></tr>
-        </tbody>
-      </table>
-      <p><strong>Physical Properties:</strong> First 4: gases; Pentane+ are liquids. Insoluble in water, soluble in organic solvents. Boiling point ↑ with chain length.</p>
-      <p><strong>Chemical Properties:</strong> Combustion (complete & incomplete) + substitution reaction (halogenation with UV light).</p>
-      <p><strong>Uses:</strong> Fuels (natural gas, LPG), petrol, lubricants, wax, asphalt.</p>
+  <div class="container">
+    <h1>Group 1: Alkali Metals</h1>
+    <div class="group-column" id="group-column">
+      <!-- Elements will be added here by JavaScript -->
     </div>
 
-    <div class="card">
-      <h2>✅ Multiple Choice Quiz</h2>
-      <div id="mcq-question"></div>
-      <div id="mcq-options"></div>
-      <button onclick="retryMCQ()">Retry MCQ Quiz</button>
-      <div id="mcq-feedback" class="feedback"></div>
-      <div class="progress-bar"><div id="mcq-progress" class="progress"></div></div>
+    <!-- Detail Popup -->
+    <div class="detail-popup" id="detail-popup">
+      <button class="close-btn" id="close-popup">×</button>
+      <div class="detail-content">
+        <div id="element-detail"></div>
+      </div>
     </div>
+  </div>
 
-    <div class="card">
-      <h2>✅ True or False Quiz</h2>
-      <div id="tf-question"></div>
-      <button onclick="submitTF(true)">True</button>
-      <button onclick="submitTF(false)">False</button>
-      <button onclick="retryTF()">Retry True/False</button>
-      <div id="tf-feedback" class="feedback"></div>
-      <div class="progress-bar"><div id="tf-progress" class="progress"></div></div>
-    </div>
-
-    <div class="card">
-      <h2>✅ Match the Alkanes</h2>
-      <p>Drag the formula to match the correct name.</p>
-      <div id="drag-container"></div>
-      <div id="drop-container"></div>
-      <button onclick="checkMatch()">Check Answers</button>
-      <div id="match-feedback" class="feedback"></div>
-      <div class="progress-bar"><div id="match-progress" class="progress"></div></div>
-    </div>
-  </main>
-  
   <script>
-    // ✅ Full 20 MCQ questions
-    const mcqQuestions = [
-      { q: "Which of these is an alkane?", o: ["Ethene", "Butane", "Propyne", "Benzene"], a: "Butane" },
-      { q: "General formula for alkanes?", o: ["CnH2n", "CnH2n+2", "CnH2n-2", "CnHn"], a: "CnH2n+2" },
-      { q: "Shape of carbon bonds in alkanes?", o: ["Linear", "Bent", "Trigonal", "Tetrahedral"], a: "Tetrahedral" },
-      { q: "First 4 alkanes are?", o: ["Liquids", "Gases", "Solids", "Plasma"], a: "Gases" },
-      { q: "Methane is a?", o: ["Alkene", "Alkyne", "Alkane", "Alcohol"], a: "Alkane" },
-      { q: "Substitution reaction happens in?", o: ["UV light", "Dark room", "Cold water", "Vacuum"], a: "UV light" },
-      { q: "What does complete combustion of alkanes produce?", o: ["CO", "H2", "CO2 and H2O", "O2"], a: "CO2 and H2O" },
-      { q: "Insoluble in?", o: ["Organic solvents", "Water", "Petrol", "Oil"], a: "Water" },
-      { q: "Boiling point increases with?", o: ["Chain length", "Light", "UV exposure", "Substitution"], a: "Chain length" },
-      { q: "Octane is mainly used in?", o: ["Paint", "Plastic", "Petrol", "Lubricant"], a: "Petrol" },
-      { q: "What is the bond angle in alkanes?", o: ["90°", "120°", "109.5°", "180°"], a: "109.5°" },
-      { q: "Pentane is a?", o: ["Liquid", "Gas", "Solid", "Plasma"], a: "Liquid" },
-      { q: "Which alkane has 4 carbon atoms?", o: ["Pentane", "Hexane", "Butane", "Methane"], a: "Butane" },
-      { q: "Displayed formula shows?", o: ["Atoms only", "Bonds only", "All bonds & atoms", "None"], a: "All bonds & atoms" },
-      { q: "Alkanes react with halogens by?", o: ["Addition", "Substitution", "Combustion", "Fermentation"], a: "Substitution" },
-      { q: "Natural gas mainly contains?", o: ["Butane", "Methane", "Propane", "Ethane"], a: "Methane" },
-      { q: "LPG stands for?", o: ["Liquid Petrol Gas", "Liquid Propane Gas", "Liquefied Petroleum Gas", "Liquid Paraffin Gas"], a: "Liquefied Petroleum Gas" },
-      { q: "Alkanes are:", o: ["Aromatic", "Saturated", "Unsaturated", "Ionic"], a: "Saturated" },
-      { q: "Which is not an alkane?", o: ["Methane", "Ethane", "Propane", "Ethene"], a: "Ethene" },
-      { q: "Combustion of alkanes releases?", o: ["Energy", "Cold", "No heat", "Chlorine"], a: "Energy" }
+    // Group 1 elements with detailed information
+    const group1Elements = [
+      { 
+        number: 1, 
+        symbol: "H", 
+        name: "Hydrogen", 
+        mass: 1.008, 
+        config: "1s¹", 
+        desc: "Lightest element, abundant in the universe, key in water and organic compounds.",
+        meltingPoint: "-259.16 °C",
+        density: "0.0899 g/L (gas)",
+        reaction: "H₂ + O₂ → 2H₂O (combustion)",
+        observation: "Colorless, odorless gas. Burns with pale blue flame.",
+        uses: "Fuel cells, ammonia production, rocket fuel"
+      },
+      { 
+        number: 3, 
+        symbol: "Li", 
+        name: "Lithium", 
+        mass: 6.94, 
+        config: "[He] 2s¹", 
+        desc: "Soft, silvery metal used in batteries and mood-stabilizing drugs.",
+        meltingPoint: "180 °C",
+        density: "0.53 g/cm³",
+        reaction: "2Li + 2H₂O → 2LiOH + H₂↑",
+        observation: "Fizzes gently, floats, no flame",
+        uses: "Rechargeable batteries, alloys"
+      },
+      { 
+        number: 11, 
+        symbol: "Na", 
+        name: "Sodium", 
+        mass: 22.990, 
+        config: "[Ne] 3s¹", 
+        desc: "Highly reactive metal; essential for nerve function and table salt.",
+        meltingPoint: "98 °C",
+        density: "0.97 g/cm³",
+        reaction: "2Na + 2H₂O → 2NaOH + H₂",
+        observation: "Fizzes rapidly, melts into a ball, may ignite (orange flame)",
+        uses: "Salt (NaCl), streetlights, coolant in nuclear reactors"
+      },
+      { 
+        number: 19, 
+        symbol: "K", 
+        name: "Potassium", 
+        mass: 39.098, 
+        config: "[Ar] 4s¹", 
+        desc: "Essential for plant growth and nerve signaling.",
+        meltingPoint: "63 °C",
+        density: "0.86 g/cm³",
+        reaction: "2K + 2H₂O → 2KOH + H₂",
+        observation: "Fizzes violently, lilac flame, rapid movement on surface",
+        uses: "Fertilizers (KNO₃), plant nutrition"
+      },
+      { 
+        number: 37, 
+        symbol: "Rb", 
+        name: "Rubidium", 
+        mass: 85.468, 
+        config: "[Kr] 5s¹", 
+        desc: "Soft, reactive metal used in research and atomic clocks.",
+        meltingPoint: "39 °C",
+        density: "1.53 g/cm³",
+        reaction: "2Rb + 2H₂O → 2RbOH + H₂",
+        observation: "Explosive reaction, sparks",
+        uses: "Research, atomic clocks"
+      },
+      { 
+        number: 55, 
+        symbol: "Cs", 
+        name: "Caesium", 
+        mass: 132.91, 
+        config: "[Xe] 6s¹", 
+        desc: "Highly reactive; used in atomic clocks and drilling fluids.",
+        meltingPoint: "28.5 °C",
+        density: "1.93 g/cm³",
+        reaction: "2Cs + 2H₂O → 2CsOH + H₂",
+        observation: "Explodes violently, golden soft metal",
+        uses: "Most accurate atomic clocks, oil drilling fluids"
+      },
+      { 
+        number: 87, 
+        symbol: "Fr", 
+        name: "Francium", 
+        mass: 223, 
+        config: "[Rn] 7s¹", 
+        desc: "Highly unstable; one of the rarest elements.",
+        meltingPoint: "~27 °C (estimated)",
+        density: "Unknown (estimated ~2.5 g/cm³)",
+        reaction: "2Fr + 2H₂O → 2FrOH + H₂ (predicted)",
+        observation: "Not directly observed — extremely radioactive",
+        uses: "None (short half-life, rare), studied in nuclear physics"
+      }
     ];
-    let mcqIndex = 0, mcqScore = 0;
 
-    function loadMCQ() {
-      if (mcqIndex >= mcqQuestions.length) {
-        document.getElementById("mcq-question").innerHTML = `✅ Done! Your score: ${mcqScore}/${mcqQuestions.length}`;
-        document.getElementById("mcq-options").innerHTML = "";
-        return;
+    const groupColumn = document.getElementById('group-column');
+
+    // Add Group 1 elements to the column
+    group1Elements.forEach(el => {
+      const element = document.createElement('div');
+      element.className = 'element';
+      element.innerHTML = `
+        <strong>${el.symbol}</strong>
+        <small>${el.name}</small>
+        <small>Mass: ${el.mass}</small>
+      `;
+      
+      // Add click event for details
+      element.onclick = () => {
+        showElementDetail(el);
+      };
+      
+      groupColumn.appendChild(element);
+    });
+
+    // Detail Popup
+    const detailPopup = document.getElementById('detail-popup');
+    const elementDetail = document.getElementById('element-detail');
+    const closePopup = document.getElementById('close-popup');
+
+    function showElementDetail(element) {
+      elementDetail.innerHTML = `
+        <h2>${element.name} (${element.symbol})</h2>
+        <p><strong>Atomic Number:</strong> ${element.number}</p>
+        <p><strong>Atomic Mass:</strong> ${element.mass} u</p>
+        <p><strong>Electron Configuration:</strong> ${element.config}</p>
+        <p><strong>Description:</strong> ${element.desc}</p>
+        
+        <h3>Physical Properties</h3>
+        <p><strong>Melting Point:</strong> ${element.meltingPoint}</p>
+        <p><strong>Density:</strong> ${element.density}</p>
+        
+        <h3>Chemical Reaction</h3>
+        <pre>${element.reaction}</pre>
+        
+        <h3>Observation</h3>
+        <div class="observation">
+          <p>${element.observation}</p>
+        </div>
+        
+        <h3>Uses</h3>
+        <div class="uses">
+          <p>${element.uses}</p>
+        </div>
+      `;
+      detailPopup.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    closePopup.addEventListener('click', () => {
+      detailPopup.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    });
+
+    detailPopup.addEventListener('click', (e) => {
+      if (e.target === detailPopup) {
+        detailPopup.classList.remove('active');
+        document.body.style.overflow = 'auto';
       }
-      const q = mcqQuestions[mcqIndex];
-      document.getElementById("mcq-question").innerText = q.q;
-      document.getElementById("mcq-options").innerHTML = "";
-      q.o.forEach(opt => {
-        const btn = document.createElement("button");
-        btn.innerText = opt;
-        btn.onclick = () => submitMCQ(opt);
-        document.getElementById("mcq-options").appendChild(btn);
-      });
-      document.getElementById("mcq-feedback").innerText = "";
-      updateProgress("mcq-progress", mcqIndex, mcqQuestions.length);
-    }
-    function submitMCQ(ans) {
-      const correct = mcqQuestions[mcqIndex].a;
-      if (ans === correct) {
-        mcqScore++;
-        document.getElementById("mcq-feedback").innerText = "✅ Correct!";
-      } else {
-        document.getElementById("mcq-feedback").innerText = `❌ Wrong! Correct: ${correct}`;
-      }
-      mcqIndex++;
-      setTimeout(loadMCQ, 800);
-    }
-    function retryMCQ() {
-      mcqIndex = 0; mcqScore = 0; loadMCQ();
-    }
-
-    // ✅ TF
-    const tfQuestions = [
-      { q: "Alkanes are saturated.", a: true },
-      { q: "Methane has 2 carbons.", a: false },
-      { q: "Alkanes dissolve in water.", a: false },
-      { q: "Combustion produces CO2 & H2O.", a: true },
-      { q: "Alkanes react with halogens.", a: true }
-    ];
-    let tfIndex = 0, tfScore = 0;
-
-    function loadTF() {
-      if (tfIndex >= tfQuestions.length) {
-        document.getElementById("tf-question").innerHTML = `✅ Done! Your score: ${tfScore}/${tfQuestions.length}`;
-        return;
-      }
-      document.getElementById("tf-question").innerText = tfQuestions[tfIndex].q;
-      document.getElementById("tf-feedback").innerText = "";
-      updateProgress("tf-progress", tfIndex, tfQuestions.length);
-    }
-    function submitTF(ans) {
-      if (ans === tfQuestions[tfIndex].a) {
-        tfScore++;
-        document.getElementById("tf-feedback").innerText = "✅ Correct!";
-      } else {
-        document.getElementById("tf-feedback").innerText = "❌ Wrong!";
-      }
-      tfIndex++;
-      setTimeout(loadTF, 800);
-    }
-    function retryTF() {
-      tfIndex = 0; tfScore = 0; loadTF();
-    }
-
-    // ✅ Match the Alkanes
-    const pairs = [
-      ["Methane", "CH₄"],
-      ["Ethane", "C₂H₆"],
-      ["Propane", "C₃H₈"],
-      ["Butane", "C₄H₁₀"],
-      ["Pentane", "C₅H₁₂"]
-    ];
-    let matchedCount = 0;
-
-    function shuffle(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-    }
-
-    function loadMatch() {
-      const drag = document.getElementById("drag-container");
-      const drop = document.getElementById("drop-container");
-      drag.innerHTML = "";
-      drop.innerHTML = "";
-      matchedCount = 0;
-
-      // Chemical formulas stay ordered; names shuffled
-      const shuffled = pairs.slice();
-      shuffle(shuffled);
-
-      // Drag: Formulas ordered
-      pairs.forEach(pair => {
-        const d = document.createElement("div");
-        d.innerText = pair[1];
-        d.draggable = true;
-        d.ondragstart = e => e.dataTransfer.setData("text", pair[1]);
-        d.style.margin = "5px";
-        d.style.padding = "10px";
-        d.style.background = "#e2e8f0";
-        d.style.borderRadius = "8px";
-        drag.appendChild(d);
-      });
-
-      shuffled.forEach(pair => {
-        const target = document.createElement("div");
-        target.innerText = pair[0];
-        target.ondragover = e => e.preventDefault();
-        target.ondrop = e => {
-          const data = e.dataTransfer.getData("text");
-          if (data === pair[1]) {
-            target.innerText = pair[0] + " → " + data;
-            target.style.background = "#bbf7d0";
-            matchedCount++;
-          } else {
-            target.innerText = pair[0] + " → " + data;
-            target.style.background = "#fecaca";
-          }
-          updateProgress("match-progress", matchedCount, pairs.length);
-        };
-        target.style.margin = "5px";
-        target.style.padding = "10px";
-        target.style.background = "#f1f5f9";
-        target.style.borderRadius = "8px";
-        drop.appendChild(target);
-      });
-    }
-    function checkMatch() {
-      if (matchedCount === pairs.length) {
-        document.getElementById("match-feedback").innerText = "✅ All matched!";
-      } else {
-        document.getElementById("match-feedback").innerText = `✅ ${matchedCount}/${pairs.length} matched correctly.`;
-      }
-    }
-
-    function updateProgress(id, index, total) {
-      const p = ((index) / total) * 100;
-      document.getElementById(id).style.width = p + "%";
-    }
-
-    window.onload = () => {
-      loadMCQ();
-      loadTF();
-      loadMatch();
-    };
+    });
   </script>
 </body>
 </html>
