@@ -3,36 +3,195 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Group 1 Elements</title>
+  <title>Group 1 Quiz</title>
   <style>
     body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6fa;
       margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f8f9fa;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      padding: 2rem 1rem;
+      color: #1f2937;
     }
 
-    h1 {
-      font-size: 24px;
+    main {
+      max-width: 800px;
+      margin: auto;
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 1s ease;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .question {
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e5e7eb;
+      animation: slideIn 0.5s ease forwards;
+    }
+
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .option-btn {
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      background-color: #e0e7ff;
+      color: #1e40af;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background-color: #c7d2fe;
+    }
+
+    .option-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.8;
+    }
+
+    .option-btn.selected {
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+    }
+
+    .option-btn.correct {
+      background-color: #d1fae5;
+      border-color: #10b981;
+    }
+
+    .option-btn.incorrect {
+      background-color: #fee2e2;
+      border-color: #ef4444;
+    }
+
+    .feedback {
+      margin-top: 1rem;
+      font-style: italic;
+      color: #374151;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .section-title {
       text-align: center;
-      margin: 20px 0 10px 0;
+      font-size: 1.2rem;
+      margin-top: 3rem;
+      color: #2563eb;
     }
 
     iframe {
+      display: block;
+      margin: 2rem auto;
       width: 100%;
-      max-width: 1200px;
-      height: 480px; /* compact height */
+      height: 600px;
       border: none;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      border-radius: 8px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <h1>Group 1 Elements</h1>
-  <iframe src="https://andrewung2009.github.io/group1periodictable/group1-table.html" allowfullscreen></iframe>
+
+  <main>
+    <div id="quiz"></div>
+
+    <h2 class="section-title">Interactive Guide to Understanding Group I Metals</h2>
+
+    <iframe src="https://andrewung2009.github.io/group1periodictable/group1-table.html"></iframe>
+  </main>
+
+  <script>
+    const quizData = [
+      {
+        question: "As you go down Group 1, what happens to the boiling point?",
+        options: ["Increases", "Decreases", "Stays the same"],
+        answer: "Decreases",
+        explanation: "Boiling point decreases down Group 1 because atoms become larger, weakening the metallic bonds."
+      },
+      {
+        question: "As you go down Group 1, what happens to the melting point?",
+        options: ["Increases", "Decreases", "Stays the same"],
+        answer: "Decreases",
+        explanation: "Melting point decreases due to weaker metallic bonds caused by increased atomic size."
+      },
+      {
+        question: "As you go down Group 1, what happens to the density?",
+        options: ["Increases", "Decreases", "Stays the same"],
+        answer: "Increases",
+        explanation: "Density increases because mass increases faster than volume as atoms get bigger."
+      },
+      {
+        question: "As you go down Group 1, what happens to the atomic radius?",
+        options: ["Increases", "Decreases", "Stays the same"],
+        answer: "Increases",
+        explanation: "Atomic radius increases due to the addition of more electron shells."
+      }
+    ];
+
+    const quizContainer = document.getElementById("quiz");
+
+    quizData.forEach((q, i) => {
+      const questionDiv = document.createElement("div");
+      questionDiv.className = "question";
+
+      const qTitle = document.createElement("h2");
+      qTitle.textContent = `${i + 1}. ${q.question}`;
+      questionDiv.appendChild(qTitle);
+
+      const optionsDiv = document.createElement("div");
+      optionsDiv.className = "options";
+
+      q.options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.textContent = option;
+
+        btn.addEventListener("click", () => {
+          const allButtons = optionsDiv.querySelectorAll("button");
+          allButtons.forEach(b => b.disabled = true);
+
+          btn.classList.add("selected");
+
+          if (option === q.answer) {
+            btn.classList.add("correct");
+          } else {
+            btn.classList.add("incorrect");
+            const correctBtn = [...allButtons].find(b => b.textContent === q.answer);
+            if (correctBtn) correctBtn.classList.add("correct");
+          }
+
+          const feedback = document.createElement("div");
+          feedback.className = "feedback";
+          feedback.textContent = q.explanation;
+          questionDiv.appendChild(feedback);
+        });
+
+        optionsDiv.appendChild(btn);
+      });
+
+      questionDiv.appendChild(optionsDiv);
+      quizContainer.appendChild(questionDiv);
+    });
+  </script>
 </body>
 </html>
