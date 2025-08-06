@@ -1,44 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Group 1 Periodic Table - Embed</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Group 1 Periodic Table</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      background-color: #f4f4f4;
       font-family: Arial, sans-serif;
+      background: #f0f0f0;
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       height: 100vh;
     }
 
-    .iframe-container {
-      width: 90%;
-      max-width: 1000px;
-      height: 90vh;
-      border: 1px solid #ccc;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    iframe {
+      border: none;
+      width: 100%;
+      max-width: 1200px;
+      height: 320px; /* Compact but enough to show the entire table */
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
     }
 
-    iframe {
+    h1 {
+      text-align: center;
+      font-size: 1.8rem;
+      margin-top: 1rem;
+    }
+
+    .container {
       width: 100%;
-      height: 100%;
-      border: none;
+      padding: 20px;
+      max-width: 1250px;
     }
   </style>
 </head>
 <body>
-  <div class="iframe-container">
-    <iframe 
-      src="https://andrewung2009.github.io/group1periodictable/group1-table.html" 
-      title="Group 1 Periodic Table">
-    </iframe>
+  <div class="container">
+    <h1>Group 1 Elements: Periodic Table Viewer</h1>
+    <iframe src="https://andrewung2009.github.io/group1periodictable/group1-table.html" title="Group 1 Periodic Table"></iframe>
   </div>
 </body>
 </html>
