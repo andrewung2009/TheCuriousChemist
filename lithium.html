@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lithium Atom</title>
+<style>
+  body {
+    background-color: #0d1b2a;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  h1 {
+    margin-bottom: 5px;
+    font-size: 2rem;
+  }
+
+  h2 {
+    margin-top: 0;
+    color: #9ae1ff;
+    font-weight: normal;
+    font-size: 1.2rem;
+  }
+
+  .atom {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin-bottom: 20px;
+  }
+
+  /* Nucleus */
+  .nucleus {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, #ff6b6b, #d00000);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  /* Orbit paths */
+  .orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 1px dashed rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .orbit.one {
+    width: 120px;
+    height: 120px;
+  }
+
+  .orbit.two {
+    width: 200px;
+    height: 200px;
+  }
+
+  /* Electrons */
+  .electron {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: #4dabf7;
+    border-radius: 50%;
+    margin: -10px;
+    animation: spin linear infinite;
+    box-shadow: 0 0 8px #4dabf7;
+  }
+
+  /* First shell electrons - evenly spaced */
+  .orbit.one .electron:nth-child(1) {
+    --radius: 60px;
+    animation-duration: 2s;
+    animation-delay: 0s;
+    transform: rotate(0deg) translateX(var(--radius));
+  }
+
+  .orbit.one .electron:nth-child(2) {
+    --radius: 60px;
+    animation-duration: 2s;
+    animation-delay: -1s;
+    transform: rotate(180deg) translateX(var(--radius));
+  }
+
+  /* Second shell electron */
+  .orbit.two .electron:nth-child(1) {
+    --radius: 100px;
+    animation-duration: 3s;
+    animation-delay: -0.5s;
+    transform: rotate(90deg) translateX(var(--radius));
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg) translateX(var(--radius)); }
+    to { transform: rotate(360deg) translateX(var(--radius)); }
+  }
+
+  /* Key styles */
+  .key {
+    display: flex;
+    gap: 20px;
+    font-size: 0.9rem;
+  }
+
+  .key-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .key-color {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+  }
+
+  .key-nucleus { background: radial-gradient(circle, #ff6b6b, #d00000); }
+  .key-electron { background: #4dabf7; box-shadow: 0 0 4px #4dabf7; }
+  .key-orbit { background: none; border: 1px dashed rgba(255,255,255,0.4); width: 15px; height: 15px; border-radius: 50%; }
+
+</style>
+</head>
+<body>
+  <h1>Li</h1>
+  <h2>Lithium</h2>
+
+  <div class="atom">
+    <div class="nucleus">3 Protons</div>
+    <div class="orbit one">
+      <div class="electron"></div>
+      <div class="electron"></div>
+    </div>
+    <div class="orbit two">
+      <div class="electron"></div>
+    </div>
+  </div>
+
+  <div class="key">
+    <div class="key-item"><div class="key-color key-nucleus"></div> Nucleus</div>
+    <div class="key-item"><div class="key-color key-electron"></div> Electron</div>
+    <div class="key-item"><div class="key-color key-orbit"></div> Electron Orbital</div>
+  </div>
+</body>
+</html>
