@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Lithium Atom</title>
 <style>
   body {
@@ -82,6 +82,13 @@
     transform-origin: center;
   }
 
+  /* Valence electron styling */
+  .valence-electron {
+    background-color: #f9f871; /* bright yellow */
+    box-shadow: 0 0 15px 5px #f9f871;
+    animation: spin linear infinite;
+  }
+
   /* First shell electrons */
   .orbit.one .electron:nth-child(1) {
     --radius: 60px;
@@ -96,7 +103,7 @@
     transform: rotate(180deg) translateX(var(--radius));
   }
 
-  /* Second shell electron */
+  /* Second shell electron (valence electron) */
   .orbit.two .electron:nth-child(1) {
     --radius: 100px;
     animation-duration: 3s;
@@ -130,6 +137,7 @@
 
   .key-nucleus { background: radial-gradient(circle, #ff6b6b, #d00000); }
   .key-electron { background: #4dabf7; box-shadow: 0 0 4px #4dabf7; }
+  .key-valence { background: #f9f871; box-shadow: 0 0 8px #f9f871; }
   .key-orbit { background: none; border: 1px dashed rgba(255,255,255,0.4); width: 15px; height: 15px; border-radius: 50%; }
 </style>
 </head>
@@ -144,13 +152,14 @@
       <div class="electron"></div>
     </div>
     <div class="orbit two">
-      <div class="electron"></div>
+      <div class="electron valence-electron"></div>
     </div>
   </div>
 
   <div class="key">
     <div class="key-item"><div class="key-color key-nucleus"></div> Nucleus</div>
     <div class="key-item"><div class="key-color key-electron"></div> Electron</div>
+    <div class="key-item"><div class="key-color key-valence"></div> Valence Electron</div>
     <div class="key-item"><div class="key-color key-orbit"></div> Electron Orbital</div>
   </div>
 </body>
