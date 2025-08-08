@@ -132,5 +132,38 @@
       quizContainer.appendChild(questionDiv);
     });
   </script>
+
+  <script>
+    const ENDPOINT = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+    let USER_ID = localStorage.getItem('quizUser');
+    if (!USER_ID) {
+      USER_ID = 'u-' + Date.now() + '-' + Math.random().toString(36).substr(2,9);
+      localStorage.setItem('quizUser', USER_ID);
+    }
+    const answered = new Set(JSON.parse(localStorage.getItem('answered') || '[]'));
+
+    quizData.forEach((q, i) => {
+      const questionDiv = document.querySelectorAll('.question')[i];
+      const optionsDiv  = questionDiv.querySelector('.options');
+
+      optionsDiv.addEventListener('click', e => {
+        if (!e.target.matches('.option-btn')) return;
+        if (answered.has(i)) return;
+
+        const choice  = e.target.textContent;
+        const correct = choice === q.answer ? 1 : 0;
+
+        [...optionsDiv.querySelectorAll('button')].forEach(b => b.disabled = true);
+
+        fetch(`${ENDPOINT}?user=${USER_ID}&q=${i}&choice=${encodeURIComponent(choice)}&correct=${correct}`, {
+          method: 'GET',
+          mode: 'no-cors'
+        }).catch(console.error);
+
+        answered.add(i);
+        localStorage.setItem('answered', JSON.stringify([...answered]));
+      });
+    });
+  </script>
 </body>
 </html>
