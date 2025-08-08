@@ -54,8 +54,10 @@
       background: white;
       border-radius: 12px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      width: 90%;
-      max-width: 400px;
+      width: 95%;
+      max-width: 900px;
+      max-height: 90%;
+      overflow-y: auto;
       padding: 1.5rem;
       z-index: 1000;
       opacity: 0;
@@ -103,6 +105,13 @@
     .overlay.show {
       opacity: 1;
       pointer-events: auto;
+    }
+
+    iframe {
+      border: none;
+      margin-top: 10px;
+      width: 100%;
+      height: 800px;
     }
   </style>
 </head>
@@ -157,7 +166,7 @@ Boiling Point: 1342°C
 Density: 0.534 g/cm³
 Appearance: Soft, silvery-white metal
 Uses: Batteries, ceramics, lubricants
-<iframe src="https://andrewung2009.github.io/group1periodictable/lithium.html" width="100%" height="300" style="border:none; margin-top:10px;"></iframe>`,
+<iframe src="https://andrewung2009.github.io/group1periodictable/lithium.html"></iframe>`,
 
       'Sodium': `Proton Number: 11
 Relative Atomic Mass: 22.99
@@ -167,7 +176,7 @@ Boiling Point: 883°C
 Density: 0.968 g/cm³
 Appearance: Soft, silvery-white metal
 Uses: Table salt, soap, streetlights
-<iframe src="https://andrewung2009.github.io/group1periodictable/sodium.html" width="100%" height="300" style="border:none; margin-top:10px;"></iframe>`,
+<iframe src="https://andrewung2009.github.io/group1periodictable/sodium.html"></iframe>`,
 
       'Potassium': `Proton Number: 19
 Relative Atomic Mass: 39.10
@@ -176,7 +185,8 @@ Melting Point: 63.5°C
 Boiling Point: 759°C
 Density: 0.862 g/cm³
 Appearance: Silvery metal
-Uses: Fertilizers, fireworks`,
+Uses: Fertilizers, fireworks
+<iframe src="https://andrewung2009.github.io/group1periodictable/potassium.html"></iframe>`,
 
       'Rubidium': `Proton Number: 37
 Relative Atomic Mass: 85.47
@@ -185,7 +195,8 @@ Melting Point: 39.3°C
 Boiling Point: 688°C
 Density: 1.532 g/cm³
 Appearance: Soft, silvery-white metal
-Uses: Research, electronics`,
+Uses: Research, electronics
+<iframe src="https://andrewung2009.github.io/group1periodictable/rubidium.html"></iframe>`,
 
       'Cesium': `Proton Number: 55
 Relative Atomic Mass: 132.91
@@ -194,7 +205,8 @@ Melting Point: 28.4°C
 Boiling Point: 671°C
 Density: 1.873 g/cm³
 Appearance: Soft, golden metal
-Uses: Atomic clocks, drilling fluids`,
+Uses: Atomic clocks, drilling fluids
+<iframe src="https://andrewung2009.github.io/group1periodictable/cesium.html"></iframe>`,
 
       'Francium': `Proton Number: 87
 Relative Atomic Mass: 223 (estimated)
@@ -203,7 +215,8 @@ Melting Point: 27°C (estimated)
 Boiling Point: 677°C (estimated)
 Density: 1.87 g/cm³ (estimated)
 Appearance: Unknown, likely metallic
-Uses: Radioactive research`
+Uses: Radioactive research
+<iframe src="https://andrewung2009.github.io/group1periodictable/francium.html"></iframe>`
     };
 
     function showPopup(name) {
