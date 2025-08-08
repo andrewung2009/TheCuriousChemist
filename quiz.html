@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Group 1 Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9fafb;
+      margin: 0;
+      padding: 1rem;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .question {
+      background: white;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .options {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+    .option-btn {
+      flex: 1 1 auto;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 0.3rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background-color: #e5e7eb;
+    }
+    .option-btn:hover {
+      background-color: #d1d5db;
+    }
+    .selected {
+      outline: 3px solid #3b82f6;
+    }
+    .correct {
+      background-color: #bbf7d0 !important;
+    }
+    .incorrect {
+      background-color: #fecaca !important;
+    }
+    .feedback {
+      margin-top: 0.5rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Group 1 Trends Quiz</h1>
+  <div id="quiz"></div>
+
+  <script>
+    const quizData = [
+      {
+        question: "As you go down Group 1, what happens to the boiling point?",
+        options: ["Increases", "Decreases", "Stays the same"],
+        answer: "Decreases",
+        explanation: "Boiling point decreases down Group 1 because atoms become larger, weakening the metallic bonds."
+      },
+      {
+        question: "As you go down Group 1, what happens to the melting point?",
+        options: ["Increases", "Decreases", "Stays the same"],
+        answer: "Decreases",
+        explanation: "Melting point decreases due to weaker metallic bonds caused by increased atomic size."
+      },
+      {
+        question: "As you go down Group 1, what happens to the density?",
+        options: ["Increases", "Decreases", "Stays the same"],
+        answer: "Increases",
+        explanation: "Density increases because mass increases faster than volume as atoms get bigger."
+      },
+      {
+        question: "As you go down Group 1, what happens to the atomic radius?",
+        options: ["Increases", "Decreases", "Stays the same"],
+        answer: "Increases",
+        explanation: "Atomic radius increases due to the addition of more electron shells."
+      }
+    ];
+
+    const quizContainer = document.getElementById("quiz");
+
+    quizData.forEach((q, i) => {
+      const questionDiv = document.createElement("div");
+      questionDiv.className = "question";
+
+      const qTitle = document.createElement("h2");
+      qTitle.textContent = `${i + 1}. ${q.question}`;
+      questionDiv.appendChild(qTitle);
+
+      const optionsDiv = document.createElement("div");
+      optionsDiv.className = "options";
+
+      q.options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.textContent = option;
+
+        btn.addEventListener("click", () => {
+          const allButtons = optionsDiv.querySelectorAll("button");
+          allButtons.forEach(b => {
+            b.disabled = true;
+            if (b.textContent === q.answer) {
+              b.classList.add("correct");
+            }
+          });
+
+          btn.classList.add("selected");
+          if (option !== q.answer) {
+            btn.classList.add("incorrect");
+          }
+
+          const feedback = document.createElement("div");
+          feedback.className = "feedback";
+          feedback.textContent = q.explanation;
+          questionDiv.appendChild(feedback);
+        });
+
+        optionsDiv.appendChild(btn);
+      });
+
+      questionDiv.appendChild(optionsDiv);
+      quizContainer.appendChild(questionDiv);
+    });
+  </script>
+</body>
+</html>
