@@ -64,15 +64,8 @@
     transform: translate(-50%, -50%);
   }
 
-  .orbit.one {
-    width: 120px;
-    height: 120px;
-  }
-
-  .orbit.two {
-    width: 200px;
-    height: 200px;
-  }
+  .orbit.one { width: 120px; height: 120px; }
+  .orbit.two { width: 200px; height: 200px; }
 
   /* Electrons */
   .electron {
@@ -86,16 +79,16 @@
     margin: -10px;
     animation: spin linear infinite;
     box-shadow: 0 0 8px #4dabf7;
+    transform-origin: center;
   }
 
-  /* First shell electrons - evenly spaced */
+  /* First shell electrons */
   .orbit.one .electron:nth-child(1) {
     --radius: 60px;
     animation-duration: 2s;
     animation-delay: 0s;
     transform: rotate(0deg) translateX(var(--radius));
   }
-
   .orbit.one .electron:nth-child(2) {
     --radius: 60px;
     animation-duration: 2s;
@@ -107,8 +100,8 @@
   .orbit.two .electron:nth-child(1) {
     --radius: 100px;
     animation-duration: 3s;
-    animation-delay: -0.5s;
-    transform: rotate(90deg) translateX(var(--radius));
+    animation-delay: 0s;
+    transform: rotate(0deg) translateX(var(--radius));
   }
 
   @keyframes spin {
@@ -138,7 +131,6 @@
   .key-nucleus { background: radial-gradient(circle, #ff6b6b, #d00000); }
   .key-electron { background: #4dabf7; box-shadow: 0 0 4px #4dabf7; }
   .key-orbit { background: none; border: 1px dashed rgba(255,255,255,0.4); width: 15px; height: 15px; border-radius: 50%; }
-
 </style>
 </head>
 <body>
