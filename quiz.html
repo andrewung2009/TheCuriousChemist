@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Group 1 Quiz</title>
   <style>
     body {
@@ -123,6 +123,29 @@
           feedback.className = "feedback";
           feedback.textContent = q.explanation;
           questionDiv.appendChild(feedback);
+
+          // Data to send to Google Sheets
+          const dataToSend = {
+            questionNumber: i + 1,
+            questionText: q.question,
+            selectedOption: option,
+            isCorrect: option === q.answer,
+            userId: "Anonymous" // Replace or generate user/session ID if you want
+          };
+
+          // Send answer data to Google Apps Script Web App
+          fetch("https://script.google.com/u/0/home/projects/1wCxLjelhF2Bq_GvjZCPg3cg3sdRQo3tK5XkFb84DkMt82ZhFSzbYGI0y/edit", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(dataToSend)
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log("Response from server:", data);
+          })
+          .catch(error => {
+            console.error("Error sending data:", error);
+          });
         });
 
         optionsDiv.appendChild(btn);
@@ -130,39 +153,6 @@
 
       questionDiv.appendChild(optionsDiv);
       quizContainer.appendChild(questionDiv);
-    });
-  </script>
-
-  <script>
-    const ENDPOINT = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
-    let USER_ID = localStorage.getItem('quizUser');
-    if (!USER_ID) {
-      USER_ID = 'u-' + Date.now() + '-' + Math.random().toString(36).substr(2,9);
-      localStorage.setItem('quizUser', USER_ID);
-    }
-    const answered = new Set(JSON.parse(localStorage.getItem('answered') || '[]'));
-
-    quizData.forEach((q, i) => {
-      const questionDiv = document.querySelectorAll('.question')[i];
-      const optionsDiv  = questionDiv.querySelector('.options');
-
-      optionsDiv.addEventListener('click', e => {
-        if (!e.target.matches('.option-btn')) return;
-        if (answered.has(i)) return;
-
-        const choice  = e.target.textContent;
-        const correct = choice === q.answer ? 1 : 0;
-
-        [...optionsDiv.querySelectorAll('button')].forEach(b => b.disabled = true);
-
-        fetch(`${ENDPOINT}?user=${USER_ID}&q=${i}&choice=${encodeURIComponent(choice)}&correct=${correct}`, {
-          method: 'GET',
-          mode: 'no-cors'
-        }).catch(console.error);
-
-        answered.add(i);
-        localStorage.setItem('answered', JSON.stringify([...answered]));
-      });
     });
   </script>
 </body>
