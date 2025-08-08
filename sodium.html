@@ -1,206 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Sodium Atom (Na)</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sodium Atom</title>
 <style>
-  /* Make everything scale relative to the iframe's viewport */
-  :root{
-    /* max size 360px, but shrink to viewport width or height if needed */
-    --size: min(360px, 92vw, 82vh);
-    --nucleus-fraction: 0.25; /* nucleus relative to --size */
-    --electron-fraction: 0.055; /* electron diameter relative to --size */
-    --orbit1-fraction: 0.39; /* orbit widths relative to --size */
-    --orbit2-fraction: 0.61;
-    --orbit3-fraction: 0.83;
+  body {
+    background-color: #0d1b2a;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
   }
 
-  html,body{
-    height:100%;
-    margin:0;
-    padding:0;
-    overflow:hidden; /* prevent scrollbars inside iframe */
-    background:#0d1b2a;
-    color:#fff;
-    font-family: Arial, Helvetica, sans-serif;
+  h1 {
+    margin-bottom: 5px;
+    font-size: 2rem;
   }
 
-  /* Centering container */
-  .wrap {
-    min-height:100%;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    box-sizing:border-box;
-    padding:8px;
+  h2 {
+    margin-top: 0;
+    color: #9ae1ff;
+    font-weight: normal;
+    font-size: 1.2rem;
   }
 
-  h1 { margin: 0 0 6px; font-size: clamp(20px, 3.8vw, 28px); }
-  h2 { margin: 0 0 14px; color: #9ae1ff; font-weight: 400; font-size: clamp(14px, 2.2vw, 18px); }
-
-  /* Atom container scales with --size */
-  .atom{
-    width: var(--size);
-    height: var(--size);
+  .atom {
     position: relative;
-    margin-bottom: 12px;
+    width: 400px;
+    height: 400px;
+    margin-bottom: 20px;
+  }
+
+  /* Nucleus */
+  .nucleus {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 90px;
+    height: 90px;
+    background: radial-gradient(circle, #ff6b6b, #d00000);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
     box-sizing: border-box;
-    -webkit-user-select: none;
-    user-select: none;
   }
 
-  /* nucleus scaled */
-  .nucleus{
-    position:absolute;
-    left:50%; top:50%;
-    width: calc(var(--size) * var(--nucleus-fraction));
-    height: calc(var(--size) * var(--nucleus-fraction));
-    margin-left: calc(-1 * var(--size) * var(--nucleus-fraction) / 2);
-    margin-top: calc(-1 * var(--size) * var(--nucleus-fraction) / 2);
-    border-radius:50%;
-    background: radial-gradient(circle, #ff6b6b 0%, #d00000 70%);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:700;
-    font-size: max(12px, calc(var(--size) * 0.08));
-    text-align:center;
-    box-shadow: 0 6px 20px rgba(208,0,0,0.18), inset 0 6px 18px rgba(255,255,255,0.05);
+  /* Orbit paths */
+  .orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 1px dashed rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
   }
 
-  /* Orbit rings sized relative to --size */
-  .orbit{
-    position:absolute;
-    left:50%; top:50%;
-    transform: translate(-50%,-50%);
-    border-radius:50%;
-    border: 1px dashed rgba(255,255,255,0.16);
-    box-sizing:border-box;
-  }
-  .orbit.one{
-    width: calc(var(--size) * var(--orbit1-fraction));
-    height: calc(var(--size) * var(--orbit1-fraction));
-  }
-  .orbit.two{
-    width: calc(var(--size) * var(--orbit2-fraction));
-    height: calc(var(--size) * var(--orbit2-fraction));
-  }
-  .orbit.three{
-    width: calc(var(--size) * var(--orbit3-fraction));
-    height: calc(var(--size) * var(--orbit3-fraction));
+  .orbit.one {
+    width: 140px;
+    height: 140px;
   }
 
-  /* electron visuals scaled */
-  .electron{
-    position:absolute;
-    left:50%; top:50%;
-    width: calc(var(--size) * var(--electron-fraction));
-    height: calc(var(--size) * var(--electron-fraction));
-    margin-left: calc(-1 * var(--size) * var(--electron-fraction) / 2);
-    margin-top: calc(-1 * var(--size) * var(--electron-fraction) / 2);
-    background: #4dabf7;
-    border-radius:50%;
-    box-shadow: 0 0 10px rgba(77,171,247,0.9);
-    transform-origin: center center;
-    will-change: transform;
+  .orbit.two {
+    width: 240px;
+    height: 240px;
   }
 
-  /* define each orbit's radius as half of its width */
-  .orbit.one .electron { --radius: calc(var(--size) * var(--orbit1-fraction) / 2); }
-  .orbit.two .electron { --radius: calc(var(--size) * var(--orbit2-fraction) / 2); }
-  .orbit.three .electron { --radius: calc(var(--size) * var(--orbit3-fraction) / 2); }
-
-  /* keyframe: rotate and keep on path */
-  @keyframes spin {
-    from { transform: rotate(0deg) translateX(var(--radius)); }
-    to   { transform: rotate(360deg) translateX(var(--radius)); }
+  .orbit.three {
+    width: 340px;
+    height: 340px;
   }
 
-  /* animation speeds and initial placement for even spacing */
-  /* first shell (2 electrons) */
-  .orbit.one .electron:nth-child(1){
-    animation: spin 2s linear infinite;
+  /* Electrons */
+  .electron {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: #4dabf7;
+    border-radius: 50%;
+    margin: -10px;
+    animation: spin linear infinite;
+    box-shadow: 0 0 8px #4dabf7;
+  }
+
+  /* First shell - 2 electrons */
+  .orbit.one .electron:nth-child(1) {
+    --radius: 70px;
+    animation-duration: 2s;
+    animation-delay: 0s;
     transform: rotate(0deg) translateX(var(--radius));
   }
-  .orbit.one .electron:nth-child(2){
-    animation: spin 2s linear infinite;
+
+  .orbit.one .electron:nth-child(2) {
+    --radius: 70px;
+    animation-duration: 2s;
     animation-delay: -1s;
     transform: rotate(180deg) translateX(var(--radius));
   }
 
-  /* second shell (8 electrons) - evenly spaced every 45deg */
-  .orbit.two .electron:nth-child(1) { animation: spin 3s linear infinite; transform: rotate(0deg) translateX(var(--radius)); }
-  .orbit.two .electron:nth-child(2) { animation: spin 3s linear infinite; animation-delay:-0.375s; transform: rotate(45deg) translateX(var(--radius)); }
-  .orbit.two .electron:nth-child(3) { animation: spin 3s linear infinite; animation-delay:-0.75s; transform: rotate(90deg) translateX(var(--radius)); }
-  .orbit.two .electron:nth-child(4) { animation: spin 3s linear infinite; animation-delay:-1.125s; transform: rotate(135deg) translateX(var(--radius)); }
-  .orbit.two .electron:nth-child(5) { animation: spin 3s linear infinite; animation-delay:-1.5s; transform: rotate(180deg) translateX(var(--radius)); }
-  .orbit.two .electron:nth-child(6) { animation: spin 3s linear infinite; animation-delay:-1.875s; transform: rotate(225deg) translateX(var(--radius)); }
-  .orbit.two .electron:nth-child(7) { animation: spin 3s linear infinite; animation-delay:-2.25s; transform: rotate(270deg) translateX(var(--radius)); }
-  .orbit.two .electron:nth-child(8) { animation: spin 3s linear infinite; animation-delay:-2.625s; transform: rotate(315deg) translateX(var(--radius)); }
-
-  /* third shell (1 electron) */
-  .orbit.three .electron:nth-child(1){
-    animation: spin 4s linear infinite;
+  /* Second shell - 8 electrons */
+  .orbit.two .electron:nth-child(1) {
+    --radius: 120px;
+    animation-duration: 3s;
+    animation-delay: 0s;
     transform: rotate(0deg) translateX(var(--radius));
   }
 
-  /* legend / key */
-  .key {
-    display:flex;
-    gap:18px;
-    align-items:center;
-    justify-content:center;
-    font-size:0.92rem;
-    color:#cfe9ff;
+  .orbit.two .electron:nth-child(2) {
+    --radius: 120px;
+    animation-duration: 3s;
+    animation-delay: -0.375s;
+    transform: rotate(45deg) translateX(var(--radius));
   }
-  .key .item { display:flex; gap:8px; align-items:center; }
-  .key .swatch { width:14px; height:14px; border-radius:50%; }
-  .sw-nucleus{ background: radial-gradient(circle,#ff6b6b,#d00000); }
-  .sw-electron{ background:#4dabf7; box-shadow: 0 0 4px rgba(77,171,247,0.9); }
-  .sw-orbit{ width:14px; height:14px; border:1px dashed rgba(255,255,255,0.16); border-radius:50%; background:transparent; }
 
-  /* small-screen tweaks */
-  @media (max-width:420px){
-    :root{ --size: min(320px, 92vw, 75vh); }
+  .orbit.two .electron:nth-child(3) {
+    --radius: 120px;
+    animation-duration: 3s;
+    animation-delay: -0.75s;
+    transform: rotate(90deg) translateX(var(--radius));
   }
+
+  .orbit.two .electron:nth-child(4) {
+    --radius: 120px;
+    animation-duration: 3s;
+    animation-delay: -1.125s;
+    transform: rotate(135deg) translateX(var(--radius));
+  }
+
+  .orbit.two .electron:nth-child(5) {
+    --radius: 120px;
+    animation-duration: 3s;
+    animation-delay: -1.5s;
+    transform: rotate(180deg) translateX(var(--radius));
+  }
+
+  .orbit.two .electron:nth-child(6) {
+    --radius: 120px;
+    animation-duration: 3s;
+    animation-delay: -1.875s;
+    transform: rotate(225deg) translateX(var(--radius));
+  }
+
+  .orbit.two .electron:nth-child(7) {
+    --radius: 120px;
+    animation-duration: 3s;
+    animation-delay: -2.25s;
+    transform: rotate(270deg) translateX(var(--radius));
+  }
+
+  .orbit.two .electron:nth-child(8) {
+    --radius: 120px;
+    animation-duration: 3s;
+    animation-delay: -2.625s;
+    transform: rotate(315deg) translateX(var(--radius));
+  }
+
+  /* Third shell - 1 electron */
+  .orbit.three .electron:nth-child(1) {
+    --radius: 170px;
+    animation-duration: 4s;
+    animation-delay: 0s;
+    transform: rotate(0deg) translateX(var(--radius));
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg) translateX(var(--radius)); }
+    to { transform: rotate(360deg) translateX(var(--radius)); }
+  }
+
+  /* Key styles */
+  .key {
+    display: flex;
+    gap: 20px;
+    font-size: 0.9rem;
+  }
+
+  .key-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .key-color {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+  }
+
+  .key-nucleus { background: radial-gradient(circle, #ff6b6b, #d00000); }
+  .key-electron { background: #4dabf7; box-shadow: 0 0 4px #4dabf7; }
+  .key-orbit { background: none; border: 1px dashed rgba(255,255,255,0.4); width: 15px; height: 15px; border-radius: 50%; }
 </style>
 </head>
 <body>
-  <div class="wrap" role="main" aria-label="Sodium atomic visual">
-    <h1>Na</h1>
-    <h2>Sodium</h2>
+  <h1>Na</h1>
+  <h2>Sodium</h2>
 
-    <div class="atom" aria-hidden="false">
-      <div class="nucleus">11 Protons</div>
+  <div class="atom">
+    <div class="nucleus">11 Protons</div>
 
-      <div class="orbit one" aria-hidden="false">
-        <div class="electron" aria-hidden="true"></div>
-        <div class="electron" aria-hidden="true"></div>
-      </div>
-
-      <div class="orbit two" aria-hidden="false">
-        <div class="electron" aria-hidden="true"></div>
-        <div class="electron" aria-hidden="true"></div>
-        <div class="electron" aria-hidden="true"></div>
-        <div class="electron" aria-hidden="true"></div>
-        <div class="electron" aria-hidden="true"></div>
-        <div class="electron" aria-hidden="true"></div>
-        <div class="electron" aria-hidden="true"></div>
-        <div class="electron" aria-hidden="true"></div>
-      </div>
-
-      <div class="orbit three" aria-hidden="false">
-        <div class="electron" aria-hidden="true"></div>
-      </div>
+    <div class="orbit one">
+      <div class="electron"></div>
+      <div class="electron"></div>
     </div>
 
-    <div class="key" aria-hidden="false">
-      <div class="item"><span class="swatch sw-nucleus" aria-hidden="true"></span> Nucleus</div>
-      <div class="item"><span class="swatch sw-electron" aria-hidden="true"></span> Electron</div>
-      <div class="item"><span class="swatch sw-orbit" aria-hidden="true"></span> Electron Orbital</div>
+    <div class="orbit two">
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
     </div>
+
+    <div class="orbit three">
+      <div class="electron"></div>
+    </div>
+  </div>
+
+  <div class="key">
+    <div class="key-item"><div class="key-color key-nucleus"></div> Nucleus</div>
+    <div class="key-item"><div class="key-color key-electron"></div> Electron</div>
+    <div class="key-item"><div class="key-color key-orbit"></div> Electron Orbital</div>
   </div>
 </body>
 </html>
