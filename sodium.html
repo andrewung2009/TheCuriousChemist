@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Sodium Atom</title>
 <style>
   body {
@@ -95,6 +95,13 @@
     box-shadow: 0 0 8px #4dabf7;
   }
 
+  /* Valence electron styling */
+  .valence-electron {
+    background-color: #f9f871; /* bright yellow */
+    box-shadow: 0 0 15px 5px #f9f871;
+    animation: spin linear infinite;
+  }
+
   /* First shell - 2 electrons */
   .orbit.one .electron:nth-child(1) {
     --radius: 70px;
@@ -167,12 +174,17 @@
     transform: rotate(315deg) translateX(var(--radius));
   }
 
-  /* Third shell - 1 electron */
+  /* Third shell - 1 electron (valence) */
   .orbit.three .electron:nth-child(1) {
     --radius: 170px;
     animation-duration: 4s;
     animation-delay: 0s;
     transform: rotate(0deg) translateX(var(--radius));
+  }
+
+  .orbit.three .electron:nth-child(1).valence-electron {
+    background-color: #f9f871; /* bright yellow */
+    box-shadow: 0 0 15px 5px #f9f871;
   }
 
   @keyframes spin {
@@ -201,6 +213,7 @@
 
   .key-nucleus { background: radial-gradient(circle, #ff6b6b, #d00000); }
   .key-electron { background: #4dabf7; box-shadow: 0 0 4px #4dabf7; }
+  .key-valence { background: #f9f871; box-shadow: 0 0 8px #f9f871; }
   .key-orbit { background: none; border: 1px dashed rgba(255,255,255,0.4); width: 15px; height: 15px; border-radius: 50%; }
 </style>
 </head>
@@ -228,13 +241,14 @@
     </div>
 
     <div class="orbit three">
-      <div class="electron"></div>
+      <div class="electron valence-electron"></div>
     </div>
   </div>
 
   <div class="key">
     <div class="key-item"><div class="key-color key-nucleus"></div> Nucleus</div>
     <div class="key-item"><div class="key-color key-electron"></div> Electron</div>
+    <div class="key-item"><div class="key-color key-valence"></div> Valence Electron</div>
     <div class="key-item"><div class="key-color key-orbit"></div> Electron Orbital</div>
   </div>
 </body>
