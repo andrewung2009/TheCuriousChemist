@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Group 1 Quiz</title>
   <style>
     body {
@@ -124,28 +124,19 @@
           feedback.textContent = q.explanation;
           questionDiv.appendChild(feedback);
 
-          // Data to send to Google Sheets
+          // Prepare data to send
           const dataToSend = {
             questionNumber: i + 1,
             questionText: q.question,
             selectedOption: option,
             isCorrect: option === q.answer,
-            userId: "Anonymous" // Replace or generate user/session ID if you want
+            userId: "Anonymous"  // You can modify this to get user info
           };
 
-          // Send answer data to Google Apps Script Web App
-          fetch("https://script.google.com/macros/s/AKfycbyB1O9deQ486xwQGz6kjvIjA6wZQ4H3u2YqvyHXCyNRrUTbSDkA-rfL0VC8zO_m5jI_uQ/exec", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(dataToSend)
-          })
-          .then(response => response.json())
-          .then(data => {
-            console.log("Response from server:", data);
-          })
-          .catch(error => {
-            console.error("Error sending data:", error);
-          });
+          // Use google.script.run to call server-side Apps Script function
+          google.script.run.withSuccessHandler(function(response) {
+            console.log("Saved to Sheet:", response);
+          }).saveAnswer(dataToSend);
         });
 
         optionsDiv.appendChild(btn);
@@ -157,4 +148,3 @@
   </script>
 </body>
 </html>
-
