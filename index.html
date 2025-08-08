@@ -1,47 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Group 1 Learning Hub</title>
   <style>
+    /* Import a nicer font */
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f3f4f6;
+      font-family: 'Roboto', Arial, sans-serif;
+      background: linear-gradient(135deg, #e0f2fe, #bae6fd);
       margin: 0;
       padding: 0;
+      color: #1e293b;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
+
     header {
+      background-color: #0c4a6e;
+      color: #e0f2fe;
+      width: 100%;
+      padding: 2rem 1rem;
+      box-shadow: 0 4px 8px rgb(12 74 110 / 0.3);
       text-align: center;
+      font-weight: 700;
+      font-size: 2.4rem;
+      letter-spacing: 1px;
+      user-select: none;
+    }
+
+    main {
+      max-width: 1000px;
+      width: 95%;
+      margin: 2rem auto 4rem;
       padding: 1rem;
-      background-color: #1f2937;
-      color: white;
+      background: #ffffffdd;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgb(0 0 0 / 0.1);
     }
+
     h2 {
-      margin-top: 2rem;
+      font-weight: 700;
       text-align: center;
+      margin: 2rem 0 1rem;
+      color: #0c4a6e;
+      letter-spacing: 0.05em;
+      font-size: 1.8rem;
     }
+
     iframe {
       width: 100%;
       border: none;
-      border-radius: 8px;
-      margin: 1rem 0;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgb(12 74 110 / 0.2);
+      margin: 1.5rem 0;
+      min-height: 600px;
+      transition: box-shadow 0.3s ease;
+    }
+
+    iframe:hover {
+      box-shadow: 0 6px 25px rgb(12 74 110 / 0.4);
+    }
+
+    @media (max-width: 600px) {
+      header {
+        font-size: 1.8rem;
+        padding: 1.5rem 1rem;
+      }
+      h2 {
+        font-size: 1.4rem;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Group 1 Learning Hub</h1>
-  </header>
+  <header>Group 1 Learning Hub</header>
+  <main>
+    <!-- Quiz iframe -->
+    <iframe src="quiz.html" title="Group 1 Trends Quiz"></iframe>
 
-  <!-- Quiz iframe -->
-  <iframe src="quiz.html" height="700"></iframe>
+    <!-- Interactive Guide heading -->
+    <h2>Interactive Guide to Understanding Group I Metals</h2>
 
-  <!-- Interactive Guide heading -->
-  <h2>Interactive Guide to Understanding Group I Metals</h2>
-
-  <!-- Group 1 table embed -->
-  <iframe src="https://andrewung2009.github.io/group1periodictable/group1-table.html" height="600"></iframe>
+    <!-- Group 1 table embed -->
+    <iframe src="https://andrewung2009.github.io/group1periodictable/group1-table.html" title="Group 1 Elements Table"></iframe>
+  </main>
 </body>
 </html>
-
