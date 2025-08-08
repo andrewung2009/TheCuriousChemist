@@ -1,187 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Group 1 Quiz</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f4f6f8;
-      margin: 0;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.5rem;
-      min-height: 100vh;
-    }
-    h1 {
-      color: #0d47a1;
-      margin-bottom: 1rem;
-      font-weight: 700;
-      font-size: 2rem;
-    }
-    .question {
-      background: white;
-      width: 600px; /* wider width */
-      border-radius: 12px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-      padding: 1.2rem 1.5rem;
-      box-sizing: border-box;
-      user-select: none;
-    }
-    .question h2 {
-      margin: 0 0 1rem 0;
-      font-weight: 600;
-      color: #1565c0;
-      font-size: 1.1rem;
-    }
-    .options {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-    .option-btn {
-      flex: 1 1 calc(50% - 0.75rem);
-      padding: 0.6rem 1rem;
-      border: none;
-      border-radius: 8px;
-      background-color: #e3f2fd;
-      color: #0d47a1;
-      cursor: pointer;
-      font-weight: 600;
-      box-shadow: 0 4px 8px rgba(21, 101, 192, 0.2);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      text-align: center;
-    }
-    .option-btn:hover:not(:disabled) {
-      background-color: #bbdefb;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 12px rgba(21, 101, 192, 0.3);
-    }
-    .option-btn:disabled {
-      cursor: default;
-      opacity: 0.85;
-    }
-    .selected {
-      outline: 3px solid #1565c0;
-      font-weight: 700;
-    }
-    .correct {
-      background-color: #bbf7d0 !important;
-      color: #2e7d32;
-      box-shadow: 0 4px 10px rgba(46, 125, 50, 0.3);
-    }
-    .incorrect {
-      background-color: #fecaca !important;
-      color: #b71c1c;
-      box-shadow: 0 4px 10px rgba(183, 28, 28, 0.3);
-    }
-    .feedback {
-      margin-top: 0.75rem;
-      font-weight: 600;
-      color: #333;
-      font-size: 0.95rem;
-      user-select: text;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Group 1 Trends Quiz</title>
+<style>
+  body {
+    margin: 0;
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f6f8;
+    display: flex;
+    justify-content: center;
+  }
+  .container {
+    max-width: 1000px;
+    width: 100%;
+  }
+  h1 {
+    text-align: center;
+    color: #0d47a1;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+  }
+  #quiz {
+    width: 100%;
+    margin: 0 auto;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+  .question {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    width: 100%;
+  }
+  .question h2 {
+    color: #1565c0;
+  }
+  .options {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .option-btn {
+    flex: 1 1 calc(33% - 1rem);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: none;
+    background-color: #e3f2fd;
+    color: #0d47a1;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  .option-btn:hover {
+    background-color: #bbdefb;
+  }
+</style>
 </head>
 <body>
-  <h1>Group 1 Trends Quiz</h1>
-  <div id="quiz"></div>
-
-  <script>
-    const quizData = [
-      {
-        question: "As you go down Group 1, what happens to the boiling point?",
-        options: ["Increases", "Decreases", "Stays the same"],
-        answer: "Decreases",
-        explanation: "Boiling point decreases down Group 1 because atoms become larger, weakening the metallic bonds."
-      },
-      {
-        question: "As you go down Group 1, what happens to the melting point?",
-        options: ["Increases", "Decreases", "Stays the same"],
-        answer: "Decreases",
-        explanation: "Melting point decreases due to weaker metallic bonds caused by increased atomic size."
-      },
-      {
-        question: "As you go down Group 1, what happens to the density?",
-        options: ["Increases", "Decreases", "Stays the same"],
-        answer: "Increases",
-        explanation: "Density increases because mass increases faster than volume as atoms get bigger."
-      },
-      {
-        question: "As you go down Group 1, what happens to the atomic radius?",
-        options: ["Increases", "Decreases", "Stays the same"],
-        answer: "Increases",
-        explanation: "Atomic radius increases due to the addition of more electron shells."
-      }
-    ];
-
-    const quizContainer = document.getElementById("quiz");
-
-    quizData.forEach((q, i) => {
-      const questionDiv = document.createElement("div");
-      questionDiv.className = "question";
-
-      const qTitle = document.createElement("h2");
-      qTitle.textContent = `${i + 1}. ${q.question}`;
-      questionDiv.appendChild(qTitle);
-
-      const optionsDiv = document.createElement("div");
-      optionsDiv.className = "options";
-
-      q.options.forEach(option => {
-        const btn = document.createElement("button");
-        btn.className = "option-btn";
-        btn.textContent = option;
-
-        btn.addEventListener("click", () => {
-          const allButtons = optionsDiv.querySelectorAll("button");
-          allButtons.forEach(b => {
-            b.disabled = true;
-            if (b.textContent === q.answer) {
-              b.classList.add("correct");
-            }
-          });
-
-          btn.classList.add("selected");
-          if (option !== q.answer) {
-            btn.classList.add("incorrect");
-          }
-
-          const feedback = document.createElement("div");
-          feedback.className = "feedback";
-          feedback.textContent = q.explanation;
-          questionDiv.appendChild(feedback);
-
-          // Prepare URL query parameters
-          const params = new URLSearchParams({
-            questionNumber: (i + 1).toString(),
-            questionText: q.question,
-            selectedOption: option,
-            isCorrect: (option === q.answer).toString(),
-            userId: "Anonymous" // replace with actual user id logic if needed
-          });
-
-          // Send GET request to Google Apps Script web app
-          fetch("https://script.google.com/macros/s/AKfycbyYgxc2hP-4GSQVxkGN4NMWnbnHxkBagewtLArGqRZwM4aKhtxHmCXTnypoQE_Ua14sug/exec" + "?" + params.toString())
-            .then(response => response.text())
-            .then(text => {
-              console.log("Server response:", text);
-            })
-            .catch(err => {
-              console.error("Error sending data:", err);
-            });
-        });
-
-        optionsDiv.appendChild(btn);
-      });
-
-      questionDiv.appendChild(optionsDiv);
-      quizContainer.appendChild(questionDiv);
-    });
-  </script>
+  <div class="container">
+    <h1>Group 1 Trends Quiz</h1>
+    <div id="quiz">
+      <div class="question">
+        <h2>1. As you go down Group 1, what happens to the boiling point?</h2>
+        <div class="options">
+          <button class="option-btn">Increases</button>
+          <button class="option-btn">Decreases</button>
+          <button class="option-btn">Stays the same</button>
+        </div>
+      </div>
+      <div class="question">
+        <h2>2. As you go down Group 1, what happens to the melting point?</h2>
+        <div class="options">
+          <button class="option-btn">Increases</button>
+          <button class="option-btn">Decreases</button>
+          <button class="option-btn">Stays the same</button>
+        </div>
+      </div>
+      <div class="question">
+        <h2>3. As you go down Group 1, what happens to the density?</h2>
+        <div class="options">
+          <button class="option-btn">Increases</button>
+          <button class="option-btn">Decreases</button>
+          <button class="option-btn">Stays the same</button>
+        </div>
+      </div>
+      <div class="question">
+        <h2>4. As you go down Group 1, what happens to the atomic radius?</h2>
+        <div class="options">
+          <button class="option-btn">Increases</button>
+          <button class="option-btn">Decreases</button>
+          <button class="option-btn">Stays the same</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
