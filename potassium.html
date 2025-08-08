@@ -81,6 +81,11 @@
     height: 340px;
   }
 
+  .orbit.four {
+    width: 400px;
+    height: 400px;
+  }
+
   /* Electrons */
   .electron {
     position: absolute;
@@ -93,6 +98,13 @@
     margin: -10px;
     animation: spin linear infinite;
     box-shadow: 0 0 8px #4dabf7;
+  }
+
+  /* Valence electron styling */
+  .valence-electron {
+    background-color: #f9f871; /* bright yellow */
+    box-shadow: 0 0 15px 5px #f9f871;
+    animation: spin linear infinite;
   }
 
   /* First shell - 2 electrons */
@@ -217,16 +229,16 @@
     transform: rotate(315deg) translateX(var(--radius));
   }
 
-  /* Fourth shell - 1 electron */
-  .orbit.four {
-    width: 400px;
-    height: 400px;
-  }
+  /* Fourth shell - 1 valence electron */
   .orbit.four .electron:nth-child(1) {
     --radius: 200px;
     animation-duration: 5s;
     animation-delay: 0s;
     transform: rotate(0deg) translateX(var(--radius));
+  }
+  .orbit.four .electron:nth-child(1).valence-electron {
+    background-color: #f9f871; /* bright yellow */
+    box-shadow: 0 0 15px 5px #f9f871;
   }
 
   @keyframes spin {
@@ -255,6 +267,7 @@
 
   .key-nucleus { background: radial-gradient(circle, #ff6b6b, #d00000); }
   .key-electron { background: #4dabf7; box-shadow: 0 0 4px #4dabf7; }
+  .key-valence { background: #f9f871; box-shadow: 0 0 8px #f9f871; }
   .key-orbit { background: none; border: 1px dashed rgba(255,255,255,0.4); width: 15px; height: 15px; border-radius: 50%; }
 </style>
 </head>
@@ -293,13 +306,14 @@
     </div>
 
     <div class="orbit four">
-      <div class="electron"></div>
+      <div class="electron valence-electron"></div>
     </div>
   </div>
 
   <div class="key">
     <div class="key-item"><div class="key-color key-nucleus"></div> Nucleus</div>
     <div class="key-item"><div class="key-color key-electron"></div> Electron</div>
+    <div class="key-item"><div class="key-color key-valence"></div> Valence Electron</div>
     <div class="key-item"><div class="key-color key-orbit"></div> Electron Orbital</div>
   </div>
 </body>
