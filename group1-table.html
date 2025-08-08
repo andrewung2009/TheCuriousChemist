@@ -156,7 +156,8 @@ Melting Point: 180.5°C
 Boiling Point: 1342°C
 Density: 0.534 g/cm³
 Appearance: Soft, silvery-white metal
-Uses: Batteries, ceramics, lubricants`,
+Uses: Batteries, ceramics, lubricants
+<iframe src="https://andrewung2009.github.io/group1periodictable/lithium.html" width="100%" height="300" style="border:none; margin-top:10px;"></iframe>`,
 
       'Sodium': `Proton Number: 11
 Relative Atomic Mass: 22.99
@@ -206,7 +207,7 @@ Uses: Radioactive research`
 
     function showPopup(name) {
       document.getElementById('popup-title').textContent = name;
-      document.getElementById('popup-content').textContent = data[name];
+      document.getElementById('popup-content').innerHTML = data[name];
       document.getElementById('popup').classList.add('show');
       document.getElementById('overlay').classList.add('show');
     }
