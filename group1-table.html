@@ -9,11 +9,13 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: #f4f6f8;
       margin: 0;
-      padding: 2rem;
+      padding: 2rem 0; /* top and bottom padding only */
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 1.5rem;
+      width: 100vw; /* full viewport width */
+      box-sizing: border-box;
     }
 
     .card {
@@ -144,7 +146,7 @@
   </div>
 
   <div class="card" onclick="showPopup('Francium')">
-    <img src="https://i0.wp.com/periodic-table.com/wp-content/uploads/2018/11/Francium.jpg?fit=238%2C212&ssl=1" alt="Francium">
+    <img src="https://i0.wp.com/periodic-table.com/wp-content/uploads/2018/11/Francium.jpg?fit=238%2C212&amp;ssl=1" alt="Francium">
     <div class="card-title">Francium</div>
   </div>
 
