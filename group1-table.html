@@ -10,11 +10,19 @@
       background: #f4f6f8;
       margin: 0;
       padding: 2rem 0; /* top and bottom padding only */
+      width: 100vw;
+      box-sizing: border-box;
+      /* no display:flex here */
+    }
+
+    .cards-container {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 1.5rem;
-      width: 100vw; /* full viewport width */
+      max-width: 100vw;
+      margin: 0 auto;
+      padding: 0 1rem; /* optional horizontal padding */
       box-sizing: border-box;
     }
 
@@ -119,35 +127,37 @@
 </head>
 <body>
 
-  <!-- Flashcards -->
-  <div class="card" onclick="showPopup('Lithium')">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Lithiumcut_cropped.jpg/1024px-Lithiumcut_cropped.jpg" alt="Lithium">
-    <div class="card-title">Lithium</div>
-  </div>
+  <div class="cards-container">
+    <!-- Flashcards -->
+    <div class="card" onclick="showPopup('Lithium')">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Lithiumcut_cropped.jpg/1024px-Lithiumcut_cropped.jpg" alt="Lithium">
+      <div class="card-title">Lithium</div>
+    </div>
 
-  <div class="card" onclick="showPopup('Sodium')">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Na_%28Sodium%29.jpg/1280px-Na_%28Sodium%29.jpg" alt="Sodium">
-    <div class="card-title">Sodium</div>
-  </div>
+    <div class="card" onclick="showPopup('Sodium')">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Na_%28Sodium%29.jpg/1280px-Na_%28Sodium%29.jpg" alt="Sodium">
+      <div class="card-title">Sodium</div>
+    </div>
 
-  <div class="card" onclick="showPopup('Potassium')">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Potassium-2.jpg" alt="Potassium">
-    <div class="card-title">Potassium</div>
-  </div>
+    <div class="card" onclick="showPopup('Potassium')">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Potassium-2.jpg" alt="Potassium">
+      <div class="card-title">Potassium</div>
+    </div>
 
-  <div class="card" onclick="showPopup('Rubidium')">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Rb5.JPG/1280px-Rb5.JPG" alt="Rubidium">
-    <div class="card-title">Rubidium</div>
-  </div>
+    <div class="card" onclick="showPopup('Rubidium')">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Rb5.JPG/1280px-Rb5.JPG" alt="Rubidium">
+      <div class="card-title">Rubidium</div>
+    </div>
 
-  <div class="card" onclick="showPopup('Cesium')">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Cesium.jpg/1280px-Cesium.jpg" alt="Cesium">
-    <div class="card-title">Cesium</div>
-  </div>
+    <div class="card" onclick="showPopup('Cesium')">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Cesium.jpg/1280px-Cesium.jpg" alt="Cesium">
+      <div class="card-title">Cesium</div>
+    </div>
 
-  <div class="card" onclick="showPopup('Francium')">
-    <img src="https://i0.wp.com/periodic-table.com/wp-content/uploads/2018/11/Francium.jpg?fit=238%2C212&amp;ssl=1" alt="Francium">
-    <div class="card-title">Francium</div>
+    <div class="card" onclick="showPopup('Francium')">
+      <img src="https://i0.wp.com/periodic-table.com/wp-content/uploads/2018/11/Francium.jpg?fit=238%2C212&amp;ssl=1" alt="Francium">
+      <div class="card-title">Francium</div>
+    </div>
   </div>
 
   <!-- Overlay and Popup -->
