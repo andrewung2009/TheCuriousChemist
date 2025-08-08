@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Francium Atom</title>
+<style>
+  body {
+    background-color: #0d1b2a;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  h1 {
+    margin-bottom: 5px;
+    font-size: 2rem;
+  }
+
+  h2 {
+    margin-top: 0;
+    color: #9ae1ff;
+    font-weight: normal;
+    font-size: 1.2rem;
+  }
+
+  .atom {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    margin-bottom: 20px;
+  }
+
+  /* Nucleus */
+  .nucleus {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 90px;
+    height: 90px;
+    background: radial-gradient(circle, #ff6b6b, #d00000);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  /* Orbit paths */
+  .orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 1px dashed rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .orbit.one {
+    width: 120px;
+    height: 120px;
+  }
+
+  .orbit.two {
+    width: 170px;
+    height: 170px;
+  }
+
+  .orbit.three {
+    width: 220px;
+    height: 220px;
+  }
+
+  .orbit.four {
+    width: 260px;
+    height: 260px;
+  }
+
+  .orbit.five {
+    width: 300px;
+    height: 300px;
+  }
+
+  .orbit.six {
+    width: 340px;
+    height: 340px;
+  }
+
+  .orbit.seven {
+    width: 370px;
+    height: 370px;
+  }
+
+  /* Electrons */
+  .electron {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: #4dabf7;
+    border-radius: 50%;
+    margin: -10px;
+    animation: spin linear infinite;
+    box-shadow: 0 0 8px #4dabf7;
+  }
+
+  /* First shell - 2 electrons */
+  .orbit.one .electron:nth-child(1) {
+    --radius: 60px;
+    animation-duration: 2s;
+    animation-delay: 0s;
+    transform: rotate(0deg) translateX(var(--radius));
+  }
+  .orbit.one .electron:nth-child(2) {
+    --radius: 60px;
+    animation-duration: 2s;
+    animation-delay: -1s;
+    transform: rotate(180deg) translateX(var(--radius));
+  }
+
+  /* Second shell - 8 electrons */
+  .orbit.two .electron:nth-child(1) {
+    --radius: 85px;
+    animation-duration: 3s;
+    animation-delay: 0s;
+    transform: rotate(0deg) translateX(var(--radius));
+  }
+  .orbit.two .electron:nth-child(2) {
+    --radius: 85px;
+    animation-duration: 3s;
+    animation-delay: -0.375s;
+    transform: rotate(45deg) translateX(var(--radius));
+  }
+  .orbit.two .electron:nth-child(3) {
+    --radius: 85px;
+    animation-duration: 3s;
+    animation-delay: -0.75s;
+    transform: rotate(90deg) translateX(var(--radius));
+  }
+  .orbit.two .electron:nth-child(4) {
+    --radius: 85px;
+    animation-duration: 3s;
+    animation-delay: -1.125s;
+    transform: rotate(135deg) translateX(var(--radius));
+  }
+  .orbit.two .electron:nth-child(5) {
+    --radius: 85px;
+    animation-duration: 3s;
+    animation-delay: -1.5s;
+    transform: rotate(180deg) translateX(var(--radius));
+  }
+  .orbit.two .electron:nth-child(6) {
+    --radius: 85px;
+    animation-duration: 3s;
+    animation-delay: -1.875s;
+    transform: rotate(225deg) translateX(var(--radius));
+  }
+  .orbit.two .electron:nth-child(7) {
+    --radius: 85px;
+    animation-duration: 3s;
+    animation-delay: -2.25s;
+    transform: rotate(270deg) translateX(var(--radius));
+  }
+  .orbit.two .electron:nth-child(8) {
+    --radius: 85px;
+    animation-duration: 3s;
+    animation-delay: -2.625s;
+    transform: rotate(315deg) translateX(var(--radius));
+  }
+
+  /* Third shell - 18 electrons */
+  .orbit.three .electron:nth-child(1) {
+    --radius: 110px;
+    animation-duration: 4s;
+    animation-delay: 0s;
+    transform: rotate(0deg) translateX(var(--radius));
+  }
+  .orbit.three .electron:nth-child(2) {
+    --radius: 110px;
+    animation-duration: 4s;
+    animation-delay: -0.2s;
+    transform: rotate(20deg) translateX(var(--radius));
+  }
+  .orbit.three .electron:nth-child(3) {
+    --radius: 110px;
+    animation-duration: 4s;
+    animation-delay: -0.4s;
+    transform: rotate(40deg) translateX(var(--radius));
+  }
+  .orbit.three .electron:nth-child(4) {
+    --radius: 110px;
+    animation-duration: 4s;
+    animation-delay: -0.6s;
+    transform: rotate(60deg) translateX(var(--radius));
+  }
+  .orbit.three .electron:nth-child(5) {
+    --radius: 110px;
+    animation-duration: 4s;
+    animation-delay: -0.8s;
+    transform: rotate(80deg) translateX(var(--radius));
+  }
+  .orbit.three .electron:nth-child(6) {
+    --radius: 110px;
+    animation-duration: 4s;
+    animation-delay: -1s;
+    transform: rotate(100deg) translateX(var(--radius));
+  }
+  .orbit.three .electron:nth-child(7) {
+    --radius: 110px;
+    animation-duration: 4s;
+    animation-delay: -1.2s;
+    transform: rotate(120deg) translateX(var(--radius));
+  }
+  .orbit.three .electron:nth-child(8) {
+    --radius: 110px;
+    animation-duration: 4s;
+    animation-delay: -1.4s;
+    transform: rotate(140deg) translateX(var(--radius));
+  }
+  .orbit.three .electron:nth-child(9) {
+    --radius: 110px;
+    animation-duration: 4s;
+    animation-delay: -1.6s;
+    transform: rotate(160deg) translateX(var(--radius));
+  }
+  .orbit.three .electron:nth-child(10) {
+    --radius: 110px;
+    animation-duration: 4s;
+    animation-delay: -1.8s;
+    transform: rotate(180deg) translateX(var(--radius));
+  }
+  .orbit.three .electron:nth-child(11) {
+    --radius: 110px;
+    animation-duration: 4s;
+    animation-delay: -2s;
+    transform: rotate(200deg) translateX(var(--radius));
+  }
+  .orbit.three .electron:nth-child(12) {
+    --radius: 110px;
+    animation-duration: 4s;
+    animation-delay: -2.2s;
+    transform: rotate(220deg) translateX(var(--radius));
+  }
+  .orbit.three .electron:nth-child(13) {
+    --radius: 110px;
+    animation-duration: 4s;
+    animation-delay: -2.4s;
+    transform: rotate(240deg) translateX(var(--radius));
+  }
+  .orbit.three .electron:nth-child(14) {
+    --radius: 110px;
+    animation-duration: 4s;
+    animation-delay: -2.6s;
+    transform: rotate(260deg) translateX(var(--radius));
+  }
+  .orbit.three .electron:nth-child(15) {
+    --radius: 110px;
+    animation-duration: 4s;
+    animation-delay: -2.8s;
+    transform: rotate(280deg) translateX(var(--radius));
+  }
+  .orbit.three .electron:nth-child(16) {
+    --radius: 110px;
+    animation-duration: 4s;
+    animation-delay: -3s;
+    transform: rotate(300deg) translateX(var(--radius));
+  }
+  .orbit.three .electron:nth-child(17) {
+    --radius: 110px;
+    animation-duration: 4s;
+    animation-delay: -3.2s;
+    transform: rotate(320deg) translateX(var(--radius));
+  }
+  .orbit.three .electron:nth-child(18) {
+    --radius: 110px;
+    animation-duration: 4s;
+    animation-delay: -3.4s;
+    transform: rotate(340deg) translateX(var(--radius));
+  }
+
+  /* Fourth shell - 18 electrons */
+  .orbit.four .electron:nth-child(1) {
+    --radius: 130px;
+    animation-duration: 5s;
+    animation-delay: 0s;
+    transform: rotate(0deg) translateX(var(--radius));
+  }
+  .orbit.four .electron:nth-child(2) {
+    --radius: 130px;
+    animation-duration: 5s;
+    animation-delay: -0.277s;
+    transform: rotate(50deg) translateX(var(--radius));
+  }
+  .orbit.four .electron:nth-child(3) {
+    --radius: 130px;
+    animation-duration: 5s;
+    animation-delay: -0.555s;
+    transform: rotate(100deg) translateX(var(--radius));
+  }
+  .orbit.four .electron:nth-child(4) {
+    --radius: 130px;
+    animation-duration: 5s;
+    animation-delay: -0.832s;
+    transform: rotate(150deg) translateX(var(--radius));
+  }
+  .orbit.four .electron:nth-child(5) {
+    --radius: 130px;
+    animation-duration: 5s;
+    animation-delay: -1.11s;
+    transform: rotate(200deg) translateX(var(--radius));
+  }
+  .orbit.four .electron:nth-child(6) {
+    --radius: 130px;
+    animation-duration: 5s;
+    animation-delay: -1.38s;
+    transform: rotate(250deg) translateX(var(--radius));
+  }
+  .orbit.four .electron:nth-child(7) {
+    --radius: 130px;
+    animation-duration: 5s;
+    animation-delay: -1.66s;
+    transform: rotate(300deg) translateX(var(--radius));
+  }
+  .orbit.four .electron:nth-child(8) {
+    --radius: 130px;
+    animation-duration: 5s;
+    animation-delay: -1.94s;
+    transform: rotate(350deg) translateX(var(--radius));
+  }
+  .orbit.four .electron:nth-child(9) {
+    --radius: 130px;
+    animation-duration: 5s;
+    animation-delay: -2.22s;
+    transform: rotate(40deg) translateX(var(--radius));
+  }
+  .orbit.four .electron:nth-child(10) {
+    --radius: 130px;
+    animation-duration: 5s;
+    animation-delay: -2.5s;
+    transform: rotate(90deg) translateX(var(--radius));
+  }
+  .orbit.four .electron:nth-child(11) {
+    --radius: 130px;
+    animation-duration: 5s;
+    animation-delay: -2.77s;
+    transform: rotate(140deg) translateX(var(--radius));
+  }
+  .orbit.four .electron:nth-child(12) {
+    --radius: 130px;
+    animation-duration: 5s;
+    animation-delay: -3.05s;
+    transform: rotate(190deg) translateX(var(--radius));
+  }
+  .orbit.four .electron:nth-child(13) {
+    --radius: 130px;
+    animation-duration: 5s;
+    animation-delay: -3.33s;
+    transform: rotate(240deg) translateX(var(--radius));
+  }
+  .orbit.four .electron:nth-child(14) {
+    --radius: 130px;
+    animation-duration: 5s;
+    animation-delay: -3.61s;
+    transform: rotate(290deg) translateX(var(--radius));
+  }
+  .orbit.four .electron:nth-child(15) {
+    --radius: 130px;
+    animation-duration: 5s;
+    animation-delay: -3.88s;
+    transform: rotate(340deg) translateX(var(--radius));
+  }
+  .orbit.four .electron:nth-child(16) {
+    --radius: 130px;
+    animation-duration: 5s;
+    animation-delay: -4.16s;
+    transform: rotate(30deg) translateX(var(--radius));
+  }
+  .orbit.four .electron:nth-child(17) {
+    --radius: 130px;
+    animation-duration: 5s;
+    animation-delay: -4.44s;
+    transform: rotate(80deg) translateX(var(--radius));
+  }
+  .orbit.four .electron:nth-child(18) {
+    --radius: 130px;
+    animation-duration: 5s;
+    animation-delay: -4.72s;
+    transform: rotate(130deg) translateX(var(--radius));
+  }
+
+  /* Fifth shell - 8 electrons */
+  .orbit.five .electron:nth-child(1) {
+    --radius: 150px;
+    animation-duration: 6s;
+    animation-delay: 0s;
+    transform: rotate(0deg) translateX(var(--radius));
+  }
+  .orbit.five .electron:nth-child(2) {
+    --radius: 150px;
+    animation-duration: 6s;
+    animation-delay: -0.75s;
+    transform: rotate(90deg) translateX(var(--radius));
+  }
+  .orbit.five .electron:nth-child(3) {
+    --radius: 150px;
+    animation-duration: 6s;
+    animation-delay: -1.5s;
+    transform: rotate(180deg) translateX(var(--radius));
+  }
+  .orbit.five .electron:nth-child(4) {
+    --radius: 150px;
+    animation-duration: 6s;
+    animation-delay: -2.25s;
+    transform: rotate(270deg) translateX(var(--radius));
+  }
+  .orbit.five .electron:nth-child(5) {
+    --radius: 150px;
+    animation-duration: 6s;
+    animation-delay: -3s;
+    transform: rotate(45deg) translateX(var(--radius));
+  }
+  .orbit.five .electron:nth-child(6) {
+    --radius: 150px;
+    animation-duration: 6s;
+    animation-delay: -3.75s;
+    transform: rotate(135deg) translateX(var(--radius));
+  }
+  .orbit.five .electron:nth-child(7) {
+    --radius: 150px;
+    animation-duration: 6s;
+    animation-delay: -4.5s;
+    transform: rotate(225deg) translateX(var(--radius));
+  }
+  .orbit.five .electron:nth-child(8) {
+    --radius: 150px;
+    animation-duration: 6s;
+    animation-delay: -5.25s;
+    transform: rotate(315deg) translateX(var(--radius));
+  }
+
+  /* Sixth shell - 18 electrons */
+  .orbit.six .electron:nth-child(1) {
+    --radius: 170px;
+    animation-duration: 7s;
+    animation-delay: 0s;
+    transform: rotate(0deg) translateX(var(--radius));
+  }
+  .orbit.six .electron:nth-child(2) {
+    --radius: 170px;
+    animation-duration: 7s;
+    animation-delay: -0.388s;
+    transform: rotate(40deg) translateX(var(--radius));
+  }
+  .orbit.six .electron:nth-child(3) {
+    --radius: 170px;
+    animation-duration: 7s;
+    animation-delay: -0.776s;
+    transform: rotate(80deg) translateX(var(--radius));
+  }
+  .orbit.six .electron:nth-child(4) {
+    --radius: 170px;
+    animation-duration: 7s;
+    animation-delay: -1.164s;
+    transform: rotate(120deg) translateX(var(--radius));
+  }
+  .orbit.six .electron:nth-child(5) {
+    --radius: 170px;
+    animation-duration: 7s;
+    animation-delay: -1.552s;
+    transform: rotate(160deg) translateX(var(--radius));
+  }
+  .orbit.six .electron:nth-child(6) {
+    --radius: 170px;
+    animation-duration: 7s;
+    animation-delay: -1.94s;
+    transform: rotate(200deg) translateX(var(--radius));
+  }
+  .orbit.six .electron:nth-child(7) {
+    --radius: 170px;
+    animation-duration: 7s;
+    animation-delay: -2.328s;
+    transform: rotate(240deg) translateX(var(--radius));
+  }
+  .orbit.six .electron:nth-child(8) {
+    --radius: 170px;
+    animation-duration: 7s;
+    animation-delay: -2.716s;
+    transform: rotate(280deg) translateX(var(--radius));
+  }
+  .orbit.six .electron:nth-child(9) {
+    --radius: 170px;
+    animation-duration: 7s;
+    animation-delay: -3.104s;
+    transform: rotate(320deg) translateX(var(--radius));
+  }
+  .orbit.six .electron:nth-child(10) {
+    --radius: 170px;
+    animation-duration: 7s;
+    animation-delay: -3.492s;
+    transform: rotate(360deg) translateX(var(--radius));
+  }
+  .orbit.six .electron:nth-child(11) {
+    --radius: 170px;
+    animation-duration: 7s;
+    animation-delay: -3.88s;
+    transform: rotate(20deg) translateX(var(--radius));
+  }
+  .orbit.six .electron:nth-child(12) {
+    --radius: 170px;
+    animation-duration: 7s;
+    animation-delay: -4.268s;
+    transform: rotate(60deg) translateX(var(--radius));
+  }
+  .orbit.six .electron:nth-child(13) {
+    --radius: 170px;
+    animation-duration: 7s;
+    animation-delay: -4.656s;
+    transform: rotate(100deg) translateX(var(--radius));
+  }
+  .orbit.six .electron:nth-child(14) {
+    --radius: 170px;
+    animation-duration: 7s;
+    animation-delay: -5.044s;
+    transform: rotate(140deg) translateX(var(--radius));
+  }
+  .orbit.six .electron:nth-child(15) {
+    --radius: 170px;
+    animation-duration: 7s;
+    animation-delay: -5.432s;
+    transform: rotate(180deg) translateX(var(--radius));
+  }
+  .orbit.six .electron:nth-child(16) {
+    --radius: 170px;
+    animation-duration: 7s;
+    animation-delay: -5.82s;
+    transform: rotate(220deg) translateX(var(--radius));
+  }
+  .orbit.six .electron:nth-child(17) {
+    --radius: 170px;
+    animation-duration: 7s;
+    animation-delay: -6.208s;
+    transform: rotate(260deg) translateX(var(--radius));
+  }
+  .orbit.six .electron:nth-child(18) {
+    --radius: 170px;
+    animation-duration: 7s;
+    animation-delay: -6.596s;
+    transform: rotate(300deg) translateX(var(--radius));
+  }
+
+  /* Seventh shell - 1 electron */
+  .orbit.seven .electron:nth-child(1) {
+    --radius: 185px;
+    animation-duration: 8s;
+    animation-delay: 0s;
+    transform: rotate(0deg) translateX(var(--radius));
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg) translateX(var(--radius)); }
+    to { transform: rotate(360deg) translateX(var(--radius)); }
+  }
+
+  /* Key styles */
+  .key {
+    display: flex;
+    gap: 20px;
+    font-size: 0.9rem;
+  }
+
+  .key-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .key-color {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+  }
+
+  .key-nucleus { background: radial-gradient(circle, #ff6b6b, #d00000); }
+  .key-electron { background: #4dabf7; box-shadow: 0 0 4px #4dabf7; }
+  .key-orbit { background: none; border: 1px dashed rgba(255,255,255,0.4); width: 15px; height: 15px; border-radius: 50%; }
+</style>
+</head>
+<body>
+  <h1>Fr</h1>
+  <h2>Francium</h2>
+
+  <div class="atom">
+    <div class="nucleus">87 Protons</div>
+
+    <div class="orbit one">
+      <div class="electron"></div>
+      <div class="electron"></div>
+    </div>
+
+    <div class="orbit two">
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+    </div>
+
+    <div class="orbit three">
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+    </div>
+
+    <div class="orbit four">
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+    </div>
+
+    <div class="orbit five">
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+    </div>
+
+    <div class="orbit six">
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+      <div class="electron"></div>
+    </div>
+
+    <div class="orbit seven">
+      <div class="electron"></div>
+    </div>
+  </div>
+
+  <div class="key">
+    <div class="key-item"><div class="key-color key-nucleus"></div> Nucleus</div>
+    <div class="key-item"><div class="key-color key-electron"></div> Electron</div>
+    <div class="key-item"><div class="key-color key-orbit"></div> Electron Orbital</div>
+  </div>
+</body>
+</html>
