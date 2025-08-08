@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Group 1 Quiz</title>
   <style>
     body {
@@ -124,19 +124,24 @@
           feedback.textContent = q.explanation;
           questionDiv.appendChild(feedback);
 
-          // Prepare data to send
-          const dataToSend = {
-            questionNumber: i + 1,
+          // Prepare URL query parameters
+          const params = new URLSearchParams({
+            questionNumber: (i + 1).toString(),
             questionText: q.question,
             selectedOption: option,
-            isCorrect: option === q.answer,
-            userId: "Anonymous"  // You can modify this to get user info
-          };
+            isCorrect: (option === q.answer).toString(),
+            userId: "Anonymous" // replace if you want to track users differently
+          });
 
-          // Use google.script.run to call server-side Apps Script function
-          google.script.run.withSuccessHandler(function(response) {
-            console.log("Saved to Sheet:", response);
-          }).saveAnswer(dataToSend);
+          // Send GET request to Google Apps Script web app
+          fetch("https://script.google.com/macros/s/AKfycbyYgxc2hP-4GSQVxkGN4NMWnbnHxkBagewtLArGqRZwM4aKhtxHmCXTnypoQE_Ua14sug/exec" + "?" + params.toString())
+            .then(response => response.text())
+            .then(text => {
+              console.log("Server response:", text);
+            })
+            .catch(err => {
+              console.error("Error sending data:", err);
+            });
         });
 
         optionsDiv.appendChild(btn);
