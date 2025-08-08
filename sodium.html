@@ -15,6 +15,7 @@
     justify-content: center;
     height: 100vh;
     margin: 0;
+    overflow: hidden; /* Prevent scrollbars */
   }
 
   h1 {
@@ -31,8 +32,8 @@
 
   .atom {
     position: relative;
-    width: 400px;
-    height: 400px;
+    width: 360px;
+    height: 360px;
     margin-bottom: 20px;
   }
 
@@ -41,8 +42,8 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
     background: radial-gradient(circle, #ff6b6b, #d00000);
     border-radius: 50%;
     transform: translate(-50%, -50%);
@@ -64,9 +65,20 @@
     transform: translate(-50%, -50%);
   }
 
-  .orbit.one { width: 120px; height: 120px; }
-  .orbit.two { width: 200px; height: 200px; }
-  .orbit.three { width: 280px; height: 280px; }
+  .orbit.one {
+    width: 140px;
+    height: 140px;
+  }
+
+  .orbit.two {
+    width: 220px;
+    height: 220px;
+  }
+
+  .orbit.three {
+    width: 300px;
+    height: 300px;
+  }
 
   /* Electrons */
   .electron {
@@ -80,36 +92,35 @@
     margin: -10px;
     animation: spin linear infinite;
     box-shadow: 0 0 8px #4dabf7;
-    transform-origin: center;
   }
 
-  /* First shell (2 electrons) */
+  /* First shell electrons (2) */
   .orbit.one .electron:nth-child(1) {
-    --radius: 60px;
+    --radius: 70px;
     animation-duration: 2s;
     animation-delay: 0s;
     transform: rotate(0deg) translateX(var(--radius));
   }
   .orbit.one .electron:nth-child(2) {
-    --radius: 60px;
+    --radius: 70px;
     animation-duration: 2s;
     animation-delay: -1s;
     transform: rotate(180deg) translateX(var(--radius));
   }
 
-  /* Second shell (8 electrons) */
-  .orbit.two .electron:nth-child(1) { --radius: 100px; animation-duration: 3s; animation-delay: 0s; transform: rotate(0deg) translateX(var(--radius)); }
-  .orbit.two .electron:nth-child(2) { --radius: 100px; animation-duration: 3s; animation-delay: -0.375s; transform: rotate(45deg) translateX(var(--radius)); }
-  .orbit.two .electron:nth-child(3) { --radius: 100px; animation-duration: 3s; animation-delay: -0.75s; transform: rotate(90deg) translateX(var(--radius)); }
-  .orbit.two .electron:nth-child(4) { --radius: 100px; animation-duration: 3s; animation-delay: -1.125s; transform: rotate(135deg) translateX(var(--radius)); }
-  .orbit.two .electron:nth-child(5) { --radius: 100px; animation-duration: 3s; animation-delay: -1.5s; transform: rotate(180deg) translateX(var(--radius)); }
-  .orbit.two .electron:nth-child(6) { --radius: 100px; animation-duration: 3s; animation-delay: -1.875s; transform: rotate(225deg) translateX(var(--radius)); }
-  .orbit.two .electron:nth-child(7) { --radius: 100px; animation-duration: 3s; animation-delay: -2.25s; transform: rotate(270deg) translateX(var(--radius)); }
-  .orbit.two .electron:nth-child(8) { --radius: 100px; animation-duration: 3s; animation-delay: -2.625s; transform: rotate(315deg) translateX(var(--radius)); }
+  /* Second shell electrons (8) */
+  .orbit.two .electron:nth-child(1) { --radius: 110px; animation-duration: 3s; animation-delay: 0s; transform: rotate(0deg) translateX(var(--radius)); }
+  .orbit.two .electron:nth-child(2) { --radius: 110px; animation-duration: 3s; animation-delay: -0.375s; transform: rotate(45deg) translateX(var(--radius)); }
+  .orbit.two .electron:nth-child(3) { --radius: 110px; animation-duration: 3s; animation-delay: -0.75s; transform: rotate(90deg) translateX(var(--radius)); }
+  .orbit.two .electron:nth-child(4) { --radius: 110px; animation-duration: 3s; animation-delay: -1.125s; transform: rotate(135deg) translateX(var(--radius)); }
+  .orbit.two .electron:nth-child(5) { --radius: 110px; animation-duration: 3s; animation-delay: -1.5s; transform: rotate(180deg) translateX(var(--radius)); }
+  .orbit.two .electron:nth-child(6) { --radius: 110px; animation-duration: 3s; animation-delay: -1.875s; transform: rotate(225deg) translateX(var(--radius)); }
+  .orbit.two .electron:nth-child(7) { --radius: 110px; animation-duration: 3s; animation-delay: -2.25s; transform: rotate(270deg) translateX(var(--radius)); }
+  .orbit.two .electron:nth-child(8) { --radius: 110px; animation-duration: 3s; animation-delay: -2.625s; transform: rotate(315deg) translateX(var(--radius)); }
 
-  /* Third shell (1 electron) */
+  /* Third shell electron (1) */
   .orbit.three .electron:nth-child(1) {
-    --radius: 140px;
+    --radius: 150px;
     animation-duration: 4s;
     animation-delay: 0s;
     transform: rotate(0deg) translateX(var(--radius));
@@ -126,22 +137,20 @@
     gap: 20px;
     font-size: 0.9rem;
   }
-
   .key-item {
     display: flex;
     align-items: center;
     gap: 6px;
   }
-
   .key-color {
     width: 15px;
     height: 15px;
     border-radius: 50%;
   }
-
   .key-nucleus { background: radial-gradient(circle, #ff6b6b, #d00000); }
   .key-electron { background: #4dabf7; box-shadow: 0 0 4px #4dabf7; }
   .key-orbit { background: none; border: 1px dashed rgba(255,255,255,0.4); width: 15px; height: 15px; border-radius: 50%; }
+
 </style>
 </head>
 <body>
