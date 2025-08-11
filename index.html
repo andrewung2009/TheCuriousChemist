@@ -1,93 +1,1053 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Group 1 Learning Hub</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alkali & Alkaline Earth Metals Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #000000;
+            color: #e2e8f0;
+            position: relative;
+            overflow-x: hidden;
+        }
 
-    body {
-      font-family: 'Roboto', Arial, sans-serif;
-      background: linear-gradient(135deg, #e0f2fe, #bae6fd);
-      margin: 0;
-      padding: 0;
-      color: #1e293b;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+        /* --- Global Styling --- */
+        .neon-glow {
+            text-shadow: none;
+        }
+        .neon-border {
+            border: 2px solid #4ade80;
+            box-shadow: 0 0 5px #4ade80;
+        }
+        .flashy-button {
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        .flashy-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 5px 20px rgba(74, 222, 128, 0.6);
+        }
 
-    header {
-      background-color: #0c4a6e;
-      color: #e0f2fe;
-      width: 100%;
-      padding: 2rem 1rem;
-      box-shadow: 0 4px 8px rgb(12 74 110 / 0.3);
-      text-align: center;
-      font-weight: 700;
-      font-size: 2.4rem;
-      letter-spacing: 1px;
-      user-select: none;
-    }
+        /* --- Animations --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in { animation: fadeIn 0.8s ease-in-out; }
 
-    main {
-      width: 100vw;
-      max-width: 100%;
-      margin: 2rem 0 4rem;
-      padding: 1rem 2rem;
-      background: #ffffffdd;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgb(0 0 0 / 0.1);
-      box-sizing: border-box;
-    }
+        @keyframes appear {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .appear-anim { animation: appear 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
 
-    h2 {
-      font-weight: 700;
-      text-align: center;
-      margin: 2rem 0 1rem;
-      color: #0c4a6e;
-      letter-spacing: 0.05em;
-      font-size: 1.8rem;
-    }
-
-    iframe {
-      width: 100%;
-      border: none;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgb(12 74 110 / 0.2);
-      margin: 1.5rem 0;
-      min-height: 600px;
-      transition: box-shadow 0.3s ease;
-    }
-
-    iframe:hover {
-      box-shadow: 0 6px 25px rgb(12 74 110 / 0.4);
-    }
-
-    @media (max-width: 600px) {
-      header {
-        font-size: 1.8rem;
-        padding: 1.5rem 1rem;
-      }
-      h2 {
-        font-size: 1.4rem;
-      }
-    }
-  </style>
+        /* --- Message Box --- */
+        .message-box {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 100;
+        }
+        /* Custom canvas styling for 2D */
+        #atom-canvas {
+            background-color: #1f2937;
+            display: block;
+        }
+        .color-circle {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+        .quiz-option {
+            transition: all 0.2s ease;
+        }
+        .quiz-option:hover:not(.selected) {
+            background-color: #4a5568;
+        }
+        .quiz-option.selected {
+            border-color: #4ade80;
+            background-color: #4ade80;
+            color: #000;
+        }
+        .quiz-option.correct {
+            border-color: #4ade80;
+            background-color: #16a34a; /* Green */
+        }
+        .quiz-option.incorrect {
+            border-color: #ef4444;
+            background-color: #dc2626; /* Red */
+        }
+        .quiz-option.correct-unselected {
+            border-color: #4ade80;
+            background-color: #16a34a;
+            opacity: 0.6;
+        }
+        /* Hotspot specific styles */
+        .hotspot-container {
+            position: relative;
+            user-select: none;
+            display: inline-block;
+            border: 2px solid #4a5568;
+            border-radius: 8px;
+            overflow: hidden;
+            max-width: 600px;
+        }
+        .hotspot-wrapper {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .hotspot-label {
+            margin-left: 8px;
+            font-weight: bold;
+            color: #e2e8f0;
+        }
+        .hotspot-btn {
+            width: 24px;
+            height: 24px;
+            background-color: #4a5568;
+            border-radius: 4px;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .hotspot-btn:hover {
+            border-color: #4ade80;
+        }
+        .hotspot-btn.selected {
+            background-color: #4ade80;
+            border-color: #4ade80;
+        }
+        .hotspot-btn.correct {
+            background-color: #16a34a;
+            border-color: #16a34a;
+        }
+        .hotspot-btn.incorrect {
+            background-color: #dc2626;
+            border-color: #dc2626;
+        }
+        /* Drag-and-drop specific styles */
+        .draggable-item {
+            cursor: grab;
+            transition: transform 0.2s;
+            flex-grow: 1;
+        }
+        .dragging {
+            opacity: 0.5;
+            border: 2px dashed #4ade80;
+        }
+        /* Hide default input range focus outline */
+        input[type=range]:focus {
+            outline: none;
+        }
+        /* Custom slider styles for webkit browsers */
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: #4ade80;
+            cursor: pointer;
+            box-shadow: 0 0 5px #4ade80;
+            margin-top: -8px; /* Offset the thumb to center it vertically */
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8px;
+            background: #2d3748;
+            border-radius: 4px;
+        }
+        /* Custom slider styles for Firefox */
+        input[type=range]::-moz-range-thumb {
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: #4ade80;
+            cursor: pointer;
+            box-shadow: 0 0 5px #4ade80;
+        }
+        input[type=range]::-moz-range-track {
+            width: 100%;
+            height: 8px;
+            background: #2d3748;
+            border-radius: 4px;
+        }
+    </style>
 </head>
-<body>
-  <header>Group 1 Learning Hub</header>
-  <main>
-    <!-- Interactive Guide heading -->
-    <h2>Interactive Guide to Understanding Group I Metals</h2>
+<body class="p-6">
 
-    <!-- Group 1 table embed -->
-    <iframe src="https://andrewung2009.github.io/group1periodictable/group1-table.html" title="Group 1 Elements Table"></iframe>
+    <!-- Main Container -->
+    <div id="app-container" class="min-h-screen flex flex-col items-center justify-center p-4 lg:p-8">
 
-    <!-- Quiz iframe -->
-    <iframe src="quiz.html" title="Group 1 Trends Quiz"></iframe>
-  </main>
+        <!-- Header -->
+        <header class="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between p-4 mb-8 bg-zinc-900 rounded-xl border border-gray-800 shadow-2xl neon-border">
+            <h1 class="text-3xl font-bold text-emerald-400 neon-glow">Element Command Center</h1>
+            <nav class="flex flex-wrap gap-4 mt-4 md:mt-0">
+                <button id="nav-learn-btn" class="flashy-button px-4 py-2 bg-emerald-700 hover:bg-emerald-600 rounded-lg text-white font-semibold shadow-md border-2 border-emerald-500">Learn</button>
+                <button id="nav-prequiz-btn" class="flashy-button px-4 py-2 bg-purple-700 hover:bg-purple-600 rounded-lg text-white font-semibold shadow-md border-2 border-purple-500">Pre-Quiz</button>
+                <button id="nav-postquiz-btn" class="flashy-button px-4 py-2 bg-rose-700 hover:bg-rose-600 rounded-lg text-white font-semibold shadow-md border-2 border-rose-500">Post-Quiz</button>
+                <button id="nav-leaderboard-btn" class="flashy-button px-4 py-2 bg-yellow-700 hover:bg-yellow-600 rounded-lg text-white font-semibold shadow-md border-2 border-yellow-500">Leaderboard</button>
+            </nav>
+        </header>
+
+        <!-- Main Content Area -->
+        <main id="main-content" class="w-full max-w-7xl flex-grow fade-in">
+            <!-- Loading/Message box (hidden by default) -->
+            <div id="message-box" class="message-box fixed hidden p-6 bg-zinc-900 rounded-xl shadow-lg border-2 border-rose-500 text-center fade-in">
+                <p id="message-text" class="text-xl text-white font-bold mb-4">Feature coming soon!</p>
+                <button id="close-message-btn" class="flashy-button px-4 py-2 bg-rose-700 hover:bg-rose-600 rounded-lg text-white">Close</button>
+            </div>
+            
+            <!-- Learning Content Section (hidden by default) -->
+            <div id="learn-panel" class="hidden bg-zinc-900 p-8 rounded-xl shadow-lg border border-gray-800 relative">
+                <button id="back-to-hub-btn" class="absolute top-4 right-4 flashy-button px-4 py-2 bg-zinc-700 hover:bg-zinc-600 rounded-lg text-white font-semibold shadow-md border-2 border-zinc-500">Back to Hub</button>
+                <h2 class="text-3xl font-bold text-emerald-400 mb-6 text-center neon-glow">About Alkali & Alkaline Earth Metals</h2>
+                <div id="learn-content" class="prose prose-invert max-w-none text-white overflow-y-auto max-h-[70vh]">
+                    <!-- Content will be injected here -->
+                </div>
+            </div>
+            
+            <!-- Pre-Quiz Section (hidden by default) -->
+            <div id="prequiz-panel" class="hidden bg-zinc-900 p-8 rounded-xl shadow-lg border border-gray-800 relative">
+                <button id="back-to-hub-btn-quiz" class="absolute top-4 right-4 flashy-button px-4 py-2 bg-zinc-700 hover:bg-zinc-600 rounded-lg text-white font-semibold shadow-md border-2 border-zinc-500">Back to Hub</button>
+                <h2 class="text-3xl font-bold text-purple-400 mb-6 text-center neon-glow">Pre-Quiz: Test Your Knowledge!</h2>
+                <div id="prequiz-content" class="prose prose-invert max-w-none text-white overflow-y-auto max-h-[70vh]">
+                    <!-- Quiz questions will be dynamically injected here -->
+                </div>
+                <div class="mt-6 flex flex-col items-center">
+                    <button id="prequiz-submit-btn" class="flashy-button px-6 py-3 bg-purple-700 hover:bg-purple-600 rounded-lg text-white font-semibold shadow-md border-2 border-purple-500">Submit Answers</button>
+                    <div id="prequiz-results" class="mt-4 text-center text-xl font-bold"></div>
+                </div>
+            </div>
+
+            <!-- Hub Grid Section (visible by default) -->
+            <div id="hub-grid" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Left Panel: Elements -->
+                <div id="element-panel" class="bg-zinc-900 p-6 rounded-xl shadow-lg flex flex-col justify-start border border-gray-800">
+                    <h2 class="text-2xl font-bold text-sky-400 mb-4 neon-glow">Elements Database</h2>
+                    <div id="group-i-elements" class="mb-6">
+                        <h3 class="text-xl font-semibold mb-2 text-sky-300">Group I (Alkali Metals)</h3>
+                        <div class="grid grid-cols-2 lg:grid-cols-2 gap-4">
+                            <!-- Element buttons will be dynamically generated -->
+                        </div>
+                    </div>
+                    <div id="group-ii-elements">
+                        <h3 class="text-xl font-semibold mb-2 text-emerald-300">Group II (Alkaline Earth Metals)</h3>
+                        <div class="grid grid-cols-2 lg:grid-cols-2 gap-4">
+                            <!-- Element buttons will be dynamically generated -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Center Panel: 2D Atom Viewer -->
+                <div id="atom-viewer-container" class="relative bg-zinc-900 rounded-xl shadow-lg flex-grow overflow-hidden p-6 border border-gray-800 neon-border flex flex-col">
+                    <h2 class="text-2xl font-bold text-center text-white mb-4 neon-glow">Interactive Atom Viewer</h2>
+                    <div class="relative w-full h-80 lg:h-full flex items-center justify-center bg-zinc-800 rounded-lg overflow-hidden border border-gray-700 flex-grow">
+                        <canvas id="atom-canvas"></canvas>
+                    </div>
+                    <div id="atom-key" class="p-4 mt-4 bg-zinc-800 rounded-lg border border-gray-700 text-sm text-center flex flex-wrap justify-center gap-4">
+                        <div class="flex items-center">
+                            <span class="color-circle" style="background-color: #ef4444;"></span> Nucleus (Protons & Neutrons)
+                        </div>
+                        <div class="flex items-center">
+                            <span class="color-circle" style="background-color: #4ade80;"></span> Inner-shell Electrons
+                        </div>
+                        <div class="flex items-center">
+                            <span class="color-circle" style="background-color: #fcd34d;"></span> Valence Electrons
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel: Facts & Features -->
+                <div id="features-panel" class="bg-zinc-900 p-6 rounded-xl shadow-lg flex flex-col justify-between border border-gray-800">
+                    <div id="facts-container">
+                        <h2 class="text-2xl font-bold text-purple-400 mb-4 neon-glow">Element Data Log</h2>
+                        <div id="facts-content" class="bg-zinc-800 p-4 rounded-lg h-56 overflow-y-auto border border-gray-700">
+                            <p id="element-title" class="text-xl font-bold mb-2 text-sky-400">Select an element to load data...</p>
+                            <!-- Detailed facts will be injected here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- User ID display for Firestore -->
+        <div class="w-full max-w-7xl mx-auto p-2 mt-4 text-center text-sm text-zinc-400">
+            User ID: <span id="user-id-display">Connecting...</span>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs and all application logic in a single module script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, onSnapshot, collection, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Firebase Global Variables (Provided by Canvas Environment)
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let db, auth, userId;
+        let isAuthReady = false;
+
+        // --- Data for all elements and quizzes ---
+        const elementsData = {
+            "Lithium": { group: 'I', atomicNumber: 3, protons: 3, neutrons: 4, electrons: 3, symbol: 'Li', funFact: "Used in batteries for phones and electric cars.", electronConfiguration: "1s2 2s1", ionizationEnergy: "520.2 kJ/mol", electronegativity: "0.98", meltingPoint: "180.5°C", boilingPoint: "1342°C" },
+            "Sodium": { group: 'I', atomicNumber: 11, protons: 11, neutrons: 12, electrons: 11, symbol: 'Na', funFact: "A key component of table salt (NaCl).", electronConfiguration: "[Ne] 3s1", ionizationEnergy: "495.8 kJ/mol", electronegativity: "0.93", meltingPoint: "97.8°C", boilingPoint: "883°C" },
+            "Potassium": { group: 'I', atomicNumber: 19, protons: 19, neutrons: 20, electrons: 19, symbol: 'K', funFact: "Essential for nervous system and muscle function.", electronConfiguration: "[Ar] 4s1", ionizationEnergy: "418.8 kJ/mol", electronegativity: "0.82", meltingPoint: "63.5°C", boilingPoint: "759°C" },
+            "Rubidium": { group: 'I', atomicNumber: 37, protons: 37, neutrons: 48, electrons: 37, symbol: 'Rb', funFact: "So reactive it can ignite spontaneously in air!", electronConfiguration: "[Kr] 5s1", ionizationEnergy: "403.0 kJ/mol", electronegativity: "0.82", meltingPoint: "39.3°C", boilingPoint: "688°C" },
+            "Cesium": { group: 'I', atomicNumber: 55, protons: 55, neutrons: 78, electrons: 55, symbol: 'Cs', funFact: "Used in atomic clocks and is the most reactive of the alkali metals.", electronConfiguration: "[Xe] 6s1", ionizationEnergy: "375.7 kJ/mol", electronegativity: "0.79", meltingPoint: "28.5°C", boilingPoint: "671°C" },
+            "Francium": { group: 'I', atomicNumber: 87, protons: 87, neutrons: 136, electrons: 87, symbol: 'Fr', funFact: "Extremely rare and radioactive, with a half-life of only 22 minutes.", electronConfiguration: "[Rn] 7s1", ionizationEnergy: "392.8 kJ/mol", electronegativity: "0.7", meltingPoint: "27°C", boilingPoint: "677°C" },
+            "Beryllium": { group: 'II', atomicNumber: 4, protons: 4, neutrons: 5, electrons: 4, symbol: 'Be', funFact: "Used to make strong, lightweight alloys for aircraft.", electronConfiguration: "1s2 2s2", ionizationEnergy: "899.5 kJ/mol", electronegativity: "1.57", meltingPoint: "1287°C", boilingPoint: "2471°C" },
+            "Magnesium": { group: 'II', atomicNumber: 12, protons: 12, neutrons: 12, electrons: 12, symbol: 'Mg', funFact: "A key element in chlorophyll, which makes plants green.", electronConfiguration: "[Ne] 3s2", ionizationEnergy: "737.7 kJ/mol", electronegativity: "1.31", meltingPoint: "650°C", boilingPoint: "1091°C" },
+            "Calcium": { group: 'II', atomicNumber: 20, protons: 20, neutrons: 20, electrons: 20, symbol: 'Ca', funFact: "The primary component of bones and teeth.", electronConfiguration: "[Ar] 4s2", ionizationEnergy: "589.8 kJ/mol", electronegativity: "1.0", meltingPoint: "842°C", boilingPoint: "1484°C" },
+            "Strontium": { group: 'II', atomicNumber: 38, protons: 38, neutrons: 50, electrons: 38, symbol: 'Sr', funFact: "Compounds are used to create the vibrant red color in fireworks.", electronConfiguration: "[Kr] 5s2", ionizationEnergy: "549.5 kJ/mol", electronegativity: "0.95", meltingPoint: "777°C", boilingPoint: "1382°C" },
+            "Barium": { group: 'II', atomicNumber: 56, protons: 56, neutrons: 81, electrons: 56, symbol: 'Ba', funFact: "Used in medical imaging to help doctors see the digestive system.", electronConfiguration: "[Xe] 6s2", ionizationEnergy: "502.9 kJ/mol", electronegativity: "0.89", meltingPoint: "727°C", boilingPoint: "1897°C" },
+            "Radium": { group: 'II', atomicNumber: 88, protons: 88, neutrons: 138, electrons: 88, symbol: 'Ra', funFact: "Highly radioactive and was once used in luminescent paints for watch dials.", electronConfiguration: "[Rn] 7s2", ionizationEnergy: "509.3 kJ/mol", electronegativity: "0.9", meltingPoint: "700°C", boilingPoint: "1737°C" }
+        };
+
+        const learnContent = {
+            title: "Properties and Trends of Group 1 and Group 2 Metals",
+            sections: [
+                {
+                    heading: "Introduction to Alkali & Alkaline Earth Metals",
+                    content: `
+                        <p>The <b>Alkali Metals</b> (Group 1) and <b>Alkaline Earth Metals</b> (Group 2) are two of the most important groups in the periodic table. They are highly reactive, located on the far left side of the table, and play crucial roles in chemistry, biology, and technology.</p>
+                        <p>Both groups are defined by their valence electron count: Group 1 metals have <b>one valence electron</b> and form +1 cations, while Group 2 metals have <b>two valence electrons</b> and form +2 cations. This tendency to lose electrons makes them powerful reducing agents.</p>
+                    `
+                },
+                {
+                    heading: "Properties and Trends of Alkali Metals (Group 1)",
+                    content: `
+                        <ul>
+                            <li><b>Reactivity:</b> Extremely reactive metals that react violently with water and air. Reactivity increases down the group.</li>
+                            <li><b>Physical Properties:</b> Soft, low-density metals that can be cut with a knife. They have low melting and boiling points.</li>
+                            <li><b>Electron Configuration:</b> All have one valence electron in their outermost s orbital (e.g., ns1).</li>
+                            <li><b>Reactivity Trend:</b> As you move down the group from Lithium to Francium, the atomic radius increases, and the outermost electron is farther from the nucleus. This makes it easier to remove, leading to an increase in reactivity.</li>
+                        </ul>
+                    `
+                },
+                {
+                    heading: "Properties and Trends of Alkaline Earth Metals (Group 2)",
+                    content: `
+                        <ul>
+                            <li><b>Reactivity:</b> Less reactive than alkali metals but still quite reactive. They react with water and air, but less vigorously. Reactivity also increases down the group.</li>
+                            <li><b>Physical Properties:</b> Harder, denser, and have higher melting points than Group 1 metals. They form a protective oxide layer when exposed to air.</li>
+                            <li><b>Electron Configuration:</b> All have two valence electrons in their outermost s orbital (e.g., ns2).</li>
+                            <li><b>Reactivity Trend:</b> Similar to the alkali metals, reactivity increases down the group from Beryllium to Radium due to increasing atomic radius and easier removal of valence electrons.</li>
+                        </ul>
+                    `
+                },
+                {
+                    heading: "Key Chemical Reactions",
+                    content: `
+                        <p>Both groups of metals readily react with halogens (Group 17) to form ionic salts. For example:</p>
+                        <ul>
+                            <li><b>Alkali Metals:</b> 2Na (s) + Cl2 (g) -> 2NaCl (s)</li>
+                            <li><b>Alkaline Earth Metals:</b> Ca (s) + Cl2 (g) -> CaCl2 (s)</li>
+                        </ul>
+                        <p>They also react with water to produce hydrogen gas and a metal hydroxide, with the reaction becoming more vigorous down the group:</p>
+                        <ul>
+                            <li><b>Alkali Metals:</b> 2K (s) + 2H2O (l) -> 2KOH (aq) + H2 (g)</li>
+                            <li><b>Alkaline Earth Metals:</b> Ca (s) + 2H2O (l) -> Ca(OH)2 (aq) + H2 (g)</li>
+                        </ul>
+                    `
+                }
+            ]
+        };
+
+        const preQuizQuestions = [
+            {
+                type: 'hotspot',
+                question: "Select two pieces of apparatus you must use when handling sodium in the laboratory.",
+                image: "https://placehold.co/600x400/1e293b/a5f3fc?text=Laboratory+Setup",
+                hotspots: [
+                    { id: "goggles", label: "Safety goggles", x: "10%", y: "5%", width: "20%", height: "20%" },
+                    { id: "tongs", label: "Metal tongs", x: "70%", y: "40%", width: "15%", height: "30%" },
+                    { id: "beaker", label: "Beaker", x: "35%", y: "70%", width: "30%", height: "20%" },
+                    { id: "gloves", label: "Gloves", x: "50%", y: "50%", width: "15%", height: "20%" }
+                ],
+                answer: ["goggles", "tongs"]
+            },
+            {
+                type: 'multiple-choice',
+                question: "Why is lithium stored under oil?",
+                options: ["To prevent contact with oxygen and water vapour in air", "To reduce its density", "To increase its conductivity", "To reduce its melting point"],
+                answer: "To prevent contact with oxygen and water vapour in air"
+            },
+            {
+                type: 'slider',
+                question: "On a scale of 1–10, how vigorous do you predict cesium will be when reacting with water?",
+                answer: { min: 9, max: 10 }
+            },
+            {
+                type: 'multiple-choice',
+                question: "When sodium reacts with water, hydrogen gas is released. What is the other product?",
+                options: ["Sodium carbonate", "Sodium hydroxide", "Sodium chloride", "Sodium oxide"],
+                answer: "Sodium hydroxide"
+            },
+            {
+                type: 'drag-and-drop',
+                question: "Arrange these alkali metals from least to most reactive:",
+                items: ["Lithium", "Potassium", "Cesium"],
+                answer: ["Lithium", "Potassium", "Cesium"]
+            },
+            {
+                type: 'multiple-choice',
+                question: "When reacting, Group 1 metals form:",
+                options: ["Cations with a +1 charge", "Cations with a +2 charge", "Anions with a −1 charge", "Anions with a −2 charge"],
+                answer: "Cations with a +1 charge"
+            },
+            {
+                type: 'multiple-choice',
+                question: "Compared to most metals, the density of lithium, sodium, and potassium is:",
+                options: ["Lower", "Higher", "The same"],
+                answer: "Lower"
+            }
+        ];
+        
+        // UI References
+        const ui = {
+            mainContent: document.getElementById('main-content'),
+            hubGrid: document.getElementById('hub-grid'),
+            learnPanel: document.getElementById('learn-panel'),
+            learnContentDiv: document.getElementById('learn-content'),
+            prequizPanel: document.getElementById('prequiz-panel'),
+            prequizContentDiv: document.getElementById('prequiz-content'),
+            factsContent: document.getElementById('facts-content'),
+            elementTitle: document.getElementById('element-title'),
+            group1ElementsContainer: document.querySelector('#group-i-elements div'),
+            group2ElementsContainer: document.querySelector('#group-ii-elements div'),
+            messageBox: document.getElementById('message-box'),
+            messageText: document.getElementById('message-text'),
+            closeMessageBtn: document.getElementById('close-message-btn'),
+            prequizSubmitBtn: document.getElementById('prequiz-submit-btn'),
+            prequizResultsDiv: document.getElementById('prequiz-results')
+        };
+        
+        // --- Utility functions ---
+        async function typeText(element, text, delay = 30) {
+            element.innerHTML = "";
+            for (let i = 0; i < text.length; i++) {
+                element.innerHTML += text.charAt(i);
+                await new Promise(resolve => setTimeout(resolve, delay));
+            }
+        }
+        
+        function showMessage(message) {
+            ui.messageText.textContent = message;
+            ui.messageBox.classList.remove('hidden');
+        }
+
+        function hideMessage() {
+            ui.messageBox.classList.add('hidden');
+        }
+
+        // --- 2D Atom Viewer (Canvas) ---
+        let canvas, ctx;
+        let animationFrameId;
+        let atom = null;
+        let currentElement = null;
+        let scale = 1;
+        let translateX = 0;
+        let translateY = 0;
+        let isDragging = false;
+        let lastMouseX = 0;
+        let lastMouseY = 0;
+        
+        function init2DViewer() {
+            canvas = document.getElementById('atom-canvas');
+            ctx = canvas.getContext('2d');
+            
+            const resizeCanvas = () => {
+                const parent = canvas.parentElement;
+                const size = Math.min(parent.clientWidth, parent.clientHeight);
+                canvas.width = size;
+                canvas.height = size;
+                
+                if (currentElement) {
+                    updateAtomViewer(currentElement);
+                }
+            };
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            canvas.addEventListener('wheel', handleWheel);
+            canvas.addEventListener('mousedown', handleMouseDown);
+            canvas.addEventListener('mousemove', handleMouseMove);
+            canvas.addEventListener('mouseup', handleMouseUp);
+            canvas.addEventListener('mouseleave', handleMouseUp);
+        }
+
+        function handleWheel(e) {
+            e.preventDefault();
+            const zoomSpeed = 0.1;
+            const mouseX = e.clientX - canvas.getBoundingClientRect().left;
+            const mouseY = e.clientY - canvas.getBoundingClientRect().top;
+            
+            const oldScale = scale;
+            const newScale = e.deltaY < 0 ? oldScale * (1 + zoomSpeed) : oldScale / (1 + zoomSpeed);
+            
+            scale = Math.max(0.5, Math.min(newScale, 3)); 
+
+            translateX = mouseX - (mouseX - translateX) * (scale / oldScale);
+            translateY = mouseY - (mouseY - translateY) * (scale / oldScale);
+        }
+
+        function handleMouseDown(e) {
+            isDragging = true;
+            lastMouseX = e.clientX;
+            lastMouseY = e.clientY;
+        }
+
+        function handleMouseMove(e) {
+            if (!isDragging) return;
+            const deltaX = e.clientX - lastMouseX;
+            const deltaY = e.clientY - lastMouseY;
+            translateX += deltaX;
+            translateY += deltaY;
+            lastMouseX = e.clientX;
+            lastMouseY = e.clientY;
+        }
+
+        function handleMouseUp() {
+            isDragging = false;
+        }
+
+        function animate() {
+            if (atom) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                atom.electronOrbits.forEach(orbit => {
+                    orbit.angle += orbit.speed;
+                });
+                drawAtom(currentElement, atom);
+            }
+            animationFrameId = requestAnimationFrame(animate);
+        }
+
+        function drawAtom(element, atomData) {
+            if (!ctx || !element || !atomData) return;
+            ctx.save();
+
+            ctx.translate(canvas.width / 2 + translateX, canvas.height / 2 + translateY);
+            ctx.scale(scale, scale);
+
+            ctx.beginPath();
+            ctx.arc(0, 0, 30, 0, Math.PI * 2);
+            ctx.fillStyle = '#ef4444';
+            ctx.shadowColor = '#ef4444';
+            ctx.shadowBlur = 10;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = 'bold 18px "Inter", sans-serif';
+            ctx.fillText(element.symbol, 0, -10);
+            ctx.font = '12px "Inter", sans-serif';
+            ctx.fillText(element.atomicNumber, 0, 10);
+
+            atomData.electronOrbits.forEach(orbit => {
+                ctx.beginPath();
+                ctx.arc(0, 0, orbit.radius, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(204, 204, 204, 0.2)';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                orbit.electrons.forEach((electron, index) => {
+                    const electronX = 0 + orbit.radius * Math.cos(orbit.angle + (index * ((Math.PI * 2) / orbit.electrons.length)));
+                    const electronY = 0 + orbit.radius * Math.sin(orbit.angle + (index * ((Math.PI * 2) / orbit.electrons.length)));
+
+                    ctx.beginPath();
+                    ctx.arc(electronX, electronY, 8, 0, Math.PI * 2);
+                    ctx.fillStyle = electron.isValence ? '#fcd34d' : '#4ade80';
+                    ctx.shadowColor = electron.isValence ? '#fcd34d' : '#4ade80';
+                    ctx.shadowBlur = 8;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                });
+            });
+
+            ctx.restore();
+        }
+        
+        function updateAtomViewer(element) {
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            }
+            currentElement = element;
+
+            const { electrons: numElectrons, group } = element;
+            
+            const numValenceElectrons = (group === 'I' || group === 'i') ? 1 : 2;
+            const numInnerElectrons = numElectrons - numValenceElectrons;
+
+            const shellCapacities = [2, 8, 18, 32, 18, 8, 2];
+            let remainingInnerElectrons = numInnerElectrons;
+            let currentRadius = 50;
+            const orbits = [];
+
+            for (let i = 0; i < shellCapacities.length && remainingInnerElectrons > 0; i++) {
+                const electronsInShell = Math.min(shellCapacities[i], remainingInnerElectrons);
+                
+                const electronArray = [];
+                for (let j = 0; j < electronsInShell; j++) {
+                    electronArray.push({ isValence: false });
+                }
+                
+                orbits.push({
+                    radius: currentRadius,
+                    electrons: electronArray,
+                    angle: Math.random() * Math.PI * 2,
+                    speed: 0.01 / (i + 1)
+                });
+
+                remainingInnerElectrons -= electronsInShell;
+                currentRadius += 40;
+            }
+
+            const valenceElectronArray = [];
+            for (let j = 0; j < numValenceElectrons; j++) {
+                valenceElectronArray.push({ isValence: true });
+            }
+            orbits.push({
+                radius: currentRadius,
+                electrons: valenceElectronArray,
+                angle: Math.random() * Math.PI * 2,
+                speed: 0.01 / (orbits.length + 1)
+            });
+            
+            atom = {
+                electronOrbits: orbits
+            };
+            
+            const largestRadius = orbits.length > 0 ? orbits[orbits.length - 1].radius : 0;
+            const atomDiameter = (largestRadius + 8) * 2;
+            const padding = 100;
+            const minDimension = Math.min(canvas.width, canvas.height);
+            
+            if (atomDiameter > 0) {
+                scale = minDimension / (atomDiameter + padding);
+            } else {
+                scale = 1;
+            }
+
+            translateX = 0;
+            translateY = 0;
+            
+            animate();
+        }
+        
+        // --- End 2D Atom Viewer ---
+
+        // --- UI & Event Handlers ---
+        function updateFactsPanel(elementName) {
+            const element = elementsData[elementName];
+            if (!element) return;
+
+            ui.factsContent.innerHTML = "";
+            ui.elementTitle.textContent = element.symbol + " - " + elementName;
+
+            const factsHTML = `
+                <div class="space-y-4 appear-anim">
+                    <div>
+                        <h3 class="text-lg font-semibold text-purple-300">Atomic Structure</h3>
+                        <p id="fact-atomic-number" class="text-sm"></p>
+                        <p id="fact-protons" class="text-sm"></p>
+                        <p id="fact-neutrons" class="text-sm"></p>
+                        <p id="fact-electrons" class="text-sm"></p>
+                        <p id="fact-electron-config" class="text-sm"></p>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-purple-300">Physical Properties</h3>
+                        <p id="fact-melting-point" class="text-sm"></p>
+                        <p id="fact-boiling-point" class="text-sm"></p>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-purple-300">Chemical Properties</h3>
+                        <p id="fact-ionization-energy" class="text-sm"></p>
+                        <p id="fact-electronegativity" class="text-sm"></p>
+                    </div>
+                    <p id="fact-fun-fact" class="mt-4 italic text-sm text-yellow-300"></p>
+                </div>
+            `;
+            ui.factsContent.innerHTML = factsHTML;
+
+            typeText(document.getElementById('fact-atomic-number'), `Atomic Number: ${element.atomicNumber}`, 10);
+            setTimeout(() => typeText(document.getElementById('fact-protons'), `Protons: ${element.protons}`, 10), 100);
+            setTimeout(() => typeText(document.getElementById('fact-neutrons'), `Neutrons: ${element.neutrons}`, 10), 200);
+            setTimeout(() => typeText(document.getElementById('fact-electrons'), `Electrons: ${element.electrons}`, 10), 300);
+            setTimeout(() => typeText(document.getElementById('fact-electron-config'), `Electron Configuration: ${element.electronConfiguration}`, 10), 400);
+            setTimeout(() => typeText(document.getElementById('fact-melting-point'), `Melting Point: ${element.meltingPoint}`, 10), 500);
+            setTimeout(() => typeText(document.getElementById('fact-boiling-point'), `Boiling Point: ${element.boilingPoint}`, 10), 600);
+            setTimeout(() => typeText(document.getElementById('fact-ionization-energy'), `Ionization Energy: ${element.ionizationEnergy}`, 10), 700);
+            setTimeout(() => typeText(document.getElementById('fact-electronegativity'), `Electronegativity: ${element.electronegativity}`, 10), 800);
+            setTimeout(() => typeText(document.getElementById('fact-fun-fact'), `Fun Fact: ${element.funFact}`, 10), 1000);
+        }
+        
+        function openLearnPanel() {
+            ui.hubGrid.classList.add('hidden');
+            ui.prequizPanel.classList.add('hidden');
+            ui.learnPanel.classList.remove('hidden');
+            
+            let contentHTML = '';
+            learnContent.sections.forEach(section => {
+                contentHTML += `
+                    <h3 class="text-2xl font-semibold mt-6 mb-2 text-emerald-300">${section.heading}</h3>
+                    ${section.content}
+                `;
+            });
+            ui.learnContentDiv.innerHTML = contentHTML;
+        }
+        
+        function openPrequizPanel() {
+            ui.hubGrid.classList.add('hidden');
+            ui.learnPanel.classList.add('hidden');
+            ui.prequizPanel.classList.remove('hidden');
+            generateQuizUI();
+        }
+        
+        function openHubPanel() {
+            ui.prequizPanel.classList.add('hidden');
+            ui.learnPanel.classList.add('hidden');
+            ui.hubGrid.classList.remove('hidden');
+        }
+
+        function generateQuizUI() {
+            ui.prequizContentDiv.innerHTML = '';
+            ui.prequizResultsDiv.innerHTML = '';
+            
+            let quizHTML = '';
+            preQuizQuestions.forEach((q, index) => {
+                quizHTML += `<div class="bg-zinc-800 p-6 rounded-lg mb-6 appear-anim" style="animation-delay: ${index * 0.1}s;">`;
+                quizHTML += `<p class="text-lg font-semibold mb-3">${index + 1}. ${q.question}</p>`;
+                
+                if (q.type === 'multiple-choice') {
+                    quizHTML += `<div class="flex flex-col space-y-2">`;
+                    q.options.forEach(option => {
+                        quizHTML += `
+                            <button class="quiz-option p-3 rounded-md bg-zinc-700 text-left border-2 border-zinc-700 hover:border-purple-500" data-question-index="${index}" data-answer="${option}">
+                                ${option}
+                            </button>
+                        `;
+                    });
+                    quizHTML += `</div>`;
+                } else if (q.type === 'hotspot') {
+                    quizHTML += `
+                        <div class="flex flex-col md:flex-row md:space-x-4">
+                            <div class="hotspot-container flex-shrink-0 mb-4 md:mb-0">
+                                <img src="${q.image}" alt="Laboratory Setup" class="w-full h-auto rounded-md">
+                                ${q.hotspots.map(hotspot => `
+                                    <div class="hotspot" id="hotspot-area-${hotspot.id}" style="left: ${hotspot.x}; top: ${hotspot.y}; width: ${hotspot.width}; height: ${hotspot.height};"></div>
+                                `).join('')}
+                            </div>
+                            <div class="flex flex-col space-y-2 flex-grow">
+                                <p class="font-bold text-lg mb-2">Select the correct apparatus:</p>
+                                ${q.hotspots.map(hotspot => `
+                                    <div class="hotspot-wrapper">
+                                        <button class="hotspot-btn" data-hotspot-id="${hotspot.id}"></button>
+                                        <span class="hotspot-label">${hotspot.label}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                    q.userSelections = new Set();
+                } else if (q.type === 'slider') {
+                    quizHTML += `
+                        <div class="flex flex-col items-center">
+                            <input type="range" min="1" max="10" value="1" class="w-full h-2 rounded-lg appearance-none cursor-pointer bg-zinc-700" id="slider-${index}">
+                            <div class="flex justify-between w-full mt-2 text-sm text-zinc-400">
+                                <span>1 (Least Vigorous)</span>
+                                <span>10 (Most Vigorous)</span>
+                            </div>
+                            <span id="slider-value-${index}" class="mt-4 text-xl font-bold text-purple-400">1</span>
+                        </div>
+                    `;
+                } else if (q.type === 'drag-and-drop') {
+                    const shuffledItems = [...q.items].sort(() => Math.random() - 0.5);
+                    quizHTML += `
+                        <div class="flex flex-col space-y-2">
+                            <p class="mb-2">Drag and drop the items below to order them correctly.</p>
+                            <div class="flex flex-row space-x-2 justify-center" id="drag-container-${index}">
+                                ${shuffledItems.map(item => `
+                                    <div class="draggable-item p-3 rounded-md bg-zinc-700 text-center border-2 border-zinc-700" draggable="true" data-value="${item}">
+                                        ${item}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                quizHTML += `</div>`;
+            });
+            
+            ui.prequizContentDiv.innerHTML = quizHTML;
+            
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.addEventListener('click', (e) => {
+                    const index = e.target.dataset.questionIndex;
+                    document.querySelectorAll(`.quiz-option[data-question-index='${index}']`).forEach(btn => btn.classList.remove('selected'));
+                    e.target.classList.add('selected');
+                });
+            });
+
+            document.querySelectorAll('.hotspot-btn').forEach(hotspotBtn => {
+                hotspotBtn.addEventListener('click', (e) => {
+                    const hotspotId = e.currentTarget.dataset.hotspotId;
+                    const questionIndex = preQuizQuestions.findIndex(q => q.type === 'hotspot');
+                    const q = preQuizQuestions[questionIndex];
+
+                    if (q.userSelections.has(hotspotId)) {
+                        q.userSelections.delete(hotspotId);
+                        e.currentTarget.classList.remove('selected');
+                    } else {
+                        q.userSelections.add(hotspotId);
+                        e.currentTarget.classList.add('selected');
+                    }
+                });
+            });
+
+            document.querySelectorAll('input[type="range"]').forEach(slider => {
+                slider.addEventListener('input', (e) => {
+                    document.getElementById(`slider-value-${slider.id.split('-')[1]}`).textContent = e.target.value;
+                });
+            });
+            
+            document.querySelectorAll('.draggable-item').forEach(item => {
+                item.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.setData('text/plain', e.target.dataset.value);
+                    e.target.classList.add('dragging');
+                });
+                item.addEventListener('dragend', (e) => {
+                    e.target.classList.remove('dragging');
+                });
+            });
+
+            document.querySelectorAll('[id^="drag-container-"]').forEach(container => {
+                container.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    const afterElement = getDragAfterElement(container, e.clientX);
+                    const draggable = document.querySelector('.dragging');
+                    if (draggable) {
+                        if (afterElement == null) {
+                            container.appendChild(draggable);
+                        } else {
+                            container.insertBefore(draggable, afterElement);
+                        }
+                    }
+                });
+            });
+        }
+        
+        function getDragAfterElement(container, x) {
+            const draggableElements = [...container.querySelectorAll('.draggable-item:not(.dragging)')];
+            return draggableElements.reduce((closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offset = x - box.left - box.width / 2;
+                if (offset < 0 && offset > closest.offset) {
+                    return { offset: offset, element: child };
+                } else {
+                    return closest;
+                }
+            }, { offset: -Infinity }).element;
+        }
+
+        function checkAnswers() {
+            let score = 0;
+            const totalQuestions = preQuizQuestions.length;
+            
+            preQuizQuestions.forEach((q, index) => {
+                const questionDiv = document.querySelector(`.bg-zinc-800.mb-6:nth-of-type(${index + 1})`);
+                let isCorrect = false;
+
+                if (q.type === 'multiple-choice') {
+                    const selectedOption = questionDiv.querySelector('.quiz-option.selected');
+                    if (selectedOption && selectedOption.dataset.answer === q.answer) {
+                        isCorrect = true;
+                    }
+                    
+                    const allOptions = questionDiv.querySelectorAll('.quiz-option');
+                    allOptions.forEach(option => {
+                        option.disabled = true;
+                        if (option.dataset.answer === q.answer) {
+                            option.classList.add('correct');
+                        } else if (option.classList.contains('selected')) {
+                            option.classList.add('incorrect');
+                        }
+                    });
+                } else if (q.type === 'hotspot') {
+                    const selectedIds = Array.from(preQuizQuestions[index].userSelections);
+                    const correctIds = q.answer;
+                    
+                    if (selectedIds.length === correctIds.length && selectedIds.every(id => correctIds.includes(id))) {
+                        isCorrect = true;
+                    }
+
+                    questionDiv.querySelectorAll('.hotspot-btn').forEach(hotspotBtn => {
+                        const hotspotId = hotspotBtn.dataset.hotspotId;
+                        hotspotBtn.disabled = true;
+                        if (correctIds.includes(hotspotId)) {
+                            hotspotBtn.classList.add('correct');
+                        } else if (selectedIds.includes(hotspotId)) {
+                            hotspotBtn.classList.add('incorrect');
+                        }
+                    });
+                } else if (q.type === 'slider') {
+                    const sliderValue = parseInt(document.getElementById(`slider-${index}`).value);
+                    if (sliderValue >= q.answer.min && sliderValue <= q.answer.max) {
+                        isCorrect = true;
+                    }
+
+                    document.getElementById(`slider-${index}`).disabled = true;
+                    const resultSpan = document.getElementById(`slider-value-${index}`);
+                    if (isCorrect) {
+                        resultSpan.textContent = `${sliderValue} (Correct!)`;
+                        resultSpan.classList.add('text-green-400');
+                    } else {
+                        resultSpan.textContent = `${sliderValue} (Incorrect. Expected ${q.answer.min}-${q.answer.max})`;
+                        resultSpan.classList.add('text-red-400');
+                    }
+                } else if (q.type === 'drag-and-drop') {
+                    const orderedItems = [...questionDiv.querySelector('[id^="drag-container-"]').querySelectorAll('.draggable-item')].map(item => item.dataset.value);
+                    const correctOrder = q.answer;
+                    if (JSON.stringify(orderedItems) === JSON.stringify(correctOrder)) {
+                        isCorrect = true;
+                    }
+                    
+                    const items = questionDiv.querySelectorAll('.draggable-item');
+                    items.forEach((item, itemIndex) => {
+                        if (item.dataset.value === correctOrder[itemIndex]) {
+                            item.classList.add('bg-green-700', 'border-green-500');
+                        } else {
+                            item.classList.add('bg-red-700', 'border-red-500');
+                        }
+                        item.draggable = false;
+                        item.style.cursor = 'default';
+                    });
+                    if (!isCorrect) {
+                        const correctOrderDiv = document.createElement('p');
+                        correctOrderDiv.className = "mt-2 text-sm text-green-300";
+                        correctOrderDiv.textContent = `Correct Order: ${correctOrder.join(' → ')}`;
+                        questionDiv.appendChild(correctOrderDiv);
+                    }
+                }
+
+                if (isCorrect) {
+                    score++;
+                }
+            });
+            
+            ui.prequizResultsDiv.textContent = `You scored ${score} out of ${totalQuestions}!`;
+            ui.prequizResultsDiv.classList.add('text-yellow-300');
+            
+            localStorage.setItem(`${appId}-quizCompleted`, 'true');
+            
+            setTimeout(() => {
+                openHubPanel();
+            }, 3000);
+        }
+
+        // --- Main App Initialization ---
+        async function firebaseInit() {
+            try {
+                const app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        document.getElementById('user-id-display').textContent = userId;
+                        isAuthReady = true;
+                        console.log("Firebase initialized and user authenticated:", userId);
+                    } else {
+                        console.log("Firebase initialized, no user authenticated.");
+                    }
+                });
+            } catch (error) {
+                console.error("Firebase initialization failed:", error);
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await firebaseInit();
+            init2DViewer();
+            
+            Object.entries(elementsData).forEach(([name, data]) => {
+                const button = document.createElement('button');
+                const hoverColor = data.group === 'I' ? 'hover:bg-sky-700' : 'hover:bg-emerald-700';
+                const borderColor = data.group === 'I' ? 'border-sky-700' : 'border-emerald-700';
+                button.className = `element-card p-4 rounded-lg bg-zinc-800 ${hoverColor} transition-all duration-300 shadow-md text-left border ${borderColor}`;
+                button.dataset.element = name;
+                button.innerHTML = `<h4 class="font-bold text-lg text-white">${data.symbol}</h4><p class="text-sm">${name}</p>`;
+                if (data.group === 'I') {
+                    ui.group1ElementsContainer.appendChild(button);
+                } else {
+                    ui.group2ElementsContainer.appendChild(button);
+                }
+            });
+
+            document.getElementById('nav-learn-btn').addEventListener('click', () => {
+                openHubPanel();
+                openLearnPanel();
+            });
+            
+            document.getElementById('nav-prequiz-btn').addEventListener('click', () => {
+                openHubPanel();
+                openPrequizPanel();
+            });
+            
+            document.getElementById('back-to-hub-btn').addEventListener('click', openHubPanel);
+            document.getElementById('back-to-hub-btn-quiz').addEventListener('click', openHubPanel);
+            ui.prequizSubmitBtn.addEventListener('click', checkAnswers);
+
+            document.querySelectorAll('#nav-postquiz-btn, #nav-leaderboard-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    showMessage("This feature is still under construction. Please check back later!");
+                });
+            });
+
+            ui.closeMessageBtn.addEventListener('click', hideMessage);
+
+            document.querySelectorAll('.element-card').forEach(button => {
+                button.addEventListener('click', () => {
+                    openHubPanel();
+                    const elementName = button.getAttribute('data-element');
+                    const element = elementsData[elementName];
+                    if (element) {
+                        updateFactsPanel(elementName);
+                        updateAtomViewer(element);
+                    }
+                });
+            });
+
+            const quizCompleted = localStorage.getItem(`${appId}-quizCompleted`);
+            if (quizCompleted === 'true') {
+                openHubPanel();
+            } else {
+                openPrequizPanel();
+            }
+        });
+    </script>
 </body>
 </html>
