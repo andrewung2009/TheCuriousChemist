@@ -190,9 +190,9 @@
     <div id="app-container" class="min-h-screen flex flex-col items-center justify-center p-4 lg:p-8">
 
         <!-- Header -->
-        <header class="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between p-4 mb-8 bg-zinc-900 rounded-xl border border-gray-800 shadow-2xl neon-border">
-            <h1 class="text-3xl font-bold text-emerald-400 neon-glow">Element Command Center</h1>
+        <header class="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center p-4 mb-8 bg-zinc-900 rounded-xl border border-gray-800 shadow-2xl neon-border">
             <nav class="flex flex-wrap gap-4 mt-4 md:mt-0">
+                <button id="nav-hub-btn" class="flashy-button px-4 py-2 bg-zinc-700 hover:bg-zinc-600 rounded-lg text-white font-semibold shadow-md border-2 border-zinc-500">Hub</button>
                 <button id="nav-learn-btn" class="flashy-button px-4 py-2 bg-emerald-700 hover:bg-emerald-600 rounded-lg text-white font-semibold shadow-md border-2 border-emerald-500">Learn</button>
                 <button id="nav-prequiz-btn" class="flashy-button px-4 py-2 bg-purple-700 hover:bg-purple-600 rounded-lg text-white font-semibold shadow-md border-2 border-purple-500">Pre-Quiz</button>
                 <button id="nav-postquiz-btn" class="flashy-button px-4 py-2 bg-rose-700 hover:bg-rose-600 rounded-lg text-white font-semibold shadow-md border-2 border-rose-500">Post-Quiz</button>
@@ -473,21 +473,20 @@
             const resizeCanvas = () => {
                 const parent = canvas.parentElement;
                 const size = Math.min(parent.clientWidth, parent.clientHeight);
-                canvas.width = size;
-                canvas.height = size;
-                
-                if (currentElement) {
-                    updateAtomViewer(currentElement);
+                if (size > 0) { // Only resize if parent is visible
+                    canvas.width = size;
+                    canvas.height = size;
+                    
+                    if (currentElement) {
+                        updateAtomViewer(currentElement);
+                    } else {
+                         drawDefaultMessage();
+                    }
                 }
             };
             window.addEventListener('resize', resizeCanvas);
-            resizeCanvas();
-
-            canvas.addEventListener('wheel', handleWheel);
-            canvas.addEventListener('mousedown', handleMouseDown);
-            canvas.addEventListener('mousemove', handleMouseMove);
-            canvas.addEventListener('mouseup', handleMouseUp);
-            canvas.addEventListener('mouseleave', handleMouseUp);
+            // Don't call resizeCanvas here, as the parent is hidden.
+            // It will be called when the hub is opened.
         }
 
         function handleWheel(e) {
@@ -534,6 +533,22 @@
                 drawAtom(currentElement, atom);
             }
             animationFrameId = requestAnimationFrame(animate);
+        }
+        
+        function drawDefaultMessage() {
+            if (!ctx || !canvas) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.save();
+            ctx.fillStyle = '#e2e8f0';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = '24px "Inter", sans-serif';
+            ctx.fillText("Select an element to view its atom", canvas.width / 2, canvas.height / 2);
+            ctx.restore();
+            // Stop any previous animation
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            }
         }
 
         function drawAtom(element, atomData) {
@@ -584,6 +599,7 @@
         }
         
         function updateAtomViewer(element) {
+            console.log("Updating atom viewer for element:", element.symbol); // Debug log
             if (animationFrameId) {
                 cancelAnimationFrame(animationFrameId);
             }
@@ -636,8 +652,14 @@
             const largestRadius = orbits.length > 0 ? orbits[orbits.length - 1].radius : 0;
             const atomDiameter = (largestRadius + 8) * 2;
             const padding = 100;
-            const minDimension = Math.min(canvas.width, canvas.height);
             
+            // Re-calculate canvas dimensions and scale just before drawing
+            const parent = canvas.parentElement;
+            const size = Math.min(parent.clientWidth, parent.clientHeight);
+            canvas.width = size;
+            canvas.height = size;
+            
+            const minDimension = Math.min(canvas.width, canvas.height);
             if (atomDiameter > 0) {
                 scale = minDimension / (atomDiameter + padding);
             } else {
@@ -723,6 +745,18 @@
             ui.prequizPanel.classList.add('hidden');
             ui.learnPanel.classList.add('hidden');
             ui.hubGrid.classList.remove('hidden');
+            
+            // Force the canvas to resize now that its parent is visible
+            const parent = canvas.parentElement;
+            const size = Math.min(parent.clientWidth, parent.clientHeight);
+            canvas.width = size;
+            canvas.height = size;
+            
+            if (currentElement) {
+                updateAtomViewer(currentElement);
+            } else {
+                drawDefaultMessage();
+            }
         }
 
         function generateQuizUI() {
@@ -1007,15 +1041,9 @@
                 }
             });
 
-            document.getElementById('nav-learn-btn').addEventListener('click', () => {
-                openHubPanel();
-                openLearnPanel();
-            });
-            
-            document.getElementById('nav-prequiz-btn').addEventListener('click', () => {
-                openHubPanel();
-                openPrequizPanel();
-            });
+            document.getElementById('nav-hub-btn').addEventListener('click', openHubPanel);
+            document.getElementById('nav-learn-btn').addEventListener('click', openLearnPanel);
+            document.getElementById('nav-prequiz-btn').addEventListener('click', openPrequizPanel);
             
             document.getElementById('back-to-hub-btn').addEventListener('click', openHubPanel);
             document.getElementById('back-to-hub-btn-quiz').addEventListener('click', openHubPanel);
@@ -1031,7 +1059,7 @@
 
             document.querySelectorAll('.element-card').forEach(button => {
                 button.addEventListener('click', () => {
-                    openHubPanel();
+                    openHubPanel(); // Ensure the hub panel is visible
                     const elementName = button.getAttribute('data-element');
                     const element = elementsData[elementName];
                     if (element) {
@@ -1041,12 +1069,8 @@
                 });
             });
 
-            const quizCompleted = localStorage.getItem(`${appId}-quizCompleted`);
-            if (quizCompleted === 'true') {
-                openHubPanel();
-            } else {
-                openPrequizPanel();
-            }
+            // Start with the hub panel visible by default
+            openHubPanel();
         });
     </script>
 </body>
