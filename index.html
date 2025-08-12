@@ -34,6 +34,9 @@
             transform: translateY(-3px) scale(1.05);
             box-shadow: 0 5px 20px rgba(74, 222, 128, 0.6);
         }
+        
+        /* --- New Font for Data Log --- */
+        /* Removed console-font class to use Inter as requested */
 
         /* --- Animations --- */
         @keyframes fadeIn {
@@ -145,6 +148,23 @@
         .dragging {
             opacity: 0.5;
             border: 2px dashed #4ade80;
+        }
+        .dropzone {
+            min-width: 120px;
+            min-height: 48px;
+            background-color: #2d3748;
+            border: 2px dashed #4a5568;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8px;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+        .dropzone.drag-over {
+            background-color: #4a5568;
+            border-color: #4ade80;
         }
         /* Hide default input range focus outline */
         input[type=range]:focus {
@@ -270,12 +290,10 @@
 
                 <!-- Right Panel: Facts & Features -->
                 <div id="features-panel" class="bg-zinc-900 p-6 rounded-xl shadow-lg flex flex-col justify-between border border-gray-800">
-                    <div id="facts-container">
-                        <h2 class="text-2xl font-bold text-purple-400 mb-4 neon-glow">Element Data Log</h2>
-                        <!-- MODIFIED: Fixed height and no overflow-y-auto -->
-                        <div id="facts-content" class="bg-zinc-800 p-4 rounded-lg h-56 overflow-hidden border border-gray-700">
-                            <p id="element-title" class="text-xl font-bold mb-2 text-sky-400">Select an element to load data...</p>
-                            <!-- Detailed facts will be injected here -->
+                    <div id="facts-container" class="flex flex-col h-full">
+                        <h2 class="text-2xl font-bold mb-4 text-purple-300">Element Data</h2>
+                        <div id="facts-content" class="bg-zinc-800 p-4 rounded-lg flex-grow border border-gray-700 font-sans text-slate-200 overflow-y-auto">
+                            <!-- Detailed facts will be injected here with typing animation -->
                         </div>
                     </div>
                 </div>
@@ -301,6 +319,8 @@
 
         let db, auth, userId;
         let isAuthReady = false;
+        let typingAnimationRunning = false;
+        let animationTimeout;
 
         // --- Data for all elements and quizzes ---
         const elementsData = {
@@ -369,17 +389,12 @@
         };
 
         const preQuizQuestions = [
+            // NEW QUIZ QUESTION (multiple-choice format)
             {
-                type: 'hotspot',
-                question: "Select two pieces of apparatus you must use when handling sodium in the laboratory.",
-                image: "https://placehold.co/600x400/1e293b/a5f3fc?text=Laboratory+Setup",
-                hotspots: [
-                    { id: "goggles", label: "Safety goggles", x: "10%", y: "5%", width: "20%", height: "20%" },
-                    { id: "tongs", label: "Metal tongs", x: "70%", y: "40%", width: "15%", height: "30%" },
-                    { id: "beaker", label: "Beaker", x: "35%", y: "70%", width: "30%", height: "20%" },
-                    { id: "gloves", label: "Gloves", x: "50%", y: "50%", width: "15%", height: "20%" }
-                ],
-                answer: ["goggles", "tongs"]
+                type: 'multiple-choice',
+                question: "When sodium reacts with water, hydrogen gas is released. What is the other product?",
+                options: ["Sodium carbonate", "Sodium hydroxide", "Sodium chloride", "Sodium oxide"],
+                answer: "Sodium hydroxide"
             },
             {
                 type: 'multiple-choice',
@@ -391,12 +406,6 @@
                 type: 'slider',
                 question: "On a scale of 1–10, how vigorous do you predict cesium will be when reacting with water?",
                 answer: { min: 9, max: 10 }
-            },
-            {
-                type: 'multiple-choice',
-                question: "When sodium reacts with water, hydrogen gas is released. What is the other product?",
-                options: ["Sodium carbonate", "Sodium hydroxide", "Sodium chloride", "Sodium oxide"],
-                answer: "Sodium hydroxide"
             },
             {
                 type: 'drag-and-drop',
@@ -427,7 +436,6 @@
             prequizPanel: document.getElementById('prequiz-panel'),
             prequizContentDiv: document.getElementById('prequiz-content'),
             factsContent: document.getElementById('facts-content'),
-            elementTitle: document.getElementById('element-title'),
             group1ElementsContainer: document.querySelector('#group-i-elements div'),
             group2ElementsContainer: document.querySelector('#group-ii-elements div'),
             messageBox: document.getElementById('message-box'),
@@ -438,12 +446,65 @@
         };
         
         // --- Utility functions ---
-        async function typeText(element, text, delay = 30) {
-            element.innerHTML = "";
-            for (let i = 0; i < text.length; i++) {
-                element.innerHTML += text.charAt(i);
-                await new Promise(resolve => setTimeout(resolve, delay));
+        
+        async function typeHtmlWithKeywords(element, htmlString, delay = 5) {
+            if (typingAnimationRunning) {
+                clearTimeout(animationTimeout);
             }
+            element.innerHTML = "";
+            typingAnimationRunning = true;
+
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(htmlString, 'text/html');
+            const paragraphs = doc.body.children;
+
+            const animateParagraph = (pIndex) => {
+                if (pIndex >= paragraphs.length) {
+                    typingAnimationRunning = false;
+                    return;
+                }
+
+                const currentParagraph = paragraphs[pIndex];
+                const parts = [];
+                currentParagraph.childNodes.forEach(node => {
+                    if (node.nodeType === Node.TEXT_NODE) {
+                        parts.push({ type: 'text', content: node.textContent });
+                    } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'SPAN') {
+                        parts.push({ type: 'html', content: node.outerHTML });
+                    }
+                });
+
+                let partIndex = 0;
+                let charIndex = 0;
+                
+                const type = () => {
+                    if (partIndex >= parts.length) {
+                        element.innerHTML += '<br>';
+                        animateParagraph(pIndex + 1);
+                        return;
+                    }
+                    
+                    const currentPart = parts[partIndex];
+                    if (currentPart.type === 'html') {
+                        element.innerHTML += currentPart.content;
+                        partIndex++;
+                        charIndex = 0;
+                    } else { // type: 'text'
+                        if (charIndex < currentPart.content.length) {
+                            element.innerHTML += currentPart.content.charAt(charIndex);
+                            charIndex++;
+                        } else {
+                            partIndex++;
+                            charIndex = 0;
+                        }
+                    }
+
+                    animationTimeout = setTimeout(type, delay);
+                };
+                type();
+            };
+            
+            animateParagraph(0);
         }
         
         function showMessage(message) {
@@ -453,6 +514,17 @@
 
         function hideMessage() {
             ui.messageBox.classList.add('hidden');
+        }
+        
+        function adjustFontSizeToFit(container, minSize = 8) {
+            let fontSize = 16;
+            // Reset font size before adjustment
+            container.style.fontSize = ''; 
+            
+            while (container.scrollHeight > container.clientHeight && fontSize > minSize) {
+                fontSize--;
+                container.style.fontSize = `${fontSize}px`;
+            }
         }
 
         // --- 2D Atom Viewer (Canvas) ---
@@ -486,8 +558,6 @@
                 }
             };
             window.addEventListener('resize', resizeCanvas);
-            // Don't call resizeCanvas here, as the parent is hidden.
-            // It will be called when the hub is opened.
         }
 
         function handleWheel(e) {
@@ -518,7 +588,7 @@
             translateX += deltaX;
             translateY += deltaY;
             lastMouseX = e.clientX;
-            lastMouseY = e.clientY;
+            lastMouseY = e.clientX;
         }
 
         function handleMouseUp() {
@@ -600,7 +670,6 @@
         }
         
         function updateAtomViewer(element) {
-            console.log("Updating atom viewer for element:", element.symbol); // Debug log
             if (animationFrameId) {
                 cancelAnimationFrame(animationFrameId);
             }
@@ -676,47 +745,31 @@
         // --- End 2D Atom Viewer ---
 
         // --- UI & Event Handlers ---
-        // MODIFIED: Function to update the facts panel without scrolling
+        // Function to update the facts panel with colored text
         function updateFactsPanel(elementName) {
             const element = elementsData[elementName];
             if (!element) return;
-
+        
             ui.factsContent.innerHTML = "";
-            ui.elementTitle.textContent = element.symbol + " - " + elementName;
-
-            const facts = [
-                `Atomic Number: ${element.atomicNumber}`,
-                `Protons: ${element.protons}`,
-                `Neutrons: ${element.neutrons}`,
-                `Electrons: ${element.electrons}`,
-                `Electron Configuration: ${element.electronConfiguration}`,
-                `Melting Point: ${element.meltingPoint}`,
-                `Boiling Point: ${element.boilingPoint}`,
-                `Ionization Energy: ${element.ionizationEnergy}`,
-                `Electronegativity: ${element.electronegativity}`,
-                `Fun Fact: ${element.funFact}`
-            ];
-
-            const factContainer = document.createElement('div');
-            factContainer.className = "space-y-2 appear-anim";
+            ui.factsContent.style.fontSize = ''; // Reset font size
             
-            facts.forEach((fact, index) => {
-                const p = document.createElement('p');
-                p.className = 'text-sm';
-                p.style.opacity = 0;
-                p.style.transform = 'translateY(10px)';
-                p.textContent = fact;
-                factContainer.appendChild(p);
-
-                // Animate each fact in
-                setTimeout(() => {
-                    p.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-                    p.style.opacity = 1;
-                    p.style.transform = 'translateY(0)';
-                }, index * 100);
-            });
-
-            ui.factsContent.appendChild(factContainer);
+            const facts = [
+                `<span class="text-cyan-400">Atomic Number:</span> ${element.atomicNumber}`,
+                `<span class="text-cyan-400">Protons:</span> ${element.protons}`,
+                `<span class="text-cyan-400">Neutrons:</span> ${element.neutrons}`,
+                `<span class="text-cyan-400">Electrons:</span> ${element.electrons}`,
+                `<span class="text-cyan-400">Electron Configuration:</span> ${element.electronConfiguration}`,
+                `<span class="text-cyan-400">Symbol:</span> ${element.symbol} - ${elementName}`,
+                `<span class="text-cyan-400">Melting Point:</span> ${element.meltingPoint}`,
+                `<span class="text-cyan-400">Boiling Point:</span> ${element.boilingPoint}`,
+                `<span class="text-cyan-400">Ionization Energy:</span> ${element.ionizationEnergy}`,
+                `<span class="text-cyan-400">Electronegativity:</span> ${element.electronegativity}`,
+                `<span class="text-cyan-400">Fun Fact:</span> ${element.funFact}`
+            ];
+            
+            const factsHTML = facts.map(fact => `<p class="text-base mb-2">${fact}</p>`).join('');
+            typeHtmlWithKeywords(ui.factsContent, factsHTML, 20); // Call the new typing function
+            adjustFontSizeToFit(ui.factsContent);
         }
         
         function openLearnPanel() {
@@ -813,14 +866,25 @@
                 } else if (q.type === 'drag-and-drop') {
                     const shuffledItems = [...q.items].sort(() => Math.random() - 0.5);
                     quizHTML += `
-                        <div class="flex flex-col space-y-2">
-                            <p class="mb-2">Drag and drop the items below to order them correctly.</p>
-                            <div class="flex flex-row space-x-2 justify-center" id="drag-container-${index}">
-                                ${shuffledItems.map(item => `
-                                    <div class="draggable-item p-3 rounded-md bg-zinc-700 text-center border-2 border-zinc-700" draggable="true" data-value="${item}">
+                        <div class="flex flex-col space-y-4">
+                            <div id="drag-items-container-${index}" class="flex flex-row flex-wrap justify-center gap-4 p-4 bg-zinc-700 rounded-lg">
+                                ${shuffledItems.map((item) => `
+                                    <div class="draggable-item p-3 rounded-md bg-zinc-600 text-center border-2 border-zinc-700" draggable="true" data-value="${item}">
                                         ${item}
                                     </div>
                                 `).join('')}
+                            </div>
+                            <div class="flex flex-row space-x-2 items-center justify-center">
+                                <span class="text-sm text-zinc-400">Least Reactive</span>
+                                <span class="text-4xl text-zinc-500">→</span>
+                                <span class="text-sm text-zinc-400">Most Reactive</span>
+                            </div>
+                            <div id="drag-container-${index}" class="flex flex-row space-x-2 justify-center">
+                                <div class="dropzone" data-index="0">Drop Here</div>
+                                <span class="text-4xl text-zinc-500 mx-2">→</span>
+                                <div class="dropzone" data-index="1">Drop Here</div>
+                                <span class="text-4xl text-zinc-500 mx-2">→</span>
+                                <div class="dropzone" data-index="2">Drop Here</div>
                             </div>
                         </div>
                     `;
@@ -831,6 +895,7 @@
             
             ui.prequizContentDiv.innerHTML = quizHTML;
             
+            // --- Event Listeners for Quiz UI ---
             document.querySelectorAll('.quiz-option').forEach(option => {
                 option.addEventListener('click', (e) => {
                     const index = e.target.dataset.questionIndex;
@@ -871,17 +936,24 @@
                 });
             });
 
-            document.querySelectorAll('[id^="drag-container-"]').forEach(container => {
-                container.addEventListener('dragover', (e) => {
+            document.querySelectorAll('.dropzone').forEach(dropzone => {
+                dropzone.addEventListener('dragover', (e) => {
                     e.preventDefault();
-                    const afterElement = getDragAfterElement(container, e.clientX);
-                    const draggable = document.querySelector('.dragging');
-                    if (draggable) {
-                        if (afterElement == null) {
-                            container.appendChild(draggable);
-                        } else {
-                            container.insertBefore(draggable, afterElement);
-                        }
+                    dropzone.classList.add('drag-over');
+                });
+                dropzone.addEventListener('dragleave', (e) => {
+                    e.preventDefault();
+                    dropzone.classList.remove('drag-over');
+                });
+                dropzone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    dropzone.classList.remove('drag-over');
+                    const data = e.dataTransfer.getData('text/plain');
+                    const draggedElement = document.querySelector(`.draggable-item[data-value="${data}"]`);
+
+                    if (dropzone.children.length === 0) {
+                        dropzone.textContent = ''; // Clear "Drop Here" text
+                        dropzone.appendChild(draggedElement);
                     }
                 });
             });
@@ -956,22 +1028,43 @@
                         resultSpan.classList.add('text-red-400');
                     }
                 } else if (q.type === 'drag-and-drop') {
-                    const orderedItems = [...questionDiv.querySelector('[id^="drag-container-"]').querySelectorAll('.draggable-item')].map(item => item.dataset.value);
+                    const orderedItems = [...questionDiv.querySelectorAll('.dropzone')].map(zone => {
+                        const item = zone.querySelector('.draggable-item');
+                        return item ? item.dataset.value : null;
+                    });
                     const correctOrder = q.answer;
-                    if (JSON.stringify(orderedItems) === JSON.stringify(correctOrder)) {
+                    
+                    // Check if all slots are filled and the order is correct
+                    if (orderedItems.every(item => item !== null) && JSON.stringify(orderedItems) === JSON.stringify(correctOrder)) {
                         isCorrect = true;
                     }
                     
-                    const items = questionDiv.querySelectorAll('.draggable-item');
-                    items.forEach((item, itemIndex) => {
-                        if (item.dataset.value === correctOrder[itemIndex]) {
-                            item.classList.add('bg-green-700', 'border-green-500');
-                        } else {
-                            item.classList.add('bg-red-700', 'border-red-500');
+                    const dropzones = questionDiv.querySelectorAll('.dropzone');
+                    dropzones.forEach((zone, itemIndex) => {
+                        const item = zone.querySelector('.draggable-item');
+                        if (item) {
+                            if (item.dataset.value === correctOrder[itemIndex]) {
+                                item.classList.add('bg-green-700', 'border-green-500');
+                            } else {
+                                item.classList.add('bg-red-700', 'border-red-500');
+                            }
+                            item.draggable = false;
+                            item.style.cursor = 'default';
                         }
-                        item.draggable = false;
-                        item.style.cursor = 'default';
+                        zone.style.borderColor = 'transparent';
+                        zone.style.cursor = 'default';
                     });
+                    
+                    const dragItemsContainer = questionDiv.querySelector('[id^="drag-items-container-"]');
+                    if (dragItemsContainer) {
+                         [...dragItemsContainer.children].forEach(item => {
+                            if (item.classList.contains('draggable-item')) {
+                                item.draggable = false;
+                                item.style.cursor = 'default';
+                            }
+                        });
+                    }
+
                     if (!isCorrect) {
                         const correctOrderDiv = document.createElement('p');
                         correctOrderDiv.className = "mt-2 text-sm text-green-300";
