@@ -272,7 +272,8 @@
                 <div id="features-panel" class="bg-zinc-900 p-6 rounded-xl shadow-lg flex flex-col justify-between border border-gray-800">
                     <div id="facts-container">
                         <h2 class="text-2xl font-bold text-purple-400 mb-4 neon-glow">Element Data Log</h2>
-                        <div id="facts-content" class="bg-zinc-800 p-4 rounded-lg h-56 overflow-y-auto border border-gray-700">
+                        <!-- MODIFIED: Fixed height and no overflow-y-auto -->
+                        <div id="facts-content" class="bg-zinc-800 p-4 rounded-lg h-56 overflow-hidden border border-gray-700">
                             <p id="element-title" class="text-xl font-bold mb-2 text-sky-400">Select an element to load data...</p>
                             <!-- Detailed facts will be injected here -->
                         </div>
@@ -675,6 +676,7 @@
         // --- End 2D Atom Viewer ---
 
         // --- UI & Event Handlers ---
+        // MODIFIED: Function to update the facts panel without scrolling
         function updateFactsPanel(elementName) {
             const element = elementsData[elementName];
             if (!element) return;
@@ -682,41 +684,39 @@
             ui.factsContent.innerHTML = "";
             ui.elementTitle.textContent = element.symbol + " - " + elementName;
 
-            const factsHTML = `
-                <div class="space-y-4 appear-anim">
-                    <div>
-                        <h3 class="text-lg font-semibold text-purple-300">Atomic Structure</h3>
-                        <p id="fact-atomic-number" class="text-sm"></p>
-                        <p id="fact-protons" class="text-sm"></p>
-                        <p id="fact-neutrons" class="text-sm"></p>
-                        <p id="fact-electrons" class="text-sm"></p>
-                        <p id="fact-electron-config" class="text-sm"></p>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-semibold text-purple-300">Physical Properties</h3>
-                        <p id="fact-melting-point" class="text-sm"></p>
-                        <p id="fact-boiling-point" class="text-sm"></p>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-semibold text-purple-300">Chemical Properties</h3>
-                        <p id="fact-ionization-energy" class="text-sm"></p>
-                        <p id="fact-electronegativity" class="text-sm"></p>
-                    </div>
-                    <p id="fact-fun-fact" class="mt-4 italic text-sm text-yellow-300"></p>
-                </div>
-            `;
-            ui.factsContent.innerHTML = factsHTML;
+            const facts = [
+                `Atomic Number: ${element.atomicNumber}`,
+                `Protons: ${element.protons}`,
+                `Neutrons: ${element.neutrons}`,
+                `Electrons: ${element.electrons}`,
+                `Electron Configuration: ${element.electronConfiguration}`,
+                `Melting Point: ${element.meltingPoint}`,
+                `Boiling Point: ${element.boilingPoint}`,
+                `Ionization Energy: ${element.ionizationEnergy}`,
+                `Electronegativity: ${element.electronegativity}`,
+                `Fun Fact: ${element.funFact}`
+            ];
 
-            typeText(document.getElementById('fact-atomic-number'), `Atomic Number: ${element.atomicNumber}`, 10);
-            setTimeout(() => typeText(document.getElementById('fact-protons'), `Protons: ${element.protons}`, 10), 100);
-            setTimeout(() => typeText(document.getElementById('fact-neutrons'), `Neutrons: ${element.neutrons}`, 10), 200);
-            setTimeout(() => typeText(document.getElementById('fact-electrons'), `Electrons: ${element.electrons}`, 10), 300);
-            setTimeout(() => typeText(document.getElementById('fact-electron-config'), `Electron Configuration: ${element.electronConfiguration}`, 10), 400);
-            setTimeout(() => typeText(document.getElementById('fact-melting-point'), `Melting Point: ${element.meltingPoint}`, 10), 500);
-            setTimeout(() => typeText(document.getElementById('fact-boiling-point'), `Boiling Point: ${element.boilingPoint}`, 10), 600);
-            setTimeout(() => typeText(document.getElementById('fact-ionization-energy'), `Ionization Energy: ${element.ionizationEnergy}`, 10), 700);
-            setTimeout(() => typeText(document.getElementById('fact-electronegativity'), `Electronegativity: ${element.electronegativity}`, 10), 800);
-            setTimeout(() => typeText(document.getElementById('fact-fun-fact'), `Fun Fact: ${element.funFact}`, 10), 1000);
+            const factContainer = document.createElement('div');
+            factContainer.className = "space-y-2 appear-anim";
+            
+            facts.forEach((fact, index) => {
+                const p = document.createElement('p');
+                p.className = 'text-sm';
+                p.style.opacity = 0;
+                p.style.transform = 'translateY(10px)';
+                p.textContent = fact;
+                factContainer.appendChild(p);
+
+                // Animate each fact in
+                setTimeout(() => {
+                    p.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    p.style.opacity = 1;
+                    p.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+
+            ui.factsContent.appendChild(factContainer);
         }
         
         function openLearnPanel() {
