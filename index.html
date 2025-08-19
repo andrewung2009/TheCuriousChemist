@@ -3,410 +3,1130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alkali & Alkaline Earth Metals Hub</title>
+    <title>Elements Explorer - Alkali & Alkaline Earth Metals</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;700&display=swap');
+        
+        :root {
+            --primary: #3b82f6;
+            --secondary: #10b981;
+            --accent: #8b5cf6;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #e2e8f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         
         body {
             font-family: 'Inter', sans-serif;
-            background: #000000;
-            color: #e2e8f0;
-            position: relative;
+            background-color: #ffffff;
+            color: var(--dark);
             overflow-x: hidden;
-        }
-        /* --- Global Styling --- */
-        .neon-glow {
-            text-shadow: none;
-        }
-        .neon-border {
-            border: 2px solid #4ade80;
-            box-shadow: 0 0 5px #4ade80;
-        }
-        .flashy-button {
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-        .flashy-button:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 5px 20px rgba(74, 222, 128, 0.6);
+            position: relative;
         }
         
-        /* --- New Font for Data Log --- */
-        /* Removed console-font class to use Inter as requested */
-        /* --- Animations --- */
+        /* Landing Page Styles */
+        .landing-page {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.05;
+            background-image: 
+                radial-gradient(circle at 20% 30%, var(--primary) 0%, transparent 25%),
+                radial-gradient(circle at 80% 70%, var(--secondary) 0%, transparent 25%),
+                radial-gradient(circle at 40% 80%, var(--accent) 0%, transparent 20%);
+            background-size: 100% 100%;
+            animation: bgMove 30s infinite alternate ease-in-out;
+        }
+        
+        @keyframes bgMove {
+            0% { background-position: 0% 0%, 100% 100%, 50% 50%; }
+            100% { background-position: 100% 100%, 0% 0%, 0% 100%; }
+        }
+        
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        .element-1 {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .element-2 {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            top: 70%;
+            left: 5%;
+            animation-delay: 2s;
+        }
+        
+        .element-3 {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            top: 20%;
+            right: 10%;
+            animation-delay: 4s;
+        }
+        
+        .element-4 {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            top: 60%;
+            right: 15%;
+            animation-delay: 1s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        .landing-content {
+            text-align: center;
+            z-index: 10;
+            max-width: 800px;
+            padding: 0 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .app-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+        
+        .app-subtitle {
+            font-size: 1.5rem;
+            color: #64748b;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+        
+        .app-description {
+            font-size: 1.1rem;
+            color: #64748b;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .enter-button {
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .enter-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
+        }
+        
+        .enter-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        
+        .enter-button:hover::before {
+            transform: translateX(0);
+        }
+        
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 4rem;
+            flex-wrap: wrap;
+        }
+        
+        .feature {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 150px;
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .feature-text {
+            text-align: center;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        
+        /* Animated background elements */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.05;
+            background-image: 
+                radial-gradient(circle at 20% 30%, var(--primary) 0%, transparent 25%),
+                radial-gradient(circle at 80% 70%, var(--secondary) 0%, transparent 25%),
+                radial-gradient(circle at 40% 80%, var(--accent) 0%, transparent 20%);
+            background-size: 100% 100%;
+            animation: bgMove 30s infinite alternate ease-in-out;
+        }
+        
+        @keyframes bgMove {
+            0% { background-position: 0% 0%, 100% 100%, 50% 50%; }
+            100% { background-position: 100% 100%, 0% 0%, 0% 100%; }
+        }
+        
+        /* Header styles */
+        .header {
+            background-color: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            animation: slideDown 0.8s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .nav-button {
+            position: relative;
+            overflow: hidden;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        
+        .nav-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-button:hover::before {
+            opacity: 0.1;
+        }
+        
+        .nav-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .nav-button.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        /* Main content container */
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            animation: fadeIn 1s ease-out;
+        }
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .fade-in { animation: fadeIn 0.8s ease-in-out; }
-        @keyframes appear {
-            0% { opacity: 0; transform: scale(0.5); }
-            100% { opacity: 1; transform: scale(1); }
+        
+        /* Panel styles */
+        .panel {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            animation: slideUp 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
         }
-        .appear-anim { animation: appear 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
-        /* --- Message Box --- */
-        .message-box {
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 100;
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        /* Custom canvas styling for 2D */
+        
+        .panel::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        }
+        
+        .panel-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        /* Element grid */
+        .element-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .element-card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 1.25rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--gray);
+        }
+        
+        .element-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .element-card:hover::before {
+            transform: translateY(0);
+        }
+        
+        .element-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .element-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 0.75rem;
+            object-fit: cover;
+            border: 3px solid var(--gray);
+            transition: all 0.3s ease;
+        }
+        
+        .element-card:hover .element-image {
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+        
+        .element-symbol {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .element-name {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        
+        .element-group {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.25rem 0.5rem;
+            border-radius: 20px;
+            background-color: var(--light);
+        }
+        
+        .group-1 {
+            color: var(--primary);
+        }
+        
+        .group-2 {
+            color: var(--secondary);
+        }
+        
+        /* Atom viewer */
+        .atom-viewer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
         #atom-canvas {
-            background-color: #1f2937;
-            display: block;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--gray);
+            max-width: 100%;
+            height: 400px;
         }
+        
+        .atom-key {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .atom-key-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
         .color-circle {
-            display: inline-block;
             width: 1rem;
             height: 1rem;
             border-radius: 50%;
-            margin-right: 0.5rem;
-            vertical-align: middle;
         }
-        .quiz-option {
-            transition: all 0.2s ease;
-            text-align: left;
+        
+        /* Facts panel */
+        .facts-content {
+            background-color: var(--light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            min-height: 400px;
+            overflow-y: auto;
+            line-height: 1.6;
         }
-        .quiz-option:hover:not(.selected) {
-            background-color: #4a5568;
+        
+        .fact-item {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
         }
-        .quiz-option.selected {
-            border-color: #4ade80;
-            background-color: #4ade80;
-            color: #000;
+        
+        .fact-label {
+            font-weight: 600;
+            color: var(--primary);
+            min-width: 160px;
         }
-        .quiz-option.correct {
-            border-color: #4ade80;
-            background-color: #16a34a; /* Green */
+        
+        /* Learn section */
+        .tab-container {
+            display: flex;
+            border-bottom: 1px solid var(--gray);
+            margin-bottom: 1.5rem;
         }
-        .quiz-option.incorrect {
-            border-color: #ef4444;
-            background-color: #dc2626; /* Red */
-        }
-        .quiz-option.correct-unselected {
-            border-color: #4ade80;
-            background-color: #16a34a;
-            opacity: 0.6;
-        }
-        /* Hotspot specific styles */
-        .hotspot-container {
+        
+        .tab {
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            cursor: pointer;
             position: relative;
-            user-select: none;
-            display: inline-block;
-            border: 2px solid #4a5568;
-            border-radius: 8px;
-            overflow: hidden;
-            max-width: 600px;
+            transition: all 0.3s ease;
         }
-        .hotspot-wrapper {
-            display: flex;
-            align-items: center;
-            margin-bottom: 8px;
+        
+        .tab:hover {
+            color: var(--primary);
         }
-        .hotspot-label {
-            margin-left: 8px;
-            font-weight: bold;
-            color: #e2e8f0;
+        
+        .tab.active {
+            color: var(--primary);
         }
-        .hotspot-btn {
-            width: 24px;
-            height: 24px;
-            background-color: #4a5568;
-            border-radius: 4px;
-            border: 2px solid transparent;
-            transition: all 0.2s;
-            cursor: pointer;
-        }
-        .hotspot-btn:hover {
-            border-color: #4ade80;
-        }
-        .hotspot-btn.selected {
-            background-color: #4ade80;
-            border-color: #4ade80;
-        }
-        .hotspot-btn.correct {
-            background-color: #16a34a;
-            border-color: #16a34a;
-        }
-        .hotspot-btn.incorrect {
-            background-color: #dc2626;
-            border-color: #dc2626;
-        }
-        /* Drag-and-drop specific styles */
-        .draggable-item {
-            cursor: grab;
-            transition: transform 0.2s;
-            flex-grow: 1;
-        }
-        .dragging {
-            opacity: 0.5;
-            border: 2px dashed #4ade80;
-        }
-        .dropzone {
-            min-width: 120px;
-            min-height: 48px;
-            background-color: #2d3748;
-            border: 2px dashed #4a5568;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 8px;
-            transition: background-color 0.2s, border-color 0.2s;
-        }
-        .dropzone.drag-over {
-            background-color: #4a5568;
-            border-color: #4ade80;
-        }
-        /* Hide default input range focus outline */
-        input[type=range]:focus {
-            outline: none;
-        }
-        /* Custom slider styles for webkit browsers */
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 24px;
-            width: 24px;
-            border-radius: 50%;
-            background: #4ade80;
-            cursor: pointer;
-            box-shadow: 0 0 5px #4ade80;
-            margin-top: -8px; /* Offset the thumb to center it vertically */
-        }
-        input[type=range]::-webkit-slider-runnable-track {
+        
+        .tab.active::after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 0;
             width: 100%;
-            height: 8px;
-            background: #2d3748;
-            border-radius: 4px;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 3px 3px 0 0;
         }
-        /* Custom slider styles for Firefox */
-        input[type=range]::-moz-range-thumb {
-            height: 24px;
-            width: 24px;
-            border-radius: 50%;
-            background: #4ade80;
+        
+        .tab-content {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        /* Quiz styles */
+        .quiz-question {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: var(--light);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        
+        .quiz-option {
+            padding: 0.75rem 1rem;
+            background-color: white;
+            border: 1px solid var(--gray);
+            border-radius: 8px;
             cursor: pointer;
-            box-shadow: 0 0 5px #4ade80;
+            transition: all 0.3s ease;
         }
-        input[type=range]::-moz-range-track {
-            width: 100%;
-            height: 8px;
-            background: #2d3748;
-            border-radius: 4px;
+        
+        .quiz-option:hover {
+            border-color: var(--primary);
+            background-color: rgba(59, 130, 246, 0.05);
         }
-        .learn-tab {
-            transition: all 0.2s ease;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .learn-tab:hover {
-            color: #4ade80;
-        }
-        .learn-tab.active {
-            color: #4ade80;
-            border-bottom: 2px solid #4ade80;
-        }
-        .fill-in-blank-input {
-            width: 80px;
-            text-align: center;
-            background-color: #2d3748;
-            border: 1px solid #4a5568;
-            border-radius: 4px;
-            padding: 4px;
+        
+        .quiz-option.selected {
+            background-color: var(--primary);
             color: white;
+            border-color: var(--primary);
         }
-        .fill-in-blank-input:focus {
-            outline: none;
-            border-color: #4ade80;
+        
+        .quiz-option.correct {
+            background-color: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
         }
-        .correct-answer-text {
-            color: #4ade80;
+        
+        .quiz-option.incorrect {
+            background-color: #ef4444;
+            color: white;
+            border-color: #ef4444;
         }
-        .incorrect-answer-text {
-            color: #dc2626;
+        
+        /* Message box */
+        .message-box {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            z-index: 1000;
+            text-align: center;
+            animation: popIn 0.5s ease-out;
         }
-        .match-item {
-            padding: 8px;
-            background-color: #2d3748;
-            border: 2px solid #4a5568;
-            border-radius: 8px;
-            cursor: grab;
-            margin-bottom: 4px;
+        
+        @keyframes popIn {
+            from { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
-        .dropzone-match {
-            min-height: 40px;
-            border: 2px dashed #4a5568;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8px;
-            transition: background-color 0.2s;
+        
+        .message-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
         }
-        .dropzone-match.drag-over {
-            background-color: #4a5568;
+        
+        .message-text {
+            margin-bottom: 1.5rem;
+            color: #64748b;
+        }
+        
+        .message-button {
+            padding: 0.75rem 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .message-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Loading spinner */
+        .loader {
+            border: 3px solid var(--gray);
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .app-title {
+                font-size: 3rem;
+            }
+            
+            .app-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .features {
+                gap: 1rem;
+            }
+            
+            .feature {
+                width: 120px;
+            }
+            
+            .element-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+            
+            .atom-key {
+                gap: 1rem;
+            }
+            
+            .fact-label {
+                min-width: 120px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .app-title {
+                font-size: 2.5rem;
+            }
+            
+            .app-subtitle {
+                font-size: 1rem;
+            }
+            
+            .app-description {
+                font-size: 1rem;
+            }
+            
+            .enter-button {
+                padding: 0.8rem 2rem;
+                font-size: 1rem;
+            }
+            
+            .features {
+                flex-direction: column;
+                align-items: center;
+                gap: 1.5rem;
+            }
         }
     </style>
 </head>
-<body class="p-6">
-    <!-- Main Container -->
-    <div id="app-container" class="min-h-screen flex flex-col items-center justify-center p-4 lg:p-8">
+<body>
+    <!-- Landing Page -->
+    <div id="landing-page" class="landing-page">
+        <div class="bg-pattern"></div>
+        
+        <!-- Floating elements -->
+        <div class="floating-element element-1"></div>
+        <div class="floating-element element-2"></div>
+        <div class="floating-element element-3"></div>
+        <div class="floating-element element-4"></div>
+        
+        <div class="landing-content">
+            <h1 class="app-title">Elements Explorer</h1>
+            <h2 class="app-subtitle">Discover Alkali & Alkaline Earth Metals</h2>
+            <p class="app-description">
+                An interactive learning experience that brings the periodic table to life. Explore the properties, reactions, and real-world applications of Group 1 and Group 2 elements through engaging visuals and interactive content.
+            </p>
+            
+            <button id="enter-app-btn" class="enter-button">
+                Enter Explorer <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+            
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-atom"></i>
+                    </div>
+                    <div class="feature-text">Interactive Atom Models</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <div class="feature-text">Element Database</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="feature-text">Learning Resources</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <div class="feature-text">Interactive Quizzes</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main App (Hidden initially) -->
+    <div id="main-app" class="hidden">
+        <div class="bg-pattern"></div>
+        
         <!-- Header -->
-        <header class="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center p-4 mb-8 bg-zinc-900 rounded-xl border border-gray-800 shadow-2xl neon-border">
-            <nav class="flex flex-wrap gap-4 mt-4 md:mt-0">
-                <button id="nav-hub-btn" class="flashy-button px-4 py-2 bg-zinc-700 hover:bg-zinc-600 rounded-lg text-white font-semibold shadow-md border-2 border-zinc-500">Hub</button>
-                <button id="nav-learn-btn" class="flashy-button px-4 py-2 bg-emerald-700 hover:bg-emerald-600 rounded-lg text-white font-semibold shadow-md border-2 border-emerald-500">Learn</button>
-                <button id="nav-prequiz-btn" class="flashy-button px-4 py-2 bg-purple-700 hover:bg-purple-600 rounded-lg text-white font-semibold shadow-md border-2 border-purple-500">Pre-Quiz</button>
-                <button id="nav-postquiz-btn" class="flashy-button px-4 py-2 bg-rose-700 hover:bg-rose-600 rounded-lg text-white font-semibold shadow-md border-2 border-rose-500">Post-Quiz</button>
-                <button id="nav-leaderboard-btn" class="flashy-button px-4 py-2 bg-yellow-700 hover:bg-yellow-600 rounded-lg text-white font-semibold shadow-md border-2 border-yellow-500">Leaderboard</button>
-            </nav>
+        <header class="header">
+            <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+                <div class="logo mb-4 md:mb-0">
+                    <i class="fas fa-atom"></i>
+                    Elements Explorer
+                </div>
+                <nav class="flex flex-wrap justify-center gap-2">
+                    <button id="nav-hub-btn" class="nav-button active">
+                        <i class="fas fa-home mr-2"></i>Hub
+                    </button>
+                    <button id="nav-learn-btn" class="nav-button">
+                        <i class="fas fa-book mr-2"></i>Learn
+                    </button>
+                    <button id="nav-prequiz-btn" class="nav-button">
+                        <i class="fas fa-question-circle mr-2"></i>Pre-Quiz
+                    </button>
+                    <button id="nav-postquiz-btn" class="nav-button">
+                        <i class="fas fa-graduation-cap mr-2"></i>Post-Quiz
+                    </button>
+                    <button id="nav-leaderboard-btn" class="nav-button">
+                        <i class="fas fa-trophy mr-2"></i>Leaderboard
+                    </button>
+                </nav>
+            </div>
         </header>
-        <!-- Main Content Area -->
-        <main id="main-content" class="w-full max-w-7xl flex-grow fade-in">
-            <!-- Loading/Message box (hidden by default) -->
-            <div id="message-box" class="message-box fixed hidden p-6 bg-zinc-900 rounded-xl shadow-lg border-2 border-rose-500 text-center fade-in">
-                <p id="message-text" class="text-xl text-white font-bold mb-4">Feature coming soon!</p>
-                <button id="close-message-btn" class="flashy-button px-4 py-2 bg-rose-700 hover:bg-rose-600 rounded-lg text-white">Close</button>
+        
+        <!-- Main Content -->
+        <main class="main-container">
+            <!-- Hub Section -->
+            <div id="hub-section" class="panel">
+                <h2 class="panel-title">
+                    <i class="fas fa-flask"></i>
+                    Elements Database
+                </h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Elements Panel -->
+                    <div class="lg:col-span-1">
+                        <h3 class="text-xl font-semibold mb-4 text-blue-600">Group I (Alkali Metals)</h3>
+                        <div id="group-i-elements" class="element-grid"></div>
+                        
+                        <h3 class="text-xl font-semibold mt-6 mb-4 text-green-600">Group II (Alkaline Earth Metals)</h3>
+                        <div id="group-ii-elements" class="element-grid"></div>
+                    </div>
+                    
+                    <!-- Atom Viewer -->
+                    <div class="lg:col-span-1">
+                        <h3 class="text-xl font-semibold mb-4 text-purple-600">Interactive Atom Viewer</h3>
+                        <div class="atom-viewer">
+                            <canvas id="atom-canvas"></canvas>
+                            <div class="atom-key">
+                                <div class="atom-key-item">
+                                    <span class="color-circle" style="background-color: #ef4444;"></span>
+                                    <span>Nucleus</span>
+                                </div>
+                                <div class="atom-key-item">
+                                    <span class="color-circle" style="background-color: #10b981;"></span>
+                                    <span>Inner Electrons</span>
+                                </div>
+                                <div class="atom-key-item">
+                                    <span class="color-circle" style="background-color: #f59e0b;"></span>
+                                    <span>Valence Electrons</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Facts Panel -->
+                    <div class="lg:col-span-1">
+                        <h3 class="text-xl font-semibold mb-4 text-indigo-600">Element Data</h3>
+                        <div id="facts-content" class="facts-content">
+                            <p class="text-center text-gray-500 mt-8">Select an element to view its properties</p>
+                        </div>
+                    </div>
+                </div>
             </div>
             
-            <!-- Learning Content Section (hidden by default) -->
-            <div id="learn-panel" class="hidden bg-zinc-900 p-8 rounded-xl shadow-lg border border-gray-800 relative">
-                <button id="back-to-hub-btn" class="absolute top-4 right-4 flashy-button px-4 py-2 bg-zinc-700 hover:bg-zinc-600 rounded-lg text-white font-semibold shadow-md border-2 border-zinc-500">Back to Hub</button>
-                <h2 class="text-3xl font-bold text-emerald-400 mb-6 text-center neon-glow">Learn about Alkali & Alkaline Earth Metals</h2>
-                <!-- Tab Navigation for Learn Section -->
-                <div role="tablist" aria-label="Chemical Groups" class="flex justify-center space-x-4 mb-6 border-b border-gray-700">
-                    <button role="tab" id="group-1-tab" aria-controls="group-1-content" aria-selected="true" class="learn-tab px-4 py-2 text-white active">Group 1: Alkali Metals</button>
-                    <button role="tab" id="group-2-tab" aria-controls="group-2-content" aria-selected="false" class="learn-tab px-4 py-2 text-white">Group 2: Alkaline Earth Metals</button>
+            <!-- Learn Section -->
+            <div id="learn-section" class="panel hidden">
+                <button id="back-to-hub-btn" class="mb-6 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-700 font-medium transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Hub
+                </button>
+                
+                <h2 class="panel-title">
+                    <i class="fas fa-book-open"></i>
+                    Learn about Alkali & Alkaline Earth Metals
+                </h2>
+                
+                <div class="tab-container">
+                    <div id="group-1-tab" class="tab active">Group 1: Alkali Metals</div>
+                    <div id="group-2-tab" class="tab">Group 2: Alkaline Earth Metals</div>
                 </div>
-                <!-- Tab Content Container -->
-                <div id="learn-content-container" class="prose prose-invert max-w-none text-white overflow-y-auto max-h-[70vh]">
-                    <div id="group-1-content" role="tabpanel" aria-labelledby="group-1-tab" class="fade-in">
-                        <!-- Content for Group 1 will be injected here -->
-                    </div>
-                    <div id="group-2-content" role="tabpanel" aria-labelledby="group-2-tab" class="fade-in hidden">
-                        <!-- Content for Group 2 will be injected here -->
-                    </div>
+                
+                <div id="learn-content">
+                    <div id="group-1-content" class="tab-content"></div>
+                    <div id="group-2-content" class="tab-content hidden"></div>
                 </div>
-                <div id="safety-notes-content" class="prose prose-invert max-w-none text-white overflow-y-auto mt-8">
-                    <!-- Safety notes will be injected here -->
+                
+                <div id="safety-notes" class="mt-8"></div>
+            </div>
+            
+            <!-- Pre-Quiz Section -->
+            <div id="prequiz-section" class="panel hidden">
+                <button id="back-to-hub-btn-quiz" class="mb-6 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-700 font-medium transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Hub
+                </button>
+                
+                <h2 class="panel-title">
+                    <i class="fas fa-question-circle"></i>
+                    Pre-Quiz (7 Questions)
+                </h2>
+                
+                <div id="prequiz-content"></div>
+                
+                <div class="mt-6 text-center">
+                    <button id="prequiz-submit-btn" class="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
+                        Submit Answers
+                    </button>
+                    <div id="prequiz-results" class="mt-4 text-xl font-semibold"></div>
                 </div>
             </div>
             
-            <!-- Pre-Quiz Section (hidden by default) -->
-            <div id="prequiz-panel" class="hidden bg-zinc-900 p-8 rounded-xl shadow-lg border border-gray-800 relative">
-                <button id="back-to-hub-btn-quiz" class="absolute top-4 right-4 flashy-button px-4 py-2 bg-zinc-700 hover:bg-zinc-600 rounded-lg text-white font-semibold shadow-md border-2 border-zinc-500">Back to Hub</button>
-                <h2 class="text-3xl font-bold text-purple-400 mb-6 text-center neon-glow">PRE-QUIZ (7 Questions)</h2>
-                <div id="prequiz-content" class="prose prose-invert max-w-none text-white overflow-y-auto max-h-[70vh]">
-                    <!-- Quiz questions will be dynamically injected here -->
-                </div>
-                <div class="mt-6 flex flex-col items-center">
-                    <button id="prequiz-submit-btn" class="flashy-button px-6 py-3 bg-purple-700 hover:bg-purple-600 rounded-lg text-white font-semibold shadow-md border-2 border-purple-500">Submit Answers</button>
-                    <div id="prequiz-results" class="mt-4 text-center text-xl font-bold"></div>
-                </div>
-            </div>
-            <!-- Post-Quiz Section (hidden by default) -->
-            <div id="postquiz-panel" class="hidden bg-zinc-900 p-8 rounded-xl shadow-lg border border-gray-800 relative">
-                <button id="back-to-hub-btn-postquiz" class="absolute top-4 right-4 flashy-button px-4 py-2 bg-zinc-700 hover:bg-zinc-600 rounded-lg text-white font-semibold shadow-md border-2 border-zinc-500">Back to Hub</button>
-                <h2 class="text-3xl font-bold text-rose-400 mb-6 text-center neon-glow">Post-Quiz: Final Assessment</h2>
-                <div id="postquiz-content" class="prose prose-invert max-w-none text-white overflow-y-auto max-h-[70vh]">
-                    <!-- Post-Quiz questions will be dynamically injected here -->
-                </div>
-                <div class="mt-6 flex flex-col items-center">
-                    <button id="postquiz-submit-btn" class="flashy-button px-6 py-3 bg-rose-700 hover:bg-rose-600 rounded-lg text-white font-semibold shadow-md border-2 border-rose-500">Submit Answers</button>
-                    <div id="postquiz-results" class="mt-4 text-center text-xl font-bold"></div>
-                </div>
-            </div>
-            <!-- Hub Grid Section (visible by default) -->
-            <div id="hub-grid" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Left Panel: Elements -->
-                <div id="element-panel" class="bg-zinc-900 p-6 rounded-xl shadow-lg flex flex-col justify-start border border-gray-800">
-                    <h2 class="text-2xl font-bold text-sky-400 mb-4 neon-glow">Elements Database</h2>
-                    <div id="group-i-elements" class="mb-6">
-                        <h3 class="text-xl font-semibold mb-2 text-sky-300">Group I (Alkali Metals)</h3>
-                        <div class="grid grid-cols-2 lg:grid-cols-2 gap-4">
-                            <!-- Element buttons will be dynamically generated -->
-                        </div>
-                    </div>
-                    <div id="group-ii-elements">
-                        <h3 class="text-xl font-semibold mb-2 text-emerald-300">Group II (Alkaline Earth Metals)</h3>
-                        <div class="grid grid-cols-2 lg:grid-cols-2 gap-4">
-                            <!-- Element buttons will be dynamically generated -->
-                        </div>
-                    </div>
-                </div>
-                <!-- Center Panel: 2D Atom Viewer -->
-                <div id="atom-viewer-container" class="relative bg-zinc-900 rounded-xl shadow-lg flex-grow overflow-hidden p-6 border border-gray-800 neon-border flex flex-col">
-                    <h2 class="text-2xl font-bold text-center text-white mb-4 neon-glow">Interactive Atom Viewer</h2>
-                    <div class="relative w-full h-80 lg:h-full flex items-center justify-center bg-zinc-800 rounded-lg overflow-hidden border border-gray-700 flex-grow">
-                        <canvas id="atom-canvas"></canvas>
-                    </div>
-                    <div id="atom-key" class="p-4 mt-4 bg-zinc-800 rounded-lg border border-gray-700 text-sm text-center flex flex-wrap justify-center gap-4">
-                        <div class="flex items-center">
-                            <span class="color-circle" style="background-color: #ef4444;"></span> Nucleus (Protons & Neutrons)
-                        </div>
-                        <div class="flex items-center">
-                            <span class="color-circle" style="background-color: #4ade80;"></span> Inner-shell Electrons
-                        </div>
-                        <div class="flex items-center">
-                            <span class="color-circle" style="background-color: #fcd34d;"></span> Valence Electrons
-                        </div>
-                    </div>
-                </div>
-                <!-- Right Panel: Facts & Features -->
-                <div id="features-panel" class="bg-zinc-900 p-6 rounded-xl shadow-lg flex flex-col justify-between border border-gray-800">
-                    <div id="facts-container" class="flex flex-col h-full">
-                        <h2 class="text-2xl font-bold mb-4 text-purple-300">Element Data</h2>
-                        <div id="facts-content" class="bg-zinc-800 p-4 rounded-lg flex-grow border border-gray-700 font-sans text-slate-200 overflow-y-auto">
-                            <!-- Detailed facts will be injected here with typing animation -->
-                        </div>
-                    </div>
+            <!-- Post-Quiz Section -->
+            <div id="postquiz-section" class="panel hidden">
+                <button id="back-to-hub-btn-postquiz" class="mb-6 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-700 font-medium transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Hub
+                </button>
+                
+                <h2 class="panel-title">
+                    <i class="fas fa-graduation-cap"></i>
+                    Post-Quiz: Final Assessment
+                </h2>
+                
+                <div id="postquiz-content"></div>
+                
+                <div class="mt-6 text-center">
+                    <button id="postquiz-submit-btn" class="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
+                        Submit Answers
+                    </button>
+                    <div id="postquiz-results" class="mt-4 text-xl font-semibold"></div>
                 </div>
             </div>
         </main>
         
-        <!-- User ID display for Firestore -->
-        <div class="w-full max-w-7xl mx-auto p-2 mt-4 text-center text-sm text-zinc-400">
+        <!-- Message Box -->
+        <div id="message-box" class="message-box hidden">
+            <h3 class="message-title">Feature Coming Soon!</h3>
+            <p class="message-text">This feature is still under construction. Please check back later!</p>
+            <button id="close-message-btn" class="message-button">Close</button>
+        </div>
+        
+        <!-- User ID display -->
+        <div class="text-center text-sm text-gray-500 mt-4 mb-2">
             User ID: <span id="user-id-display">Connecting...</span>
         </div>
     </div>
+    
     <!-- Firebase SDKs and all application logic in a single module script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, onSnapshot, collection, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        
         // Firebase Global Variables (Provided by Canvas Environment)
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
         const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+        
         let db, auth, userId;
         let isAuthReady = false;
         let typingAnimationRunning = false;
         let animationTimeout;
+        
         // --- Data for all elements and quizzes ---
         const elementsData = {
-            "Lithium": { group: 'I', atomicNumber: 3, protons: 3, neutrons: 4, electrons: 3, symbol: 'Li', funFact: "Used in batteries for phones and electric cars.", electronConfiguration: "1s² 2s¹", ionizationEnergy: "520.2 kJ/mol", electronegativity: "0.98", meltingPoint: "180.5°C", boilingPoint: "1342°C" },
-            "Sodium": { group: 'I', atomicNumber: 11, protons: 11, neutrons: 12, electrons: 11, symbol: 'Na', funFact: "A key component of table salt (NaCl).", electronConfiguration: "[Ne] 3s¹", ionizationEnergy: "495.8 kJ/mol", electronegativity: "0.93", meltingPoint: "97.8°C", boilingPoint: "883°C" },
-            "Potassium": { group: 'I', atomicNumber: 19, protons: 19, neutrons: 20, electrons: 19, symbol: 'K', funFact: "Essential for nervous system and muscle function.", electronConfiguration: "[Ar] 4s¹", ionizationEnergy: "418.8 kJ/mol", electronegativity: "0.82", meltingPoint: "63.5°C", boilingPoint: "759°C" },
-            "Rubidium": { group: 'I', atomicNumber: 37, protons: 37, neutrons: 48, electrons: 37, symbol: 'Rb', funFact: "So reactive it can ignite spontaneously in air!", electronConfiguration: "[Kr] 5s¹", ionizationEnergy: "403.0 kJ/mol", electronegativity: "0.82", meltingPoint: "39.3°C", boilingPoint: "688°C" },
-            "Cesium": { group: 'I', atomicNumber: 55, protons: 55, neutrons: 78, electrons: 55, symbol: 'Cs', funFact: "Used in atomic clocks and is the most reactive of the alkali metals.", electronConfiguration: "[Xe] 6s¹", ionizationEnergy: "375.7 kJ/mol", electronegativity: "0.79", meltingPoint: "28.5°C", boilingPoint: "671°C" },
-            "Francium": { group: 'I', atomicNumber: 87, protons: 87, neutrons: 136, electrons: 87, symbol: 'Fr', funFact: "Extremely rare and radioactive, with a half-life of only 22 minutes.", electronConfiguration: "[Rn] 7s¹", ionizationEnergy: "392.8 kJ/mol", electronegativity: "0.7", meltingPoint: "27°C", boilingPoint: "677°C" },
-            "Beryllium": { group: 'II', atomicNumber: 4, protons: 4, neutrons: 5, electrons: 4, symbol: 'Be', funFact: "Used to make strong, lightweight alloys for aircraft.", electronConfiguration: "1s² 2s²", ionizationEnergy: "899.5 kJ/mol", electronegativity: "1.57", meltingPoint: "1287°C", boilingPoint: "2471°C" },
-            "Magnesium": { group: 'II', atomicNumber: 12, protons: 12, neutrons: 12, electrons: 12, symbol: 'Mg', funFact: "A key element in chlorophyll, which makes plants green.", electronConfiguration: "[Ne] 3s²", ionizationEnergy: "737.7 kJ/mol", electronegativity: "1.31", meltingPoint: "650°C", boilingPoint: "1091°C" },
-            "Calcium": { group: 'II', atomicNumber: 20, protons: 20, neutrons: 20, electrons: 20, symbol: 'Ca', funFact: "The primary component of bones and teeth.", electronConfiguration: "[Ar] 4s²", ionizationEnergy: "589.8 kJ/mol", electronegativity: "1.0", meltingPoint: "842°C", boilingPoint: "1484°C" },
-            "Strontium": { group: 'II', atomicNumber: 38, protons: 38, neutrons: 50, electrons: 38, symbol: 'Sr', funFact: "Compounds are used to create the vibrant red color in fireworks.", electronConfiguration: "[Kr] 5s²", ionizationEnergy: "549.5 kJ/mol", electronegativity: "0.95", meltingPoint: "777°C", boilingPoint: "1382°C" },
-            "Barium": { group: 'II', atomicNumber: 56, protons: 56, neutrons: 81, electrons: 56, symbol: 'Ba', funFact: "Used in medical imaging to help doctors see the digestive system.", electronConfiguration: "[Xe] 6s²", ionizationEnergy: "502.9 kJ/mol", electronegativity: "0.89", meltingPoint: "727°C", boilingPoint: "1897°C" },
-            "Radium": { group: 'II', atomicNumber: 88, protons: 88, neutrons: 138, electrons: 88, symbol: 'Ra', funFact: "Highly radioactive and was once used in luminescent paints for watch dials.", electronConfiguration: "[Rn] 7s²", ionizationEnergy: "509.3 kJ/mol", electronegativity: "0.9", meltingPoint: "700°C", boilingPoint: "1737°C" }
+            "Lithium": { 
+                group: 'I', 
+                atomicNumber: 3, 
+                protons: 3, 
+                neutrons: 4, 
+                electrons: 3, 
+                symbol: 'Li', 
+                electronConfiguration: "2,1",
+                meltingPoint: "181 °C", 
+                boilingPoint: "1342 °C",
+                period: 2,
+                funFact: "The least reactive alkali metal, used in rechargeable batteries.",
+                image: "https://images.unsplash.com/photo-1633412802994-5c058f151b66?w=100&h=100&fit=crop&crop=entropy"
+            },
+            "Sodium": { 
+                group: 'I', 
+                atomicNumber: 11, 
+                protons: 11, 
+                neutrons: 12, 
+                electrons: 11, 
+                symbol: 'Na', 
+                electronConfiguration: "2,8,1",
+                meltingPoint: "98 °C", 
+                boilingPoint: "883 °C",
+                period: 3,
+                funFact: "Reacts vigorously with water, producing hydrogen gas and sodium hydroxide.",
+                image: "https://images.unsplash.com/photo-1633412802994-5c058f151b66?w=100&h=100&fit=crop&crop=entropy"
+            },
+            "Potassium": { 
+                group: 'I', 
+                atomicNumber: 19, 
+                protons: 19, 
+                neutrons: 20, 
+                electrons: 19, 
+                symbol: 'K', 
+                electronConfiguration: "2,8,8,1",
+                meltingPoint: "63 °C", 
+                boilingPoint: "759 °C",
+                period: 4,
+                funFact: "More reactive than sodium, burns with a lilac flame.",
+                image: "https://images.unsplash.com/photo-1633412802994-5c058f151b66?w=100&h=100&fit=crop&crop=entropy"
+            },
+            "Rubidium": { 
+                group: 'I', 
+                atomicNumber: 37, 
+                protons: 37, 
+                neutrons: 48, 
+                electrons: 37, 
+                symbol: 'Rb', 
+                electronConfiguration: "2,8,18,8,1",
+                meltingPoint: "39 °C", 
+                boilingPoint: "688 °C",
+                period: 5,
+                funFact: "Very reactive, ignites spontaneously in air.",
+                image: "https://images.unsplash.com/photo-1633412802994-5c058f151b66?w=100&h=100&fit=crop&crop=entropy"
+            },
+            "Cesium": { 
+                group: 'I', 
+                atomicNumber: 55, 
+                protons: 55, 
+                neutrons: 78, 
+                electrons: 55, 
+                symbol: 'Cs', 
+                electronConfiguration: "2,8,18,18,8,1",
+                meltingPoint: "28.5 °C", 
+                boilingPoint: "671 °C",
+                period: 6,
+                funFact: "Used in atomic clocks, the most reactive alkali metal studied in school labs.",
+                image: "https://images.unsplash.com/photo-1633412802994-5c058f151b66?w=100&h=100&fit=crop&crop=entropy"
+            },
+            "Francium": { 
+                group: 'I', 
+                atomicNumber: 87, 
+                protons: 87, 
+                neutrons: 136, 
+                electrons: 87, 
+                symbol: 'Fr', 
+                electronConfiguration: "2,8,18,32,18,8,1",
+                meltingPoint: "27 °C", 
+                boilingPoint: "677 °C",
+                period: 7,
+                funFact: "So radioactive it's almost never seen; the most reactive alkali metal.",
+                image: "https://images.unsplash.com/photo-1633412802994-5c058f151b66?w=100&h=100&fit=crop&crop=entropy"
+            },
+            "Beryllium": { 
+                group: 'II', 
+                atomicNumber: 4, 
+                protons: 4, 
+                neutrons: 5, 
+                electrons: 4, 
+                symbol: 'Be', 
+                electronConfiguration: "2,2",
+                meltingPoint: "1287 °C", 
+                boilingPoint: "2471 °C",
+                period: 2,
+                funFact: "Lightweight and very strong, used in aerospace materials.",
+                image: "https://images.unsplash.com/photo-1633412802994-5c058f151b66?w=100&h=100&fit=crop&crop=entropy"
+            },
+            "Magnesium": { 
+                group: 'II', 
+                atomicNumber: 12, 
+                protons: 12, 
+                neutrons: 12, 
+                electrons: 12, 
+                symbol: 'Mg', 
+                electronConfiguration: "2,8,2",
+                meltingPoint: "650 °C", 
+                boilingPoint: "1090 °C",
+                period: 3,
+                funFact: "Burns with a brilliant white flame, used in fireworks.",
+                image: "https://images.unsplash.com/photo-1633412802994-5c058f151b66?w=100&h=100&fit=crop&crop=entropy"
+            },
+            "Calcium": { 
+                group: 'II', 
+                atomicNumber: 20, 
+                protons: 20, 
+                neutrons: 20, 
+                electrons: 20, 
+                symbol: 'Ca', 
+                electronConfiguration: "2,8,8,2",
+                meltingPoint: "842 °C", 
+                boilingPoint: "1484 °C",
+                period: 4,
+                funFact: "Important for bones and teeth, reacts with water to form calcium hydroxide.",
+                image: "https://images.unsplash.com/photo-1633412802994-5c058f151b66?w=100&h=100&fit=crop&crop=entropy"
+            },
+            "Strontium": { 
+                group: 'II', 
+                atomicNumber: 38, 
+                protons: 38, 
+                neutrons: 50, 
+                electrons: 38, 
+                symbol: 'Sr', 
+                electronConfiguration: "2,8,18,8,2",
+                meltingPoint: "777 °C", 
+                boilingPoint: "1382 °C",
+                period: 5,
+                funFact: "Produces a bright red flame, used in fireworks and flares.",
+                image: "https://images.unsplash.com/photo-1633412802994-5c058f151b66?w=100&h=100&fit=crop&crop=entropy"
+            },
+            "Barium": { 
+                group: 'II', 
+                atomicNumber: 56, 
+                protons: 56, 
+                neutrons: 81, 
+                electrons: 56, 
+                symbol: 'Ba', 
+                electronConfiguration: "2,8,18,18,8,2",
+                meltingPoint: "727 °C", 
+                boilingPoint: "1870 °C",
+                period: 6,
+                funFact: "Gives a green flame, used in fireworks.",
+                image: "https://images.unsplash.com/photo-1633412802994-5c058f151b66?w=100&h=100&fit=crop&crop=entropy"
+            },
+            "Radium": { 
+                group: 'II', 
+                atomicNumber: 88, 
+                protons: 88, 
+                neutrons: 138, 
+                electrons: 88, 
+                symbol: 'Ra', 
+                electronConfiguration: "2,8,18,32,18,8,2",
+                meltingPoint: "700 °C", 
+                boilingPoint: "1737 °C",
+                period: 7,
+                funFact: "Highly radioactive, once used in glow-in-the-dark paint but now considered too dangerous.",
+                image: "https://images.unsplash.com/photo-1633412802994-5c058f151b66?w=100&h=100&fit=crop&crop=entropy"
+            }
         };
+        
         const learnContent = {
             group1: `
-                <h3 class="text-2xl font-semibold mt-6 mb-4 text-emerald-300">Group 1: Alkali Metals (Li, Na, K, Rb, Cs, Fr)</h3>
+                <h3 class="text-2xl font-semibold mt-6 mb-4 text-blue-600">Group 1: Alkali Metals (Li, Na, K, Rb, Cs, Fr)</h3>
                 
-                <h4 class="text-xl font-semibold mt-6 mb-3 text-emerald-300">1. General Properties</h4>
+                <h4 class="text-xl font-semibold mt-6 mb-3 text-blue-600">1. General Properties</h4>
                 <ul class="list-disc pl-6 space-y-2">
                     <li><strong>Shiny and soft:</strong> Fresh metals have a metallic luster but are soft and can be cut with a knife.</li>
                     <li><strong>Low density:</strong> Li, Na, and K are less dense than water (they float!).</li>
@@ -415,28 +1135,28 @@
                     <li><strong>Highly reactive:</strong> Reactivity increases down the group (Li < Na < K < Rb < Cs).</li>
                 </ul>
                 
-                <h4 class="text-xl font-semibold mt-6 mb-3 text-emerald-300">2. Physical Properties</h4>
+                <h4 class="text-xl font-semibold mt-6 mb-3 text-blue-600">2. Physical Properties</h4>
                 <div class="overflow-x-auto">
-                    <table class="min-w-full bg-zinc-800 rounded-lg overflow-hidden">
+                    <table class="min-w-full bg-white rounded-lg overflow-hidden border border-gray-200">
                         <thead>
-                            <tr class="bg-zinc-700">
+                            <tr class="bg-gray-50">
                                 <th class="py-2 px-4 text-left">Property</th>
                                 <th class="py-2 px-4 text-left">Trend Down the Group</th>
                                 <th class="py-2 px-4 text-left">Example</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="border-b border-zinc-700">
+                            <tr class="border-b border-gray-200">
                                 <td class="py-2 px-4">Density</td>
                                 <td class="py-2 px-4">Increases (except K < Na)</td>
                                 <td class="py-2 px-4">Li: 0.53 g/cm³, Na: 0.97 g/cm³, K: 0.86 g/cm³</td>
                             </tr>
-                            <tr class="border-b border-zinc-700">
+                            <tr class="border-b border-gray-200">
                                 <td class="py-2 px-4">Melting/Boiling point</td>
                                 <td class="py-2 px-4">Decreases</td>
                                 <td class="py-2 px-4">Li: 180°C, Na: 98°C, K: 63°C</td>
                             </tr>
-                            <tr class="border-b border-zinc-700">
+                            <tr class="border-b border-gray-200">
                                 <td class="py-2 px-4">Hardness</td>
                                 <td class="py-2 px-4">Decreases</td>
                                 <td class="py-2 px-4">Li: hard, Cs: very soft</td>
@@ -450,12 +1170,12 @@
                     </table>
                 </div>
                 
-                <h4 class="text-xl font-semibold mt-6 mb-3 text-emerald-300">3. Chemical Properties</h4>
+                <h4 class="text-xl font-semibold mt-6 mb-3 text-blue-600">3. Chemical Properties</h4>
                 
-                <h5 class="text-lg font-semibold mt-4 mb-2 text-emerald-200">a) Reaction with Water</h5>
+                <h5 class="text-lg font-semibold mt-4 mb-2 text-blue-500">a) Reaction with Water</h5>
                 <p class="mb-3">Produces hydrogen gas and an alkaline solution of metal hydroxide.</p>
                 <p class="mb-3"><strong>Equation example:</strong></p>
-                <p class="mb-3 bg-zinc-800 p-3 rounded-lg">2Na + 2H₂O → 2NaOH + H₂↑</p>
+                <p class="mb-3 bg-gray-50 p-3 rounded-lg">2Na + 2H₂O → 2NaOH + H₂↑</p>
                 <p class="mb-3"><strong>Observation:</strong></p>
                 <ul class="list-disc pl-6 space-y-1 mb-3">
                     <li>Effervescence (bubbles of H₂)</li>
@@ -463,48 +1183,48 @@
                     <li>Heat released (sometimes ignites H₂, especially K, Rb, Cs)</li>
                 </ul>
                 
-                <h5 class="text-lg font-semibold mt-4 mb-2 text-emerald-200">b) Reaction with Oxygen</h5>
+                <h5 class="text-lg font-semibold mt-4 mb-2 text-blue-500">b) Reaction with Oxygen</h5>
                 <p class="mb-3">Forms metal oxides:</p>
-                <div class="bg-zinc-800 p-3 rounded-lg mb-3">
+                <div class="bg-gray-50 p-3 rounded-lg mb-3">
                     <p>4Li + O₂ → 2Li₂O (lithium oxide)</p>
                     <p>2Na + O₂ → Na₂O₂ (sodium peroxide)</p>
                     <p>K + O₂ → KO₂ (potassium superoxide)</p>
                 </div>
                 
-                <h5 class="text-lg font-semibold mt-4 mb-2 text-emerald-200">c) Reaction with Halogens</h5>
+                <h5 class="text-lg font-semibold mt-4 mb-2 text-blue-500">c) Reaction with Halogens</h5>
                 <p class="mb-3">Forms ionic halides (white solids, soluble in water):</p>
-                <div class="bg-zinc-800 p-3 rounded-lg mb-3">
+                <div class="bg-gray-50 p-3 rounded-lg mb-3">
                     <p>2Na + Cl₂ → 2NaCl</p>
                 </div>
                 
-                <h5 class="text-lg font-semibold mt-4 mb-2 text-emerald-200">d) Reaction with Acids</h5>
+                <h5 class="text-lg font-semibold mt-4 mb-2 text-blue-500">d) Reaction with Acids</h5>
                 <p class="mb-3">React vigorously with dilute acids, releasing H₂:</p>
-                <div class="bg-zinc-800 p-3 rounded-lg mb-3">
+                <div class="bg-gray-50 p-3 rounded-lg mb-3">
                     <p>2K + 2HCl → 2KCl + H₂↑</p>
                 </div>
                 
-                <h4 class="text-xl font-semibold mt-6 mb-3 text-emerald-300">4. Trends Down the Group</h4>
+                <h4 class="text-xl font-semibold mt-6 mb-3 text-blue-600">4. Trends Down the Group</h4>
                 <div class="overflow-x-auto">
-                    <table class="min-w-full bg-zinc-800 rounded-lg overflow-hidden">
+                    <table class="min-w-full bg-white rounded-lg overflow-hidden border border-gray-200">
                         <thead>
-                            <tr class="bg-zinc-700">
+                            <tr class="bg-gray-50">
                                 <th class="py-2 px-4 text-left">Property</th>
                                 <th class="py-2 px-4 text-left">Trend</th>
                                 <th class="py-2 px-4 text-left">Reason</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="border-b border-zinc-700">
+                            <tr class="border-b border-gray-200">
                                 <td class="py-2 px-4">Reactivity</td>
                                 <td class="py-2 px-4">Increases</td>
                                 <td class="py-2 px-4">Outer electron is further from nucleus → easier to lose</td>
                             </tr>
-                            <tr class="border-b border-zinc-700">
+                            <tr class="border-b border-gray-200">
                                 <td class="py-2 px-4">Melting/Boiling point</td>
                                 <td class="py-2 px-4">Decreases</td>
                                 <td class="py-2 px-4">Weaker metallic bonds down the group</td>
                             </tr>
-                            <tr class="border-b border-zinc-700">
+                            <tr class="border-b border-gray-200">
                                 <td class="py-2 px-4">Density</td>
                                 <td class="py-2 px-4">Generally increases</td>
                                 <td class="py-2 px-4">Atomic mass increases</td>
@@ -518,14 +1238,14 @@
                     </table>
                 </div>
                 
-                <h4 class="text-xl font-semibold mt-6 mb-3 text-emerald-300">5. Safety Notes</h4>
+                <h4 class="text-xl font-semibold mt-6 mb-3 text-blue-600">5. Safety Notes</h4>
                 <ul class="list-disc pl-6 space-y-2">
                     <li>Alkali metals are very reactive, especially with water.</li>
                     <li>Store under oil to prevent reaction with air/moisture.</li>
                     <li>Handle with tongs and protective equipment in labs.</li>
                 </ul>
                 
-                <h4 class="text-xl font-semibold mt-6 mb-3 text-emerald-300">6. Key Observations in Experiments</h4>
+                <h4 class="text-xl font-semibold mt-6 mb-3 text-blue-600">6. Key Observations in Experiments</h4>
                 <ul class="list-disc pl-6 space-y-2">
                     <li><strong>Li + Water:</strong> Fizzes slowly, floats, may move.</li>
                     <li><strong>Na + Water:</strong> Fizzes faster, floats, may melt into a ball.</li>
@@ -533,9 +1253,9 @@
                 </ul>
             `,
             group2: `
-                <h3 class="text-2xl font-semibold mt-6 mb-4 text-emerald-300">Group 2: Alkaline Earth Metals (Be, Mg, Ca, Sr, Ba, Ra)</h3>
+                <h3 class="text-2xl font-semibold mt-6 mb-4 text-green-600">Group 2: Alkaline Earth Metals (Be, Mg, Ca, Sr, Ba, Ra)</h3>
                 
-                <h4 class="text-xl font-semibold mt-6 mb-3 text-emerald-300">1. General Properties</h4>
+                <h4 class="text-xl font-semibold mt-6 mb-3 text-green-600">1. General Properties</h4>
                 <ul class="list-disc pl-6 space-y-2">
                     <li><strong>Shiny and metallic:</strong> Fresh metals have a metallic luster; slightly harder than Group 1 metals.</li>
                     <li><strong>Reactive, but less than Group 1:</strong> Reactivity increases down the group.</li>
@@ -543,28 +1263,28 @@
                     <li><strong>Divalent metals:</strong> Form ions with a +2 charge (e.g., Ca²⁺, Mg²⁺).</li>
                 </ul>
                 
-                <h4 class="text-xl font-semibold mt-6 mb-3 text-emerald-300">2. Physical Properties</h4>
+                <h4 class="text-xl font-semibold mt-6 mb-3 text-green-600">2. Physical Properties</h4>
                 <div class="overflow-x-auto">
-                    <table class="min-w-full bg-zinc-800 rounded-lg overflow-hidden">
+                    <table class="min-w-full bg-white rounded-lg overflow-hidden border border-gray-200">
                         <thead>
-                            <tr class="bg-zinc-700">
+                            <tr class="bg-gray-50">
                                 <th class="py-2 px-4 text-left">Property</th>
                                 <th class="py-2 px-4 text-left">Trend Down the Group</th>
                                 <th class="py-2 px-4 text-left">Example</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="border-b border-zinc-700">
+                            <tr class="border-b border-gray-200">
                                 <td class="py-2 px-4">Density</td>
                                 <td class="py-2 px-4">Increases</td>
                                 <td class="py-2 px-4">Be: 1.85 g/cm³, Mg: 1.74 g/cm³, Ca: 1.55 g/cm³</td>
                             </tr>
-                            <tr class="border-b border-zinc-700">
+                            <tr class="border-b border-gray-200">
                                 <td class="py-2 px-4">Melting/Boiling point</td>
                                 <td class="py-2 px-4">Decreases</td>
                                 <td class="py-2 px-4">Be: 1287°C, Mg: 650°C, Ba: 725°C</td>
                             </tr>
-                            <tr class="border-b border-zinc-700">
+                            <tr class="border-b border-gray-200">
                                 <td class="py-2 px-4">Hardness</td>
                                 <td class="py-2 px-4">Decreases</td>
                                 <td class="py-2 px-4">Be: hard, Ba: soft</td>
@@ -578,13 +1298,13 @@
                     </table>
                 </div>
                 
-                <h4 class="text-xl font-semibold mt-6 mb-3 text-emerald-300">3. Chemical Properties</h4>
+                <h4 class="text-xl font-semibold mt-6 mb-3 text-green-600">3. Chemical Properties</h4>
                 
-                <h5 class="text-lg font-semibold mt-4 mb-2 text-emerald-200">a) Reaction with Water</h5>
+                <h5 class="text-lg font-semibold mt-4 mb-2 text-green-500">a) Reaction with Water</h5>
                 <p class="mb-3">Be and Mg: Do not react with cold water; react slowly with steam.</p>
                 <p class="mb-3">Ca, Sr, Ba: React with cold water to form hydroxides and hydrogen gas.</p>
                 <p class="mb-3"><strong>Equation examples:</strong></p>
-                <div class="bg-zinc-800 p-3 rounded-lg mb-3">
+                <div class="bg-gray-50 p-3 rounded-lg mb-3">
                     <p>Ca + 2H₂O → Ca(OH)₂ + H₂↑</p>
                     <p>Mg + H₂O(steam) → MgO + H₂↑</p>
                 </div>
@@ -594,52 +1314,52 @@
                     <li>Metal dissolves slowly or floats on water</li>
                 </ul>
                 
-                <h5 class="text-lg font-semibold mt-4 mb-2 text-emerald-200">b) Reaction with Oxygen</h5>
+                <h5 class="text-lg font-semibold mt-4 mb-2 text-green-500">b) Reaction with Oxygen</h5>
                 <p class="mb-3">Forms oxides:</p>
-                <div class="bg-zinc-800 p-3 rounded-lg mb-3">
+                <div class="bg-gray-50 p-3 rounded-lg mb-3">
                     <p>2Mg + O₂ → 2MgO</p>
                     <p>Ca + O₂ → 2CaO</p>
                 </div>
                 
-                <h5 class="text-lg font-semibold mt-4 mb-2 text-emerald-200">c) Reaction with Halogens</h5>
+                <h5 class="text-lg font-semibold mt-4 mb-2 text-green-500">c) Reaction with Halogens</h5>
                 <p class="mb-3">Forms ionic halides (white solids, soluble in water):</p>
-                <div class="bg-zinc-800 p-3 rounded-lg mb-3">
+                <div class="bg-gray-50 p-3 rounded-lg mb-3">
                     <p>Mg + Cl₂ → MgCl₂</p>
                 </div>
                 
-                <h5 class="text-lg font-semibold mt-4 mb-2 text-emerald-200">d) Reaction with Acids</h5>
+                <h5 class="text-lg font-semibold mt-4 mb-2 text-green-500">d) Reaction with Acids</h5>
                 <p class="mb-3">Reacts with dilute acids to release hydrogen gas:</p>
-                <div class="bg-zinc-800 p-3 rounded-lg mb-3">
+                <div class="bg-gray-50 p-3 rounded-lg mb-3">
                     <p>Mg + 2HCl → MgCl₂ + H₂↑</p>
                 </div>
                 
-                <h4 class="text-xl font-semibold mt-6 mb-3 text-emerald-300">4. Trends Down the Group</h4>
+                <h4 class="text-xl font-semibold mt-6 mb-3 text-green-600">4. Trends Down the Group</h4>
                 <div class="overflow-x-auto">
-                    <table class="min-w-full bg-zinc-800 rounded-lg overflow-hidden">
+                    <table class="min-w-full bg-white rounded-lg overflow-hidden border border-gray-200">
                         <thead>
-                            <tr class="bg-zinc-700">
+                            <tr class="bg-gray-50">
                                 <th class="py-2 px-4 text-left">Property</th>
                                 <th class="py-2 px-4 text-left">Trend</th>
                                 <th class="py-2 px-4 text-left">Reason</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="border-b border-zinc-700">
+                            <tr class="border-b border-gray-200">
                                 <td class="py-2 px-4">Reactivity</td>
                                 <td class="py-2 px-4">Increases</td>
                                 <td class="py-2 px-4">Outer electrons are further from nucleus → easier to lose</td>
                             </tr>
-                            <tr class="border-b border-zinc-700">
+                            <tr class="border-b border-gray-200">
                                 <td class="py-2 px-4">Melting/Boiling point</td>
                                 <td class="py-2 px-4">Decreases</td>
                                 <td class="py-2 px-4">Metallic bonding becomes weaker down the group</td>
                             </tr>
-                            <tr class="border-b border-zinc-700">
+                            <tr class="border-b border-gray-200">
                                 <td class="py-2 px-4">Density</td>
                                 <td class="py-2 px-4">Increases</td>
                                 <td class="py-2 px-4">Atomic mass increases</td>
                             </tr>
-                            <tr class="border-b border-zinc-700">
+                            <tr class="border-b border-gray-200">
                                 <td class="py-2 px-4">Solubility of hydroxides</td>
                                 <td class="py-2 px-4">Increases</td>
                                 <td class="py-2 px-4">Mg(OH)₂ least soluble, Ba(OH)₂ most soluble</td>
@@ -653,7 +1373,7 @@
                     </table>
                 </div>
                 
-                <h4 class="text-xl font-semibold mt-6 mb-3 text-emerald-300">5. Uses of Group 2 Metals</h4>
+                <h4 class="text-xl font-semibold mt-6 mb-3 text-green-600">5. Uses of Group 2 Metals</h4>
                 <ul class="list-disc pl-6 space-y-2">
                     <li><strong>Mg:</strong> Aircraft parts, fireworks (bright white flame)</li>
                     <li><strong>Ca:</strong> Cement, building materials, neutralizing soil acidity</li>
@@ -661,14 +1381,14 @@
                     <li><strong>MgO / CaO:</strong> Refractory materials, neutralizing acids</li>
                 </ul>
                 
-                <h4 class="text-xl font-semibold mt-6 mb-3 text-emerald-300">6. Safety Notes</h4>
+                <h4 class="text-xl font-semibold mt-6 mb-3 text-green-600">6. Safety Notes</h4>
                 <ul class="list-disc pl-6 space-y-2">
                     <li>Store metals away from moisture to prevent unwanted reactions.</li>
                     <li>Ba compounds (except BaSO₄) are toxic – handle with care.</li>
                     <li>Use protective equipment during experiments.</li>
                 </ul>
                 
-                <h4 class="text-xl font-semibold mt-6 mb-3 text-emerald-300">7. Key Observations in Experiments</h4>
+                <h4 class="text-xl font-semibold mt-6 mb-3 text-green-600">7. Key Observations in Experiments</h4>
                 <ul class="list-disc pl-6 space-y-2">
                     <li><strong>Mg + Water:</strong> Very slow, only reacts with steam. Forms white MgO.</li>
                     <li><strong>Ca + Water:</strong> Effervescence, slight heat, forms cloudy Ca(OH)₂ solution.</li>
@@ -676,16 +1396,19 @@
                 </ul>
             `,
             safetyNotes: `
-                <h3 class="text-2xl font-semibold mt-6 mb-2 text-emerald-300">Safety Notes for both Groups</h3>
-                <ul>
-                    <li>Store under oil to prevent reaction with air/moisture</li>
-                    <li>Wear goggles, lab coat, gloves</li>
-                    <li>Use small pieces for reactions</li>
-                    <li>Never touch with bare hands</li>
-                    <li>Rb, Cs, Ba are too reactive for most school demonstrations</li>
-                </ul>
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
+                    <h3 class="text-xl font-semibold mb-2 text-yellow-800">Safety Notes for both Groups</h3>
+                    <ul class="list-disc pl-6 space-y-1">
+                        <li>Store under oil to prevent reaction with air/moisture</li>
+                        <li>Wear goggles, lab coat, gloves</li>
+                        <li>Use small pieces for reactions</li>
+                        <li>Never touch with bare hands</li>
+                        <li>Rb, Cs, Ba are too reactive for most school demonstrations</li>
+                    </ul>
+                </div>
             `
         };
+        
         const preQuizQuestions = [
             {
                 type: 'multiple-choice',
@@ -819,113 +1542,46 @@
                 answer: "Group 1 metals have one outer electron, Group 2 have two; Group 1 metals lose their outer electron more easily, so they are more reactive; Group 2 metals form hydroxides that are less soluble than those of Group 1."
             }
         ];
+        
         // UI References
         const ui = {
-            mainContent: document.getElementById('main-content'),
-            hubGrid: document.getElementById('hub-grid'),
-            learnPanel: document.getElementById('learn-panel'),
+            landingPage: document.getElementById('landing-page'),
+            mainApp: document.getElementById('main-app'),
+            hubSection: document.getElementById('hub-section'),
+            learnSection: document.getElementById('learn-section'),
+            prequizSection: document.getElementById('prequiz-section'),
+            postquizSection: document.getElementById('postquiz-section'),
             group1Tab: document.getElementById('group-1-tab'),
             group2Tab: document.getElementById('group-2-tab'),
-            group1ContentDiv: document.getElementById('group-1-content'),
-            group2ContentDiv: document.getElementById('group-2-content'),
-            safetyNotesDiv: document.getElementById('safety-notes-content'),
-            prequizPanel: document.getElementById('prequiz-panel'),
-            prequizContentDiv: document.getElementById('prequiz-content'),
+            group1Content: document.getElementById('group-1-content'),
+            group2Content: document.getElementById('group-2-content'),
+            safetyNotes: document.getElementById('safety-notes'),
+            prequizContent: document.getElementById('prequiz-content'),
+            prequizResults: document.getElementById('prequiz-results'),
+            postquizContent: document.getElementById('postquiz-content'),
+            postquizResults: document.getElementById('postquiz-results'),
             factsContent: document.getElementById('facts-content'),
-            group1ElementsContainer: document.querySelector('#group-i-elements div'),
-            group2ElementsContainer: document.querySelector('#group-ii-elements div'),
+            group1Elements: document.getElementById('group-i-elements'),
+            group2Elements: document.getElementById('group-ii-elements'),
             messageBox: document.getElementById('message-box'),
-            messageText: document.getElementById('message-text'),
+            messageText: document.querySelector('.message-text'),
             closeMessageBtn: document.getElementById('close-message-btn'),
             prequizSubmitBtn: document.getElementById('prequiz-submit-btn'),
-            prequizResultsDiv: document.getElementById('prequiz-results'),
-            postquizPanel: document.getElementById('postquiz-panel'),
-            postquizContentDiv: document.getElementById('postquiz-content'),
             postquizSubmitBtn: document.getElementById('postquiz-submit-btn'),
-            postquizResultsDiv: document.getElementById('postquiz-results')
+            userIdDisplay: document.getElementById('user-id-display'),
+            enterAppBtn: document.getElementById('enter-app-btn')
         };
         
         // --- Utility functions ---
-        
-        async function typeHtmlWithKeywords(element, htmlString, delay = 5) {
-            if (typingAnimationRunning) {
-                clearTimeout(animationTimeout);
-            }
-            element.innerHTML = "";
-            typingAnimationRunning = true;
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(htmlString, 'text/html');
-            const paragraphs = doc.body.children;
-            const animateParagraph = (pIndex) => {
-                if (pIndex >= paragraphs.length) {
-                    typingAnimationRunning = false;
-                    return;
-                }
-                const currentParagraph = paragraphs[pIndex];
-                const parts = [];
-                currentParagraph.childNodes.forEach(node => {
-                    if (node.nodeType === Node.TEXT_NODE) {
-                        parts.push({ type: 'text', content: node.textContent });
-                    } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'SPAN') {
-                        parts.push({ type: 'html', content: node.outerHTML });
-                    } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'B') {
-                        parts.push({ type: 'html', content: node.outerHTML });
-                    } else if (node.nodeType === Node.ELEMENT_NODE && (node.tagName === 'SUP' || node.tagName === 'SUB')) {
-                         parts.push({ type: 'html', content: node.outerHTML });
-                    } else if (node.nodeType === Node.ELEMENT_NODE) {
-                        parts.push({ type: 'html', content: node.outerHTML });
-                    }
-                });
-                let partIndex = 0;
-                let charIndex = 0;
-                
-                const type = () => {
-                    if (partIndex >= parts.length) {
-                        element.innerHTML += '<br>';
-                        animateParagraph(pIndex + 1);
-                        return;
-                    }
-                    
-                    const currentPart = parts[partIndex];
-                    if (currentPart.type === 'html') {
-                        element.innerHTML += currentPart.content;
-                        partIndex++;
-                        charIndex = 0;
-                    } else { // type: 'text'
-                        if (charIndex < currentPart.content.length) {
-                            element.innerHTML += currentPart.content.charAt(charIndex);
-                            charIndex++;
-                        } else {
-                            partIndex++;
-                            charIndex = 0;
-                        }
-                    }
-                    animationTimeout = setTimeout(type, delay);
-                };
-                type();
-            };
-            
-            animateParagraph(0);
-        }
-        
         function showMessage(message) {
             ui.messageText.textContent = message;
             ui.messageBox.classList.remove('hidden');
         }
+        
         function hideMessage() {
             ui.messageBox.classList.add('hidden');
         }
         
-        function adjustFontSizeToFit(container, minSize = 8) {
-            let fontSize = 16;
-            // Reset font size before adjustment
-            container.style.fontSize = ''; 
-            
-            while (container.scrollHeight > container.clientHeight && fontSize > minSize) {
-                fontSize--;
-                container.style.fontSize = `${fontSize}px`;
-            }
-        }
         // --- 2D Atom Viewer (Canvas) ---
         let canvas, ctx;
         let animationFrameId;
@@ -945,18 +1601,19 @@
             const resizeCanvas = () => {
                 const parent = canvas.parentElement;
                 const size = Math.min(parent.clientWidth, parent.clientHeight);
-                if (size > 0) { // Only resize if parent is visible
+                if (size > 0) {
                     canvas.width = size;
                     canvas.height = size;
                     
                     if (currentElement) {
                         updateAtomViewer(currentElement);
                     } else {
-                         drawDefaultMessage();
+                        drawDefaultMessage();
                     }
                 }
             };
             window.addEventListener('resize', resizeCanvas);
+            
             // Add mouse events for pan and zoom
             canvas.addEventListener('wheel', handleWheel);
             canvas.addEventListener('mousedown', handleMouseDown);
@@ -964,6 +1621,7 @@
             canvas.addEventListener('mouseup', handleMouseUp);
             canvas.addEventListener('mouseleave', handleMouseUp);
         }
+        
         function handleWheel(e) {
             e.preventDefault();
             const zoomSpeed = 0.1;
@@ -977,11 +1635,13 @@
             translateX = mouseX - (mouseX - translateX) * (scale / oldScale);
             translateY = mouseY - (mouseY - translateY) * (scale / oldScale);
         }
+        
         function handleMouseDown(e) {
             isDragging = true;
             lastMouseX = e.clientX;
             lastMouseY = e.clientY;
         }
+        
         function handleMouseMove(e) {
             if (!isDragging) return;
             const deltaX = e.clientX - lastMouseX;
@@ -991,9 +1651,11 @@
             lastMouseX = e.clientX;
             lastMouseY = e.clientY;
         }
+        
         function handleMouseUp() {
             isDragging = false;
         }
+        
         function animate() {
             if (atom) {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -1009,22 +1671,26 @@
             if (!ctx || !canvas) return;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.save();
-            ctx.fillStyle = '#e2e8f0';
+            ctx.fillStyle = '#64748b';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            ctx.font = '24px "Inter", sans-serif';
+            ctx.font = '18px "Inter", sans-serif';
             ctx.fillText("Select an element to view its atom", canvas.width / 2, canvas.height / 2);
             ctx.restore();
+            
             // Stop any previous animation
             if (animationFrameId) {
                 cancelAnimationFrame(animationFrameId);
             }
         }
+        
         function drawAtom(element, atomData) {
             if (!ctx || !element || !atomData) return;
             ctx.save();
             ctx.translate(canvas.width / 2 + translateX, canvas.height / 2 + translateY);
             ctx.scale(scale, scale);
+            
+            // Draw nucleus
             ctx.beginPath();
             ctx.arc(0, 0, 30, 0, Math.PI * 2);
             ctx.fillStyle = '#ef4444';
@@ -1032,6 +1698,8 @@
             ctx.shadowBlur = 10;
             ctx.fill();
             ctx.shadowBlur = 0;
+            
+            // Draw element symbol and atomic number
             ctx.fillStyle = '#ffffff';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
@@ -1039,24 +1707,29 @@
             ctx.fillText(element.symbol, 0, -10);
             ctx.font = '12px "Inter", sans-serif';
             ctx.fillText(element.atomicNumber, 0, 10);
+            
+            // Draw electron orbits and electrons
             atomData.electronOrbits.forEach(orbit => {
                 ctx.beginPath();
                 ctx.arc(0, 0, orbit.radius, 0, Math.PI * 2);
-                ctx.strokeStyle = 'rgba(204, 204, 204, 0.2)';
+                ctx.strokeStyle = 'rgba(203, 213, 225, 0.3)';
                 ctx.lineWidth = 2;
                 ctx.stroke();
+                
                 orbit.electrons.forEach((electron, index) => {
                     const electronX = 0 + orbit.radius * Math.cos(orbit.angle + (index * ((Math.PI * 2) / orbit.electrons.length)));
                     const electronY = 0 + orbit.radius * Math.sin(orbit.angle + (index * ((Math.PI * 2) / orbit.electrons.length)));
+                    
                     ctx.beginPath();
                     ctx.arc(electronX, electronY, 8, 0, Math.PI * 2);
-                    ctx.fillStyle = electron.isValence ? '#fcd34d' : '#4ade80';
-                    ctx.shadowColor = electron.isValence ? '#fcd34d' : '#4ade80';
+                    ctx.fillStyle = electron.isValence ? '#f59e0b' : '#10b981';
+                    ctx.shadowColor = electron.isValence ? '#f59e0b' : '#10b981';
                     ctx.shadowBlur = 8;
                     ctx.fill();
                     ctx.shadowBlur = 0;
                 });
             });
+            
             ctx.restore();
         }
         
@@ -1073,6 +1746,7 @@
             let remainingInnerElectrons = numInnerElectrons;
             let currentRadius = 50;
             const orbits = [];
+            
             for (let i = 0; i < shellCapacities.length && remainingInnerElectrons > 0; i++) {
                 const electronsInShell = Math.min(shellCapacities[i], remainingInnerElectrons);
                 
@@ -1090,10 +1764,12 @@
                 remainingInnerElectrons -= electronsInShell;
                 currentRadius += 40;
             }
+            
             const valenceElectronArray = [];
             for (let j = 0; j < numValenceElectrons; j++) {
                 valenceElectronArray.push({ isValence: true });
             }
+            
             orbits.push({
                 radius: currentRadius,
                 electrons: valenceElectronArray,
@@ -1128,90 +1804,68 @@
         }
         
         // --- End 2D Atom Viewer ---
+        
         // --- UI & Event Handlers ---
-        // Function to update the facts panel with colored text
         function updateFactsPanel(elementName) {
             const element = elementsData[elementName];
             if (!element) return;
-        
-            ui.factsContent.innerHTML = "";
-            ui.factsContent.style.fontSize = ''; // Reset font size
+            
+            ui.factsContent.innerHTML = '';
             
             const facts = [
-                `<p class="text-base mb-2"><span class="text-purple-300 font-bold">Atomic Number:</span> ${element.atomicNumber}</p>`,
-                `<p class="text-base mb-2"><span class="text-purple-300 font-bold">Protons:</span> ${element.protons}</p>`,
-                `<p class="text-base mb-2"><span class="text-purple-300 font-bold">Neutrons:</span> ${element.neutrons}</p>`,
-                `<p class="text-base mb-2"><span class="text-purple-300 font-bold">Electrons:</span> ${element.electrons}</p>`,
-                `<p class="text-base mb-2"><span class="text-purple-300 font-bold">Electron Configuration:</span> ${element.electronConfiguration}</p>`,
-                `<p class="text-base mb-2"><span class="text-purple-300 font-bold">Symbol:</span> ${element.symbol} - ${elementName}</p>`,
-                `<p class="text-base mb-2"><span class="text-purple-300 font-bold">Melting Point:</span> ${element.meltingPoint}</p>`,
-                `<p class="text-base mb-2"><span class="text-purple-300 font-bold">Boiling Point:</span> ${element.boilingPoint}</p>`,
-                `<p class="text-base mb-2"><span class="text-purple-300 font-bold">Ionization Energy:</span> ${element.ionizationEnergy}</p>`,
-                `<p class="text-base mb-2"><span class="text-purple-300 font-bold">Electronegativity:</span> ${element.electronegativity}</p>`,
-                `<p class="text-base mb-2"><span class="text-purple-300 font-bold">Fun Fact:</span> ${element.funFact}</p>`
+                { label: 'Atomic Number', value: element.atomicNumber },
+                { label: 'Protons', value: element.protons },
+                { label: 'Neutrons', value: element.neutrons },
+                { label: 'Electrons', value: element.electrons },
+                { label: 'Electron Configuration', value: element.electronConfiguration },
+                { label: 'Symbol', value: `${element.symbol} - ${elementName}` },
+                { label: 'Melting Point', value: element.meltingPoint },
+                { label: 'Boiling Point', value: element.boilingPoint },
+                { label: 'Period', value: element.period },
+                { label: 'Fun Fact', value: element.funFact }
             ];
             
-            const factsHTML = facts.join('');
-            typeHtmlWithKeywords(ui.factsContent, factsHTML, 20); // Call the new typing function
-            adjustFontSizeToFit(ui.factsContent);
+            facts.forEach(fact => {
+                const factItem = document.createElement('div');
+                factItem.className = 'fact-item';
+                factItem.innerHTML = `
+                    <div class="fact-label">${fact.label}:</div>
+                    <div>${fact.value}</div>
+                `;
+                ui.factsContent.appendChild(factItem);
+            });
         }
+        
         function showLearnSection(group) {
             // Deactivate all tabs and content panels first
             ui.group1Tab.classList.remove('active');
-            ui.group1Tab.setAttribute('aria-selected', 'false');
-            ui.group1ContentDiv.classList.add('hidden');
             ui.group2Tab.classList.remove('active');
-            ui.group2Tab.setAttribute('aria-selected', 'false');
-            ui.group2ContentDiv.classList.add('hidden');
+            ui.group1Content.classList.add('hidden');
+            ui.group2Content.classList.add('hidden');
+            
             // Activate the selected tab and content panel
             if (group === 'group1') {
                 ui.group1Tab.classList.add('active');
-                ui.group1Tab.setAttribute('aria-selected', 'true');
-                ui.group1ContentDiv.classList.remove('hidden');
-                ui.group1ContentDiv.innerHTML = learnContent.group1;
-                ui.safetyNotesDiv.innerHTML = learnContent.safetyNotes;
+                ui.group1Content.classList.remove('hidden');
+                ui.group1Content.innerHTML = learnContent.group1;
             } else if (group === 'group2') {
                 ui.group2Tab.classList.add('active');
-                ui.group2Tab.setAttribute('aria-selected', 'true');
-                ui.group2ContentDiv.classList.remove('hidden');
-                ui.group2ContentDiv.innerHTML = learnContent.group2;
-                ui.safetyNotesDiv.innerHTML = learnContent.safetyNotes;
+                ui.group2Content.classList.remove('hidden');
+                ui.group2Content.innerHTML = learnContent.group2;
             }
-        }
-        function openLearnPanel() {
-            ui.hubGrid.classList.add('hidden');
-            ui.prequizPanel.classList.add('hidden');
-            ui.postquizPanel.classList.add('hidden');
-            ui.learnPanel.classList.remove('hidden');
-            // Default to showing Group 1 when the panel opens
-            showLearnSection('group1');
-        }
-        
-        function openPrequizPanel() {
-            ui.hubGrid.classList.add('hidden');
-            ui.learnPanel.classList.add('hidden');
-            ui.postquizPanel.classList.add('hidden');
-            ui.prequizPanel.classList.remove('hidden');
-            generateQuizUI(preQuizQuestions, ui.prequizContentDiv);
-        }
-        function openPostquizPanel() {
-            const preQuizCompleted = localStorage.getItem(`${appId}-preQuizCompleted`);
-            if (!preQuizCompleted) {
-                showMessage("You must complete the pre-quiz before attempting the post-quiz.");
-                return;
-            }
-            ui.hubGrid.classList.add('hidden');
-            ui.learnPanel.classList.add('hidden');
-            ui.prequizPanel.classList.add('hidden');
-            ui.postquizPanel.classList.remove('hidden');
-            generatePostQuizUI();
+            
+            ui.safetyNotes.innerHTML = learnContent.safetyNotes;
         }
         
         function openHubPanel() {
-            ui.prequizPanel.classList.add('hidden');
-            ui.learnPanel.classList.add('hidden');
-            ui.postquizPanel.classList.add('hidden');
-            ui.hubGrid.classList.remove('hidden');
+            ui.learnSection.classList.add('hidden');
+            ui.prequizSection.classList.add('hidden');
+            ui.postquizSection.classList.add('hidden');
+            ui.hubSection.classList.remove('hidden');
+            
+            // Update active nav button
+            document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('nav-hub-btn').classList.add('active');
             
             // Force the canvas to resize now that its parent is visible
             const parent = canvas.parentElement;
@@ -1225,149 +1879,467 @@
                 drawDefaultMessage();
             }
         }
+        
+        function openLearnPanel() {
+            ui.hubSection.classList.add('hidden');
+            ui.prequizSection.classList.add('hidden');
+            ui.postquizSection.classList.add('hidden');
+            ui.learnSection.classList.remove('hidden');
+            
+            // Update active nav button
+            document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('nav-learn-btn').classList.add('active');
+            
+            // Default to showing Group 1 when the panel opens
+            showLearnSection('group1');
+        }
+        
+        function openPrequizPanel() {
+            ui.hubSection.classList.add('hidden');
+            ui.learnSection.classList.add('hidden');
+            ui.postquizSection.classList.add('hidden');
+            ui.prequizSection.classList.remove('hidden');
+            
+            // Update active nav button
+            document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('nav-prequiz-btn').classList.add('active');
+            
+            generateQuizUI(preQuizQuestions, ui.prequizContent);
+        }
+        
+        function openPostquizPanel() {
+            const preQuizCompleted = localStorage.getItem(`${appId}-preQuizCompleted`);
+            if (!preQuizCompleted) {
+                showMessage("You must complete the pre-quiz before attempting the post-quiz.");
+                return;
+            }
+            
+            ui.hubSection.classList.add('hidden');
+            ui.learnSection.classList.add('hidden');
+            ui.prequizSection.classList.add('hidden');
+            ui.postquizSection.classList.remove('hidden');
+            
+            // Update active nav button
+            document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('nav-postquiz-btn').classList.add('active');
+            
+            generatePostQuizUI();
+        }
+        
         function generateQuizUI(questions, container) {
             container.innerHTML = '';
             
-            let quizHTML = '';
             questions.forEach((q, index) => {
-                quizHTML += `<div class="bg-zinc-800 p-6 rounded-lg mb-6 appear-anim" style="animation-delay: ${index * 0.1}s;">`;
-                quizHTML += `<p class="text-lg font-semibold mb-3">${index + 1}. ${q.question}</p>`;
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'quiz-question';
+                questionDiv.innerHTML = `<p class="font-semibold mb-3">${index + 1}. ${q.question}</p>`;
                 
-                if (q.type === 'multiple-choice') {
-                    quizHTML += `<div class="flex flex-col space-y-2">`;
+                if (q.type === 'multiple-choice' || q.type === 'click-to-select') {
+                    const optionsDiv = document.createElement('div');
+                    optionsDiv.className = 'quiz-options';
+                    
                     q.options.forEach(option => {
-                        quizHTML += `
-                            <button class="quiz-option p-3 rounded-md bg-zinc-700 text-left border-2 border-zinc-700 hover:border-purple-500" data-question-index="${index}" data-answer="${option}">
-                                ${option}
-                            </button>
-                        `;
+                        const optionBtn = document.createElement('button');
+                        optionBtn.className = 'quiz-option';
+                        optionBtn.textContent = option;
+                        optionBtn.dataset.questionIndex = index;
+                        optionBtn.dataset.answer = option;
+                        
+                        optionBtn.addEventListener('click', function() {
+                            // Remove selected class from all options for this question
+                            container.querySelectorAll(`.quiz-option[data-question-index="${index}"]`).forEach(btn => {
+                                btn.classList.remove('selected');
+                            });
+                            
+                            // Add selected class to clicked option
+                            this.classList.add('selected');
+                        });
+                        
+                        optionsDiv.appendChild(optionBtn);
                     });
-                    quizHTML += `</div>`;
-                } else if (q.type === 'click-to-select') {
-                    quizHTML += `<div class="flex flex-wrap gap-2">`;
-                    q.options.forEach(option => {
-                        quizHTML += `
-                            <button class="quiz-option px-3 py-2 rounded-md bg-zinc-700 border-2 border-zinc-700 hover:border-purple-500" data-question-index="${index}" data-answer="${option}">
-                                ${option}
-                            </button>
-                        `;
-                    });
-                    quizHTML += `</div>`;
+                    
+                    questionDiv.appendChild(optionsDiv);
                 } else if (q.type === 'drag-and-drop') {
                     const shuffledItems = [...q.items].sort(() => Math.random() - 0.5);
-                    quizHTML += `
-                        <div class="flex flex-col space-y-4">
-                            <div id="drag-items-container-${index}" class="flex flex-row flex-wrap justify-center gap-4 p-4 bg-zinc-700 rounded-lg dropzone-container" data-type="source">
-                                ${shuffledItems.map((item) => `
-                                    <div class="draggable-item p-3 rounded-md bg-zinc-600 text-center border-2 border-zinc-700" draggable="true" data-value="${item}">
-                                        ${item}
-                                    </div>
-                                `).join('')}
-                            </div>
-                            <div id="drag-container-${index}" class="flex flex-wrap justify-center gap-1">
-                                ${Array(q.answer.length).fill(0).map((_, i) => `
-                                    <div class="flex items-center">
-                                        <div class="dropzone dropzone-container" data-type="target" data-index="${i}" style="min-width: 80px; padding: 4px;">Drop Here</div>
-                                        ${i < q.answer.length - 1 ? '<span class="text-2xl text-zinc-500 mx-1">→</span>' : ''}
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                    `;
+                    
+                    const dragContainer = document.createElement('div');
+                    dragContainer.className = 'flex flex-col space-y-4';
+                    
+                    // Source container
+                    const sourceContainer = document.createElement('div');
+                    sourceContainer.className = 'flex flex-wrap justify-center gap-3 p-4 bg-gray-100 rounded-lg';
+                    sourceContainer.dataset.type = 'source';
+                    
+                    shuffledItems.forEach(item => {
+                        const dragItem = document.createElement('div');
+                        dragItem.className = 'draggable-item px-4 py-2 bg-white rounded-lg shadow cursor-move';
+                        dragItem.draggable = true;
+                        dragItem.dataset.value = item;
+                        dragItem.textContent = item;
+                        
+                        dragItem.addEventListener('dragstart', handleDragStart);
+                        dragItem.addEventListener('dragend', handleDragEnd);
+                        
+                        sourceContainer.appendChild(dragItem);
+                    });
+                    
+                    dragContainer.appendChild(sourceContainer);
+                    
+                    // Target container
+                    const targetContainer = document.createElement('div');
+                    targetContainer.className = 'flex flex-wrap justify-center gap-2';
+                    
+                    Array(q.answer.length).fill(0).forEach((_, i) => {
+                        const dropzone = document.createElement('div');
+                        dropzone.className = 'dropzone w-24 h-12 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center';
+                        dropzone.dataset.type = 'target';
+                        dropzone.dataset.index = i;
+                        dropzone.textContent = 'Drop Here';
+                        
+                        dropzone.addEventListener('dragover', handleDragOver);
+                        dropzone.addEventListener('drop', handleDrop);
+                        
+                        targetContainer.appendChild(dropzone);
+                        
+                        if (i < q.answer.length - 1) {
+                            const arrow = document.createElement('span');
+                            arrow.className = 'text-2xl text-gray-400';
+                            arrow.textContent = '→';
+                            targetContainer.appendChild(arrow);
+                        }
+                    });
+                    
+                    dragContainer.appendChild(targetContainer);
+                    questionDiv.appendChild(dragContainer);
                 }
-                quizHTML += `</div>`;
-            });
-            
-            container.innerHTML = quizHTML;
-            
-            // --- Event Listeners for Quiz UI ---
-            container.querySelectorAll('.quiz-option').forEach(option => {
-                option.addEventListener('click', (e) => {
-                    const index = e.target.dataset.questionIndex;
-                    container.querySelectorAll(`.quiz-option[data-question-index='${index}']`).forEach(btn => btn.classList.remove('selected'));
-                    e.target.classList.add('selected');
-                });
-            });
-            
-            container.querySelectorAll('.draggable-item').forEach(item => {
-                item.addEventListener('dragstart', (e) => {
-                    const data = {
-                        value: e.target.dataset.value,
-                        originType: e.target.parentElement.dataset.type,
-                        originId: e.target.parentElement.id
-                    };
-                    e.dataTransfer.setData('text/plain', JSON.stringify(data));
-                    e.target.classList.add('dragging');
-                });
-                item.addEventListener('dragend', (e) => {
-                    e.target.classList.remove('dragging');
-                });
-            });
-            
-            container.querySelectorAll('.dropzone-container').forEach(dropzone => {
-                dropzone.addEventListener('dragover', (e) => {
-                    e.preventDefault();
-                    dropzone.classList.add('drag-over');
-                });
-                dropzone.addEventListener('dragleave', (e) => {
-                    e.preventDefault();
-                    dropzone.classList.remove('drag-over');
-                });
-                dropzone.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    dropzone.classList.remove('drag-over');
-                    
-                    const data = JSON.parse(e.dataTransfer.getData('text/plain'));
-                    const draggedElement = container.querySelector(`.draggable-item[data-value="${data.value}"]`);
-                    
-                    // If dropping on source container
-                    if (dropzone.dataset.type === 'source') {
-                        // Only move if not already in source
-                        if (data.originType !== 'source') {
-                            dropzone.appendChild(draggedElement);
-                        }
-                    } 
-                    // If dropping on target dropzone
-                    else {
-                        // Check if dropzone already has an item
-                        const existingItem = dropzone.querySelector('.draggable-item');
-                        
-                        if (existingItem) {
-                            // If dragged from source container
-                            if (data.originType === 'source') {
-                                // Move existing item back to source
-                                const sourceContainer = document.getElementById(data.originId);
-                                sourceContainer.appendChild(existingItem);
-                                // Move dragged element to current dropzone
-                                dropzone.appendChild(draggedElement);
-                            } 
-                            // If dragged from another dropzone
-                            else {
-                                // Swap items
-                                const originDropzone = document.getElementById(data.originId);
-                                originDropzone.appendChild(existingItem);
-                                dropzone.appendChild(draggedElement);
-                            }
-                        } else {
-                            // Dropzone is empty, just append
-                            dropzone.appendChild(draggedElement);
-                        }
-                        
-                        // Clear "Drop Here" text if it exists
-                        if (dropzone.textContent.trim() === 'Drop Here') {
-                            dropzone.textContent = '';
-                        }
-                    }
-                });
+                
+                container.appendChild(questionDiv);
             });
         }
         
-        function checkAnswers(questions, container, resultsDiv) {
+        function generatePostQuizUI() {
+            ui.postquizContent.innerHTML = '';
+            ui.postquizResults.textContent = '';
+            
+            postQuizQuestions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'quiz-question';
+                questionDiv.innerHTML = `<p class="font-semibold mb-3">${index + 1}. ${q.question}</p>`;
+                
+                if (q.type === 'multiple-choice') {
+                    const optionsDiv = document.createElement('div');
+                    optionsDiv.className = 'quiz-options';
+                    
+                    q.options.forEach(option => {
+                        const optionBtn = document.createElement('button');
+                        optionBtn.className = 'quiz-option';
+                        optionBtn.textContent = option;
+                        optionBtn.dataset.questionIndex = index;
+                        optionBtn.dataset.answer = option;
+                        
+                        optionBtn.addEventListener('click', function() {
+                            // Remove selected class from all options for this question
+                            ui.postquizContent.querySelectorAll(`.quiz-option[data-question-index="${index}"]`).forEach(btn => {
+                                btn.classList.remove('selected');
+                            });
+                            
+                            // Add selected class to clicked option
+                            this.classList.add('selected');
+                        });
+                        
+                        optionsDiv.appendChild(optionBtn);
+                    });
+                    
+                    questionDiv.appendChild(optionsDiv);
+                } else if (q.type === 'fill-in-the-blank') {
+                    const inputContainer = document.createElement('div');
+                    inputContainer.className = 'flex items-center space-x-2';
+                    inputContainer.innerHTML = `
+                        <span>Ca + 2H₂O → </span>
+                        <input type="text" id="blank-product-${index}" class="px-3 py-2 border border-gray-300 rounded-lg w-32" placeholder="...">
+                        <span> + </span>
+                        <input type="text" id="blank-gas-${index}" class="px-3 py-2 border border-gray-300 rounded-lg w-32" placeholder="...">
+                    `;
+                    questionDiv.appendChild(inputContainer);
+                } else if (q.type === 'drag-and-drop') {
+                    const shuffledItems = [...q.items].sort(() => Math.random() - 0.5);
+                    
+                    const dragContainer = document.createElement('div');
+                    dragContainer.className = 'flex flex-col space-y-4';
+                    
+                    // Source container
+                    const sourceContainer = document.createElement('div');
+                    sourceContainer.className = 'flex flex-wrap justify-center gap-3 p-4 bg-gray-100 rounded-lg';
+                    sourceContainer.dataset.type = 'source';
+                    
+                    shuffledItems.forEach(item => {
+                        const dragItem = document.createElement('div');
+                        dragItem.className = 'draggable-item px-4 py-2 bg-white rounded-lg shadow cursor-move';
+                        dragItem.draggable = true;
+                        dragItem.dataset.value = item;
+                        dragItem.textContent = item;
+                        
+                        dragItem.addEventListener('dragstart', handleDragStart);
+                        dragItem.addEventListener('dragend', handleDragEnd);
+                        
+                        sourceContainer.appendChild(dragItem);
+                    });
+                    
+                    dragContainer.appendChild(sourceContainer);
+                    
+                    // Reactivity indicators
+                    const reactivityContainer = document.createElement('div');
+                    reactivityContainer.className = 'flex items-center justify-center space-x-4 my-2';
+                    reactivityContainer.innerHTML = `
+                        <span class="text-sm text-gray-500">Least Reactive</span>
+                        <span class="text-3xl text-gray-400">→</span>
+                        <span class="text-sm text-gray-500">Most Reactive</span>
+                    `;
+                    dragContainer.appendChild(reactivityContainer);
+                    
+                    // Target container
+                    const targetContainer = document.createElement('div');
+                    targetContainer.className = 'flex flex-wrap justify-center gap-2';
+                    
+                    Array(q.answer.length).fill(0).forEach((_, i) => {
+                        const dropzone = document.createElement('div');
+                        dropzone.className = 'dropzone w-32 h-12 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center';
+                        dropzone.dataset.type = 'target';
+                        dropzone.dataset.index = i;
+                        dropzone.textContent = 'Drop Here';
+                        
+                        dropzone.addEventListener('dragover', handleDragOver);
+                        dropzone.addEventListener('drop', handleDrop);
+                        
+                        targetContainer.appendChild(dropzone);
+                        
+                        if (i < q.answer.length - 1) {
+                            const arrow = document.createElement('span');
+                            arrow.className = 'text-3xl text-gray-400';
+                            arrow.textContent = '→';
+                            targetContainer.appendChild(arrow);
+                        }
+                    });
+                    
+                    dragContainer.appendChild(targetContainer);
+                    questionDiv.appendChild(dragContainer);
+                } else if (q.type === 'mcq-flame-colours') {
+                    q.subQuestions.forEach(sq => {
+                        const subQuestionDiv = document.createElement('div');
+                        subQuestionDiv.className = 'mb-4';
+                        subQuestionDiv.innerHTML = `<p class="font-medium">${sq.label}:</p>`;
+                        
+                        const optionsDiv = document.createElement('div');
+                        optionsDiv.className = 'flex flex-wrap gap-2 mt-2';
+                        
+                        sq.options.forEach(option => {
+                            const optionBtn = document.createElement('button');
+                            optionBtn.className = 'quiz-option';
+                            optionBtn.textContent = option;
+                            optionBtn.dataset.questionIndex = index;
+                            optionBtn.dataset.subLabel = sq.label;
+                            optionBtn.dataset.answer = option;
+                            
+                            optionBtn.addEventListener('click', function() {
+                                // Remove selected class from all options for this sub-question
+                                ui.postquizContent.querySelectorAll(`.quiz-option[data-question-index="${index}"][data-sub-label="${sq.label}"]`).forEach(btn => {
+                                    btn.classList.remove('selected');
+                                });
+                                
+                                // Add selected class to clicked option
+                                this.classList.add('selected');
+                            });
+                            
+                            optionsDiv.appendChild(optionBtn);
+                        });
+                        
+                        subQuestionDiv.appendChild(optionsDiv);
+                        questionDiv.appendChild(subQuestionDiv);
+                    });
+                } else if (q.type === 'short-answer') {
+                    q.subQuestions.forEach(sq => {
+                        const answerDiv = document.createElement('div');
+                        answerDiv.className = 'flex items-center space-x-2 mb-3';
+                        answerDiv.innerHTML = `
+                            <span class="font-medium">${sq.label}:</span>
+                            <input type="text" id="short-answer-${sq.label.toLowerCase()}-${index}" class="px-3 py-2 border border-gray-300 rounded-lg w-24" placeholder="...">
+                        `;
+                        questionDiv.appendChild(answerDiv);
+                    });
+                } else if (q.type === 'true-or-false') {
+                    const optionsDiv = document.createElement('div');
+                    optionsDiv.className = 'flex space-x-4';
+                    
+                    ['True', 'False'].forEach(option => {
+                        const optionBtn = document.createElement('button');
+                        optionBtn.className = 'quiz-option';
+                        optionBtn.textContent = option;
+                        optionBtn.dataset.questionIndex = index;
+                        optionBtn.dataset.answer = option;
+                        
+                        optionBtn.addEventListener('click', function() {
+                            // Remove selected class from all options for this question
+                            ui.postquizContent.querySelectorAll(`.quiz-option[data-question-index="${index}"]`).forEach(btn => {
+                                btn.classList.remove('selected');
+                            });
+                            
+                            // Add selected class to clicked option
+                            this.classList.add('selected');
+                        });
+                        
+                        optionsDiv.appendChild(optionBtn);
+                    });
+                    
+                    questionDiv.appendChild(optionsDiv);
+                } else if (q.type === 'equation-balancing') {
+                    const equationDiv = document.createElement('div');
+                    equationDiv.className = 'flex items-center space-x-2';
+                    equationDiv.innerHTML = `
+                        <input type="text" id="coeff-1-${index}" class="px-3 py-2 border border-gray-300 rounded-lg w-16 text-center" placeholder="1">
+                        <span>MgCO₃ → </span>
+                        <input type="text" id="coeff-2-${index}" class="px-3 py-2 border border-gray-300 rounded-lg w-16 text-center" placeholder="1">
+                        <span>MgO + </span>
+                        <input type="text" id="coeff-3-${index}" class="px-3 py-2 border border-gray-300 rounded-lg w-16 text-center" placeholder="1">
+                        <span>CO₂</span>
+                    `;
+                    questionDiv.appendChild(equationDiv);
+                } else if (q.type === 'match-the-pair') {
+                    const matchContainer = document.createElement('div');
+                    matchContainer.className = 'grid grid-cols-1 md:grid-cols-2 gap-6 mt-2';
+                    
+                    // Observations column
+                    const observationsCol = document.createElement('div');
+                    observationsCol.innerHTML = '<h4 class="font-semibold mb-3">Observations</h4>';
+                    
+                    const observationsContainer = document.createElement('div');
+                    observationsContainer.className = 'space-y-3';
+                    
+                    const shuffledObservations = [...q.items.map(i => i.observation)].sort(() => Math.random() - 0.5);
+                    
+                    shuffledObservations.forEach(obs => {
+                        const matchItem = document.createElement('div');
+                        matchItem.className = 'match-item p-3 bg-white rounded-lg shadow cursor-move';
+                        matchItem.draggable = true;
+                        matchItem.dataset.value = obs;
+                        matchItem.textContent = obs;
+                        
+                        matchItem.addEventListener('dragstart', handleDragStart);
+                        matchItem.addEventListener('dragend', handleDragEnd);
+                        
+                        observationsContainer.appendChild(matchItem);
+                    });
+                    
+                    observationsCol.appendChild(observationsContainer);
+                    matchContainer.appendChild(observationsCol);
+                    
+                    // Metals column
+                    const metalsCol = document.createElement('div');
+                    metalsCol.innerHTML = '<h4 class="font-semibold mb-3">Metals</h4>';
+                    
+                    const metalsContainer = document.createElement('div');
+                    metalsContainer.className = 'space-y-3';
+                    
+                    q.items.forEach(item => {
+                        const dropzone = document.createElement('div');
+                        dropzone.className = 'dropzone-match p-3 bg-gray-100 rounded-lg border-2 border-dashed border-gray-300';
+                        dropzone.dataset.value = item.metal;
+                        dropzone.textContent = item.metal;
+                        
+                        dropzone.addEventListener('dragover', handleDragOver);
+                        dropzone.addEventListener('drop', handleDrop);
+                        
+                        metalsContainer.appendChild(dropzone);
+                    });
+                    
+                    metalsCol.appendChild(metalsContainer);
+                    matchContainer.appendChild(metalsCol);
+                    
+                    questionDiv.appendChild(matchContainer);
+                } else if (q.type === 'extended-response') {
+                    const textarea = document.createElement('textarea');
+                    textarea.id = `extended-response-${index}`;
+                    textarea.className = 'w-full h-32 p-3 border border-gray-300 rounded-lg resize-none';
+                    textarea.placeholder = 'Type your answer here...';
+                    questionDiv.appendChild(textarea);
+                }
+                
+                ui.postquizContent.appendChild(questionDiv);
+            });
+        }
+        
+        // Drag and drop handlers
+        function handleDragStart(e) {
+            const data = {
+                value: e.target.dataset.value,
+                originType: e.target.parentElement.dataset.type,
+                originId: e.target.parentElement.id
+            };
+            e.dataTransfer.setData('text/plain', JSON.stringify(data));
+            e.target.classList.add('dragging');
+        }
+        
+        function handleDragEnd(e) {
+            e.target.classList.remove('dragging');
+        }
+        
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('drag-over');
+        }
+        
+        function handleDrop(e) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('drag-over');
+            
+            const data = JSON.parse(e.dataTransfer.getData('text/plain'));
+            const draggedElement = document.querySelector(`.draggable-item[data-value="${data.value}"], .match-item[data-value="${data.value}"]`);
+            
+            // If dropping on source container
+            if (e.currentTarget.dataset.type === 'source') {
+                // Only move if not already in source
+                if (data.originType !== 'source') {
+                    e.currentTarget.appendChild(draggedElement);
+                }
+            } 
+            // If dropping on target dropzone
+            else {
+                // Check if dropzone already has an item
+                const existingItem = e.currentTarget.querySelector('.draggable-item, .match-item');
+                
+                if (existingItem) {
+                    // If dragged from source container
+                    if (data.originType === 'source') {
+                        // Move existing item back to source
+                        const sourceContainer = document.getElementById(data.originId);
+                        sourceContainer.appendChild(existingItem);
+                        // Move dragged element to current dropzone
+                        e.currentTarget.appendChild(draggedElement);
+                    } 
+                    // If dragged from another dropzone
+                    else {
+                        // Swap items
+                        const originDropzone = document.getElementById(data.originId);
+                        originDropzone.appendChild(existingItem);
+                        e.currentTarget.appendChild(draggedElement);
+                    }
+                } else {
+                    // Dropzone is empty, just append
+                    e.currentTarget.appendChild(draggedElement);
+                }
+                
+                // Clear "Drop Here" text if it exists
+                if (e.currentTarget.textContent.trim() === 'Drop Here') {
+                    e.currentTarget.textContent = '';
+                }
+            }
+        }
+        
+        function checkAnswers(questions, container, resultsDiv, isPostQuiz = false) {
             let score = 0;
             let totalScore = 0;
             
             questions.forEach((q, index) => {
-                const questionDiv = container.querySelector(`.bg-zinc-800.mb-6:nth-of-type(${index + 1})`);
+                const questionDiv = container.children[index];
                 let isCorrect = false;
                 
                 if (q.type === 'multiple-choice' || q.type === 'click-to-select') {
@@ -1400,9 +2372,9 @@
                         const item = zone.querySelector('.draggable-item');
                         if (item) {
                             if (item.dataset.value === q.answer[itemIndex]) {
-                                item.classList.add('bg-green-700', 'border-green-500');
+                                item.classList.add('bg-green-100', 'border-green-500');
                             } else {
-                                item.classList.add('bg-red-700', 'border-red-500');
+                                item.classList.add('bg-red-100', 'border-red-500');
                             }
                             item.draggable = false;
                             item.style.cursor = 'default';
@@ -1411,7 +2383,7 @@
                         zone.style.cursor = 'default';
                     });
                     
-                    const dragItemsContainer = questionDiv.querySelector('[id^="drag-items-container-"]');
+                    const dragItemsContainer = questionDiv.querySelector('[data-type="source"]');
                     if (dragItemsContainer) {
                          [...dragItemsContainer.children].forEach(item => {
                             if (item.classList.contains('draggable-item')) {
@@ -1423,10 +2395,126 @@
                     
                     if (!isCorrect) {
                         const correctOrderDiv = document.createElement('p');
-                        correctOrderDiv.className = "mt-2 text-sm text-green-300";
+                        correctOrderDiv.className = "mt-2 text-sm text-green-600";
                         correctOrderDiv.textContent = `Correct Order: ${q.answer.join(' → ')}`;
                         questionDiv.appendChild(correctOrderDiv);
                     }
+                } else if (q.type === 'fill-in-the-blank') {
+                    const productInput = questionDiv.querySelector(`#blank-product-${index}`);
+                    const gasInput = questionDiv.querySelector(`#blank-gas-${index}`);
+                    if (productInput.value.trim() === q.blanks[0].answer && gasInput.value.trim() === q.blanks[1].answer) {
+                        isCorrect = true;
+                    }
+                    productInput.disabled = true;
+                    gasInput.disabled = true;
+                    const resultP = document.createElement('p');
+                    resultP.className = "mt-2 text-sm";
+                    if (isCorrect) {
+                        resultP.textContent = `Correct!`;
+                        resultP.classList.add('text-green-600');
+                    } else {
+                        resultP.textContent = `Incorrect. Correct answer: Ca + 2H₂O → Ca(OH)₂ + H₂`;
+                        resultP.classList.add('text-red-600');
+                    }
+                    questionDiv.appendChild(resultP);
+                } else if (q.type === 'mcq-flame-colours') {
+                    const subQuestions = q.subQuestions;
+                    let allCorrect = true;
+                    subQuestions.forEach(sq => {
+                        const selectedOption = questionDiv.querySelector(`.quiz-option.selected[data-sub-label="${sq.label}"]`);
+                        if (!selectedOption || selectedOption.dataset.answer !== sq.answer) {
+                            allCorrect = false;
+                        }
+                        questionDiv.querySelectorAll(`.quiz-option[data-sub-label="${sq.label}"]`).forEach(btn => {
+                            btn.disabled = true;
+                            if (btn.dataset.answer === sq.answer) {
+                                btn.classList.add('correct');
+                            } else if (btn.classList.contains('selected')) {
+                                btn.classList.add('incorrect');
+                            }
+                        });
+                    });
+                    isCorrect = allCorrect;
+                } else if (q.type === 'short-answer') {
+                    const saInputs = questionDiv.querySelectorAll('input[type="text"]');
+                    let saCorrect = true;
+                    saInputs.forEach((input, saIndex) => {
+                        const label = q.subQuestions[saIndex].label.toLowerCase();
+                        const answer = q.subQuestions[saIndex].answer;
+                        if (input.value.trim() !== answer) {
+                            saCorrect = false;
+                        }
+                        input.disabled = true;
+                        const resultSpan = document.createElement('span');
+                        resultSpan.className = "ml-2 text-sm";
+                        if (input.value.trim() === answer) {
+                            resultSpan.textContent = `✅`;
+                            resultSpan.classList.add('text-green-600');
+                        } else {
+                            resultSpan.textContent = `❌ (Correct: ${answer})`;
+                            resultSpan.classList.add('text-red-600');
+                        }
+                        input.parentElement.appendChild(resultSpan);
+                    });
+                    isCorrect = saCorrect;
+                } else if (q.type === 'true-or-false') {
+                    const selectedOption = questionDiv.querySelector('.quiz-option.selected');
+                    if (selectedOption && selectedOption.dataset.answer === q.answer) {
+                        isCorrect = true;
+                    }
+                    const allOptions = questionDiv.querySelectorAll('.quiz-option');
+                    allOptions.forEach(option => {
+                        option.disabled = true;
+                        if (option.dataset.answer === q.answer) {
+                            option.classList.add('correct');
+                        } else if (option.classList.contains('selected')) {
+                            option.classList.add('incorrect');
+                        }
+                    });
+                } else if (q.type === 'equation-balancing') {
+                    const coeffInputs = questionDiv.querySelectorAll('input[type="text"]');
+                    let eqCorrect = true;
+                    coeffInputs.forEach((input, eqIndex) => {
+                        if (input.value.trim() !== q.blanks[eqIndex].answer) {
+                            eqCorrect = false;
+                        }
+                        input.disabled = true;
+                        if (input.value.trim() === q.blanks[eqIndex].answer) {
+                            input.classList.add('bg-green-100', 'border-green-500');
+                        } else {
+                            input.classList.add('bg-red-100', 'border-red-500');
+                        }
+                    });
+                    isCorrect = eqCorrect;
+                } else if (q.type === 'match-the-pair') {
+                    let mpCorrect = true;
+                    const dropzones = questionDiv.querySelectorAll('.dropzone-match');
+                    dropzones.forEach(zone => {
+                        const metal = zone.dataset.value;
+                        const observationElement = zone.querySelector('.match-item');
+                        if (!observationElement || q.matches[observationElement.dataset.value] !== metal) {
+                            mpCorrect = false;
+                            if (observationElement) {
+                                observationElement.classList.add('bg-red-100', 'border-red-500');
+                            }
+                        } else {
+                            observationElement.classList.add('bg-green-100', 'border-green-500');
+                        }
+                    });
+                    isCorrect = mpCorrect;
+                    const unmatchedItems = questionDiv.querySelectorAll('.match-item:not(.bg-green-100)');
+                    unmatchedItems.forEach(item => {
+                        item.draggable = false;
+                        item.classList.add('bg-red-100', 'border-red-500');
+                    });
+                } else if (q.type === 'extended-response') {
+                    const responseArea = questionDiv.querySelector('textarea');
+                    responseArea.disabled = true;
+                    const correctResponse = document.createElement('div');
+                    correctResponse.className = "mt-3 p-3 bg-blue-50 rounded-lg text-sm text-blue-700";
+                    correctResponse.innerHTML = `<b>Model Answer:</b> ${q.answer}`;
+                    questionDiv.appendChild(correctResponse);
+                    isCorrect = true; // Don't penalize score for this.
                 }
                 
                 if (isCorrect) {
@@ -1436,417 +2524,34 @@
             });
             
             resultsDiv.textContent = `You scored ${score} out of ${totalScore}!`;
-            resultsDiv.classList.add('text-yellow-300');
+            resultsDiv.classList.add('text-blue-600', 'font-semibold');
             
-            localStorage.setItem(`${appId}-preQuizCompleted`, 'true');
-            
-            setTimeout(() => {
-                openHubPanel();
-            }, 3000);
-        }
-        // Post-Quiz specific functions
-        function generatePostQuizUI() {
-            ui.postquizContentDiv.innerHTML = '';
-            ui.postquizResultsDiv.innerHTML = '';
-            let quizHTML = '';
-            postQuizQuestions.forEach((q, index) => {
-                quizHTML += `<div class="bg-zinc-800 p-6 rounded-lg mb-6 appear-anim" style="animation-delay: ${index * 0.1}s;">`;
-                quizHTML += `<p class="text-lg font-semibold mb-3">${index + 1}. ${q.question}</p>`;
-                if (q.type === 'multiple-choice') {
-                    quizHTML += `<div class="flex flex-col space-y-2">`;
-                    q.options.forEach(option => {
-                        quizHTML += `
-                            <button class="quiz-option p-3 rounded-md bg-zinc-700 border-2 border-zinc-700 hover:border-rose-500" data-question-index="${index}" data-answer="${option}">
-                                ${option}
-                            </button>
-                        `;
-                    });
-                    quizHTML += `</div>`;
-                } else if (q.type === 'mcq-flame-colours') {
-                    q.subQuestions.forEach(sq => {
-                        quizHTML += `
-                            <p class="mt-4">${sq.label} &ndash; </p>
-                            <div class="flex flex-wrap gap-2 mb-2">
-                                ${sq.options.map(option => `
-                                    <button class="quiz-option px-3 py-1 rounded-md bg-zinc-700 border-2 border-zinc-700 hover:border-rose-500" data-question-index="${index}" data-sub-label="${sq.label}" data-answer="${option}">
-                                        ${option}
-                                    </button>
-                                `).join('')}
-                            </div>
-                        `;
-                    });
-                } else if (q.type === 'fill-in-the-blank') {
-                    quizHTML += `
-                        <div class="flex items-center space-x-2">
-                            <span>Ca + 2H₂O → </span>
-                            <input type="text" id="blank-product-${index}" class="fill-in-blank-input" placeholder="...">
-                            <span> + </span>
-                            <input type="text" id="blank-gas-${index}" class="fill-in-blank-input" placeholder="...">
-                        </div>
-                    `;
-                } else if (q.type === 'drag-and-drop') {
-                    const shuffledItems = [...q.items].sort(() => Math.random() - 0.5);
-                    quizHTML += `
-                        <div class="flex flex-col space-y-4">
-                            <div id="drag-items-container-post-${index}" class="flex flex-row flex-wrap justify-center gap-4 p-4 bg-zinc-700 rounded-lg dropzone-container" data-type="source">
-                                ${shuffledItems.map((item) => `
-                                    <div class="draggable-item p-3 rounded-md bg-zinc-600 text-center border-2 border-zinc-700" draggable="true" data-value="${item}">
-                                        ${item}
-                                    </div>
-                                `).join('')}
-                            </div>
-                            <div class="flex flex-row space-x-2 items-center justify-center">
-                                <span class="text-sm text-zinc-400">Least Reactive</span>
-                                <span class="text-4xl text-zinc-500">→</span>
-                                <span class="text-sm text-zinc-400">Most Reactive</span>
-                            </div>
-                            <div id="drag-container-post-${index}" class="flex flex-row space-x-2 justify-center">
-                                <div class="dropzone dropzone-container" data-type="target" data-index="0">Drop Here</div>
-                                <span class="text-4xl text-zinc-500 mx-2">→</span>
-                                <div class="dropzone dropzone-container" data-type="target" data-index="1">Drop Here</div>
-                                <span class="text-4xl text-zinc-500 mx-2">→</span>
-                                <div class="dropzone dropzone-container" data-type="target" data-index="2">Drop Here</div>
-                                <span class="text-4xl text-zinc-500 mx-2">→</span>
-                                <div class="dropzone dropzone-container" data-type="target" data-index="3">Drop Here</div>
-                            </div>
-                        </div>
-                    `;
-                } else if (q.type === 'short-answer') {
-                    q.subQuestions.forEach(sq => {
-                        quizHTML += `
-                            <div class="flex items-center space-x-2 mt-4">
-                                <span>${sq.label} → </span>
-                                <input type="text" id="short-answer-${sq.label.toLowerCase()}-${index}" class="fill-in-blank-input" placeholder="...">
-                            </div>
-                        `;
-                    });
-                } else if (q.type === 'true-or-false') {
-                    quizHTML += `<div class="flex space-x-4 mt-2">
-                        <button class="quiz-option p-3 rounded-md bg-zinc-700 border-2 border-zinc-700 hover:border-rose-500" data-question-index="${index}" data-answer="True">True</button>
-                        <button class="quiz-option p-3 rounded-md bg-zinc-700 border-2 border-zinc-700 hover:border-rose-500" data-question-index="${index}" data-answer="False">False</button>
-                    </div>`;
-                } else if (q.type === 'equation-balancing') {
-                    quizHTML += `
-                        <div class="flex items-center space-x-2 mt-4">
-                            <input type="text" id="coeff-1-${index}" class="fill-in-blank-input" placeholder="1">
-                            <span>MgCO₃ → </span>
-                            <input type="text" id="coeff-2-${index}" class="fill-in-blank-input" placeholder="1">
-                            <span>MgO + </span>
-                            <input type="text" id="coeff-3-${index}" class="fill-in-blank-input" placeholder="1">
-                            <span>CO₂</span>
-                        </div>
-                    `;
-                } else if (q.type === 'match-the-pair') {
-                    const shuffledObservations = [...q.items.map(i => i.observation)].sort(() => Math.random() - 0.5);
-                    quizHTML += `
-                        <div class="grid grid-cols-2 gap-4 mt-4">
-                            <div class="flex flex-col">
-                                <h4 class="font-bold text-rose-300">Observations</h4>
-                                <div id="match-items-container-${index}" class="mt-2 space-y-2">
-                                    ${shuffledObservations.map(obs => `
-                                        <div class="match-item" draggable="true" data-value="${obs}">
-                                            ${obs}
-                                        </div>
-                                    `).join('')}
-                                </div>
-                            </div>
-                            <div class="flex flex-col">
-                                <h4 class="font-bold text-rose-300">Metals</h4>
-                                <div id="match-dropzones-${index}" class="mt-2 space-y-2">
-                                    ${q.items.map(item => `
-                                        <div class="p-2 border-2 border-dashed border-gray-600 rounded-md bg-zinc-700 dropzone-match" data-value="${item.metal}">
-                                            ${item.metal}
-                                        </div>
-                                    `).join('')}
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                } else if (q.type === 'extended-response') {
-                    quizHTML += `
-                        <textarea id="extended-response-${index}" class="w-full h-32 p-3 mt-2 rounded-md bg-zinc-700 border-2 border-zinc-600 text-white focus:outline-none focus:border-rose-500"></textarea>
-                    `;
-                }
-                quizHTML += `</div>`;
-            });
-            ui.postquizContentDiv.innerHTML = quizHTML;
-            
-            // Re-apply event listeners for the dynamic content
-            ui.postquizContentDiv.querySelectorAll('.quiz-option').forEach(option => {
-                option.addEventListener('click', (e) => {
-                    const questionIndex = e.target.dataset.questionIndex;
-                    const subLabel = e.target.dataset.subLabel;
-                    
-                    if (subLabel) {
-                        ui.postquizContentDiv.querySelectorAll(`.quiz-option[data-question-index="${questionIndex}"][data-sub-label="${subLabel}"]`).forEach(btn => btn.classList.remove('selected'));
-                    } else {
-                        ui.postquizContentDiv.querySelectorAll(`.quiz-option[data-question-index="${questionIndex}"]`).forEach(btn => btn.classList.remove('selected'));
-                    }
-                    e.target.classList.add('selected');
-                });
-            });
-            
-            // Add drag-and-drop event listeners for post-quiz
-            ui.postquizContentDiv.querySelectorAll('.draggable-item').forEach(item => {
-                item.addEventListener('dragstart', (e) => {
-                    const data = {
-                        value: e.target.dataset.value,
-                        originType: e.target.parentElement.dataset.type,
-                        originId: e.target.parentElement.id
-                    };
-                    e.dataTransfer.setData('text/plain', JSON.stringify(data));
-                    e.target.classList.add('dragging');
-                });
-                item.addEventListener('dragend', (e) => {
-                    e.target.classList.remove('dragging');
-                });
-            });
-            
-            ui.postquizContentDiv.querySelectorAll('.dropzone-container').forEach(dropzone => {
-                dropzone.addEventListener('dragover', (e) => {
-                    e.preventDefault();
-                    dropzone.classList.add('drag-over');
-                });
-                dropzone.addEventListener('dragleave', (e) => {
-                    e.preventDefault();
-                    dropzone.classList.remove('drag-over');
-                });
-                dropzone.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    dropzone.classList.remove('drag-over');
-                    
-                    const data = JSON.parse(e.dataTransfer.getData('text/plain'));
-                    const draggedElement = ui.postquizContentDiv.querySelector(`.draggable-item[data-value="${data.value}"]`);
-                    
-                    // If dropping on source container
-                    if (dropzone.dataset.type === 'source') {
-                        // Only move if not already in source
-                        if (data.originType !== 'source') {
-                            dropzone.appendChild(draggedElement);
-                        }
-                    } 
-                    // If dropping on target dropzone
-                    else {
-                        // Check if dropzone already has an item
-                        const existingItem = dropzone.querySelector('.draggable-item');
-                        
-                        if (existingItem) {
-                            // If dragged from source container
-                            if (data.originType === 'source') {
-                                // Move existing item back to source
-                                const sourceContainer = document.getElementById(data.originId);
-                                sourceContainer.appendChild(existingItem);
-                                // Move dragged element to current dropzone
-                                dropzone.appendChild(draggedElement);
-                            } 
-                            // If dragged from another dropzone
-                            else {
-                                // Swap items
-                                const originDropzone = document.getElementById(data.originId);
-                                originDropzone.appendChild(existingItem);
-                                dropzone.appendChild(draggedElement);
-                            }
-                        } else {
-                            // Dropzone is empty, just append
-                            dropzone.appendChild(draggedElement);
-                        }
-                        
-                        // Clear "Drop Here" text if it exists
-                        if (dropzone.textContent.trim() === 'Drop Here') {
-                            dropzone.textContent = '';
-                        }
-                    }
-                });
-            });
-            
-            ui.postquizContentDiv.querySelectorAll('.dropzone-match').forEach(dropzone => {
-                dropzone.addEventListener('dragover', (e) => {
-                    e.preventDefault();
-                    dropzone.classList.add('drag-over');
-                });
-                dropzone.addEventListener('dragleave', (e) => {
-                    e.preventDefault();
-                    dropzone.classList.remove('drag-over');
-                });
-                dropzone.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    dropzone.classList.remove('drag-over');
-                    const data = e.dataTransfer.getData('text/plain');
-                    const draggedElement = ui.postquizContentDiv.querySelector(`.match-item[data-value="${data}"]`);
-                    if (dropzone.children.length === 0) {
-                        dropzone.appendChild(draggedElement);
-                    }
-                });
-            });
-        }
-        function checkPostQuizAnswers() {
-            let score = 0;
-            const totalQuestions = postQuizQuestions.length;
-            postQuizQuestions.forEach((q, index) => {
-                const questionDiv = ui.postquizContentDiv.querySelector(`.bg-zinc-800.mb-6:nth-of-type(${index + 1})`);
-                let isCorrect = false;
-                switch (q.type) {
-                    case 'multiple-choice':
-                    case 'true-or-false':
-                        const selectedOption = questionDiv.querySelector('.quiz-option.selected');
-                        if (selectedOption && selectedOption.dataset.answer === q.answer) {
-                            isCorrect = true;
-                        }
-                        const allOptions = questionDiv.querySelectorAll('.quiz-option');
-                        allOptions.forEach(option => {
-                            option.disabled = true;
-                            if (option.dataset.answer === q.answer) {
-                                option.classList.add('correct');
-                            } else if (option.classList.contains('selected')) {
-                                option.classList.add('incorrect');
-                            }
-                        });
-                        break;
-                    case 'fill-in-the-blank':
-                        const productInput = questionDiv.querySelector(`#blank-product-${index}`);
-                        const gasInput = questionDiv.querySelector(`#blank-gas-${index}`);
-                        if (productInput.value.trim() === q.blanks[0].answer && gasInput.value.trim() === q.blanks[1].answer) {
-                            isCorrect = true;
-                        }
-                        productInput.disabled = true;
-                        gasInput.disabled = true;
-                        const resultP = document.createElement('p');
-                        resultP.className = "mt-2 text-sm";
-                        if (isCorrect) {
-                            resultP.textContent = `Correct!`;
-                            resultP.classList.add('text-green-400');
-                        } else {
-                            resultP.textContent = `Incorrect. Correct answer: Ca + 2H₂O → Ca(OH)₂ + H₂`;
-                            resultP.classList.add('text-red-400');
-                        }
-                        questionDiv.appendChild(resultP);
-                        break;
-                    case 'drag-and-drop':
-                        const orderedItems = [...questionDiv.querySelectorAll('.dropzone[data-type="target"]')].map(zone => {
-                            const item = zone.querySelector('.draggable-item');
-                            return item ? item.dataset.value : null;
-                        });
-                        if (orderedItems.every(item => item !== null) && JSON.stringify(orderedItems) === JSON.stringify(q.answer)) {
-                            isCorrect = true;
-                        }
-                        break;
-                    case 'mcq-flame-colours':
-                        const subQuestions = q.subQuestions;
-                        let allCorrect = true;
-                        subQuestions.forEach(sq => {
-                            const selectedOption = questionDiv.querySelector(`.quiz-option.selected[data-sub-label="${sq.label}"]`);
-                            if (!selectedOption || selectedOption.dataset.answer !== sq.answer) {
-                                allCorrect = false;
-                            }
-                            questionDiv.querySelectorAll(`.quiz-option[data-sub-label="${sq.label}"]`).forEach(btn => {
-                                btn.disabled = true;
-                                if (btn.dataset.answer === sq.answer) {
-                                    btn.classList.add('correct');
-                                } else if (btn.classList.contains('selected')) {
-                                    btn.classList.add('incorrect');
-                                }
-                            });
-                        });
-                        isCorrect = allCorrect;
-                        break;
-                    case 'short-answer':
-                        const saInputs = questionDiv.querySelectorAll('input[type="text"]');
-                        let saCorrect = true;
-                        saInputs.forEach((input, saIndex) => {
-                            const label = q.subQuestions[saIndex].label.toLowerCase();
-                            const answer = q.subQuestions[saIndex].answer;
-                            if (input.value.trim() !== answer) {
-                                saCorrect = false;
-                            }
-                            input.disabled = true;
-                            const resultSpan = document.createElement('span');
-                            resultSpan.className = "ml-2 text-sm";
-                            if (input.value.trim() === answer) {
-                                resultSpan.textContent = `✅`;
-                                resultSpan.classList.add('text-green-400');
-                            } else {
-                                resultSpan.textContent = `❌ (Correct: ${answer})`;
-                                resultSpan.classList.add('text-red-400');
-                            }
-                            input.parentElement.appendChild(resultSpan);
-                        });
-                        isCorrect = saCorrect;
-                        break;
-                    case 'equation-balancing':
-                        const coeffInputs = questionDiv.querySelectorAll('input[type="text"]');
-                        let eqCorrect = true;
-                        coeffInputs.forEach((input, eqIndex) => {
-                            if (input.value.trim() !== q.blanks[eqIndex].answer) {
-                                eqCorrect = false;
-                            }
-                            input.disabled = true;
-                            if (input.value.trim() === q.blanks[eqIndex].answer) {
-                                input.classList.add('bg-green-700', 'border-green-500');
-                            } else {
-                                input.classList.add('bg-red-700', 'border-red-500');
-                            }
-                        });
-                        isCorrect = eqCorrect;
-                        break;
-                    case 'match-the-pair':
-                        let mpCorrect = true;
-                        const dropzones = questionDiv.querySelectorAll('.dropzone-match');
-                        dropzones.forEach(zone => {
-                            const metal = zone.dataset.value;
-                            const observationElement = zone.querySelector('.match-item');
-                            if (!observationElement || q.matches[observationElement.dataset.value] !== metal) {
-                                mpCorrect = false;
-                                if (observationElement) {
-                                    observationElement.classList.add('bg-red-700', 'border-red-500');
-                                }
-                            } else {
-                                observationElement.classList.add('bg-green-700', 'border-green-500');
-                            }
-                        });
-                        isCorrect = mpCorrect;
-                        const unmatchedItems = questionDiv.querySelectorAll('.match-item:not(.bg-green-700)');
-                        unmatchedItems.forEach(item => {
-                            item.draggable = false;
-                            item.classList.add('bg-red-700', 'border-red-500');
-                        });
-                        break;
-                    case 'extended-response':
-                        const responseArea = questionDiv.querySelector('textarea');
-                        responseArea.disabled = true;
-                        const correctResponse = document.createElement('div');
-                        correctResponse.className = "mt-4 p-3 rounded-md bg-zinc-700 text-sm text-green-300";
-                        correctResponse.innerHTML = `<b>Model Answer:</b> ${q.answer}`;
-                        questionDiv.appendChild(correctResponse);
-                        isCorrect = true; // Don't penalize score for this.
-                        break;
-                }
-                if (isCorrect) {
-                    score++;
-                }
-            });
-            ui.postquizSubmitBtn.disabled = true;
-            ui.postquizResultsDiv.textContent = `You scored ${score} out of ${postQuizQuestions.length} on the graded questions!`;
-            ui.postquizResultsDiv.classList.add('text-yellow-300');
+            if (!isPostQuiz) {
+                localStorage.setItem(`${appId}-preQuizCompleted`, 'true');
+            }
             
             setTimeout(() => {
                 openHubPanel();
-            }, 5000);
+            }, isPostQuiz ? 5000 : 3000);
         }
+        
         // --- Main App Initialization ---
         async function firebaseInit() {
             try {
                 const app = initializeApp(firebaseConfig);
                 auth = getAuth(app);
                 db = getFirestore(app);
+                
                 if (initialAuthToken) {
                     await signInWithCustomToken(auth, initialAuthToken);
                 } else {
                     await signInAnonymously(auth);
                 }
+                
                 onAuthStateChanged(auth, (user) => {
                     if (user) {
                         userId = user.uid;
-                        document.getElementById('user-id-display').textContent = userId;
+                        ui.userIdDisplay.textContent = userId;
                         isAuthReady = true;
                         console.log("Firebase initialized and user authenticated:", userId);
                     } else {
@@ -1856,64 +2561,80 @@
             } catch (error) {
                 console.error("Firebase initialization failed:", error);
             }
-        };
+        }
+        
         document.addEventListener('DOMContentLoaded', async () => {
             await firebaseInit();
             init2DViewer();
             
+            // Landing page enter button
+            ui.enterAppBtn.addEventListener('click', () => {
+                ui.landingPage.classList.add('hidden');
+                ui.mainApp.classList.remove('hidden');
+                openHubPanel();
+            });
+            
+            // Create element cards
             Object.entries(elementsData).forEach(([name, data]) => {
-                const button = document.createElement('button');
-                const hoverColor = data.group === 'I' ? 'hover:bg-sky-700' : 'hover:bg-emerald-700';
-                const borderColor = data.group === 'I' ? 'border-sky-700' : 'border-emerald-700';
-                button.className = `element-card p-4 rounded-lg bg-zinc-800 ${hoverColor} transition-all duration-300 shadow-md text-left border ${borderColor}`;
-                button.dataset.element = name;
-                button.innerHTML = `<h4 class="font-bold text-lg text-white">${data.symbol}</h4><p class="text-sm">${name}</p>`;
+                const card = document.createElement('div');
+                card.className = 'element-card';
+                card.dataset.element = name;
+                
+                const groupClass = data.group === 'I' ? 'group-1' : 'group-2';
+                
+                card.innerHTML = `
+                    <img src="${data.image}" alt="${name}" class="element-image">
+                    <div class="element-symbol">${data.symbol}</div>
+                    <div class="element-name">${name}</div>
+                    <div class="element-group ${groupClass}">Group ${data.group}</div>
+                `;
+                
+                card.addEventListener('click', () => {
+                    updateFactsPanel(name);
+                    updateAtomViewer(data);
+                });
+                
                 if (data.group === 'I') {
-                    ui.group1ElementsContainer.appendChild(button);
+                    ui.group1Elements.appendChild(card);
                 } else {
-                    ui.group2ElementsContainer.appendChild(button);
+                    ui.group2Elements.appendChild(card);
                 }
             });
+            
+            // Navigation event listeners
             document.getElementById('nav-hub-btn').addEventListener('click', openHubPanel);
             document.getElementById('nav-learn-btn').addEventListener('click', openLearnPanel);
             document.getElementById('nav-prequiz-btn').addEventListener('click', () => {
-                ui.prequizResultsDiv.textContent = '';
+                ui.prequizResults.textContent = '';
                 ui.prequizSubmitBtn.disabled = false;
                 openPrequizPanel();
             });
             document.getElementById('nav-postquiz-btn').addEventListener('click', () => {
-                ui.postquizResultsDiv.textContent = '';
+                ui.postquizResults.textContent = '';
                 ui.postquizSubmitBtn.disabled = false;
                 openPostquizPanel();
             });
             
+            // Back to hub buttons
             document.getElementById('back-to-hub-btn').addEventListener('click', openHubPanel);
             document.getElementById('back-to-hub-btn-quiz').addEventListener('click', openHubPanel);
             document.getElementById('back-to-hub-btn-postquiz').addEventListener('click', openHubPanel);
-            ui.prequizSubmitBtn.addEventListener('click', () => checkAnswers(preQuizQuestions, ui.prequizContentDiv, ui.prequizResultsDiv));
-            ui.postquizSubmitBtn.addEventListener('click', checkPostQuizAnswers);
-            document.querySelectorAll('#nav-leaderboard-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    showMessage("This feature is still under construction. Please check back later!");
-                });
+            
+            // Quiz submit buttons
+            ui.prequizSubmitBtn.addEventListener('click', () => checkAnswers(preQuizQuestions, ui.prequizContent, ui.prequizResults));
+            ui.postquizSubmitBtn.addEventListener('click', () => checkAnswers(postQuizQuestions, ui.postquizContent, ui.postquizResults, true));
+            
+            // Leaderboard button
+            document.getElementById('nav-leaderboard-btn').addEventListener('click', () => {
+                showMessage("This feature is still under construction. Please check back later!");
             });
+            
+            // Close message button
             ui.closeMessageBtn.addEventListener('click', hideMessage);
-            // Add event listeners for the new tab buttons
+            
+            // Tab switching for learn section
             ui.group1Tab.addEventListener('click', () => showLearnSection('group1'));
             ui.group2Tab.addEventListener('click', () => showLearnSection('group2'));
-            document.querySelectorAll('.element-card').forEach(button => {
-                button.addEventListener('click', () => {
-                    openHubPanel(); // Ensure the hub panel is visible
-                    const elementName = button.getAttribute('data-element');
-                    const element = elementsData[elementName];
-                    if (element) {
-                        updateFactsPanel(elementName);
-                        updateAtomViewer(element);
-                    }
-                });
-            });
-            // Start with the hub panel visible by default
-            openHubPanel();
         });
     </script>
 </body>
