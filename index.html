@@ -16,7 +16,6 @@
             position: relative;
             overflow-x: hidden;
         }
-
         /* --- Global Styling --- */
         .neon-glow {
             text-shadow: none;
@@ -37,20 +36,17 @@
         
         /* --- New Font for Data Log --- */
         /* Removed console-font class to use Inter as requested */
-
         /* --- Animations --- */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
         .fade-in { animation: fadeIn 0.8s ease-in-out; }
-
         @keyframes appear {
             0% { opacity: 0; transform: scale(0.5); }
             100% { opacity: 1; transform: scale(1); }
         }
         .appear-anim { animation: appear 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
-
         /* --- Message Box --- */
         .message-box {
             top: 50%;
@@ -258,10 +254,8 @@
     </style>
 </head>
 <body class="p-6">
-
     <!-- Main Container -->
     <div id="app-container" class="min-h-screen flex flex-col items-center justify-center p-4 lg:p-8">
-
         <!-- Header -->
         <header class="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center p-4 mb-8 bg-zinc-900 rounded-xl border border-gray-800 shadow-2xl neon-border">
             <nav class="flex flex-wrap gap-4 mt-4 md:mt-0">
@@ -272,7 +266,6 @@
                 <button id="nav-leaderboard-btn" class="flashy-button px-4 py-2 bg-yellow-700 hover:bg-yellow-600 rounded-lg text-white font-semibold shadow-md border-2 border-yellow-500">Leaderboard</button>
             </nav>
         </header>
-
         <!-- Main Content Area -->
         <main id="main-content" class="w-full max-w-7xl flex-grow fade-in">
             <!-- Loading/Message box (hidden by default) -->
@@ -285,13 +278,11 @@
             <div id="learn-panel" class="hidden bg-zinc-900 p-8 rounded-xl shadow-lg border border-gray-800 relative">
                 <button id="back-to-hub-btn" class="absolute top-4 right-4 flashy-button px-4 py-2 bg-zinc-700 hover:bg-zinc-600 rounded-lg text-white font-semibold shadow-md border-2 border-zinc-500">Back to Hub</button>
                 <h2 class="text-3xl font-bold text-emerald-400 mb-6 text-center neon-glow">Learn about Alkali & Alkaline Earth Metals</h2>
-
                 <!-- Tab Navigation for Learn Section -->
                 <div role="tablist" aria-label="Chemical Groups" class="flex justify-center space-x-4 mb-6 border-b border-gray-700">
                     <button role="tab" id="group-1-tab" aria-controls="group-1-content" aria-selected="true" class="learn-tab px-4 py-2 text-white active">Group 1: Alkali Metals</button>
                     <button role="tab" id="group-2-tab" aria-controls="group-2-content" aria-selected="false" class="learn-tab px-4 py-2 text-white">Group 2: Alkaline Earth Metals</button>
                 </div>
-
                 <!-- Tab Content Container -->
                 <div id="learn-content-container" class="prose prose-invert max-w-none text-white overflow-y-auto max-h-[70vh]">
                     <div id="group-1-content" role="tabpanel" aria-labelledby="group-1-tab" class="fade-in">
@@ -301,7 +292,6 @@
                         <!-- Content for Group 2 will be injected here -->
                     </div>
                 </div>
-
                 <div id="safety-notes-content" class="prose prose-invert max-w-none text-white overflow-y-auto mt-8">
                     <!-- Safety notes will be injected here -->
                 </div>
@@ -310,7 +300,7 @@
             <!-- Pre-Quiz Section (hidden by default) -->
             <div id="prequiz-panel" class="hidden bg-zinc-900 p-8 rounded-xl shadow-lg border border-gray-800 relative">
                 <button id="back-to-hub-btn-quiz" class="absolute top-4 right-4 flashy-button px-4 py-2 bg-zinc-700 hover:bg-zinc-600 rounded-lg text-white font-semibold shadow-md border-2 border-zinc-500">Back to Hub</button>
-                <h2 class="text-3xl font-bold text-purple-400 mb-6 text-center neon-glow">Pre-Quiz: Test Your Knowledge!</h2>
+                <h2 class="text-3xl font-bold text-purple-400 mb-6 text-center neon-glow">PRE-QUIZ (7 Questions)</h2>
                 <div id="prequiz-content" class="prose prose-invert max-w-none text-white overflow-y-auto max-h-[70vh]">
                     <!-- Quiz questions will be dynamically injected here -->
                 </div>
@@ -319,7 +309,6 @@
                     <div id="prequiz-results" class="mt-4 text-center text-xl font-bold"></div>
                 </div>
             </div>
-
             <!-- Post-Quiz Section (hidden by default) -->
             <div id="postquiz-panel" class="hidden bg-zinc-900 p-8 rounded-xl shadow-lg border border-gray-800 relative">
                 <button id="back-to-hub-btn-postquiz" class="absolute top-4 right-4 flashy-button px-4 py-2 bg-zinc-700 hover:bg-zinc-600 rounded-lg text-white font-semibold shadow-md border-2 border-zinc-500">Back to Hub</button>
@@ -332,7 +321,6 @@
                     <div id="postquiz-results" class="mt-4 text-center text-xl font-bold"></div>
                 </div>
             </div>
-
             <!-- Hub Grid Section (visible by default) -->
             <div id="hub-grid" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Left Panel: Elements -->
@@ -351,7 +339,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Center Panel: 2D Atom Viewer -->
                 <div id="atom-viewer-container" class="relative bg-zinc-900 rounded-xl shadow-lg flex-grow overflow-hidden p-6 border border-gray-800 neon-border flex flex-col">
                     <h2 class="text-2xl font-bold text-center text-white mb-4 neon-glow">Interactive Atom Viewer</h2>
@@ -370,7 +357,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Right Panel: Facts & Features -->
                 <div id="features-panel" class="bg-zinc-900 p-6 rounded-xl shadow-lg flex flex-col justify-between border border-gray-800">
                     <div id="facts-container" class="flex flex-col h-full">
@@ -388,23 +374,19 @@
             User ID: <span id="user-id-display">Connecting...</span>
         </div>
     </div>
-
     <!-- Firebase SDKs and all application logic in a single module script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, onSnapshot, collection, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
         // Firebase Global Variables (Provided by Canvas Environment)
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
         const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
         let db, auth, userId;
         let isAuthReady = false;
         let typingAnimationRunning = false;
         let animationTimeout;
-
         // --- Data for all elements and quizzes ---
         const elementsData = {
             "Lithium": { group: 'I', atomicNumber: 3, protons: 3, neutrons: 4, electrons: 3, symbol: 'Li', funFact: "Used in batteries for phones and electric cars.", electronConfiguration: "1s² 2s¹", ionizationEnergy: "520.2 kJ/mol", electronegativity: "0.98", meltingPoint: "180.5°C", boilingPoint: "1342°C" },
@@ -420,85 +402,277 @@
             "Barium": { group: 'II', atomicNumber: 56, protons: 56, neutrons: 81, electrons: 56, symbol: 'Ba', funFact: "Used in medical imaging to help doctors see the digestive system.", electronConfiguration: "[Xe] 6s²", ionizationEnergy: "502.9 kJ/mol", electronegativity: "0.89", meltingPoint: "727°C", boilingPoint: "1897°C" },
             "Radium": { group: 'II', atomicNumber: 88, protons: 88, neutrons: 138, electrons: 88, symbol: 'Ra', funFact: "Highly radioactive and was once used in luminescent paints for watch dials.", electronConfiguration: "[Rn] 7s²", ionizationEnergy: "509.3 kJ/mol", electronegativity: "0.9", meltingPoint: "700°C", boilingPoint: "1737°C" }
         };
-
         const learnContent = {
             group1: `
-                <h3 class="text-2xl font-semibold mt-6 mb-2 text-emerald-300">Alkali Metals (Group 1)</h3>
-                <p>The alkali metals are a series of reactive metals that are soft, shiny, and have low melting points. They are located in Group 1 of the periodic table.</p>
-                <h3 class="text-xl font-semibold mt-4 mb-2 text-emerald-300">Key Characteristics</h3>
-                <ul>
-                    <li><b>Elements:</b> Lithium (Li), Sodium (Na), Potassium (K), Rubidium (Rb), Caesium (Cs), Francium (Fr)</li>
-                    <li><b>Outer electronic configuration:</b> ns<sup>1</sup> (one electron in outer shell)</li>
-                    <li><b>Charge on ion:</b> +1 (forms M<sup>+</sup>)</li>
-                    <li><b>Physical Properties:</b> Soft, shiny, low density, low melting/boiling points, good conductors.</li>
+                <h3 class="text-2xl font-semibold mt-6 mb-4 text-emerald-300">Group 1: Alkali Metals (Li, Na, K, Rb, Cs, Fr)</h3>
+                
+                <h4 class="text-xl font-semibold mt-6 mb-3 text-emerald-300">1. General Properties</h4>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li><strong>Shiny and soft:</strong> Fresh metals have a metallic luster but are soft and can be cut with a knife.</li>
+                    <li><strong>Low density:</strong> Li, Na, and K are less dense than water (they float!).</li>
+                    <li><strong>Low melting and boiling points:</strong> Decrease down the group (Li highest, Cs lowest).</li>
+                    <li><strong>Form basic oxides and hydroxides:</strong> React with water to produce alkaline solutions.</li>
+                    <li><strong>Highly reactive:</strong> Reactivity increases down the group (Li < Na < K < Rb < Cs).</li>
                 </ul>
-                <p><b>Reaction with Water:</b></p>
-                <p>The general equation for this reaction is 2M + 2H<sub>2</sub>O &rarr; 2MOH + H<sub>2</sub>. It produces an alkaline solution (a metal hydroxide) and hydrogen gas.</p>
-                <ul>
-                    <li><b>Li:</b> gentle fizzing, floats.</li>
-                    <li><b>Na:</b> fizzes vigorously, may melt into a ball.</li>
-                    <li><b>K:</b> fizzes strongly, produces a lilac flame.</li>
-                    <li>Reactivity increases down the group.</li>
+                
+                <h4 class="text-xl font-semibold mt-6 mb-3 text-emerald-300">2. Physical Properties</h4>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-zinc-800 rounded-lg overflow-hidden">
+                        <thead>
+                            <tr class="bg-zinc-700">
+                                <th class="py-2 px-4 text-left">Property</th>
+                                <th class="py-2 px-4 text-left">Trend Down the Group</th>
+                                <th class="py-2 px-4 text-left">Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-zinc-700">
+                                <td class="py-2 px-4">Density</td>
+                                <td class="py-2 px-4">Increases (except K < Na)</td>
+                                <td class="py-2 px-4">Li: 0.53 g/cm³, Na: 0.97 g/cm³, K: 0.86 g/cm³</td>
+                            </tr>
+                            <tr class="border-b border-zinc-700">
+                                <td class="py-2 px-4">Melting/Boiling point</td>
+                                <td class="py-2 px-4">Decreases</td>
+                                <td class="py-2 px-4">Li: 180°C, Na: 98°C, K: 63°C</td>
+                            </tr>
+                            <tr class="border-b border-zinc-700">
+                                <td class="py-2 px-4">Hardness</td>
+                                <td class="py-2 px-4">Decreases</td>
+                                <td class="py-2 px-4">Li: hard, Cs: very soft</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4">Appearance</td>
+                                <td class="py-2 px-4">Shiny when freshly cut, dulls quickly</td>
+                                <td class="py-2 px-4">Na tarnishes faster than Li</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h4 class="text-xl font-semibold mt-6 mb-3 text-emerald-300">3. Chemical Properties</h4>
+                
+                <h5 class="text-lg font-semibold mt-4 mb-2 text-emerald-200">a) Reaction with Water</h5>
+                <p class="mb-3">Produces hydrogen gas and an alkaline solution of metal hydroxide.</p>
+                <p class="mb-3"><strong>Equation example:</strong></p>
+                <p class="mb-3 bg-zinc-800 p-3 rounded-lg">2Na + 2H₂O → 2NaOH + H₂↑</p>
+                <p class="mb-3"><strong>Observation:</strong></p>
+                <ul class="list-disc pl-6 space-y-1 mb-3">
+                    <li>Effervescence (bubbles of H₂)</li>
+                    <li>Metal moves on water surface</li>
+                    <li>Heat released (sometimes ignites H₂, especially K, Rb, Cs)</li>
                 </ul>
-                <p><b>Reaction with Oxygen:</b></p>
-                <p>Alkali metals form different types of oxides when they react with oxygen:</p>
-                <ul>
-                    <li>Li &rarr; Li<sub>2</sub>O (oxide)</li>
-                    <li>Na &rarr; Na<sub>2</sub>O<sub>2</sub> (peroxide)</li>
-                    <li>K, Rb, Cs &rarr; KO<sub>2</sub>, RbO<sub>2</sub>, CsO<sub>2</sub> (superoxides)</li>
+                
+                <h5 class="text-lg font-semibold mt-4 mb-2 text-emerald-200">b) Reaction with Oxygen</h5>
+                <p class="mb-3">Forms metal oxides:</p>
+                <div class="bg-zinc-800 p-3 rounded-lg mb-3">
+                    <p>4Li + O₂ → 2Li₂O (lithium oxide)</p>
+                    <p>2Na + O₂ → Na₂O₂ (sodium peroxide)</p>
+                    <p>K + O₂ → KO₂ (potassium superoxide)</p>
+                </div>
+                
+                <h5 class="text-lg font-semibold mt-4 mb-2 text-emerald-200">c) Reaction with Halogens</h5>
+                <p class="mb-3">Forms ionic halides (white solids, soluble in water):</p>
+                <div class="bg-zinc-800 p-3 rounded-lg mb-3">
+                    <p>2Na + Cl₂ → 2NaCl</p>
+                </div>
+                
+                <h5 class="text-lg font-semibold mt-4 mb-2 text-emerald-200">d) Reaction with Acids</h5>
+                <p class="mb-3">React vigorously with dilute acids, releasing H₂:</p>
+                <div class="bg-zinc-800 p-3 rounded-lg mb-3">
+                    <p>2K + 2HCl → 2KCl + H₂↑</p>
+                </div>
+                
+                <h4 class="text-xl font-semibold mt-6 mb-3 text-emerald-300">4. Trends Down the Group</h4>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-zinc-800 rounded-lg overflow-hidden">
+                        <thead>
+                            <tr class="bg-zinc-700">
+                                <th class="py-2 px-4 text-left">Property</th>
+                                <th class="py-2 px-4 text-left">Trend</th>
+                                <th class="py-2 px-4 text-left">Reason</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-zinc-700">
+                                <td class="py-2 px-4">Reactivity</td>
+                                <td class="py-2 px-4">Increases</td>
+                                <td class="py-2 px-4">Outer electron is further from nucleus → easier to lose</td>
+                            </tr>
+                            <tr class="border-b border-zinc-700">
+                                <td class="py-2 px-4">Melting/Boiling point</td>
+                                <td class="py-2 px-4">Decreases</td>
+                                <td class="py-2 px-4">Weaker metallic bonds down the group</td>
+                            </tr>
+                            <tr class="border-b border-zinc-700">
+                                <td class="py-2 px-4">Density</td>
+                                <td class="py-2 px-4">Generally increases</td>
+                                <td class="py-2 px-4">Atomic mass increases</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4">Oxides formed</td>
+                                <td class="py-2 px-4">Li → Li₂O, Na → Na₂O₂, K → KO₂</td>
+                                <td class="py-2 px-4">More complex oxides as atom gets bigger</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h4 class="text-xl font-semibold mt-6 mb-3 text-emerald-300">5. Safety Notes</h4>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>Alkali metals are very reactive, especially with water.</li>
+                    <li>Store under oil to prevent reaction with air/moisture.</li>
+                    <li>Handle with tongs and protective equipment in labs.</li>
                 </ul>
-                <h3 class="text-xl font-semibold mt-4 mb-2 text-emerald-300">Trends Down the Group</h3>
-                <ul>
-                    <li>Atomic radius: increases</li>
-                    <li>First ionisation energy: decreases</li>
-                    <li>Reactivity: increases</li>
-                    <li>Melting & boiling point: decrease</li>
-                    <li>Density: generally increases (with minor irregularities)</li>
-                </ul>
-                <p><b>Reason:</b> The outer electron is further from the nucleus, with more shielding from inner electrons. This leads to a weaker attraction, making it easier to lose the valence electron.</p>
-                <h3 class="text-xl font-semibold mt-4 mb-2 text-emerald-300">Flame Test Colours</h3>
-                <ul>
-                    <li>Li: crimson red</li>
-                    <li>Na: bright yellow</li>
-                    <li>K: lilac</li>
-                    <li>Rb: red-violet</li>
-                    <li>Cs: blue-violet</li>
+                
+                <h4 class="text-xl font-semibold mt-6 mb-3 text-emerald-300">6. Key Observations in Experiments</h4>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li><strong>Li + Water:</strong> Fizzes slowly, floats, may move.</li>
+                    <li><strong>Na + Water:</strong> Fizzes faster, floats, may melt into a ball.</li>
+                    <li><strong>K + Water:</strong> Fizzes vigorously, floats, may ignite hydrogen gas.</li>
                 </ul>
             `,
             group2: `
-                <h3 class="text-2xl font-semibold mt-6 mb-2 text-emerald-300">Alkaline Earth Metals (Group 2)</h3>
-                <p>The alkaline earth metals are a group of reactive, soft, silvery-white metals found in Group 2 of the periodic table. They are less reactive than the alkali metals.</p>
-                <h3 class="text-xl font-semibold mt-4 mb-2 text-emerald-300">Key Characteristics</h3>
-                <ul>
-                    <li><b>Elements:</b> Beryllium (Be), Magnesium (Mg), Calcium (Ca), Strontium (Sr), Barium (Ba), Radium (Ra)</li>
-                    <li><b>Outer electronic configuration:</b> ns<sup>2</sup> (two electrons in outer shell)</li>
-                    <li><b>Charge on ion:</b> +2 (forms M<sup>2+</sup>)</li>
-                    <li><b>Physical Properties:</b> Harder and denser than alkali metals, with higher melting and boiling points.</li>
+                <h3 class="text-2xl font-semibold mt-6 mb-4 text-emerald-300">Group 2: Alkaline Earth Metals (Be, Mg, Ca, Sr, Ba, Ra)</h3>
+                
+                <h4 class="text-xl font-semibold mt-6 mb-3 text-emerald-300">1. General Properties</h4>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li><strong>Shiny and metallic:</strong> Fresh metals have a metallic luster; slightly harder than Group 1 metals.</li>
+                    <li><strong>Reactive, but less than Group 1:</strong> Reactivity increases down the group.</li>
+                    <li><strong>Form basic oxides and hydroxides:</strong> Produce alkaline solutions in water.</li>
+                    <li><strong>Divalent metals:</strong> Form ions with a +2 charge (e.g., Ca²⁺, Mg²⁺).</li>
                 </ul>
-                <h3 class="text-xl font-semibold mt-4 mb-2 text-emerald-300">Chemical Reactions</h3>
-                <p><b>Reaction with Water:</b></p>
-                <p>Reactivity increases down the group. Beryllium does not react, while magnesium reacts very slowly with cold water and more readily with steam. The others react readily with cold water.</p>
-                <ul>
-                    <li>Mg(s) + 2H<sub>2</sub>O(l) &rarr; Mg(OH)<sub>2</sub>(s) + H<sub>2</sub>(g) (with cold water, very slow)</li>
-                    <li>Ca(s) + 2H<sub>2</sub>O(l) &rarr; Ca(OH)<sub>2</sub>(aq) + H<sub>2</sub>(g) (reacts vigorously)</li>
+                
+                <h4 class="text-xl font-semibold mt-6 mb-3 text-emerald-300">2. Physical Properties</h4>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-zinc-800 rounded-lg overflow-hidden">
+                        <thead>
+                            <tr class="bg-zinc-700">
+                                <th class="py-2 px-4 text-left">Property</th>
+                                <th class="py-2 px-4 text-left">Trend Down the Group</th>
+                                <th class="py-2 px-4 text-left">Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-zinc-700">
+                                <td class="py-2 px-4">Density</td>
+                                <td class="py-2 px-4">Increases</td>
+                                <td class="py-2 px-4">Be: 1.85 g/cm³, Mg: 1.74 g/cm³, Ca: 1.55 g/cm³</td>
+                            </tr>
+                            <tr class="border-b border-zinc-700">
+                                <td class="py-2 px-4">Melting/Boiling point</td>
+                                <td class="py-2 px-4">Decreases</td>
+                                <td class="py-2 px-4">Be: 1287°C, Mg: 650°C, Ba: 725°C</td>
+                            </tr>
+                            <tr class="border-b border-zinc-700">
+                                <td class="py-2 px-4">Hardness</td>
+                                <td class="py-2 px-4">Decreases</td>
+                                <td class="py-2 px-4">Be: hard, Ba: soft</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4">Appearance</td>
+                                <td class="py-2 px-4">Shiny when freshly cut, dulls quickly</td>
+                                <td class="py-2 px-4">Similar to Group 1 but slightly harder</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h4 class="text-xl font-semibold mt-6 mb-3 text-emerald-300">3. Chemical Properties</h4>
+                
+                <h5 class="text-lg font-semibold mt-4 mb-2 text-emerald-200">a) Reaction with Water</h5>
+                <p class="mb-3">Be and Mg: Do not react with cold water; react slowly with steam.</p>
+                <p class="mb-3">Ca, Sr, Ba: React with cold water to form hydroxides and hydrogen gas.</p>
+                <p class="mb-3"><strong>Equation examples:</strong></p>
+                <div class="bg-zinc-800 p-3 rounded-lg mb-3">
+                    <p>Ca + 2H₂O → Ca(OH)₂ + H₂↑</p>
+                    <p>Mg + H₂O(steam) → MgO + H₂↑</p>
+                </div>
+                <p class="mb-3"><strong>Observation:</strong></p>
+                <ul class="list-disc pl-6 space-y-1 mb-3">
+                    <li>Effervescence (bubbles of H₂)</li>
+                    <li>Metal dissolves slowly or floats on water</li>
                 </ul>
-                <p><b>Reaction with Oxygen:</b></p>
-                <p>Alkaline earth metals form simple oxides when heated in air.</p>
-                <ul>
-                    <li>2Mg(s) + O<sub>2</sub>(g) &rarr; 2MgO(s)</li>
+                
+                <h5 class="text-lg font-semibold mt-4 mb-2 text-emerald-200">b) Reaction with Oxygen</h5>
+                <p class="mb-3">Forms oxides:</p>
+                <div class="bg-zinc-800 p-3 rounded-lg mb-3">
+                    <p>2Mg + O₂ → 2MgO</p>
+                    <p>Ca + O₂ → 2CaO</p>
+                </div>
+                
+                <h5 class="text-lg font-semibold mt-4 mb-2 text-emerald-200">c) Reaction with Halogens</h5>
+                <p class="mb-3">Forms ionic halides (white solids, soluble in water):</p>
+                <div class="bg-zinc-800 p-3 rounded-lg mb-3">
+                    <p>Mg + Cl₂ → MgCl₂</p>
+                </div>
+                
+                <h5 class="text-lg font-semibold mt-4 mb-2 text-emerald-200">d) Reaction with Acids</h5>
+                <p class="mb-3">Reacts with dilute acids to release hydrogen gas:</p>
+                <div class="bg-zinc-800 p-3 rounded-lg mb-3">
+                    <p>Mg + 2HCl → MgCl₂ + H₂↑</p>
+                </div>
+                
+                <h4 class="text-xl font-semibold mt-6 mb-3 text-emerald-300">4. Trends Down the Group</h4>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-zinc-800 rounded-lg overflow-hidden">
+                        <thead>
+                            <tr class="bg-zinc-700">
+                                <th class="py-2 px-4 text-left">Property</th>
+                                <th class="py-2 px-4 text-left">Trend</th>
+                                <th class="py-2 px-4 text-left">Reason</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-zinc-700">
+                                <td class="py-2 px-4">Reactivity</td>
+                                <td class="py-2 px-4">Increases</td>
+                                <td class="py-2 px-4">Outer electrons are further from nucleus → easier to lose</td>
+                            </tr>
+                            <tr class="border-b border-zinc-700">
+                                <td class="py-2 px-4">Melting/Boiling point</td>
+                                <td class="py-2 px-4">Decreases</td>
+                                <td class="py-2 px-4">Metallic bonding becomes weaker down the group</td>
+                            </tr>
+                            <tr class="border-b border-zinc-700">
+                                <td class="py-2 px-4">Density</td>
+                                <td class="py-2 px-4">Increases</td>
+                                <td class="py-2 px-4">Atomic mass increases</td>
+                            </tr>
+                            <tr class="border-b border-zinc-700">
+                                <td class="py-2 px-4">Solubility of hydroxides</td>
+                                <td class="py-2 px-4">Increases</td>
+                                <td class="py-2 px-4">Mg(OH)₂ least soluble, Ba(OH)₂ most soluble</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4">Solubility of sulfates</td>
+                                <td class="py-2 px-4">Decreases</td>
+                                <td class="py-2 px-4">MgSO₄ soluble, BaSO₄ insoluble</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h4 class="text-xl font-semibold mt-6 mb-3 text-emerald-300">5. Uses of Group 2 Metals</h4>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li><strong>Mg:</strong> Aircraft parts, fireworks (bright white flame)</li>
+                    <li><strong>Ca:</strong> Cement, building materials, neutralizing soil acidity</li>
+                    <li><strong>Ba:</strong> Barium meals (X-ray imaging)</li>
+                    <li><strong>MgO / CaO:</strong> Refractory materials, neutralizing acids</li>
                 </ul>
-                <h3 class="text-xl font-semibold mt-4 mb-2 text-emerald-300">Trends Down the Group</h3>
-                <ul>
-                    <li>Atomic radius: increases</li>
-                    <li>First ionisation energy: decreases</li>
-                    <li>Reactivity: increases</li>
-                    <li>Melting & boiling point: generally decrease</li>
+                
+                <h4 class="text-xl font-semibold mt-6 mb-3 text-emerald-300">6. Safety Notes</h4>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>Store metals away from moisture to prevent unwanted reactions.</li>
+                    <li>Ba compounds (except BaSO₄) are toxic – handle with care.</li>
+                    <li>Use protective equipment during experiments.</li>
                 </ul>
-                <h3 class="text-xl font-semibold mt-4 mb-2 text-emerald-300">Flame Test Colours</h3>
-                <ul>
-                    <li>Ca: brick red</li>
-                    <li>Sr: crimson red</li>
-                    <li>Ba: apple green</li>
+                
+                <h4 class="text-xl font-semibold mt-6 mb-3 text-emerald-300">7. Key Observations in Experiments</h4>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li><strong>Mg + Water:</strong> Very slow, only reacts with steam. Forms white MgO.</li>
+                    <li><strong>Ca + Water:</strong> Effervescence, slight heat, forms cloudy Ca(OH)₂ solution.</li>
+                    <li><strong>Ba + Water:</strong> Vigorous reaction, more heat, forms alkaline solution.</li>
                 </ul>
             `,
             safetyNotes: `
@@ -512,43 +686,48 @@
                 </ul>
             `
         };
-
         const preQuizQuestions = [
-            // NEW QUIZ QUESTION (multiple-choice format)
             {
                 type: 'multiple-choice',
-                question: "When sodium reacts with water, hydrogen gas is released. What is the other product?",
-                options: ["Sodium carbonate", "Sodium hydroxide", "Sodium chloride", "Sodium oxide"],
-                answer: "Sodium hydroxide"
+                question: "Which Group 1 metal floats on water?",
+                options: ["Lithium", "Sodium", "Potassium", "Cesium"],
+                answer: "Lithium"
             },
             {
                 type: 'multiple-choice',
-                question: "Why is lithium stored under oil?",
-                options: ["To prevent contact with oxygen and water vapour in air", "To reduce its density", "To increase its conductivity", "To reduce its melting point"],
-                answer: "To prevent contact with oxygen and water vapour in air"
-            },
-            {
-                type: 'slider',
-                question: "On a scale of 1–10, how vigorous do you predict cesium will be when reacting with water?",
-                answer: { min: 9, max: 10 }
+                question: "Which metal reacts most vigorously with water?",
+                options: ["Sodium", "Potassium", "Lithium", "Magnesium"],
+                answer: "Potassium"
             },
             {
                 type: 'drag-and-drop',
-                question: "Arrange these alkali metals from least to most reactive:",
-                items: ["Lithium", "Potassium", "Cesium"],
-                answer: ["Lithium", "Potassium", "Cesium"]
+                question: "Match the metal to the gas released when reacting with water:",
+                items: ["Li", "Na", "K", "Ca", "Mg"],
+                answer: ["Li → H₂", "Na → H₂", "K → H₂", "Ca → H₂", "Mg → H₂"]
             },
             {
                 type: 'multiple-choice',
-                question: "When reacting, Group 1 metals form:",
-                options: ["Cations with a +1 charge", "Cations with a +2 charge", "Anions with a −1 charge", "Anions with a −2 charge"],
-                answer: "Cations with a +1 charge"
+                question: "Which Group 2 metal reacts very slowly with cold water but faster with steam?",
+                options: ["Calcium", "Magnesium", "Barium", "Strontium"],
+                answer: "Magnesium"
+            },
+            {
+                type: 'click-to-select',
+                question: "Which oxide is formed when potassium reacts with oxygen?",
+                options: ["KO", "K₂O", "K₂O₂", "KO₂"],
+                answer: "KO₂"
             },
             {
                 type: 'multiple-choice',
-                question: "Compared to most metals, the density of lithium, sodium, and potassium is:",
-                options: ["Lower", "Higher", "The same"],
-                answer: "Lower"
+                question: "Which hydroxide is most soluble in water?",
+                options: ["Mg(OH)₂", "Ca(OH)₂", "Ba(OH)₂", "Be(OH)₂"],
+                answer: "Ba(OH)₂"
+            },
+            {
+                type: 'drag-and-drop',
+                question: "Arrange these metals from least reactive to most reactive with water:",
+                items: ["Li", "Na", "K", "Ca"],
+                answer: ["Li", "Ca", "Na", "K"]
             }
         ];
         
@@ -640,8 +819,6 @@
                 answer: "Group 1 metals have one outer electron, Group 2 have two; Group 1 metals lose their outer electron more easily, so they are more reactive; Group 2 metals form hydroxides that are less soluble than those of Group 1."
             }
         ];
-
-
         // UI References
         const ui = {
             mainContent: document.getElementById('main-content'),
@@ -676,17 +853,14 @@
             }
             element.innerHTML = "";
             typingAnimationRunning = true;
-
             const parser = new DOMParser();
             const doc = parser.parseFromString(htmlString, 'text/html');
             const paragraphs = doc.body.children;
-
             const animateParagraph = (pIndex) => {
                 if (pIndex >= paragraphs.length) {
                     typingAnimationRunning = false;
                     return;
                 }
-
                 const currentParagraph = paragraphs[pIndex];
                 const parts = [];
                 currentParagraph.childNodes.forEach(node => {
@@ -702,7 +876,6 @@
                         parts.push({ type: 'html', content: node.outerHTML });
                     }
                 });
-
                 let partIndex = 0;
                 let charIndex = 0;
                 
@@ -727,7 +900,6 @@
                             charIndex = 0;
                         }
                     }
-
                     animationTimeout = setTimeout(type, delay);
                 };
                 type();
@@ -740,7 +912,6 @@
             ui.messageText.textContent = message;
             ui.messageBox.classList.remove('hidden');
         }
-
         function hideMessage() {
             ui.messageBox.classList.add('hidden');
         }
@@ -755,7 +926,6 @@
                 container.style.fontSize = `${fontSize}px`;
             }
         }
-
         // --- 2D Atom Viewer (Canvas) ---
         let canvas, ctx;
         let animationFrameId;
@@ -787,7 +957,6 @@
                 }
             };
             window.addEventListener('resize', resizeCanvas);
-
             // Add mouse events for pan and zoom
             canvas.addEventListener('wheel', handleWheel);
             canvas.addEventListener('mousedown', handleMouseDown);
@@ -795,7 +964,6 @@
             canvas.addEventListener('mouseup', handleMouseUp);
             canvas.addEventListener('mouseleave', handleMouseUp);
         }
-
         function handleWheel(e) {
             e.preventDefault();
             const zoomSpeed = 0.1;
@@ -806,17 +974,14 @@
             const newScale = e.deltaY < 0 ? oldScale * (1 + zoomSpeed) : oldScale / (1 + zoomSpeed);
             
             scale = Math.max(0.5, Math.min(newScale, 3)); 
-
             translateX = mouseX - (mouseX - translateX) * (scale / oldScale);
             translateY = mouseY - (mouseY - translateY) * (scale / oldScale);
         }
-
         function handleMouseDown(e) {
             isDragging = true;
             lastMouseX = e.clientX;
             lastMouseY = e.clientY;
         }
-
         function handleMouseMove(e) {
             if (!isDragging) return;
             const deltaX = e.clientX - lastMouseX;
@@ -826,11 +991,9 @@
             lastMouseX = e.clientX;
             lastMouseY = e.clientY;
         }
-
         function handleMouseUp() {
             isDragging = false;
         }
-
         function animate() {
             if (atom) {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -857,14 +1020,11 @@
                 cancelAnimationFrame(animationFrameId);
             }
         }
-
         function drawAtom(element, atomData) {
             if (!ctx || !element || !atomData) return;
             ctx.save();
-
             ctx.translate(canvas.width / 2 + translateX, canvas.height / 2 + translateY);
             ctx.scale(scale, scale);
-
             ctx.beginPath();
             ctx.arc(0, 0, 30, 0, Math.PI * 2);
             ctx.fillStyle = '#ef4444';
@@ -872,7 +1032,6 @@
             ctx.shadowBlur = 10;
             ctx.fill();
             ctx.shadowBlur = 0;
-
             ctx.fillStyle = '#ffffff';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
@@ -880,18 +1039,15 @@
             ctx.fillText(element.symbol, 0, -10);
             ctx.font = '12px "Inter", sans-serif';
             ctx.fillText(element.atomicNumber, 0, 10);
-
             atomData.electronOrbits.forEach(orbit => {
                 ctx.beginPath();
                 ctx.arc(0, 0, orbit.radius, 0, Math.PI * 2);
                 ctx.strokeStyle = 'rgba(204, 204, 204, 0.2)';
                 ctx.lineWidth = 2;
                 ctx.stroke();
-
                 orbit.electrons.forEach((electron, index) => {
                     const electronX = 0 + orbit.radius * Math.cos(orbit.angle + (index * ((Math.PI * 2) / orbit.electrons.length)));
                     const electronY = 0 + orbit.radius * Math.sin(orbit.angle + (index * ((Math.PI * 2) / orbit.electrons.length)));
-
                     ctx.beginPath();
                     ctx.arc(electronX, electronY, 8, 0, Math.PI * 2);
                     ctx.fillStyle = electron.isValence ? '#fcd34d' : '#4ade80';
@@ -901,7 +1057,6 @@
                     ctx.shadowBlur = 0;
                 });
             });
-
             ctx.restore();
         }
         
@@ -910,17 +1065,14 @@
                 cancelAnimationFrame(animationFrameId);
             }
             currentElement = element;
-
             const { electrons: numElectrons, group } = element;
             
             const numValenceElectrons = (group === 'I' || group === 'i') ? 1 : 2;
             const numInnerElectrons = numElectrons - numValenceElectrons;
-
             const shellCapacities = [2, 8, 18, 32, 18, 8, 2];
             let remainingInnerElectrons = numInnerElectrons;
             let currentRadius = 50;
             const orbits = [];
-
             for (let i = 0; i < shellCapacities.length && remainingInnerElectrons > 0; i++) {
                 const electronsInShell = Math.min(shellCapacities[i], remainingInnerElectrons);
                 
@@ -935,11 +1087,9 @@
                     angle: Math.random() * Math.PI * 2,
                     speed: 0.01 / (i + 1)
                 });
-
                 remainingInnerElectrons -= electronsInShell;
                 currentRadius += 40;
             }
-
             const valenceElectronArray = [];
             for (let j = 0; j < numValenceElectrons; j++) {
                 valenceElectronArray.push({ isValence: true });
@@ -971,7 +1121,6 @@
             } else {
                 scale = 1;
             }
-
             translateX = 0;
             translateY = 0;
             
@@ -979,7 +1128,6 @@
         }
         
         // --- End 2D Atom Viewer ---
-
         // --- UI & Event Handlers ---
         // Function to update the facts panel with colored text
         function updateFactsPanel(elementName) {
@@ -1007,17 +1155,14 @@
             typeHtmlWithKeywords(ui.factsContent, factsHTML, 20); // Call the new typing function
             adjustFontSizeToFit(ui.factsContent);
         }
-
         function showLearnSection(group) {
             // Deactivate all tabs and content panels first
             ui.group1Tab.classList.remove('active');
             ui.group1Tab.setAttribute('aria-selected', 'false');
             ui.group1ContentDiv.classList.add('hidden');
-
             ui.group2Tab.classList.remove('active');
             ui.group2Tab.setAttribute('aria-selected', 'false');
             ui.group2ContentDiv.classList.add('hidden');
-
             // Activate the selected tab and content panel
             if (group === 'group1') {
                 ui.group1Tab.classList.add('active');
@@ -1033,7 +1178,6 @@
                 ui.safetyNotesDiv.innerHTML = learnContent.safetyNotes;
             }
         }
-
         function openLearnPanel() {
             ui.hubGrid.classList.add('hidden');
             ui.prequizPanel.classList.add('hidden');
@@ -1050,14 +1194,12 @@
             ui.prequizPanel.classList.remove('hidden');
             generateQuizUI(preQuizQuestions, ui.prequizContentDiv);
         }
-
         function openPostquizPanel() {
             const preQuizCompleted = localStorage.getItem(`${appId}-preQuizCompleted`);
             if (!preQuizCompleted) {
                 showMessage("You must complete the pre-quiz before attempting the post-quiz.");
                 return;
             }
-
             ui.hubGrid.classList.add('hidden');
             ui.learnPanel.classList.add('hidden');
             ui.prequizPanel.classList.add('hidden');
@@ -1083,7 +1225,6 @@
                 drawDefaultMessage();
             }
         }
-
         function generateQuizUI(questions, container) {
             container.innerHTML = '';
             
@@ -1102,44 +1243,38 @@
                         `;
                     });
                     quizHTML += `</div>`;
-                } else if (q.type === 'slider') {
-                    quizHTML += `
-                        <div class="flex flex-col items-center">
-                            <input type="range" min="1" max="10" value="1" class="w-full h-2 rounded-lg appearance-none cursor-pointer bg-zinc-700" id="slider-${index}">
-                            <div class="flex justify-between w-full mt-2 text-sm text-zinc-400">
-                                <span>1 (Least Vigorous)</span>
-                                <span>10 (Most Vigorous)</span>
-                            </div>
-                            <span id="slider-value-${index}" class="mt-4 text-xl font-bold text-purple-400">1</span>
-                        </div>
-                    `;
+                } else if (q.type === 'click-to-select') {
+                    quizHTML += `<div class="flex flex-wrap gap-2">`;
+                    q.options.forEach(option => {
+                        quizHTML += `
+                            <button class="quiz-option px-3 py-2 rounded-md bg-zinc-700 border-2 border-zinc-700 hover:border-purple-500" data-question-index="${index}" data-answer="${option}">
+                                ${option}
+                            </button>
+                        `;
+                    });
+                    quizHTML += `</div>`;
                 } else if (q.type === 'drag-and-drop') {
                     const shuffledItems = [...q.items].sort(() => Math.random() - 0.5);
                     quizHTML += `
                         <div class="flex flex-col space-y-4">
-                            <div id="drag-items-container-${index}" class="flex flex-row flex-wrap justify-center gap-4 p-4 bg-zinc-700 rounded-lg">
+                            <div id="drag-items-container-${index}" class="flex flex-row flex-wrap justify-center gap-4 p-4 bg-zinc-700 rounded-lg dropzone-container" data-type="source">
                                 ${shuffledItems.map((item) => `
                                     <div class="draggable-item p-3 rounded-md bg-zinc-600 text-center border-2 border-zinc-700" draggable="true" data-value="${item}">
                                         ${item}
                                     </div>
                                 `).join('')}
                             </div>
-                            <div class="flex flex-row space-x-2 items-center justify-center">
-                                <span class="text-sm text-zinc-400">Least Reactive</span>
-                                <span class="text-4xl text-zinc-500">→</span>
-                                <span class="text-sm text-zinc-400">Most Reactive</span>
-                            </div>
-                            <div id="drag-container-${index}" class="flex flex-row space-x-2 justify-center">
-                                <div class="dropzone" data-index="0">Drop Here</div>
-                                <span class="text-4xl text-zinc-500 mx-2">→</span>
-                                <div class="dropzone" data-index="1">Drop Here</div>
-                                <span class="text-4xl text-zinc-500 mx-2">→</span>
-                                <div class="dropzone" data-index="2">Drop Here</div>
+                            <div id="drag-container-${index}" class="flex flex-wrap justify-center gap-1">
+                                ${Array(q.answer.length).fill(0).map((_, i) => `
+                                    <div class="flex items-center">
+                                        <div class="dropzone dropzone-container" data-type="target" data-index="${i}" style="min-width: 80px; padding: 4px;">Drop Here</div>
+                                        ${i < q.answer.length - 1 ? '<span class="text-2xl text-zinc-500 mx-1">→</span>' : ''}
+                                    </div>
+                                `).join('')}
                             </div>
                         </div>
                     `;
                 }
-
                 quizHTML += `</div>`;
             });
             
@@ -1153,24 +1288,23 @@
                     e.target.classList.add('selected');
                 });
             });
-
-            container.querySelectorAll('input[type="range"]').forEach(slider => {
-                slider.addEventListener('input', (e) => {
-                    container.querySelector(`#slider-value-${slider.id.split('-')[1]}`).textContent = e.target.value;
-                });
-            });
             
             container.querySelectorAll('.draggable-item').forEach(item => {
                 item.addEventListener('dragstart', (e) => {
-                    e.dataTransfer.setData('text/plain', e.target.dataset.value);
+                    const data = {
+                        value: e.target.dataset.value,
+                        originType: e.target.parentElement.dataset.type,
+                        originId: e.target.parentElement.id
+                    };
+                    e.dataTransfer.setData('text/plain', JSON.stringify(data));
                     e.target.classList.add('dragging');
                 });
                 item.addEventListener('dragend', (e) => {
                     e.target.classList.remove('dragging');
                 });
             });
-
-            container.querySelectorAll('.dropzone').forEach(dropzone => {
+            
+            container.querySelectorAll('.dropzone-container').forEach(dropzone => {
                 dropzone.addEventListener('dragover', (e) => {
                     e.preventDefault();
                     dropzone.classList.add('drag-over');
@@ -1182,12 +1316,47 @@
                 dropzone.addEventListener('drop', (e) => {
                     e.preventDefault();
                     dropzone.classList.remove('drag-over');
-                    const data = e.dataTransfer.getData('text/plain');
-                    const draggedElement = container.querySelector(`.draggable-item[data-value="${data}"]`);
-
-                    if (dropzone.children.length === 0) {
-                        dropzone.textContent = ''; // Clear "Drop Here" text
-                        dropzone.appendChild(draggedElement);
+                    
+                    const data = JSON.parse(e.dataTransfer.getData('text/plain'));
+                    const draggedElement = container.querySelector(`.draggable-item[data-value="${data.value}"]`);
+                    
+                    // If dropping on source container
+                    if (dropzone.dataset.type === 'source') {
+                        // Only move if not already in source
+                        if (data.originType !== 'source') {
+                            dropzone.appendChild(draggedElement);
+                        }
+                    } 
+                    // If dropping on target dropzone
+                    else {
+                        // Check if dropzone already has an item
+                        const existingItem = dropzone.querySelector('.draggable-item');
+                        
+                        if (existingItem) {
+                            // If dragged from source container
+                            if (data.originType === 'source') {
+                                // Move existing item back to source
+                                const sourceContainer = document.getElementById(data.originId);
+                                sourceContainer.appendChild(existingItem);
+                                // Move dragged element to current dropzone
+                                dropzone.appendChild(draggedElement);
+                            } 
+                            // If dragged from another dropzone
+                            else {
+                                // Swap items
+                                const originDropzone = document.getElementById(data.originId);
+                                originDropzone.appendChild(existingItem);
+                                dropzone.appendChild(draggedElement);
+                            }
+                        } else {
+                            // Dropzone is empty, just append
+                            dropzone.appendChild(draggedElement);
+                        }
+                        
+                        // Clear "Drop Here" text if it exists
+                        if (dropzone.textContent.trim() === 'Drop Here') {
+                            dropzone.textContent = '';
+                        }
                     }
                 });
             });
@@ -1200,8 +1369,8 @@
             questions.forEach((q, index) => {
                 const questionDiv = container.querySelector(`.bg-zinc-800.mb-6:nth-of-type(${index + 1})`);
                 let isCorrect = false;
-
-                if (q.type === 'multiple-choice') {
+                
+                if (q.type === 'multiple-choice' || q.type === 'click-to-select') {
                     const selectedOption = questionDiv.querySelector('.quiz-option.selected');
                     if (selectedOption && selectedOption.dataset.answer === q.answer) {
                         isCorrect = true;
@@ -1216,36 +1385,21 @@
                             option.classList.add('incorrect');
                         }
                     });
-                } else if (q.type === 'slider') {
-                    const sliderValue = parseInt(questionDiv.querySelector('input[type="range"]').value);
-                    if (sliderValue >= q.answer.min && sliderValue <= q.answer.max) {
-                        isCorrect = true;
-                    }
-                    questionDiv.querySelector('input[type="range"]').disabled = true;
-                    const resultSpan = questionDiv.querySelector('[id^="slider-value-"]');
-                    if (isCorrect) {
-                        resultSpan.textContent = `${sliderValue} (Correct!)`;
-                        resultSpan.classList.add('text-green-400');
-                    } else {
-                        resultSpan.textContent = `${sliderValue} (Incorrect. Expected ${q.answer.min}-${q.answer.max})`;
-                        resultSpan.classList.add('text-red-400');
-                    }
                 } else if (q.type === 'drag-and-drop') {
-                    const orderedItems = [...questionDiv.querySelectorAll('.dropzone')].map(zone => {
+                    const orderedItems = [...questionDiv.querySelectorAll('.dropzone[data-type="target"]')].map(zone => {
                         const item = zone.querySelector('.draggable-item');
                         return item ? item.dataset.value : null;
                     });
-                    const correctOrder = q.answer;
                     
-                    if (orderedItems.every(item => item !== null) && JSON.stringify(orderedItems) === JSON.stringify(correctOrder)) {
+                    if (orderedItems.every(item => item !== null) && JSON.stringify(orderedItems) === JSON.stringify(q.answer)) {
                         isCorrect = true;
                     }
                     
-                    const dropzones = questionDiv.querySelectorAll('.dropzone');
+                    const dropzones = questionDiv.querySelectorAll('.dropzone[data-type="target"]');
                     dropzones.forEach((zone, itemIndex) => {
                         const item = zone.querySelector('.draggable-item');
                         if (item) {
-                            if (item.dataset.value === correctOrder[itemIndex]) {
+                            if (item.dataset.value === q.answer[itemIndex]) {
                                 item.classList.add('bg-green-700', 'border-green-500');
                             } else {
                                 item.classList.add('bg-red-700', 'border-red-500');
@@ -1266,15 +1420,15 @@
                             }
                         });
                     }
-
+                    
                     if (!isCorrect) {
                         const correctOrderDiv = document.createElement('p');
                         correctOrderDiv.className = "mt-2 text-sm text-green-300";
-                        correctOrderDiv.textContent = `Correct Order: ${correctOrder.join(' → ')}`;
+                        correctOrderDiv.textContent = `Correct Order: ${q.answer.join(' → ')}`;
                         questionDiv.appendChild(correctOrderDiv);
                     }
                 }
-
+                
                 if (isCorrect) {
                     score++;
                 }
@@ -1290,17 +1444,14 @@
                 openHubPanel();
             }, 3000);
         }
-
         // Post-Quiz specific functions
         function generatePostQuizUI() {
             ui.postquizContentDiv.innerHTML = '';
             ui.postquizResultsDiv.innerHTML = '';
-
             let quizHTML = '';
             postQuizQuestions.forEach((q, index) => {
                 quizHTML += `<div class="bg-zinc-800 p-6 rounded-lg mb-6 appear-anim" style="animation-delay: ${index * 0.1}s;">`;
                 quizHTML += `<p class="text-lg font-semibold mb-3">${index + 1}. ${q.question}</p>`;
-
                 if (q.type === 'multiple-choice') {
                     quizHTML += `<div class="flex flex-col space-y-2">`;
                     q.options.forEach(option => {
@@ -1337,7 +1488,7 @@
                     const shuffledItems = [...q.items].sort(() => Math.random() - 0.5);
                     quizHTML += `
                         <div class="flex flex-col space-y-4">
-                            <div id="drag-items-container-post-${index}" class="flex flex-row flex-wrap justify-center gap-4 p-4 bg-zinc-700 rounded-lg">
+                            <div id="drag-items-container-post-${index}" class="flex flex-row flex-wrap justify-center gap-4 p-4 bg-zinc-700 rounded-lg dropzone-container" data-type="source">
                                 ${shuffledItems.map((item) => `
                                     <div class="draggable-item p-3 rounded-md bg-zinc-600 text-center border-2 border-zinc-700" draggable="true" data-value="${item}">
                                         ${item}
@@ -1350,13 +1501,13 @@
                                 <span class="text-sm text-zinc-400">Most Reactive</span>
                             </div>
                             <div id="drag-container-post-${index}" class="flex flex-row space-x-2 justify-center">
-                                <div class="dropzone" data-index="0">Drop Here</div>
+                                <div class="dropzone dropzone-container" data-type="target" data-index="0">Drop Here</div>
                                 <span class="text-4xl text-zinc-500 mx-2">→</span>
-                                <div class="dropzone" data-index="1">Drop Here</div>
+                                <div class="dropzone dropzone-container" data-type="target" data-index="1">Drop Here</div>
                                 <span class="text-4xl text-zinc-500 mx-2">→</span>
-                                <div class="dropzone" data-index="2">Drop Here</div>
+                                <div class="dropzone dropzone-container" data-type="target" data-index="2">Drop Here</div>
                                 <span class="text-4xl text-zinc-500 mx-2">→</span>
-                                <div class="dropzone" data-index="3">Drop Here</div>
+                                <div class="dropzone dropzone-container" data-type="target" data-index="3">Drop Here</div>
                             </div>
                         </div>
                     `;
@@ -1416,7 +1567,6 @@
                         <textarea id="extended-response-${index}" class="w-full h-32 p-3 mt-2 rounded-md bg-zinc-700 border-2 border-zinc-600 text-white focus:outline-none focus:border-rose-500"></textarea>
                     `;
                 }
-
                 quizHTML += `</div>`;
             });
             ui.postquizContentDiv.innerHTML = quizHTML;
@@ -1435,17 +1585,80 @@
                     e.target.classList.add('selected');
                 });
             });
-
+            
+            // Add drag-and-drop event listeners for post-quiz
             ui.postquizContentDiv.querySelectorAll('.draggable-item').forEach(item => {
                 item.addEventListener('dragstart', (e) => {
-                    e.dataTransfer.setData('text/plain', e.target.dataset.value);
+                    const data = {
+                        value: e.target.dataset.value,
+                        originType: e.target.parentElement.dataset.type,
+                        originId: e.target.parentElement.id
+                    };
+                    e.dataTransfer.setData('text/plain', JSON.stringify(data));
                     e.target.classList.add('dragging');
                 });
                 item.addEventListener('dragend', (e) => {
                     e.target.classList.remove('dragging');
                 });
             });
-
+            
+            ui.postquizContentDiv.querySelectorAll('.dropzone-container').forEach(dropzone => {
+                dropzone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    dropzone.classList.add('drag-over');
+                });
+                dropzone.addEventListener('dragleave', (e) => {
+                    e.preventDefault();
+                    dropzone.classList.remove('drag-over');
+                });
+                dropzone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    dropzone.classList.remove('drag-over');
+                    
+                    const data = JSON.parse(e.dataTransfer.getData('text/plain'));
+                    const draggedElement = ui.postquizContentDiv.querySelector(`.draggable-item[data-value="${data.value}"]`);
+                    
+                    // If dropping on source container
+                    if (dropzone.dataset.type === 'source') {
+                        // Only move if not already in source
+                        if (data.originType !== 'source') {
+                            dropzone.appendChild(draggedElement);
+                        }
+                    } 
+                    // If dropping on target dropzone
+                    else {
+                        // Check if dropzone already has an item
+                        const existingItem = dropzone.querySelector('.draggable-item');
+                        
+                        if (existingItem) {
+                            // If dragged from source container
+                            if (data.originType === 'source') {
+                                // Move existing item back to source
+                                const sourceContainer = document.getElementById(data.originId);
+                                sourceContainer.appendChild(existingItem);
+                                // Move dragged element to current dropzone
+                                dropzone.appendChild(draggedElement);
+                            } 
+                            // If dragged from another dropzone
+                            else {
+                                // Swap items
+                                const originDropzone = document.getElementById(data.originId);
+                                originDropzone.appendChild(existingItem);
+                                dropzone.appendChild(draggedElement);
+                            }
+                        } else {
+                            // Dropzone is empty, just append
+                            dropzone.appendChild(draggedElement);
+                        }
+                        
+                        // Clear "Drop Here" text if it exists
+                        if (dropzone.textContent.trim() === 'Drop Here') {
+                            dropzone.textContent = '';
+                        }
+                    }
+                });
+            });
+            
             ui.postquizContentDiv.querySelectorAll('.dropzone-match').forEach(dropzone => {
                 dropzone.addEventListener('dragover', (e) => {
                     e.preventDefault();
@@ -1460,22 +1673,18 @@
                     dropzone.classList.remove('drag-over');
                     const data = e.dataTransfer.getData('text/plain');
                     const draggedElement = ui.postquizContentDiv.querySelector(`.match-item[data-value="${data}"]`);
-
                     if (dropzone.children.length === 0) {
                         dropzone.appendChild(draggedElement);
                     }
                 });
             });
         }
-
         function checkPostQuizAnswers() {
             let score = 0;
             const totalQuestions = postQuizQuestions.length;
-
             postQuizQuestions.forEach((q, index) => {
                 const questionDiv = ui.postquizContentDiv.querySelector(`.bg-zinc-800.mb-6:nth-of-type(${index + 1})`);
                 let isCorrect = false;
-
                 switch (q.type) {
                     case 'multiple-choice':
                     case 'true-or-false':
@@ -1513,7 +1722,7 @@
                         questionDiv.appendChild(resultP);
                         break;
                     case 'drag-and-drop':
-                        const orderedItems = [...questionDiv.querySelectorAll('.dropzone')].map(zone => {
+                        const orderedItems = [...questionDiv.querySelectorAll('.dropzone[data-type="target"]')].map(zone => {
                             const item = zone.querySelector('.draggable-item');
                             return item ? item.dataset.value : null;
                         });
@@ -1611,12 +1820,10 @@
                         isCorrect = true; // Don't penalize score for this.
                         break;
                 }
-
                 if (isCorrect) {
                     score++;
                 }
             });
-
             ui.postquizSubmitBtn.disabled = true;
             ui.postquizResultsDiv.textContent = `You scored ${score} out of ${postQuizQuestions.length} on the graded questions!`;
             ui.postquizResultsDiv.classList.add('text-yellow-300');
@@ -1625,20 +1832,17 @@
                 openHubPanel();
             }, 5000);
         }
-
         // --- Main App Initialization ---
         async function firebaseInit() {
             try {
                 const app = initializeApp(firebaseConfig);
                 auth = getAuth(app);
                 db = getFirestore(app);
-
                 if (initialAuthToken) {
                     await signInWithCustomToken(auth, initialAuthToken);
                 } else {
                     await signInAnonymously(auth);
                 }
-
                 onAuthStateChanged(auth, (user) => {
                     if (user) {
                         userId = user.uid;
@@ -1653,7 +1857,6 @@
                 console.error("Firebase initialization failed:", error);
             }
         };
-
         document.addEventListener('DOMContentLoaded', async () => {
             await firebaseInit();
             init2DViewer();
@@ -1671,7 +1874,6 @@
                     ui.group2ElementsContainer.appendChild(button);
                 }
             });
-
             document.getElementById('nav-hub-btn').addEventListener('click', openHubPanel);
             document.getElementById('nav-learn-btn').addEventListener('click', openLearnPanel);
             document.getElementById('nav-prequiz-btn').addEventListener('click', () => {
@@ -1690,19 +1892,15 @@
             document.getElementById('back-to-hub-btn-postquiz').addEventListener('click', openHubPanel);
             ui.prequizSubmitBtn.addEventListener('click', () => checkAnswers(preQuizQuestions, ui.prequizContentDiv, ui.prequizResultsDiv));
             ui.postquizSubmitBtn.addEventListener('click', checkPostQuizAnswers);
-
             document.querySelectorAll('#nav-leaderboard-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     showMessage("This feature is still under construction. Please check back later!");
                 });
             });
-
             ui.closeMessageBtn.addEventListener('click', hideMessage);
-
             // Add event listeners for the new tab buttons
             ui.group1Tab.addEventListener('click', () => showLearnSection('group1'));
             ui.group2Tab.addEventListener('click', () => showLearnSection('group2'));
-
             document.querySelectorAll('.element-card').forEach(button => {
                 button.addEventListener('click', () => {
                     openHubPanel(); // Ensure the hub panel is visible
@@ -1714,7 +1912,6 @@
                     }
                 });
             });
-
             // Start with the hub panel visible by default
             openHubPanel();
         });
