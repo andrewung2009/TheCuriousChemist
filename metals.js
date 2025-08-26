@@ -1,62 +1,51 @@
-const metalsData = [
+// Group 1 metals data
+const group1Metals = [
     {
         name: "Lithium",
         symbol: "Li",
-        atomicNumber: 3,
-        density: "0.534 g/cm³",
-        meltingPoint: "180.5 °C",
-        reaction: "Reacts slowly with water.",
-        equation: "2Li + 2H2O → 2LiOH + H2↑",
-        explanation: "Lithium reacts slowly with water to form lithium hydroxide and hydrogen gas."
+        number: 3,
+        physical: "Soft, silvery metal",
+        chemical: "Reacts with water to form lithium hydroxide and hydrogen",
+        reactions: "2Li + 2H₂O → 2LiOH + H₂"
     },
     {
         name: "Sodium",
         symbol: "Na",
-        atomicNumber: 11,
-        density: "0.971 g/cm³",
-        meltingPoint: "97.8 °C",
-        reaction: "Reacts vigorously with water.",
-        equation: "2Na + 2H2O → 2NaOH + H2↑",
-        explanation: "Sodium reacts vigorously with water to form sodium hydroxide and hydrogen gas."
+        number: 11,
+        physical: "Soft, silvery metal",
+        chemical: "Reacts vigorously with water, produces sodium hydroxide and hydrogen",
+        reactions: "2Na + 2H₂O → 2NaOH + H₂"
     },
     {
         name: "Potassium",
         symbol: "K",
-        atomicNumber: 19,
-        density: "0.862 g/cm³",
-        meltingPoint: "63.5 °C",
-        reaction: "Reacts explosively with water.",
-        equation: "2K + 2H2O → 2KOH + H2↑",
-        explanation: "Potassium reacts explosively with water to form potassium hydroxide and hydrogen gas."
+        number: 19,
+        physical: "Soft, silvery metal, lighter than water",
+        chemical: "Reacts violently with water, forms potassium hydroxide and hydrogen",
+        reactions: "2K + 2H₂O → 2KOH + H₂"
     },
     {
         name: "Rubidium",
         symbol: "Rb",
-        atomicNumber: 37,
-        density: "1.532 g/cm³",
-        meltingPoint: "39.3 °C",
-        reaction: "Reacts violently with water.",
-        equation: "2Rb + 2H2O → 2RbOH + H2↑",
-        explanation: "Rubidium reacts violently with water to form rubidium hydroxide and hydrogen gas."
+        number: 37,
+        physical: "Soft, silvery-white metal",
+        chemical: "Highly reactive with water",
+        reactions: "2Rb + 2H₂O → 2RbOH + H₂"
     },
     {
         name: "Cesium",
         symbol: "Cs",
-        atomicNumber: 55,
-        density: "1.93 g/cm³",
-        meltingPoint: "28.5 °C",
-        reaction: "Reacts explosively with water.",
-        equation: "2Cs + 2H2O → 2CsOH + H2↑",
-        explanation: "Cesium reacts explosively with water to form cesium hydroxide and hydrogen gas."
+        number: 55,
+        physical: "Soft, gold-colored metal",
+        chemical: "Extremely reactive, explodes on contact with water",
+        reactions: "2Cs + 2H₂O → 2CsOH + H₂"
     },
     {
         name: "Francium",
         symbol: "Fr",
-        atomicNumber: 87,
-        density: "Unknown",
-        meltingPoint: "27 °C (approx.)",
-        reaction: "Extremely rare and radioactive.",
-        equation: "Fr + H2O → FrOH + H2↑",
-        explanation: "Francium reacts with water to form francium hydroxide and hydrogen gas (extremely rare)."
+        number: 87,
+        physical: "Radioactive metal, very rare",
+        chemical: "Extremely reactive; reacts explosively with water",
+        reactions: "2Fr + 2H₂O → 2FrOH + H₂"
     }
 ];
