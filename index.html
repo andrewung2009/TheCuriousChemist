@@ -1,28 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home - Group 1 Metals</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Group 1 Metals (Alkali Metals) — Home</title>
+  <meta name="description" content="A polished Y10–11 learning site about Group 1 (alkali) metals: properties, trends, reactions, uses, and exam prep." />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <h1>Group 1 Metals</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="learning.html">Learning</a>
-      <a href="social.html">Social</a>
-    </nav>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <div class="logo">G1</div>
+        <div class="brand-text">
+          <h1>Group 1 Metals</h1>
+          <p class="tagline">Alkali Metals — Y10–11 Complete Guide</p>
+        </div>
+      </div>
+      <button class="nav-toggle" aria-controls="nav" aria-expanded="false" id="navToggle" title="Toggle navigation">
+        ☰
+      </button>
+      <nav id="nav" class="site-nav" aria-label="Primary">
+        <a href="index.html" class="active">Home</a>
+        <a href="learning.html">Learning Hub</a>
+        <a href="social.html">Community</a>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <h2>Welcome!</h2>
-    <p>This website explores the fascinating properties of Group 1 metals.</p>
+  <main id="main">
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <h2>Master the Alkali Metals</h2>
+          <p>
+            From <strong>Lithium</strong> to <strong>Francium</strong>, understand periodic trends, reactions,
+            practical uses, hazards, and exam strategies — everything aligned for Years 10–11.
+          </p>
+          <div class="cta-row">
+            <a class="btn primary" href="learning.html">Start Learning</a>
+            <a class="btn outline" href="social.html">Join the Community</a>
+          </div>
+        </div>
+        <div class="hero-card" role="img" aria-label="Periodic table highlight of Group 1 metals">
+          <div class="pt-row">
+            <span class="pt-cell g1">Li</span>
+            <span class="pt-cell g1">Na</span>
+            <span class="pt-cell g1">K</span>
+            <span class="pt-cell g1">Rb</span>
+            <span class="pt-cell g1">Cs</span>
+            <span class="pt-cell g1">Fr</span>
+          </div>
+          <p class="hero-note">Group 1 (Alkali) — highly reactive, softness increases and density generally increases down the group.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="cards container">
+      <article class="card">
+        <h3>Curriculum Ready</h3>
+        <p>Clear explanations, annotated equations, worked examples, and end-of-topic questions mapped to Y10–11 expectations.</p>
+      </article>
+      <article class="card">
+        <h3>Interactive Checks</h3>
+        <p>Quick quizzes and self-marking exercises to test recall, application, and exam technique.</p>
+      </article>
+      <article class="card">
+        <h3>Practical Focus</h3>
+        <p>Safety, method outlines, and analysis of classic reactions (e.g., sodium + water) with observations and equations.</p>
+      </article>
+    </section>
+
+    <section class="container two-col">
+      <div>
+        <h3>What You’ll Learn</h3>
+        <ul class="tick">
+          <li>Electronic structure and periodic trends</li>
+          <li>Reactions with water, oxygen, and halogens</li>
+          <li>Observations, word & symbol equations, state symbols</li>
+          <li>Flame tests, uses, hazards, and storage</li>
+          <li>Exam tips, misconceptions, and practice questions</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h4>Quick Facts</h4>
+        <ul class="bullets">
+          <li>Valence electrons: <strong>1</strong></li>
+          <li>Form ions: <strong>M⁺</strong></li>
+          <li>Trend: Reactivity <strong>increases</strong> down the group</li>
+          <li>Soft, low density (Li, Na, K float), low melting points for metals</li>
+        </ul>
+      </div>
+    </section>
   </main>
 
-  <footer>
-    <p>&copy; 2025 Group 1 Metals Project</p>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; 2025 Group 1 Metals — Y10–11</p>
+      <nav aria-label="Footer">
+        <a href="index.html">Home</a>
+        <a href="learning.html">Learning Hub</a>
+        <a href="social.html">Community</a>
+      </nav>
+    </div>
   </footer>
 
   <script src="script.js"></script>
