@@ -18,6 +18,39 @@ function showMetalInfo(metal) {
     `;
 }
 
+// Reaction Simulation
+function createReaction(metal) {
+    const area = document.getElementById('reaction-area');
+    area.innerHTML = ''; // clear previous reaction
+
+    let bubbleCount = 10;
+    for (let i = 0; i < bubbleCount; i++) {
+        const bubble = document.createElement('div');
+        bubble.classList.add('bubble');
+        bubble.style.left = Math.random() * 90 + '%';
+        bubble.style.animationDuration = 1.5 + Math.random() * 1.5 + 's';
+        area.appendChild(bubble);
+    }
+
+    let colors = {
+        "Lithium": "#fff0b3",
+        "Sodium": "#ffe066",
+        "Potassium": "#ffd633",
+        "Rubidium": "#ffbf00",
+        "Cesium": "#ffad00",
+        "Francium": "#ff9900"
+    };
+    area.style.background = colors[metal.name] || "#e0f7ff";
+}
+
+// Click to simulate reaction
+document.querySelectorAll('.metal').forEach(metalDiv => {
+    metalDiv.addEventListener('click', () => {
+        const metal = metalsData.find(m => m.symbol === metalDiv.textContent);
+        createReaction(metal);
+    });
+});
+
 // Quiz logic
 const quizQuestions = [
     { question: "Which metal is the lightest?", options: ["Lithium","Sodium","Potassium","Rubidium"], answer: "Lithium" },
@@ -60,36 +93,3 @@ document.getElementById('next-btn').addEventListener('click', () => {
 
 // Initialize quiz
 loadQuestion();
-
-function createReaction(metal) {
-    const area = document.getElementById('reaction-area');
-    area.innerHTML = ''; // clear previous reaction
-
-    let bubbleCount = 10; // number of bubbles
-    for (let i = 0; i < bubbleCount; i++) {
-        const bubble = document.createElement('div');
-        bubble.classList.add('bubble');
-        bubble.style.left = Math.random() * 90 + '%';
-        bubble.style.animationDuration = 1.5 + Math.random() * 1.5 + 's';
-        area.appendChild(bubble);
-    }
-
-    // Optional: background color change based on metal
-    let colors = {
-        "Lithium": "#fff0b3",
-        "Sodium": "#ffe066",
-        "Potassium": "#ffd633",
-        "Rubidium": "#ffbf00",
-        "Cesium": "#ffad00",
-        "Francium": "#ff9900"
-    };
-    area.style.background = colors[metal.name] || "#e0f7ff";
-}
-
-// Add click listeners to metals
-document.querySelectorAll('.metal').forEach(metalDiv => {
-    metalDiv.addEventListener('click', () => {
-        const metal = metalsData.find(m => m.symbol === metalDiv.textContent);
-        createReaction(metal);
-    });
-});
