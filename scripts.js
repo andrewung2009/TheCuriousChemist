@@ -14,27 +14,15 @@ function showMetalInfo(metal) {
         <strong>Atomic Number:</strong> ${metal.atomicNumber}<br>
         <strong>Density:</strong> ${metal.density}<br>
         <strong>Melting Point:</strong> ${metal.meltingPoint}<br>
-        <strong>Reaction with Water:</strong> ${metal.reaction}
+        <strong>Reaction:</strong> ${metal.reaction}
     `;
 }
 
-// Quiz Section
+// Quiz logic
 const quizQuestions = [
-    {
-        question: "Which Group 1 metal is the lightest?",
-        options: ["Lithium", "Sodium", "Potassium", "Rubidium"],
-        answer: "Lithium"
-    },
-    {
-        question: "Which metal reacts most explosively with water?",
-        options: ["Sodium", "Potassium", "Cesium", "Lithium"],
-        answer: "Cesium"
-    },
-    {
-        question: "What is the symbol of Potassium?",
-        options: ["P", "Po", "K", "Pt"],
-        answer: "K"
-    }
+    { question: "Which metal is the lightest?", options: ["Lithium","Sodium","Potassium","Rubidium"], answer: "Lithium" },
+    { question: "Which metal reacts most violently with water?", options: ["Sodium","Potassium","Cesium","Lithium"], answer: "Cesium" },
+    { question: "Symbol of Potassium?", options: ["P","Po","K","Pt"], answer: "K" }
 ];
 
 let currentQuestion = 0;
@@ -70,5 +58,5 @@ document.getElementById('next-btn').addEventListener('click', () => {
     loadQuestion();
 });
 
-// Initialize
+// Initialize quiz
 loadQuestion();
