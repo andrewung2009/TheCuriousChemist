@@ -1,318 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Hub - Alkali Adventures</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learning - Group 1 Metals</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="menu-toggle" id="menu-toggle">
-            <i class="fas fa-bars"></i>
-        </div>
-        <div class="logo">
-            <i class="fas fa-atom"></i>
-            <span>Alkali Adventures</span>
-        </div>
-        <div class="header-right">
-            <div class="search-bar">
-                <input type="text" placeholder="Search lessons, elements, topics..." aria-label="Search">
-                <i class="fas fa-search"></i>
-            </div>
-            <div class="notification-icon" aria-label="Notifications">
-                <i class="fas fa-bell"></i>
-                <span class="notification-badge">3</span>
-            </div>
-            <div class="user-points" aria-label="Chemistry Points">
-                <i class="fas fa-coins"></i> <span id="user-points-display">1,250</span> CP
-            </div>
-            <div class="user-level" aria-label="User Level">
-                Level <span id="user-level-display">4</span>
-            </div>
-            <div class="user-profile">
-                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User Avatar" class="user-avatar">
-                <span class="user-name">Alex Johnson</span>
-                <i class="fas fa-chevron-down"></i>
-            </div>
-        </div>
-    </header>
-    <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-menu">
-            <a href="index.html" class="menu-item" aria-label="Dashboard">
-                <i class="fas fa-home"></i>
-                <span>Dashboard</span>
-            </a>
-            <a href="learning.html" class="menu-item active" aria-label="Learning Hub">
-                <i class="fas fa-book-open"></i>
-                <span>Learning Hub</span>
-            </a>
-            <a href="social.html" class="menu-item" aria-label="Social Learning">
-                <i class="fas fa-users"></i>
-                <span>Social Learning</span>
-                <span class="menu-badge">5</span>
-            </a>
-            <a href="gamification.html" class="menu-item" aria-label="Gamification">
-                <i class="fas fa-trophy"></i>
-                <span>Gamification</span>
-            </a>
-            <a href="progress.html" class="menu-item" aria-label="Progress">
-                <i class="fas fa-chart-line"></i>
-                <span>Progress</span>
-            </a>
-            <a href="settings.html" class="menu-item" aria-label="Settings">
-                <i class="fas fa-cog"></i>
-                <span>Settings</span>
-            </a>
-        </div>
-    </aside>
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Learning Hub Page -->
-        <div id="learning-page" class="page active">
-            <div class="page-header">
-                <h1 class="page-title">Learning Hub</h1>
-                <p class="page-subtitle">Explore lessons, experiments, and resources about Group 1 metals</p>
-            </div>
-            
-            <div class="tabs">
-                <div class="tab active" data-tab="lessons">Lessons</div>
-                <div class="tab" data-tab="lab">Virtual Lab</div>
-                <div class="tab" data-tab="resources">Resources</div>
-            </div>
-            
-            <div class="tab-content active" id="lessons">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Group 1 Elements</h3>
-                        <i class="fas fa-atom card-icon"></i>
-                    </div>
-                    <div class="card-body">
-                        <p>Group 1 metals are called alkali metals. They are located in the first column of the periodic table and are very reactive metals, never found free in nature. Reactivity increases down the group.</p>
-                        
-                        <div class="periodic-table">
-                            <div class="element-card" data-element="Li">
-                                <div class="element-number">3</div>
-                                <div class="element-symbol">Li</div>
-                                <div class="element-name">Lithium</div>
-                            </div>
-                            <div class="element-card" data-element="Na">
-                                <div class="element-number">11</div>
-                                <div class="element-symbol">Na</div>
-                                <div class="element-name">Sodium</div>
-                            </div>
-                            <div class="element-card" data-element="K">
-                                <div class="element-number">19</div>
-                                <div class="element-symbol">K</div>
-                                <div class="element-name">Potassium</div>
-                            </div>
-                            <div class="element-card" data-element="Rb">
-                                <div class="element-number">37</div>
-                                <div class="element-symbol">Rb</div>
-                                <div class="element-name">Rubidium</div>
-                            </div>
-                            <div class="element-card" data-element="Cs">
-                                <div class="element-number">55</div>
-                                <div class="element-symbol">Cs</div>
-                                <div class="element-name">Cesium</div>
-                            </div>
-                            <div class="element-card" data-element="Fr">
-                                <div class="element-number">87</div>
-                                <div class="element-symbol">Fr</div>
-                                <div class="element-name">Francium</div>
-                            </div>
-                        </div>
-                        
-                        <div id="element-details" style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px; display: none;">
-                            <h3 id="element-title">Element Details</h3>
-                            <div id="element-info">
-                                <!-- Element details will be loaded here -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 3D Model Section -->
-                <div class="card" style="margin-top: 30px;">
-                    <div class="card-header">
-                        <h3 class="card-title">3D Atomic Model</h3>
-                        <i class="fas fa-cube card-icon"></i>
-                    </div>
-                    <div class="card-body">
-                        <p>Explore the atomic structure of Group 1 elements in 3D.</p>
-                        
-                        <div id="atom-3d">
-                            <div style="display: flex; align-items: center; justify-content: center; height: 100%; flex-direction: column;">
-                                <i class="fas fa-cube" style="font-size: 4rem; color: var(--primary); margin-bottom: 20px;"></i>
-                                <p>3D Model Viewer</p>
-                                <p style="color: #666; margin-top: 10px;">Select an element above to view its 3D structure</p>
-                            </div>
-                        </div>
-                        
-                        <div style="text-align: center; margin-top: 15px;">
-                            <select id="element-select" class="btn btn-outline">
-                                <option value="">Select an element</option>
-                                <option value="Li">Lithium</option>
-                                <option value="Na">Sodium</option>
-                                <option value="K">Potassium</option>
-                                <option value="Rb">Rubidium</option>
-                                <option value="Cs">Cesium</option>
-                                <option value="Fr">Francium</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="tab-content" id="lab">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Virtual Laboratory</h3>
-                        <i class="fas fa-tools card-icon"></i>
-                    </div>
-                    <div class="card-body">
-                        <p>Safely experiment with Group 1 metals in our virtual environment.</p>
-                        
-                        <div class="lab-container">
-                            <div class="lab-equipment" data-equipment="beaker">
-                                <i class="fas fa-vial"></i>
-                                <div>Beaker</div>
-                            </div>
-                            <div class="lab-equipment" data-equipment="water">
-                                <i class="fas fa-tint"></i>
-                                <div>Water</div>
-                            </div>
-                            <div class="lab-equipment" data-equipment="acid">
-                                <i class="fas fa-flask"></i>
-                                <div>Acid</div>
-                            </div>
-                            <div class="lab-equipment" data-equipment="oxygen">
-                                <i class="fas fa-wind"></i>
-                                <div>Oxygen</div>
-                            </div>
-                        </div>
-                        
-                        <div style="margin-top: 20px;">
-                            <h4>Select Element:</h4>
-                            <div class="periodic-table">
-                                <div class="element-card" data-element="Li">
-                                    <div class="element-symbol">Li</div>
-                                    <div class="element-name">Lithium</div>
-                                </div>
-                                <div class="element-card" data-element="Na">
-                                    <div class="element-symbol">Na</div>
-                                    <div class="element-name">Sodium</div>
-                                </div>
-                                <div class="element-card" data-element="K">
-                                    <div class="element-symbol">K</div>
-                                    <div class="element-name">Potassium</div>
-                                </div>
-                                <div class="element-card" data-element="Rb">
-                                    <div class="element-symbol">Rb</div>
-                                    <div class="element-name">Rubidium</div>
-                                </div>
-                                <div class="element-card" data-element="Cs">
-                                    <div class="element-symbol">Cs</div>
-                                    <div class="element-name">Cesium</div>
-                                </div>
-                                <div class="element-card" data-element="Fr">
-                                    <div class="element-symbol">Fr</div>
-                                    <div class="element-name">Francium</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div style="text-align: center; margin-top: 20px;">
-                            <button class="btn" id="start-lab-experiment">Start Experiment</button>
-                        </div>
-                        
-                        <div class="reaction-area" id="lab-reaction-area">
-                            <p>Set up your experiment and click "Start Experiment" to begin</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="tab-content" id="resources">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Learning Resources</h3>
-                        <i class="fas fa-download card-icon"></i>
-                    </div>
-                    <div class="card-body">
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;">
-                                <i class="fas fa-file-pdf" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i>
-                                <h4>Group 1 Metals Handbook</h4>
-                                <p style="color: #666; margin: 10px 0;">Comprehensive guide to Group 1 metals</p>
-                                <button class="btn btn-sm">Download PDF</button>
-                            </div>
-                            
-                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;">
-                                <i class="fas fa-file-video" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i>
-                                <h4>Experiment Videos</h4>
-                                <p style="color: #666; margin: 10px 0;">Video demonstrations of reactions</p>
-                                <button class="btn btn-sm">Watch Videos</button>
-                            </div>
-                            
-                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;">
-                                <i class="fas fa-file-powerpoint" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i>
-                                <h4>Revision Slides</h4>
-                                <p style="color: #666; margin: 10px 0;">Key concepts summarized</p>
-                                <button class="btn btn-sm">Download PPT</button>
-                            </div>
-                        </div>
-                        
-                        <div style="margin-top: 30px;">
-                            <h4>External Links</h4>
-                            <ul style="padding-left: 20px;">
-                                <li style="margin-bottom: 10px;"><a href="#" style="color: var(--primary);">Royal Society of Chemistry - Periodic Table</a></li>
-                                <li style="margin-bottom: 10px;"><a href="#" style="color: var(--primary);">Khan Academy - Alkali Metals</a></li>
-                                <li style="margin-bottom: 10px;"><a href="#" style="color: var(--primary);">YouTube - Group 1 Metals Experiments</a></li>
-                                <li style="margin-bottom: 10px;"><a href="#" style="color: var(--primary);">BBC Bitesize - Group 1 Elements</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-    <!-- Modal -->
-    <div class="modal" id="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="modal-title">Modal Title</h3>
-                <button class="modal-close" id="modal-close">&times;</button>
-            </div>
-            <div class="modal-body" id="modal-body">
-                <p>Modal content goes here.</p>
-            </div>
-        </div>
-    </div>
-    <!-- Accessibility Controls -->
-    <div class="accessibility-controls">
-        <button id="contrast-toggle" class="btn btn-sm" title="Toggle High Contrast">
-            <i class="fas fa-adjust"></i>
-        </button>
-        <button id="font-decrease" class="btn btn-sm" title="Decrease Font Size">
-            <i class="fas fa-minus"></i>
-        </button>
-        <button id="font-increase" class="btn btn-sm" title="Increase Font Size">
-            <i class="fas fa-plus"></i>
-        </button>
-        <button id="screen-reader-toggle" class="btn btn-sm" title="Toggle Screen Reader Mode">
-            <i class="fas fa-universal-access"></i>
-        </button>
-    </div>
-    <!-- Voice Control Button -->
-    <button class="voice-control-btn" id="voice-control-btn" title="Voice Control">
-        <i class="fas fa-microphone"></i>
-    </button>
-    <!-- Live Region for Screen Reader -->
-    <div id="live-region" class="sr-only" aria-live="polite" aria-atomic="true"></div>
-    <script src="js/main.js"></script>
+  <header>
+    <h1>Learning Hub</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="learning.html" class="active">Learning</a></li>
+        <li><a href="social.html">Social</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Educational Content</h2>
+    <p>Here you will find notes, simulations, and quizzes about Group 1 metals (Alkali Metals).</p>
+    <section>
+      <h3>Topics</h3>
+      <ul>
+        <li>Physical Properties</li>
+        <li>Chemical Properties</li>
+        <li>Reactivity Trends</li>
+        <li>Everyday Uses</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Group 1 Metals Project</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
