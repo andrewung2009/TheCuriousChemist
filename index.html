@@ -1,45 +1,2220 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Group 1 Metals Explorer</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alkali Adventures - Learning Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a6fa5;
+            --secondary: #6c63ff;
+            --accent: #ff6584;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --success: #28a745;
+            --warning: #ffc107;
+            --info: #17a2b8;
+            --sidebar-width: 250px;
+            --header-height: 70px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7ff;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Header Styles */
+        .header {
+            background: white;
+            height: var(--header-height);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+        
+        .header-right {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .search-bar {
+            position: relative;
+            width: 300px;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 10px 40px 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .search-bar input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.1);
+        }
+        
+        .search-bar i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+        
+        .notification-icon {
+            position: relative;
+            font-size: 1.2rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent);
+            color: white;
+            font-size: 0.7rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .user-name {
+            font-weight: 600;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            width: var(--sidebar-width);
+            height: calc(100vh - var(--header-height));
+            background: white;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+            overflow-y: auto;
+            z-index: 999;
+        }
+        
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+        
+        .menu-item:hover {
+            background: rgba(74, 111, 165, 0.05);
+            border-left-color: var(--primary);
+        }
+        
+        .menu-item.active {
+            background: rgba(74, 111, 165, 0.1);
+            border-left-color: var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .menu-item i {
+            margin-right: 15px;
+            font-size: 1.2rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .menu-badge {
+            margin-left: auto;
+            background: var(--accent);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            margin-top: var(--header-height);
+            padding: 30px;
+            min-height: calc(100vh - var(--header-height));
+        }
+        
+        .page-header {
+            margin-bottom: 30px;
+        }
+        
+        .page-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .page-subtitle {
+            color: #666;
+        }
+        
+        /* Dashboard Cards */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .card-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .card-icon {
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        /* Stats Card */
+        .stats-card {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .stats-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            margin-right: 20px;
+        }
+        
+        .stats-icon.primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        
+        .stats-icon.success {
+            background: linear-gradient(135deg, var(--success), #20c997);
+        }
+        
+        .stats-icon.warning {
+            background: linear-gradient(135deg, var(--warning), #fd7e14);
+        }
+        
+        .stats-icon.info {
+            background: linear-gradient(135deg, var(--info), #6f42c1);
+        }
+        
+        .stats-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .stats-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Progress Card */
+        .progress-item {
+            margin-bottom: 20px;
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .progress-title {
+            font-weight: 600;
+        }
+        
+        .progress-value {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: #eee;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 1s ease;
+        }
+        
+        .progress.primary {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        .progress.success {
+            background: linear-gradient(90deg, var(--success), #20c997);
+        }
+        
+        .progress.warning {
+            background: linear-gradient(90deg, var(--warning), #fd7e14);
+        }
+        
+        /* Periodic Table */
+        .periodic-table {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .element-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .element-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .element-card.selected {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(74, 111, 165, 0.1), rgba(108, 99, 255, 0.1));
+        }
+        
+        .element-symbol {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .element-name {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .element-number {
+            font-size: 0.8rem;
+            color: #999;
+            position: absolute;
+            top: 5px;
+            left: 10px;
+        }
+        
+        /* Virtual Lab */
+        .lab-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .lab-equipment {
+            flex: 1;
+            min-width: 200px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .lab-equipment:hover {
+            background: rgba(74, 111, 165, 0.1);
+        }
+        
+        .lab-equipment i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .lab-equipment.selected {
+            background: rgba(74, 111, 165, 0.2);
+            border: 2px solid var(--primary);
+        }
+        
+        .reaction-area {
+            margin-top: 20px;
+            min-height: 200px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        /* Social Feed */
+        .social-feed {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .feed-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .feed-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+        
+        .feed-content {
+            flex: 1;
+        }
+        
+        .feed-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .feed-author {
+            font-weight: 600;
+        }
+        
+        .feed-time {
+            color: #999;
+            font-size: 0.8rem;
+        }
+        
+        .feed-text {
+            margin-bottom: 10px;
+        }
+        
+        .feed-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .feed-action {
+            color: #666;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        
+        .feed-action:hover {
+            color: var(--primary);
+        }
+        
+        /* Gamification */
+        .badge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .badge {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .badge.earned {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+        }
+        
+        .badge.locked {
+            background: #f8f9fa;
+            color: #ccc;
+            border: 2px dashed #ddd;
+        }
+        
+        .badge i {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+        
+        .badge-name {
+            font-size: 0.7rem;
+            text-align: center;
+        }
+        
+        .badge-tooltip {
+            position: absolute;
+            bottom: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dark);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .badge:hover .badge-tooltip {
+            opacity: 1;
+        }
+        
+        /* Quests */
+        .quest-list {
+            margin-top: 20px;
+        }
+        
+        .quest-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .quest-item:hover {
+            background: rgba(74, 111, 165, 0.05);
+        }
+        
+        .quest-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            margin-right: 15px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        
+        .quest-content {
+            flex: 1;
+        }
+        
+        .quest-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .quest-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .quest-progress {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .quest-progress-bar {
+            flex: 1;
+            height: 8px;
+            background: #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .quest-progress-value {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        .quest-reward {
+            background: var(--warning);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+        
+        .tab:hover {
+            color: var(--primary);
+        }
+        
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .btn:hover {
+            background: #3a5a80;
+            transform: translateY(-2px);
+        }
+        
+        .btn-sm {
+            padding: 5px 12px;
+            font-size: 0.8rem;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-success {
+            background: var(--success);
+        }
+        
+        .btn-success:hover {
+            background: #218838;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 15px;
+            overflow: hidden;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-header {
+            background: var(--primary);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+                margin-right: 20px;
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+        }
+        
+        .menu-toggle {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <h1>Group 1 Metals (Alkali Metals)</h1>
+    <!-- Header -->
+    <header class="header">
+        <div class="menu-toggle" id="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo">
+            <i class="fas fa-atom"></i>
+            <span>Alkali Adventures</span>
+        </div>
+        <div class="header-right">
+            <div class="search-bar">
+                <input type="text" placeholder="Search lessons, elements, topics...">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="notification-icon">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">3</span>
+            </div>
+            <div class="user-profile">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="user-avatar">
+                <span class="user-name">Alex Johnson</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </header>
 
-    <div class="periodic-table">
-        <div id="elements-container"></div>
-    </div>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-menu">
+            <a href="#" class="menu-item active" data-page="dashboard">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="menu-item" data-page="learning">
+                <i class="fas fa-book-open"></i>
+                <span>Learning Hub</span>
+            </a>
+            <a href="#" class="menu-item" data-page="lab">
+                <i class="fas fa-flask"></i>
+                <span>Virtual Lab</span>
+            </a>
+            <a href="#" class="menu-item" data-page="social">
+                <i class="fas fa-users"></i>
+                <span>Social Learning</span>
+                <span class="menu-badge">5</span>
+            </a>
+            <a href="#" class="menu-item" data-page="gamification">
+                <i class="fas fa-trophy"></i>
+                <span>Gamification</span>
+            </a>
+            <a href="#" class="menu-item" data-page="progress">
+                <i class="fas fa-chart-line"></i>
+                <span>Progress</span>
+            </a>
+            <a href="#" class="menu-item" data-page="resources">
+                <i class="fas fa-folder"></i>
+                <span>Resources</span>
+            </a>
+            <a href="#" class="menu-item" data-page="settings">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Page -->
+        <div id="dashboard-page" class="page active">
+            <div class="page-header">
+                <h1 class="page-title">Learning Dashboard</h1>
+                <p class="page-subtitle">Welcome back, Alex! Continue your journey through Group 1 metals.</p>
+            </div>
+            
+            <!-- Stats Cards -->
+            <div class="dashboard-grid">
+                <div class="card stats-card">
+                    <div class="stats-icon primary">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="stats-info">
+                        <h3>12</h3>
+                        <p>Learning Streak</p>
+                    </div>
+                </div>
+                
+                <div class="card stats-card">
+                    <div class="stats-icon success">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="stats-info">
+                        <h3>1,250</h3>
+                        <p>Chemistry Points</p>
+                    </div>
+                </div>
+                
+                <div class="card stats-card">
+                    <div class="stats-icon warning">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <div class="stats-info">
+                        <h3>6</h3>
+                        <p>Badges Earned</p>
+                    </div>
+                </div>
+                
+                <div class="card stats-card">
+                    <div class="stats-icon info">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <div class="stats-info">
+                        <h3>68%</h3>
+                        <p>Course Progress</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Progress Overview -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Module Progress</h3>
+                    <i class="fas fa-chart-line card-icon"></i>
+                </div>
+                <div class="card-body">
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-title">Group 1 Metals Overview</span>
+                            <span class="progress-value">85%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress primary" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-title">Physical Properties</span>
+                            <span class="progress-value">70%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress primary" style="width: 70%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-title">Chemical Reactions</span>
+                            <span class="progress-value">60%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress primary" style="width: 60%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-title">Practical Applications</span>
+                            <span class="progress-value">45%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress warning" style="width: 45%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-title">Exam Preparation</span>
+                            <span class="progress-value">55%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress success" style="width: 55%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Activity -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Recent Activity</h3>
+                    <i class="fas fa-history card-icon"></i>
+                </div>
+                <div class="card-body">
+                    <div class="social-feed">
+                        <div class="feed-item">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="feed-avatar">
+                            <div class="feed-content">
+                                <div class="feed-header">
+                                    <span class="feed-author">You</span>
+                                    <span class="feed-time">2 hours ago</span>
+                                </div>
+                                <div class="feed-text">Completed the "Sodium Reactions" experiment in the Virtual Lab.</div>
+                                <div class="feed-actions">
+                                    <span class="feed-action"><i class="fas fa-heart"></i> 12</span>
+                                    <span class="feed-action"><i class="fas fa-comment"></i> 3</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="feed-item">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="feed-avatar">
+                            <div class="feed-content">
+                                <div class="feed-header">
+                                    <span class="feed-author">Sarah Miller</span>
+                                    <span class="feed-time">5 hours ago</span>
+                                </div>
+                                <div class="feed-text">Earned the "Reactivity Master" badge! Who's next?</div>
+                                <div class="feed-actions">
+                                    <span class="feed-action"><i class="fas fa-heart"></i> 24</span>
+                                    <span class="feed-action"><i class="fas fa-comment"></i> 8</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="feed-item">
+                            <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="User" class="feed-avatar">
+                            <div class="feed-content">
+                                <div class="feed-header">
+                                    <span class="feed-author">Michael Chen</span>
+                                    <span class="feed-time">1 day ago</span>
+                                </div>
+                                <div class="feed-text">Started a new study group "Advanced Alkali Metals". Join us to discuss complex reactions!</div>
+                                <div class="feed-actions">
+                                    <span class="feed-action"><i class="fas fa-heart"></i> 18</span>
+                                    <span class="feed-action"><i class="fas fa-comment"></i> 5</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Learning Hub Page -->
+        <div id="learning-page" class="page" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Learning Hub</h1>
+                <p class="page-subtitle">Explore interactive lessons about Group 1 metals</p>
+            </div>
+            
+            <div class="tabs">
+                <div class="tab active" data-tab="elements">Elements</div>
+                <div class="tab" data-tab="properties">Properties</div>
+                <div class="tab" data-tab="reactions">Reactions</div>
+                <div class="tab" data-tab="applications">Applications</div>
+            </div>
+            
+            <div class="tab-content active" id="elements">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Group 1 Elements</h3>
+                        <i class="fas fa-atom card-icon"></i>
+                    </div>
+                    <div class="card-body">
+                        <p>Click on any element to explore its properties, electron configuration, and reactivity.</p>
+                        
+                        <div class="periodic-table">
+                            <div class="element-card" data-element="Li">
+                                <div class="element-number">3</div>
+                                <div class="element-symbol">Li</div>
+                                <div class="element-name">Lithium</div>
+                            </div>
+                            <div class="element-card" data-element="Na">
+                                <div class="element-number">11</div>
+                                <div class="element-symbol">Na</div>
+                                <div class="element-name">Sodium</div>
+                            </div>
+                            <div class="element-card" data-element="K">
+                                <div class="element-number">19</div>
+                                <div class="element-symbol">K</div>
+                                <div class="element-name">Potassium</div>
+                            </div>
+                            <div class="element-card" data-element="Rb">
+                                <div class="element-number">37</div>
+                                <div class="element-symbol">Rb</div>
+                                <div class="element-name">Rubidium</div>
+                            </div>
+                            <div class="element-card" data-element="Cs">
+                                <div class="element-number">55</div>
+                                <div class="element-symbol">Cs</div>
+                                <div class="element-name">Cesium</div>
+                            </div>
+                            <div class="element-card" data-element="Fr">
+                                <div class="element-number">87</div>
+                                <div class="element-symbol">Fr</div>
+                                <div class="element-name">Francium</div>
+                            </div>
+                        </div>
+                        
+                        <div id="element-details" style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px; display: none;">
+                            <h3 id="element-title">Element Details</h3>
+                            <div id="element-info">
+                                <!-- Element details will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="properties">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Physical Properties</h3>
+                        <i class="fas fa-ruler card-icon"></i>
+                    </div>
+                    <div class="card-body">
+                        <p>Group 1 elements share common physical properties that change predictably down the group.</p>
+                        
+                        <div style="margin-top: 20px;">
+                            <h4>Atomic Radius</h4>
+                            <p>Atomic radius increases down the group due to additional electron shells.</p>
+                            <div class="progress-bar" style="height: 20px; margin-top: 10px;">
+                                <div class="progress primary" style="width: 100%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                                    Li < Na < K < Rb < Cs < Fr
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <h4>Density</h4>
+                            <p>Density generally increases down the group, with some exceptions.</p>
+                            <div class="progress-bar" style="height: 20px; margin-top: 10px;">
+                                <div class="progress primary" style="width: 100%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                                    Li < Na < K < Rb < Cs
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <h4>Melting and Boiling Points</h4>
+                            <p>Melting and boiling points decrease down the group due to weaker metallic bonding.</p>
+                            <div class="progress-bar" style="height: 20px; margin-top: 10px;">
+                                <div class="progress primary" style="width: 100%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                                    Li > Na > K > Rb > Cs
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="reactions">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Chemical Reactions</h3>
+                        <i class="fas fa-flask card-icon"></i>
+                    </div>
+                    <div class="card-body">
+                        <p>Group 1 metals are highly reactive and undergo characteristic reactions.</p>
+                        
+                        <div style="margin-top: 20px;">
+                            <h4>Reaction with Water</h4>
+                            <p>All Group 1 metals react with water to produce hydrogen gas and metal hydroxides.</p>
+                            <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin-top: 10px;">
+                                <code>2M(s) + 2H₂O(l) → 2MOH(aq) + H₂(g)</code>
+                            </div>
+                            <p style="margin-top: 10px;">Reactivity increases down the group: Lithium reacts steadily, while cesium reacts explosively.</p>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <h4>Reaction with Oxygen</h4>
+                            <p>Group 1 metals react with oxygen to form oxides, peroxides, or superoxides.</p>
+                            <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin-top: 10px;">
+                                <code>4M(s) + O₂(g) → 2M₂O(s)</code>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <h4>Reaction with Halogens</h4>
+                            <p>Group 1 metals react vigorously with halogens to form ionic salts.</p>
+                            <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin-top: 10px;">
+                                <code>2M(s) + X₂(g) → 2MX(s)</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="applications">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Real-World Applications</h3>
+                        <i class="fas fa-industry card-icon"></i>
+                    </div>
+                    <div class="card-body">
+                        <p>Group 1 metals have numerous important applications in technology and industry.</p>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                                <h4>Lithium</h4>
+                                <ul style="padding-left: 20px; margin-top: 10px;">
+                                    <li>Batteries (lithium-ion)</li>
+                                    <li>Psychiatric medication</li>
+                                    <li>Alloy production</li>
+                                    <li>Grease thickener</li>
+                                </ul>
+                            </div>
+                            
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                                <h4>Sodium</h4>
+                                <ul style="padding-left: 20px; margin-top: 10px;">
+                                    <li>Street lighting (sodium vapor lamps)</li>
+                                    <li>Table salt (NaCl)</li>
+                                    <li>Chemical production</li>
+                                    <li>Nuclear reactor coolant</li>
+                                </ul>
+                            </div>
+                            
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                                <h4>Potassium</h4>
+                                <ul style="padding-left: 20px; margin-top: 10px;">
+                                    <li>Fertilizers (KCl, K₂SO₄)</li>
+                                    <li>Soap production</li>
+                                    <li>Glass manufacturing</li>
+                                    <li>Essential nutrient</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Virtual Lab Page -->
+        <div id="lab-page" class="page" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Virtual Laboratory</h1>
+                <p class="page-subtitle">Safely experiment with Group 1 metals in our virtual environment</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Lab Equipment</h3>
+                    <i class="fas fa-tools card-icon"></i>
+                </div>
+                <div class="card-body">
+                    <p>Select equipment and elements to set up your experiment:</p>
+                    
+                    <div class="lab-container">
+                        <div class="lab-equipment" data-equipment="beaker">
+                            <i class="fas fa-vial"></i>
+                            <div>Beaker</div>
+                        </div>
+                        <div class="lab-equipment" data-equipment="water">
+                            <i class="fas fa-tint"></i>
+                            <div>Water</div>
+                        </div>
+                        <div class="lab-equipment" data-equipment="acid">
+                            <i class="fas fa-flask"></i>
+                            <div>Acid</div>
+                        </div>
+                        <div class="lab-equipment" data-equipment="oxygen">
+                            <i class="fas fa-wind"></i>
+                            <div>Oxygen</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <h4>Select Element:</h4>
+                        <div class="periodic-table">
+                            <div class="element-card" data-element="Li">
+                                <div class="element-symbol">Li</div>
+                                <div class="element-name">Lithium</div>
+                            </div>
+                            <div class="element-card" data-element="Na">
+                                <div class="element-symbol">Na</div>
+                                <div class="element-name">Sodium</div>
+                            </div>
+                            <div class="element-card" data-element="K">
+                                <div class="element-symbol">K</div>
+                                <div class="element-name">Potassium</div>
+                            </div>
+                            <div class="element-card" data-element="Rb">
+                                <div class="element-symbol">Rb</div>
+                                <div class="element-name">Rubidium</div>
+                            </div>
+                            <div class="element-card" data-element="Cs">
+                                <div class="element-symbol">Cs</div>
+                                <div class="element-name">Cesium</div>
+                            </div>
+                            <div class="element-card" data-element="Fr">
+                                <div class="element-symbol">Fr</div>
+                                <div class="element-name">Francium</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="btn" id="start-lab-experiment">Start Experiment</button>
+                    </div>
+                    
+                    <div class="reaction-area" id="lab-reaction-area">
+                        <p>Set up your experiment and click "Start Experiment" to begin</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Learning Page -->
+        <div id="social-page" class="page" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Social Learning Center</h1>
+                <p class="page-subtitle">Connect, collaborate, and learn with your peers</p>
+            </div>
+            
+            <div class="tabs">
+                <div class="tab active" data-tab="feed">Activity Feed</div>
+                <div class="tab" data-tab="groups">Study Groups</div>
+                <div class="tab" data-tab="questions">Q&A Forum</div>
+                <div class="tab" data-tab="teaching">Peer Teaching</div>
+            </div>
+            
+            <div class="tab-content active" id="feed">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Recent Activity</h3>
+                        <i class="fas fa-stream card-icon"></i>
+                    </div>
+                    <div class="card-body">
+                        <div class="social-feed">
+                            <div class="feed-item">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="feed-avatar">
+                                <div class="feed-content">
+                                    <div class="feed-header">
+                                        <span class="feed-author">Sarah Miller</span>
+                                        <span class="feed-time">30 minutes ago</span>
+                                    </div>
+                                    <div class="feed-text">Just completed the "Potassium Reactions" module. The virtual lab experiment was amazing!</div>
+                                    <div class="feed-actions">
+                                        <span class="feed-action"><i class="fas fa-heart"></i> 15</span>
+                                        <span class="feed-action"><i class="fas fa-comment"></i> 4</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="feed-item">
+                                <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="User" class="feed-avatar">
+                                <div class="feed-content">
+                                    <div class="feed-header">
+                                        <span class="feed-author">Michael Chen</span>
+                                        <span class="feed-time">2 hours ago</span>
+                                    </div>
+                                    <div class="feed-text">Looking for study partners for the upcoming exam on Group 1 metals. Anyone interested in forming a group?</div>
+                                    <div class="feed-actions">
+                                        <span class="feed-action"><i class="fas fa-heart"></i> 8</span>
+                                        <span class="feed-action"><i class="fas fa-comment"></i> 12</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="feed-item">
+                                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="User" class="feed-avatar">
+                                <div class="feed-content">
+                                    <div class="feed-header">
+                                        <span class="feed-author">Emma Rodriguez</span>
+                                        <span class="feed-time">5 hours ago</span>
+                                    </div>
+                                    <div class="feed-text">Created a new mini-lesson on "Trends in Reactivity of Group 1 Metals". Check it out and let me know what you think!</div>
+                                    <div class="feed-actions">
+                                        <span class="feed-action"><i class="fas fa-heart"></i> 22</span>
+                                        <span class="feed-action"><i class="fas fa-comment"></i> 7</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="feed-item">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="feed-avatar">
+                                <div class="feed-content">
+                                    <div class="feed-header">
+                                        <span class="feed-author">You</span>
+                                        <span class="feed-time">1 day ago</span>
+                                    </div>
+                                    <div class="feed-text">Earned the "Atomic Explorer" badge! Only 4 more to go until I reach "Alkali Master" status.</div>
+                                    <div class="feed-actions">
+                                        <span class="feed-action"><i class="fas fa-heart"></i> 18</span>
+                                        <span class="feed-action"><i class="fas fa-comment"></i> 5</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="groups">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Study Groups</h3>
+                        <i class="fas fa-users card-icon"></i>
+                    </div>
+                    <div class="card-body">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                                <h4>Group 1 Basics</h4>
+                                <p style="color: #666; margin: 10px 0;">For beginners learning about alkali metals</p>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                                    <span><i class="fas fa-users"></i> 24 members</span>
+                                    <button class="btn btn-sm">Join</button>
+                                </div>
+                            </div>
+                            
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                                <h4>Advanced Reactions</h4>
+                                <p style="color: #666; margin: 10px 0;">Exploring complex reactions and mechanisms</p>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                                    <span><i class="fas fa-users"></i> 12 members</span>
+                                    <button class="btn btn-sm">Join</button>
+                                </div>
+                            </div>
+                            
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                                <h4>Exam Preparation</h4>
+                                <p style="color: #666; margin: 10px 0;">Focused on test strategies and practice</p>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                                    <span><i class="fas fa-users"></i> 18 members</span>
+                                    <button class="btn btn-sm btn-success">Joined</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 30px;">
+                            <button class="btn">Create New Group</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="questions">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Q&A Forum</h3>
+                        <i class="fas fa-question-circle card-icon"></i>
+                    </div>
+                    <div class="card-body">
+                        <div style="margin-bottom: 20px;">
+                            <button class="btn">Ask a Question</button>
+                        </div>
+                        
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                            <h4>Why does reactivity increase down Group 1?</h4>
+                            <p style="color: #666; margin: 10px 0;">I understand that reactivity increases down the group, but I'm not sure why. Can someone explain the atomic structure reasons behind this trend?</p>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                                <div>
+                                    <span style="font-weight: 600;">James Wilson</span>
+                                    <span style="color: #999; margin-left: 10px;">2 hours ago</span>
+                                </div>
+                                <div>
+                                    <span style="color: #666; margin-right: 15px;"><i class="fas fa-comment"></i> 5 answers</span>
+                                    <span style="color: var(--success);"><i class="fas fa-check-circle"></i> Solved</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                            <h4>What are the practical uses of cesium?</h4>
+                            <p style="color: #666; margin: 10px 0;">We learned about the properties of cesium, but I'm curious about its real-world applications. Where is cesium actually used?</p>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                                <div>
+                                    <span style="font-weight: 600;">Sophie Turner</span>
+                                    <span style="color: #999; margin-left: 10px;">1 day ago</span>
+                                </div>
+                                <div>
+                                    <span style="color: #666; margin-right: 15px;"><i class="fas fa-comment"></i> 3 answers</span>
+                                    <span style="color: #999;"><i class="fas fa-clock"></i> Open</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="teaching">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Peer Teaching</h3>
+                        <i class="fas fa-chalkboard-teacher card-icon"></i>
+                    </div>
+                    <div class="card-body">
+                        <p>Share your knowledge by creating mini-lessons and earn Chemistry Points!</p>
+                        
+                        <div style="text-align: center; margin: 20px 0;">
+                            <button class="btn">Create a Mini-Lesson</button>
+                        </div>
+                        
+                        <h4>Popular Mini-Lessons</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                                <h4>Understanding Ionization Energy</h4>
+                                <p style="color: #666; margin: 10px 0; font-size: 0.9rem;">A clear explanation of why ionization energy decreases down Group 1</p>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                                    <span style="font-size: 0.8rem; color: #666;">by Emma Rodriguez</span>
+                                    <span style="color: var(--warning);"><i class="fas fa-star"></i> 4.8</span>
+                                </div>
+                            </div>
+                            
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                                <h4>Flame Test Colors</h4>
+                                <p style="color: #666; margin: 10px 0; font-size: 0.9rem;">Learn the characteristic flame colors of Group 1 metals</p>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                                    <span style="font-size: 0.8rem; color: #666;">by Michael Chen</span>
+                                    <span style="color: var(--warning);"><i class="fas fa-star"></i> 4.6</span>
+                                </div>
+                            </div>
+                            
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                                <h4>Safe Handling of Alkali Metals</h4>
+                                <p style="color: #666; margin: 10px 0; font-size: 0.9rem;">Essential safety protocols for working with reactive metals</p>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                                    <span style="font-size: 0.8rem; color: #666;">by Sarah Miller</span>
+                                    <span style="color: var(--warning);"><i class="fas fa-star"></i> 4.9</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gamification Page -->
+        <div id="gamification-page" class="page" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Gamification Dashboard</h1>
+                <p class="page-subtitle">Track your achievements, points, and progress</p>
+            </div>
+            
+            <div class="tabs">
+                <div class="tab active" data-tab="badges">Badges</div>
+                <div class="tab" data-tab="quests">Quests</div>
+                <div class="tab" data-tab="leaderboard">Leaderboard</div>
+                <div class="tab" data-tab="rewards">Rewards</div>
+            </div>
+            
+            <div class="tab-content active" id="badges">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Achievement Badges</h3>
+                        <i class="fas fa-medal card-icon"></i>
+                    </div>
+                    <div class="card-body">
+                        <p>Collect badges by completing learning activities and mastering concepts.</p>
+                        
+                        <div class="badge-grid">
+                            <div class="badge earned">
+                                <i class="fas fa-fire"></i>
+                                <span class="badge-name">Reactivity Master</span>
+                                <div class="badge-tooltip">Complete all reaction experiments</div>
+                            </div>
+                            
+                            <div class="badge earned">
+                                <i class="fas fa-atom"></i>
+                                <span class="badge-name">Atomic Explorer</span>
+                                <div class="badge-tooltip">Explore all Group 1 elements</div>
+                            </div>
+                            
+                            <div class="badge earned">
+                                <i class="fas fa-flask"></i>
+                                <span class="badge-name">Lab Expert</span>
+                                <div class="badge-tooltip">Complete 10 virtual lab experiments</div>
+                            </div>
+                            
+                            <div class="badge earned">
+                                <i class="fas fa-users"></i>
+                                <span class="badge-name">Team Player</span>
+                                <div class="badge-tooltip">Join 3 study groups</div>
+                            </div>
+                            
+                            <div class="badge earned">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <span class="badge-name">Peer Teacher</span>
+                                <div class="badge-tooltip">Create 2 mini-lessons</div>
+                            </div>
+                            
+                            <div class="badge earned">
+                                <i class="fas fa-brain"></i>
+                                <span class="badge-name">Quick Learner</span>
+                                <div class="badge-tooltip">Complete 5 modules in one week</div>
+                            </div>
+                            
+                            <div class="badge locked">
+                                <i class="fas fa-trophy"></i>
+                                <span class="badge-name">Alkali Master</span>
+                                <div class="badge-tooltip">Earn all other badges</div>
+                            </div>
+                            
+                            <div class="badge locked">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span class="badge-name">Chemistry Champion</span>
+                                <div class="badge-tooltip">Score 90%+ on final exam</div>
+                            </div>
+                            
+                            <div class="badge locked">
+                                <i class="fas fa-star"></i>
+                                <span class="badge-name">Group 1 Guru</span>
+                                <div class="badge-tooltip">Complete all course content</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="quests">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Learning Quests</h3>
+                        <i class="fas fa-map-marked-alt card-icon"></i>
+                    </div>
+                    <div class="card-body">
+                        <p>Embark on learning quests to earn points and unlock achievements.</p>
+                        
+                        <div class="quest-list">
+                            <div class="quest-item">
+                                <div class="quest-icon">
+                                    <i class="fas fa-vial"></i>
+                                </div>
+                                <div class="quest-content">
+                                    <div class="quest-title">Sodium Investigations</div>
+                                    <div class="quest-description">Complete all sodium-related experiments and lessons</div>
+                                    <div class="quest-progress">
+                                        <div class="quest-progress-bar">
+                                            <div class="quest-progress-value" style="width: 75%;"></div>
+                                        </div>
+                                        <div class="quest-reward">+150 CP</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="quest-item">
+                                <div class="quest-icon">
+                                    <i class="fas fa-atom"></i>
+                                </div>
+                                <div class="quest-content">
+                                    <div class="quest-title">Element Explorer</div>
+                                    <div class="quest-description">Study all Group 1 elements and their properties</div>
+                                    <div class="quest-progress">
+                                        <div class="quest-progress-bar">
+                                            <div class="quest-progress-value" style="width: 50%;"></div>
+                                        </div>
+                                        <div class="quest-reward">+200 CP</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="quest-item">
+                                <div class="quest-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="quest-content">
+                                    <div class="quest-title">Social Learner</div>
+                                    <div class="quest-description">Join 2 study groups and participate in discussions</div>
+                                    <div class="quest-progress">
+                                        <div class="quest-progress-bar">
+                                            <div class="quest-progress-value" style="width: 100%;"></div>
+                                        </div>
+                                        <div class="quest-reward">+100 CP</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="quest-item">
+                                <div class="quest-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="quest-content">
+                                    <div class="quest-title">Trend Master</div>
+                                    <div class="quest-description">Master all periodic trends in Group 1 metals</div>
+                                    <div class="quest-progress">
+                                        <div class="quest-progress-bar">
+                                            <div class="quest-progress-value" style="width: 30%;"></div>
+                                        </div>
+                                        <div class="quest-reward">+180 CP</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="leaderboard">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Leaderboard</h3>
+                        <i class="fas fa-trophy card-icon"></i>
+                    </div>
+                    <div class="card-body">
+                        <p>See how you rank against other students in your class.</p>
+                        
+                        <div style="margin-top: 20px;">
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <thead>
+                                    <tr style="background: #f8f9fa;">
+                                        <th style="padding: 12px; text-align: left;">Rank</th>
+                                        <th style="padding: 12px; text-align: left;">Student</th>
+                                        <th style="padding: 12px; text-align: left;">Chemistry Points</th>
+                                        <th style="padding: 12px; text-align: left;">Badges</th>
+                                        <th style="padding: 12px; text-align: left;">Level</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="border-bottom: 1px solid #eee;">
+                                        <td style="padding: 12px;">1</td>
+                                        <td style="padding: 12px;">
+                                            <div style="display: flex; align-items: center;">
+                                                <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="User" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+                                                Michael Chen
+                                            </div>
+                                        </td>
+                                        <td style="padding: 12px; font-weight: 600;">2,450</td>
+                                        <td style="padding: 12px;">12</td>
+                                        <td style="padding: 12px;">Researcher</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #eee;">
+                                        <td style="padding: 12px;">2</td>
+                                        <td style="padding: 12px;">
+                                            <div style="display: flex; align-items: center;">
+                                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+                                                Sarah Miller
+                                            </div>
+                                        </td>
+                                        <td style="padding: 12px; font-weight: 600;">2,200</td>
+                                        <td style="padding: 12px;">10</td>
+                                        <td style="padding: 12px;">Researcher</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #eee;">
+                                        <td style="padding: 12px;">3</td>
+                                        <td style="padding: 12px;">
+                                            <div style="display: flex; align-items: center;">
+                                                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="User" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+                                                Emma Rodriguez
+                                            </div>
+                                        </td>
+                                        <td style="padding: 12px; font-weight: 600;">1,980</td>
+                                        <td style="padding: 12px;">9</td>
+                                        <td style="padding: 12px;">Researcher</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #eee; background: rgba(74, 111, 165, 0.05);">
+                                        <td style="padding: 12px;">4</td>
+                                        <td style="padding: 12px;">
+                                            <div style="display: flex; align-items: center;">
+                                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+                                                <strong>You (Alex Johnson)</strong>
+                                            </div>
+                                        </td>
+                                        <td style="padding: 12px; font-weight: 600;">1,750</td>
+                                        <td style="padding: 12px;">8</td>
+                                        <td style="padding: 12px;">Researcher</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #eee;">
+                                        <td style="padding: 12px;">5</td>
+                                        <td style="padding: 12px;">
+                                            <div style="display: flex; align-items: center;">
+                                                <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="User" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+                                                James Wilson
+                                            </div>
+                                        </td>
+                                        <td style="padding: 12px; font-weight: 600;">1,600</td>
+                                        <td style="padding: 12px;">7</td>
+                                        <td style="padding: 12px;">Researcher</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="rewards">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Rewards Store</h3>
+                        <i class="fas fa-gift card-icon"></i>
+                    </div>
+                    <div class="card-body">
+                        <p>Redeem your Chemistry Points for exciting rewards!</p>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;">
+                                <i class="fas fa-certificate" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i>
+                                <h4>Digital Certificate</h4>
+                                <p style="color: #666; margin: 10px 0;">Official certificate of completion</p>
+                                <div style="font-weight: 600; color: var(--warning); margin-bottom: 15px;">500 CP</div>
+                                <button class="btn btn-sm">Redeem</button>
+                            </div>
+                            
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;">
+                                <i class="fas fa-book" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i>
+                                <h4>Extra Resources</h4>
+                                <p style="color: #666; margin: 10px 0;">Unlock advanced learning materials</p>
+                                <div style="font-weight: 600; color: var(--warning); margin-bottom: 15px;">750 CP</div>
+                                <button class="btn btn-sm">Redeem</button>
+                            </div>
+                            
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;">
+                                <i class="fas fa-star" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i>
+                                <h4>Profile Customization</h4>
+                                <p style="color: #666; margin: 10px 0;">Special themes and avatars</p>
+                                <div style="font-weight: 600; color: var(--warning); margin-bottom: 15px;">300 CP</div>
+                                <button class="btn btn-sm">Redeem</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Page -->
+        <div id="progress-page" class="page" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Progress Tracking</h1>
+                <p class="page-subtitle">Monitor your learning journey and identify areas for improvement</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Overall Progress</h3>
+                    <i class="fas fa-chart-pie card-icon"></i>
+                </div>
+                <div class="card-body">
+                    <div style="display: flex; align-items: center; justify-content: center; margin: 20px 0;">
+                        <div style="position: relative; width: 200px; height: 200px;">
+                            <svg viewBox="0 0 100 100" style="width: 100%; height: 100%;">
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="#eee" stroke-width="10"></circle>
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="url(#gradient)" stroke-width="10" stroke-dasharray="283" stroke-dashoffset="90" stroke-linecap="round" transform="rotate(-90 50 50)"></circle>
+                                <defs>
+                                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#4a6fa5"></stop>
+                                        <stop offset="100%" stop-color="#6c63ff"></stop>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                                <div style="font-size: 2rem; font-weight: bold;">68%</div>
+                                <div style="color: #666;">Complete</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; font-weight: bold; color: var(--primary);">24</div>
+                            <div style="color: #666;">Lessons Completed</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; font-weight: bold; color: var(--primary);">8</div>
+                            <div style="color: #666;">Experiments Done</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; font-weight: bold; color: var(--primary);">12</div>
+                            <div style="color: #666;">Day Streak</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; font-weight: bold; color: var(--primary);">85%</div>
+                            <div style="color: #666;">Quiz Average</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <h3 class="card-title">Module Progress</h3>
+                    <i class="fas fa-tasks card-icon"></i>
+                </div>
+                <div class="card-body">
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-title">Group 1 Metals Overview</span>
+                            <span class="progress-value">85%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress primary" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-title">Physical Properties</span>
+                            <span class="progress-value">70%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress primary" style="width: 70%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-title">Chemical Reactions</span>
+                            <span class="progress-value">60%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress primary" style="width: 60%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-title">Practical Applications</span>
+                            <span class="progress-value">45%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress warning" style="width: 45%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-title">Exam Preparation</span>
+                            <span class="progress-value">55%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress success" style="width: 55%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <h3 class="card-title">Recommendations</h3>
+                    <i class="fas fa-lightbulb card-icon"></i>
+                </div>
+                <div class="card-body">
+                    <div style="background: rgba(255, 193, 7, 0.1); border-left: 4px solid var(--warning); padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+                        <h4 style="color: var(--warning); margin-bottom: 5px;">Focus Area: Practical Applications</h4>
+                        <p>Your progress in this module is below average. We recommend spending more time on real-world applications of Group 1 metals.</p>
+                    </div>
+                    
+                    <div style="background: rgba(40, 167, 69, 0.1); border-left: 4px solid var(--success); padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+                        <h4 style="color: var(--success); margin-bottom: 5px;">Strength: Group 1 Metals Overview</h4>
+                        <p>You're doing great in this module! Consider helping peers who might be struggling with these concepts.</p>
+                    </div>
+                    
+                    <div style="background: rgba(108, 99, 255, 0.1); border-left: 4px solid var(--secondary); padding: 15px; border-radius: 5px;">
+                        <h4 style="color: var(--secondary); margin-bottom: 5px;">Suggested Next Steps</h4>
+                        <ul style="padding-left: 20px;">
+                            <li>Complete the "Industrial Uses of Alkali Metals" lesson</li>
+                            <li>Join the "Practical Applications" study group</li>
+                            <li>Try the "Real-World Chemistry" quest</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
     <!-- Modal -->
-    <div id="modal" class="modal">
+    <div class="modal" id="modal">
         <div class="modal-content">
-            <span id="close-btn" class="close">&times;</span>
-            <h2 id="element-name"></h2>
-            <p><strong>Symbol:</strong> <span id="element-symbol"></span></p>
-            <p><strong>Atomic Number:</strong> <span id="element-number"></span></p>
-            <p><strong>Physical Properties:</strong> <span id="element-physical"></span></p>
-            <p><strong>Chemical Properties:</strong> <span id="element-chemical"></span></p>
-
-            <div id="reaction-section">
-                <strong>Reaction:</strong>
-                <p id="element-reactions"></p>
-                <div id="reaction-animation"></div>
-                <button id="animate-btn">Show Reaction</button>
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Modal Title</h3>
+                <button class="modal-close" id="modal-close">&times;</button>
             </div>
-
-            <div id="quiz-section">
-                <strong>Quick Quiz:</strong>
-                <p id="quiz-question"></p>
-                <div id="quiz-options"></div>
-                <p id="quiz-feedback"></p>
+            <div class="modal-body" id="modal-body">
+                <p>Modal content goes here.</p>
             </div>
         </div>
     </div>
 
-    <script src="metals.js"></script>
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Menu toggle for mobile
+            const menuToggle = document.getElementById('menu-toggle');
+            const sidebar = document.getElementById('sidebar');
+            
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('active');
+            });
+            
+            // Page navigation
+            const menuItems = document.querySelectorAll('.menu-item');
+            const pages = document.querySelectorAll('.page');
+            
+            menuItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    // Remove active class from all menu items and pages
+                    menuItems.forEach(i => i.classList.remove('active'));
+                    pages.forEach(p => p.style.display = 'none');
+                    
+                    // Add active class to clicked menu item
+                    item.classList.add('active');
+                    
+                    // Show corresponding page
+                    const pageId = item.getAttribute('data-page') + '-page';
+                    document.getElementById(pageId).style.display = 'block';
+                    
+                    // Close sidebar on mobile
+                    if (window.innerWidth <= 992) {
+                        sidebar.classList.remove('active');
+                    }
+                });
+            });
+            
+            // Tab functionality
+            const tabs = document.querySelectorAll('.tab');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabContainer = tab.parentElement;
+                    const tabContents = tabContainer.parentElement.querySelectorAll('.tab-content');
+                    
+                    // Remove active class from all tabs in this container
+                    tabContainer.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+                    
+                    // Hide all tab contents
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Show corresponding tab content
+                    const tabId = tab.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Element selection in Learning Hub
+            const elementCards = document.querySelectorAll('#elements .element-card');
+            const elementDetails = document.getElementById('element-details');
+            const elementTitle = document.getElementById('element-title');
+            const elementInfo = document.getElementById('element-info');
+            
+            const elementData = {
+                Li: {
+                    name: 'Lithium',
+                    atomicNumber: 3,
+                    atomicMass: '6.94',
+                    electronConfig: '1s² 2s¹',
+                    properties: 'Soft, silvery-white metal. Least dense of all solid elements.',
+                    reactivity: 'Reacts steadily with water, producing hydrogen gas and lithium hydroxide.',
+                    uses: 'Batteries, mood-stabilizing drugs, alloy production.'
+                },
+                Na: {
+                    name: 'Sodium',
+                    atomicNumber: 11,
+                    atomicMass: '22.99',
+                    electronConfig: '1s² 2s² 2p⁶ 3s¹',
+                    properties: 'Soft, silvery-white, highly reactive metal.',
+                    reactivity: 'Reacts vigorously with water, can ignite hydrogen produced.',
+                    uses: 'Street lighting, table salt, chemical production.'
+                },
+                K: {
+                    name: 'Potassium',
+                    atomicNumber: 19,
+                    atomicMass: '39.10',
+                    electronConfig: '1s² 2s² 2p⁶ 3s² 3p⁶ 4s¹',
+                    properties: 'Soft, silvery-white metal. Less dense than water.',
+                    reactivity: 'Reacts violently with water, igniting hydrogen.',
+                    uses: 'Fertilizers, soap production, essential nutrient.'
+                },
+                Rb: {
+                    name: 'Rubidium',
+                    atomicNumber: 37,
+                    atomicMass: '85.47',
+                    electronConfig: '[Kr] 5s¹',
+                    properties: 'Soft, silvery-white metal. Highly reactive.',
+                    reactivity: 'Reacts explosively with water.',
+                    uses: 'Specialty glasses, vacuum tubes, atomic clocks.'
+                },
+                Cs: {
+                    name: 'Cesium',
+                    atomicNumber: 55,
+                    atomicMass: '132.91',
+                    electronConfig: '[Xe] 6s¹',
+                    properties: 'Soft, golden-colored metal. Extremely reactive.',
+                    reactivity: 'Reacts explosively with water, even ice.',
+                    uses: 'Atomic clocks, drilling fluids, photoelectric cells.'
+                },
+                Fr: {
+                    name: 'Francium',
+                    atomicNumber: 87,
+                    atomicMass: '223',
+                    electronConfig: '[Rn] 7s¹',
+                    properties: 'Highly radioactive, extremely rare metal.',
+                    reactivity: 'Predicted to be more reactive than cesium.',
+                    uses: 'No commercial uses due to rarity and radioactivity.'
+                }
+            };
+            
+            elementCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    // Remove selected class from all cards
+                    elementCards.forEach(c => c.classList.remove('selected'));
+                    
+                    // Add selected class to clicked card
+                    card.classList.add('selected');
+                    
+                    // Get element symbol
+                    const element = card.getAttribute('data-element');
+                    const data = elementData[element];
+                    
+                    // Update element details
+                    elementTitle.textContent = data.name + ' (' + element + ')';
+                    elementInfo.innerHTML = `
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                            <div>
+                                <h4>Atomic Number</h4>
+                                <p>${data.atomicNumber}</p>
+                            </div>
+                            <div>
+                                <h4>Atomic Mass</h4>
+                                <p>${data.atomicMass}</p>
+                            </div>
+                            <div>
+                                <h4>Electron Configuration</h4>
+                                <p>${data.electronConfig}</p>
+                            </div>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <h4>Properties</h4>
+                            <p>${data.properties}</p>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <h4>Reactivity</h4>
+                            <p>${data.reactivity}</p>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <h4>Uses</h4>
+                            <p>${data.uses}</p>
+                        </div>
+                    `;
+                    
+                    // Show element details
+                    elementDetails.style.display = 'block';
+                });
+            });
+            
+            // Virtual Lab functionality
+            const labEquipment = document.querySelectorAll('.lab-equipment');
+            const labElements = document.querySelectorAll('#lab-page .element-card');
+            const startLabExperiment = document.getElementById('start-lab-experiment');
+            const labReactionArea = document.getElementById('lab-reaction-area');
+            
+            let selectedEquipment = null;
+            let selectedLabElement = null;
+            
+            labEquipment.forEach(equipment => {
+                equipment.addEventListener('click', () => {
+                    // Remove selected class from all equipment
+                    labEquipment.forEach(e => e.classList.remove('selected'));
+                    
+                    // Add selected class to clicked equipment
+                    equipment.classList.add('selected');
+                    
+                    // Store selected equipment
+                    selectedEquipment = equipment.getAttribute('data-equipment');
+                });
+            });
+            
+            labElements.forEach(element => {
+                element.addEventListener('click', () => {
+                    // Remove selected class from all elements
+                    labElements.forEach(e => e.classList.remove('selected'));
+                    
+                    // Add selected class to clicked element
+                    element.classList.add('selected');
+                    
+                    // Store selected element
+                    selectedLabElement = element.getAttribute('data-element');
+                });
+            });
+            
+            startLabExperiment.addEventListener('click', () => {
+                if (selectedEquipment && selectedLabElement) {
+                    const elementName = document.querySelector(`#lab-page [data-element="${selectedLabElement}"] .element-name`).textContent;
+                    const equipmentName = document.querySelector(`[data-equipment="${selectedEquipment}"] div`).textContent;
+                    
+                    labReactionArea.innerHTML = `
+                        <div style="text-align: center;">
+                            <h3>Experiment in Progress</h3>
+                            <div style="margin: 20px 0; font-size: 3rem;">
+                                ${selectedLabElement} + ${equipmentName}
+                            </div>
+                            <p>${elementName} is reacting with ${equipmentName}...</p>
+                            <div style="margin-top: 20px;">
+                                <div style="display: inline-block; padding: 10px 20px; background: rgba(40, 167, 69, 0.1); color: var(--success); border-radius: 5px;">
+                                    <i class="fas fa-check-circle"></i> Experiment completed successfully!
+                                </div>
+                            </div>
+                            <p style="margin-top: 15px;">+50 Chemistry Points earned</p>
+                        </div>
+                    `;
+                } else {
+                    labReactionArea.innerHTML = `
+                        <p style="color: var(--warning);">Please select both equipment and an element to start the experiment.</p>
+                    `;
+                }
+            });
+            
+            // Modal functionality
+            const modal = document.getElementById('modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+            const modalClose = document.getElementById('modal-close');
+            
+            modalClose.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+            
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+            
+            // Simulate progress bar animation
+            setTimeout(() => {
+                document.querySelectorAll('.progress').forEach(bar => {
+                    const width = bar.style.width;
+                    bar.style.width = '0%';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 100);
+                });
+            }, 500);
+        });
+    </script>
 </body>
 </html>
