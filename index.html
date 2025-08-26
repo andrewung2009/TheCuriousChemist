@@ -10,11 +10,10 @@
     <h1>Group 1 Metals (Alkali Metals)</h1>
 
     <div class="periodic-table">
-        <!-- Group 1 elements will be dynamically inserted here -->
         <div id="elements-container"></div>
     </div>
 
-    <!-- Modal for element info -->
+    <!-- Modal -->
     <div id="modal" class="modal">
         <div class="modal-content">
             <span id="close-btn" class="close">&times;</span>
@@ -23,7 +22,20 @@
             <p><strong>Atomic Number:</strong> <span id="element-number"></span></p>
             <p><strong>Physical Properties:</strong> <span id="element-physical"></span></p>
             <p><strong>Chemical Properties:</strong> <span id="element-chemical"></span></p>
-            <p><strong>Reactions:</strong> <span id="element-reactions"></span></p>
+
+            <div id="reaction-section">
+                <strong>Reaction:</strong>
+                <p id="element-reactions"></p>
+                <div id="reaction-animation"></div>
+                <button id="animate-btn">Show Reaction</button>
+            </div>
+
+            <div id="quiz-section">
+                <strong>Quick Quiz:</strong>
+                <p id="quiz-question"></p>
+                <div id="quiz-options"></div>
+                <p id="quiz-feedback"></p>
+            </div>
         </div>
     </div>
 
