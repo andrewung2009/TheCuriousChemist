@@ -1,287 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alkali Adventures - Learning Platform</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - Group 1 Metals</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="menu-toggle" id="menu-toggle">
-            <i class="fas fa-bars"></i>
-        </div>
-        <div class="logo">
-            <i class="fas fa-atom"></i>
-            <span>Alkali Adventures</span>
-        </div>
-        <div class="header-right">
-            <div class="search-bar">
-                <input type="text" placeholder="Search lessons, elements, topics..." aria-label="Search">
-                <i class="fas fa-search"></i>
-            </div>
-            <div class="notification-icon" aria-label="Notifications">
-                <i class="fas fa-bell"></i>
-                <span class="notification-badge">3</span>
-            </div>
-            <div class="user-points" aria-label="Chemistry Points">
-                <i class="fas fa-coins"></i> <span id="user-points-display">1,250</span> CP
-            </div>
-            <div class="user-level" aria-label="User Level">
-                Level <span id="user-level-display">4</span>
-            </div>
-            <div class="user-profile">
-                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User Avatar" class="user-avatar">
-                <span class="user-name">Alex Johnson</span>
-                <i class="fas fa-chevron-down"></i>
-            </div>
-        </div>
-    </header>
-    <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-menu">
-            <a href="index.html" class="menu-item active" aria-label="Dashboard">
-                <i class="fas fa-home"></i>
-                <span>Dashboard</span>
-            </a>
-            <a href="learning.html" class="menu-item" aria-label="Learning Hub">
-                <i class="fas fa-book-open"></i>
-                <span>Learning Hub</span>
-            </a>
-            <a href="social.html" class="menu-item" aria-label="Social Learning">
-                <i class="fas fa-users"></i>
-                <span>Social Learning</span>
-                <span class="menu-badge">5</span>
-            </a>
-            <a href="gamification.html" class="menu-item" aria-label="Gamification">
-                <i class="fas fa-trophy"></i>
-                <span>Gamification</span>
-            </a>
-            <a href="progress.html" class="menu-item" aria-label="Progress">
-                <i class="fas fa-chart-line"></i>
-                <span>Progress</span>
-            </a>
-            <a href="settings.html" class="menu-item" aria-label="Settings">
-                <i class="fas fa-cog"></i>
-                <span>Settings</span>
-            </a>
-        </div>
-    </aside>
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Dashboard Page -->
-        <div id="dashboard-page" class="page active">
-            <div class="page-header">
-                <h1 class="page-title">Learning Dashboard</h1>
-                <p class="page-subtitle">Welcome back, Alex! Continue your journey through Group 1 metals.</p>
-            </div>
-            
-            <!-- Stats Cards -->
-            <div class="dashboard-grid">
-                <div class="card stats-card">
-                    <div class="stats-icon primary">
-                        <i class="fas fa-fire"></i>
-                    </div>
-                    <div class="stats-info">
-                        <h3>12</h3>
-                        <p>Learning Streak</p>
-                    </div>
-                </div>
-                
-                <div class="card stats-card">
-                    <div class="stats-icon success">
-                        <i class="fas fa-coins"></i>
-                    </div>
-                    <div class="stats-info">
-                        <h3>1,250</h3>
-                        <p>Chemistry Points</p>
-                    </div>
-                </div>
-                
-                <div class="card stats-card">
-                    <div class="stats-icon warning">
-                        <i class="fas fa-medal"></i>
-                    </div>
-                    <div class="stats-info">
-                        <h3>6</h3>
-                        <p>Badges Earned</p>
-                    </div>
-                </div>
-                
-                <div class="card stats-card">
-                    <div class="stats-icon info">
-                        <i class="fas fa-percentage"></i>
-                    </div>
-                    <div class="stats-info">
-                        <h3>68%</h3>
-                        <p>Course Progress</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Progress Overview -->
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Module Progress</h3>
-                    <i class="fas fa-chart-line card-icon"></i>
-                </div>
-                <div class="card-body">
-                    <div class="progress-item">
-                        <div class="progress-header">
-                            <span class="progress-title">Group 1 Metals Overview</span>
-                            <span class="progress-value">85%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress primary" style="width: 85%;"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="progress-item">
-                        <div class="progress-header">
-                            <span class="progress-title">Physical Properties</span>
-                            <span class="progress-value">70%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress primary" style="width: 70%;"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="progress-item">
-                        <div class="progress-header">
-                            <span class="progress-title">Chemical Reactions</span>
-                            <span class="progress-value">60%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress primary" style="width: 60%;"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="progress-item">
-                        <div class="progress-header">
-                            <span class="progress-title">Practical Applications</span>
-                            <span class="progress-value">45%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress warning" style="width: 45%;"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="progress-item">
-                        <div class="progress-header">
-                            <span class="progress-title">Exam Preparation</span>
-                            <span class="progress-value">55%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress success" style="width: 55%;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Recent Activity -->
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Recent Activity</h3>
-                    <i class="fas fa-history card-icon"></i>
-                </div>
-                <div class="card-body">
-                    <div class="social-feed">
-                        <div class="feed-item">
-                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="feed-avatar">
-                            <div class="feed-content">
-                                <div class="feed-header">
-                                    <span class="feed-author">You</span>
-                                    <span class="feed-time">2 hours ago</span>
-                                </div>
-                                <div class="feed-text">Completed the "Sodium Reactions" experiment in the Virtual Lab.</div>
-                                <div class="feed-actions">
-                                    <span class="feed-action"><i class="fas fa-heart"></i> 12</span>
-                                    <span class="feed-action"><i class="fas fa-comment"></i> 3</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="feed-item">
-                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="feed-avatar">
-                            <div class="feed-content">
-                                <div class="feed-header">
-                                    <span class="feed-author">Sarah Miller</span>
-                                    <span class="feed-time">5 hours ago</span>
-                                </div>
-                                <div class="feed-text">Earned the "Reactivity Master" badge! Who's next?</div>
-                                <div class="feed-actions">
-                                    <span class="feed-action"><i class="fas fa-heart"></i> 24</span>
-                                    <span class="feed-action"><i class="fas fa-comment"></i> 8</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="feed-item">
-                            <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="User" class="feed-avatar">
-                            <div class="feed-content">
-                                <div class="feed-header">
-                                    <span class="feed-author">Michael Chen</span>
-                                    <span class="feed-time">1 day ago</span>
-                                </div>
-                                <div class="feed-text">Started a new study group "Advanced Alkali Metals". Join us to discuss complex reactions!</div>
-                                <div class="feed-actions">
-                                    <span class="feed-action"><i class="fas fa-heart"></i> 18</span>
-                                    <span class="feed-action"><i class="fas fa-comment"></i> 5</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Recommendation Card -->
-            <div class="recommendation" id="recommendation-card" style="display: none;">
-                <div class="recommendation-header">
-                    <h4>Recommended Next Step</h4>
-                    <span class="recommendation-type" id="recommendation-type">Standard</span>
-                </div>
-                <div class="recommendation-topic" id="recommendation-topic">Next Module</div>
-                <div class="recommendation-reason" id="recommendation-reason">Continue with your learning journey</div>
-                <button class="btn" id="start-recommended">Start Now</button>
-            </div>
-        </div>
-    </main>
-    <!-- Modal -->
-    <div class="modal" id="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="modal-title">Modal Title</h3>
-                <button class="modal-close" id="modal-close">&times;</button>
-            </div>
-            <div class="modal-body" id="modal-body">
-                <p>Modal content goes here.</p>
-            </div>
-        </div>
-    </div>
-    <!-- Accessibility Controls -->
-    <div class="accessibility-controls">
-        <button id="contrast-toggle" class="btn btn-sm" title="Toggle High Contrast">
-            <i class="fas fa-adjust"></i>
-        </button>
-        <button id="font-decrease" class="btn btn-sm" title="Decrease Font Size">
-            <i class="fas fa-minus"></i>
-        </button>
-        <button id="font-increase" class="btn btn-sm" title="Increase Font Size">
-            <i class="fas fa-plus"></i>
-        </button>
-        <button id="screen-reader-toggle" class="btn btn-sm" title="Toggle Screen Reader Mode">
-            <i class="fas fa-universal-access"></i>
-        </button>
-    </div>
-    <!-- Voice Control Button -->
-    <button class="voice-control-btn" id="voice-control-btn" title="Voice Control">
-        <i class="fas fa-microphone"></i>
-    </button>
-    <!-- Live Region for Screen Reader -->
-    <div id="live-region" class="sr-only" aria-live="polite" aria-atomic="true"></div>
-    <script src="js/main.js"></script>
+  <header>
+    <h1>Group 1 Metals</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="learning.html">Learning</a></li>
+        <li><a href="social.html">Social</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Welcome</h2>
+    <p>This is the homepage for Group 1 metals. Explore the learning and social sections to know more.</p>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Group 1 Metals Project</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
-
