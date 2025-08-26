@@ -31,6 +31,84 @@
             color: var(--dark);
             line-height: 1.6;
             overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* Dark Mode */
+        body.dark-mode {
+            background-color: #1a1a2e;
+            color: #eee;
+        }
+        
+        body.dark-mode .header,
+        body.dark-mode .sidebar,
+        body.dark-mode .card {
+            background-color: #16213e;
+            color: #eee;
+        }
+        
+        body.dark-mode .card-header {
+            border-bottom-color: #0f3460;
+        }
+        
+        body.dark-mode .progress-bar {
+            background-color: #0f3460;
+        }
+        
+        body.dark-mode .feed-item,
+        body.dark-mode .element-card,
+        body.dark-mode .lab-equipment {
+            background-color: #0f3460;
+        }
+        
+        body.dark-mode .tabs {
+            border-bottom-color: #0f3460;
+        }
+        
+        body.dark-mode .tab {
+            color: #bbb;
+        }
+        
+        body.dark-mode .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        /* High Contrast Mode */
+        body.high-contrast {
+            background-color: #000;
+            color: #fff;
+        }
+        
+        body.high-contrast .header,
+        body.high-contrast .sidebar,
+        body.high-contrast .card {
+            background-color: #000;
+            color: #fff;
+            border: 2px solid #fff;
+        }
+        
+        body.high-contrast .btn {
+            background-color: #000;
+            color: #fff;
+            border: 2px solid #fff;
+        }
+        
+        body.high-contrast .progress {
+            background-color: #fff;
+        }
+        
+        /* Font Sizes */
+        body.font-small {
+            font-size: 14px;
+        }
+        
+        body.font-medium {
+            font-size: 16px;
+        }
+        
+        body.font-large {
+            font-size: 20px;
         }
         
         /* Header Styles */
@@ -46,6 +124,7 @@
             display: flex;
             align-items: center;
             padding: 0 20px;
+            transition: background-color 0.3s ease;
         }
         
         .logo {
@@ -117,6 +196,16 @@
             justify-content: center;
         }
         
+        .user-points {
+            margin-right: 15px;
+            font-weight: 600;
+        }
+        
+        .user-level {
+            margin-right: 15px;
+            font-weight: 600;
+        }
+        
         .user-profile {
             display: flex;
             align-items: center;
@@ -146,6 +235,7 @@
             box-shadow: 2px 0 10px rgba(0,0,0,0.05);
             overflow-y: auto;
             z-index: 999;
+            transition: transform 0.3s ease, background-color 0.3s ease;
         }
         
         .sidebar-menu {
@@ -196,6 +286,7 @@
             margin-top: var(--header-height);
             padding: 30px;
             min-height: calc(100vh - var(--header-height));
+            transition: margin-left 0.3s ease;
         }
         
         .page-header {
@@ -362,6 +453,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             border: 2px solid transparent;
+            position: relative;
         }
         
         .element-card:hover {
@@ -763,17 +855,144 @@
             padding: 20px;
         }
         
+        /* Notifications */
+        .notification {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: white;
+            border-radius: 10px;
+            padding: 15px 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            max-width: 300px;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .notification.level-up {
+            border-left: 4px solid var(--success);
+        }
+        
+        .notification.achievement {
+            border-left: 4px solid var(--warning);
+        }
+        
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .notification i {
+            font-size: 1.5rem;
+        }
+        
+        .notification.level-up i {
+            color: var(--success);
+        }
+        
+        .notification.achievement i {
+            color: var(--warning);
+        }
+        
+        .notification-title {
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+        
+        /* Accessibility Controls */
+        .accessibility-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 50px;
+            padding: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        
+        /* Voice Control */
+        .voice-control-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        .voice-control-btn:hover {
+            background: #3a5a80;
+        }
+        
+        .voice-control-btn.listening {
+            background: var(--accent);
+            animation: pulse 1.5s infinite;
+        }
+        
+        .voice-listening-indicator {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        /* 3D Model Container */
+        #atom-3d {
+            height: 400px;
+            position: relative;
+            background: #f8f9fa;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
         /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
         
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
         /* Responsive */
         @media (max-width: 992px) {
             .sidebar {
                 transform: translateX(-100%);
-                transition: transform 0.3s ease;
             }
             
             .sidebar.active {
@@ -790,10 +1009,321 @@
                 font-size: 1.5rem;
                 cursor: pointer;
             }
+            
+            .search-bar {
+                width: 200px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-right {
+                gap: 10px;
+            }
+            
+            .search-bar {
+                display: none;
+            }
+            
+            .user-points,
+            .user-level {
+                display: none;
+            }
         }
         
         .menu-toggle {
             display: none;
+        }
+        
+        /* Screen reader only content */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+        
+        /* Focus indicators */
+        button:focus,
+        a:focus,
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: 3px solid #ff6584;
+            outline-offset: 2px;
+        }
+        
+        /* Recommendation Card */
+        .recommendation {
+            background: rgba(108, 99, 255, 0.1);
+            border-left: 4px solid var(--secondary);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .recommendation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .recommendation-type {
+            background: var(--secondary);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .recommendation-topic {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .recommendation-reason {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        /* Chat Interface */
+        .chat-container {
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        
+        .chat-messages {
+            height: 200px;
+            overflow-y: auto;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .chat-message {
+            margin-bottom: 15px;
+        }
+        
+        .chat-message:last-child {
+            margin-bottom: 0;
+        }
+        
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .message-user {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .message-time {
+            color: #999;
+            font-size: 0.8rem;
+        }
+        
+        .message-content {
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .chat-input {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+        }
+        
+        .chat-input input:focus {
+            border-color: var(--primary);
+        }
+        
+        /* Offline/Online Status */
+        .online-status,
+        .offline-status {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: white;
+            z-index: 1001;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .online-status {
+            background: var(--success);
+        }
+        
+        .offline-status {
+            background: var(--warning);
+        }
+        
+        /* Quiz Styles */
+        .quiz-container {
+            margin-top: 20px;
+        }
+        
+        .quiz-question {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .quiz-option {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-option:hover {
+            border-color: var(--primary);
+        }
+        
+        .quiz-option.selected {
+            border-color: var(--primary);
+            background: rgba(74, 111, 165, 0.1);
+        }
+        
+        .quiz-option.correct {
+            border-color: var(--success);
+            background: rgba(40, 167, 69, 0.1);
+        }
+        
+        .quiz-option.incorrect {
+            border-color: var(--accent);
+            background: rgba(255, 101, 132, 0.1);
+        }
+        
+        .quiz-feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .quiz-feedback.correct {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--success);
+            border-left: 4px solid var(--success);
+        }
+        
+        .quiz-feedback.incorrect {
+            background: rgba(255, 101, 132, 0.1);
+            color: var(--accent);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .quiz-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .quiz-results {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+        }
+        
+        .quiz-score {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 20px 0;
+        }
+        
+        /* Spaced Repetition Card */
+        .spaced-repetition {
+            margin-top: 20px;
+        }
+        
+        .review-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .review-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .review-answer {
+            display: none;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+        
+        .review-rating {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .rating-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            background: white;
+            color: #666;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .rating-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .rating-btn.selected {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
         }
     </style>
 </head>
@@ -809,15 +1339,21 @@
         </div>
         <div class="header-right">
             <div class="search-bar">
-                <input type="text" placeholder="Search lessons, elements, topics...">
+                <input type="text" placeholder="Search lessons, elements, topics..." aria-label="Search">
                 <i class="fas fa-search"></i>
             </div>
-            <div class="notification-icon">
+            <div class="notification-icon" aria-label="Notifications">
                 <i class="fas fa-bell"></i>
                 <span class="notification-badge">3</span>
             </div>
+            <div class="user-points" aria-label="Chemistry Points">
+                <i class="fas fa-coins"></i> <span id="user-points-display">1,250</span> CP
+            </div>
+            <div class="user-level" aria-label="User Level">
+                Level <span id="user-level-display">4</span>
+            </div>
             <div class="user-profile">
-                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="user-avatar">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User Avatar" class="user-avatar">
                 <span class="user-name">Alex Johnson</span>
                 <i class="fas fa-chevron-down"></i>
             </div>
@@ -827,36 +1363,44 @@
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-menu">
-            <a href="#" class="menu-item active" data-page="dashboard">
+            <a href="#" class="menu-item active" data-page="dashboard" aria-label="Dashboard">
                 <i class="fas fa-home"></i>
                 <span>Dashboard</span>
             </a>
-            <a href="#" class="menu-item" data-page="learning">
+            <a href="#" class="menu-item" data-page="learning" aria-label="Learning Hub">
                 <i class="fas fa-book-open"></i>
                 <span>Learning Hub</span>
             </a>
-            <a href="#" class="menu-item" data-page="lab">
+            <a href="#" class="menu-item" data-page="lab" aria-label="Virtual Lab">
                 <i class="fas fa-flask"></i>
                 <span>Virtual Lab</span>
             </a>
-            <a href="#" class="menu-item" data-page="social">
+            <a href="#" class="menu-item" data-page="social" aria-label="Social Learning">
                 <i class="fas fa-users"></i>
                 <span>Social Learning</span>
                 <span class="menu-badge">5</span>
             </a>
-            <a href="#" class="menu-item" data-page="gamification">
+            <a href="#" class="menu-item" data-page="gamification" aria-label="Gamification">
                 <i class="fas fa-trophy"></i>
                 <span>Gamification</span>
             </a>
-            <a href="#" class="menu-item" data-page="progress">
+            <a href="#" class="menu-item" data-page="progress" aria-label="Progress">
                 <i class="fas fa-chart-line"></i>
                 <span>Progress</span>
             </a>
-            <a href="#" class="menu-item" data-page="resources">
+            <a href="#" class="menu-item" data-page="quiz" aria-label="Quiz">
+                <i class="fas fa-question-circle"></i>
+                <span>Quiz</span>
+            </a>
+            <a href="#" class="menu-item" data-page="spaced" aria-label="Spaced Repetition">
+                <i class="fas fa-redo"></i>
+                <span>Spaced Repetition</span>
+            </a>
+            <a href="#" class="menu-item" data-page="resources" aria-label="Resources">
                 <i class="fas fa-folder"></i>
                 <span>Resources</span>
             </a>
-            <a href="#" class="menu-item" data-page="settings">
+            <a href="#" class="menu-item" data-page="settings" aria-label="Settings">
                 <i class="fas fa-cog"></i>
                 <span>Settings</span>
             </a>
@@ -1029,6 +1573,17 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Recommendation Card -->
+            <div class="recommendation" id="recommendation-card" style="display: none;">
+                <div class="recommendation-header">
+                    <h4>Recommended Next Step</h4>
+                    <span class="recommendation-type" id="recommendation-type">Standard</span>
+                </div>
+                <div class="recommendation-topic" id="recommendation-topic">Next Module</div>
+                <div class="recommendation-reason" id="recommendation-reason">Continue with your learning journey</div>
+                <button class="btn" id="start-recommended">Start Now</button>
+            </div>
         </div>
 
         <!-- Learning Hub Page -->
@@ -1092,6 +1647,37 @@
                             <div id="element-info">
                                 <!-- Element details will be loaded here -->
                             </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 3D Model Section -->
+                <div class="card" style="margin-top: 30px;">
+                    <div class="card-header">
+                        <h3 class="card-title">3D Atomic Model</h3>
+                        <i class="fas fa-cube card-icon"></i>
+                    </div>
+                    <div class="card-body">
+                        <p>Explore the atomic structure of Group 1 elements in 3D.</p>
+                        
+                        <div id="atom-3d">
+                            <div style="display: flex; align-items: center; justify-content: center; height: 100%; flex-direction: column;">
+                                <i class="fas fa-cube" style="font-size: 4rem; color: var(--primary); margin-bottom: 20px;"></i>
+                                <p>3D Model Viewer</p>
+                                <p style="color: #666; margin-top: 10px;">Select an element above to view its 3D structure</p>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 15px;">
+                            <select id="element-select" class="btn btn-outline">
+                                <option value="">Select an element</option>
+                                <option value="Li">Lithium</option>
+                                <option value="Na">Sodium</option>
+                                <option value="K">Potassium</option>
+                                <option value="Rb">Rubidium</option>
+                                <option value="Cs">Cesium</option>
+                                <option value="Fr">Francium</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -1390,16 +1976,39 @@
                     </div>
                     <div class="card-body">
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;" data-group="group1-basics">
                                 <h4>Group 1 Basics</h4>
                                 <p style="color: #666; margin: 10px 0;">For beginners learning about alkali metals</p>
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
                                     <span><i class="fas fa-users"></i> 24 members</span>
                                     <button class="btn btn-sm">Join</button>
                                 </div>
+                                
+                                <div class="chat-container">
+                                    <div class="chat-messages" id="chat-group1-basics">
+                                        <div class="chat-message">
+                                            <div class="message-header">
+                                                <span class="message-user">Sarah M.</span>
+                                                <span class="message-time">10:30 AM</span>
+                                            </div>
+                                            <div class="message-content">Welcome to the group! Let's start with the basics of Group 1 metals.</div>
+                                        </div>
+                                        <div class="chat-message">
+                                            <div class="message-header">
+                                                <span class="message-user">You</span>
+                                                <span class="message-time">10:32 AM</span>
+                                            </div>
+                                            <div class="message-content">Great! I'm excited to learn more about alkali metals.</div>
+                                        </div>
+                                    </div>
+                                    <div class="chat-input">
+                                        <input type="text" id="message-input-group1-basics" placeholder="Type a message...">
+                                        <button class="btn btn-sm" onclick="sendChatMessage('group1-basics')">Send</button>
+                                    </div>
+                                </div>
                             </div>
                             
-                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;" data-group="advanced-reactions">
                                 <h4>Advanced Reactions</h4>
                                 <p style="color: #666; margin: 10px 0;">Exploring complex reactions and mechanisms</p>
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
@@ -1408,7 +2017,7 @@
                                 </div>
                             </div>
                             
-                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;" data-group="exam-prep">
                                 <h4>Exam Preparation</h4>
                                 <p style="color: #666; margin: 10px 0;">Focused on test strategies and practice</p>
                                 <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
@@ -1540,55 +2149,55 @@
                         <p>Collect badges by completing learning activities and mastering concepts.</p>
                         
                         <div class="badge-grid">
-                            <div class="badge earned">
+                            <div class="badge earned" data-badge="reactivity-master">
                                 <i class="fas fa-fire"></i>
                                 <span class="badge-name">Reactivity Master</span>
                                 <div class="badge-tooltip">Complete all reaction experiments</div>
                             </div>
                             
-                            <div class="badge earned">
+                            <div class="badge earned" data-badge="atomic-explorer">
                                 <i class="fas fa-atom"></i>
                                 <span class="badge-name">Atomic Explorer</span>
                                 <div class="badge-tooltip">Explore all Group 1 elements</div>
                             </div>
                             
-                            <div class="badge earned">
+                            <div class="badge earned" data-badge="lab-expert">
                                 <i class="fas fa-flask"></i>
                                 <span class="badge-name">Lab Expert</span>
                                 <div class="badge-tooltip">Complete 10 virtual lab experiments</div>
                             </div>
                             
-                            <div class="badge earned">
+                            <div class="badge earned" data-badge="team-player">
                                 <i class="fas fa-users"></i>
                                 <span class="badge-name">Team Player</span>
                                 <div class="badge-tooltip">Join 3 study groups</div>
                             </div>
                             
-                            <div class="badge earned">
+                            <div class="badge earned" data-badge="peer-teacher">
                                 <i class="fas fa-chalkboard-teacher"></i>
                                 <span class="badge-name">Peer Teacher</span>
                                 <div class="badge-tooltip">Create 2 mini-lessons</div>
                             </div>
                             
-                            <div class="badge earned">
+                            <div class="badge earned" data-badge="quick-learner">
                                 <i class="fas fa-brain"></i>
                                 <span class="badge-name">Quick Learner</span>
                                 <div class="badge-tooltip">Complete 5 modules in one week</div>
                             </div>
                             
-                            <div class="badge locked">
+                            <div class="badge locked" data-badge="alkali-master">
                                 <i class="fas fa-trophy"></i>
                                 <span class="badge-name">Alkali Master</span>
                                 <div class="badge-tooltip">Earn all other badges</div>
                             </div>
                             
-                            <div class="badge locked">
+                            <div class="badge locked" data-badge="chemistry-champion">
                                 <i class="fas fa-graduation-cap"></i>
                                 <span class="badge-name">Chemistry Champion</span>
                                 <div class="badge-tooltip">Score 90%+ on final exam</div>
                             </div>
                             
-                            <div class="badge locked">
+                            <div class="badge locked" data-badge="group1-guru">
                                 <i class="fas fa-star"></i>
                                 <span class="badge-name">Group 1 Guru</span>
                                 <div class="badge-tooltip">Complete all course content</div>
@@ -1608,7 +2217,7 @@
                         <p>Embark on learning quests to earn points and unlock achievements.</p>
                         
                         <div class="quest-list">
-                            <div class="quest-item">
+                            <div class="quest-item" data-quest="sodium-investigations">
                                 <div class="quest-icon">
                                     <i class="fas fa-vial"></i>
                                 </div>
@@ -1624,7 +2233,7 @@
                                 </div>
                             </div>
                             
-                            <div class="quest-item">
+                            <div class="quest-item" data-quest="element-explorer">
                                 <div class="quest-icon">
                                     <i class="fas fa-atom"></i>
                                 </div>
@@ -1640,7 +2249,7 @@
                                 </div>
                             </div>
                             
-                            <div class="quest-item">
+                            <div class="quest-item" data-quest="social-learner">
                                 <div class="quest-icon">
                                     <i class="fas fa-users"></i>
                                 </div>
@@ -1656,7 +2265,7 @@
                                 </div>
                             </div>
                             
-                            <div class="quest-item">
+                            <div class="quest-item" data-quest="trend-master">
                                 <div class="quest-icon">
                                     <i class="fas fa-chart-line"></i>
                                 </div>
@@ -1941,6 +2550,291 @@
                 </div>
             </div>
         </div>
+
+        <!-- Quiz Page -->
+        <div id="quiz-page" class="page" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Quiz Center</h1>
+                <p class="page-subtitle">Test your knowledge of Group 1 metals</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Group 1 Metals Quiz</h3>
+                    <i class="fas fa-question-circle card-icon"></i>
+                </div>
+                <div class="card-body">
+                    <div class="quiz-container" id="quiz-container">
+                        <div class="quiz-question" id="quiz-question-1">
+                            <h4>Question 1 of 5</h4>
+                            <p>Which of the following is NOT a Group 1 metal?</p>
+                            <div class="quiz-options">
+                                <div class="quiz-option" data-option="A">Sodium (Na)</div>
+                                <div class="quiz-option" data-option="B">Potassium (K)</div>
+                                <div class="quiz-option" data-option="C">Calcium (Ca)</div>
+                                <div class="quiz-option" data-option="D">Lithium (Li)</div>
+                            </div>
+                            <div class="quiz-feedback" id="feedback-1"></div>
+                        </div>
+                        
+                        <div class="quiz-question" id="quiz-question-2" style="display: none;">
+                            <h4>Question 2 of 5</h4>
+                            <p>What happens when Group 1 metals react with water?</p>
+                            <div class="quiz-options">
+                                <div class="quiz-option" data-option="A">They produce hydrogen gas and metal hydroxides</div>
+                                <div class="quiz-option" data-option="B">They produce oxygen gas and metal oxides</div>
+                                <div class="quiz-option" data-option="C">They produce carbon dioxide and metal carbonates</div>
+                                <div class="quiz-option" data-option="D">No reaction occurs</div>
+                            </div>
+                            <div class="quiz-feedback" id="feedback-2"></div>
+                        </div>
+                        
+                        <div class="quiz-question" id="quiz-question-3" style="display: none;">
+                            <h4>Question 3 of 5</h4>
+                            <p>Which Group 1 metal is the most reactive?</p>
+                            <div class="quiz-options">
+                                <div class="quiz-option" data-option="A">Lithium (Li)</div>
+                                <div class="quiz-option" data-option="B">Sodium (Na)</div>
+                                <div class="quiz-option" data-option="C">Potassium (K)</div>
+                                <div class="quiz-option" data-option="D">Francium (Fr)</div>
+                            </div>
+                            <div class="quiz-feedback" id="feedback-3"></div>
+                        </div>
+                        
+                        <div class="quiz-question" id="quiz-question-4" style="display: none;">
+                            <h4>Question 4 of 5</h4>
+                            <p>What is the trend in atomic radius down Group 1?</p>
+                            <div class="quiz-options">
+                                <div class="quiz-option" data-option="A">Decreases</div>
+                                <div class="quiz-option" data-option="B">Increases</div>
+                                <div class="quiz-option" data-option="C">Remains constant</div>
+                                <div class="quiz-option" data-option="D">No clear trend</div>
+                            </div>
+                            <div class="quiz-feedback" id="feedback-4"></div>
+                        </div>
+                        
+                        <div class="quiz-question" id="quiz-question-5" style="display: none;">
+                            <h4>Question 5 of 5</h4>
+                            <p>What is a common use of lithium?</p>
+                            <div class="quiz-options">
+                                <div class="quiz-option" data-option="A">Table salt</div>
+                                <div class="quiz-option" data-option="B">Batteries</div>
+                                <div class="quiz-option" data-option="C">Fertilizers</div>
+                                <div class="quiz-option" data-option="B">Street lighting</div>
+                            </div>
+                            <div class="quiz-feedback" id="feedback-5"></div>
+                        </div>
+                        
+                        <div class="quiz-navigation">
+                            <button class="btn btn-outline" id="prev-question" disabled>Previous</button>
+                            <button class="btn" id="next-question">Next</button>
+                        </div>
+                        
+                        <div class="quiz-results" id="quiz-results">
+                            <h3>Quiz Results</h3>
+                            <div class="quiz-score" id="quiz-score">0%</div>
+                            <p id="quiz-result-message"></p>
+                            <button class="btn" id="retake-quiz">Retake Quiz</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Spaced Repetition Page -->
+        <div id="spaced-page" class="page" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Spaced Repetition</h1>
+                <p class="page-subtitle">Optimize your learning with scientifically-proven review intervals</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Review Cards</h3>
+                    <i class="fas fa-redo card-icon"></i>
+                </div>
+                <div class="card-body">
+                    <p>Review these concepts at optimal intervals to maximize retention.</p>
+                    
+                    <div class="spaced-repetition">
+                        <div class="review-card">
+                            <div class="review-question">What is the general trend in reactivity down Group 1?</div>
+                            <div class="review-answer">
+                                <p>Reactivity increases down Group 1 due to decreasing ionization energy. As you go down the group, the atomic radius increases and the outer electron is further from the nucleus, making it easier to lose.</p>
+                            </div>
+                            <div class="review-rating">
+                                <button class="rating-btn" data-rating="1">1</button>
+                                <button class="rating-btn" data-rating="2">2</button>
+                                <button class="rating-btn" data-rating="3">3</button>
+                                <button class="rating-btn" data-rating="4">4</button>
+                                <button class="rating-btn" data-rating="5">5</button>
+                            </div>
+                        </div>
+                        
+                        <div class="review-card">
+                            <div class="review-question">What products are formed when Group 1 metals react with water?</div>
+                            <div class="review-answer">
+                                <p>Group 1 metals react with water to produce hydrogen gas (H₂) and the corresponding metal hydroxide (MOH). The general equation is: 2M(s) + 2H₂O(l) → 2MOH(aq) + H₂(g)</p>
+                            </div>
+                            <div class="review-rating">
+                                <button class="rating-btn" data-rating="1">1</button>
+                                <button class="rating-btn" data-rating="2">2</button>
+                                <button class="rating-btn" data-rating="3">3</button>
+                                <button class="rating-btn" data-rating="4">4</button>
+                                <button class="rating-btn" data-rating="5">5</button>
+                            </div>
+                        </div>
+                        
+                        <div class="review-card">
+                            <div class="review-question">What is the trend in melting points down Group 1?</div>
+                            <div class="review-answer">
+                                <p>Melting points decrease down Group 1. This is due to weakening metallic bonding as the atomic size increases and the strength of the metallic bonds decreases.</p>
+                            </div>
+                            <div class="review-rating">
+                                <button class="rating-btn" data-rating="1">1</button>
+                                <button class="rating-btn" data-rating="2">2</button>
+                                <button class="rating-btn" data-rating="3">3</button>
+                                <button class="rating-btn" data-rating="4">4</button>
+                                <button class="rating-btn" data-rating="5">5</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resources Page -->
+        <div id="resources-page" class="page" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Learning Resources</h1>
+                <p class="page-subtitle">Additional materials to enhance your learning</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Downloadable Resources</h3>
+                    <i class="fas fa-download card-icon"></i>
+                </div>
+                <div class="card-body">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;">
+                            <i class="fas fa-file-pdf" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i>
+                            <h4>Group 1 Metals Handbook</h4>
+                            <p style="color: #666; margin: 10px 0;">Comprehensive guide to Group 1 metals</p>
+                            <button class="btn btn-sm">Download PDF</button>
+                        </div>
+                        
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;">
+                            <i class="fas fa-file-video" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i>
+                            <h4>Experiment Videos</h4>
+                            <p style="color: #666; margin: 10px 0;">Video demonstrations of reactions</p>
+                            <button class="btn btn-sm">Watch Videos</button>
+                        </div>
+                        
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;">
+                            <i class="fas fa-file-powerpoint" style="font-size: 3rem; color: var(--primary); margin-bottom: 15px;"></i>
+                            <h4>Revision Slides</h4>
+                            <p style="color: #666; margin: 10px 0;">Key concepts summarized</p>
+                            <button class="btn btn-sm">Download PPT</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <h3 class="card-title">External Links</h3>
+                    <i class="fas fa-external-link-alt card-icon"></i>
+                </div>
+                <div class="card-body">
+                    <ul style="padding-left: 20px;">
+                        <li style="margin-bottom: 10px;"><a href="#" style="color: var(--primary);">Royal Society of Chemistry - Periodic Table</a></li>
+                        <li style="margin-bottom: 10px;"><a href="#" style="color: var(--primary);">Khan Academy - Alkali Metals</a></li>
+                        <li style="margin-bottom: 10px;"><a href="#" style="color: var(--primary);">YouTube - Group 1 Metals Experiments</a></li>
+                        <li style="margin-bottom: 10px;"><a href="#" style="color: var(--primary);">BBC Bitesize - Group 1 Elements</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Page -->
+        <div id="settings-page" class="page" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Settings</h1>
+                <p class="page-subtitle">Customize your learning experience</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Account Settings</h3>
+                    <i class="fas fa-user-cog card-icon"></i>
+                </div>
+                <div class="card-body">
+                    <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" style="width: 80px; height: 80px; border-radius: 50%; margin-right: 20px;">
+                        <div>
+                            <h4>Alex Johnson</h4>
+                            <p>alex.johnson@example.com</p>
+                            <button class="btn btn-sm" style="margin-top: 10px;">Change Avatar</button>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Name</label>
+                        <input type="text" value="Alex Johnson" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Email</label>
+                        <input type="email" value="alex.johnson@example.com" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                    </div>
+                    
+                    <button class="btn">Save Changes</button>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 30px;">
+                <div class="card-header">
+                    <h3 class="card-title">Learning Preferences</h3>
+                    <i class="fas fa-sliders-h card-icon"></i>
+                </div>
+                <div class="card-body">
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: flex; align-items: center; cursor: pointer;">
+                            <input type="checkbox" id="dark-mode-toggle" style="margin-right: 10px;">
+                            <span>Dark Mode</span>
+                        </label>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: flex; align-items: center; cursor: pointer;">
+                            <input type="checkbox" id="notifications-toggle" checked style="margin-right: 10px;">
+                            <span>Enable Notifications</span>
+                        </label>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Font Size</label>
+                        <select id="font-size-select" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <option value="small">Small</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="large">Large</option>
+                        </select>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Learning Difficulty</label>
+                        <select id="difficulty-select" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate" selected>Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn">Save Preferences</button>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Modal -->
@@ -1956,19 +2850,74 @@
         </div>
     </div>
 
+    <!-- Accessibility Controls -->
+    <div class="accessibility-controls">
+        <button id="contrast-toggle" class="btn btn-sm" title="Toggle High Contrast">
+            <i class="fas fa-adjust"></i>
+        </button>
+        <button id="font-decrease" class="btn btn-sm" title="Decrease Font Size">
+            <i class="fas fa-minus"></i>
+        </button>
+        <button id="font-increase" class="btn btn-sm" title="Increase Font Size">
+            <i class="fas fa-plus"></i>
+        </button>
+        <button id="screen-reader-toggle" class="btn btn-sm" title="Toggle Screen Reader Mode">
+            <i class="fas fa-universal-access"></i>
+        </button>
+    </div>
+
+    <!-- Voice Control Button -->
+    <button class="voice-control-btn" id="voice-control-btn" title="Voice Control">
+        <i class="fas fa-microphone"></i>
+    </button>
+
+    <!-- Live Region for Screen Reader -->
+    <div id="live-region" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Menu toggle for mobile
+            // Initialize all systems
+            initializeApp();
+        });
+
+        function initializeApp() {
+            // Core functionality
+            initializeNavigation();
+            initializeTabs();
+            initializeElementInteraction();
+            initializeLabExperiment();
+            initializeGamification();
+            initializeProgressTracking();
+            initializeQuiz();
+            initializeSpacedRepetition();
+            
+            // Enhanced features
+            initializeAccessibility();
+            initializeVoiceControl();
+            initializeOfflineMode();
+            initializeAdaptiveLearning();
+            initializeSettings();
+            
+            // Load user data
+            loadUserData();
+            
+            // Set up event listeners
+            setupEventListeners();
+            
+            // Animate progress bars on load
+            setTimeout(animateProgressBars, 500);
+        }
+
+        // Navigation
+        function initializeNavigation() {
             const menuToggle = document.getElementById('menu-toggle');
             const sidebar = document.getElementById('sidebar');
+            const menuItems = document.querySelectorAll('.menu-item');
+            const pages = document.querySelectorAll('.page');
             
             menuToggle.addEventListener('click', () => {
                 sidebar.classList.toggle('active');
             });
-            
-            // Page navigation
-            const menuItems = document.querySelectorAll('.menu-item');
-            const pages = document.querySelectorAll('.page');
             
             menuItems.forEach(item => {
                 item.addEventListener('click', (e) => {
@@ -1991,8 +2940,10 @@
                     }
                 });
             });
-            
-            // Tab functionality
+        }
+
+        // Tabs
+        function initializeTabs() {
             const tabs = document.querySelectorAll('.tab');
             
             tabs.forEach(tab => {
@@ -2014,12 +2965,15 @@
                     document.getElementById(tabId).classList.add('active');
                 });
             });
-            
-            // Element selection in Learning Hub
+        }
+
+        // Element Interaction in Learning Hub
+        function initializeElementInteraction() {
             const elementCards = document.querySelectorAll('#elements .element-card');
             const elementDetails = document.getElementById('element-details');
             const elementTitle = document.getElementById('element-title');
             const elementInfo = document.getElementById('element-info');
+            const elementSelect = document.getElementById('element-select');
             
             const elementData = {
                 Li: {
@@ -2123,10 +3077,61 @@
                     
                     // Show element details
                     elementDetails.style.display = 'block';
+                    
+                    // Update 3D model selector
+                    elementSelect.value = element;
+                    update3DModel(element);
                 });
             });
             
-            // Virtual Lab functionality
+            // Element select for 3D model
+            elementSelect.addEventListener('change', (e) => {
+                const element = e.target.value;
+                if (element) {
+                    update3DModel(element);
+                    
+                    // Also select the corresponding element card
+                    elementCards.forEach(card => {
+                        card.classList.remove('selected');
+                        if (card.getAttribute('data-element') === element) {
+                            card.classList.add('selected');
+                        }
+                    });
+                }
+            });
+        }
+
+        // Update 3D Model (simulated)
+        function update3DModel(element) {
+            const atom3d = document.getElementById('atom-3d');
+            const elementNames = {
+                Li: 'Lithium',
+                Na: 'Sodium',
+                K: 'Potassium',
+                Rb: 'Rubidium',
+                Cs: 'Cesium',
+                Fr: 'Francium'
+            };
+            
+            atom3d.innerHTML = `
+                <div style="display: flex; align-items: center; justify-content: center; height: 100%; flex-direction: column;">
+                    <i class="fas fa-atom" style="font-size: 4rem; color: var(--primary); margin-bottom: 20px; animation: pulse 2s infinite;"></i>
+                    <h3>${elementNames[element]} Atom</h3>
+                    <p style="color: #666; margin-top: 10px;">3D visualization of atomic structure</p>
+                    <div style="margin-top: 20px; text-align: center;">
+                        <div style="display: inline-block; margin: 0 10px; padding: 10px; background: #f8f9fa; border-radius: 10px;">
+                            <strong>Nucleus:</strong> ${element}+
+                        </div>
+                        <div style="display: inline-block; margin: 0 10px; padding: 10px; background: #f8f9fa; border-radius: 10px;">
+                            <strong>Electrons:</strong> 1
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Virtual Lab
+        function initializeLabExperiment() {
             const labEquipment = document.querySelectorAll('.lab-equipment');
             const labElements = document.querySelectorAll('#lab-page .element-card');
             const startLabExperiment = document.getElementById('start-lab-experiment');
@@ -2181,30 +3186,172 @@
                             <p style="margin-top: 15px;">+50 Chemistry Points earned</p>
                         </div>
                     `;
+                    
+                    // Award points
+                    gamificationSystem.addPoints(50);
+                    
+                    // Check for achievements
+                    if (selectedEquipment === 'water') {
+                        gamificationSystem.unlockAchievement('reactivity-master');
+                    }
                 } else {
                     labReactionArea.innerHTML = `
                         <p style="color: var(--warning);">Please select both equipment and an element to start the experiment.</p>
                     `;
                 }
             });
+        }
+
+        // Gamification System
+        class GamificationSystem {
+            constructor() {
+                this.achievements = this.loadAchievements();
+                this.points = this.loadPoints();
+                this.level = this.calculateLevel(this.points);
+            }
             
-            // Modal functionality
-            const modal = document.getElementById('modal');
-            const modalTitle = document.getElementById('modal-title');
-            const modalBody = document.getElementById('modal-body');
-            const modalClose = document.getElementById('modal-close');
+            loadAchievements() {
+                const saved = localStorage.getItem('achievements');
+                return saved ? JSON.parse(saved) : [];
+            }
             
-            modalClose.addEventListener('click', () => {
-                modal.style.display = 'none';
-            });
+            loadPoints() {
+                const saved = localStorage.getItem('points');
+                return saved ? parseInt(saved) : 0;
+            }
             
-            window.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.style.display = 'none';
+            saveAchievements() {
+                localStorage.setItem('achievements', JSON.stringify(this.achievements));
+            }
+            
+            savePoints() {
+                localStorage.setItem('points', this.points.toString());
+            }
+            
+            calculateLevel(points) {
+                // Level calculation: each level requires 20% more points than the previous
+                let level = 1;
+                let pointsRequired = 100;
+                
+                while (points >= pointsRequired) {
+                    level++;
+                    pointsRequired = Math.floor(pointsRequired * 1.2);
                 }
-            });
+                
+                return level;
+            }
             
-            // Simulate progress bar animation
+            addPoints(amount) {
+                this.points += amount;
+                this.savePoints();
+                
+                // Check if level up
+                const newLevel = this.calculateLevel(this.points);
+                if (newLevel > this.level) {
+                    this.level = newLevel;
+                    this.showLevelUpNotification();
+                }
+                
+                // Update UI
+                this.updatePointsDisplay();
+            }
+            
+            unlockAchievement(achievementId) {
+                if (!this.achievements.includes(achievementId)) {
+                    this.achievements.push(achievementId);
+                    this.saveAchievements();
+                    
+                    // Show achievement notification
+                    this.showAchievementNotification(achievementId);
+                    
+                    // Award points for achievement
+                    this.addPoints(50);
+                    
+                    // Update badge display
+                    const badgeElement = document.querySelector(`[data-badge="${achievementId}"]`);
+                    if (badgeElement) {
+                        badgeElement.classList.remove('locked');
+                        badgeElement.classList.add('earned');
+                    }
+                }
+            }
+            
+            showLevelUpNotification() {
+                const notification = document.createElement('div');
+                notification.className = 'notification level-up';
+                notification.innerHTML = `
+                    <div class="notification-content">
+                        <i class="fas fa-level-up-alt"></i>
+                        <div>
+                            <div class="notification-title">Level Up!</div>
+                            <div>You reached level ${this.level}</div>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                // Auto remove after 5 seconds
+                setTimeout(() => {
+                    notification.remove();
+                }, 5000);
+            }
+            
+            showAchievementNotification(achievementId) {
+                const achievements = {
+                    'reactivity-master': { name: 'Reactivity Master', icon: 'fa-fire' },
+                    'atomic-explorer': { name: 'Atomic Explorer', icon: 'fa-atom' },
+                    'lab-expert': { name: 'Lab Expert', icon: 'fa-flask' },
+                    'team-player': { name: 'Team Player', icon: 'fa-users' },
+                    'peer-teacher': { name: 'Peer Teacher', icon: 'fa-chalkboard-teacher' },
+                    'quick-learner': { name: 'Quick Learner', icon: 'fa-brain' },
+                    'alkali-master': { name: 'Alkali Master', icon: 'fa-trophy' },
+                    'chemistry-champion': { name: 'Chemistry Champion', icon: 'fa-graduation-cap' },
+                    'group1-guru': { name: 'Group 1 Guru', icon: 'fa-star' }
+                };
+                
+                const achievement = achievements[achievementId];
+                
+                const notification = document.createElement('div');
+                notification.className = 'notification achievement';
+                notification.innerHTML = `
+                    <div class="notification-content">
+                        <i class="fas ${achievement.icon}"></i>
+                        <div>
+                            <div class="notification-title">Achievement Unlocked!</div>
+                            <div>${achievement.name}</div>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                // Auto remove after 5 seconds
+                setTimeout(() => {
+                    notification.remove();
+                }, 5000);
+            }
+            
+            updatePointsDisplay() {
+                const pointsDisplay = document.getElementById('user-points-display');
+                const levelDisplay = document.getElementById('user-level-display');
+                
+                if (pointsDisplay) {
+                    pointsDisplay.textContent = this.points.toLocaleString();
+                }
+                
+                if (levelDisplay) {
+                    levelDisplay.textContent = this.level;
+                }
+            }
+        }
+
+        // Initialize gamification
+        const gamificationSystem = new GamificationSystem();
+
+        // Progress Tracking
+        function initializeProgressTracking() {
+            // Animate progress bars on page load
             setTimeout(() => {
                 document.querySelectorAll('.progress').forEach(bar => {
                     const width = bar.style.width;
@@ -2214,7 +3361,1082 @@
                     }, 100);
                 });
             }, 500);
-        });
+        }
+
+        function animateProgressBars() {
+            document.querySelectorAll('.progress').forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 100);
+            });
+        }
+
+        // Quiz System
+        function initializeQuiz() {
+            const quizQuestions = document.querySelectorAll('.quiz-question');
+            const quizOptions = document.querySelectorAll('.quiz-option');
+            const prevButton = document.getElementById('prev-question');
+            const nextButton = document.getElementById('next-question');
+            const retakeButton = document.getElementById('retake-quiz');
+            const quizResults = document.getElementById('quiz-results');
+            
+            let currentQuestion = 0;
+            let userAnswers = [];
+            let score = 0;
+            
+            const correctAnswers = {
+                1: 'C', // Calcium is not a Group 1 metal
+                2: 'A', // They produce hydrogen gas and metal hydroxides
+                3: 'D', // Francium is the most reactive
+                4: 'B', // Atomic radius increases down the group
+                5: 'B'  // Lithium is used in batteries
+            };
+            
+            const feedbackMessages = {
+                1: {
+                    correct: 'Correct! Calcium (Ca) is in Group 2, not Group 1.',
+                    incorrect: 'Incorrect. Calcium (Ca) is in Group 2, not Group 1. The correct answer is C.'
+                },
+                2: {
+                    correct: 'Correct! Group 1 metals react with water to produce hydrogen gas and metal hydroxides.',
+                    incorrect: 'Incorrect. Group 1 metals react with water to produce hydrogen gas and metal hydroxides. The correct answer is A.'
+                },
+                3: {
+                    correct: 'Correct! Reactivity increases down Group 1, making francium the most reactive.',
+                    incorrect: 'Incorrect. Reactivity increases down Group 1, making francium the most reactive. The correct answer is D.'
+                },
+                4: {
+                    correct: 'Correct! Atomic radius increases down the group due to additional electron shells.',
+                    incorrect: 'Incorrect. Atomic radius increases down the group due to additional electron shells. The correct answer is B.'
+                },
+                5: {
+                    correct: 'Correct! Lithium is commonly used in batteries, especially lithium-ion batteries.',
+                    incorrect: 'Incorrect. Lithium is commonly used in batteries, especially lithium-ion batteries. The correct answer is B.'
+                }
+            };
+            
+            // Handle option selection
+            quizOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const questionId = option.closest('.quiz-question').id.split('-')[2];
+                    const selectedOption = option.getAttribute('data-option');
+                    
+                    // Clear previous selections
+                    document.querySelectorAll(`#quiz-question-${questionId} .quiz-option`).forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Mark selected option
+                    option.classList.add('selected');
+                    
+                    // Store user answer
+                    userAnswers[questionId - 1] = selectedOption;
+                    
+                    // Show feedback
+                    const feedback = document.getElementById(`feedback-${questionId}`);
+                    feedback.style.display = 'block';
+                    
+                    if (selectedOption === correctAnswers[questionId]) {
+                        option.classList.add('correct');
+                        feedback.className = 'quiz-feedback correct';
+                        feedback.innerHTML = `<i class="fas fa-check-circle"></i> ${feedbackMessages[questionId].correct}`;
+                    } else {
+                        option.classList.add('incorrect');
+                        feedback.className = 'quiz-feedback incorrect';
+                        feedback.innerHTML = `<i class="fas fa-times-circle"></i> ${feedbackMessages[questionId].incorrect}`;
+                        
+                        // Show correct answer
+                        document.querySelectorAll(`#quiz-question-${questionId} .quiz-option`).forEach(opt => {
+                            if (opt.getAttribute('data-option') === correctAnswers[questionId]) {
+                                opt.classList.add('correct');
+                            }
+                        });
+                    }
+                });
+            });
+            
+            // Navigation buttons
+            prevButton.addEventListener('click', () => {
+                if (currentQuestion > 0) {
+                    document.getElementById(`quiz-question-${currentQuestion + 1}`).style.display = 'none';
+                    currentQuestion--;
+                    document.getElementById(`quiz-question-${currentQuestion + 1}`).style.display = 'block';
+                    
+                    // Update button states
+                    prevButton.disabled = currentQuestion === 0;
+                    nextButton.textContent = currentQuestion === 4 ? 'Finish' : 'Next';
+                }
+            });
+            
+            nextButton.addEventListener('click', () => {
+                if (currentQuestion < 4) {
+                    document.getElementById(`quiz-question-${currentQuestion + 1}`).style.display = 'none';
+                    currentQuestion++;
+                    document.getElementById(`quiz-question-${currentQuestion + 1}`).style.display = 'block';
+                    
+                    // Update button states
+                    prevButton.disabled = false;
+                    nextButton.textContent = currentQuestion === 4 ? 'Finish' : 'Next';
+                } else {
+                    // Finish quiz
+                    finishQuiz();
+                }
+            });
+            
+            function finishQuiz() {
+                // Calculate score
+                score = 0;
+                for (let i = 0; i < 5; i++) {
+                    if (userAnswers[i] === correctAnswers[i + 1]) {
+                        score++;
+                    }
+                }
+                
+                const percentage = Math.round((score / 5) * 100);
+                
+                // Hide all questions
+                quizQuestions.forEach(question => {
+                    question.style.display = 'none';
+                });
+                
+                // Hide navigation
+                document.querySelector('.quiz-navigation').style.display = 'none';
+                
+                // Show results
+                quizResults.style.display = 'block';
+                document.getElementById('quiz-score').textContent = `${percentage}%`;
+                
+                // Result message based on score
+                let message = '';
+                if (percentage >= 80) {
+                    message = 'Excellent work! You have a strong understanding of Group 1 metals.';
+                } else if (percentage >= 60) {
+                    message = 'Good job! You have a solid understanding of Group 1 metals, but there\'s room for improvement.';
+                } else {
+                    message = 'Keep studying! Review the material and try again to improve your understanding of Group 1 metals.';
+                }
+                
+                document.getElementById('quiz-result-message').textContent = message;
+                
+                // Award points based on score
+                const points = Math.floor(percentage / 10) * 10;
+                gamificationSystem.addPoints(points);
+                
+                // Update adaptive learning
+                if (window.adaptiveLearning) {
+                    window.adaptiveLearning.updatePerformance('Group 1 Metals Quiz', percentage);
+                }
+            }
+            
+            // Retake quiz
+            retakeButton.addEventListener('click', () => {
+                // Reset quiz
+                currentQuestion = 0;
+                userAnswers = [];
+                score = 0;
+                
+                // Show first question
+                quizQuestions.forEach((question, index) => {
+                    question.style.display = index === 0 ? 'block' : 'none';
+                });
+                
+                // Reset options
+                quizOptions.forEach(option => {
+                    option.classList.remove('selected', 'correct', 'incorrect');
+                });
+                
+                // Hide feedback
+                document.querySelectorAll('.quiz-feedback').forEach(feedback => {
+                    feedback.style.display = 'none';
+                });
+                
+                // Show navigation
+                document.querySelector('.quiz-navigation').style.display = 'flex';
+                
+                // Hide results
+                quizResults.style.display = 'none';
+                
+                // Reset buttons
+                prevButton.disabled = true;
+                nextButton.textContent = 'Next';
+            });
+        }
+
+        // Spaced Repetition
+        function initializeSpacedRepetition() {
+            const reviewCards = document.querySelectorAll('.review-card');
+            const ratingButtons = document.querySelectorAll('.rating-btn');
+            
+            reviewCards.forEach(card => {
+                const showAnswerBtn = document.createElement('button');
+                showAnswerBtn.className = 'btn btn-sm';
+                showAnswerBtn.textContent = 'Show Answer';
+                showAnswerBtn.style.marginTop = '15px';
+                
+                const answer = card.querySelector('.review-answer');
+                answer.style.display = 'none';
+                
+                showAnswerBtn.addEventListener('click', () => {
+                    answer.style.display = 'block';
+                    showAnswerBtn.style.display = 'none';
+                });
+                
+                card.insertBefore(showAnswerBtn, card.querySelector('.review-rating'));
+            });
+            
+            ratingButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const card = button.closest('.review-card');
+                    const cardId = Array.from(reviewCards).indexOf(card);
+                    
+                    // Clear previous selections
+                    card.querySelectorAll('.rating-btn').forEach(btn => {
+                        btn.classList.remove('selected');
+                    });
+                    
+                    // Mark selected button
+                    button.classList.add('selected');
+                    
+                    // Update spaced repetition schedule
+                    if (window.spacedRepetition) {
+                        window.spacedRepetition.updateItem(`card-${cardId}`, parseInt(button.getAttribute('data-rating')));
+                    }
+                    
+                    // Show next card or completion message
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                        
+                        const nextCard = reviewCards[cardId + 1];
+                        if (nextCard) {
+                            nextCard.style.display = 'block';
+                        } else {
+                            // All cards reviewed
+                            const completionMsg = document.createElement('div');
+                            completionMsg.className = 'card';
+                            completionMsg.style.marginTop = '20px';
+                            completionMsg.innerHTML = `
+                                <div class="card-body" style="text-align: center;">
+                                    <h3>Review Complete!</h3>
+                                    <p>Great job! Your next review session has been scheduled.</p>
+                                    <button class="btn" onclick="location.reload()">Start Over</button>
+                                </div>
+                            `;
+                            
+                            document.querySelector('.spaced-repetition').appendChild(completionMsg);
+                        }
+                    }, 1000);
+                });
+            });
+        }
+
+        // Accessibility
+        function initializeAccessibility() {
+            const accessibilityManager = new AccessibilityManager();
+            accessibilityManager.loadPreferences();
+        }
+
+        class AccessibilityManager {
+            constructor() {
+                this.highContrastMode = false;
+                this.fontSize = 'medium';
+                this.screenReader = false;
+                this.initializeControls();
+            }
+            
+            initializeControls() {
+                const contrastToggle = document.getElementById('contrast-toggle');
+                const fontDecrease = document.getElementById('font-decrease');
+                const fontIncrease = document.getElementById('font-increase');
+                const screenReaderToggle = document.getElementById('screen-reader-toggle');
+                
+                contrastToggle.addEventListener('click', () => {
+                    this.toggleHighContrast();
+                });
+                
+                fontDecrease.addEventListener('click', () => {
+                    this.decreaseFontSize();
+                });
+                
+                fontIncrease.addEventListener('click', () => {
+                    this.increaseFontSize();
+                });
+                
+                screenReaderToggle.addEventListener('click', () => {
+                    this.toggleScreenReader();
+                });
+            }
+            
+            toggleHighContrast() {
+                this.highContrastMode = !this.highContrastMode;
+                document.body.classList.toggle('high-contrast', this.highContrastMode);
+                
+                // Save preference
+                localStorage.setItem('highContrast', this.highContrastMode);
+            }
+            
+            decreaseFontSize() {
+                const sizes = ['small', 'medium', 'large'];
+                const currentIndex = sizes.indexOf(this.fontSize);
+                
+                if (currentIndex > 0) {
+                    this.fontSize = sizes[currentIndex - 1];
+                    this.applyFontSize();
+                }
+            }
+            
+            increaseFontSize() {
+                const sizes = ['small', 'medium', 'large'];
+                const currentIndex = sizes.indexOf(this.fontSize);
+                
+                if (currentIndex < sizes.length - 1) {
+                    this.fontSize = sizes[currentIndex + 1];
+                    this.applyFontSize();
+                }
+            }
+            
+            applyFontSize() {
+                document.body.classList.remove('font-small', 'font-medium', 'font-large');
+                document.body.classList.add(`font-${this.fontSize}`);
+                
+                // Save preference
+                localStorage.setItem('fontSize', this.fontSize);
+            }
+            
+            toggleScreenReader() {
+                this.screenReader = !this.screenReader;
+                
+                if (this.screenReader) {
+                    this.enableScreenReaderMode();
+                } else {
+                    this.disableScreenReaderMode();
+                }
+                
+                // Save preference
+                localStorage.setItem('screenReader', this.screenReader);
+            }
+            
+            enableScreenReaderMode() {
+                // Add ARIA attributes to interactive elements
+                document.querySelectorAll('button, a, input, select, textarea').forEach(element => {
+                    if (!element.getAttribute('aria-label')) {
+                        const text = element.textContent.trim();
+                        if (text) {
+                            element.setAttribute('aria-label', text);
+                        }
+                    }
+                });
+                
+                // Announce screen reader mode enabled
+                this.announceToScreenReader('Screen reader mode enabled');
+            }
+            
+            disableScreenReaderMode() {
+                // Announce screen reader mode disabled
+                this.announceToScreenReader('Screen reader mode disabled');
+            }
+            
+            announceToScreenReader(message) {
+                const liveRegion = document.getElementById('live-region');
+                if (liveRegion) {
+                    liveRegion.textContent = message;
+                    
+                    // Clear after announcement
+                    setTimeout(() => {
+                        liveRegion.textContent = '';
+                    }, 1000);
+                }
+            }
+            
+            loadPreferences() {
+                // Load saved preferences
+                const highContrast = localStorage.getItem('highContrast') === 'true';
+                const fontSize = localStorage.getItem('fontSize') || 'medium';
+                const screenReader = localStorage.getItem('screenReader') === 'true';
+                
+                // Apply preferences
+                if (highContrast) {
+                    this.toggleHighContrast();
+                }
+                
+                this.fontSize = fontSize;
+                this.applyFontSize();
+                
+                if (screenReader) {
+                    this.toggleScreenReader();
+                }
+            }
+        }
+
+        // Voice Control
+        function initializeVoiceControl() {
+            const voiceControl = new VoiceControl();
+        }
+
+        class VoiceControl {
+            constructor() {
+                this.recognition = null;
+                this.isListening = false;
+                this.commands = {
+                    'go to dashboard': () => this.navigateTo('dashboard'),
+                    'go to learning': () => this.navigateTo('learning'),
+                    'go to lab': () => this.navigateTo('lab'),
+                    'go to social': () => this.navigateTo('social'),
+                    'go to gamification': () => this.navigateTo('gamification'),
+                    'go to progress': () => this.navigateTo('progress'),
+                    'go to quiz': () => this.navigateTo('quiz'),
+                    'go to spaced': () => this.navigateTo('spaced'),
+                    'go to resources': () => this.navigateTo('resources'),
+                    'go to settings': () => this.navigateTo('settings'),
+                    'start experiment': () => this.startExperiment(),
+                    'next lesson': () => this.nextLesson(),
+                    'previous lesson': () => this.previousLesson(),
+                    'help': () => this.showHelp()
+                };
+                
+                this.initializeVoiceControl();
+            }
+            
+            initializeVoiceControl() {
+                if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                    this.recognition = new SpeechRecognition();
+                    
+                    this.recognition.continuous = false;
+                    this.recognition.interimResults = false;
+                    this.recognition.lang = 'en-US';
+                    
+                    this.recognition.onresult = (event) => {
+                        const command = event.results[0][0].transcript.toLowerCase().trim();
+                        this.processCommand(command);
+                    };
+                    
+                    this.recognition.onerror = (event) => {
+                        console.error('Speech recognition error:', event.error);
+                        this.stopListening();
+                    };
+                    
+                    this.recognition.onend = () => {
+                        this.stopListening();
+                    };
+                    
+                    // Add voice control button
+                    this.addVoiceControlButton();
+                } else {
+                    console.log('Speech recognition not supported');
+                }
+            }
+            
+            addVoiceControlButton() {
+                const voiceButton = document.getElementById('voice-control-btn');
+                
+                voiceButton.addEventListener('click', () => {
+                    if (this.isListening) {
+                        this.stopListening();
+                    } else {
+                        this.startListening();
+                    }
+                });
+            }
+            
+            startListening() {
+                if (this.recognition && !this.isListening) {
+                    this.recognition.start();
+                    this.isListening = true;
+                    
+                    const voiceButton = document.getElementById('voice-control-btn');
+                    voiceButton.classList.add('listening');
+                    
+                    // Show listening indicator
+                    this.showListeningIndicator();
+                }
+            }
+            
+            stopListening() {
+                if (this.recognition && this.isListening) {
+                    this.recognition.stop();
+                    this.isListening = false;
+                    
+                    const voiceButton = document.getElementById('voice-control-btn');
+                    voiceButton.classList.remove('listening');
+                    
+                    // Hide listening indicator
+                    this.hideListeningIndicator();
+                }
+            }
+            
+            showListeningIndicator() {
+                const indicator = document.createElement('div');
+                indicator.className = 'voice-listening-indicator';
+                indicator.innerHTML = '<i class="fas fa-microphone"></i> Listening...';
+                
+                document.body.appendChild(indicator);
+                this.listeningIndicator = indicator;
+            }
+            
+            hideListeningIndicator() {
+                if (this.listeningIndicator) {
+                    this.listeningIndicator.remove();
+                    this.listeningIndicator = null;
+                }
+            }
+            
+            processCommand(command) {
+                console.log('Voice command:', command);
+                
+                // Check if command matches any predefined commands
+                for (const [phrase, action] of Object.entries(this.commands)) {
+                    if (command.includes(phrase)) {
+                        action();
+                        return;
+                    }
+                }
+                
+                // If no match, show help
+                this.showHelp();
+            }
+            
+            navigateTo(page) {
+                // Find and click the corresponding menu item
+                const menuItem = document.querySelector(`[data-page="${page}"]`);
+                if (menuItem) {
+                    menuItem.click();
+                }
+            }
+            
+            startExperiment() {
+                // Check if we're on the lab page
+                if (document.getElementById('lab-page').style.display !== 'none') {
+                    const startButton = document.getElementById('start-lab-experiment');
+                    if (startButton) {
+                        startButton.click();
+                    }
+                } else {
+                    // Navigate to lab page first
+                    this.navigateTo('lab');
+                    
+                    // Wait for page to load, then start experiment
+                    setTimeout(() => {
+                        const startButton = document.getElementById('start-lab-experiment');
+                        if (startButton) {
+                            startButton.click();
+                        }
+                    }, 500);
+                }
+            }
+            
+            nextLesson() {
+                // Implementation would depend on lesson structure
+                console.log('Next lesson command');
+            }
+            
+            previousLesson() {
+                // Implementation would depend on lesson structure
+                console.log('Previous lesson command');
+            }
+            
+            showHelp() {
+                const helpModal = document.createElement('div');
+                helpModal.className = 'modal';
+                helpModal.style.display = 'flex';
+                helpModal.innerHTML = `
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Voice Commands</h3>
+                            <button class="modal-close">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <ul>
+                                <li>"Go to dashboard" - Navigate to dashboard</li>
+                                <li>"Go to learning" - Navigate to learning hub</li>
+                                <li>"Go to lab" - Navigate to virtual lab</li>
+                                <li>"Go to social" - Navigate to social learning</li>
+                                <li>"Go to gamification" - Navigate to gamification</li>
+                                <li>"Go to progress" - Navigate to progress tracking</li>
+                                <li>"Go to quiz" - Navigate to quiz</li>
+                                <li>"Go to spaced" - Navigate to spaced repetition</li>
+                                <li>"Go to resources" - Navigate to resources</li>
+                                <li>"Go to settings" - Navigate to settings</li>
+                                <li>"Start experiment" - Start lab experiment</li>
+                                <li>"Next lesson" - Go to next lesson</li>
+                                <li>"Previous lesson" - Go to previous lesson</li>
+                                <li>"Help" - Show this help</li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(helpModal);
+                
+                helpModal.querySelector('.modal-close').addEventListener('click', () => {
+                    helpModal.remove();
+                });
+                
+                helpModal.addEventListener('click', (e) => {
+                    if (e.target === helpModal) {
+                        helpModal.remove();
+                    }
+                });
+            }
+        }
+
+        // Offline Mode
+        function initializeOfflineMode() {
+            const offlineManager = new OfflineManager();
+        }
+
+        class OfflineManager {
+            constructor() {
+                this.isOnline = navigator.onLine;
+                this.setupEventListeners();
+            }
+            
+            setupEventListeners() {
+                window.addEventListener('online', () => {
+                    this.isOnline = true;
+                    this.showOnlineStatus();
+                    this.syncData();
+                });
+                
+                window.addEventListener('offline', () => {
+                    this.isOnline = false;
+                    this.showOfflineStatus();
+                });
+            }
+            
+            showOnlineStatus() {
+                const notification = document.createElement('div');
+                notification.className = 'online-status';
+                notification.innerHTML = '<i class="fas fa-wifi"></i> You are back online';
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.remove();
+                }, 3000);
+            }
+            
+            showOfflineStatus() {
+                const notification = document.createElement('div');
+                notification.className = 'offline-status';
+                notification.innerHTML = '<i class="fas fa-wifi-slash"></i> You are offline. Some features may be limited.';
+                
+                document.body.appendChild(notification);
+                this.offlineNotification = notification;
+            }
+            
+            syncData() {
+                // Remove offline notification
+                if (this.offlineNotification) {
+                    this.offlineNotification.remove();
+                    this.offlineNotification = null;
+                }
+                
+                // Get offline data and sync with server
+                this.getOfflineData().then(offlineData => {
+                    if (offlineData && offlineData.length > 0) {
+                        this.syncWithServer(offlineData).then(() => {
+                            this.clearOfflineData();
+                            this.showSyncCompleteNotification();
+                        });
+                    }
+                });
+            }
+            
+            getOfflineData() {
+                return new Promise((resolve) => {
+                    const offlineData = localStorage.getItem('offlineData');
+                    resolve(offlineData ? JSON.parse(offlineData) : []);
+                });
+            }
+            
+            syncWithServer(data) {
+                return new Promise((resolve) => {
+                    // Simulate server sync
+                    setTimeout(() => {
+                        console.log('Data synced with server:', data);
+                        resolve();
+                    }, 1000);
+                });
+            }
+            
+            clearOfflineData() {
+                localStorage.removeItem('offlineData');
+            }
+            
+            showSyncCompleteNotification() {
+                const notification = document.createElement('div');
+                notification.className = 'online-status';
+                notification.innerHTML = '<i class="fas fa-check-circle"></i> Your data has been synced';
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.remove();
+                }, 3000);
+            }
+            
+            saveOfflineData(data) {
+                const existingData = localStorage.getItem('offlineData');
+                const offlineData = existingData ? JSON.parse(existingData) : [];
+                offlineData.push(data);
+                localStorage.setItem('offlineData', JSON.stringify(offlineData));
+            }
+            
+            isAvailable() {
+                return this.isOnline;
+            }
+        }
+
+        // Adaptive Learning
+        function initializeAdaptiveLearning() {
+            window.adaptiveLearning = new AdaptiveLearning();
+        }
+
+        class AdaptiveLearning {
+            constructor() {
+                this.studentData = this.loadStudentData();
+            }
+            
+            loadStudentData() {
+                const saved = localStorage.getItem('studentData');
+                return saved ? JSON.parse(saved) : {
+                    strengths: [],
+                    weaknesses: [],
+                    learningPath: 'standard'
+                };
+            }
+            
+            saveStudentData() {
+                localStorage.setItem('studentData', JSON.stringify(this.studentData));
+            }
+            
+            updatePerformance(topic, score) {
+                if (score >= 80) {
+                    // Student is strong in this topic
+                    if (!this.studentData.strengths.includes(topic)) {
+                        this.studentData.strengths.push(topic);
+                    }
+                    
+                    // Remove from weaknesses if present
+                    const weaknessIndex = this.studentData.weaknesses.indexOf(topic);
+                    if (weaknessIndex !== -1) {
+                        this.studentData.weaknesses.splice(weaknessIndex, 1);
+                    }
+                } else if (score < 60) {
+                    // Student is weak in this topic
+                    if (!this.studentData.weaknesses.includes(topic)) {
+                        this.studentData.weaknesses.push(topic);
+                    }
+                    
+                    // Remove from strengths if present
+                    const strengthIndex = this.studentData.strengths.indexOf(topic);
+                    if (strengthIndex !== -1) {
+                        this.studentData.strengths.splice(strengthIndex, 1);
+                    }
+                }
+                
+                // Update learning path based on performance
+                this.updateLearningPath();
+                
+                this.saveStudentData();
+                
+                // Show recommendation
+                this.showRecommendation();
+            }
+            
+            updateLearningPath() {
+                if (this.studentData.weaknesses.length > 2) {
+                    // Student has multiple weaknesses - remedial path
+                    this.studentData.learningPath = 'remedial';
+                } else if (this.studentData.strengths.length > 3) {
+                    // Student has multiple strengths - advanced path
+                    this.studentData.learningPath = 'advanced';
+                } else {
+                    // Standard path
+                    this.studentData.learningPath = 'standard';
+                }
+            }
+            
+            getNextRecommendation() {
+                // Recommend content based on learning path
+                if (this.studentData.learningPath === 'remedial') {
+                    // Focus on weaknesses
+                    return {
+                        type: 'Remedial',
+                        topic: this.studentData.weaknesses[0] || 'Practice Problems',
+                        reason: 'You need more practice in this area'
+                    };
+                } else if (this.studentData.learningPath === 'advanced') {
+                    // Recommend advanced content
+                    return {
+                        type: 'Advanced',
+                        topic: 'Advanced Applications',
+                        reason: 'You\'re ready for more challenging content'
+                    };
+                } else {
+                    // Standard path - continue with curriculum
+                    return {
+                        type: 'Standard',
+                        topic: 'Next Module',
+                        reason: 'Continue with your learning journey'
+                    };
+                }
+            }
+            
+            showRecommendation() {
+                const recommendation = this.getNextRecommendation();
+                const recommendationCard = document.getElementById('recommendation-card');
+                
+                if (recommendationCard) {
+                    document.getElementById('recommendation-type').textContent = recommendation.type;
+                    document.getElementById('recommendation-topic').textContent = recommendation.topic;
+                    document.getElementById('recommendation-reason').textContent = recommendation.reason;
+                    
+                    recommendationCard.style.display = 'block';
+                }
+            }
+        }
+
+        // Spaced Repetition System
+        class SpacedRepetition {
+            constructor() {
+                this.schedule = this.loadSchedule();
+            }
+            
+            loadSchedule() {
+                const saved = localStorage.getItem('spacedRepetition');
+                return saved ? JSON.parse(saved) : {};
+            }
+            
+            saveSchedule() {
+                localStorage.setItem('spacedRepetition', JSON.stringify(this.schedule));
+            }
+            
+            reviewItem(itemId) {
+                if (!this.schedule[itemId]) {
+                    this.schedule[itemId] = {
+                        level: 0,
+                        nextReview: Date.now()
+                    };
+                }
+                
+                const now = Date.now();
+                if (now >= this.schedule[itemId].nextReview) {
+                    // Item is due for review
+                    return true;
+                }
+                return false;
+            }
+            
+            updateItem(itemId, quality) {
+                if (!this.schedule[itemId]) {
+                    this.schedule[itemId] = { level: 0 };
+                }
+                
+                // SM-2 algorithm implementation
+                const item = this.schedule[itemId];
+                if (quality >= 3) {
+                    if (item.level === 0) {
+                        item.level = 1;
+                    } else {
+                        item.level = item.level * item.interval;
+                    }
+                } else {
+                    item.level = 0;
+                }
+                
+                item.interval = this.calculateInterval(item.level);
+                item.nextReview = Date.now() + item.interval * 24 * 60 * 60 * 1000; // Convert days to ms
+                
+                this.saveSchedule();
+            }
+            
+            calculateInterval(level) {
+                if (level === 0) return 1;
+                if (level === 1) return 6;
+                return level * 4; // Subsequent intervals
+            }
+        }
+
+        // Settings
+        function initializeSettings() {
+            // Dark mode toggle
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
+            if (darkModeToggle) {
+                darkModeToggle.addEventListener('change', () => {
+                    document.body.classList.toggle('dark-mode', darkModeToggle.checked);
+                    
+                    // Save preference
+                    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+                    userData.darkMode = darkModeToggle.checked;
+                    localStorage.setItem('userData', JSON.stringify(userData));
+                });
+            }
+            
+            // Font size select
+            const fontSizeSelect = document.getElementById('font-size-select');
+            if (fontSizeSelect) {
+                fontSizeSelect.addEventListener('change', () => {
+                    document.body.classList.remove('font-small', 'font-medium', 'font-large');
+                    document.body.classList.add(`font-${fontSizeSelect.value}`);
+                    
+                    // Save preference
+                    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+                    userData.fontSize = fontSizeSelect.value;
+                    localStorage.setItem('userData', JSON.stringify(userData));
+                });
+            }
+            
+            // Difficulty select
+            const difficultySelect = document.getElementById('difficulty-select');
+            if (difficultySelect) {
+                difficultySelect.addEventListener('change', () => {
+                    // Save preference
+                    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+                    userData.difficulty = difficultySelect.value;
+                    localStorage.setItem('userData', JSON.stringify(userData));
+                });
+            }
+            
+            // Notifications toggle
+            const notificationsToggle = document.getElementById('notifications-toggle');
+            if (notificationsToggle) {
+                notificationsToggle.addEventListener('change', () => {
+                    // Save preference
+                    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+                    userData.notifications = notificationsToggle.checked;
+                    localStorage.setItem('userData', JSON.stringify(userData));
+                });
+            }
+        }
+
+        // Load User Data
+        function loadUserData() {
+            // Load user preferences and data
+            const userData = localStorage.getItem('userData');
+            if (userData) {
+                const data = JSON.parse(userData);
+                
+                // Apply user preferences
+                if (data.darkMode) {
+                    document.body.classList.add('dark-mode');
+                    const darkModeToggle = document.getElementById('dark-mode-toggle');
+                    if (darkModeToggle) {
+                        darkModeToggle.checked = true;
+                    }
+                }
+                
+                if (data.fontSize) {
+                    document.body.classList.add(`font-${data.fontSize}`);
+                    const fontSizeSelect = document.getElementById('font-size-select');
+                    if (fontSizeSelect) {
+                        fontSizeSelect.value = data.fontSize;
+                    }
+                }
+                
+                if (data.difficulty) {
+                    const difficultySelect = document.getElementById('difficulty-select');
+                    if (difficultySelect) {
+                        difficultySelect.value = data.difficulty;
+                    }
+                }
+                
+                if (data.notifications !== undefined) {
+                    const notificationsToggle = document.getElementById('notifications-toggle');
+                    if (notificationsToggle) {
+                        notificationsToggle.checked = data.notifications;
+                    }
+                }
+            }
+        }
+
+        // Setup Event Listeners
+        function setupEventListeners() {
+            // Modal functionality
+            const modal = document.getElementById('modal');
+            const modalClose = document.getElementById('modal-close');
+            
+            if (modalClose) {
+                modalClose.addEventListener('click', () => {
+                    modal.style.display = 'none';
+                });
+            }
+            
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+            
+            // Chat functionality
+            window.sendChatMessage = function(groupId) {
+                const input = document.getElementById(`message-input-${groupId}`);
+                const message = input.value.trim();
+                
+                if (message) {
+                    // Add message to chat
+                    const chatMessages = document.getElementById(`chat-${groupId}`);
+                    const messageElement = document.createElement('div');
+                    messageElement.className = 'chat-message';
+                    messageElement.innerHTML = `
+                        <div class="message-header">
+                            <span class="message-user">You</span>
+                            <span class="message-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                        </div>
+                        <div class="message-content">${message}</div>
+                    `;
+                    
+                    chatMessages.appendChild(messageElement);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    
+                    // Clear input
+                    input.value = '';
+                    
+                    // Award points for social interaction
+                    gamificationSystem.addPoints(5);
+                }
+            };
+            
+            // Handle enter key in chat inputs
+            document.querySelectorAll('.chat-input input').forEach(input => {
+                input.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        const groupId = input.id.replace('message-input-', '');
+                        sendChatMessage(groupId);
+                    }
+                });
+            });
+            
+            // Dark mode toggle
+            const darkModeToggle = document.createElement('button');
+            darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            darkModeToggle.className = 'btn btn-sm';
+            darkModeToggle.style.marginLeft = '10px';
+            darkModeToggle.title = 'Toggle Dark Mode';
+            darkModeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                
+                // Save preference
+                const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+                userData.darkMode = document.body.classList.contains('dark-mode');
+                localStorage.setItem('userData', JSON.stringify(userData));
+            });
+            
+            document.querySelector('.user-profile').before(darkModeToggle);
+            
+            // Simulate quiz completion for adaptive learning
+            setTimeout(() => {
+                // Simulate completing a quiz with a score
+                if (window.adaptiveLearning) {
+                    window.adaptiveLearning.updatePerformance('Chemical Reactions', 75);
+                }
+            }, 3000);
+            
+            // Initialize spaced repetition
+            window.spacedRepetition = new SpacedRepetition();
+        }
     </script>
 </body>
 </html>
