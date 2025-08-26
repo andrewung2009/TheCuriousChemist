@@ -6,9 +6,7 @@ body {
     text-align: center;
 }
 
-h1 {
-    margin-bottom: 20px;
-}
+h1 { margin-bottom: 20px; }
 
 .periodic-table {
     display: flex;
@@ -20,7 +18,7 @@ h1 {
 .element {
     width: 80px;
     height: 80px;
-    background-color: #ffd6d6; /* Group 1 color */
+    background-color: #ffd6d6;
     border: 2px solid #ff4d4d;
     border-radius: 5px;
     display: flex;
@@ -36,7 +34,6 @@ h1 {
     background-color: #ffb3b3;
 }
 
-/* Modal styling */
 .modal {
     display: none;
     position: fixed;
@@ -51,10 +48,10 @@ h1 {
 
 .modal-content {
     background-color: #fff;
-    margin: 10% auto;
+    margin: 5% auto;
     padding: 20px;
     border-radius: 10px;
-    width: 80%;
+    width: 90%;
     max-width: 500px;
     text-align: left;
 }
@@ -66,6 +63,28 @@ h1 {
     cursor: pointer;
 }
 
-.close:hover {
-    color: #000;
+.close:hover { color: #000; }
+
+/* Reaction animation */
+#reaction-animation { position: relative; height: 100px; margin: 10px 0; }
+.bubble {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: bold;
+    color: #ff6600;
+    font-size: 16px;
 }
+
+/* Quiz buttons */
+.quiz-btn {
+    margin: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #333;
+    background-color: #eee;
+    transition: background-color 0.2s;
+}
+.quiz-btn:hover { background-color: #ddd; }
