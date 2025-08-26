@@ -1,46 +1,276 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Social - Group 1 Metals</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Learning Hub — Group 1 (Alkali) Metals</title>
+  <meta name="description" content="Complete Y10–11 learning hub for Group 1 (alkali) metals: explanations, reactions, equations, safety, uses, quizzes, and exam prep." />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <h1>Group 1 Metals — Social Impact</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="learning.html">Learning</a></li>
-        <li><a href="social.html">Social</a></li>
-      </ul>
-    </nav>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <div class="logo">G1</div>
+        <div class="brand-text">
+          <h1>Group 1 Metals</h1>
+          <p class="tagline">Alkali Metals — Learning Hub</p>
+        </div>
+      </div>
+      <button class="nav-toggle" aria-controls="nav" aria-expanded="false" id="navToggle" title="Toggle navigation">
+        ☰
+      </button>
+      <nav id="nav" class="site-nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="learning.html" class="active">Learning Hub</a>
+        <a href="social.html">Community</a>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <section>
-      <h2>Societal Importance</h2>
-      <p>Group 1 metals (alkali metals) play a critical role in industries and modern society. From lithium in rechargeable batteries to sodium in glassmaking and medicine, these elements impact daily life in ways we often overlook.</p>
+  <main id="main" class="container">
+    <h2>Y10–11 Modules</h2>
+
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-tab="overview" role="tab" aria-selected="true">1) Overview</button>
+      <button class="tab" data-tab="reactions" role="tab" aria-selected="false">2) Reactions</button>
+      <button class="tab" data-tab="uses" role="tab" aria-selected="false">3) Uses & Safety</button>
+      <button class="tab" data-tab="exam" role="tab" aria-selected="false">4) Exam Prep</button>
+      <button class="tab" data-tab="glossary" role="tab" aria-selected="false">Glossary</button>
+    </div>
+
+    <!-- Overview -->
+    <section id="overview" class="tab-panel active" role="tabpanel">
+      <article class="content-card">
+        <h3>1.1 Periodic Position & Electronic Structure</h3>
+        <p>Group 1 metals are the first column of the periodic table. They all have <strong>one outer electron</strong>, so they form <strong>+1 ions (M⁺)</strong> and similar compounds such as chlorides (MCl), oxides (M₂O), and hydroxides (MOH).</p>
+        <div class="grid-2">
+          <div>
+            <h4>Trend Highlights</h4>
+            <ul class="tick">
+              <li>Atomic radius increases down the group.</li>
+              <li>Ionisation energy decreases down the group.</li>
+              <li>Reactivity <strong>increases</strong> down the group.</li>
+              <li>Melting/boiling points generally decrease down the group.</li>
+              <li>Density generally increases down the group (Li, Na, K float).</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h4>Exam Tip</h4>
+            <p>Link reactivity to the <em>outer electron</em> being further from the nucleus and more shielded, so it’s easier to lose.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="content-card">
+        <h3>1.2 Physical Properties</h3>
+        <ul class="bullets">
+          <li>Soft metals (cut with a knife); lustrous when freshly cut, tarnish in air.</li>
+          <li>Low density (Li, Na, K float on water).</li>
+          <li>Good electrical/thermal conductors.</li>
+          <li>Low melting points compared with most other metals.</li>
+        </ul>
+      </article>
     </section>
 
-    <section>
-      <h2>Applications in Society</h2>
-      <ul>
-        <li><strong>Lithium:</strong> Vital in electric vehicle batteries and portable electronics.</li>
-        <li><strong>Sodium:</strong> Used in medicine, street lighting, and industrial processes.</li>
-        <li><strong>Potassium:</strong> Essential nutrient for agriculture and fertilizers.</li>
-      </ul>
+    <!-- Reactions -->
+    <section id="reactions" class="tab-panel" role="tabpanel">
+      <article class="content-card">
+        <h3>2.1 With Water (Cold)</h3>
+        <p>General reaction: <strong>2M(s) + 2H₂O(l) → 2MOH(aq) + H₂(g)</strong></p>
+        <div class="grid-2">
+          <div>
+            <h4>Observations (increasing down group)</h4>
+            <ul class="bullets">
+              <li><strong>Lithium</strong> — floats, fizzes gently; forms colourless LiOH.</li>
+              <li><strong>Sodium</strong> — floats, melts into a ball, fizzes more; may produce orange flame briefly.</li>
+              <li><strong>Potassium</strong> — vigorous, lilac flame; may produce sparks; forms KOH rapidly.</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h4>Safety</h4>
+            <ul>
+              <li>Use small pieces with tongs; safety screens; eye protection.</li>
+              <li>Never handle with wet hands; keep a class-appropriate risk assessment.</li>
+              <li>Have dry sand (not water) for extinguishing.</li>
+            </ul>
+          </div>
+        </div>
+        <details class="example">
+          <summary>Worked example: Calculate moles of H₂ from 0.23 g Na</summary>
+          <p>
+            Moles Na = 0.23 / 23.0 = 0.010 mol.  
+            From 2Na : 1H₂, moles H₂ = 0.010 / 2 = <strong>0.0050 mol</strong>.
+          </p>
+        </details>
+      </article>
+
+      <article class="content-card">
+        <h3>2.2 With Oxygen (Air)</h3>
+        <p>Form oxides/peroxides/superoxides (depends on metal & conditions). Simple model: <strong>4Li + O₂ → 2Li₂O</strong>, <strong>4Na + O₂ → 2Na₂O</strong> (and sometimes Na₂O₂).</p>
+        <p>Freshly cut surface tarnishes quickly due to oxide layer formation.</p>
+      </article>
+
+      <article class="content-card">
+        <h3>2.3 With Halogens</h3>
+        <p>Vigorous to form ionic halides: <strong>2M + Cl₂ → 2MCl</strong></p>
+        <p>White crystalline salts (e.g., NaCl, KCl) with high melting points, soluble in water, conduct electricity when molten or in solution.</p>
+      </article>
+
+      <article class="content-card">
+        <h3>2.4 Flame Tests</h3>
+        <ul class="bullets">
+          <li>Lithium — <strong>crimson red</strong></li>
+          <li>Sodium — <strong>intense yellow</strong></li>
+          <li>Potassium — <strong>lilac</strong></li>
+          <li>Rubidium — red-violet (beyond basic spec but good to know)</li>
+          <li>Cesium — blue-violet (beyond basic spec)</li>
+        </ul>
+      </article>
     </section>
 
-    <section>
-      <h2>Environmental Considerations</h2>
-      <p>The extraction and use of alkali metals can have environmental consequences, such as mining impacts and waste disposal. Responsible management is crucial to balance innovation with sustainability.</p>
+    <!-- Uses & Safety -->
+    <section id="uses" class="tab-panel" role="tabpanel">
+      <article class="content-card">
+        <h3>3.1 Applications</h3>
+        <div class="grid-2">
+          <div>
+            <ul class="tick">
+              <li><strong>Lithium</strong>: rechargeable batteries, alloys, greases.</li>
+              <li><strong>Sodium</strong>: street lighting (legacy), chemicals, glass making, NaOH production.</li>
+              <li><strong>Potassium</strong>: fertilisers (K⁺ essential for plants), KOH in soaps/alkaline cells.</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h4>Storage & Handling</h4>
+            <ul>
+              <li>Store under oil or inert atmosphere to prevent oxidation.</li>
+              <li>Use non-aqueous extinguishing methods (dry sand) — <em>never water</em> on alkali metal fires.</li>
+              <li>Follow local lab safety SOPs and hazard codes.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="content-card">
+        <h3>3.2 Solubility & Alkalinity</h3>
+        <p>Hydroxides (MOH) are strong alkalis; form strongly alkaline solutions (high pH), fully ionise to give OH⁻.</p>
+      </article>
+    </section>
+
+    <!-- Exam Prep -->
+    <section id="exam" class="tab-panel" role="tabpanel">
+      <article class="content-card">
+        <h3>4.1 Common Misconceptions</h3>
+        <ul class="bullets">
+          <li><em>“Reactivity decreases down Group 1.”</em> — False. It increases because the outer electron is further from the nucleus and more shielded.</li>
+          <li><em>“All metals sink in water.”</em> — False. Li, Na, K float (low density).</li>
+          <li><em>“Add water to put out sodium fires.”</em> — Dangerous. Use dry sand or Class D agent.</li>
+        </ul>
+      </article>
+
+      <article class="content-card">
+        <h3>4.2 Quick Quiz</h3>
+        <form class="quiz" id="quiz-g1">
+          <div class="q">
+            <label>1) General equation for Group 1 metal with water?</label>
+            <select required>
+              <option value="">Choose…</option>
+              <option>2M + 2H₂O → 2MOH + H₂</option>
+              <option>M + H₂O → MO + H₂</option>
+              <option>M + H₂O → MOH + O₂</option>
+            </select>
+          </div>
+          <div class="q">
+            <label>2) Which flame colour is correct for potassium?</label>
+            <select required>
+              <option value="">Choose…</option>
+              <option>Yellow</option>
+              <option>Lilac</option>
+              <option>Crimson red</option>
+            </select>
+          </div>
+          <div class="q">
+            <label>3) Why does reactivity increase down Group 1?</label>
+            <select required>
+              <option value="">Choose…</option>
+              <option>Greater nuclear charge tightly holds the electron</option>
+              <option>Outer electron is further and more shielded, easier to lose</option>
+              <option>Metals become harder and denser</option>
+            </select>
+          </div>
+          <button type="submit" class="btn primary">Check Answers</button>
+          <p class="quiz-result" id="quiz-g1-result" aria-live="polite"></p>
+        </form>
+      </article>
+
+      <article class="content-card">
+        <h3>4.3 Exam-Style Questions</h3>
+        <ol class="exam-list">
+          <li><strong>(Short)</strong> Describe what you would see when a small piece of sodium is added to cold water. Include at least three observations.</li>
+          <li><strong>(Structured)</strong> Write balanced symbol equations for:
+            <ul>
+              <li>(a) lithium with water</li>
+              <li>(b) sodium with chlorine</li>
+              <li>(c) potassium with oxygen (assume oxide)</li>
+            </ul>
+          </li>
+          <li><strong>(Application)</strong> A student reacts 0.46 g of sodium with excess water. Calculate the volume of hydrogen produced at RTP (24 dm³ mol⁻¹). <em>Show your working.</em></li>
+        </ol>
+        <details class="example">
+          <summary>Suggested Answers (Reveal)</summary>
+          <ol class="exam-list">
+            <li>Sodium floats and moves around; melts into a silvery ball; fizzing/bubbling; may show an orange flame briefly; forms a colourless solution.</li>
+            <li>
+              (a) 2Li(s) + 2H₂O(l) → 2LiOH(aq) + H₂(g)<br/>
+              (b) 2Na(s) + Cl₂(g) → 2NaCl(s)<br/>
+              (c) 4K(s) + O₂(g) → 2K₂O(s)
+            </li>
+            <li>
+              n(Na) = 0.46 / 23.0 = 0.020 mol<br/>
+              2Na : 1H₂ → n(H₂) = 0.020 / 2 = 0.010 mol<br/>
+              Volume H₂ = 0.010 × 24 = <strong>0.24 dm³</strong> (240 cm³)
+            </li>
+          </ol>
+        </details>
+      </article>
+    </section>
+
+    <!-- Glossary -->
+    <section id="glossary" class="tab-panel" role="tabpanel">
+      <article class="content-card">
+        <h3>Glossary (Tap to expand)</h3>
+        <details>
+          <summary><strong>Alkali</strong></summary>
+          <p>A soluble base that produces OH⁻ ions in aqueous solution (e.g., NaOH, KOH).</p>
+        </details>
+        <details>
+          <summary><strong>Ionisation Energy</strong></summary>
+          <p>Energy required to remove an electron from a gaseous atom; decreases down Group 1.</p>
+        </details>
+        <details>
+          <summary><strong>Shielding</strong></summary>
+          <p>Inner electrons reduce the effective nuclear attraction on the outer electron.</p>
+        </details>
+        <details>
+          <summary><strong>Superoxide</strong></summary>
+          <p>Compound containing the O₂⁻ ion (e.g., KO₂ under specific conditions).</p>
+        </details>
+      </article>
     </section>
   </main>
 
-  <footer>
-    <p>&copy; 2025 Group 1 Metals Project</p>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; 2025 Group 1 Metals — Y10–11</p>
+      <nav aria-label="Footer">
+        <a href="index.html">Home</a>
+        <a href="learning.html" class="active">Learning Hub</a>
+        <a href="social.html">Community</a>
+      </nav>
+    </div>
   </footer>
 
   <script src="script.js"></script>
