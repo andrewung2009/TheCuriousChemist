@@ -6,6 +6,7 @@
     <title>Alkali Adventures - Learning Platform</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* All existing styles remain the same */
         :root {
             --primary: #4a6fa5;
             --secondary: #6c63ff;
@@ -19,6 +20,7 @@
             --header-height: 70px;
         }
         
+        /* All existing CSS rules remain unchanged */
         * {
             margin: 0;
             padding: 0;
@@ -1359,7 +1361,6 @@
             </div>
         </div>
     </header>
-
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-menu">
@@ -1406,7 +1407,6 @@
             </a>
         </div>
     </aside>
-
     <!-- Main Content -->
     <main class="main-content">
         <!-- Dashboard Page -->
@@ -1585,7 +1585,6 @@
                 <button class="btn" id="start-recommended">Start Now</button>
             </div>
         </div>
-
         <!-- Learning Hub Page -->
         <div id="learning-page" class="page" style="display: none;">
             <div class="page-header">
@@ -1598,6 +1597,7 @@
                 <div class="tab" data-tab="properties">Properties</div>
                 <div class="tab" data-tab="reactions">Reactions</div>
                 <div class="tab" data-tab="applications">Applications</div>
+                <div class="tab" data-tab="safety">Safety</div>
             </div>
             
             <div class="tab-content active" id="elements">
@@ -1607,7 +1607,7 @@
                         <i class="fas fa-atom card-icon"></i>
                     </div>
                     <div class="card-body">
-                        <p>Click on any element to explore its properties, electron configuration, and reactivity.</p>
+                        <p>Group 1 metals are called alkali metals. They are located in the first column of the periodic table and are very reactive metals, never found free in nature. Reactivity increases down the group.</p>
                         
                         <div class="periodic-table">
                             <div class="element-card" data-element="Li">
@@ -1693,6 +1693,16 @@
                         <p>Group 1 elements share common physical properties that change predictably down the group.</p>
                         
                         <div style="margin-top: 20px;">
+                            <h4>General Characteristics</h4>
+                            <ul>
+                                <li>Soft, can be cut with a knife (Li, Na, K)</li>
+                                <li>Low density; some float on water</li>
+                                <li>Shiny when freshly cut but tarnishes quickly in air</li>
+                                <li>Low melting and boiling points, decreasing down the group</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
                             <h4>Atomic Radius</h4>
                             <p>Atomic radius increases down the group due to additional electron shells.</p>
                             <div class="progress-bar" style="height: 20px; margin-top: 10px;">
@@ -1719,6 +1729,50 @@
                                 <div class="progress primary" style="width: 100%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
                                     Li > Na > K > Rb > Cs
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card" style="margin-top: 30px;">
+                    <div class="card-header">
+                        <h3 class="card-title">Chemical Properties</h3>
+                        <i class="fas fa-flask card-icon"></i>
+                    </div>
+                    <div class="card-body">
+                        <p>Group 1 metals are highly reactive and undergo characteristic reactions.</p>
+                        
+                        <div style="margin-top: 20px;">
+                            <h4>General Reactivity</h4>
+                            <ul>
+                                <li>Very reactive metals; never found free in nature</li>
+                                <li>Reactivity increases down the group</li>
+                                <li>Form +1 ions and alkaline hydroxides when reacting with water</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <h4>Reaction with Water</h4>
+                            <p>All Group 1 metals react with water to produce hydrogen gas and metal hydroxides.</p>
+                            <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin-top: 10px;">
+                                <code>2M(s) + 2H₂O(l) → 2MOH(aq) + H₂(g)</code>
+                            </div>
+                            <p style="margin-top: 10px;">Reactivity increases down the group: Lithium reacts steadily, while cesium reacts explosively.</p>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <h4>Reaction with Oxygen</h4>
+                            <p>Group 1 metals react with oxygen to form oxides, peroxides, or superoxides.</p>
+                            <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin-top: 10px;">
+                                <code>4M(s) + O₂(g) → 2M₂O(s)</code>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <h4>Reaction with Halogens</h4>
+                            <p>Group 1 metals react vigorously with halogens to form ionic salts.</p>
+                            <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin-top: 10px;">
+                                <code>2M(s) + X₂(g) → 2MX(s)</code>
                             </div>
                         </div>
                     </div>
@@ -1776,7 +1830,7 @@
                                 <h4>Lithium</h4>
                                 <ul style="padding-left: 20px; margin-top: 10px;">
                                     <li>Batteries (lithium-ion)</li>
-                                    <li>Psychiatric medication</li>
+                                    <li>Mood-stabilizing drugs</li>
                                     <li>Alloy production</li>
                                     <li>Grease thickener</li>
                                 </ul>
@@ -1801,12 +1855,93 @@
                                     <li>Essential nutrient</li>
                                 </ul>
                             </div>
+                            
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                                <h4>Rubidium</h4>
+                                <ul style="padding-left: 20px; margin-top: 10px;">
+                                    <li>Research and electronics</li>
+                                    <li>Specialty glasses</li>
+                                    <li>Vacuum tubes</li>
+                                    <li>Atomic clocks</li>
+                                </ul>
+                            </div>
+                            
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                                <h4>Cesium</h4>
+                                <ul style="padding-left: 20px; margin-top: 10px;">
+                                    <li>Atomic clocks</li>
+                                    <li>Photoelectric cells</li>
+                                    <li>Drilling fluids</li>
+                                    <li>Vacuum tubes</li>
+                                </ul>
+                            </div>
+                            
+                            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                                <h4>Francium</h4>
+                                <ul style="padding-left: 20px; margin-top: 10px;">
+                                    <li>Extremely rare and radioactive</li>
+                                    <li>No widespread practical uses due to radioactivity</li>
+                                    <li>Research purposes only</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="safety">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Safety Considerations</h3>
+                        <i class="fas fa-exclamation-triangle card-icon"></i>
+                    </div>
+                    <div class="card-body">
+                        <p>Group 1 metals are highly reactive and require special safety precautions.</p>
+                        
+                        <div style="margin-top: 20px;">
+                            <h4>General Safety</h4>
+                            <ul>
+                                <li>Highly reactive, especially with water and air</li>
+                                <li>Store under oil to prevent reactions</li>
+                                <li>Handle small amounts only in controlled labs</li>
+                                <li>Always wear appropriate personal protective equipment (PPE)</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <h4>Reaction with Water</h4>
+                            <p>Reactions with water can be vigorous and produce hydrogen gas, which is flammable.</p>
+                            <ul>
+                                <li>Lithium: Reacts steadily, can be handled with care</li>
+                                <li>Sodium: Reacts vigorously, may ignite hydrogen</li>
+                                <li>Potassium: Reacts violently, ignites hydrogen</li>
+                                <li>Rubidium and Cesium: React explosively</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <h4>Storage</h4>
+                            <ul>
+                                <li>Store under mineral oil or kerosene</li>
+                                <li>Keep in a cool, dry place</li>
+                                <li>Isolate from water and air</li>
+                                <li>Use appropriate containers (e.g., glass or metal)</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <h4>Emergency Procedures</h4>
+                            <ul>
+                                <li>For small fires: Use a Class D fire extinguisher</li>
+                                <li>Do not use water or CO₂ extinguishers</li>
+                                <li>In case of skin contact: Rinse with plenty of water and seek medical attention</li>
+                                <li>In case of eye contact: Rinse with water for at least 15 minutes and seek medical attention</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <!-- Virtual Lab Page -->
         <div id="lab-page" class="page" style="display: none;">
             <div class="page-header">
@@ -1881,7 +2016,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Social Learning Page -->
         <div id="social-page" class="page" style="display: none;">
             <div class="page-header">
@@ -2124,7 +2258,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Gamification Page -->
         <div id="gamification-page" class="page" style="display: none;">
             <div class="page-header">
@@ -2411,7 +2544,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Progress Page -->
         <div id="progress-page" class="page" style="display: none;">
             <div class="page-header">
@@ -2550,7 +2682,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Quiz Page -->
         <div id="quiz-page" class="page" style="display: none;">
             <div class="page-header">
@@ -2640,7 +2771,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Spaced Repetition Page -->
         <div id="spaced-page" class="page" style="display: none;">
             <div class="page-header">
@@ -2702,7 +2832,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Resources Page -->
         <div id="resources-page" class="page" style="display: none;">
             <div class="page-header">
@@ -2756,7 +2885,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Settings Page -->
         <div id="settings-page" class="page" style="display: none;">
             <div class="page-header">
@@ -2836,7 +2964,6 @@
             </div>
         </div>
     </main>
-
     <!-- Modal -->
     <div class="modal" id="modal">
         <div class="modal-content">
@@ -2849,7 +2976,6 @@
             </div>
         </div>
     </div>
-
     <!-- Accessibility Controls -->
     <div class="accessibility-controls">
         <button id="contrast-toggle" class="btn btn-sm" title="Toggle High Contrast">
@@ -2865,21 +2991,17 @@
             <i class="fas fa-universal-access"></i>
         </button>
     </div>
-
     <!-- Voice Control Button -->
     <button class="voice-control-btn" id="voice-control-btn" title="Voice Control">
         <i class="fas fa-microphone"></i>
     </button>
-
     <!-- Live Region for Screen Reader -->
     <div id="live-region" class="sr-only" aria-live="polite" aria-atomic="true"></div>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize all systems
             initializeApp();
         });
-
         function initializeApp() {
             // Core functionality
             initializeNavigation();
@@ -2907,7 +3029,6 @@
             // Animate progress bars on load
             setTimeout(animateProgressBars, 500);
         }
-
         // Navigation
         function initializeNavigation() {
             const menuToggle = document.getElementById('menu-toggle');
@@ -2941,7 +3062,6 @@
                 });
             });
         }
-
         // Tabs
         function initializeTabs() {
             const tabs = document.querySelectorAll('.tab');
@@ -2966,7 +3086,6 @@
                 });
             });
         }
-
         // Element Interaction in Learning Hub
         function initializeElementInteraction() {
             const elementCards = document.querySelectorAll('#elements .element-card');
@@ -2981,54 +3100,66 @@
                     atomicNumber: 3,
                     atomicMass: '6.94',
                     electronConfig: '1s² 2s¹',
-                    properties: 'Soft, silvery-white metal. Least dense of all solid elements.',
-                    reactivity: 'Reacts steadily with water, producing hydrogen gas and lithium hydroxide.',
-                    uses: 'Batteries, mood-stabilizing drugs, alloy production.'
+                    description: 'Lightest metal, used in batteries, mood-stabilizing drugs. Floats on water, reacts slowly.',
+                    physicalProperties: 'Soft, can be cut with a knife. Low density; floats on water. Shiny when freshly cut but tarnishes quickly in air. Low melting and boiling points.',
+                    chemicalProperties: 'Very reactive; reacts vigorously with water and oxygen. Forms alkaline hydroxides in water, releasing hydrogen gas.',
+                    uses: 'Batteries, mood-stabilizing drugs.',
+                    safety: 'Store under oil to prevent reactions. Handle with caution.'
                 },
                 Na: {
                     name: 'Sodium',
                     atomicNumber: 11,
                     atomicMass: '22.99',
                     electronConfig: '1s² 2s² 2p⁶ 3s¹',
-                    properties: 'Soft, silvery-white, highly reactive metal.',
-                    reactivity: 'Reacts vigorously with water, can ignite hydrogen produced.',
-                    uses: 'Street lighting, table salt, chemical production.'
+                    description: 'Soft, silvery-white metal. Reacts vigorously with water, forms sodium hydroxide and hydrogen.',
+                    physicalProperties: 'Soft, silvery-white, highly reactive metal. Low density; less dense than water. Shiny when freshly cut but tarnishes quickly. Low melting and boiling points.',
+                    chemicalProperties: 'Very reactive; reacts vigorously with water and oxygen. Forms alkaline hydroxides in water, releasing hydrogen gas.',
+                    uses: 'Street lamps, table salt (NaCl), chemical industry.',
+                    safety: 'Store under oil to prevent reactions. Handle with caution.'
                 },
                 K: {
                     name: 'Potassium',
                     atomicNumber: 19,
                     atomicMass: '39.10',
                     electronConfig: '1s² 2s² 2p⁶ 3s² 3p⁶ 4s¹',
-                    properties: 'Soft, silvery-white metal. Less dense than water.',
-                    reactivity: 'Reacts violently with water, igniting hydrogen.',
-                    uses: 'Fertilizers, soap production, essential nutrient.'
+                    description: 'Soft, very reactive, ignites in water. Used in fertilizers and fireworks.',
+                    physicalProperties: 'Soft, silvery-white metal. Less dense than water. Shiny when freshly cut but tarnishes quickly. Low melting and boiling points.',
+                    chemicalProperties: 'Very reactive; reacts vigorously with water and oxygen. Forms alkaline hydroxides in water, releasing hydrogen gas. Reacts violently with water, igniting hydrogen.',
+                    uses: 'Fertilizers, fireworks, soap production.',
+                    safety: 'Store under oil to prevent reactions. Handle with caution.'
                 },
                 Rb: {
                     name: 'Rubidium',
                     atomicNumber: 37,
                     atomicMass: '85.47',
                     electronConfig: '[Kr] 5s¹',
-                    properties: 'Soft, silvery-white metal. Highly reactive.',
-                    reactivity: 'Reacts explosively with water.',
-                    uses: 'Specialty glasses, vacuum tubes, atomic clocks.'
+                    description: 'Rare, highly reactive, melts slightly above room temperature. Used in research and electronics.',
+                    physicalProperties: 'Soft, silvery-white metal. Highly reactive. Low melting point (melts slightly above room temperature). Shiny when freshly cut but tarnishes quickly.',
+                    chemicalProperties: 'Very reactive; reacts vigorously with water and oxygen. Forms alkaline hydroxides in water, releasing hydrogen gas. Reacts explosively with water.',
+                    uses: 'Research, electronics, specialty glasses.',
+                    safety: 'Store under oil to prevent reactions. Handle with extreme caution.'
                 },
                 Cs: {
                     name: 'Cesium',
                     atomicNumber: 55,
                     atomicMass: '132.91',
                     electronConfig: '[Xe] 6s¹',
-                    properties: 'Soft, golden-colored metal. Extremely reactive.',
-                    reactivity: 'Reacts explosively with water, even ice.',
-                    uses: 'Atomic clocks, drilling fluids, photoelectric cells.'
+                    description: 'Soft, melts near room temperature. Used in atomic clocks and vacuum tubes.',
+                    physicalProperties: 'Soft, golden-colored metal. Extremely reactive. Low melting point (melts near room temperature). Shiny when freshly cut but tarnishes quickly.',
+                    chemicalProperties: 'Very reactive; reacts vigorously with water and oxygen. Forms alkaline hydroxides in water, releasing hydrogen gas. Reacts explosively with water, even ice.',
+                    uses: 'Atomic clocks, vacuum tubes, photoelectric cells.',
+                    safety: 'Store under oil to prevent reactions. Handle with extreme caution.'
                 },
                 Fr: {
                     name: 'Francium',
                     atomicNumber: 87,
                     atomicMass: '223',
                     electronConfig: '[Rn] 7s¹',
-                    properties: 'Highly radioactive, extremely rare metal.',
-                    reactivity: 'Predicted to be more reactive than cesium.',
-                    uses: 'No commercial uses due to rarity and radioactivity.'
+                    description: 'Extremely rare and radioactive. No widespread practical uses due to radioactivity.',
+                    physicalProperties: 'Highly radioactive, extremely rare metal. Predicted to be soft and highly reactive.',
+                    chemicalProperties: 'Predicted to be more reactive than cesium. Forms alkaline hydroxides in water, releasing hydrogen gas.',
+                    uses: 'No widespread practical uses due to radioactivity. Research purposes only.',
+                    safety: 'Requires specialized handling due to radioactivity. Not commonly handled outside research.'
                 }
             };
             
@@ -3062,16 +3193,24 @@
                             </div>
                         </div>
                         <div style="margin-top: 20px;">
-                            <h4>Properties</h4>
-                            <p>${data.properties}</p>
+                            <h4>Description</h4>
+                            <p>${data.description}</p>
                         </div>
                         <div style="margin-top: 15px;">
-                            <h4>Reactivity</h4>
-                            <p>${data.reactivity}</p>
+                            <h4>Physical Properties</h4>
+                            <p>${data.physicalProperties}</p>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <h4>Chemical Properties</h4>
+                            <p>${data.chemicalProperties}</p>
                         </div>
                         <div style="margin-top: 15px;">
                             <h4>Uses</h4>
                             <p>${data.uses}</p>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <h4>Safety</h4>
+                            <p>${data.safety}</p>
                         </div>
                     `;
                     
@@ -3100,7 +3239,6 @@
                 }
             });
         }
-
         // Update 3D Model (simulated)
         function update3DModel(element) {
             const atom3d = document.getElementById('atom-3d');
@@ -3129,7 +3267,6 @@
                 </div>
             `;
         }
-
         // Virtual Lab
         function initializeLabExperiment() {
             const labEquipment = document.querySelectorAll('.lab-equipment');
@@ -3201,7 +3338,6 @@
                 }
             });
         }
-
         // Gamification System
         class GamificationSystem {
             constructor() {
@@ -3345,10 +3481,8 @@
                 }
             }
         }
-
         // Initialize gamification
         const gamificationSystem = new GamificationSystem();
-
         // Progress Tracking
         function initializeProgressTracking() {
             // Animate progress bars on page load
@@ -3362,7 +3496,6 @@
                 });
             }, 500);
         }
-
         function animateProgressBars() {
             document.querySelectorAll('.progress').forEach(bar => {
                 const width = bar.style.width;
@@ -3372,7 +3505,6 @@
                 }, 100);
             });
         }
-
         // Quiz System
         function initializeQuiz() {
             const quizQuestions = document.querySelectorAll('.quiz-question');
@@ -3563,7 +3695,6 @@
                 nextButton.textContent = 'Next';
             });
         }
-
         // Spaced Repetition
         function initializeSpacedRepetition() {
             const reviewCards = document.querySelectorAll('.review-card');
@@ -3630,13 +3761,11 @@
                 });
             });
         }
-
         // Accessibility
         function initializeAccessibility() {
             const accessibilityManager = new AccessibilityManager();
             accessibilityManager.loadPreferences();
         }
-
         class AccessibilityManager {
             constructor() {
                 this.highContrastMode = false;
@@ -3768,12 +3897,10 @@
                 }
             }
         }
-
         // Voice Control
         function initializeVoiceControl() {
             const voiceControl = new VoiceControl();
         }
-
         class VoiceControl {
             constructor() {
                 this.recognition = null;
@@ -3980,12 +4107,10 @@
                 });
             }
         }
-
         // Offline Mode
         function initializeOfflineMode() {
             const offlineManager = new OfflineManager();
         }
-
         class OfflineManager {
             constructor() {
                 this.isOnline = navigator.onLine;
@@ -4088,12 +4213,10 @@
                 return this.isOnline;
             }
         }
-
         // Adaptive Learning
         function initializeAdaptiveLearning() {
             window.adaptiveLearning = new AdaptiveLearning();
         }
-
         class AdaptiveLearning {
             constructor() {
                 this.studentData = this.loadStudentData();
@@ -4198,7 +4321,6 @@
                 }
             }
         }
-
         // Spaced Repetition System
         class SpacedRepetition {
             constructor() {
@@ -4259,7 +4381,6 @@
                 return level * 4; // Subsequent intervals
             }
         }
-
         // Settings
         function initializeSettings() {
             // Dark mode toggle
@@ -4311,7 +4432,6 @@
                 });
             }
         }
-
         // Load User Data
         function loadUserData() {
             // Load user preferences and data
@@ -4351,7 +4471,6 @@
                 }
             }
         }
-
         // Setup Event Listeners
         function setupEventListeners() {
             // Modal functionality
