@@ -23,33 +23,43 @@ function createReaction(metal) {
     const area = document.getElementById('reaction-area');
     area.innerHTML = ''; // clear previous reaction
 
-    let bubbleCount = 10;
+    // Show chemical equation
+    const eq = document.createElement('p');
+    eq.innerHTML = `<strong>Equation:</strong> ${metal.equation}`;
+    eq.style.fontWeight = "bold";
+    area.appendChild(eq);
+
+    // Show explanation
+    const expl = document.createElement('p');
+    expl.textContent = metal.explanation;
+    area.appendChild(expl);
+
+    // Simulate H2 bubbles (optional)
+    let bubbleCount = 5; // fewer bubbles, labeled H2
     for (let i = 0; i < bubbleCount; i++) {
         const bubble = document.createElement('div');
         bubble.classList.add('bubble');
-        bubble.style.left = Math.random() * 90 + '%';
-        bubble.style.animationDuration = 1.5 + Math.random() * 1.5 + 's';
+        bubble.textContent = "H2";
+        bubble.style.left = 10 + i * 15 + "%";
+        bubble.style.animationDuration = 2 + Math.random() * 1 + 's';
+        bubble.style.fontSize = "10px";
+        bubble.style.textAlign = "center";
+        bubble.style.color = "#000";
         area.appendChild(bubble);
     }
 
-    let colors = {
-        "Lithium": "#fff0b3",
-        "Sodium": "#ffe066",
-        "Potassium": "#ffd633",
-        "Rubidium": "#ffbf00",
-        "Cesium": "#ffad00",
-        "Francium": "#ff9900"
+    // Background color represents hydroxide solution
+    const colors = {
+        "Lithium": "#e6f7ff",
+        "Sodium": "#ccf2ff",
+        "Potassium": "#b3ecff",
+        "Rubidium": "#99e6ff",
+        "Cesium": "#80dfff",
+        "Francium": "#66d9ff"
     };
     area.style.background = colors[metal.name] || "#e0f7ff";
 }
 
-// Click to simulate reaction
-document.querySelectorAll('.metal').forEach(metalDiv => {
-    metalDiv.addEventListener('click', () => {
-        const metal = metalsData.find(m => m.symbol === metalDiv.textContent);
-        createReaction(metal);
-    });
-});
 
 // Quiz logic
 const quizQuestions = [
