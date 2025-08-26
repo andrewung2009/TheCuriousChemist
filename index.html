@@ -1,60 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Group 1 Metals Explorer</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Group 1 Metals Explorer</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Group 1 Metals Explorer</h1>
-        <nav>
-            <ul>
-                <li><a href="#overview">Overview</a></li>
-                <li><a href="#metals">Metals</a></li>
-                <li><a href="#quiz">Quiz</a></li>
-            </ul>
-        </nav>
-    </header>
+    <h1>Group 1 Metals (Alkali Metals)</h1>
 
-    <section id="overview">
-        <h2>Overview of Group 1 Metals</h2>
-        <p>Group 1 metals, also called alkali metals, are highly reactive elements found in the first column of the periodic table.</p>
-        <ul>
-            <li>Includes: Lithium, Sodium, Potassium, Rubidium, Cesium, Francium</li>
-            <li>Soft metals, low melting points, react strongly with water</li>
-            <li>Reactivity increases down the group</li>
-        </ul>
-    </section>
+    <div class="periodic-table">
+        <!-- Group 1 elements will be dynamically inserted here -->
+        <div id="elements-container"></div>
+    </div>
 
-    <section id="metals">
-        <h2>Interactive Metal Grid</h2>
-        <div class="metal-grid" id="metal-grid"></div>
-
-        <div id="metal-info">
-            <h3>Metal Info</h3>
-            <p id="metal-name">Hover over a metal</p>
-            <p id="metal-properties"></p>
+    <!-- Modal for element info -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span id="close-btn" class="close">&times;</span>
+            <h2 id="element-name"></h2>
+            <p><strong>Symbol:</strong> <span id="element-symbol"></span></p>
+            <p><strong>Atomic Number:</strong> <span id="element-number"></span></p>
+            <p><strong>Physical Properties:</strong> <span id="element-physical"></span></p>
+            <p><strong>Chemical Properties:</strong> <span id="element-chemical"></span></p>
+            <p><strong>Reactions:</strong> <span id="element-reactions"></span></p>
         </div>
-
-        <div id="reaction-container">
-            <h3>Reaction Simulation</h3>
-            <div id="reaction-area"></div>
-        </div>
-    </section>
-
-    <section id="quiz">
-        <h2>Quick Quiz</h2>
-        <p id="quiz-question"></p>
-        <div id="quiz-options"></div>
-        <button id="next-btn">Next Question</button>
-        <p id="quiz-feedback"></p>
-    </section>
-
-    <footer>
-        <p>&copy; 2025 Group 1 Metals Explorer</p>
-    </footer>
+    </div>
 
     <script src="metals.js"></script>
     <script src="script.js"></script>
