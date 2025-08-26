@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Tracking - Alkali Adventures</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="menu-toggle" id="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo">
+            <i class="fas fa-atom"></i>
+            <span>Alkali Adventures</span>
+        </div>
+        <div class="header-right">
+            <div class="search-bar">
+                <input type="text" placeholder="Search lessons, elements, topics..." aria-label="Search">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="notification-icon" aria-label="Notifications">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">3</span>
+            </div>
+            <div class="user-points" aria-label="Chemistry Points">
+                <i class="fas fa-coins"></i> <span id="user-points-display">1,250</span> CP
+            </div>
+            <div class="user-level" aria-label="User Level">
+                Level <span id="user-level-display">4</span>
+            </div>
+            <div class="user-profile">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User Avatar" class="user-avatar">
+                <span class="user-name">Alex Johnson</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </header>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-menu">
+            <a href="index.html" class="menu-item" aria-label="Dashboard">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="learning.html" class="menu-item" aria-label="Learning Hub">
+                <i class="fas fa-book-open"></i>
+                <span>Learning Hub</span>
+            </a>
+            <a href="social.html" class="menu-item" aria-label="Social Learning">
+                <i class="fas fa-users"></i>
+                <span>Social Learning</span>
+                <span class="menu-badge">5</span>
+            </a>
+            <a href="gamification.html" class="menu-item" aria-label="Gamification">
+                <i class="fas fa-trophy"></i>
+                <span>Gamification</span>
+            </a>
+            <a href="progress.html" class="menu-item active" aria-label="Progress">
+                <i class="fas fa-chart-line"></i>
+                <span>Progress</span>
+            </a>
+            <a href="settings.html" class="menu-item" aria-label="Settings">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </div>
+    </aside>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Progress Page -->
+        <div id="progress-page" class="page active">
+            <div class="page-header">
+                <h1 class="page-title">Progress Tracking</h1>
+                <p class="page-subtitle">Monitor your learning journey, test your knowledge, and review concepts</p>
+            </div>
+            
+            <div class="tabs">
+                <div class="tab active" data-tab="overview">Overview</div>
+                <div class="tab" data-tab="quiz">Quiz</div>
+                <div class="tab" data-tab="spaced">Spaced Repetition</div>
+            </div>
+            
+            <div class="tab-content active" id="overview">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Overall Progress</h3>
+                        <i class="fas fa-chart-pie card-icon"></i>
+                    </div>
+                    <div class="card-body">
+                        <div style="display: flex; align-items: center; justify-content: center; margin: 20px 0;">
+                            <div style="position: relative; width: 200px; height: 200px;">
+                                <svg viewBox="0 0 100 100" style="width: 100%; height: 100%;">
+                                    <circle cx="50" cy="50" r="45" fill="none" stroke="#eee" stroke-width="10"></circle>
+                                    <circle cx="50" cy="50" r="45" fill="none" stroke="url(#gradient)" stroke-width="10" stroke-dasharray="283" stroke-dashoffset="90" stroke-linecap="round" transform="rotate(-90 50 50)"></circle>
+                                    <defs>
+                                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" stop-color="#4a6fa5"></stop>
+                                            <stop offset="100%" stop-color="#6c63ff"></stop>
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                                    <div style="font-size: 2rem; font-weight: bold;">68%</div>
+                                    <div style="color: #666;">Complete</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 2rem; font-weight: bold; color: var(--primary);">24</div>
+                                <div style="color: #666;">Lessons Completed</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 2rem; font-weight: bold; color: var(--primary);">8</div>
+                                <div style="color: #666;">Experiments Done</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 2rem; font-weight: bold; color: var(--primary);">12</div>
+                                <div style="color: #666;">Day Streak</div>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 2rem; font-weight: bold; color: var(--primary);">85%</div>
+                                <div style="color: #666;">Quiz Average</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card" style="margin-top: 30px;">
+                    <div class="card-header">
+                        <h3 class="card-title">Module Progress</h3>
+                        <i class="fas fa-tasks card-icon"></i>
+                    </div>
+                    <div class="card-body">
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-title">Group 1 Metals Overview</span>
+                                <span class="progress-value">85%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress primary" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-title">Physical Properties</span>
+                                <span class="progress-value">70%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress primary" style="width: 70%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-title">Chemical Reactions</span>
+                                <span class="progress-value">60%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress primary" style="width: 60%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-title">Practical Applications</span>
+                                <span class="progress-value">45%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress warning" style="width: 45%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-title">Exam Preparation</span>
+                                <span class="progress-value">55%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress success" style="width: 55%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card" style="margin-top: 30px;">
+                    <div class="card-header">
+                        <h3 class="card-title">Recommendations</h3>
+                        <i class="fas fa-lightbulb card-icon"></i>
+                    </div>
+                    <div class="card-body">
+                        <div style="background: rgba(255, 193, 7, 0.1); border-left: 4px solid var(--warning); padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+                            <h4 style="color: var(--warning); margin-bottom: 5px;">Focus Area: Practical Applications</h4>
+                            <p>Your progress in this module is below average. We recommend spending more time on real-world applications of Group 1 metals.</p>
+                        </div>
+                        
+                        <div style="background: rgba(40, 167, 69, 0.1); border-left: 4px solid var(--success); padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+                            <h4 style="color: var(--success); margin-bottom: 5px;">Strength: Group 1 Metals Overview</h4>
+                            <p>You're doing great in this module! Consider helping peers who might be struggling with these concepts.</p>
+                        </div>
+                        
+                        <div style="background: rgba(108, 99, 255, 0.1); border-left: 4px solid var(--secondary); padding: 15px; border-radius: 5px;">
+                            <h4 style="color: var(--secondary); margin-bottom: 5px;">Suggested Next Steps</h4>
+                            <ul style="padding-left: 20px;">
+                                <li>Complete the "Industrial Uses of Alkali Metals" lesson</li>
+                                <li>Join the "Practical Applications" study group</li>
+                                <li>Try the "Real-World Chemistry" quest</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="quiz">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Group 1 Metals Quiz</h3>
+                        <i class="fas fa-question-circle card-icon"></i>
+                    </div>
+                    <div class="card-body">
+                        <div class="quiz-container" id="quiz-container">
+                            <div class="quiz-question" id="quiz-question-1">
+                                <h4>Question 1 of 5</h4>
+                                <p>Which of the following is NOT a Group 1 metal?</p>
+                                <div class="quiz-options">
+                                    <div class="quiz-option" data-option="A">Sodium (Na)</div>
+                                    <div class="quiz-option" data-option="B">Potassium (K)</div>
+                                    <div class="quiz-option" data-option="C">Calcium (Ca)</div>
+                                    <div class="quiz-option" data-option="D">Lithium (Li)</div>
+                                </div>
+                                <div class="quiz-feedback" id="feedback-1"></div>
+                            </div>
+                            
+                            <div class="quiz-question" id="quiz-question-2" style="display: none;">
+                                <h4>Question 2 of 5</h4>
+                                <p>What happens when Group 1 metals react with water?</p>
+                                <div class="quiz-options">
+                                    <div class="quiz-option" data-option="A">They produce hydrogen gas and metal hydroxides</div>
+                                    <div class="quiz-option" data-option="B">They produce oxygen gas and metal oxides</div>
+                                    <div class="quiz-option" data-option="C">They produce carbon dioxide and metal carbonates</div>
+                                    <div class="quiz-option" data-option="D">No reaction occurs</div>
+                                </div>
+                                <div class="quiz-feedback" id="feedback-2"></div>
+                            </div>
+                            
+                            <div class="quiz-question" id="quiz-question-3" style="display: none;">
+                                <h4>Question 3 of 5</h4>
+                                <p>Which Group 1 metal is the most reactive?</p>
+                                <div class="quiz-options">
+                                    <div class="quiz-option" data-option="A">Lithium (Li)</div>
+                                    <div class="quiz-option" data-option="B">Sodium (Na)</div>
+                                    <div class="quiz-option" data-option="C">Potassium (K)</div>
+                                    <div class="quiz-option" data-option="D">Francium (Fr)</div>
+                                </div>
+                                <div class="quiz-feedback" id="feedback-3"></div>
+                            </div>
+                            
+                            <div class="quiz-question" id="quiz-question-4" style="display: none;">
+                                <h4>Question 4 of 5</h4>
+                                <p>What is the trend in atomic radius down Group 1?</p>
+                                <div class="quiz-options">
+                                    <div class="quiz-option" data-option="A">Decreases</div>
+                                    <div class="quiz-option" data-option="B">Increases</div>
+                                    <div class="quiz-option" data-option="C">Remains constant</div>
+                                    <div class="quiz-option" data-option="D">No clear trend</div>
+                                </div>
+                                <div class="quiz-feedback" id="feedback-4"></div>
+                            </div>
+                            
+                            <div class="quiz-question" id="quiz-question-5" style="display: none;">
+                                <h4>Question 5 of 5</h4>
+                                <p>What is a common use of lithium?</p>
+                                <div class="quiz-options">
+                                    <div class="quiz-option" data-option="A">Table salt</div>
+                                    <div class="quiz-option" data-option="B">Batteries</div>
+                                    <div class="quiz-option" data-option="C">Fertilizers</div>
+                                    <div class="quiz-option" data-option="B">Street lighting</div>
+                                </div>
+                                <div class="quiz-feedback" id="feedback-5"></div>
+                            </div>
+                            
+                            <div class="quiz-navigation">
+                                <button class="btn btn-outline" id="prev-question" disabled>Previous</button>
+                                <button class="btn" id="next-question">Next</button>
+                            </div>
+                            
+                            <div class="quiz-results" id="quiz-results">
+                                <h3>Quiz Results</h3>
+                                <div class="quiz-score" id="quiz-score">0%</div>
+                                <p id="quiz-result-message"></p>
+                                <button class="btn" id="retake-quiz">Retake Quiz</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="spaced">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Spaced Repetition</h3>
+                        <i class="fas fa-redo card-icon"></i>
+                    </div>
+                    <div class="card-body">
+                        <p>Review these concepts at optimal intervals to maximize retention.</p>
+                        
+                        <div class="spaced-repetition">
+                            <div class="review-card">
+                                <div class="review-question">What is the general trend in reactivity down Group 1?</div>
+                                <div class="review-answer">
+                                    <p>Reactivity increases down Group 1 due to decreasing ionization energy. As you go down the group, the atomic radius increases and the outer electron is further from the nucleus, making it easier to lose.</p>
+                                </div>
+                                <div class="review-rating">
+                                    <button class="rating-btn" data-rating="1">1</button>
+                                    <button class="rating-btn" data-rating="2">2</button>
+                                    <button class="rating-btn" data-rating="3">3</button>
+                                    <button class="rating-btn" data-rating="4">4</button>
+                                    <button class="rating-btn" data-rating="5">5</button>
+                                </div>
+                            </div>
+                            
+                            <div class="review-card">
+                                <div class="review-question">What products are formed when Group 1 metals react with water?</div>
+                                <div class="review-answer">
+                                    <p>Group 1 metals react with water to produce hydrogen gas (H₂) and the corresponding metal hydroxide (MOH). The general equation is: 2M(s) + 2H₂O(l) → 2MOH(aq) + H₂(g)</p>
+                                </div>
+                                <div class="review-rating">
+                                    <button class="rating-btn" data-rating="1">1</button>
+                                    <button class="rating-btn" data-rating="2">2</button>
+                                    <button class="rating-btn" data-rating="3">3</button>
+                                    <button class="rating-btn" data-rating="4">4</button>
+                                    <button class="rating-btn" data-rating="5">5</button>
+                                </div>
+                            </div>
+                            
+                            <div class="review-card">
+                                <div class="review-question">What is the trend in melting points down Group 1?</div>
+                                <div class="review-answer">
+                                    <p>Melting points decrease down Group 1. This is due to weakening metallic bonding as the atomic size increases and the strength of the metallic bonds decreases.</p>
+                                </div>
+                                <div class="review-rating">
+                                    <button class="rating-btn" data-rating="1">1</button>
+                                    <button class="rating-btn" data-rating="2">2</button>
+                                    <button class="rating-btn" data-rating="3">3</button>
+                                    <button class="rating-btn" data-rating="4">4</button>
+                                    <button class="rating-btn" data-rating="5">5</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Modal Title</h3>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <p>Modal content goes here.</p>
+            </div>
+        </div>
+    </div>
+    <!-- Accessibility Controls -->
+    <div class="accessibility-controls">
+        <button id="contrast-toggle" class="btn btn-sm" title="Toggle High Contrast">
+            <i class="fas fa-adjust"></i>
+        </button>
+        <button id="font-decrease" class="btn btn-sm" title="Decrease Font Size">
+            <i class="fas fa-minus"></i>
+        </button>
+        <button id="font-increase" class="btn btn-sm" title="Increase Font Size">
+            <i class="fas fa-plus"></i>
+        </button>
+        <button id="screen-reader-toggle" class="btn btn-sm" title="Toggle Screen Reader Mode">
+            <i class="fas fa-universal-access"></i>
+        </button>
+    </div>
+    <!-- Voice Control Button -->
+    <button class="voice-control-btn" id="voice-control-btn" title="Voice Control">
+        <i class="fas fa-microphone"></i>
+    </button>
+    <!-- Live Region for Screen Reader -->
+    <div id="live-region" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+    <script src="js/main.js"></script>
+</body>
+</html>
