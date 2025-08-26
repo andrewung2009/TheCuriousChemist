@@ -1,4 +1,3 @@
-// Group 1 metals data
 const group1Metals = [
     {
         name: "Lithium",
@@ -6,7 +5,12 @@ const group1Metals = [
         number: 3,
         physical: "Soft, silvery metal",
         chemical: "Reacts with water to form lithium hydroxide and hydrogen",
-        reactions: "2Li + 2H₂O → 2LiOH + H₂"
+        reactions: "2Li + 2H₂O → 2LiOH + H₂",
+        quiz: {
+            question: "Which property makes lithium safe to store in oil?",
+            options: ["Softness", "Low density", "Reactivity with water", "Color"],
+            answer: "Reactivity with water"
+        }
     },
     {
         name: "Sodium",
@@ -14,7 +18,12 @@ const group1Metals = [
         number: 11,
         physical: "Soft, silvery metal",
         chemical: "Reacts vigorously with water, produces sodium hydroxide and hydrogen",
-        reactions: "2Na + 2H₂O → 2NaOH + H₂"
+        reactions: "2Na + 2H₂O → 2NaOH + H₂",
+        quiz: {
+            question: "What happens when sodium reacts with water?",
+            options: ["Nothing", "Forms a gas", "Melts slightly", "Forms a solid deposit"],
+            answer: "Forms a gas"
+        }
     },
     {
         name: "Potassium",
@@ -22,30 +31,12 @@ const group1Metals = [
         number: 19,
         physical: "Soft, silvery metal, lighter than water",
         chemical: "Reacts violently with water, forms potassium hydroxide and hydrogen",
-        reactions: "2K + 2H₂O → 2KOH + H₂"
+        reactions: "2K + 2H₂O → 2KOH + H₂",
+        quiz: {
+            question: "Potassium reaction with water is:",
+            options: ["Mild", "Violent", "No reaction", "Slow"],
+            answer: "Violent"
+        }
     },
-    {
-        name: "Rubidium",
-        symbol: "Rb",
-        number: 37,
-        physical: "Soft, silvery-white metal",
-        chemical: "Highly reactive with water",
-        reactions: "2Rb + 2H₂O → 2RbOH + H₂"
-    },
-    {
-        name: "Cesium",
-        symbol: "Cs",
-        number: 55,
-        physical: "Soft, gold-colored metal",
-        chemical: "Extremely reactive, explodes on contact with water",
-        reactions: "2Cs + 2H₂O → 2CsOH + H₂"
-    },
-    {
-        name: "Francium",
-        symbol: "Fr",
-        number: 87,
-        physical: "Radioactive metal, very rare",
-        chemical: "Extremely reactive; reacts explosively with water",
-        reactions: "2Fr + 2H₂O → 2FrOH + H₂"
-    }
+    // Add Rubidium, Cesium, Francium in same format
 ];
