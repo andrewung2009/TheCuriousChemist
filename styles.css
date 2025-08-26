@@ -2,15 +2,14 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    line-height: 1.6;
-    background-color: #f9f9f9;
+    background: #f9f9f9;
     color: #333;
 }
 
 header {
-    background-color: #ffcc00;
-    padding: 20px;
+    background: #ffcc00;
     text-align: center;
+    padding: 20px;
 }
 
 header h1 {
@@ -19,10 +18,10 @@ header h1 {
 
 nav ul {
     list-style: none;
-    padding: 0;
     display: flex;
     justify-content: center;
     gap: 20px;
+    padding: 0;
 }
 
 nav a {
@@ -32,9 +31,9 @@ nav a {
 }
 
 section {
-    padding: 20px;
     max-width: 1000px;
-    margin: auto;
+    margin: 20px auto;
+    padding: 20px;
 }
 
 .metal-grid {
@@ -59,17 +58,16 @@ section {
 }
 
 #metal-info {
-    background-color: #fff3cc;
+    background: #fff3cc;
     padding: 15px;
     border-radius: 10px;
     margin-top: 20px;
 }
 
 #quiz {
-    background-color: #e0f7ff;
+    background: #e0f7ff;
     padding: 20px;
     border-radius: 10px;
-    margin-top: 20px;
 }
 
 #quiz-options button {
@@ -78,18 +76,15 @@ section {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: 0.2s;
 }
 
 #quiz-options button:hover {
-    background-color: #00bfff;
-    color: #fff;
+    background: #00bfff;
+    color: white;
 }
 
 footer {
-    background-color: #ffcc00;
+    background: #ffcc00;
     text-align: center;
     padding: 10px;
-    margin-top: 30px;
 }
-
