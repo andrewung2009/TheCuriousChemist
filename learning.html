@@ -3,9 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Learning Hub — Group 1 (Alkali) Metals</title>
-  <meta name="description" content="Complete Y10–11 learning hub for Group 1 (alkali) metals: explanations, reactions, equations, safety, uses, quizzes, and exam prep." />
-  <link rel="stylesheet" href="styles.css" />
+  <title>Learning Hub — Group 1 Metals</title>
+  <meta name="description" content="Full Y10–11 notes and interactive reaction animations for Group 1 metals." />
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -16,13 +18,13 @@
         <div class="logo">G1</div>
         <div class="brand-text">
           <h1>Group 1 Metals</h1>
-          <p class="tagline">Alkali Metals — Learning Hub</p>
+          <p class="tagline">Learning Hub — Y10–11</p>
         </div>
       </div>
-      <button class="nav-toggle" aria-controls="nav" aria-expanded="false" id="navToggle" title="Toggle navigation">
-        ☰
-      </button>
-      <nav id="nav" class="site-nav" aria-label="Primary">
+
+      <button class="nav-toggle" id="navToggle" aria-controls="nav" aria-expanded="false">☰</button>
+
+      <nav id="nav" class="site-nav" aria-label="Primary navigation">
         <a href="index.html">Home</a>
         <a href="learning.html" class="active">Learning Hub</a>
         <a href="social.html">Community</a>
@@ -31,235 +33,228 @@
   </header>
 
   <main id="main" class="container">
-    <h2>Y10–11 Modules</h2>
+    <h2>Complete Y10–11 Modules</h2>
 
-    <div class="tabs" role="tablist">
-      <button class="tab active" data-tab="overview" role="tab" aria-selected="true">1) Overview</button>
-      <button class="tab" data-tab="reactions" role="tab" aria-selected="false">2) Reactions</button>
-      <button class="tab" data-tab="uses" role="tab" aria-selected="false">3) Uses & Safety</button>
-      <button class="tab" data-tab="exam" role="tab" aria-selected="false">4) Exam Prep</button>
-      <button class="tab" data-tab="glossary" role="tab" aria-selected="false">Glossary</button>
+    <div class="tabs" role="tablist" aria-label="Learning sections">
+      <button class="tab active" data-tab="overview" role="tab" aria-selected="true">Overview</button>
+      <button class="tab" data-tab="physical" role="tab">Physical Properties</button>
+      <button class="tab" data-tab="chemical" role="tab">Chemical Properties</button>
+      <button class="tab" data-tab="reactions" role="tab">Reaction Animations</button>
+      <button class="tab" data-tab="exam" role="tab">Exam Prep & Quiz</button>
+      <button class="tab" data-tab="glossary" role="tab">Glossary</button>
     </div>
 
-    <!-- Overview -->
+    <!-- OVERVIEW -->
     <section id="overview" class="tab-panel active" role="tabpanel">
       <article class="content-card">
-        <h3>1.1 Periodic Position & Electronic Structure</h3>
-        <p>Group 1 metals are the first column of the periodic table. They all have <strong>one outer electron</strong>, so they form <strong>+1 ions (M⁺)</strong> and similar compounds such as chlorides (MCl), oxides (M₂O), and hydroxides (MOH).</p>
+        <h3>Periodic position & electronic structure</h3>
+        <p>Group 1 metals lie in the first column of the periodic table and have <strong>one outer electron</strong>. They readily lose that electron to form <strong>M⁺</strong> ions. This explains many trends: low ionisation energy, increased reactivity down the group, and formation of ionic compounds.</p>
         <div class="grid-2">
           <div>
-            <h4>Trend Highlights</h4>
+            <h4>Trends (down the group)</h4>
             <ul class="tick">
-              <li>Atomic radius increases down the group.</li>
-              <li>Ionisation energy decreases down the group.</li>
-              <li>Reactivity <strong>increases</strong> down the group.</li>
-              <li>Melting/boiling points generally decrease down the group.</li>
-              <li>Density generally increases down the group (Li, Na, K float).</li>
+              <li>Atomic radius increases</li>
+              <li>Ionisation energy decreases</li>
+              <li>Reactivity increases</li>
+              <li>Melting points generally fall</li>
+              <li>Density generally increases (Li→Fr)</li>
             </ul>
           </div>
           <div class="panel">
-            <h4>Exam Tip</h4>
-            <p>Link reactivity to the <em>outer electron</em> being further from the nucleus and more shielded, so it’s easier to lose.</p>
+            <h4>Exam tip</h4>
+            <p>Always link reactivity to how easily the outer electron can be removed — shielding and distance from the nucleus are key.</p>
           </div>
         </div>
       </article>
-
-      <article class="content-card">
-        <h3>1.2 Physical Properties</h3>
-        <ul class="bullets">
-          <li>Soft metals (cut with a knife); lustrous when freshly cut, tarnish in air.</li>
-          <li>Low density (Li, Na, K float on water).</li>
-          <li>Good electrical/thermal conductors.</li>
-          <li>Low melting points compared with most other metals.</li>
-        </ul>
-      </article>
     </section>
 
-    <!-- Reactions -->
-    <section id="reactions" class="tab-panel" role="tabpanel">
+    <!-- PHYSICAL -->
+    <section id="physical" class="tab-panel" role="tabpanel" aria-hidden="true">
       <article class="content-card">
-        <h3>2.1 With Water (Cold)</h3>
-        <p>General reaction: <strong>2M(s) + 2H₂O(l) → 2MOH(aq) + H₂(g)</strong></p>
-        <div class="grid-2">
-          <div>
-            <h4>Observations (increasing down group)</h4>
-            <ul class="bullets">
-              <li><strong>Lithium</strong> — floats, fizzes gently; forms colourless LiOH.</li>
-              <li><strong>Sodium</strong> — floats, melts into a ball, fizzes more; may produce orange flame briefly.</li>
-              <li><strong>Potassium</strong> — vigorous, lilac flame; may produce sparks; forms KOH rapidly.</li>
-            </ul>
-          </div>
-          <div class="panel">
-            <h4>Safety</h4>
-            <ul>
-              <li>Use small pieces with tongs; safety screens; eye protection.</li>
-              <li>Never handle with wet hands; keep a class-appropriate risk assessment.</li>
-              <li>Have dry sand (not water) for extinguishing.</li>
-            </ul>
-          </div>
-        </div>
-        <details class="example">
-          <summary>Worked example: Calculate moles of H₂ from 0.23 g Na</summary>
-          <p>
-            Moles Na = 0.23 / 23.0 = 0.010 mol.  
-            From 2Na : 1H₂, moles H₂ = 0.010 / 2 = <strong>0.0050 mol</strong>.
-          </p>
-        </details>
-      </article>
-
-      <article class="content-card">
-        <h3>2.2 With Oxygen (Air)</h3>
-        <p>Form oxides/peroxides/superoxides (depends on metal & conditions). Simple model: <strong>4Li + O₂ → 2Li₂O</strong>, <strong>4Na + O₂ → 2Na₂O</strong> (and sometimes Na₂O₂).</p>
-        <p>Freshly cut surface tarnishes quickly due to oxide layer formation.</p>
-      </article>
-
-      <article class="content-card">
-        <h3>2.3 With Halogens</h3>
-        <p>Vigorous to form ionic halides: <strong>2M + Cl₂ → 2MCl</strong></p>
-        <p>White crystalline salts (e.g., NaCl, KCl) with high melting points, soluble in water, conduct electricity when molten or in solution.</p>
-      </article>
-
-      <article class="content-card">
-        <h3>2.4 Flame Tests</h3>
+        <h3>Physical properties</h3>
         <ul class="bullets">
-          <li>Lithium — <strong>crimson red</strong></li>
-          <li>Sodium — <strong>intense yellow</strong></li>
-          <li>Potassium — <strong>lilac</strong></li>
-          <li>Rubidium — red-violet (beyond basic spec but good to know)</li>
-          <li>Cesium — blue-violet (beyond basic spec)</li>
-        </ul>
-      </article>
-    </section>
-
-    <!-- Uses & Safety -->
-    <section id="uses" class="tab-panel" role="tabpanel">
-      <article class="content-card">
-        <h3>3.1 Applications</h3>
-        <div class="grid-2">
-          <div>
-            <ul class="tick">
-              <li><strong>Lithium</strong>: rechargeable batteries, alloys, greases.</li>
-              <li><strong>Sodium</strong>: street lighting (legacy), chemicals, glass making, NaOH production.</li>
-              <li><strong>Potassium</strong>: fertilisers (K⁺ essential for plants), KOH in soaps/alkaline cells.</li>
-            </ul>
-          </div>
-          <div class="panel">
-            <h4>Storage & Handling</h4>
-            <ul>
-              <li>Store under oil or inert atmosphere to prevent oxidation.</li>
-              <li>Use non-aqueous extinguishing methods (dry sand) — <em>never water</em> on alkali metal fires.</li>
-              <li>Follow local lab safety SOPs and hazard codes.</li>
-            </ul>
-          </div>
-        </div>
-      </article>
-
-      <article class="content-card">
-        <h3>3.2 Solubility & Alkalinity</h3>
-        <p>Hydroxides (MOH) are strong alkalis; form strongly alkaline solutions (high pH), fully ionise to give OH⁻.</p>
-      </article>
-    </section>
-
-    <!-- Exam Prep -->
-    <section id="exam" class="tab-panel" role="tabpanel">
-      <article class="content-card">
-        <h3>4.1 Common Misconceptions</h3>
-        <ul class="bullets">
-          <li><em>“Reactivity decreases down Group 1.”</em> — False. It increases because the outer electron is further from the nucleus and more shielded.</li>
-          <li><em>“All metals sink in water.”</em> — False. Li, Na, K float (low density).</li>
-          <li><em>“Add water to put out sodium fires.”</em> — Dangerous. Use dry sand or Class D agent.</li>
+          <li>Soft metals — can be cut with a knife. Freshly cut surfaces are shiny but tarnish in air.</li>
+          <li>Low density: Li, Na and K float on water due to low density and large atomic volume.</li>
+          <li>Poorly hard compared with transition metals; lower melting points than many metals.</li>
+          <li>Good conductors of heat and electricity.</li>
         </ul>
       </article>
 
       <article class="content-card">
-        <h3>4.2 Quick Quiz</h3>
-        <form class="quiz" id="quiz-g1">
-          <div class="q">
-            <label>1) General equation for Group 1 metal with water?</label>
-            <select required>
-              <option value="">Choose…</option>
-              <option>2M + 2H₂O → 2MOH + H₂</option>
-              <option>M + H₂O → MO + H₂</option>
-              <option>M + H₂O → MOH + O₂</option>
-            </select>
-          </div>
-          <div class="q">
-            <label>2) Which flame colour is correct for potassium?</label>
-            <select required>
-              <option value="">Choose…</option>
-              <option>Yellow</option>
-              <option>Lilac</option>
-              <option>Crimson red</option>
-            </select>
-          </div>
-          <div class="q">
-            <label>3) Why does reactivity increase down Group 1?</label>
-            <select required>
-              <option value="">Choose…</option>
-              <option>Greater nuclear charge tightly holds the electron</option>
-              <option>Outer electron is further and more shielded, easier to lose</option>
-              <option>Metals become harder and denser</option>
-            </select>
-          </div>
-          <button type="submit" class="btn primary">Check Answers</button>
-          <p class="quiz-result" id="quiz-g1-result" aria-live="polite"></p>
-        </form>
+        <h3>Physical tests & observations</h3>
+        <p>Flame tests and simple density/appearance observations are often used in labs. Flame test colours: Li — crimson; Na — intense yellow; K — lilac.</p>
+      </article>
+    </section>
+
+    <!-- CHEMICAL -->
+    <section id="chemical" class="tab-panel" role="tabpanel" aria-hidden="true">
+      <article class="content-card">
+        <h3>Chemical properties (core Y10–11 content)</h3>
+        <p>Key chemical behaviours of alkali metals:</p>
+        <ul class="bullets">
+          <li><strong>With water (cold):</strong> 2M(s) + 2H₂O(l) → 2MOH(aq) + H₂(g). Observations increase down group: gentle fizzing → violent reaction, hydrogen release and possible flames.</li>
+          <li><strong>With oxygen:</strong> Form oxides/peroxides/superoxides depending on metal and conditions. Example: 4Li + O₂ → 2Li₂O.</li>
+          <li><strong>With halogens (chlorine):</strong> Vigorous formation of ionic salts: 2M + Cl₂ → 2MCl (white crystalline ionic solids).</li>
+          <li><strong>Hydroxides (MOH):</strong> Strong bases; dissolve to give OH⁻ — strong alkalinity.</li>
+          <li><strong>Reducing behaviour:</strong> Alkali metals are powerful reducing agents; they donate electrons easily to reduce other species.</li>
+        </ul>
       </article>
 
       <article class="content-card">
-        <h3>4.3 Exam-Style Questions</h3>
-        <ol class="exam-list">
-          <li><strong>(Short)</strong> Describe what you would see when a small piece of sodium is added to cold water. Include at least three observations.</li>
-          <li><strong>(Structured)</strong> Write balanced symbol equations for:
-            <ul>
-              <li>(a) lithium with water</li>
-              <li>(b) sodium with chlorine</li>
-              <li>(c) potassium with oxygen (assume oxide)</li>
-            </ul>
-          </li>
-          <li><strong>(Application)</strong> A student reacts 0.46 g of sodium with excess water. Calculate the volume of hydrogen produced at RTP (24 dm³ mol⁻¹). <em>Show your working.</em></li>
-        </ol>
-        <details class="example">
-          <summary>Suggested Answers (Reveal)</summary>
-          <ol class="exam-list">
-            <li>Sodium floats and moves around; melts into a silvery ball; fizzing/bubbling; may show an orange flame briefly; forms a colourless solution.</li>
-            <li>
-              (a) 2Li(s) + 2H₂O(l) → 2LiOH(aq) + H₂(g)<br/>
-              (b) 2Na(s) + Cl₂(g) → 2NaCl(s)<br/>
-              (c) 4K(s) + O₂(g) → 2K₂O(s)
-            </li>
-            <li>
-              n(Na) = 0.46 / 23.0 = 0.020 mol<br/>
-              2Na : 1H₂ → n(H₂) = 0.020 / 2 = 0.010 mol<br/>
-              Volume H₂ = 0.010 × 24 = <strong>0.24 dm³</strong> (240 cm³)
-            </li>
+        <h3>Example balanced equations</h3>
+        <ul class="bullets">
+          <li>2Li(s) + 2H₂O(l) → 2LiOH(aq) + H₂(g)</li>
+          <li>2Na(s) + 2H₂O(l) → 2NaOH(aq) + H₂(g)</li>
+          <li>4K(s) + O₂(g) → 2K₂O(s)</li>
+          <li>2Na(s) + Cl₂(g) → 2NaCl(s)</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- REACTIONS (Animations) -->
+    <section id="reactions" class="tab-panel" role="tabpanel" aria-hidden="true">
+      <article class="content-card">
+        <h3>Reaction animations — click to play</h3>
+        <p>These demos are memory aids: they show observable behaviour and the link to the equation.</p>
+
+        <!-- Sodium + Water (canvas) -->
+        <div class="reaction-block">
+          <h4>1) Sodium + Water</h4>
+          <p class="muted">Equation: 2Na(s) + 2H₂O(l) → 2NaOH(aq) + H₂(g) — float, fizz, melt, orange-yellow flame sometimes</p>
+          <canvas id="canvasNaWater" class="reaction-canvas" width="800" height="220" aria-label="Animation of sodium reacting with water"></canvas>
+          <div class="reaction-controls">
+            <button class="btn primary" data-action="play" data-reaction="na-water">Play</button>
+            <button class="btn outline" data-action="reset" data-reaction="na-water">Reset</button>
+          </div>
+        </div>
+
+        <!-- Lithium + Oxygen (SVG + GSAP for flame) -->
+        <div class="reaction-block">
+          <h4>2) Lithium burning in oxygen</h4>
+          <p class="muted">Equation: 4Li(s) + O₂(g) → 2Li₂O — red flame; bright heat release</p>
+          <div class="svg-wrap" id="svgLiO2" aria-hidden="false">
+            <!-- simple SVG atom + flame placeholder -->
+            <svg width="800" height="220" viewBox="0 0 800 220" class="reaction-svg">
+              <rect x="0" y="140" width="800" height="80" fill="#e8f5ff" opacity="0.2"></rect>
+              <!-- lithium chunk -->
+              <g id="li-chunk"><rect x="120" y="110" rx="6" ry="6" width="80" height="30" fill="#f2d8d8" stroke="#ffb4b4"/></g>
+              <!-- oxygen molecules (circles) -->
+              <g id="o2s"></g>
+              <!-- flame group -->
+              <g id="li-flame" transform="translate(160,110) scale(0.001)">
+                <path d="M10 30 C12 10 28 6 28 0 C20 0 18 12 10 30Z" fill="#ff6b6b" />
+              </g>
+            </svg>
+          </div>
+          <div class="reaction-controls">
+            <button class="btn primary" data-action="play" data-reaction="li-o2">Play</button>
+            <button class="btn outline" data-action="reset" data-reaction="li-o2">Reset</button>
+          </div>
+        </div>
+
+        <!-- Potassium flame test (canvas for lilac flame) -->
+        <div class="reaction-block">
+          <h4>3) Potassium flame test (lilac)</h4>
+          <p class="muted">Observation: Potassium gives a lilac/violet flame — good for identification.</p>
+          <canvas id="canvasKFlame" class="reaction-canvas" width="800" height="220" aria-label="Potassium flame animation"></canvas>
+          <div class="reaction-controls">
+            <button class="btn primary" data-action="play" data-reaction="k-flame">Play</button>
+            <button class="btn outline" data-action="reset" data-reaction="k-flame">Reset</button>
+          </div>
+        </div>
+
+        <!-- Sodium + Chlorine (GSAP sparks + salt formation) -->
+        <div class="reaction-block">
+          <h4>4) Sodium + Chlorine</h4>
+          <p class="muted">Equation: 2Na(s) + Cl₂(g) → 2NaCl(s) — vigorous reaction producing ionic salt.</p>
+          <div id="na-cl2-wrap" class="svg-wrap">
+            <svg width="800" height="220" viewBox="0 0 800 220" class="reaction-svg">
+              <rect x="0" y="140" width="800" height="80" fill="#f7fbff" opacity="0.12"></rect>
+              <g id="na-chunk"><rect x="100" y="110" rx="6" ry="6" width="80" height="30" fill="#ffdca6" stroke="#eab36a"/></g>
+              <g id="cl2s"></g>
+              <g id="sparks"></g>
+              <g id="salt" transform="translate(360,130) scale(0.001)" opacity="0"></g>
+            </svg>
+          </div>
+          <div class="reaction-controls">
+            <button class="btn primary" data-action="play" data-reaction="na-cl2">Play</button>
+            <button class="btn outline" data-action="reset" data-reaction="na-cl2">Reset</button>
+          </div>
+        </div>
+
+      </article>
+    </section>
+
+    <!-- EXAM -->
+    <section id="exam" class="tab-panel" role="tabpanel" aria-hidden="true">
+      <article class="content-card">
+        <h3>Exam prep — worked examples & quick quiz</h3>
+        <p>Use the quiz to check understanding and try the exam-style questions below.</p>
+
+        <div class="exam-block">
+          <h4>Quick quiz</h4>
+          <form id="quiz-g1" class="quiz">
+            <div class="q">
+              <label>1) Balanced equation when M reacts with water?</label>
+              <select required>
+                <option value="">Choose…</option>
+                <option>2M + 2H₂O → 2MOH + H₂</option>
+                <option>M + H₂O → MO + H₂</option>
+                <option>M + 2H₂O → MO₂ + H₂</option>
+              </select>
+            </div>
+            <div class="q">
+              <label>2) Flame colour for potassium?</label>
+              <select required>
+                <option value="">Choose…</option>
+                <option>Yellow</option>
+                <option>Lilac</option>
+                <option>Blue</option>
+              </select>
+            </div>
+            <div class="q">
+              <label>3) Why does reactivity increase down Group 1?</label>
+              <select required>
+                <option value="">Choose…</option>
+                <option>Outer electron is further and more shielded, easier to lose</option>
+                <option>Nuclear charge increases much faster than shielding</option>
+                <option>Atoms become more electronegative</option>
+              </select>
+            </div>
+            <button class="btn primary" type="submit">Check Answers</button>
+            <p id="quiz-g1-result" class="quiz-result" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <div class="exam-block">
+          <h4>Exam-style questions</h4>
+          <ol>
+            <li>Describe what you see when sodium is dropped into cold water. (3 marks)</li>
+            <li>Write equations for: (a) 2Li + 2H₂O → ? (b) 2Na + Cl₂ → ?</li>
+            <li>A student reacts 0.46 g Na — calculate the volume of H₂ at RTP (24 dm³ mol⁻¹).</li>
           </ol>
-        </details>
+          <details class="example">
+            <summary>Model answers</summary>
+            <ol>
+              <li>Float, fizzes, melts into a ball, hydrogen gas produced, orange flame sometimes, forms colourless NaOH solution.</li>
+              <li>(a) 2Li + 2H₂O → 2LiOH + H₂; (b) 2Na + Cl₂ → 2NaCl</li>
+              <li>n(Na)=0.46/23=0.02 mol → H₂ = 0.01 mol → volume = 0.01×24 = 0.24 dm³ (240 cm³).</li>
+            </ol>
+          </details>
+        </div>
       </article>
     </section>
 
-    <!-- Glossary -->
-    <section id="glossary" class="tab-panel" role="tabpanel">
+    <!-- GLOSSARY -->
+    <section id="glossary" class="tab-panel" role="tabpanel" aria-hidden="true">
       <article class="content-card">
-        <h3>Glossary (Tap to expand)</h3>
-        <details>
-          <summary><strong>Alkali</strong></summary>
-          <p>A soluble base that produces OH⁻ ions in aqueous solution (e.g., NaOH, KOH).</p>
-        </details>
-        <details>
-          <summary><strong>Ionisation Energy</strong></summary>
-          <p>Energy required to remove an electron from a gaseous atom; decreases down Group 1.</p>
-        </details>
-        <details>
-          <summary><strong>Shielding</strong></summary>
-          <p>Inner electrons reduce the effective nuclear attraction on the outer electron.</p>
-        </details>
-        <details>
-          <summary><strong>Superoxide</strong></summary>
-          <p>Compound containing the O₂⁻ ion (e.g., KO₂ under specific conditions).</p>
-        </details>
+        <h3>Glossary</h3>
+        <details><summary>Alkali</summary><p>Soluble base producing OH⁻ in water (e.g., NaOH).</p></details>
+        <details><summary>Ionisation energy</summary><p>Energy to remove an electron from an atom in the gas phase.</p></details>
+        <details><summary>Shielding</summary><p>Inner electrons reduce nuclear attraction on outer electrons.</p></details>
       </article>
     </section>
+
   </main>
 
   <footer class="site-footer">
@@ -273,6 +268,6 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
