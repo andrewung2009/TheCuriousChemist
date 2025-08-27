@@ -1,368 +1,297 @@
-/* script.js — main interactive + animation logic */
-/* Uses: GSAP (loaded in HTML) */
+/* script.js
+   - Generates full periodic table (data array below)
+   - Click Group navigation -> group1.html
+   - Group 1 interactive demos (naWater, liO2, kFlame)
+   - Feedback form submission uses HTML form action (Formspree) - this file just adds client-side UX
+*/
 
-/* ===== helpers ===== */
-const $ = (s, r = document) => r.querySelector(s);
-const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+/* ========== Periodic table data ========== */
+/* Minimal concise elements array: each item: [Z, symbol, name, group] */
+/* For clarity we include all 118 entries (symbol and name). Group numbers are approximate for main groups; transition metals are group 3-12 (set 0 for simplicity). */
+const ELEMENTS = [
+  [1,"H","Hydrogen",1],[2,"He","Helium",18],
+  [3,"Li","Lithium",1],[4,"Be","Beryllium",2],[5,"B","Boron",13],[6,"C","Carbon",14],[7,"N","Nitrogen",15],[8,"O","Oxygen",16],[9,"F","Fluorine",17],[10,"Ne","Neon",18],
+  [11,"Na","Sodium",1],[12,"Mg","Magnesium",2],[13,"Al","Aluminium",13],[14,"Si","Silicon",14],[15,"P","Phosphorus",15],[16,"S","Sulfur",16],[17,"Cl","Chlorine",17],[18,"Ar","Argon",18],
+  [19,"K","Potassium",1],[20,"Ca","Calcium",2],[21,"Sc","Scandium",3],[22,"Ti","Titanium",4],[23,"V","Vanadium",5],[24,"Cr","Chromium",6],[25,"Mn","Manganese",7],[26,"Fe","Iron",8],[27,"Co","Cobalt",9],[28,"Ni","Nickel",10],[29,"Cu","Copper",11],[30,"Zn","Zinc",12],[31,"Ga","Gallium",13],[32,"Ge","Germanium",14],[33,"As","Arsenic",15],[34,"Se","Selenium",16],[35,"Br","Bromine",17],[36,"Kr","Krypton",18],
+  [37,"Rb","Rubidium",1],[38,"Sr","Strontium",2],[39,"Y","Yttrium",3],[40,"Zr","Zirconium",4],[41,"Nb","Niobium",5],[42,"Mo","Molybdenum",6],[43,"Tc","Technetium",7],[44,"Ru","Ruthenium",8],[45,"Rh","Rhodium",9],[46,"Pd","Palladium",10],[47,"Ag","Silver",11],[48,"Cd","Cadmium",12],[49,"In","Indium",13],[50,"Sn","Tin",14],[51,"Sb","Antimony",15],[52,"Te","Tellurium",16],[53,"I","Iodine",17],[54,"Xe","Xenon",18],
+  [55,"Cs","Caesium",1],[56,"Ba","Barium",2],[57,"La","Lanthanum",3],[58,"Ce","Cerium",0],[59,"Pr","Praseodymium",0],[60,"Nd","Neodymium",0],[61,"Pm","Promethium",0],[62,"Sm","Samarium",0],[63,"Eu","Europium",0],[64,"Gd","Gadolinium",0],[65,"Tb","Terbium",0],[66,"Dy","Dysprosium",0],[67,"Ho","Holmium",0],[68,"Er","Erbium",0],[69,"Tm","Thulium",0],[70,"Yb","Ytterbium",0],[71,"Lu","Lutetium",0),
+  [72,"Hf","Hafnium",4],[73,"Ta","Tantalum",5],[74,"W","Tungsten",6],[75,"Re","Rhenium",7],[76,"Os","Osmium",8],[77,"Ir","Iridium",9],[78,"Pt","Platinum",10],[79,"Au","Gold",11],[80,"Hg","Mercury",12],[81,"Tl","Thallium",13],[82,"Pb","Lead",14],[83,"Bi","Bismuth",15],[84,"Po","Polonium",16],[85,"At","Astatine",17],[86,"Rn","Radon",18],
+  [87,"Fr","Francium",1],[88,"Ra","Radium",2],[89,"Ac","Actinium",3],[90,"Th","Thorium",0],[91,"Pa","Protactinium",0],[92,"U","Uranium",0],[93,"Np","Neptunium",0],[94,"Pu","Plutonium",0],[95,"Am","Americium",0],[96,"Cm","Curium",0],[97,"Bk","Berkelium",0],[98,"Cf","Californium",0],[99,"Es","Einsteinium",0],[100,"Fm","Fermium",0],[101,"Md","Mendelevium",0],[102,"No","Nobelium",0],[103,"Lr","Lawrencium",0),
+  [104,"Rf","Rutherfordium",0],[105,"Db","Dubnium",0],[106,"Sg","Seaborgium",0],[107,"Bh","Bohrium",0],[108,"Hs","Hassium",0],[109,"Mt","Meitnerium",0],[110,"Ds","Darmstadtium",0],[111,"Rg","Roentgenium",0],[112,"Cn","Copernicium",0],[113,"Nh","Nihonium",0],[114,"Fl","Flerovium",0],[115,"Mc","Moscovium",0],[116,"Lv","Livermorium",0],[117,"Ts","Tennessine",17],[118,"Og","Oganesson",18]
+];
 
-/* ===== Mobile nav toggle ===== */
-(function navToggle(){
-  const btns = $$('.nav-toggle');
-  btns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const nav = $('#nav');
-      if (!nav) return;
-      const open = nav.classList.toggle('open');
-      btn.setAttribute('aria-expanded', open);
+/* =========== Helpers =========== */
+const $ = (sel, root=document) => root.querySelector(sel);
+const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+/* =========== Build periodic table DOM =========== */
+function buildTable(showNames = false) {
+  const container = $('#periodicTable');
+  if(!container) return;
+  container.innerHTML = ''; // clear
+
+  // The table is 7 rows (periods) conceptually, but display as 18 columns per standard periodic layout.
+  // We'll build a simple grid of 18 cols x 7 rows + lanthanides/actinides rows simulated after.
+  // For simplicity, create 7 * 18 slots and fill with known positions by atomic number approximate mapping.
+  // We'll use a simple placement algorithm: position by known period/column map.
+  // But to keep this robust and simple for Year 10, we will place elements sequentially with CSS grid and mark groups.
+  // Each element cell:
+  ELEMENTS.forEach(el => {
+    const [Z, sym, name, group] = el;
+    const cell = document.createElement('button');
+    cell.className = 'pt-cell';
+    if(group === 1) cell.classList.add('alkali');
+    // small semantic attributes for JS
+    cell.setAttribute('data-z', Z);
+    cell.setAttribute('data-symbol', sym);
+    cell.setAttribute('data-name', name);
+    cell.setAttribute('data-group', group);
+    // inner HTML: number and symbol
+    cell.innerHTML = `<div class="num">${Z}</div><div class="sym">${sym}</div>`;
+    // show name on toggle
+    if(showNames) {
+      const nm = document.createElement('div');
+      nm.className = 'el-name';
+      nm.textContent = name;
+      nm.style.fontSize = '0.6rem';
+      nm.style.color = '#6b7280';
+      cell.appendChild(nm);
+    }
+    // click behavior: if group 1, open group1.html; otherwise show quick info
+    cell.addEventListener('click', () => {
+      const grp = Number(cell.getAttribute('data-group'));
+      if(grp === 1) {
+        window.location.href = 'group1.html';
+        return;
+      }
+      // quick info popup (simple alert for clarity; teachers can replace with modal)
+      const s = cell.getAttribute('data-symbol');
+      const n = cell.getAttribute('data-name');
+      const z = cell.getAttribute('data-z');
+      alert(`${n} (${s}) — Atomic number ${z}\nGroup: ${grp === 0 ? 'Transition/Inner/Unknown' : grp}`);
     });
+    container.appendChild(cell);
   });
-})();
+}
 
-/* ===== Tabs ===== */
-(function tabs(){
-  const tabs = $$('.tab');
-  const panels = $$('.tab-panel');
-  if (!tabs.length) return;
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const id = tab.dataset.tab;
-      tabs.forEach(t => t.classList.toggle('active', t === tab));
-      panels.forEach(p => p.classList.toggle('active', p.id === id));
-      tabs.forEach(t => t.setAttribute('aria-selected', t.classList.contains('active')));
+/* =========== UI wiring =========== */
+document.addEventListener('DOMContentLoaded', function(){
+  buildTable(false);
+
+  // go to group 1
+  const go1 = $('#goGroup1');
+  if(go1) go1.addEventListener('click', ()=> window.location.href = 'group1.html');
+
+  // toggle labels
+  const toggle = $('#toggleLabels');
+  if(toggle) {
+    let show = false;
+    toggle.addEventListener('click', () => {
+      show = !show;
+      buildTable(show);
+      toggle.textContent = show ? 'Hide Names' : 'Toggle Names';
     });
-  });
-})();
+  }
 
-/* ===== GSAP entrance animations ===== */
-window.addEventListener('load', () => {
-  if (window.gsap) {
-    gsap.registerPlugin(ScrollTrigger);
-    // header fade
-    gsap.from('.brand', {y:-8, opacity:0, duration:0.6, ease:"power2.out"});
-    gsap.from('.site-nav a', {stagger:0.08, y:-6, opacity:0, duration:0.6, ease:"power2.out"});
-    // hero
-    gsap.from('.hero-copy', {x:-20, opacity:0, duration:0.8});
-    gsap.from('.hero-visual', {x:20, opacity:0, duration:0.8});
-    // reveal content on scroll
-    gsap.utils.toArray('.content-card, .card, .reaction-block').forEach(elem => {
-      gsap.from(elem, {
-        opacity: 0,
-        y: 18,
-        duration: 0.6,
-        ease: 'power2.out',
-        scrollTrigger: {trigger: elem, start: 'top 85%'},
-      });
+  // Feedback form simple UX
+  const fb = $('#feedbackForm');
+  if(fb) {
+    fb.addEventListener('submit', (e) => {
+      // Allow default submit to Formspree; show immediate UX
+      const sendBtn = fb.querySelector('button[type="submit"]');
+      sendBtn.textContent = 'Sending...';
+      setTimeout(()=> sendBtn.textContent = 'Sent — thank you', 1000);
     });
   }
 });
 
-/* ===== QUIZ handler ===== */
-(function quiz(){
-  const form = $('#quiz-g1');
-  const result = $('#quiz-g1-result');
-  if (!form) return;
-  const answers = [
-    '2M + 2H₂O → 2MOH + H₂',
-    'Lilac',
-    'Outer electron is further and more shielded, easier to lose'
-  ];
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const vals = $$('select', form).map(s=>s.value);
-    // map simplified answers if needed
-    const correct = [vals[0] === answers[0], vals[1] === 'Lilac' ? vals[1] === 'Lilac' : vals[1] === answers[1], vals[2].includes('Outer')];
-    const score = correct.filter(Boolean).length;
-    result.textContent = `You scored ${score}/${answers.length}. ${score===3?'Excellent!':score===2?'Good — review the rest.':'Keep practising!'}`;
-    result.style.color = score===3 ? 'var(--ok)' : (score===2 ? 'var(--accent)' : 'var(--danger)');
-  });
-})();
-
-/* ===== Community posts (local only) ===== */
-(function posts(){
-  const form = $('#postForm');
-  const postsList = $('#posts');
-  const info = $('#postInfo');
-  if (!form || !postsList) return;
-  const posts = [];
-  function render(){
-    postsList.innerHTML = '';
-    posts.slice().reverse().forEach(p=>{
-      const li = document.createElement('li');
-      li.innerHTML = `<div class="post-meta">${escapeHtml(p.name)} • ${new Date(p.date).toLocaleString()}</div><div>${escapeHtml(p.text)}</div>`;
-      postsList.appendChild(li);
-    });
-  }
-  form.addEventListener('submit', e=>{
-    e.preventDefault();
-    const name = $('#postName').value.trim();
-    const text = $('#postText').value.trim();
-    if(!name || !text){ info.textContent = 'Please enter name & comment.'; return;}
-    posts.push({name, text, date: Date.now()});
-    $('#postName').value=''; $('#postText').value='';
-    info.textContent='Posted (local demo).';
-    render();
-  });
-  function escapeHtml(s){ return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;'); }
-})();
-
-/* ===== Reaction animations collection ===== */
-/* We'll create modular play/reset handlers for each reaction. */
-(function reactions(){
-  const playButtons = $$('[data-action="play"]');
-  const resetButtons = $$('[data-action="reset"]');
-
-  playButtons.forEach(btn => btn.addEventListener('click', e => {
-    const r = btn.dataset.reaction;
-    if (r === 'na-water') playNaWater();
-    if (r === 'li-o2') playLiO2();
-    if (r === 'k-flame') playKFlame();
-    if (r === 'na-cl2') playNaCl2();
-  }));
-
-  resetButtons.forEach(btn => btn.addEventListener('click', e => {
-    const r = btn.dataset.reaction;
-    if (r === 'na-water') resetNaWater();
-    if (r === 'li-o2') resetLiO2();
-    if (r === 'k-flame') resetKFlame();
-    if (r === 'na-cl2') resetNaCl2();
-  }));
-
-  /* ---------- Na + Water (canvas) ---------- */
-  let naWaterAnim = null;
-  function playNaWater(){
-    const canvas = $('#canvasNaWater');
+/* ========== Group 1 Animations & Demos =========
+   Functions used by group1.html controls. Lightweight implementations.
+   - naWaterDemo(): simple canvas bubbles + sodium chunk movement
+   - liO2Demo(): svg round-moving O2 toward Li + flame reveal
+   - kFlameDemo(): canvas particle lilac flame
+   Each provides play() and reset() behavior by demo id.
+*/
+(function setupGroup1Demos(){
+  // Na + Water demo (canvas)
+  function naWaterPlay(canvas) {
     if(!canvas) return;
     const ctx = canvas.getContext('2d');
     const W = canvas.width, H = canvas.height;
-    // scale for high-DPI
-    function scaleCanvas() {
-      const ratio = window.devicePixelRatio || 1;
-      canvas.width = canvas.clientWidth * ratio;
-      canvas.height = canvas.clientHeight * ratio;
-      ctx.scale(ratio, ratio);
-    }
-    // small particle bubble system
+    let raf = null;
+    const chunk = {x:120, y:80, w:80, h:28, vx:0.9};
     const bubbles = [];
-    let chunk = {x:120, y:120, w:60, h:26, vx:0.6};
-    // create water molecules as background
-    function drawBackground(){
-      ctx.fillStyle = 'rgba(7,18,40,0.12)';
-      ctx.fillRect(0,0,canvas.clientWidth, canvas.clientHeight);
-      // water surface
-      ctx.fillStyle = '#04233f';
-      ctx.fillRect(0,130,canvas.clientWidth,canvas.clientHeight-130);
-    }
-    function spawnBubble(){
-      const bx = chunk.x + Math.random()*chunk.w;
-      bubbles.push({x:bx, y:150, r:2+Math.random()*3, vy:1+Math.random()*1.6, alpha:0.9});
-      if (bubbles.length>110) bubbles.shift();
-    }
-    let frame=0;
-    function step(){
-      frame++;
-      const cw = canvas.clientWidth, ch = canvas.clientHeight;
-      ctx.clearRect(0,0,cw,ch);
-      drawBackground();
-
-      // sodium chunk (silvery)
-      ctx.save();
-      ctx.translate(chunk.x, chunk.y);
-      ctx.fillStyle = '#FFF5C3';
-      ctx.strokeStyle = '#ffecb3';
-      ctx.fillRect(0,0,chunk.w, chunk.h);
-      ctx.strokeRect(0,0,chunk.w, chunk.h);
-      ctx.restore();
-
-      // chunk floats & melts (slight bobbing and vx)
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      // water
+      ctx.fillStyle = '#dff3ff'; ctx.fillRect(0,H*0.55,W,H*0.45);
+      // chunk
+      ctx.fillStyle = '#fff6c8'; ctx.fillRect(chunk.x, chunk.y, chunk.w, chunk.h);
+      // spawn bubbles
+      if(Math.random() < 0.6) {
+        bubbles.push({x:chunk.x + Math.random()*chunk.w, y: H*0.55 - 6, r:2 + Math.random()*2, vy:1 + Math.random()*0.8, alpha:1});
+      }
+      // update chunk position
       chunk.x += chunk.vx;
-      if(chunk.x>cw-120 || chunk.x<40) chunk.vx *= -1;
-
-      // spawn bubbles when playing
-      if (frame % 6 === 0) spawnBubble();
-
+      if(chunk.x < 20 || chunk.x > W - chunk.w - 20) chunk.vx *= -1;
       // draw bubbles
-      for (let i = 0; i < bubbles.length; i++){
+      for(let i=0;i<bubbles.length;i++){
         const b = bubbles[i];
         ctx.beginPath();
         ctx.fillStyle = `rgba(255,255,255,${b.alpha})`;
         ctx.arc(b.x, b.y, b.r, 0, Math.PI*2);
         ctx.fill();
-        b.y -= b.vy;
-        b.alpha -= 0.005;
+        b.y -= b.vy; b.alpha -= 0.006;
       }
       // remove faded
-      while (bubbles.length && bubbles[0].alpha <= 0.01) bubbles.shift();
-
-      // hydrogen pocket effect
-      if (frame % 30 < 8){
-        ctx.beginPath();
-        const hx = chunk.x + chunk.w + 20;
-        ctx.fillStyle = 'rgba(255,240,200,0.06)';
-        ctx.arc(hx, 80 - (frame%30), 20 + Math.sin(frame/6)*3, 0, Math.PI*2);
-        ctx.fill();
-      }
-
-      naWaterAnim = requestAnimationFrame(step);
+      while(bubbles.length && bubbles[0].alpha <= 0.02) bubbles.shift();
+      raf = requestAnimationFrame(draw);
     }
-
-    resetNaWater(); // clear previous
-    scaleCanvas();
-    naWaterAnim = requestAnimationFrame(step);
+    // start
+    if(canvas._raf) cancelAnimationFrame(canvas._raf);
+    canvas._raf = requestAnimationFrame(draw);
+    canvas._stop = () => { cancelAnimationFrame(canvas._raf); canvas._raf = null; ctx.clearRect(0,0,W,H); ctx.fillStyle='#f7fcff'; ctx.fillRect(0,0,W,H); ctx.fillStyle='#022a42'; ctx.fillRect(0,H*0.55,W,H*0.45); ctx.fillStyle='#fff6c8'; ctx.fillRect(120,80,80,28); };
   }
 
-  function resetNaWater(){
-    const canvas = $('#canvasNaWater');
-    if(!canvas) return;
-    if (naWaterAnim) cancelAnimationFrame(naWaterAnim);
-    const ctx = canvas.getContext('2d');
-    ctx.clearRect(0,0,canvas.width, canvas.height);
-    // static initial scene
-    const cw = canvas.clientWidth, ch = canvas.clientHeight;
-    // draw a calm scene
-    ctx.fillStyle = 'rgba(7,18,40,0.12)';
-    ctx.fillRect(0,0,cw,ch);
-    ctx.fillStyle = '#04233f';
-    ctx.fillRect(0,130,cw,ch-130);
-    // sodium chunk
-    ctx.fillStyle = '#FFF5C3';
-    ctx.fillRect(120,110,60,26);
-    ctx.fillStyle = 'rgba(255,255,255,0.6)';
-    ctx.fillText('Click Play to animate reaction', 220, 60);
-  }
-
-  /* ---------- Li + O2 (SVG + GSAP) ---------- */
-  function playLiO2(){
-    const svg = $('#svgLiO2');
-    if(!svg || !window.gsap) return;
-    const o2Group = svg.querySelector('#o2s');
-    const liChunk = svg.querySelector('#li-chunk');
-    const flame = svg.querySelector('#li-flame');
-    // create oxygen molecules (O2) as circles
-    o2Group.innerHTML = '';
-    for(let i=0;i<6;i++){
-      const cx = 400 + Math.random()*320 - 160;
-      const cy = 40 + Math.random()*60;
-      const g = document.createElementNS('http://www.w3.org/2000/svg','g');
-      g.innerHTML = `<circle cx="${cx}" cy="${cy}" r="8" fill="#a6d6ff" opacity="0.95"></circle>
-                     <circle cx="${cx+12}" cy="${cy}" r="8" fill="#a6d6ff" opacity="0.95"></circle>`;
-      o2Group.appendChild(g);
-    }
-    // timeline: move o2 toward lithium chunk & grow flame
-    const tl = gsap.timeline();
-    tl.to('#o2s g', {x: -120, duration: 1.2, stagger: 0.12, ease: 'power2.in'});
-    tl.to('#li-chunk rect', {fill: '#ffd1d1', duration: 0.6}, '-=0.6');
-    tl.to('#li-flame', {scale:1.05, transformOrigin:'center bottom', duration: 0.2, repeat:6, yoyo:true, ease:'sine.inOut'}, '-=0.2');
-    tl.to('#li-flame', {scale:1.6, duration:0.5, opacity:1, ease:'power1.out'});
-    // small glow on chunk
-    tl.to('#li-chunk rect', {filter:'brightness(1.2)', duration:0.4}, '-=0.3');
-  }
-  function resetLiO2(){
-    const svg = $('#svgLiO2');
+  // Li + O2 demo (svg)
+  function liO2Play(svg) {
     if(!svg) return;
-    svg.querySelector('#o2s').innerHTML = '';
-    gsap.set('#li-flame', {scale: 0.001});
-    gsap.set('#li-chunk rect', {fill:'#f2d8d8', clearProps:'filter'});
+    svg.innerHTML = '';
+    // base
+    const xmlns = "http://www.w3.org/2000/svg";
+    const base = document.createElementNS(xmlns,'rect'); base.setAttribute('x',0); base.setAttribute('y',120); base.setAttribute('width',760); base.setAttribute('height',60); base.setAttribute('fill','#e9f7ff'); svg.appendChild(base);
+    // lithium chunk
+    const li = document.createElementNS(xmlns,'rect'); li.setAttribute('x',120); li.setAttribute('y',86); li.setAttribute('width',80); li.setAttribute('height',28); li.setAttribute('rx',6); li.setAttribute('fill','#f7e3e3'); li.setAttribute('id','liChunk'); svg.appendChild(li);
+    // O2 molecules to right
+    for(let i=0;i<6;i++){
+      const g = document.createElementNS(xmlns,'g');
+      g.setAttribute('transform', `translate(${520 + i*20}, ${20 + (i%2)*12})`);
+      g.innerHTML = `<circle cx="0" cy="0" r="7" fill="#a6d6ff"></circle><circle cx="12" cy="0" r="7" fill="#a6d6ff"></circle>`;
+      svg.appendChild(g);
+    }
+    // animate by JS interval
+    let t=0;
+    const iv = setInterval(()=>{
+      t++;
+      // move each O2 slightly left by changing transform
+      const gs = svg.querySelectorAll('g');
+      gs.forEach((g, idx) => {
+        const tr = g.getAttribute('transform');
+        const match = tr.match(/translate\(([-.\d]+),\s*([-\d.]+)\)/);
+        if(match){
+          let x = parseFloat(match[1]) - (0.8 + idx*0.02);
+          let y = parseFloat(match[2]);
+          g.setAttribute('transform', `translate(${x}, ${y})`);
+        }
+      });
+      if(t === 30) {
+        // reveal a simple flame indicator using a circle
+        const flame = document.createElementNS(xmlns,'ellipse');
+        flame.setAttribute('cx', 170); flame.setAttribute('cy', 100); flame.setAttribute('rx', 6); flame.setAttribute('ry', 12);
+        flame.setAttribute('fill', '#ff6b6b'); flame.setAttribute('opacity', '0.95'); flame.setAttribute('id','liFlame');
+        svg.appendChild(flame);
+      }
+      if(t > 70) {
+        clearInterval(iv);
+      }
+    }, 40);
+    // store reset handle
+    svg._cleanup = () => { clearInterval(iv); svg.innerHTML = ''; };
   }
 
-  /* ---------- Potassium flame (canvas particles lilac) ---------- */
-  let kFlameAnim = null;
-  function playKFlame(){
-    const canvas = $('#canvasKFlame');
+  // K flame demo (canvas) — lilac particles
+  function kFlamePlay(canvas){
     if(!canvas) return;
     const ctx = canvas.getContext('2d');
-    function scaleCanvas(){ const r = window.devicePixelRatio || 1; canvas.width = canvas.clientWidth*r; canvas.height = canvas.clientHeight*r; ctx.scale(r,r);}
-    scaleCanvas();
-    const particles = [];
-    function spawn() {
-      const x = canvas.clientWidth/2 + (Math.random()-0.5)*40;
-      particles.push({
-        x, y: 160, vx:(Math.random()-0.5)*0.8, vy: - (1.5 + Math.random()*2.2),
-        life: 40 + Math.round(Math.random()*40), size: 6+Math.random()*6,
-        hue: 270 + Math.random()*20
-      });
+    const W = canvas.width, H = canvas.height;
+    let particles = [];
+    let raf = null;
+    function spawn(){
+      const x = W/2 + (Math.random()-0.5)*30;
+      particles.push({x, y:H-20, vx:(Math.random()-0.5)*0.8, vy:- (1.5 + Math.random()*2), life:40+Math.random()*40, size:6+Math.random()*6, hue:270 + Math.random()*18});
       if(particles.length>200) particles.shift();
     }
-    function step(){
-      ctx.clearRect(0,0,canvas.clientWidth, canvas.clientHeight);
-      // base holder
-      ctx.fillStyle = '#071226'; ctx.fillRect(0,0,canvas.clientWidth, canvas.clientHeight);
-      // spawn some
-      if(Math.random()<0.6) spawn();
-      // draw particles
-      particles.forEach(p=>{
-        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size*1.6);
-        g.addColorStop(0, `hsla(${p.hue},85%,70%,${Math.max(0, p.life/80)})`);
-        g.addColorStop(0.6, `hsla(${p.hue},65%,50%,${Math.max(0, p.life/110)})`);
-        g.addColorStop(1, `rgba(10,8,20,0)`);
+    function frame(){
+      ctx.clearRect(0,0,W,H);
+      ctx.fillStyle='#f6fbff'; ctx.fillRect(0,0,W,H);
+      if(Math.random() < 0.7) spawn();
+      particles.forEach(p => {
+        const g = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.size*1.6);
+        g.addColorStop(0, `hsla(${p.hue},80%,70%,${Math.max(0,p.life/60)})`);
+        g.addColorStop(1, 'rgba(255,255,255,0)');
         ctx.fillStyle = g;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
-        ctx.fill();
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2); ctx.fill();
         p.x += p.vx; p.y += p.vy; p.vy -= 0.02; p.life--;
       });
-      // remove dead
-      for(let i=particles.length-1;i>=0;i--) if(particles[i].life<=0) particles.splice(i,1);
-      kFlameAnim = requestAnimationFrame(step);
+      particles = particles.filter(p => p.life > 0);
+      raf = requestAnimationFrame(frame);
     }
-    resetKFlame();
-    kFlameAnim = requestAnimationFrame(step);
-  }
-  function resetKFlame(){ const c = $('#canvasKFlame'); if(!c) return; if(kFlameAnim) cancelAnimationFrame(kFlameAnim); const ctx = c.getContext('2d'); ctx.clearRect(0,0,c.width,c.height); ctx.fillStyle='#071226'; ctx.fillRect(0,0,c.clientWidth,c.clientHeight); ctx.fillStyle='rgba(200,200,255,0.08)'; ctx.fillText('Click Play for lilac flame', 220, 60); }
-
-  /* ---------- Na + Cl2 (SVG + GSAP sparks + salt appear) ---------- */
-  function playNaCl2(){
-    const wrap = $('#na-cl2-wrap');
-    if(!wrap || !window.gsap) return;
-    const cl2 = wrap.querySelector('#cl2s');
-    const sparks = wrap.querySelector('#sparks');
-    const saltGroup = wrap.querySelector('#salt');
-
-    // populate chlorine molecules
-    cl2.innerHTML = '';
-    for(let i=0;i<5;i++){
-      const x = 560 + (i*20);
-      const circle = document.createElementNS('http://www.w3.org/2000/svg','g');
-      circle.innerHTML = `<circle cx="${x}" cy="${40 + Math.random()*40}" r="7" fill="#9fe3ff" opacity="0.95"></circle><circle cx="${x+12}" cy="${40 + Math.random()*40}" r="7" fill="#9fe3ff" opacity="0.95"></circle>`;
-      cl2.appendChild(circle);
-    }
-
-    // sparks: generate small lines
-    sparks.innerHTML = '';
-    for(let i=0;i<30;i++){
-      const sx = 200 + Math.random()*240;
-      const sy = 100 + Math.random()*40;
-      const line = document.createElementNS('http://www.w3.org/2000/svg','line');
-      line.setAttribute('x1', sx); line.setAttribute('y1', sy);
-      line.setAttribute('x2', sx+ (Math.random()*40-20)); line.setAttribute('y2', sy+ (Math.random()*20-10));
-      line.setAttribute('stroke', 'rgba(255,220,130,0.85)');
-      line.setAttribute('stroke-width', 1 + Math.random()*1.6);
-      line.setAttribute('opacity', 0);
-      sparks.appendChild(line);
-    }
-
-    // salt crystal create
-    saltGroup.innerHTML = `<rect x="0" y="0" width="36" height="18" rx="3" fill="#ffffff"/>`;
-
-    const tl = gsap.timeline();
-    tl.to('#cl2s g', {x:-160, duration:1.2, stagger: 0.12});
-    tl.to('#na-chunk rect', {x:260, duration:1.1}, 0);
-    tl.to('#sparks line', {opacity:1, y:-6, duration:0.25, stagger:0.02, repeat:3, yoyo:true}, 0.6);
-    tl.to('#salt', {scale:1, opacity:1, transformOrigin:'center center', duration:0.6, ease:'back.out(1.2)'}, 1.4);
-  }
-  function resetNaCl2(){
-    const wrap = $('#na-cl2-wrap');
-    if(!wrap) return;
-    wrap.querySelector('#cl2s').innerHTML = '';
-    wrap.querySelector('#sparks').innerHTML = '';
-    const salt = wrap.querySelector('#salt');
-    if (salt) salt.innerHTML = '';
-    gsap.set('#na-chunk rect', {x:100, clearProps:'all'});
-    gsap.set('#salt', {scale:0.001, opacity:0});
+    if(canvas._raf) cancelAnimationFrame(canvas._raf);
+    canvas._raf = requestAnimationFrame(frame);
+    canvas._stop = () => { if(canvas._raf) cancelAnimationFrame(canvas._raf); ctx.clearRect(0,0,W,H); ctx.fillStyle='#ffffff'; ctx.fillRect(0,0,W,H); ctx.fillStyle='#e9eef6'; ctx.fillRect(0,H-40,W,40); };
   }
 
-  /* Initialize resets on load */
+  /* Hook up play/reset buttons on group1 page when DOMReady */
   document.addEventListener('DOMContentLoaded', () => {
-    resetNaWater(); resetLiO2(); resetKFlame(); resetNaCl2();
+    // NA water
+    const naCanvas = document.getElementById('naWaterCanvas');
+    if(naCanvas){
+      const playBtns = document.querySelectorAll('[data-demo="naWater"]');
+      playBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          if(e.currentTarget.hasAttribute('data-reset')) {
+            if(naCanvas._stop) naCanvas._stop();
+          } else {
+            naWaterPlay(naCanvas);
+          }
+        });
+      });
+    }
+
+    // LI + O2
+    const liSvg = document.getElementById('liO2svg');
+    if(liSvg){
+      const playBtns = document.querySelectorAll('[data-demo="liO2"]');
+      playBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          if(e.currentTarget.hasAttribute('data-reset')) {
+            if(liSvg._cleanup) liSvg._cleanup();
+            liSvg.innerHTML = '';
+          } else {
+            liO2Play(liSvg);
+          }
+        });
+      });
+    }
+
+    // K flame
+    const kCanvas = document.getElementById('kFlameCanvas');
+    if(kCanvas){
+      const playBtns = document.querySelectorAll('[data-demo="kFlame"]');
+      playBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          if(e.currentTarget.hasAttribute('data-reset')) {
+            if(kCanvas._stop) kCanvas._stop();
+          } else {
+            kFlamePlay(kCanvas);
+          }
+        });
+      });
+    }
+
+    // Basic UX: mark group1 link active when on group page (minor)
+    if(window.location.pathname.endsWith('group1.html')){
+      // nothing required here; just keep for expansion
+    }
+
+    // Basic safety: intercept feedback forms to show a quick message
+    const fbs = document.querySelectorAll('form[action^="https://formspree.io"]');
+    fbs.forEach(form => {
+      form.addEventListener('submit', () => {
+        // small UX: show sending text (server handles actual send)
+        const btn = form.querySelector('button[type="submit"]');
+        if(btn) { btn.disabled = true; btn.textContent = 'Sending...'; setTimeout(()=> { btn.textContent='Sent — thanks'; }, 1100); }
+      });
+    });
   });
 })();
-
