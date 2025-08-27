@@ -3,71 +3,163 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Precision Education — Year 10 Periodic Table</title>
-  <meta name="description" content="Year 10 Periodic Table — click a group to open its page. Clear labels for students." />
+  <title>Precision Education — Year 10 Chemistry</title>
+  <meta name="description" content="Interactive Periodic Table and Year 10 resources — Group pages, feedback and demos."/>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="topbar">
-    <div class="container">
-      <h1>Precision Education — Year 10 Chemistry</h1>
-      <p class="lead">Click any element (or any group heading) to go to that group's page. Group 1 → Alkali Metals page ready.</p>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <div class="logo">PE</div>
+        <div class="brand-copy">
+          <h1>Precision Education</h1>
+          <p class="tag">Year 10 • Chemistry — clear notes & interactive demos</p>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Main navigation">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="group1.html" class="nav-link">Group 1 (Alkali)</a>
+        <a href="#feedback" class="nav-link">Feedback</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+
+      <button id="navToggle" class="nav-toggle" aria-label="Toggle navigation">☰</button>
     </div>
   </header>
 
-  <main class="container main-grid">
-    <section id="periodic-section" class="card">
-      <h2>Interactive Periodic Table</h2>
-      <p class="muted">Click any cell to view (or click "Group 1" to open Group 1 page).</p>
+  <main id="main" class="container">
+    <section class="hero card">
+      <div class="hero-left">
+        <h2>Interactive Periodic Table — Year 10</h2>
+        <p class="muted">Click an element cell for quick info. Click any Group 1 element to open the full Group 1 learning page (specially prepared for Year 10 clarity).</p>
 
-      <div class="table-controls">
-        <button id="goGroup1" class="btn primary">Open Group 1 (Alkali Metals)</button>
-        <button id="toggleLabels" class="btn outline">Toggle Names</button>
+        <div class="hero-cta">
+          <a class="btn primary" href="group1.html">Open Group 1 (Alkali Metals)</a>
+          <button id="showNamesBtn" class="btn outline">Show Names</button>
+        </div>
+
+        <div class="search-row">
+          <label for="elementSearch" class="sr-only">Search element</label>
+          <input id="elementSearch" type="search" placeholder="Search element by symbol or name (e.g. Na, Sodium)" />
+          <button id="clearSearch" class="btn tiny">Clear</button>
+        </div>
       </div>
 
-      <div id="periodicTable" class="periodic-table" aria-label="Periodic table"></div>
-      <p class="muted small">Tip: the table is generated from data in script.js — easily editable if you want to add more classroom annotations.</p>
+      <div class="hero-right">
+        <dl class="facts">
+          <div><dt>Valence</dt><dd><strong>1</strong> (one outer electron)</dd></div>
+          <div><dt>Key trend</dt><dd>Reactivity increases down Group 1</dd></div>
+          <div><dt>Useful formula</dt><dd>2M + 2H<sub>2</sub>O → 2MOH + H<sub>2</sub></dd></div>
+        </dl>
+      </div>
     </section>
 
-    <aside class="card">
-      <h3>Quick navigation</h3>
-      <ul>
-        <li><a href="group1.html">Group 1 — Alkali Metals (Y10)</a></li>
-        <li><a href="#periodic-section">Periodic Table</a></li>
-        <li><a href="#feedback">Feedback Form (bottom)</a></li>
-      </ul>
+    <section class="grid-2">
+      <article class="card" aria-labelledby="tableTitle">
+        <div class="card-header">
+          <h3 id="tableTitle">Full Periodic Table</h3>
+          <p class="muted small">Click a cell for info. Group 1 cells link to the Group 1 page.</p>
+        </div>
 
-      <h3>Connect</h3>
-      <p>Facebook: <a href="https://www.facebook.com/" target="_blank" rel="noopener">Precision Education (placeholder)</a></p>
-    </aside>
+        <div id="periodicTable" class="periodic-table" aria-live="polite"></div>
 
-    <section class="card" id="explain">
+        <div class="table-legend">
+          <span class="legend-item"><i class="legend-swatch alkali"></i> Group 1 (alkali)</span>
+          <span class="legend-item"><i class="legend-swatch metal"></i> Metal</span>
+          <span class="legend-item"><i class="legend-swatch nonmetal"></i> Non-metal</span>
+        </div>
+      </article>
+
+      <aside class="card side-panel" aria-labelledby="navTitle">
+        <h4 id="navTitle">Quick navigation & resources</h4>
+
+        <ul class="side-links">
+          <li><a href="group1.html">Group 1 — Alkali Metals (Y10)</a></li>
+          <li><a href="#feedback">Feedback form</a></li>
+          <li><a href="#contact">Contact & teacher notes</a></li>
+        </ul>
+
+        <div class="fb-area">
+          <h5>Facebook</h5>
+          <p class="muted">Follow Precision Education (placeholder)</p>
+          <a class="btn outline" href="https://facebook.com" target="_blank" rel="noopener">Open Facebook</a>
+        </div>
+
+        <div class="notes">
+          <h5>Teacher note</h5>
+          <p class="muted small">This table is generated from a JS dataset — easy to annotate for classroom-specific notes.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section id="how" class="card">
       <h3>How the table works (teacher notes)</h3>
       <ol>
-        <li>Every element cell shows atomic number and symbol.</li>
-        <li>Click any element for a short info popup (name, number, group).</li>
-        <li>Click a group heading in the table to go to the group page (e.g., Group 1).</li>
+        <li>Each cell displays atomic number and symbol. Hover to show the name.</li>
+        <li>Click a Group 1 cell to open the Group 1 learning page (images, properties, equations).</li>
+        <li>Use the search box to highlight elements by symbol or name.</li>
       </ol>
+    </section>
+
+    <section id="feedback" class="card" aria-labelledby="fbTitle">
+      <h3 id="fbTitle">Feedback</h3>
+      <p class="muted">Use the short feedback form to send classroom comments or suggestions. Submits to Formspree (replace action URL with your endpoint).</p>
+
+      <form id="feedbackForm" class="feedback-form" action="https://formspree.io/f/yourformid" method="POST">
+        <div class="row">
+          <label>
+            Name (optional)
+            <input name="name" placeholder="Teacher or student">
+          </label>
+          <label>
+            Email (optional)
+            <input name="email" type="email" placeholder="you@example.com">
+          </label>
+        </div>
+
+        <label>
+          Feedback
+          <textarea name="message" placeholder="Your suggestions or issues..." required></textarea>
+        </label>
+
+        <label class="rating">
+          Rating
+          <div class="stars" id="ratingStars" role="radiogroup" aria-label="Feedback rating">
+            <button type="button" class="star" data-value="1" aria-label="1 star">★</button>
+            <button type="button" class="star" data-value="2" aria-label="2 stars">★</button>
+            <button type="button" class="star" data-value="3" aria-label="3 stars">★</button>
+            <button type="button" class="star" data-value="4" aria-label="4 stars">★</button>
+            <button type="button" class="star" data-value="5" aria-label="5 stars">★</button>
+          </div>
+          <input type="hidden" name="rating" id="ratingInput" value="">
+        </label>
+
+        <div class="form-actions">
+          <button class="btn primary" type="submit">Send Feedback</button>
+          <div id="feedbackMessage" class="muted small" aria-live="polite"></div>
+        </div>
+      </form>
+    </section>
+
+    <section id="contact" class="card">
+      <h3>Contact & Copyright</h3>
+      <p class="muted">Precision Education — Designed for Year 10 clarity.</p>
+      <p class="small muted">Contact: <a href="mailto:info@precision-edu.example">info@precision-edu.example</a></p>
     </section>
   </main>
 
-  <footer class="site-footer container" id="feedback">
-    <div>
-      <h4>Feedback & Contact</h4>
-      <p>Use this short form to send classroom feedback — the form POSTs to Formspree (replace with your form endpoint).</p>
-
-      <form id="feedbackForm" action="https://formspree.io/f/yourformid" method="POST">
-        <label>Name (optional)<input name="name" placeholder="Teacher or student"></label>
-        <label>Email (optional)<input name="email" type="email" placeholder="you@example.com"></label>
-        <label>Feedback <textarea name="message" required placeholder="Your suggestions or issues..."></textarea></label>
-        <div style="display:flex;gap:10px;align-items:center">
-          <button class="btn primary" type="submit">Send Feedback</button>
-          <small class="muted">Or email your admin</small>
-        </div>
-      </form>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>© 2025 Precision Education</div>
+      <nav class="footer-nav">
+        <a href="index.html">Home</a> · <a href="group1.html">Group 1</a> · <a href="#feedback">Feedback</a>
+      </nav>
     </div>
-    <div class="muted small">© 2025 Precision Education — Designed for Year 10 clarity</div>
   </footer>
+
+  <div id="elementTooltip" class="tooltip" role="status" aria-hidden="true"></div>
 
   <script src="script.js" defer></script>
 </body>
