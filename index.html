@@ -1,38 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Group 1 Metals — Interactive Learning</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
     <h1>Group 1 Metals (Alkali Metals)</h1>
     <nav>
       <button onclick="showSection('overview')">Overview</button>
-      <button onclick="showSection('properties')">Properties</button>
+      <button onclick="showSection('periodic')">Periodic Table</button>
       <button onclick="showSection('reactions')">Reactions</button>
       <button onclick="showSection('quiz')">Quiz</button>
     </nav>
   </header>
 
   <main>
-    <section id="overview" class="active">
+    <!-- Overview -->
+    <section id="overview" class="active card">
       <h2>Overview</h2>
       <p>Group 1 metals (alkali metals) include lithium, sodium, potassium, rubidium, cesium, and francium.</p>
+      <p>They are highly reactive, soft, and have low densities compared to other metals.</p>
     </section>
 
-    <section id="properties">
-      <h2>Properties</h2>
-      <ul>
-        <li>Soft and can be cut with a knife</li>
-        <li>Low density (Li, Na, K float on water)</li>
-        <li>Highly reactive, especially with water</li>
-      </ul>
+    <!-- Periodic Table -->
+    <section id="periodic" class="card">
+      <h2>Interactive Periodic Table</h2>
+      <div class="periodic-table">
+        <div class="element alkali" onclick="showElement('Li')">Li<br><small>3</small></div>
+        <div class="element alkali" onclick="showElement('Na')">Na<br><small>11</small></div>
+        <div class="element alkali" onclick="showElement('K')">K<br><small>19</small></div>
+        <div class="element alkali" onclick="showElement('Rb')">Rb<br><small>37</small></div>
+        <div class="element alkali" onclick="showElement('Cs')">Cs<br><small>55</small></div>
+        <div class="element alkali" onclick="showElement('Fr')">Fr<br><small>87</small></div>
+      </div>
+      <div id="element-info" class="info-box"></div>
     </section>
 
-    <section id="reactions">
+    <!-- Reactions -->
+    <section id="reactions" class="card">
       <h2>Reaction Simulation</h2>
       <button onclick="simulateReaction('Lithium')">Lithium + Water</button>
       <button onclick="simulateReaction('Sodium')">Sodium + Water</button>
@@ -40,7 +48,8 @@
       <div id="reaction-output"></div>
     </section>
 
-    <section id="quiz">
+    <!-- Quiz -->
+    <section id="quiz" class="card">
       <h2>Quick Quiz</h2>
       <p>Which Group 1 metal is the most reactive?</p>
       <button onclick="checkAnswer('Lithium')">Lithium</button>
