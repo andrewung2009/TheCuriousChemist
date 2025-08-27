@@ -1,45 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Precision Education | Year 10 Chemistry</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Precision Education — Year 10 Periodic Table</title>
+  <meta name="description" content="Year 10 Periodic Table — click a group to open its page. Clear labels for students." />
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Precision Education</h1>
-    <h2>Year 10 Chemistry</h2>
+  <header class="topbar">
+    <div class="container">
+      <h1>Precision Education — Year 10 Chemistry</h1>
+      <p class="lead">Click any element (or any group heading) to go to that group's page. Group 1 → Alkali Metals page ready.</p>
+    </div>
   </header>
 
-  <main>
-    <h3>Full Periodic Table</h3>
-    <div class="periodic-table">
-      <!-- Example simplified periodic table for demo -->
-      <div class="element" onclick="goToGroup('group1.html')" title="Group 1: Alkali Metals">
-        <span class="symbol">Li</span>
-        <span class="number">3</span>
+  <main class="container main-grid">
+    <section id="periodic-section" class="card">
+      <h2>Interactive Periodic Table</h2>
+      <p class="muted">Click any cell to view (or click "Group 1" to open Group 1 page).</p>
+
+      <div class="table-controls">
+        <button id="goGroup1" class="btn primary">Open Group 1 (Alkali Metals)</button>
+        <button id="toggleLabels" class="btn outline">Toggle Names</button>
       </div>
-      <div class="element" onclick="goToGroup('group1.html')" title="Group 1: Alkali Metals">
-        <span class="symbol">Na</span>
-        <span class="number">11</span>
-      </div>
-      <div class="element" onclick="goToGroup('group1.html')" title="Group 1: Alkali Metals">
-        <span class="symbol">K</span>
-        <span class="number">19</span>
-      </div>
-      <!-- Add the rest of the periodic table as needed -->
-    </div>
+
+      <div id="periodicTable" class="periodic-table" aria-label="Periodic table"></div>
+      <p class="muted small">Tip: the table is generated from data in script.js — easily editable if you want to add more classroom annotations.</p>
+    </section>
+
+    <aside class="card">
+      <h3>Quick navigation</h3>
+      <ul>
+        <li><a href="group1.html">Group 1 — Alkali Metals (Y10)</a></li>
+        <li><a href="#periodic-section">Periodic Table</a></li>
+        <li><a href="#feedback">Feedback Form (bottom)</a></li>
+      </ul>
+
+      <h3>Connect</h3>
+      <p>Facebook: <a href="https://www.facebook.com/" target="_blank" rel="noopener">Precision Education (placeholder)</a></p>
+    </aside>
+
+    <section class="card" id="explain">
+      <h3>How the table works (teacher notes)</h3>
+      <ol>
+        <li>Every element cell shows atomic number and symbol.</li>
+        <li>Click any element for a short info popup (name, number, group).</li>
+        <li>Click a group heading in the table to go to the group page (e.g., Group 1).</li>
+      </ol>
+    </section>
   </main>
 
-  <footer>
-    <p>📘 Connect with us: <a href="https://facebook.com" target="_blank">Facebook</a></p>
-    <form action="https://formspree.io/f/mnqegkyp" method="POST">
-      <label>Feedback:</label>
-      <textarea name="message" required></textarea>
-      <button type="submit">Submit</button>
-    </form>
+  <footer class="site-footer container" id="feedback">
+    <div>
+      <h4>Feedback & Contact</h4>
+      <p>Use this short form to send classroom feedback — the form POSTs to Formspree (replace with your form endpoint).</p>
+
+      <form id="feedbackForm" action="https://formspree.io/f/yourformid" method="POST">
+        <label>Name (optional)<input name="name" placeholder="Teacher or student"></label>
+        <label>Email (optional)<input name="email" type="email" placeholder="you@example.com"></label>
+        <label>Feedback <textarea name="message" required placeholder="Your suggestions or issues..."></textarea></label>
+        <div style="display:flex;gap:10px;align-items:center">
+          <button class="btn primary" type="submit">Send Feedback</button>
+          <small class="muted">Or email your admin</small>
+        </div>
+      </form>
+    </div>
+    <div class="muted small">© 2025 Precision Education — Designed for Year 10 clarity</div>
   </footer>
+
+  <script src="script.js" defer></script>
 </body>
 </html>
