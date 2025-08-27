@@ -1,109 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Group 1 Metals - Alkali Metals</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Group 1 Metals — Interactive Learning</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Header -->
   <header>
     <h1>Group 1 Metals (Alkali Metals)</h1>
     <nav>
-      <ul>
-        <li><a href="#overview">Overview</a></li>
-        <li><a href="#properties">Properties</a></li>
-        <li><a href="#elements">Elements</a></li>
-        <li><a href="#reactions">Reactions</a></li>
-        <li><a href="#quiz">Quiz</a></li>
-      </ul>
+      <button onclick="showSection('overview')">Overview</button>
+      <button onclick="showSection('properties')">Properties</button>
+      <button onclick="showSection('reactions')">Reactions</button>
+      <button onclick="showSection('quiz')">Quiz</button>
     </nav>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <h2>Welcome to Alkali Metals</h2>
-    <p>Learn about the most reactive metals in the periodic table!</p>
-    <button id="learnMoreBtn">Explore More</button>
-  </section>
+  <main>
+    <section id="overview" class="active">
+      <h2>Overview</h2>
+      <p>Group 1 metals (alkali metals) include lithium, sodium, potassium, rubidium, cesium, and francium.</p>
+    </section>
 
-  <!-- Overview -->
-  <section id="overview" class="content-section">
-    <h2>Overview</h2>
-    <p>Group 1 metals, also called <b>alkali metals</b>, include Lithium, Sodium, Potassium, Rubidium, Cesium, and Francium. They are soft, shiny, and extremely reactive.</p>
-  </section>
+    <section id="properties">
+      <h2>Properties</h2>
+      <ul>
+        <li>Soft and can be cut with a knife</li>
+        <li>Low density (Li, Na, K float on water)</li>
+        <li>Highly reactive, especially with water</li>
+      </ul>
+    </section>
 
-  <!-- Properties -->
-  <section id="properties" class="content-section">
-    <h2>Properties of Group 1 Metals</h2>
-    <ul>
-      <li>Low density (float on water)</li>
-      <li>Very soft, can be cut with a knife</li>
-      <li>Highly reactive with water and oxygen</li>
-      <li>Form alkaline solutions when reacting with water</li>
-      <li>Shiny but tarnish quickly in air</li>
-    </ul>
-  </section>
+    <section id="reactions">
+      <h2>Reaction Simulation</h2>
+      <button onclick="simulateReaction('Lithium')">Lithium + Water</button>
+      <button onclick="simulateReaction('Sodium')">Sodium + Water</button>
+      <button onclick="simulateReaction('Potassium')">Potassium + Water</button>
+      <div id="reaction-output"></div>
+    </section>
 
-  <!-- Elements -->
-  <section id="elements" class="content-section">
-    <h2>Group 1 Elements</h2>
-    <div class="element-cards">
-      <div class="card">
-        <h3>Li</h3>
-        <p>Lithium - Used in batteries.</p>
-      </div>
-      <div class="card">
-        <h3>Na</h3>
-        <p>Sodium - Essential in salt (NaCl).</p>
-      </div>
-      <div class="card">
-        <h3>K</h3>
-        <p>Potassium - Important for plant growth.</p>
-      </div>
-      <div class="card">
-        <h3>Rb</h3>
-        <p>Rubidium - Used in research.</p>
-      </div>
-      <div class="card">
-        <h3>Cs</h3>
-        <p>Cesium - Used in atomic clocks.</p>
-      </div>
-      <div class="card">
-        <h3>Fr</h3>
-        <p>Francium - Rare and highly radioactive.</p>
-      </div>
-    </div>
-  </section>
+    <section id="quiz">
+      <h2>Quick Quiz</h2>
+      <p>Which Group 1 metal is the most reactive?</p>
+      <button onclick="checkAnswer('Lithium')">Lithium</button>
+      <button onclick="checkAnswer('Sodium')">Sodium</button>
+      <button onclick="checkAnswer('Cesium')">Cesium</button>
+      <p id="quiz-result"></p>
+    </section>
+  </main>
 
-  <!-- Reactions -->
-  <section id="reactions" class="content-section">
-    <h2>Reactions with Water</h2>
-    <p>Observe how Group 1 metals react with water. (Click to simulate!)</p>
-    <div class="reaction-buttons">
-      <button onclick="simulateReaction('Lithium')">Lithium</button>
-      <button onclick="simulateReaction('Sodium')">Sodium</button>
-      <button onclick="simulateReaction('Potassium')">Potassium</button>
-    </div>
-    <div id="reactionOutput"></div>
-  </section>
-
-  <!-- Quiz -->
-  <section id="quiz" class="content-section">
-    <h2>Quick Quiz</h2>
-    <p>Test your knowledge!</p>
-    <div id="quizContainer">
-      <p id="quizQuestion"></p>
-      <div id="quizOptions"></div>
-      <button id="nextBtn">Next</button>
-    </div>
-    <p id="quizResult"></p>
-  </section>
-
-  <!-- Footer -->
   <footer>
-    <p>&copy; 2025 Group 1 Metals Education Project</p>
+    <p>© 2025 Group 1 Metals Learning Site</p>
   </footer>
 
   <script src="script.js"></script>
