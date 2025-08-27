@@ -3,61 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Precision Education - Year 10 Periodic Table</title>
+  <title>Precision Education | Year 10 Chemistry</title>
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
 <body>
   <header>
-    <h1>Precision Education - Year 10</h1>
-    <p>Interactive Periodic Table</p>
+    <h1>Precision Education</h1>
+    <h2>Year 10 Chemistry</h2>
   </header>
 
-  <!-- Periodic Table -->
-  <section class="periodic-table">
-    <h2>Full Periodic Table</h2>
-    <div class="table-grid">
-      <!-- Only showing Group 1 here, rest would be filled out -->
-      <button class="element alkali" onclick="location.href='group1.html'">
-        H<br><span>Hydrogen</span>
-      </button>
-      <button class="element alkali" onclick="location.href='group1.html'">
-        Li<br><span>Lithium</span>
-      </button>
-      <button class="element alkali" onclick="location.href='group1.html'">
-        Na<br><span>Sodium</span>
-      </button>
-      <button class="element alkali" onclick="location.href='group1.html'">
-        K<br><span>Potassium</span>
-      </button>
-      <button class="element alkali" onclick="location.href='group1.html'">
-        Rb<br><span>Rubidium</span>
-      </button>
-      <button class="element alkali" onclick="location.href='group1.html'">
-        Cs<br><span>Caesium</span>
-      </button>
-      <button class="element alkali" onclick="location.href='group1.html'">
-        Fr<br><span>Francium</span>
-      </button>
+  <main>
+    <h3>Full Periodic Table</h3>
+    <div class="periodic-table">
+      <!-- Example simplified periodic table for demo -->
+      <div class="element" onclick="goToGroup('group1.html')" title="Group 1: Alkali Metals">
+        <span class="symbol">Li</span>
+        <span class="number">3</span>
+      </div>
+      <div class="element" onclick="goToGroup('group1.html')" title="Group 1: Alkali Metals">
+        <span class="symbol">Na</span>
+        <span class="number">11</span>
+      </div>
+      <div class="element" onclick="goToGroup('group1.html')" title="Group 1: Alkali Metals">
+        <span class="symbol">K</span>
+        <span class="number">19</span>
+      </div>
+      <!-- Add the rest of the periodic table as needed -->
     </div>
-  </section>
+  </main>
 
-  <!-- Facebook -->
   <footer>
-    <h2>Connect With Us</h2>
-    <div class="fb-page" data-href="https://www.facebook.com/" data-tabs="timeline"
-         data-width="" data-height="" data-small-header="false"
-         data-adapt-container-width="true" data-hide-cover="false"
-         data-show-facepile="true">
-    </div>
-
-    <!-- Feedback Form -->
-    <h2>Feedback Form</h2>
-    <form action="https://formspree.io/f/yourformid" method="POST">
-      <label for="name">Name:</label>
-      <input type="text" name="name" required>
-      <label for="feedback">Your Feedback:</label>
-      <textarea name="feedback" required></textarea>
+    <p>📘 Connect with us: <a href="https://facebook.com" target="_blank">Facebook</a></p>
+    <form action="https://formspree.io/f/mnqegkyp" method="POST">
+      <label>Feedback:</label>
+      <textarea name="message" required></textarea>
       <button type="submit">Submit</button>
     </form>
   </footer>
