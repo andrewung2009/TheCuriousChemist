@@ -469,6 +469,65 @@
             margin-bottom: 0.5rem;
         }
         
+        /* Pre-Quiz Introduction Styles */
+        .prequiz-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .prequiz-card {
+            background: white;
+            border-radius: 2rem;
+            padding: 3rem;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        
+        .prequiz-icon {
+            font-size: 4rem;
+            color: #4f46e5;
+            margin-bottom: 1rem;
+        }
+        
+        .prequiz-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+        
+        .prequiz-subtitle {
+            font-size: 1.25rem;
+            color: #6b7280;
+            margin-bottom: 2rem;
+        }
+        
+        .support-message {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 2rem 0;
+            text-align: left;
+        }
+        
+        .support-message h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+        }
+        
+        .support-message p {
+            color: #1e3a8a;
+            line-height: 1.6;
+        }
+        
         /* Study Group Styles */
         .study-group-card {
             background: rgba(255, 255, 255, 0.95);
@@ -556,7 +615,7 @@
         
         /* Responsive Design */
         @media (max-width: 768px) {
-            .landing-title {
+            .landing-title, .prequiz-title {
                 font-size: 2rem;
             }
             
@@ -585,7 +644,7 @@
     </style>
 </head>
 <body>
-    <!-- Landing Page (shown when user hasn't completed pre-quiz) -->
+    <!-- Landing Page (shown when user hasn't signed in) -->
     <div id="landingPage" class="landing-container" style="display: none;">
         <div class="landing-card fade-in">
             <div class="landing-icon">
@@ -644,6 +703,42 @@
                 <button onclick="signInWithGoogle()" class="btn btn-secondary w-full">
                     <i class="fab fa-google"></i>
                     Continue with Google
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Pre-Quiz Introduction Page (shown after sign-in) -->
+    <div id="prequizPage" class="prequiz-container" style="display: none;">
+        <div class="prequiz-card fade-in">
+            <div class="prequiz-icon">
+                <i class="fas fa-clipboard-list"></i>
+            </div>
+            <h1 class="prequiz-title">Pre-Assessment Quiz</h1>
+            <p class="prequiz-subtitle">Let's check your current knowledge of Group 1 Alkali Metals</p>
+            
+            <div class="support-message">
+                <h3><i class="fas fa-lightbulb mr-2"></i>Before You Begin</h3>
+                <p>This quiz helps us understand your current knowledge level. Don't worry if you don't know all the answers - this is just a starting point! Take your time, read each question carefully, and do your best. Your results will help us personalize your learning experience.</p>
+            </div>
+            
+            <div class="bg-blue-50 p-4 rounded-lg mb-6">
+                <div class="flex items-center mb-2">
+                    <i class="fas fa-info-circle text-blue-500 mr-2"></i>
+                    <h3 class="font-semibold text-blue-800">Quiz Details</h3>
+                </div>
+                <ul class="text-left text-blue-700 space-y-1">
+                    <li>• 7 multiple-choice questions</li>
+                    <li>• No time limit</li>
+                    <li>• Immediate feedback on answers</li>
+                    <li>• Results saved to your profile</li>
+                </ul>
+            </div>
+            
+            <div class="mt-8">
+                <button onclick="startPreQuiz()" class="btn btn-primary w-full">
+                    <i class="fas fa-play mr-2"></i>
+                    Start Pre-Quiz
                 </button>
             </div>
         </div>
@@ -1071,7 +1166,7 @@
                 <div id="postQuizActions" class="hidden">
                     <button onclick="completePreQuiz()" class="btn btn-primary">
                         <i class="fas fa-arrow-right"></i>
-                        Continue to Learning
+                        Continue to Learning Materials
                     </button>
                 </div>
                 
@@ -1162,7 +1257,7 @@
         let selectedOption = null;
         let quizType = '';
         let answerSubmitted = false;
-        let preQuizCompleted = false;
+        let justSignedIn = false; // Flag to track if user just signed in
         
         // Quiz questions
         const preQuizQuestions = [
@@ -1296,15 +1391,28 @@
         
         // Initialize the app
         document.addEventListener('DOMContentLoaded', function() {
-            // Check authentication state
+            // Check authentication state on page load
             auth.onAuthStateChanged((user) => {
                 if (user) {
                     currentUser = user;
-                    loadUserData(user.uid);
-                    checkPreQuizStatus();
+                    console.log("User is signed in:", user.uid);
+                    
+                    // Check if this is a fresh sign-in (not just page reload)
+                    if (justSignedIn) {
+                        console.log("User just signed in, showing pre-quiz introduction");
+                        // User just signed in, show pre-quiz introduction
+                        showPreQuizIntroduction();
+                        justSignedIn = false; // Reset the flag
+                    } else {
+                        // This is a page reload or existing session
+                        console.log("Existing session, checking pre-quiz status");
+                        checkPreQuizStatus();
+                    }
                 } else {
+                    console.log("No user signed in");
                     // Show landing page
                     document.getElementById('landingPage').style.display = 'flex';
+                    document.getElementById('prequizPage').style.display = 'none';
                     document.getElementById('mainApp').style.display = 'none';
                 }
             });
@@ -1325,13 +1433,17 @@
                 auth.signInWithEmailAndPassword(email, password)
                     .then((userCredential) => {
                         const user = userCredential.user;
+                        console.log("Sign in successful:", user.uid);
                         showToast('success', 'Welcome back!', 'You have been successfully signed in.');
                         closeLoginModal();
-                        checkPreQuizStatus();
+                        // Set flag to indicate user just signed in
+                        justSignedIn = true;
+                        // The onAuthStateChanged listener will handle showing the pre-quiz introduction
                     })
                     .catch((error) => {
                         const errorCode = error.code;
                         const errorMessage = error.message;
+                        console.error("Sign in error:", errorCode, errorMessage);
                         
                         if (errorCode === 'auth/unauthorized-domain') {
                             showToast('error', 'Domain not authorized', 
@@ -1350,35 +1462,92 @@
                 e.preventDefault();
                 createStudyGroup();
             });
+            
+            // Add click handlers for landing page buttons
+            document.addEventListener('click', function(e) {
+                if (e.target.matches('#landingPage .btn-primary') || e.target.closest('#landingPage .btn-primary')) {
+                    showLoginModal();
+                }
+                if (e.target.matches('#landingPage .btn-secondary') || e.target.closest('#landingPage .btn-secondary')) {
+                    signInWithGoogle();
+                }
+            });
         });
+        
+        // Show pre-quiz introduction page
+        function showPreQuizIntroduction() {
+            console.log("Showing pre-quiz introduction");
+            document.getElementById('landingPage').style.display = 'none';
+            document.getElementById('prequizPage').style.display = 'flex';
+            document.getElementById('mainApp').style.display = 'none';
+        }
         
         // Check if user has completed pre-quiz
         function checkPreQuizStatus() {
-            if (!currentUser) return;
+            console.log("Checking pre-quiz status for user:", currentUser.uid);
+            
+            if (!currentUser) {
+                console.log("No current user, showing landing page");
+                document.getElementById('landingPage').style.display = 'flex';
+                document.getElementById('prequizPage').style.display = 'none';
+                document.getElementById('mainApp').style.display = 'none';
+                return;
+            }
             
             const userRef = database.ref('users/' + currentUser.uid);
             
             userRef.once('value').then((snapshot) => {
-                userData = snapshot.val();
+                console.log("User data snapshot:", snapshot.val());
                 
-                if (userData && userData.preQuizCompleted) {
-                    // User has completed pre-quiz, show main app
-                    showMainApp();
+                if (snapshot.exists()) {
+                    userData = snapshot.val();
+                    console.log("User data loaded:", userData);
+                    
+                    if (userData.preQuizCompleted) {
+                        console.log("Pre-quiz completed, showing main app");
+                        showMainApp();
+                    } else {
+                        console.log("Pre-quiz not completed, showing pre-quiz introduction");
+                        showPreQuizIntroduction();
+                    }
                 } else {
-                    // User hasn't completed pre-quiz, show landing page
-                    document.getElementById('landingPage').style.display = 'flex';
-                    document.getElementById('mainApp').style.display = 'none';
+                    console.log("User data doesn't exist, creating new user");
+                    // Create new user
+                    const newUser = {
+                        uid: currentUser.uid,
+                        email: currentUser.email,
+                        displayName: currentUser.displayName || 'User',
+                        points: 0,
+                        currentStreak: 1,
+                        lastActiveDate: new Date().toDateString(),
+                        preQuizCompleted: false,
+                        postQuizCompleted: false,
+                        createdAt: firebase.database.ServerValue.TIMESTAMP
+                    };
+                    
+                    userRef.set(newUser).then(() => {
+                        userData = newUser;
+                        console.log("New user created, showing pre-quiz introduction");
+                        showPreQuizIntroduction();
+                    }).catch((error) => {
+                        console.error("Error creating new user:", error);
+                        showToast('error', 'Error', 'Failed to create user profile.');
+                    });
                 }
             }).catch((error) => {
                 console.error("Error checking pre-quiz status:", error);
+                showToast('error', 'Error', 'Failed to check your progress.');
                 document.getElementById('landingPage').style.display = 'flex';
+                document.getElementById('prequizPage').style.display = 'none';
                 document.getElementById('mainApp').style.display = 'none';
             });
         }
         
         // Show main application
         function showMainApp() {
+            console.log("Showing main app");
             document.getElementById('landingPage').style.display = 'none';
+            document.getElementById('prequizPage').style.display = 'none';
             document.getElementById('mainApp').style.display = 'block';
             
             // Update user profile
@@ -1430,6 +1599,11 @@
                 return;
             }
             
+            console.log("Starting pre-quiz");
+            
+            // Hide pre-quiz introduction page
+            document.getElementById('prequizPage').style.display = 'none';
+            
             currentQuiz = [...preQuizQuestions];
             quizType = 'pre';
             currentQuestion = 0;
@@ -1443,6 +1617,7 @@
         function startPostQuiz() {
             if (!currentUser) {
                 showToast('error', 'Sign in required', 'Please sign in to take the quiz.');
+                showLoginModal();
                 return;
             }
             
@@ -1457,6 +1632,7 @@
         
         // Show quiz modal
         function showQuiz() {
+            console.log("Showing quiz modal");
             document.getElementById('quizModal').classList.add('active');
             document.getElementById('quizProgress').style.display = 'block';
             document.getElementById('quizContent').style.display = 'block';
@@ -1619,6 +1795,8 @@
         function completePreQuiz() {
             if (!currentUser) return;
             
+            console.log("Completing pre-quiz for user:", currentUser.uid);
+            
             const userRef = database.ref('users/' + currentUser.uid);
             
             userRef.update({
@@ -1629,8 +1807,13 @@
                 userData.preQuizCompleted = true;
                 userData.preQuizScore = score;
                 
+                console.log("Pre-quiz completed, showing main app");
+                
                 // Award points for completing pre-quiz
                 awardPoints(50, 'Completed pre-quiz');
+                
+                // Close quiz modal
+                closeQuiz();
                 
                 // Show main app
                 showMainApp();
@@ -1662,7 +1845,13 @@
         
         // Close quiz
         function closeQuiz() {
+            console.log("Closing quiz modal");
             document.getElementById('quizModal').classList.remove('active');
+            
+            // If user hasn't completed pre-quiz, show pre-quiz introduction
+            if (currentUser && userData && !userData.preQuizCompleted) {
+                showPreQuizIntroduction();
+            }
         }
         
         // Award points to user
@@ -2033,13 +2222,17 @@
             auth.signInWithPopup(provider)
                 .then((result) => {
                     const user = result.user;
+                    console.log("Google sign in successful:", user.uid);
                     showToast('success', 'Welcome!', 'You have been successfully signed in with Google.');
                     closeLoginModal();
-                    checkPreQuizStatus();
+                    // Set flag to indicate user just signed in
+                    justSignedIn = true;
+                    // The onAuthStateChanged listener will handle showing the pre-quiz introduction
                 })
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
+                    console.error("Google sign in error:", errorCode, errorMessage);
                     
                     if (errorCode === 'auth/unauthorized-domain') {
                         showToast('error', 'Domain not authorized', 
@@ -2054,6 +2247,7 @@
             auth.signOut().then(() => {
                 showToast('success', 'Signed out', 'You have been successfully signed out.');
                 document.getElementById('landingPage').style.display = 'flex';
+                document.getElementById('prequizPage').style.display = 'none';
                 document.getElementById('mainApp').style.display = 'none';
             }).catch((error) => {
                 console.error("Error signing out:", error);
