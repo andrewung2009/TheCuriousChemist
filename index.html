@@ -982,13 +982,35 @@
             padding: 1.5rem;
             text-align: center;
         }
+        
+        /* Error message styles */
+        .error-message {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #ef4444;
+        }
+        
+        .success-message {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #10b981;
+        }
     </style>
 </head>
 <body>
-    <!-- GitHub Pages Info Banner -->
+    <!-- Firebase Security Rules Notice -->
     <div class="github-pages-info">
-        <h3><i class="fab fa-github mr-2"></i>Hosted on GitHub Pages</h3>
-        <p>This application is hosted on GitHub Pages. If you encounter OAuth issues, please add your GitHub Pages domain to the authorized domains in your Firebase project settings.</p>
+        <h3><i class="fas fa-exclamation-triangle mr-2"></i>Important: Firebase Setup Required</h3>
+        <p>If you see errors loading data, please ensure your Firestore Security Rules are set to allow read/write access. Go to Firebase Console > Firestore > Rules and set:</p>
+        <code style="background: rgba(0,0,0,0.2); padding: 0.25rem; border-radius: 0.25rem; display: block; margin-top: 0.5rem;">
+        allow read, write: if true;
+        </code>
     </div>
     
     <!-- Navigation -->
@@ -1085,7 +1107,7 @@
                 </button>
             </div>
             <div id="studyGroupsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <!-- Study groups will be loaded here -->
+                <div class="spinner"></div>
             </div>
         </div>
         
@@ -1095,7 +1117,7 @@
                 <i class="fas fa-th mr-2"></i>Mastery Grid
             </h2>
             <div id="masteryGridContainer">
-                <!-- Mastery grid will be loaded here -->
+                <div class="spinner"></div>
             </div>
         </div>
         
@@ -1110,7 +1132,7 @@
                 </button>
             </div>
             <div id="peerReviewsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <!-- Peer reviews will be loaded here -->
+                <div class="spinner"></div>
             </div>
         </div>
         
@@ -1358,7 +1380,7 @@
                 <i class="fas fa-trophy text-yellow-400 mr-2"></i>Top Scores
             </h2>
             <div id="leaderboardContainer" class="grid md:grid-cols-3 gap-2">
-                <!-- Leaderboard items will be loaded here -->
+                <div class="spinner"></div>
             </div>
         </div>
         
@@ -1368,12 +1390,12 @@
                 <i class="fas fa-comments mr-2"></i>Discussion
             </h2>
             
-            <div id="commentsContainer">
-                <!-- Comments will be loaded here -->
+            <div id="commentsContainer" class="mb-4">
+                <div class="spinner"></div>
             </div>
             
             <div class="comment-form">
-                <input type="text" id="commentInput" class="comment-input" placeholder="Add your comment...">
+                <input type="text" id="commentInput" class="comment-input" placeholder="Add your comment..." onkeypress="handleCommentKeyPress(event)">
                 <button onclick="addComment()" class="comment-submit">Post</button>
             </div>
         </div>
@@ -1694,11 +1716,21 @@
         let comments = [];
         let leaderboard = [];
         let selectedRating = 0;
+        let isInitialized = false;
         
         // Initialize the app
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM Content Loaded');
+            
+            // Check if Firebase is available
+            if (!firebase.apps.length) {
+                console.error('Firebase not initialized');
+                return;
+            }
+            
             // Check authentication state
             auth.onAuthStateChanged((user) => {
+                console.log('Auth state changed:', user ? 'User logged in' : 'User logged out');
                 if (user) {
                     currentUser = user;
                     loadUserData(user.uid);
@@ -1718,53 +1750,62 @@
             });
             
             // Set up login form
-            document.getElementById('loginForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
-                
-                if (!isValidEmail(email)) {
-                    showToast('error', 'Invalid Email', 'Please enter a valid email address');
-                    return;
-                }
-                
-                showLoading();
-                
-                auth.signInWithEmailAndPassword(email, password)
-                    .then((userCredential) => {
-                        // Signed in
-                        const user = userCredential.user;
-                        showToast('success', 'Welcome back!', 'You have been successfully signed in.');
-                        closeLoginModal();
-                    })
-                    .catch((error) => {
-                        const errorCode = error.code;
-                        const errorMessage = error.message;
-                        
-                        // Special handling for OAuth domain error
-                        if (errorCode === 'auth/unauthorized-domain') {
-                            showToast('error', 'Domain not authorized', 
-                                'Please add your GitHub Pages domain to the authorized domains in your Firebase project settings.');
-                        } else {
-                            showToast('error', 'Sign in failed', errorMessage);
-                        }
-                    })
-                    .finally(() => {
-                        hideLoading();
-                    });
-            });
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm) {
+                loginForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const email = document.getElementById('email').value;
+                    const password = document.getElementById('password').value;
+                    
+                    if (!isValidEmail(email)) {
+                        showToast('error', 'Invalid Email', 'Please enter a valid email address');
+                        return;
+                    }
+                    
+                    showLoading();
+                    
+                    auth.signInWithEmailAndPassword(email, password)
+                        .then((userCredential) => {
+                            // Signed in
+                            const user = userCredential.user;
+                            showToast('success', 'Welcome back!', 'You have been successfully signed in.');
+                            closeLoginModal();
+                        })
+                        .catch((error) => {
+                            const errorCode = error.code;
+                            const errorMessage = error.message;
+                            
+                            // Special handling for OAuth domain error
+                            if (errorCode === 'auth/unauthorized-domain') {
+                                showToast('error', 'Domain not authorized', 
+                                    'Please add your GitHub Pages domain to the authorized domains in your Firebase project settings.');
+                            } else {
+                                showToast('error', 'Sign in failed', errorMessage);
+                            }
+                        })
+                        .finally(() => {
+                            hideLoading();
+                        });
+                });
+            }
             
             // Set up create study group form
-            document.getElementById('createStudyGroupForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                createStudyGroup();
-            });
+            const createStudyGroupForm = document.getElementById('createStudyGroupForm');
+            if (createStudyGroupForm) {
+                createStudyGroupForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    createStudyGroup();
+                });
+            }
             
             // Set up create peer review form
-            document.getElementById('createPeerReviewForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                createPeerReview();
-            });
+            const createPeerReviewForm = document.getElementById('createPeerReviewForm');
+            if (createPeerReviewForm) {
+                createPeerReviewForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    createPeerReview();
+                });
+            }
             
             // Set up rating input
             document.querySelectorAll('.star-rating').forEach(star => {
@@ -1791,69 +1832,78 @@
                 observer.observe(card);
             });
             
-            // Seed initial data
-            seedInitialData();
+            // Initialize app after a short delay
+            setTimeout(() => {
+                if (!isInitialized) {
+                    initializeApp();
+                    isInitialized = true;
+                }
+            }, 1000);
         });
         
         // Initialize app data
         function initializeApp() {
-            loadStudyGroups();
-            loadComments();
-            loadLeaderboard();
-            loadMasteryGrid();
-            loadPeerReviews();
+            console.log('Initializing app...');
             
-            // Update UI for new features
-            updateLevelUI();
-            updateStreakUI();
-            
-            // Check if pre-quiz should be shown automatically
-            const preQuizCompleted = localStorage.getItem('preQuizCompleted');
-            if (!preQuizCompleted && currentUser) {
-                // Show pre-quiz automatically after a short delay
-                setTimeout(() => {
-                    startPreQuiz();
-                }, 1000);
+            try {
+                loadStudyGroups();
+                loadComments();
+                loadLeaderboard();
+                loadMasteryGrid();
+                loadPeerReviews();
+                
+                // Update UI for new features
+                updateLevelUI();
+                updateStreakUI();
+                
+                // Check if pre-quiz should be shown automatically
+                const preQuizCompleted = localStorage.getItem('preQuizCompleted');
+                if (!preQuizCompleted && currentUser) {
+                    // Show pre-quiz automatically after a short delay
+                    setTimeout(() => {
+                        startPreQuiz();
+                    }, 1000);
+                }
+            } catch (error) {
+                console.error('Error initializing app:', error);
+                showToast('error', 'Initialization Error', 'Failed to initialize application. Please refresh the page.');
             }
         }
         
         // Load user data from Firestore
         function loadUserData(userId) {
-            const userRef = db.collection('users').doc(userId);
+            console.log('Loading user data for:', userId);
             
-            userRef.get().then((doc) => {
-                if (doc.exists) {
-                    userData = doc.data();
-                    updateUserInterface();
-                } else {
-                    // User doesn't exist, create new user
-                    createNewUser(userId);
-                }
-            }).catch((error) => {
-                console.error("Error getting user data:", error);
-            });
+            try {
+                const userRef = db.collection('users').doc(userId);
+                
+                userRef.get().then((doc) => {
+                    if (doc.exists) {
+                        userData = doc.data();
+                        console.log('User data loaded:', userData);
+                        updateUserInterface();
+                    } else {
+                        // User doesn't exist, create new user
+                        console.log('User does not exist, creating new user');
+                        createNewUser(userId);
+                    }
+                }).catch((error) => {
+                    console.error("Error getting user data:", error);
+                    showToast('error', 'Error', 'Failed to load user data. Please try again.');
+                });
+            } catch (error) {
+                console.error('Error in loadUserData:', error);
+            }
         }
         
         // Create new user in Firestore
         function createNewUser(userId) {
-            const userRef = db.collection('users').doc(userId);
+            console.log('Creating new user:', userId);
             
-            userRef.set({
-                uid: userId,
-                email: currentUser.email,
-                displayName: currentUser.displayName || 'User',
-                photoURL: currentUser.photoURL || '',
-                points: 0,
-                coins: 0,
-                achievements: [],
-                quizzesTaken: 0,
-                bestScore: 0,
-                currentStreak: 1,
-                lastActiveDate: new Date().toDateString(),
-                streakFreezes: 1, // Start with 1 streak freeze
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            }).then(() => {
-                userData = {
+            try {
+                const userRef = db.collection('users').doc(userId);
+                
+                const newUser = {
                     uid: userId,
                     email: currentUser.email,
                     displayName: currentUser.displayName || 'User',
@@ -1865,12 +1915,21 @@
                     bestScore: 0,
                     currentStreak: 1,
                     lastActiveDate: new Date().toDateString(),
-                    streakFreezes: 1
+                    streakFreezes: 1, // Start with 1 streak freeze
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 };
-                updateUserInterface();
-            }).catch((error) => {
-                console.error("Error creating user:", error);
-            });
+                
+                userRef.set(newUser).then(() => {
+                    userData = newUser;
+                    console.log('New user created:', userData);
+                    updateUserInterface();
+                }).catch((error) => {
+                    console.error("Error creating user:", error);
+                    showToast('error', 'Error', 'Failed to create user account. Please try again.');
+                });
+            } catch (error) {
+                console.error('Error in createNewUser:', error);
+            }
         }
         
         // Update user interface with user data
@@ -1888,8 +1947,14 @@
                 updateStreakUI();
                 
                 // Update best score in challenge modal
-                document.getElementById('bestScore').textContent = `${userData.bestScore}/7`;
-                document.getElementById('totalPointsEarned').textContent = `${userData.points} pts`;
+                const bestScoreElement = document.getElementById('bestScore');
+                const totalPointsEarnedElement = document.getElementById('totalPointsEarned');
+                if (bestScoreElement) {
+                    bestScoreElement.textContent = `${userData.bestScore}/7`;
+                }
+                if (totalPointsEarnedElement) {
+                    totalPointsEarnedElement.textContent = `${userData.points} pts`;
+                }
             }
         }
         
@@ -1908,6 +1973,8 @@
         // Update achievements display
         function updateAchievements() {
             const container = document.getElementById('achievementsContainer');
+            if (!container) return;
+            
             container.innerHTML = '';
             
             if (userData && userData.achievements) {
@@ -1929,28 +1996,41 @@
         
         // Load study groups from Firestore
         function loadStudyGroups() {
+            console.log('Loading study groups...');
+            
             const container = document.getElementById('studyGroupsContainer');
+            if (!container) {
+                console.error('Study groups container not found');
+                return;
+            }
+            
             container.innerHTML = '<div class="spinner"></div>';
             
-            db.collection('studyGroups')
-                .orderBy('createdAt', 'desc')
-                .onSnapshot((querySnapshot) => {
-                    container.innerHTML = '';
-                    
-                    if (querySnapshot.empty) {
-                        container.innerHTML = '<p class="text-white text-center">No study groups yet. Create one!</p>';
-                        return;
-                    }
-                    
-                    querySnapshot.forEach((doc) => {
-                        const group = doc.data();
-                        const groupCard = createStudyGroupCard(group, doc.id);
-                        container.appendChild(groupCard);
+            try {
+                db.collection('studyGroups')
+                    .orderBy('createdAt', 'desc')
+                    .onSnapshot((querySnapshot) => {
+                        console.log('Study groups snapshot received, size:', querySnapshot.size);
+                        container.innerHTML = '';
+                        
+                        if (querySnapshot.empty) {
+                            container.innerHTML = '<p class="text-white text-center">No study groups yet. Create one!</p>';
+                            return;
+                        }
+                        
+                        querySnapshot.forEach((doc) => {
+                            const group = doc.data();
+                            const groupCard = createStudyGroupCard(group, doc.id);
+                            container.appendChild(groupCard);
+                        });
+                    }, (error) => {
+                        console.error("Error loading study groups:", error);
+                        container.innerHTML = '<p class="text-white text-center">Error loading study groups: ' + error.message + '</p>';
                     });
-                }, (error) => {
-                    console.error("Error loading study groups:", error);
-                    container.innerHTML = '<p class="text-white text-center">Error loading study groups.</p>';
-                });
+            } catch (error) {
+                console.error('Error in loadStudyGroups:', error);
+                container.innerHTML = '<p class="text-white text-center">Error setting up study groups.</p>';
+            }
         }
         
         // Create study group card
@@ -2007,29 +2087,41 @@
             const goal = document.getElementById('groupGoal').value;
             const maxMembers = parseInt(document.getElementById('groupMaxMembers').value);
             
+            if (!name || !description || !goal) {
+                showToast('error', 'Missing Fields', 'Please fill in all required fields.');
+                return;
+            }
+            
             showLoading();
             
-            db.collection('studyGroups').add({
-                name: name,
-                description: description,
-                goal: goal,
-                maxMembers: maxMembers,
-                creatorId: currentUser.uid,
-                creatorName: userData.displayName,
-                members: [currentUser.uid],
-                memberCount: 1,
-                progress: 0,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            }).then(() => {
-                showToast('success', 'Group Created', 'Your study group has been created successfully.');
-                closeCreateStudyGroup();
-                document.getElementById('createStudyGroupForm').reset();
-            }).catch((error) => {
-                console.error("Error creating study group:", error);
-                showToast('error', 'Error', 'Failed to create study group.');
-            }).finally(() => {
+            try {
+                db.collection('studyGroups').add({
+                    name: name,
+                    description: description,
+                    goal: goal,
+                    maxMembers: maxMembers,
+                    creatorId: currentUser.uid,
+                    creatorName: userData.displayName,
+                    members: [currentUser.uid],
+                    memberCount: 1,
+                    progress: 0,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                }).then(() => {
+                    showToast('success', 'Group Created', 'Your study group has been created successfully.');
+                    closeCreateStudyGroup();
+                    document.getElementById('createStudyGroupForm').reset();
+                    awardPoints(15, 'Created study group');
+                }).catch((error) => {
+                    console.error("Error creating study group:", error);
+                    showToast('error', 'Error', 'Failed to create study group: ' + error.message);
+                }).finally(() => {
+                    hideLoading();
+                });
+            } catch (error) {
+                console.error('Error in createStudyGroup:', error);
                 hideLoading();
-            });
+                showToast('error', 'Error', 'Failed to create study group.');
+            }
         }
         
         // Join study group
@@ -2094,28 +2186,41 @@
         
         // Load comments from Firestore
         function loadComments() {
+            console.log('Loading comments...');
+            
             const container = document.getElementById('commentsContainer');
+            if (!container) {
+                console.error('Comments container not found');
+                return;
+            }
+            
             container.innerHTML = '<div class="spinner"></div>';
             
-            db.collection('comments')
-                .orderBy('createdAt', 'desc')
-                .onSnapshot((querySnapshot) => {
-                    container.innerHTML = '';
-                    
-                    if (querySnapshot.empty) {
-                        container.innerHTML = '<p class="text-gray-500 text-center">No comments yet. Be the first to comment!</p>';
-                        return;
-                    }
-                    
-                    querySnapshot.forEach((doc) => {
-                        const comment = doc.data();
-                        const commentDiv = createCommentElement(comment);
-                        container.appendChild(commentDiv);
+            try {
+                db.collection('comments')
+                    .orderBy('createdAt', 'desc')
+                    .onSnapshot((querySnapshot) => {
+                        console.log('Comments snapshot received, size:', querySnapshot.size);
+                        container.innerHTML = '';
+                        
+                        if (querySnapshot.empty) {
+                            container.innerHTML = '<p class="text-gray-500 text-center">No comments yet. Be the first to comment!</p>';
+                            return;
+                        }
+                        
+                        querySnapshot.forEach((doc) => {
+                            const comment = doc.data();
+                            const commentDiv = createCommentElement(comment);
+                            container.appendChild(commentDiv);
+                        });
+                    }, (error) => {
+                        console.error("Error loading comments:", error);
+                        container.innerHTML = '<p class="text-gray-500 text-center">Error loading comments: ' + error.message + '</p>';
                     });
-                }, (error) => {
-                    console.error("Error loading comments:", error);
-                    container.innerHTML = '<p class="text-gray-500 text-center">Error loading comments.</p>';
-                });
+            } catch (error) {
+                console.error('Error in loadComments:', error);
+                container.innerHTML = '<p class="text-gray-500 text-center">Error setting up comments.</p>';
+            }
         }
         
         // Create comment element
@@ -2123,12 +2228,22 @@
             const commentDiv = document.createElement('div');
             commentDiv.className = 'comment';
             
-            const date = comment.createdAt ? new Date(comment.createdAt.toDate()).toLocaleDateString() : 'Unknown date';
+            const authorName = comment.authorName || 'Anonymous';
+            const text = comment.text || 'No content';
+            let date = 'Unknown date';
+            
+            try {
+                if (comment.createdAt) {
+                    date = new Date(comment.createdAt.toDate()).toLocaleDateString();
+                }
+            } catch (e) {
+                console.error('Error parsing date:', e);
+            }
             
             commentDiv.innerHTML = `
-                <div class="comment-author">${comment.authorName || 'Anonymous'}</div>
+                <div class="comment-author">${authorName}</div>
                 <div class="text-xs text-gray-500 mb-1">${date}</div>
-                <div class="comment-text">${comment.text}</div>
+                <div class="comment-text">${text}</div>
             `;
             
             return commentDiv;
@@ -2136,66 +2251,109 @@
         
         // Add comment
         function addComment() {
+            console.log('addComment called');
+            
             if (!currentUser) {
+                console.log('No current user');
                 showToast('error', 'Sign in required', 'Please sign in to post comments.');
                 showLoginModal();
                 return;
             }
             
             const commentInput = document.getElementById('commentInput');
+            if (!commentInput) {
+                console.error('Comment input element not found');
+                showToast('error', 'Error', 'Comment input not found.');
+                return;
+            }
+            
             const commentText = commentInput.value.trim();
+            console.log('Comment text:', commentText);
             
             if (!commentText) {
                 showToast('error', 'Empty Comment', 'Please enter a comment before posting.');
                 return;
             }
             
+            if (!userData) {
+                console.error('User data not available');
+                showToast('error', 'Error', 'User data not available. Please try again.');
+                return;
+            }
+            
             showLoading();
             
-            db.collection('comments').add({
+            const commentData = {
                 authorId: currentUser.uid,
-                authorName: userData.displayName,
+                authorName: userData.displayName || 'Anonymous',
                 text: commentText,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            }).then(() => {
-                commentInput.value = '';
-                showToast('success', 'Comment Posted', 'Your comment has been posted successfully.');
-                
-                // Award points for participation
-                awardPoints(10, 'Comment posted');
-            }).catch((error) => {
-                console.error("Error adding comment:", error);
-                showToast('error', 'Error', 'Failed to post comment.');
-            }).finally(() => {
+            };
+            
+            console.log('Saving comment:', commentData);
+            
+            try {
+                db.collection('comments').add(commentData)
+                    .then((docRef) => {
+                        console.log('Comment saved with ID:', docRef.id);
+                        commentInput.value = '';
+                        showToast('success', 'Comment Posted', 'Your comment has been posted successfully.');
+                        
+                        // Award points for participation
+                        awardPoints(10, 'Comment posted');
+                    })
+                    .catch((error) => {
+                        console.error("Error adding comment:", error);
+                        showToast('error', 'Error', 'Failed to post comment: ' + error.message);
+                    })
+                    .finally(() => {
+                        hideLoading();
+                    });
+            } catch (error) {
+                console.error('Error in addComment:', error);
                 hideLoading();
-            });
+                showToast('error', 'Error', 'Failed to post comment.');
+            }
         }
         
         // Load leaderboard from Firestore
         function loadLeaderboard() {
+            console.log('Loading leaderboard...');
+            
             const container = document.getElementById('leaderboardContainer');
+            if (!container) {
+                console.error('Leaderboard container not found');
+                return;
+            }
+            
             container.innerHTML = '<div class="spinner"></div>';
             
-            db.collection('users')
-                .orderBy('points', 'desc')
-                .limit(3)
-                .onSnapshot((querySnapshot) => {
-                    container.innerHTML = '';
-                    
-                    if (querySnapshot.empty) {
-                        container.innerHTML = '<p class="text-white text-center">No leaderboard data yet.</p>';
-                        return;
-                    }
-                    
-                    querySnapshot.forEach((doc, index) => {
-                        const user = doc.data();
-                        const leaderboardItem = createLeaderboardItem(user, index);
-                        container.appendChild(leaderboardItem);
+            try {
+                db.collection('users')
+                    .orderBy('points', 'desc')
+                    .limit(3)
+                    .onSnapshot((querySnapshot) => {
+                        console.log('Leaderboard snapshot received, size:', querySnapshot.size);
+                        container.innerHTML = '';
+                        
+                        if (querySnapshot.empty) {
+                            container.innerHTML = '<p class="text-white text-center">No leaderboard data yet.</p>';
+                            return;
+                        }
+                        
+                        querySnapshot.forEach((doc, index) => {
+                            const user = doc.data();
+                            const leaderboardItem = createLeaderboardItem(user, index);
+                            container.appendChild(leaderboardItem);
+                        });
+                    }, (error) => {
+                        console.error("Error loading leaderboard:", error);
+                        container.innerHTML = '<p class="text-white text-center">Error loading leaderboard: ' + error.message + '</p>';
                     });
-                }, (error) => {
-                    console.error("Error loading leaderboard:", error);
-                    container.innerHTML = '<p class="text-white text-center">Error loading leaderboard.</p>';
-                });
+            } catch (error) {
+                console.error('Error in loadLeaderboard:', error);
+                container.innerHTML = '<p class="text-white text-center">Error setting up leaderboard.</p>';
+            }
         }
         
         // Create leaderboard item
@@ -2920,18 +3078,22 @@
         }
         
         function saveQuizResult(score, totalQuestions, quizType) {
-            db.collection('quizResults').add({
-                userId: currentUser.uid,
-                userName: userData.displayName,
-                score: score,
-                totalQuestions: totalQuestions,
-                percentage: Math.round((score / totalQuestions) * 100),
-                quizType: quizType,
-                topic: 'Group 1 - Alkali Metals',
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            }).catch((error) => {
-                console.error("Error saving quiz result:", error);
-            });
+            try {
+                db.collection('quizResults').add({
+                    userId: currentUser.uid,
+                    userName: userData.displayName,
+                    score: score,
+                    totalQuestions: totalQuestions,
+                    percentage: Math.round((score / totalQuestions) * 100),
+                    quizType: quizType,
+                    topic: 'Group 1 - Alkali Metals',
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                }).catch((error) => {
+                    console.error("Error saving quiz result:", error);
+                });
+            } catch (error) {
+                console.error('Error in saveQuizResult:', error);
+            }
         }
         
         function closeQuiz() {
@@ -2967,8 +3129,15 @@
         function updateLevelUI() {
             if (userData) {
                 const levelInfo = calculateLevel(userData.points || 0);
-                document.getElementById('userLevel').textContent = `Level ${levelInfo.level}`;
-                document.getElementById('levelProgressBar').style.width = `${levelInfo.progress}%`;
+                const userLevelElement = document.getElementById('userLevel');
+                const levelProgressBarElement = document.getElementById('levelProgressBar');
+                
+                if (userLevelElement) {
+                    userLevelElement.textContent = `Level ${levelInfo.level}`;
+                }
+                if (levelProgressBarElement) {
+                    levelProgressBarElement.style.width = `${levelInfo.progress}%`;
+                }
             }
         }
 
@@ -3020,13 +3189,22 @@
                     // Update UI
                     updateStreakUI();
                 });
+            }).catch((error) => {
+                console.error("Error updating streak:", error);
             });
         }
 
         function updateStreakUI() {
             if (userData) {
-                document.getElementById('userStreak').textContent = userData.currentStreak || 0;
-                document.getElementById('streakFreezes').textContent = `❄️ ${userData.streakFreezes || 0}`;
+                const userStreakElement = document.getElementById('userStreak');
+                const streakFreezesElement = document.getElementById('streakFreezes');
+                
+                if (userStreakElement) {
+                    userStreakElement.textContent = userData.currentStreak || 0;
+                }
+                if (streakFreezesElement) {
+                    streakFreezesElement.textContent = `❄️ ${userData.streakFreezes || 0}`;
+                }
             }
         }
 
@@ -3074,99 +3252,119 @@
             if (!currentUser) return;
             
             const container = document.getElementById('masteryGridContainer');
+            if (!container) {
+                console.error('Mastery grid container not found');
+                return;
+            }
+            
             container.innerHTML = '<div class="spinner"></div>';
             
-            db.collection('mastery')
-                .where('userId', '==', currentUser.uid)
-                .get()
-                .then((querySnapshot) => {
-                    container.innerHTML = '';
-                    
-                    // Create a table for the mastery grid
-                    const table = document.createElement('table');
-                    table.className = 'w-full text-white';
-                    
-                    // Header row
-                    const headerRow = document.createElement('tr');
-                    headerRow.innerHTML = `
-                        <th class="p-2">Topic</th>
-                        <th class="p-2">Knowledge</th>
-                        <th class="p-2">Application</th>
-                        <th class="p-2">Analysis</th>
-                    `;
-                    table.appendChild(headerRow);
-                    
-                    // Data rows
-                    const topics = ['Group 1 Properties', 'Reactions with Water', 'Reactions with Oxygen', 'Trends'];
-                    const skills = ['knowledge', 'application', 'analysis'];
-                    
-                    topics.forEach(topic => {
-                        const row = document.createElement('tr');
+            try {
+                db.collection('mastery')
+                    .where('userId', '==', currentUser.uid)
+                    .get()
+                    .then((querySnapshot) => {
+                        container.innerHTML = '';
                         
-                        // Topic cell
-                        const topicCell = document.createElement('td');
-                        topicCell.className = 'p-2 font-semibold';
-                        topicCell.textContent = topic;
-                        row.appendChild(topicCell);
+                        // Create a table for the mastery grid
+                        const table = document.createElement('table');
+                        table.className = 'w-full text-white';
                         
-                        // Skill cells
-                        skills.forEach(skill => {
-                            const skillCell = document.createElement('td');
-                            skillCell.className = 'p-2';
+                        // Header row
+                        const headerRow = document.createElement('tr');
+                        headerRow.innerHTML = `
+                            <th class="p-2">Topic</th>
+                            <th class="p-2">Knowledge</th>
+                            <th class="p-2">Application</th>
+                            <th class="p-2">Analysis</th>
+                        `;
+                        table.appendChild(headerRow);
+                        
+                        // Data rows
+                        const topics = ['Group 1 Properties', 'Reactions with Water', 'Reactions with Oxygen', 'Trends'];
+                        const skills = ['knowledge', 'application', 'analysis'];
+                        
+                        topics.forEach(topic => {
+                            const row = document.createElement('tr');
                             
-                            // Find the mastery level for this topic and skill
-                            let masteryLevel = 0;
-                            querySnapshot.forEach(doc => {
-                                const mastery = doc.data();
-                                if (mastery.topic === topic && mastery.skill === skill) {
-                                    masteryLevel = mastery.level;
-                                }
+                            // Topic cell
+                            const topicCell = document.createElement('td');
+                            topicCell.className = 'p-2 font-semibold';
+                            topicCell.textContent = topic;
+                            row.appendChild(topicCell);
+                            
+                            // Skill cells
+                            skills.forEach(skill => {
+                                const skillCell = document.createElement('td');
+                                skillCell.className = 'p-2';
+                                
+                                // Find the mastery level for this topic and skill
+                                let masteryLevel = 0;
+                                querySnapshot.forEach(doc => {
+                                    const mastery = doc.data();
+                                    if (mastery.topic === topic && mastery.skill === skill) {
+                                        masteryLevel = mastery.level;
+                                    }
+                                });
+                                
+                                // Create a heatmap cell
+                                const heatDiv = document.createElement('div');
+                                heatDiv.className = `mastery-cell mastery-level-${masteryLevel}`;
+                                heatDiv.textContent = masteryLevel;
+                                skillCell.appendChild(heatDiv);
+                                row.appendChild(skillCell);
                             });
                             
-                            // Create a heatmap cell
-                            const heatDiv = document.createElement('div');
-                            heatDiv.className = `mastery-cell mastery-level-${masteryLevel}`;
-                            heatDiv.textContent = masteryLevel;
-                            skillCell.appendChild(heatDiv);
-                            row.appendChild(skillCell);
+                            table.appendChild(row);
                         });
                         
-                        table.appendChild(row);
+                        container.appendChild(table);
+                    })
+                    .catch((error) => {
+                        console.error("Error loading mastery grid:", error);
+                        container.innerHTML = '<p class="text-white text-center">Error loading mastery grid: ' + error.message + '</p>';
                     });
-                    
-                    container.appendChild(table);
-                })
-                .catch((error) => {
-                    console.error("Error loading mastery grid:", error);
-                    container.innerHTML = '<p class="text-white text-center">Error loading mastery grid.</p>';
-                });
+            } catch (error) {
+                console.error('Error in loadMasteryGrid:', error);
+                container.innerHTML = '<p class="text-white text-center">Error setting up mastery grid.</p>';
+            }
         }
 
         // Peer Review System
         function loadPeerReviews() {
             const container = document.getElementById('peerReviewsContainer');
+            if (!container) {
+                console.error('Peer reviews container not found');
+                return;
+            }
+            
             container.innerHTML = '<div class="spinner"></div>';
             
-            db.collection('peerReviews')
-                .orderBy('createdAt', 'desc')
-                .limit(5)
-                .onSnapshot((querySnapshot) => {
-                    container.innerHTML = '';
-                    
-                    if (querySnapshot.empty) {
-                        container.innerHTML = '<p class="text-white text-center">No peer reviews yet. Write one!</p>';
-                        return;
-                    }
-                    
-                    querySnapshot.forEach((doc) => {
-                        const review = doc.data();
-                        const reviewDiv = createPeerReviewElement(review, doc.id);
-                        container.appendChild(reviewDiv);
+            try {
+                db.collection('peerReviews')
+                    .orderBy('createdAt', 'desc')
+                    .limit(5)
+                    .onSnapshot((querySnapshot) => {
+                        container.innerHTML = '';
+                        
+                        if (querySnapshot.empty) {
+                            container.innerHTML = '<p class="text-white text-center">No peer reviews yet. Write one!</p>';
+                            return;
+                        }
+                        
+                        querySnapshot.forEach((doc) => {
+                            const review = doc.data();
+                            const reviewDiv = createPeerReviewElement(review, doc.id);
+                            container.appendChild(reviewDiv);
+                        });
+                    }, (error) => {
+                        console.error("Error loading peer reviews:", error);
+                        container.innerHTML = '<p class="text-white text-center">Error loading peer reviews: ' + error.message + '</p>';
                     });
-                }, (error) => {
-                    console.error("Error loading peer reviews:", error);
-                    container.innerHTML = '<p class="text-white text-center">Error loading peer reviews.</p>';
-                });
+            } catch (error) {
+                console.error('Error in loadPeerReviews:', error);
+                container.innerHTML = '<p class="text-white text-center">Error setting up peer reviews.</p>';
+            }
         }
 
         function createPeerReviewElement(review, reviewId) {
@@ -3230,24 +3428,30 @@
             
             showLoading();
             
-            db.collection('peerReviews').add({
-                reviewerId: currentUser.uid,
-                reviewerName: userData.displayName,
-                projectTitle: projectTitle,
-                rating: selectedRating,
-                comments: comments,
-                helpfulCount: 0,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            }).then(() => {
-                showToast('success', 'Review Submitted', 'Your peer review has been submitted successfully.');
-                closeCreatePeerReview();
-                awardPoints(20, 'Peer review submitted');
-            }).catch((error) => {
-                console.error("Error creating peer review:", error);
-                showToast('error', 'Error', 'Failed to submit peer review.');
-            }).finally(() => {
+            try {
+                db.collection('peerReviews').add({
+                    reviewerId: currentUser.uid,
+                    reviewerName: userData.displayName,
+                    projectTitle: projectTitle,
+                    rating: selectedRating,
+                    comments: comments,
+                    helpfulCount: 0,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                }).then(() => {
+                    showToast('success', 'Review Submitted', 'Your peer review has been submitted successfully.');
+                    closeCreatePeerReview();
+                    awardPoints(20, 'Peer review submitted');
+                }).catch((error) => {
+                    console.error("Error creating peer review:", error);
+                    showToast('error', 'Error', 'Failed to submit peer review: ' + error.message);
+                }).finally(() => {
+                    hideLoading();
+                });
+            } catch (error) {
+                console.error('Error in createPeerReview:', error);
                 hideLoading();
-            });
+                showToast('error', 'Error', 'Failed to submit peer review.');
+            }
         }
 
         function updateStarDisplay() {
@@ -3316,6 +3520,8 @@
                         // Reload mastery grid
                         loadMasteryGrid();
                     }
+                }).catch((error) => {
+                    console.error("Error updating mastery:", error);
                 });
             }
         }
@@ -3357,23 +3563,29 @@
             showLoading();
             
             // Save challenge to Firestore
-            db.collection('challenges').add({
-                senderId: currentUser.uid,
-                senderName: userData.displayName,
-                recipientEmail: friendEmail,
-                message: message,
-                bestScore: userData.bestScore || 0,
-                status: 'pending',
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            }).then(() => {
-                showToast('success', 'Challenge Sent', `Challenge sent to ${friendEmail}!`);
-                closeChallengeModal();
-            }).catch((error) => {
-                console.error("Error sending challenge:", error);
-                showToast('error', 'Error', 'Failed to send challenge.');
-            }).finally(() => {
+            try {
+                db.collection('challenges').add({
+                    senderId: currentUser.uid,
+                    senderName: userData.displayName,
+                    recipientEmail: friendEmail,
+                    message: message,
+                    bestScore: userData.bestScore || 0,
+                    status: 'pending',
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                }).then(() => {
+                    showToast('success', 'Challenge Sent', `Challenge sent to ${friendEmail}!`);
+                    closeChallengeModal();
+                }).catch((error) => {
+                    console.error("Error sending challenge:", error);
+                    showToast('error', 'Error', 'Failed to send challenge: ' + error.message);
+                }).finally(() => {
+                    hideLoading();
+                });
+            } catch (error) {
+                console.error('Error in sendChallenge:', error);
                 hideLoading();
-            });
+                showToast('error', 'Error', 'Failed to send challenge.');
+            }
         }
         
         function shareProgress() {
@@ -3491,16 +3703,23 @@
         }
         
         function showLoading() {
-            document.getElementById('loadingOverlay').style.display = 'flex';
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            if (loadingOverlay) {
+                loadingOverlay.style.display = 'flex';
+            }
         }
         
         function hideLoading() {
-            document.getElementById('loadingOverlay').style.display = 'none';
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            if (loadingOverlay) {
+                loadingOverlay.style.display = 'none';
+            }
         }
         
         // Toast notification function
         function showToast(type, title, message) {
             const toastContainer = document.getElementById('toastContainer');
+            if (!toastContainer) return;
             
             const toast = document.createElement('div');
             toast.className = `toast ${type}`;
@@ -3530,7 +3749,9 @@
             setTimeout(() => {
                 toast.classList.remove('show');
                 setTimeout(() => {
-                    toast.remove();
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
                 }, 300);
             }, 3000);
         }
@@ -3555,11 +3776,22 @@
             });
         }
         
+        // Handle comment input Enter key
+        function handleCommentKeyPress(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                addComment();
+            }
+        }
+        
         // Seed initial data
         function seedInitialData() {
+            console.log('Seeding initial data...');
+            
             // Check if study groups exist
             db.collection('studyGroups').get().then(snapshot => {
                 if (snapshot.empty) {
+                    console.log('Creating sample study groups...');
                     // Create sample study groups
                     const sampleGroups = [
                         {
@@ -3587,14 +3819,19 @@
                     ];
                     
                     sampleGroups.forEach(group => {
-                        db.collection('studyGroups').add(group);
+                        db.collection('studyGroups').add(group)
+                            .then(() => console.log('Study group created:', group.name))
+                            .catch(error => console.error('Error creating study group:', error));
                     });
                 }
+            }).catch(error => {
+                console.error('Error checking study groups:', error);
             });
             
             // Check if peer reviews exist
             db.collection('peerReviews').get().then(snapshot => {
                 if (snapshot.empty) {
+                    console.log('Creating sample peer reviews...');
                     // Create sample peer reviews
                     const sampleReviews = [
                         {
@@ -3616,9 +3853,41 @@
                     ];
                     
                     sampleReviews.forEach(review => {
-                        db.collection('peerReviews').add(review);
+                        db.collection('peerReviews').add(review)
+                            .then(() => console.log('Peer review created:', review.projectTitle))
+                            .catch(error => console.error('Error creating peer review:', error));
                     });
                 }
+            }).catch(error => {
+                console.error('Error checking peer reviews:', error);
+            });
+            
+            // Check if comments exist
+            db.collection('comments').get().then(snapshot => {
+                if (snapshot.empty) {
+                    console.log('Creating sample comments...');
+                    // Create sample comments
+                    const sampleComments = [
+                        {
+                            authorId: "system",
+                            authorName: "Dr. Smith",
+                            text: "This is a great resource for learning about Group 1 elements!"
+                        },
+                        {
+                            authorId: "system",
+                            authorName: "Prof. Johnson",
+                            text: "The explanations are very clear and helpful for students."
+                        }
+                    ];
+                    
+                    sampleComments.forEach(comment => {
+                        db.collection('comments').add(comment)
+                            .then(() => console.log('Comment created:', comment.text))
+                            .catch(error => console.error('Error creating comment:', error));
+                    });
+                }
+            }).catch(error => {
+                console.error('Error checking comments:', error);
             });
         }
     </script>
