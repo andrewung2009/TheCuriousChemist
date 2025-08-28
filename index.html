@@ -65,6 +65,43 @@
             100% { background-color: rgba(79, 70, 229, 0.2); }
         }
         
+        @keyframes textReveal {
+            0% { 
+                opacity: 0;
+                transform: translateY(30px) scale(0.9);
+                filter: blur(10px);
+            }
+            100% { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+        
+        @keyframes slideUp {
+            0% { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes letterPop {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        @keyframes colorShift {
+            0% { color: #4f46e5; }
+            25% { color: #7c3aed; }
+            50% { color: #ec4899; }
+            75% { color: #8b5cf6; }
+            100% { color: #4f46e5; }
+        }
+        
         .fade-in {
             animation: fadeIn 0.6s ease-out forwards;
         }
@@ -101,6 +138,40 @@
             font-weight: 600;
             animation: highlight 3s infinite;
         }
+        
+        .text-reveal {
+            animation: textReveal 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            opacity: 0;
+        }
+        
+        .slide-up {
+            animation: slideUp 0.7s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .letter-pop {
+            display: inline-block;
+            animation: letterPop 0.5s ease forwards;
+            opacity: 0;
+        }
+        
+        .color-shift {
+            animation: colorShift 5s ease infinite;
+        }
+        
+        /* Animation Delays */
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-600 { animation-delay: 0.6s; }
+        .delay-700 { animation-delay: 0.7s; }
+        .delay-800 { animation-delay: 0.8s; }
+        .delay-900 { animation-delay: 0.9s; }
+        .delay-1000 { animation-delay: 1s; }
+        .delay-1200 { animation-delay: 1.2s; }
+        .delay-1500 { animation-delay: 1.5s; }
         
         /* Sidebar Styles */
         .sidebar {
@@ -697,14 +768,12 @@
             font-weight: 800;
             color: #1f2937;
             margin-bottom: 1rem;
-            animation: fadeIn 0.8s ease-out;
         }
         
         .landing-subtitle {
             font-size: 1.25rem;
             color: #6b7280;
             margin-bottom: 2rem;
-            animation: fadeIn 1s ease-out;
         }
         
         .feature-grid {
@@ -765,14 +834,12 @@
             font-weight: 800;
             color: #1f2937;
             margin-bottom: 1rem;
-            animation: fadeIn 0.8s ease-out;
         }
         
         .prequiz-subtitle {
             font-size: 1.25rem;
             color: #6b7280;
             margin-bottom: 2rem;
-            animation: fadeIn 1s ease-out;
         }
         
         .support-message {
@@ -1068,29 +1135,49 @@
 <body>
     <!-- Landing Page (shown when user hasn't signed in) -->
     <div id="landingPage" class="landing-container" style="display: none;">
-        <div class="landing-card fade-in">
-            <div class="landing-icon">
+        <div class="landing-card">
+            <div class="landing-icon text-reveal delay-100">
                 <i class="fas fa-atom"></i>
             </div>
-            <h1 class="landing-title glow-text">Chemistry Mastery</h1>
-            <p class="landing-subtitle">Master <strong>Group 1 Alkali Metals</strong> through Interactive Learning</p>
+            <h1 class="landing-title glow-text text-reveal delay-300">
+                <span class="letter-pop delay-300">C</span>
+                <span class="letter-pop delay-320">h</span>
+                <span class="letter-pop delay-340">e</span>
+                <span class="letter-pop delay-360">m</span>
+                <span class="letter-pop delay-380">i</span>
+                <span class="letter-pop delay-400">s</span>
+                <span class="letter-pop delay-420">t</span>
+                <span class="letter-pop delay-440">r</span>
+                <span class="letter-pop delay-460">y</span>
+                <span class="letter-pop delay-480"> </span>
+                <span class="letter-pop delay-500">M</span>
+                <span class="letter-pop delay-520">a</span>
+                <span class="letter-pop delay-540">s</span>
+                <span class="letter-pop delay-560">t</span>
+                <span class="letter-pop delay-580">e</span>
+                <span class="letter-pop delay-600">r</span>
+                <span class="letter-pop delay-620">y</span>
+            </h1>
+            <p class="landing-subtitle text-reveal delay-700">
+                Master <strong class="color-shift">Group 1 Alkali Metals</strong> through Interactive Learning
+            </p>
             
             <div class="feature-grid">
-                <div class="feature-card">
+                <div class="feature-card slide-up delay-800">
                     <div class="feature-icon">
                         <i class="fas fa-clipboard-check"></i>
                     </div>
                     <h3 class="font-semibold">Pre-Assessment</h3>
                     <p class="text-sm text-gray-600">Test your <strong>current knowledge</strong></p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card slide-up delay-900">
                     <div class="feature-icon">
                         <i class="fas fa-book-open"></i>
                     </div>
                     <h3 class="font-semibold">Interactive Content</h3>
                     <p class="text-sm text-gray-600">Learn through <strong>engaging materials</strong></p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card slide-up delay-1000">
                     <div class="feature-icon">
                         <i class="fas fa-users"></i>
                     </div>
@@ -1100,8 +1187,8 @@
             </div>
             
             <div class="mt-8">
-                <p class="text-lg font-semibold text-gray-700 mb-4">Your Learning Journey</p>
-                <div class="learning-path">
+                <p class="text-lg font-semibold text-gray-700 mb-4 text-reveal delay-1100">Your Learning Journey</p>
+                <div class="learning-path slide-up delay-1200">
                     <div class="path-step active">
                         <i class="fas fa-play"></i>
                         <span class="path-label">Pre-Quiz</span>
@@ -1118,11 +1205,11 @@
             </div>
             
             <div class="mt-8 space-y-4">
-                <button onclick="showLoginModal()" class="btn btn-primary w-full">
+                <button onclick="showLoginModal()" class="btn btn-primary w-full slide-up delay-1300">
                     <i class="fas fa-sign-in-alt"></i>
                     Sign In to Begin
                 </button>
-                <button onclick="signInWithGoogle()" class="btn btn-secondary w-full">
+                <button onclick="signInWithGoogle()" class="btn btn-secondary w-full slide-up delay-1500">
                     <i class="fab fa-google"></i>
                     Continue with Google
                 </button>
@@ -1132,19 +1219,41 @@
     
     <!-- Pre-Quiz Introduction Page (shown after sign-in) -->
     <div id="prequizPage" class="prequiz-container" style="display: none;">
-        <div class="prequiz-card fade-in">
-            <div class="prequiz-icon">
+        <div class="prequiz-card">
+            <div class="prequiz-icon text-reveal delay-100">
                 <i class="fas fa-clipboard-list"></i>
             </div>
-            <h1 class="prequiz-title glow-text">Pre-Assessment Quiz</h1>
-            <p class="prequiz-subtitle">Let's check your <strong>current knowledge</strong> of Group 1 Alkali Metals</p>
+            <h1 class="prequiz-title glow-text text-reveal delay-300">
+                <span class="letter-pop delay-300">P</span>
+                <span class="letter-pop delay-320">r</span>
+                <span class="letter-pop delay-340">e</span>
+                <span class="letter-pop delay-360">-</span>
+                <span class="letter-pop delay-380">A</span>
+                <span class="letter-pop delay-400">s</span>
+                <span class="letter-pop delay-420">s</span>
+                <span class="letter-pop delay-440">e</span>
+                <span class="letter-pop delay-460">s</span>
+                <span class="letter-pop delay-480">s</span>
+                <span class="letter-pop delay-500">m</span>
+                <span class="letter-pop delay-520">e</span>
+                <span class="letter-pop delay-540">n</span>
+                <span class="letter-pop delay-560">t</span>
+                <span class="letter-pop delay-580"> </span>
+                <span class="letter-pop delay-600">Q</span>
+                <span class="letter-pop delay-620">u</span>
+                <span class="letter-pop delay-640">i</span>
+                <span class="letter-pop delay-660">z</span>
+            </h1>
+            <p class="prequiz-subtitle text-reveal delay-700">
+                Let's check your <strong class="color-shift">current knowledge</strong> of Group 1 Alkali Metals
+            </p>
             
-            <div class="support-message">
+            <div class="support-message slide-up delay-800">
                 <h3><i class="fas fa-lightbulb mr-2"></i>Before You Begin</h3>
                 <p>This quiz helps us understand your <strong>current knowledge level</strong>. Don't worry if you don't know all the answers - this is just a <strong>starting point</strong>! Take your time, read each question carefully, and do your best. Your results will help us <strong>personalize your learning experience</strong>.</p>
             </div>
             
-            <div class="bg-blue-50 p-4 rounded-lg mb-6">
+            <div class="bg-blue-50 p-4 rounded-lg mb-6 slide-up delay-900">
                 <div class="flex items-center mb-2">
                     <i class="fas fa-info-circle text-blue-500 mr-2"></i>
                     <h3 class="font-semibold text-blue-800">Quiz Details</h3>
@@ -1158,7 +1267,7 @@
             </div>
             
             <div class="mt-8">
-                <button onclick="startPreQuiz()" class="btn btn-primary w-full">
+                <button onclick="startPreQuiz()" class="btn btn-primary w-full slide-up delay-1000">
                     <i class="fas fa-play mr-2"></i>
                     Start Pre-Quiz
                 </button>
@@ -1263,7 +1372,7 @@
             <!-- Overview Section -->
             <div id="overview-section" class="content-section">
                 <!-- Hero Section -->
-                <div class="text-center mb-8 fade-in">
+                <div class="text-center mb-8">
                     <h2 class="text-3xl font-bold text-white mb-3 glow-text">Group 1: The Alkali Metals</h2>
                     <p class="text-lg text-white/90 max-w-2xl mx-auto">
                         Explore the <strong>most reactive metals</strong> in the periodic table
