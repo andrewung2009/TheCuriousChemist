@@ -703,6 +703,94 @@
             background: #4338ca;
         }
         
+        /* Highlight Box */
+        .highlight-box {
+            background: #f0f9ff;
+            border-left: 4px solid #0ea5e9;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .highlight-box h4 {
+            color: #0c4a6e;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .highlight-box p {
+            color: #075985;
+        }
+        
+        /* Equation Box */
+        .equation-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        
+        .equation-box .equation {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0.5rem 0;
+        }
+        
+        /* Key Point Box */
+        .key-point {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .key-point h4 {
+            color: #92400e;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .key-point p {
+            color: #78350f;
+        }
+        
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .comparison-table th {
+            background: #4f46e5;
+            color: white;
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .comparison-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #f9fafb;
+        }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             .sidebar {
@@ -745,6 +833,14 @@
                 left: 50%;
                 right: auto;
                 transform: translateX(-50%);
+            }
+            
+            .comparison-table {
+                font-size: 0.875rem;
+            }
+            
+            .comparison-table th, .comparison-table td {
+                padding: 0.5rem;
             }
         }
     </style>
@@ -961,15 +1057,22 @@
                         Introduction
                     </h3>
                     <p class="text-gray-700 mb-4">
-                        Group 1 elements, known as the alkali metals, are a group of chemical elements in the periodic table. 
+                        Group 1 elements, known as the alkali metals, occupy the first column of the periodic table. 
                         They consist of lithium (Li), sodium (Na), potassium (K), rubidium (Rb), cesium (Cs), and francium (Fr). 
-                        These elements share similar properties, including having one electron in their outer shell, which they readily 
-                        lose to form cations with charge +1.
+                        These elements share similar properties because they all have <strong>one electron in their outer shell</strong>, 
+                        which they readily lose to form +1 ions.
                     </p>
-                    <p class="text-gray-700">
-                        Alkali metals are highly reactive, with reactivity increasing as you move down the group. They are soft 
-                        metals with low densities, low melting points, and are excellent conductors of heat and electricity. 
-                        Due to their high reactivity, they are never found free in nature but always occur in compounds.
+                    
+                    <div class="highlight-box">
+                        <h4>Electron Configuration</h4>
+                        <p>All Group 1 elements have the electron configuration ns¹, where n is the period number. This single valence electron is easily lost, making these elements highly reactive metals.</p>
+                    </div>
+                    
+                    <p class="text-gray-700 mt-4">
+                        Alkali metals are soft, shiny metals with low densities and low melting points. 
+                        Their reactivity increases as you move down the group. Due to their high reactivity, 
+                        they are never found free in nature but always occur in compounds, often as chlorides, 
+                        carbonates, or sulfates.
                     </p>
                 </div>
                 
@@ -1023,6 +1126,11 @@
                             </ul>
                         </div>
                     </div>
+                    
+                    <div class="key-point mt-4">
+                        <h4>Remember</h4>
+                        <p>Group 1 metals are so reactive they must be stored under oil to prevent reaction with air and moisture!</p>
+                    </div>
                 </div>
                 
                 <!-- Applications -->
@@ -1034,15 +1142,15 @@
                     <div class="grid md:grid-cols-3 gap-4">
                         <div class="bg-blue-50 p-4 rounded-lg">
                             <h4 class="font-semibold text-blue-800 mb-2">Lithium</h4>
-                            <p class="text-sm text-blue-600">Used in batteries, glass production, and psychiatric medications</p>
+                            <p class="text-sm text-blue-600">Used in batteries for phones and electric vehicles, glass production, and as a medication for bipolar disorder</p>
                         </div>
                         <div class="bg-green-50 p-4 rounded-lg">
                             <h4 class="font-semibold text-green-800 mb-2">Sodium</h4>
-                            <p class="text-sm text-green-600">Essential for life, used in street lights, and food preservation</p>
+                            <p class="text-sm text-green-600">Essential for life (nerve function), used in street lights (sodium vapor lamps), and food preservation (salt)</p>
                         </div>
                         <div class="bg-purple-50 p-4 rounded-lg">
                             <h4 class="font-semibold text-purple-800 mb-2">Potassium</h4>
-                            <p class="text-sm text-purple-600">Vital for plants, used in fertilizers and soap production</p>
+                            <p class="text-sm text-purple-600">Vital for plants (fertilizers), essential for nerve and muscle function in animals, used in soap production</p>
                         </div>
                     </div>
                 </div>
@@ -1060,36 +1168,42 @@
                             <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Lithiumcut_cropped.jpg" alt="Lithium" class="element-image">
                             <h4 class="font-bold text-lg">Lithium (Li)</h4>
                             <p class="text-sm text-gray-600">Atomic: 3</p>
+                            <p class="text-xs text-gray-500 mt-1">Electron config: [He] 2s¹</p>
                             <p class="text-xs text-gray-500 mt-1">Lightest metal, used in batteries</p>
                         </div>
                         <div class="element-card">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Na_%28Sodium%29.jpg" alt="Sodium" class="element-image">
                             <h4 class="font-bold text-lg">Sodium (Na)</h4>
                             <p class="text-sm text-gray-600">Atomic: 11</p>
+                            <p class="text-xs text-gray-500 mt-1">Electron config: [Ne] 3s¹</p>
                             <p class="text-xs text-gray-500 mt-1">Essential for life, forms salt</p>
                         </div>
                         <div class="element-card">
                             <img src="https://cdn.britannica.com/77/131177-050-79292189/fragments-Potassium-metal.jpg" alt="Potassium" class="element-image">
                             <h4 class="font-bold text-lg">Potassium (K)</h4>
                             <p class="text-sm text-gray-600">Atomic: 19</p>
+                            <p class="text-xs text-gray-500 mt-1">Electron config: [Ar] 4s¹</p>
                             <p class="text-xs text-gray-500 mt-1">Vital for plants, fertilizers</p>
                         </div>
                         <div class="element-card">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Rb5.JPG" alt="Rubidium" class="element-image">
                             <h4 class="font-bold text-lg">Rubidium (Rb)</h4>
                             <p class="text-sm text-gray-600">Atomic: 37</p>
+                            <p class="text-xs text-gray-500 mt-1">Electron config: [Kr] 5s¹</p>
                             <p class="text-xs text-gray-500 mt-1">Used in atomic clocks</p>
                         </div>
                         <div class="element-card">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Cesium.jpg" alt="Cesium" class="element-image">
                             <h4 class="font-bold text-lg">Cesium (Cs)</h4>
                             <p class="text-sm text-gray-600">Atomic: 55</p>
+                            <p class="text-xs text-gray-500 mt-1">Electron config: [Xe] 6s¹</p>
                             <p class="text-xs text-gray-500 mt-1">Most reactive natural metal</p>
                         </div>
                         <div class="element-card">
                             <img src="https://i0.wp.com/periodic-table.com/wp-content/uploads/2018/11/Francium.jpg?fit=238%2C212&ssl=1" alt="Francium" class="element-image">
                             <h4 class="font-bold text-lg">Francium (Fr)</h4>
                             <p class="text-sm text-gray-600">Atomic: 87</p>
+                            <p class="text-xs text-gray-500 mt-1">Electron config: [Rn] 7s¹</p>
                             <p class="text-xs text-gray-500 mt-1">Extremely rare, radioactive</p>
                         </div>
                     </div>
@@ -1102,68 +1216,86 @@
                         Element Details
                     </h3>
                     <div class="overflow-x-auto">
-                        <table class="w-full text-sm">
+                        <table class="comparison-table">
                             <thead>
-                                <tr class="bg-gray-100">
-                                    <th class="px-4 py-2 text-left">Element</th>
-                                    <th class="px-4 py-2 text-left">Symbol</th>
-                                    <th class="px-4 py-2 text-left">Atomic Number</th>
-                                    <th class="px-4 py-2 text-left">Density (g/cm³)</th>
-                                    <th class="px-4 py-2 text-left">Melting Point (°C)</th>
-                                    <th class="px-4 py-2 text-left">Key Uses</th>
+                                <tr>
+                                    <th>Element</th>
+                                    <th>Symbol</th>
+                                    <th>Atomic Number</th>
+                                    <th>Electron Configuration</th>
+                                    <th>Density (g/cm³)</th>
+                                    <th>Melting Point (°C)</th>
+                                    <th>Key Uses</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="border-b">
-                                    <td class="px-4 py-2 font-medium">Lithium</td>
-                                    <td class="px-4 py-2">Li</td>
-                                    <td class="px-4 py-2">3</td>
-                                    <td class="px-4 py-2">0.534</td>
-                                    <td class="px-4 py-2">180.5</td>
-                                    <td class="px-4 py-2">Batteries, ceramics, mood stabilizers</td>
-                                </tr>
-                                <tr class="border-b">
-                                    <td class="px-4 py-2 font-medium">Sodium</td>
-                                    <td class="px-4 py-2">Na</td>
-                                    <td class="px-4 py-2">11</td>
-                                    <td class="px-4 py-2">0.968</td>
-                                    <td class="px-4 py-2">97.8</td>
-                                    <td class="px-4 py-2">Street lights, salt, soap</td>
-                                </tr>
-                                <tr class="border-b">
-                                    <td class="px-4 py-2 font-medium">Potassium</td>
-                                    <td class="px-4 py-2">K</td>
-                                    <td class="px-4 py-2">19</td>
-                                    <td class="px-4 py-2">0.89</td>
-                                    <td class="px-4 py-2">63.5</td>
-                                    <td class="px-4 py-2">Fertilizers, soap, glass</td>
-                                </tr>
-                                <tr class="border-b">
-                                    <td class="px-4 py-2 font-medium">Rubidium</td>
-                                    <td class="px-4 py-2">Rb</td>
-                                    <td class="px-4 py-2">37</td>
-                                    <td class="px-4 py-2">1.532</td>
-                                    <td class="px-4 py-2">39.3</td>
-                                    <td class="px-4 py-2">Atomic clocks, photocells</td>
-                                </tr>
-                                <tr class="border-b">
-                                    <td class="px-4 py-2 font-medium">Cesium</td>
-                                    <td class="px-4 py-2">Cs</td>
-                                    <td class="px-4 py-2">55</td>
-                                    <td class="px-4 py-2">1.93</td>
-                                    <td class="px-4 py-2">28.4</td>
-                                    <td class="px-4 py-2">Atomic clocks, drilling fluids</td>
+                                <tr>
+                                    <td class="font-medium">Lithium</td>
+                                    <td>Li</td>
+                                    <td>3</td>
+                                    <td>[He] 2s¹</td>
+                                    <td>0.534</td>
+                                    <td>180.5</td>
+                                    <td>Batteries, ceramics, mood stabilizers</td>
                                 </tr>
                                 <tr>
-                                    <td class="px-4 py-2 font-medium">Francium</td>
-                                    <td class="px-4 py-2">Fr</td>
-                                    <td class="px-4 py-2">87</td>
-                                    <td class="px-4 py-2">~1.87</td>
-                                    <td class="px-4 py-2">~27</td>
-                                    <td class="px-4 py-2">Research purposes only</td>
+                                    <td class="font-medium">Sodium</td>
+                                    <td>Na</td>
+                                    <td>11</td>
+                                    <td>[Ne] 3s¹</td>
+                                    <td>0.968</td>
+                                    <td>97.8</td>
+                                    <td>Street lights, salt, soap</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-medium">Potassium</td>
+                                    <td>K</td>
+                                    <td>19</td>
+                                    <td>[Ar] 4s¹</td>
+                                    <td>0.89</td>
+                                    <td>63.5</td>
+                                    <td>Fertilizers, soap, glass</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-medium">Rubidium</td>
+                                    <td>Rb</td>
+                                    <td>37</td>
+                                    <td>[Kr] 5s¹</td>
+                                    <td>1.532</td>
+                                    <td>39.3</td>
+                                    <td>Atomic clocks, photocells</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-medium">Cesium</td>
+                                    <td>Cs</td>
+                                    <td>55</td>
+                                    <td>[Xe] 6s¹</td>
+                                    <td>1.93</td>
+                                    <td>28.4</td>
+                                    <td>Atomic clocks, drilling fluids</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-medium">Francium</td>
+                                    <td>Fr</td>
+                                    <td>87</td>
+                                    <td>[Rn] 7s¹</td>
+                                    <td>~1.87</td>
+                                    <td>~27</td>
+                                    <td>Research purposes only</td>
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                    
+                    <div class="highlight-box mt-4">
+                        <h4>Occurrence and Extraction</h4>
+                        <p>Group 1 metals are never found free in nature due to their high reactivity. They are typically found as:
+                        <ul class="list-disc pl-5 mt-2">
+                            <li>Chlorides (e.g., rock salt - NaCl)</li>
+                            <li>Carbonates (e.g., limestone - CaCO₃, which contains Na and K impurities)</li>
+                            <li>Sulfates (e.g., Chile saltpeter - NaNO₃)</li>
+                        </ul>
+                        <p class="mt-2">They are extracted by electrolysis of their molten chlorides, as chemical reduction is not possible.</p>
                     </div>
                 </div>
             </div>
@@ -1223,6 +1355,17 @@
                                 </ul>
                             </div>
                         </div>
+                        
+                        <div class="highlight-box mt-4">
+                            <h4>Why are Group 1 metals soft?</h4>
+                            <p>Group 1 metals have a metallic structure held together by metallic bonds. The bonds are relatively weak because:
+                            <ul class="list-disc pl-5 mt-2">
+                                <li>Each atom contributes only one electron to the "sea" of delocalized electrons</li>
+                                <li>The atomic radius is relatively large</li>
+                                <li>The charge on the cation is only +1</li>
+                            </ul>
+                            <p class="mt-2">These factors result in weak metallic bonding, making the metals soft with low melting points.</p>
+                        </div>
                     </div>
                     
                     <div id="chemical" class="tab-content">
@@ -1232,19 +1375,28 @@
                                 <p class="text-gray-600 mb-4">
                                     Group 1 elements are highly reactive metals with one valence electron that they readily lose to form +1 ions.
                                 </p>
-                                <div class="bg-indigo-50 p-4 rounded-lg">
-                                    <p class="text-indigo-800 font-medium">
-                                        <i class="fas fa-info-circle mr-2"></i>
-                                        Key Reaction: M → M⁺ + e⁻
-                                    </p>
+                                <div class="equation-box">
+                                    <p class="text-gray-700 mb-2">General ionization reaction:</p>
+                                    <p class="equation">M → M⁺ + e⁻</p>
                                 </div>
                             </div>
                             
                             <div>
                                 <h4 class="font-semibold text-gray-700 mb-2">Reactivity</h4>
                                 <p class="text-gray-600">
-                                    Reactivity increases down the group as the atomic radius increases and the valence electron is further from the nucleus, making it easier to lose.
+                                    Reactivity increases down the group as the atomic radius increases and the valence electron is further from the nucleus, making it easier to lose. This is shown by the decreasing first ionization energy down the group.
                                 </p>
+                                
+                                <div class="highlight-box mt-3">
+                                    <h4>Ionization Energy Trend</h4>
+                                    <p>First ionization energy decreases down Group 1 because:
+                                    <ul class="list-disc pl-5 mt-2">
+                                        <li>Atomic radius increases</li>
+                                        <li>Outer electron is further from the nucleus</li>
+                                        <li>More inner electron shells shield the outer electron from the nucleus</li>
+                                    </ul>
+                                    <p class="mt-2">This makes it easier to remove the outer electron, increasing reactivity.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1254,48 +1406,57 @@
                             <h4 class="font-semibold text-gray-700 mb-3">Trends Down Group 1</h4>
                             
                             <div class="overflow-x-auto">
-                                <table class="w-full text-sm">
+                                <table class="comparison-table">
                                     <thead>
-                                        <tr class="bg-gray-100">
-                                            <th class="px-4 py-2 text-left">Property</th>
-                                            <th class="px-4 py-2 text-left">Trend</th>
-                                            <th class="px-4 py-2 text-left">Reason</th>
+                                        <tr>
+                                            <th>Property</th>
+                                            <th>Trend</th>
+                                            <th>Reason</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="border-b">
-                                            <td class="px-4 py-2">Atomic radius</td>
-                                            <td class="px-4 py-2">Increases</td>
-                                            <td class="px-4 py-2">More electron shells</td>
-                                        </tr>
-                                        <tr class="border-b">
-                                            <td class="px-4 py-2">First ionization energy</td>
-                                            <td class="px-4 py-2">Decreases</td>
-                                            <td class="px-4 py-2">Outer electron further from nucleus</td>
-                                        </tr>
-                                        <tr class="border-b">
-                                            <td class="px-4 py-2">Reactivity</td>
-                                            <td class="px-4 py-2">Increases</td>
-                                            <td class="px-4 py-2">Easier to lose valence electron</td>
-                                        </tr>
-                                        <tr class="border-b">
-                                            <td class="px-4 py-2">Melting/boiling point</td>
-                                            <td class="px-4 py-2">Decreases</td>
-                                            <td class="px-4 py-2">Weaker metallic bonding</td>
+                                        <tr>
+                                            <td>Atomic radius</td>
+                                            <td>Increases</td>
+                                            <td>More electron shells</td>
                                         </tr>
                                         <tr>
-                                            <td class="px-4 py-2">Density</td>
-                                            <td class="px-4 py-2">Increases</td>
-                                            <td class="px-4 py-2">Exception: K < Na</td>
+                                            <td>First ionization energy</td>
+                                            <td>Decreases</td>
+                                            <td>Outer electron further from nucleus</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Reactivity</td>
+                                            <td>Increases</td>
+                                            <td>Easier to lose valence electron</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Melting/boiling point</td>
+                                            <td>Decreases</td>
+                                            <td>Weaker metallic bonding</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Density</td>
+                                            <td>Increases</td>
+                                            <td>Exception: K < Na</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             
-                            <div class="bg-yellow-50 p-4 rounded-lg">
-                                <p class="text-yellow-800">
-                                    <i class="fas fa-lightbulb mr-2"></i>
-                                    <strong>Remember:</strong> Group 1 metals are so reactive they're never found free in nature!
+                            <div class="key-point">
+                                <h4>Important Exception</h4>
+                                <p>While density generally increases down Group 1, potassium (K) is less dense than sodium (Na). This is because the increase in atomic mass is offset by a larger increase in atomic volume.</p>
+                            </div>
+                            
+                            <div class="highlight-box mt-3">
+                                <h4>Practical Observation of Trends</h4>
+                                <p>The reactivity trend can be clearly observed in the reaction with water:
+                                <ul class="list-disc pl-5 mt-2">
+                                    <li><strong>Lithium:</strong> Fizzes steadily, moves slowly on surface</li>
+                                    <li><strong>Sodium:</strong> Fizzes rapidly, melts into a ball, moves quickly</li>
+                                    <li><strong>Potassium:</strong> Fizzes very rapidly, may ignite with lilac flame, moves very quickly</li>
+                                </ul>
                                 </p>
                             </div>
                         </div>
@@ -1322,36 +1483,57 @@
                         <div class="space-y-6">
                             <div>
                                 <h4 class="font-semibold text-gray-700 mb-3">Reaction with Water</h4>
-                                <div class="bg-gray-50 p-4 rounded-lg mb-3">
-                                    <p class="font-mono text-sm">2M(s) + 2H₂O(l) → 2MOH(aq) + H₂(g)</p>
+                                <div class="equation-box">
+                                    <p class="text-gray-700 mb-2">General equation:</p>
+                                    <p class="equation">2M(s) + 2H₂O(l) → 2MOH(aq) + H₂(g)</p>
                                 </div>
                                 <p class="text-gray-600 mb-4">
                                     All Group 1 metals react with water to produce hydrogen gas and the corresponding metal hydroxide. 
                                     The reactivity increases down the group, with lithium reacting relatively slowly and cesium reacting explosively.
                                 </p>
-                                <div class="grid md:grid-cols-3 gap-4">
-                                    <div class="bg-blue-50 p-3 rounded-lg">
-                                        <h5 class="font-semibold text-blue-800">Lithium</h5>
-                                        <p class="text-sm text-blue-600">Fizzes slowly</p>
-                                        <p class="text-xs text-blue-500 mt-1">Doesn't melt</p>
+                                
+                                <div class="highlight-box">
+                                    <h4>Observations for Different Metals</h4>
+                                    <div class="grid md:grid-cols-3 gap-4 mt-3">
+                                        <div class="bg-blue-50 p-3 rounded-lg">
+                                            <h5 class="font-semibold text-blue-800">Lithium</h5>
+                                            <p class="text-sm text-blue-600">Fizzes steadily</p>
+                                            <p class="text-xs text-blue-500 mt-1">Doesn't melt</p>
+                                            <p class="text-xs text-blue-500 mt-1">Moves slowly on surface</p>
+                                        </div>
+                                        <div class="bg-blue-50 p-3 rounded-lg">
+                                            <h5 class="font-semibold text-blue-800">Sodium</h5>
+                                            <p class="text-sm text-blue-600">Fizzes rapidly</p>
+                                            <p class="text-xs text-blue-500 mt-1">Melts into a ball</p>
+                                            <p class="text-xs text-blue-500 mt-1">Moves quickly on surface</p>
+                                        </div>
+                                        <div class="bg-blue-50 p-3 rounded-lg">
+                                            <h5 class="font-semibold text-blue-800">Potassium</h5>
+                                            <p class="text-sm text-blue-600">Fizzes very rapidly</p>
+                                            <p class="text-xs text-blue-500 mt-1">Ignites with lilac flame</p>
+                                            <p class="text-xs text-blue-500 mt-1">May explode</p>
+                                        </div>
                                     </div>
-                                    <div class="bg-blue-50 p-3 rounded-lg">
-                                        <h5 class="font-semibold text-blue-800">Sodium</h5>
-                                        <p class="text-sm text-blue-600">Fizzes rapidly</p>
-                                        <p class="text-xs text-blue-500 mt-1">Melts into a ball</p>
-                                    </div>
-                                    <div class="bg-blue-50 p-3 rounded-lg">
-                                        <h5 class="font-semibold text-blue-800">Potassium</h5>
-                                        <p class="text-sm text-blue-600">Ignites with lilac flame</p>
-                                        <p class="text-xs text-blue-500 mt-1">May explode</p>
-                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-3">Reaction Mechanism</h4>
+                                <p class="text-gray-600">
+                                    The reaction with water is a redox reaction where the metal is oxidized and water is reduced:
+                                </p>
+                                <div class="equation-box">
+                                    <p class="text-gray-700 mb-2">Oxidation: 2M → 2M⁺ + 2e⁻</p>
+                                    <p class="text-gray-700 mb-2">Reduction: 2H₂O + 2e⁻ → 2OH⁻ + H₂</p>
+                                    <p class="text-gray-700">Overall: 2M + 2H₂O → 2MOH + H₂</p>
                                 </div>
                             </div>
                             
                             <div class="bg-indigo-50 p-4 rounded-lg">
                                 <h5 class="font-semibold text-indigo-800 mb-2">Safety Note:</h5>
                                 <p class="text-indigo-700">
-                                    Due to their violent reactions with water, Group 1 metals must be stored under oil to prevent contact with moisture in the air.
+                                    Due to their violent reactions with water, Group 1 metals must be stored under oil to prevent contact with moisture in the air. 
+                                    Small pieces should always be used for demonstrations, and safety goggles must be worn.
                                 </p>
                             </div>
                         </div>
@@ -1364,21 +1546,28 @@
                                 <p class="text-gray-600 mb-4">
                                     Group 1 metals react with oxygen to form oxides, peroxides, or superoxides depending on the metal and reaction conditions.
                                 </p>
+                                
                                 <div class="grid md:grid-cols-3 gap-4">
                                     <div class="bg-green-50 p-3 rounded-lg">
                                         <h5 class="font-semibold text-green-800">Lithium</h5>
                                         <p class="text-sm text-green-600">Forms Li₂O (oxide)</p>
-                                        <p class="text-xs text-green-500 mt-1">4Li + O₂ → 2Li₂O</p>
+                                        <div class="equation-box mt-2">
+                                            <p class="equation text-sm">4Li + O₂ → 2Li₂O</p>
+                                        </div>
                                     </div>
                                     <div class="bg-green-50 p-3 rounded-lg">
                                         <h5 class="font-semibold text-green-800">Sodium</h5>
                                         <p class="text-sm text-green-600">Forms Na₂O₂ (peroxide)</p>
-                                        <p class="text-xs text-green-500 mt-1">2Na + O₂ → Na₂O₂</p>
+                                        <div class="equation-box mt-2">
+                                            <p class="equation text-sm">2Na + O₂ → Na₂O₂</p>
+                                        </div>
                                     </div>
                                     <div class="bg-green-50 p-3 rounded-lg">
                                         <h5 class="font-semibold text-green-800">Potassium</h5>
                                         <p class="text-sm text-green-600">Forms KO₂ (superoxide)</p>
-                                        <p class="text-xs text-green-500 mt-1">K + O₂ → KO₂</p>
+                                        <div class="equation-box mt-2">
+                                            <p class="equation text-sm">K + O₂ → KO₂</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1388,6 +1577,42 @@
                                 <p class="text-gray-600">
                                     As we move down the group, the tendency to form peroxides and superoxides increases due to the larger size of the metal ions, which can stabilize larger anions.
                                 </p>
+                                
+                                <div class="highlight-box mt-3">
+                                    <h4>Why the Change in Products?</h4>
+                                    <p>The stability of different oxides depends on the size of the cation:
+                                    <ul class="list-disc pl-5 mt-2">
+                                        <li>Small Li⁺ stabilizes the small O²⁻ ion in Li₂O</li>
+                                        <li>Medium Na⁺ stabilizes the O₂²⁻ ion in Na₂O₂</li>
+                                        <li>Large K⁺, Rb⁺, Cs⁺ stabilize the large O₂⁻ ion in superoxides</li>
+                                    </ul>
+                                    <p class="mt-2">This is an example of how cation size affects compound stability.</p>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h5 class="font-semibold text-gray-700 mb-2">Reactions of the Oxides with Water</h5>
+                                <p class="text-gray-600">All Group 1 oxides, peroxides, and superoxides react with water to form alkaline solutions:</p>
+                                <div class="grid md:grid-cols-3 gap-4 mt-3">
+                                    <div class="bg-purple-50 p-3 rounded-lg">
+                                        <h5 class="font-semibold text-purple-800">Oxide</h5>
+                                        <div class="equation-box mt-2">
+                                            <p class="equation text-sm">Li₂O + H₂O → 2LiOH</p>
+                                        </div>
+                                    </div>
+                                    <div class="bg-purple-50 p-3 rounded-lg">
+                                        <h5 class="font-semibold text-purple-800">Peroxide</h5>
+                                        <div class="equation-box mt-2">
+                                            <p class="equation text-sm">Na₂O₂ + 2H₂O → 2NaOH + H₂O₂</p>
+                                        </div>
+                                    </div>
+                                    <div class="bg-purple-50 p-3 rounded-lg">
+                                        <h5 class="font-semibold text-purple-800">Superoxide</h5>
+                                        <div class="equation-box mt-2">
+                                            <p class="equation text-sm">2KO₂ + 2H₂O → 2KOH + H₂O₂ + O₂</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1396,9 +1621,10 @@
                         <div class="space-y-6">
                             <div>
                                 <h4 class="font-semibold text-gray-700 mb-3">Reaction with Halogens</h4>
-                                <div class="bg-gray-50 p-4 rounded-lg mb-3">
-                                    <p class="font-mono text-sm">2M(s) + X₂ → 2MX(s)</p>
-                                    <p class="text-xs text-gray-500 mt-1">Where X = F, Cl, Br, I</p>
+                                <div class="equation-box">
+                                    <p class="text-gray-700 mb-2">General equation:</p>
+                                    <p class="equation">2M(s) + X₂ → 2MX(s)</p>
+                                    <p class="text-gray-600 text-sm">Where X = F, Cl, Br, I</p>
                                 </div>
                                 <p class="text-gray-600 mb-4">
                                     Group 1 metals react vigorously with halogens to form ionic halides. These reactions are highly exothermic and often produce bright flames.
@@ -1406,13 +1632,17 @@
                                 <div class="grid md:grid-cols-2 gap-4">
                                     <div class="bg-purple-50 p-3 rounded-lg">
                                         <h5 class="font-semibold text-purple-800">With Chlorine</h5>
-                                        <p class="text-sm text-purple-600">2Na + Cl₂ → 2NaCl</p>
-                                        <p class="text-xs text-purple-500 mt-1">Bright yellow flame</p>
+                                        <div class="equation-box mt-2">
+                                            <p class="equation text-sm">2Na + Cl₂ → 2NaCl</p>
+                                        </div>
+                                        <p class="text-sm text-purple-600 mt-2">Bright yellow flame</p>
                                     </div>
                                     <div class="bg-purple-50 p-3 rounded-lg">
                                         <h5 class="font-semibold text-purple-800">With Bromine</h5>
-                                        <p class="text-sm text-purple-600">2K + Br₂ → 2KBr</p>
-                                        <p class="text-xs text-purple-500 mt-1">Red-brown vapor</p>
+                                        <div class="equation-box mt-2">
+                                            <p class="equation text-sm">2K + Br₂ → 2KBr</p>
+                                        </div>
+                                        <p class="text-sm text-purple-600 mt-2">Red-brown vapor</p>
                                     </div>
                                 </div>
                             </div>
@@ -1420,11 +1650,35 @@
                             <div class="bg-purple-50 p-4 rounded-lg">
                                 <h5 class="font-semibold text-purple-800 mb-2">Properties of Halides:</h5>
                                 <ul class="text-sm text-purple-700 space-y-1">
-                                    <li>• All are white crystalline solids</li>
-                                    <li>• High melting and boiling points</li>
-                                    <li>• Soluble in water</li>
-                                    <li>• Form neutral solutions</li>
+                                    <li>• All are white crystalline solids at room temperature</li>
+                                    <li>• High melting and boiling points due to strong ionic bonding</li>
+                                    <li>• Soluble in water, forming neutral solutions</li>
+                                    <li>• Conduct electricity when molten or in aqueous solution</li>
                                 </ul>
+                            </div>
+                            
+                            <div>
+                                <h5 class="font-semibold text-gray-700 mb-2">Test for Halide Ions</h5>
+                                <p class="text-gray-600">
+                                    The halide ions (Cl⁻, Br⁻, I⁻) can be identified using silver nitrate solution:
+                                </p>
+                                <div class="grid md:grid-cols-3 gap-4 mt-3">
+                                    <div class="bg-yellow-50 p-3 rounded-lg">
+                                        <h5 class="font-semibold text-yellow-800">Chloride</h5>
+                                        <p class="text-sm text-yellow-600">Forms white precipitate of AgCl</p>
+                                        <p class="text-xs text-yellow-500 mt-1">Soluble in dilute NH₃</p>
+                                    </div>
+                                    <div class="bg-yellow-50 p-3 rounded-lg">
+                                        <h5 class="font-semibold text-yellow-800">Bromide</h5>
+                                        <p class="text-sm text-yellow-600">Forms cream precipitate of AgBr</p>
+                                        <p class="text-xs text-yellow-500 mt-1">Partially soluble in conc. NH₃</p>
+                                    </div>
+                                    <div class="bg-yellow-50 p-3 rounded-lg">
+                                        <h5 class="font-semibold text-yellow-800">Iodide</h5>
+                                        <p class="text-sm text-yellow-600">Forms yellow precipitate of AgI</p>
+                                        <p class="text-xs text-yellow-500 mt-1">Insoluble in NH₃</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1433,16 +1687,19 @@
                         <div class="space-y-6">
                             <div>
                                 <h4 class="font-semibold text-gray-700 mb-3">Reaction with Acids</h4>
-                                <div class="bg-gray-50 p-4 rounded-lg mb-3">
-                                    <p class="font-mono text-sm">2M(s) + 2H⁺(aq) → 2M⁺(aq) + H₂(g)</p>
+                                <div class="equation-box">
+                                    <p class="text-gray-700 mb-2">General equation:</p>
+                                    <p class="equation">2M(s) + 2H⁺(aq) → 2M⁺(aq) + H₂(g)</p>
                                 </div>
                                 <p class="text-gray-600 mb-4">
                                     Group 1 metals react with acids to produce hydrogen gas and the corresponding salt. These reactions are extremely vigorous and dangerous due to the high reactivity of the metals.
                                 </p>
+                                
                                 <div class="bg-red-50 p-4 rounded-lg mb-4">
                                     <h5 class="font-semibold text-red-800 mb-2">⚠️ Safety Warning:</h5>
                                     <p class="text-red-700">
-                                        These reactions are too violent to be performed safely in a school laboratory. The hydrogen gas produced is highly flammable and can explode.
+                                        These reactions are too violent to be performed safely in a school laboratory. The hydrogen gas produced is highly flammable and can explode. 
+                                        Never attempt to react Group 1 metals with acids outside of specialized facilities with proper safety equipment.
                                     </p>
                                 </div>
                             </div>
@@ -1457,6 +1714,29 @@
                                         <p class="text-sm font-mono">2Na(s) + H₂SO₄(aq) → Na₂SO₄(aq) + H₂(g)</p>
                                     </div>
                                 </div>
+                            </div>
+                            
+                            <div>
+                                <h5 class="font-semibold text-gray-700 mb-2">Reaction Mechanism</h5>
+                                <p class="text-gray-600">
+                                    The reaction with acids is a redox reaction where the metal is oxidized and hydrogen ions from the acid are reduced:
+                                </p>
+                                <div class="equation-box mt-3">
+                                    <p class="text-gray-700 mb-2">Oxidation: 2M → 2M⁺ + 2e⁻</p>
+                                    <p class="text-gray-700 mb-2">Reduction: 2H⁺ + 2e⁻ → H₂</p>
+                                    <p class="text-gray-700">Overall: 2M + 2H⁺ → 2M⁺ + H₂</p>
+                                </div>
+                            </div>
+                            
+                            <div class="highlight-box">
+                                <h4>Why So Vigorous?</h4>
+                                <p>The reaction with acids is more vigorous than with water because:
+                                <ul class="list-disc pl-5 mt-2">
+                                    <li>Acids provide a higher concentration of H⁺ ions than water</li>
+                                    <li>The reduction potential of H⁺ is higher than that of H₂O</li>
+                                    <li>This makes the reaction more thermodynamically favorable</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -1701,61 +1981,61 @@
         let answerSubmitted = false;
         let justSignedIn = false; // Flag to track if user just signed in
         
-        // Quiz questions
+        // Quiz questions - Improved for better educational content
         const preQuizQuestions = [
             {
                 type: 'single',
-                question: "Which of the following Group 1 metals is softest at room temperature?",
-                options: ["Lithium", "Sodium", "Potassium", "Rubidium"],
-                correct: 3,
-                explanation: "Softness increases down the group, so rubidium is the softest Group 1 metal at room temperature."
+                question: "Which of the following is the correct electron configuration of sodium?",
+                options: ["[He] 2s² 2p⁶ 3s¹", "[Ne] 3s²", "[Ne] 3s¹", "[Ar] 4s¹"],
+                correct: 2,
+                explanation: "Sodium (Na) has atomic number 11. Its electron configuration is [Ne] 3s¹, meaning it has the same configuration as neon plus one electron in the 3s orbital."
             },
             {
                 type: 'single',
-                question: "Group 1 metals are found free in nature because they are not very reactive.",
-                options: ["True", "False"],
+                question: "Group 1 metals are stored under oil because:",
+                options: ["They are expensive", "They react with air and moisture", "They evaporate easily", "They are radioactive"],
                 correct: 1,
-                explanation: "Group 1 metals are highly reactive and are never found free in nature. They always exist in compounds."
+                explanation: "Group 1 metals are highly reactive and react with both oxygen and moisture in the air. Storing them under oil prevents these reactions."
             },
             {
                 type: 'single',
-                question: "What happens when sodium reacts with water?",
+                question: "What is the main product when sodium reacts with cold water?",
+                options: ["Sodium oxide and hydrogen", "Sodium hydroxide and hydrogen", "Sodium peroxide and hydrogen", "Sodium and water"],
+                correct: 1,
+                explanation: "Sodium reacts with cold water to produce sodium hydroxide (NaOH) and hydrogen gas (H₂). The equation is: 2Na + 2H₂O → 2NaOH + H₂."
+            },
+            {
+                type: 'single',
+                question: "Which Group 1 element produces a lilac flame during its reaction with water?",
+                options: ["Lithium", "Sodium", "Potassium", "Rubidium"],
+                correct: 2,
+                explanation: "Potassium produces a characteristic lilac flame during its reaction with water. This flame test is used to identify potassium ions."
+            },
+            {
+                type: 'single',
+                question: "As you go down Group 1, the first ionization energy:",
+                options: ["Increases", "Decreases", "Stays the same", "Increases then decreases"],
+                correct: 1,
+                explanation: "First ionization energy decreases down Group 1 because the atomic radius increases and the outer electron is further from the nucleus, making it easier to remove."
+            },
+            {
+                type: 'single',
+                question: "Which of these oxides is formed when lithium burns in oxygen?",
+                options: ["Li₂O", "Li₂O₂", "LiO₂", "Li₂O and Li₂O₂"],
+                correct: 0,
+                explanation: "Lithium primarily forms the normal oxide Li₂O when burned in oxygen, unlike other Group 1 metals which form peroxides or superoxides."
+            },
+            {
+                type: 'single',
+                question: "Which statement about Group 1 metals is INCORRECT?",
                 options: [
-                    "No reaction occurs",
-                    "It fizzes slowly",
-                    "It fizzes rapidly and may melt",
-                    "It explodes violently"
+                    "They all have one valence electron",
+                    "They form +1 ions",
+                    "They become less reactive down the group",
+                    "They have low melting points"
                 ],
                 correct: 2,
-                explanation: "Sodium reacts vigorously with water, fizzing rapidly and often melting due to the heat produced."
-            },
-            {
-                type: 'single',
-                question: "Which of these is the correct formula for sodium oxide?",
-                options: ["NaO", "Na₂O", "NaO₂", "Na₂O₂"],
-                correct: 1,
-                explanation: "Sodium oxide has the formula Na₂O, as sodium forms +1 ions and oxygen forms -2 ions."
-            },
-            {
-                type: 'single',
-                question: "As you go down Group 1, the reactivity of the metals:",
-                options: ["Decreases", "Increases", "Stays the same", "Varies unpredictably"],
-                correct: 1,
-                explanation: "Reactivity increases down Group 1 because the outer electron is further from the nucleus and easier to lose."
-            },
-            {
-                type: 'single',
-                question: "Which Group 1 metal produces a lilac flame during its reaction with water?",
-                options: ["Lithium", "Sodium", "Potassium", "Rubidium"],
-                correct: 2,
-                explanation: "Potassium produces a characteristic lilac flame during its reaction with water."
-            },
-            {
-                type: 'single',
-                question: "The density of Group 1 metals generally:",
-                options: ["Decreases down the group", "Increases down the group", "Is the same for all", "Has no pattern"],
-                correct: 1,
-                explanation: "Density generally increases down Group 1, with the exception that potassium is less dense than sodium."
+                explanation: "Group 1 metals become more reactive down the group, not less reactive. This is because it becomes easier to lose the single valence electron."
             }
         ];
         
@@ -1765,11 +2045,11 @@
                 question: "Which Group 1 element has the lowest density and floats on water?",
                 options: ["Sodium", "Lithium", "Cesium", "Rubidium"],
                 correct: 1,
-                explanation: "Lithium has the lowest density (0.534 g/cm³) of all Group 1 metals, which is less than water (1 g/cm³)."
+                explanation: "Lithium has the lowest density (0.534 g/cm³) of all Group 1 metals, which is less than water (1 g/cm³), so it floats on water."
             },
             {
                 type: 'single',
-                question: "Why does potassium react more vigorously with water than lithium?",
+                question: "Why does potassium react more vigorously with water than sodium?",
                 options: [
                     "Potassium has more protons",
                     "Potassium's outer electron is further from the nucleus",
@@ -1777,21 +2057,21 @@
                     "Potassium has a higher melting point"
                 ],
                 correct: 1,
-                explanation: "Potassium's outer electron is further from the nucleus and experiences less attraction, making it easier to lose."
+                explanation: "Potassium's outer electron is further from the nucleus and experiences less attraction, making it easier to lose. This increases its reactivity compared to sodium."
             },
             {
                 type: 'single',
-                question: "Which compound does sodium form when it reacts with oxygen?",
-                options: ["Na₂O", "Na₂O₂", "NaO₂", "Both Na₂O and Na₂O₂ can form"],
-                correct: 3,
-                explanation: "Sodium primarily forms the peroxide Na₂O₂ when burned in air, but can also form the oxide Na₂O under certain conditions."
+                question: "Which compound does sodium primarily form when it reacts with oxygen?",
+                options: ["Na₂O", "Na₂O₂", "NaO₂", "Both Na₂O and Na₂O₂"],
+                correct: 1,
+                explanation: "Sodium primarily forms the peroxide Na₂O₂ when burned in air, unlike lithium which forms the normal oxide Li₂O."
             },
             {
                 type: 'single',
                 question: "What color flame does rubidium produce during its reactions?",
                 options: ["Red", "Yellow", "Lilac", "Red-violet"],
                 correct: 3,
-                explanation: "Rubidium produces a red-violet flame during its reactions, characteristic of the element."
+                explanation: "Rubidium produces a red-violet flame during its reactions. This is characteristic of the element and is used in flame tests to identify rubidium ions."
             },
             {
                 type: 'single',
@@ -1803,7 +2083,7 @@
                     "They become less reactive down the group"
                 ],
                 correct: 3,
-                explanation: "Group 1 metals become more reactive down the group, not less reactive."
+                explanation: "Group 1 metals become more reactive down the group, not less reactive. This is due to decreasing ionization energy down the group."
             },
             {
                 type: 'single',
@@ -1815,7 +2095,7 @@
                     "It has the lowest melting point"
                 ],
                 correct: 1,
-                explanation: "Cesium has the largest atomic radius in Group 1, so its outer electron is furthest from the nucleus and easiest to lose."
+                explanation: "Cesium has the largest atomic radius in Group 1, so its outer electron is furthest from the nucleus and easiest to lose, making it the most reactive."
             },
             {
                 type: 'single',
@@ -1827,7 +2107,7 @@
                     "It has a very high melting point"
                 ],
                 correct: 1,
-                explanation: "Francium is extremely rare, highly radioactive, and has a very short half-life, making it difficult to study."
+                explanation: "Francium is extremely rare, highly radioactive, and has a very short half-life (about 22 minutes), making it difficult to study and observe its properties."
             }
         ];
         
