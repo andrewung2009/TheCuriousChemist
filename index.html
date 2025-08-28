@@ -56,6 +56,88 @@
             animation: pulse 2s infinite;
         }
         
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 260px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+        }
+        
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .sidebar-nav {
+            padding: 1rem 0;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: #4b5563;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+        
+        .nav-item:hover {
+            background: rgba(79, 70, 229, 0.1);
+            color: #4f46e5;
+            border-left-color: #4f46e5;
+        }
+        
+        .nav-item.active {
+            background: rgba(79, 70, 229, 0.1);
+            color: #4f46e5;
+            border-left-color: #4f46e5;
+            font-weight: 600;
+        }
+        
+        .nav-item i {
+            margin-right: 0.75rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .sidebar-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem 1.5rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .main-content {
+            margin-left: 260px;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+        
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 101;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
         /* Learning Path Styles */
         .learning-path {
             display: flex;
@@ -220,6 +302,14 @@
         
         .tab.active::after {
             transform: scaleX(1);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
         }
         
         /* Quiz Styles */
@@ -615,6 +705,22 @@
         
         /* Responsive Design */
         @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
             .landing-title, .prequiz-title {
                 font-size: 2rem;
             }
@@ -746,332 +852,385 @@
     
     <!-- Main App (shown after pre-quiz completion) -->
     <div id="mainApp" style="display: none;">
-        <!-- Navigation -->
-        <nav class="bg-white/10 backdrop-blur-md shadow-lg sticky top-0 z-50">
-            <div class="container mx-auto px-4 py-3">
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center">
-                        <i class="fas fa-atom text-white text-2xl mr-3"></i>
-                        <h1 class="text-xl font-bold text-white">Group 1 - Alkali Metals</h1>
-                    </div>
-                    <div class="flex items-center space-x-4">
-                        <div class="flex items-center space-x-2">
-                            <div class="bg-white/20 rounded-full px-3 py-1 text-white text-sm">
-                                <i class="fas fa-coins mr-1"></i>
-                                <span id="userPoints">0</span> pts
-                            </div>
-                            <div class="bg-white/20 rounded-full px-3 py-1 text-white text-sm">
-                                <i class="fas fa-fire mr-1"></i>
-                                <span id="userStreak">0</span>
-                            </div>
-                        </div>
-                        <div id="userProfile" class="flex items-center">
-                            <span class="text-white text-sm font-medium mr-2" id="userName">Guest</span>
-                            <button onclick="signOut()" class="bg-white/20 text-white px-3 py-1 rounded-lg text-sm hover:bg-white/30 transition">
-                                <i class="fas fa-sign-out-alt mr-1"></i>Logout
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
+        <!-- Menu Toggle Button (Mobile) -->
+        <button class="menu-toggle" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </button>
         
-        <!-- Learning Path -->
-        <div class="container mx-auto px-4 py-6">
-            <div class="learning-path">
-                <div class="path-step completed">
-                    <i class="fas fa-check"></i>
-                    <span class="path-label">Pre-Quiz</span>
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="flex items-center">
+                    <i class="fas fa-atom text-indigo-600 text-2xl mr-3"></i>
+                    <h1 class="text-xl font-bold text-gray-800">Chemistry Mastery</h1>
                 </div>
-                <div class="path-step active">
-                    <i class="fas fa-book-open"></i>
-                    <span class="path-label">Learn</span>
-                </div>
-                <div class="path-step">
+                <p class="text-sm text-gray-600 mt-1">Group 1 - Alkali Metals</p>
+            </div>
+            
+            <div class="sidebar-nav">
+                <a href="#" class="nav-item active" onclick="navigateToSection('overview')">
+                    <i class="fas fa-home"></i>
+                    <span>Overview</span>
+                </a>
+                <a href="#" class="nav-item" onclick="navigateToSection('elements')">
+                    <i class="fas fa-th"></i>
+                    <span>Elements</span>
+                </a>
+                <a href="#" class="nav-item" onclick="navigateToSection('properties')">
+                    <i class="fas fa-flask"></i>
+                    <span>Properties</span>
+                </a>
+                <a href="#" class="nav-item" onclick="navigateToSection('reactions')">
+                    <i class="fas fa-vial"></i>
+                    <span>Reactions</span>
+                </a>
+                <a href="#" class="nav-item" onclick="navigateToSection('study-groups')">
+                    <i class="fas fa-users"></i>
+                    <span>Study Groups</span>
+                </a>
+                <a href="#" class="nav-item" onclick="navigateToSection('discussion')">
+                    <i class="fas fa-comments"></i>
+                    <span>Discussion</span>
+                </a>
+                <a href="#" class="nav-item" onclick="navigateToSection('quiz')">
                     <i class="fas fa-graduation-cap"></i>
-                    <span class="path-label">Post-Quiz</span>
+                    <span>Final Quiz</span>
+                </a>
+            </div>
+            
+            <div class="sidebar-footer">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center">
+                        <div class="bg-indigo-100 rounded-full p-2 mr-2">
+                            <i class="fas fa-coins text-indigo-600"></i>
+                        </div>
+                        <span class="text-sm font-medium text-gray-700"><span id="userPoints">0</span> pts</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="bg-orange-100 rounded-full p-2 mr-2">
+                            <i class="fas fa-fire text-orange-500"></i>
+                        </div>
+                        <span class="text-sm font-medium text-gray-700"><span id="userStreak">0</span></span>
+                    </div>
                 </div>
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-600">Signed in as:</span>
+                    <span class="text-sm font-medium text-gray-800" id="userName">User</span>
+                </div>
+                <button onclick="signOut()" class="btn btn-secondary w-full mt-3 text-sm">
+                    <i class="fas fa-sign-out-alt mr-1"></i>
+                    Logout
+                </button>
             </div>
         </div>
         
         <!-- Main Content -->
-        <div class="container mx-auto px-4 pb-8">
-            <!-- Hero Section -->
-            <div class="text-center mb-8 fade-in">
-                <h2 class="text-3xl font-bold text-white mb-3">Group 1: The Alkali Metals</h2>
-                <p class="text-lg text-white/90 max-w-2xl mx-auto">
-                    Explore the most reactive metals in the periodic table
-                </p>
+        <div class="main-content">
+            <!-- Learning Path -->
+            <div class="mb-6">
+                <div class="learning-path">
+                    <div class="path-step completed">
+                        <i class="fas fa-check"></i>
+                        <span class="path-label">Pre-Quiz</span>
+                    </div>
+                    <div class="path-step active">
+                        <i class="fas fa-book-open"></i>
+                        <span class="path-label">Learn</span>
+                    </div>
+                    <div class="path-step">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span class="path-label">Post-Quiz</span>
+                    </div>
+                </div>
             </div>
             
-            <!-- Elements Overview -->
-            <div class="content-card fade-in">
-                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                    <i class="fas fa-th mr-2 text-indigo-600"></i>
-                    Meet the Elements
-                </h3>
-                <div class="element-grid">
-                    <div class="element-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Lithiumcut_cropped.jpg" alt="Lithium" class="element-image">
-                        <h4 class="font-bold text-lg">Lithium (Li)</h4>
-                        <p class="text-sm text-gray-600">Atomic: 3</p>
-                        <p class="text-xs text-gray-500 mt-1">Lightest metal, used in batteries</p>
-                    </div>
-                    <div class="element-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Na_%28Sodium%29.jpg" alt="Sodium" class="element-image">
-                        <h4 class="font-bold text-lg">Sodium (Na)</h4>
-                        <p class="text-sm text-gray-600">Atomic: 11</p>
-                        <p class="text-xs text-gray-500 mt-1">Essential for life, forms salt</p>
-                    </div>
-                    <div class="element-card">
-                        <img src="https://cdn.britannica.com/77/131177-050-79292189/fragments-Potassium-metal.jpg" alt="Potassium" class="element-image">
-                        <h4 class="font-bold text-lg">Potassium (K)</h4>
-                        <p class="text-sm text-gray-600">Atomic: 19</p>
-                        <p class="text-xs text-gray-500 mt-1">Vital for plants, fertilizers</p>
-                    </div>
-                    <div class="element-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Rb5.JPG" alt="Rubidium" class="element-image">
-                        <h4 class="font-bold text-lg">Rubidium (Rb)</h4>
-                        <p class="text-sm text-gray-600">Atomic: 37</p>
-                        <p class="text-xs text-gray-500 mt-1">Used in atomic clocks</p>
-                    </div>
-                    <div class="element-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Cesium.jpg" alt="Cesium" class="element-image">
-                        <h4 class="font-bold text-lg">Cesium (Cs)</h4>
-                        <p class="text-sm text-gray-600">Atomic: 55</p>
-                        <p class="text-xs text-gray-500 mt-1">Most reactive natural metal</p>
-                    </div>
-                    <div class="element-card">
-                        <img src="https://i0.wp.com/periodic-table.com/wp-content/uploads/2018/11/Francium.jpg?fit=238%2C212&ssl=1" alt="Francium" class="element-image">
-                        <h4 class="font-bold text-lg">Francium (Fr)</h4>
-                        <p class="text-sm text-gray-600">Atomic: 87</p>
-                        <p class="text-xs text-gray-500 mt-1">Extremely rare, radioactive</p>
+            <!-- Overview Section -->
+            <div id="overview-section" class="content-section">
+                <!-- Hero Section -->
+                <div class="text-center mb-8 fade-in">
+                    <h2 class="text-3xl font-bold text-white mb-3">Group 1: The Alkali Metals</h2>
+                    <p class="text-lg text-white/90 max-w-2xl mx-auto">
+                        Explore the most reactive metals in the periodic table
+                    </p>
+                </div>
+                
+                <!-- Elements Overview -->
+                <div class="content-card fade-in">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-th mr-2 text-indigo-600"></i>
+                        Meet the Elements
+                    </h3>
+                    <div class="element-grid">
+                        <div class="element-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Lithiumcut_cropped.jpg" alt="Lithium" class="element-image">
+                            <h4 class="font-bold text-lg">Lithium (Li)</h4>
+                            <p class="text-sm text-gray-600">Atomic: 3</p>
+                            <p class="text-xs text-gray-500 mt-1">Lightest metal, used in batteries</p>
+                        </div>
+                        <div class="element-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Na_%28Sodium%29.jpg" alt="Sodium" class="element-image">
+                            <h4 class="font-bold text-lg">Sodium (Na)</h4>
+                            <p class="text-sm text-gray-600">Atomic: 11</p>
+                            <p class="text-xs text-gray-500 mt-1">Essential for life, forms salt</p>
+                        </div>
+                        <div class="element-card">
+                            <img src="https://cdn.britannica.com/77/131177-050-79292189/fragments-Potassium-metal.jpg" alt="Potassium" class="element-image">
+                            <h4 class="font-bold text-lg">Potassium (K)</h4>
+                            <p class="text-sm text-gray-600">Atomic: 19</p>
+                            <p class="text-xs text-gray-500 mt-1">Vital for plants, fertilizers</p>
+                        </div>
+                        <div class="element-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Rb5.JPG" alt="Rubidium" class="element-image">
+                            <h4 class="font-bold text-lg">Rubidium (Rb)</h4>
+                            <p class="text-sm text-gray-600">Atomic: 37</p>
+                            <p class="text-xs text-gray-500 mt-1">Used in atomic clocks</p>
+                        </div>
+                        <div class="element-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Cesium.jpg" alt="Cesium" class="element-image">
+                            <h4 class="font-bold text-lg">Cesium (Cs)</h4>
+                            <p class="text-sm text-gray-600">Atomic: 55</p>
+                            <p class="text-xs text-gray-500 mt-1">Most reactive natural metal</p>
+                        </div>
+                        <div class="element-card">
+                            <img src="https://i0.wp.com/periodic-table.com/wp-content/uploads/2018/11/Francium.jpg?fit=238%2C212&ssl=1" alt="Francium" class="element-image">
+                            <h4 class="font-bold text-lg">Francium (Fr)</h4>
+                            <p class="text-sm text-gray-600">Atomic: 87</p>
+                            <p class="text-xs text-gray-500 mt-1">Extremely rare, radioactive</p>
+                        </div>
                     </div>
                 </div>
             </div>
             
             <!-- Properties Section -->
-            <div class="content-card fade-in">
-                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                    <i class="fas fa-flask mr-2 text-indigo-600"></i>
-                    Properties & Characteristics
-                </h3>
-                
-                <div class="tabs">
-                    <button class="tab active" onclick="showTab('physical')">Physical</button>
-                    <button class="tab" onclick="showTab('chemical')">Chemical</button>
-                    <button class="tab" onclick="showTab('reactions')">Reactions</button>
-                    <button class="tab" onclick="showTab('trends')">Trends</button>
-                </div>
-                
-                <div id="physical" class="tab-content active">
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div>
-                            <h4 class="font-semibold text-gray-700 mb-2">Physical Properties</h4>
-                            <ul class="space-y-2 text-gray-600">
-                                <li class="flex items-start">
-                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                                    <span>Soft metals that can be cut with a knife</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                                    <span>Low density - lithium floats on water</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                                    <span>Low melting and boiling points</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                                    <span>Good conductors of heat and electricity</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-700 mb-2">Appearance</h4>
-                            <ul class="space-y-2 text-gray-600">
-                                <li class="flex items-start">
-                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                                    <span>Silvery-white, shiny metals</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                                    <span>Tarnish quickly in air</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                                    <span>Freshly cut surfaces are highly reflective</span>
-                                </li>
-                            </ul>
+            <div id="properties-section" class="content-section" style="display: none;">
+                <div class="content-card fade-in">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-flask mr-2 text-indigo-600"></i>
+                        Properties & Characteristics
+                    </h3>
+                    
+                    <div class="tabs">
+                        <button class="tab active" onclick="showTab('physical')">Physical</button>
+                        <button class="tab" onclick="showTab('chemical')">Chemical</button>
+                        <button class="tab" onclick="showTab('reactions')">Reactions</button>
+                        <button class="tab" onclick="showTab('trends')">Trends</button>
+                    </div>
+                    
+                    <div id="physical" class="tab-content active">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-2">Physical Properties</h4>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                        <span>Soft metals that can be cut with a knife</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                        <span>Low density - lithium floats on water</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                        <span>Low melting and boiling points</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                        <span>Good conductors of heat and electricity</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-2">Appearance</h4>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                        <span>Silvery-white, shiny metals</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                        <span>Tarnish quickly in air</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                        <span>Freshly cut surfaces are highly reflective</span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <div id="chemical" class="tab-content">
-                    <div class="space-y-4">
-                        <div>
-                            <h4 class="font-semibold text-gray-700 mb-2">Chemical Properties</h4>
-                            <p class="text-gray-600 mb-4">
-                                Group 1 elements are highly reactive metals with one valence electron that they readily lose to form +1 ions.
-                            </p>
-                            <div class="bg-indigo-50 p-4 rounded-lg">
-                                <p class="text-indigo-800 font-medium">
-                                    <i class="fas fa-info-circle mr-2"></i>
-                                    Key Reaction: M → M⁺ + e⁻
+                    
+                    <div id="chemical" class="tab-content">
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-2">Chemical Properties</h4>
+                                <p class="text-gray-600 mb-4">
+                                    Group 1 elements are highly reactive metals with one valence electron that they readily lose to form +1 ions.
+                                </p>
+                                <div class="bg-indigo-50 p-4 rounded-lg">
+                                    <p class="text-indigo-800 font-medium">
+                                        <i class="fas fa-info-circle mr-2"></i>
+                                        Key Reaction: M → M⁺ + e⁻
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-2">Reactivity</h4>
+                                <p class="text-gray-600">
+                                    Reactivity increases down the group as the atomic radius increases and the valence electron is further from the nucleus, making it easier to lose.
                                 </p>
                             </div>
                         </div>
-                        
-                        <div>
-                            <h4 class="font-semibold text-gray-700 mb-2">Reactivity</h4>
-                            <p class="text-gray-600">
-                                Reactivity increases down the group as the atomic radius increases and the valence electron is further from the nucleus, making it easier to lose.
-                            </p>
-                        </div>
                     </div>
-                </div>
-                
-                <div id="reactions" class="tab-content">
-                    <div class="space-y-6">
-                        <div>
-                            <h4 class="font-semibold text-gray-700 mb-3">Reaction with Water</h4>
-                            <div class="bg-gray-50 p-4 rounded-lg mb-3">
-                                <p class="font-mono text-sm">2M(s) + 2H₂O(l) → 2MOH(aq) + H₂(g)</p>
+                    
+                    <div id="reactions" class="tab-content">
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-3">Reaction with Water</h4>
+                                <div class="bg-gray-50 p-4 rounded-lg mb-3">
+                                    <p class="font-mono text-sm">2M(s) + 2H₂O(l) → 2MOH(aq) + H₂(g)</p>
+                                </div>
+                                <div class="grid md:grid-cols-3 gap-4">
+                                    <div class="bg-blue-50 p-3 rounded-lg">
+                                        <h5 class="font-semibold text-blue-800">Lithium</h5>
+                                        <p class="text-sm text-blue-600">Fizzes slowly</p>
+                                    </div>
+                                    <div class="bg-blue-50 p-3 rounded-lg">
+                                        <h5 class="font-semibold text-blue-800">Sodium</h5>
+                                        <p class="text-sm text-blue-600">Fizzes rapidly, melts</p>
+                                    </div>
+                                    <div class="bg-blue-50 p-3 rounded-lg">
+                                        <h5 class="font-semibold text-blue-800">Potassium</h5>
+                                        <p class="text-sm text-blue-600">Ignites with lilac flame</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="grid md:grid-cols-3 gap-4">
-                                <div class="bg-blue-50 p-3 rounded-lg">
-                                    <h5 class="font-semibold text-blue-800">Lithium</h5>
-                                    <p class="text-sm text-blue-600">Fizzes slowly</p>
-                                </div>
-                                <div class="bg-blue-50 p-3 rounded-lg">
-                                    <h5 class="font-semibold text-blue-800">Sodium</h5>
-                                    <p class="text-sm text-blue-600">Fizzes rapidly, melts</p>
-                                </div>
-                                <div class="bg-blue-50 p-3 rounded-lg">
-                                    <h5 class="font-semibold text-blue-800">Potassium</h5>
-                                    <p class="text-sm text-blue-600">Ignites with lilac flame</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <h4 class="font-semibold text-gray-700 mb-3">Reaction with Oxygen</h4>
-                            <div class="grid md:grid-cols-3 gap-4">
-                                <div class="bg-green-50 p-3 rounded-lg">
-                                    <h5 class="font-semibold text-green-800">Lithium</h5>
-                                    <p class="text-sm text-green-600">Forms Li₂O (oxide)</p>
-                                </div>
-                                <div class="bg-green-50 p-3 rounded-lg">
-                                    <h5 class="font-semibold text-green-800">Sodium</h5>
-                                    <p class="text-sm text-green-600">Forms Na₂O₂ (peroxide)</p>
-                                </div>
-                                <div class="bg-green-50 p-3 rounded-lg">
-                                    <h5 class="font-semibold text-green-800">Potassium</h5>
-                                    <p class="text-sm text-green-600">Forms KO₂ (superoxide)</p>
+                            
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-3">Reaction with Oxygen</h4>
+                                <div class="grid md:grid-cols-3 gap-4">
+                                    <div class="bg-green-50 p-3 rounded-lg">
+                                        <h5 class="font-semibold text-green-800">Lithium</h5>
+                                        <p class="text-sm text-green-600">Forms Li₂O (oxide)</p>
+                                    </div>
+                                    <div class="bg-green-50 p-3 rounded-lg">
+                                        <h5 class="font-semibold text-green-800">Sodium</h5>
+                                        <p class="text-sm text-green-600">Forms Na₂O₂ (peroxide)</p>
+                                    </div>
+                                    <div class="bg-green-50 p-3 rounded-lg">
+                                        <h5 class="font-semibold text-green-800">Potassium</h5>
+                                        <p class="text-sm text-green-600">Forms KO₂ (superoxide)</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                
-                <div id="trends" class="tab-content">
-                    <div class="space-y-4">
-                        <h4 class="font-semibold text-gray-700 mb-3">Trends Down Group 1</h4>
-                        
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-sm">
-                                <thead>
-                                    <tr class="bg-gray-100">
-                                        <th class="px-4 py-2 text-left">Property</th>
-                                        <th class="px-4 py-2 text-left">Trend</th>
-                                        <th class="px-4 py-2 text-left">Reason</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="border-b">
-                                        <td class="px-4 py-2">Atomic radius</td>
-                                        <td class="px-4 py-2">Increases</td>
-                                        <td class="px-4 py-2">More electron shells</td>
-                                    </tr>
-                                    <tr class="border-b">
-                                        <td class="px-4 py-2">First ionization energy</td>
-                                        <td class="px-4 py-2">Decreases</td>
-                                        <td class="px-4 py-2">Outer electron further from nucleus</td>
-                                    </tr>
-                                    <tr class="border-b">
-                                        <td class="px-4 py-2">Reactivity</td>
-                                        <td class="px-4 py-2">Increases</td>
-                                        <td class="px-4 py-2">Easier to lose valence electron</td>
-                                    </tr>
-                                    <tr class="border-b">
-                                        <td class="px-4 py-2">Melting/boiling point</td>
-                                        <td class="px-4 py-2">Decreases</td>
-                                        <td class="px-4 py-2">Weaker metallic bonding</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="px-4 py-2">Density</td>
-                                        <td class="px-4 py-2">Increases</td>
-                                        <td class="px-4 py-2">Exception: K < Na</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        
-                        <div class="bg-yellow-50 p-4 rounded-lg">
-                            <p class="text-yellow-800">
-                                <i class="fas fa-lightbulb mr-2"></i>
-                                <strong>Remember:</strong> Group 1 metals are so reactive they're never found free in nature!
-                            </p>
+                    
+                    <div id="trends" class="tab-content">
+                        <div class="space-y-4">
+                            <h4 class="font-semibold text-gray-700 mb-3">Trends Down Group 1</h4>
+                            
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-sm">
+                                    <thead>
+                                        <tr class="bg-gray-100">
+                                            <th class="px-4 py-2 text-left">Property</th>
+                                            <th class="px-4 py-2 text-left">Trend</th>
+                                            <th class="px-4 py-2 text-left">Reason</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="border-b">
+                                            <td class="px-4 py-2">Atomic radius</td>
+                                            <td class="px-4 py-2">Increases</td>
+                                            <td class="px-4 py-2">More electron shells</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="px-4 py-2">First ionization energy</td>
+                                            <td class="px-4 py-2">Decreases</td>
+                                            <td class="px-4 py-2">Outer electron further from nucleus</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="px-4 py-2">Reactivity</td>
+                                            <td class="px-4 py-2">Increases</td>
+                                            <td class="px-4 py-2">Easier to lose valence electron</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="px-4 py-2">Melting/boiling point</td>
+                                            <td class="px-4 py-2">Decreases</td>
+                                            <td class="px-4 py-2">Weaker metallic bonding</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-2">Density</td>
+                                            <td class="px-4 py-2">Increases</td>
+                                            <td class="px-4 py-2">Exception: K < Na</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="bg-yellow-50 p-4 rounded-lg">
+                                <p class="text-yellow-800">
+                                    <i class="fas fa-lightbulb mr-2"></i>
+                                    <strong>Remember:</strong> Group 1 metals are so reactive they're never found free in nature!
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             
             <!-- Study Groups Section -->
-            <div class="content-card fade-in">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-bold text-gray-800 flex items-center">
-                        <i class="fas fa-users mr-2 text-indigo-600"></i>
-                        Study Circles
-                    </h3>
-                    <button onclick="showCreateStudyGroup()" class="btn btn-primary">
-                        <i class="fas fa-plus"></i>
-                        Create Group
-                    </button>
-                </div>
-                <div id="studyGroupsContainer">
-                    <!-- Study groups will be loaded here -->
+            <div id="study-groups-section" class="content-section" style="display: none;">
+                <div class="content-card fade-in">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold text-gray-800 flex items-center">
+                            <i class="fas fa-users mr-2 text-indigo-600"></i>
+                            Study Circles
+                        </h3>
+                        <button onclick="showCreateStudyGroup()" class="btn btn-primary">
+                            <i class="fas fa-plus"></i>
+                            Create Group
+                        </button>
+                    </div>
+                    <div id="studyGroupsContainer">
+                        <!-- Study groups will be loaded here -->
+                    </div>
                 </div>
             </div>
             
             <!-- Discussion Section -->
-            <div class="comment-section fade-in">
-                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                    <i class="fas fa-comments mr-2 text-indigo-600"></i>
-                    Discussion
-                </h3>
-                <div id="commentsContainer">
-                    <!-- Comments will be loaded here -->
-                </div>
-                <div class="comment-form">
-                    <input type="text" id="commentInput" class="comment-input" placeholder="Share your thoughts...">
-                    <button onclick="addComment()" class="comment-submit">Post</button>
+            <div id="discussion-section" class="content-section" style="display: none;">
+                <div class="comment-section fade-in">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-comments mr-2 text-indigo-600"></i>
+                        Discussion
+                    </h3>
+                    <div id="commentsContainer">
+                        <!-- Comments will be loaded here -->
+                    </div>
+                    <div class="comment-form">
+                        <input type="text" id="commentInput" class="comment-input" placeholder="Share your thoughts...">
+                        <button onclick="addComment()" class="comment-submit">Post</button>
+                    </div>
                 </div>
             </div>
             
             <!-- Post Quiz Section -->
-            <div class="content-card fade-in">
-                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                    <i class="fas fa-graduation-cap mr-2 text-indigo-600"></i>
-                    Final Assessment
-                </h3>
-                <p class="text-gray-600 mb-4">
-                    Test your knowledge after completing the learning materials. See how much you've improved!
-                </p>
-                <button onclick="startPostQuiz()" class="btn btn-primary">
-                    <i class="fas fa-play"></i>
-                    Start Post-Quiz
-                </button>
+            <div id="quiz-section" class="content-section" style="display: none;">
+                <div class="content-card fade-in">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-graduation-cap mr-2 text-indigo-600"></i>
+                        Final Assessment
+                    </h3>
+                    <p class="text-gray-600 mb-4">
+                        Test your knowledge after completing the learning materials. See how much you've improved!
+                    </p>
+                    <button onclick="startPostQuiz()" class="btn btn-primary">
+                        <i class="fas fa-play"></i>
+                        Start Post-Quiz
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -1473,6 +1632,36 @@
                 }
             });
         });
+        
+        // Toggle sidebar (mobile)
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+        
+        // Navigate to section
+        function navigateToSection(sectionName) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show selected section
+            document.getElementById(`${sectionName}-section`).style.display = 'block';
+            
+            // Update active nav item
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.closest('.nav-item').classList.add('active');
+            
+            // Close sidebar on mobile
+            if (window.innerWidth <= 768) {
+                toggleSidebar();
+            }
+        }
         
         // Show pre-quiz introduction page
         function showPreQuizIntroduction() {
@@ -1963,7 +2152,7 @@
                 <div class="flex items-center">
                     <div class="flex -space-x-2">
                         ${(group.members || []).slice(0, 5).map(member => 
-                            `<div class="member-avatar">${member.charAt(0)}</div>`
+                            `<div class="member-avatar">${member.charAt(0).toUpperCase()}</div>`
                         ).join('')}
                         ${(group.memberCount || 0) > 5 ? 
                             `<div class="member-avatar">+${(group.memberCount || 0) - 5}</div>` : ''
@@ -2028,19 +2217,30 @@
             groupRef.once('value').then((snapshot) => {
                 const group = snapshot.val();
                 
-                if (group.members.includes(currentUser.uid)) {
+                if (!group) {
+                    showToast('error', 'Error', 'Study group not found.');
+                    return;
+                }
+                
+                // Make sure members is an array
+                const members = Array.isArray(group.members) ? [...group.members] : [];
+                
+                if (members.includes(currentUser.uid)) {
                     showToast('info', 'Already Member', 'You are already a member of this group.');
                     return;
                 }
                 
-                if (group.memberCount >= group.maxMembers) {
+                if ((group.memberCount || 0) >= (group.maxMembers || 10)) {
                     showToast('error', 'Group Full', 'This study group is already full.');
                     return;
                 }
                 
+                // Add current user to members array
+                members.push(currentUser.uid);
+                
                 const updates = {};
-                updates['/members'] = [...group.members, currentUser.uid];
-                updates['/memberCount'] = group.memberCount + 1;
+                updates['/members'] = members;
+                updates['/memberCount'] = (group.memberCount || 0) + 1;
                 
                 groupRef.update(updates).then(() => {
                     showToast('success', 'Joined Group', 'You have successfully joined the study group.');
@@ -2069,9 +2269,15 @@
             groupRef.once('value').then((snapshot) => {
                 const group = snapshot.val();
                 
+                // Make sure members is an array
+                const members = Array.isArray(group.members) ? [...group.members] : [];
+                
+                // Filter out current user
+                const updatedMembers = members.filter(member => member !== currentUser.uid);
+                
                 const updates = {};
-                updates['/members'] = group.members.filter(member => member !== currentUser.uid);
-                updates['/memberCount'] = group.memberCount - 1;
+                updates['/members'] = updatedMembers;
+                updates['/memberCount'] = Math.max(0, (group.memberCount || 0) - 1);
                 
                 groupRef.update(updates).then(() => {
                     showToast('success', 'Left Group', 'You have successfully left the study group.');
