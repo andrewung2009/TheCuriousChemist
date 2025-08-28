@@ -1064,6 +1064,126 @@
             background: #eef2ff;
         }
         
+        /* Glossary Styles */
+        .glossary-search {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        
+        .glossary-search input {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .glossary-search input:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+        
+        .glossary-search-icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+        }
+        
+        .glossary-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+        
+        .glossary-category {
+            padding: 0.5rem 1rem;
+            background: #f3f4f6;
+            border: 2px solid transparent;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #4b5563;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .glossary-category:hover {
+            background: #e5e7eb;
+        }
+        
+        .glossary-category.active {
+            background: #4f46e5;
+            color: white;
+            border-color: #4f46e5;
+        }
+        
+        .glossary-terms {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        .glossary-term {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border-left: 4px solid #4f46e5;
+        }
+        
+        .glossary-term:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .glossary-term-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+        
+        .glossary-term-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin: 0;
+        }
+        
+        .glossary-term-category {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: #e0e7ff;
+            color: #4338ca;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .glossary-term-definition {
+            color: #4b5563;
+            line-height: 1.6;
+            margin-bottom: 0.75rem;
+        }
+        
+        .glossary-term-example {
+            background: #f9fafb;
+            border-left: 3px solid #9ca3af;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        .glossary-term-example strong {
+            color: #374151;
+        }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             .sidebar {
@@ -1128,6 +1248,10 @@
             
             .blank-input {
                 width: 100px;
+            }
+            
+            .glossary-categories {
+                justify-content: center;
             }
         }
     </style>
@@ -1308,6 +1432,10 @@
                 <a href="#" class="nav-item" onclick="navigateToSection('reactions')">
                     <i class="fas fa-vial"></i>
                     <span>Reactions</span>
+                </a>
+                <a href="#" class="nav-item" onclick="navigateToSection('glossary')">
+                    <i class="fas fa-book"></i>
+                    <span>Glossary</span>
                 </a>
                 <a href="#" class="nav-item" onclick="navigateToSection('study-groups')">
                     <i class="fas fa-users"></i>
@@ -2054,6 +2182,350 @@
                                     <li>This makes the reaction <strong>more thermodynamically favorable</strong></li>
                                 </ul>
                                 </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Glossary Section -->
+            <div id="glossary-section" class="content-section" style="display: none;">
+                <div class="content-card fade-in">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-book mr-2 text-indigo-600"></i>
+                        Glossary
+                    </h3>
+                    
+                    <!-- Search Bar -->
+                    <div class="glossary-search">
+                        <input type="text" id="glossarySearch" placeholder="Search terms..." onkeyup="filterGlossary()">
+                        <i class="fas fa-search glossary-search-icon"></i>
+                    </div>
+                    
+                    <!-- Category Filters -->
+                    <div class="glossary-categories">
+                        <button class="glossary-category active" onclick="filterByCategory('all')">All Terms</button>
+                        <button class="glossary-category" onclick="filterByCategory('elements')">Elements</button>
+                        <button class="glossary-category" onclick="filterByCategory('properties')">Properties</button>
+                        <button class="glossary-category" onclick="filterByCategory('reactions')">Reactions</button>
+                        <button class="glossary-category" onclick="filterByCategory('compounds')">Compounds</button>
+                    </div>
+                    
+                    <!-- Glossary Terms -->
+                    <div class="glossary-terms" id="glossaryTerms">
+                        <!-- Elements Category -->
+                        <div class="glossary-term" data-category="elements">
+                            <div class="glossary-term-header">
+                                <h4 class="glossary-term-title">Alkali Metals</h4>
+                                <span class="glossary-term-category">Elements</span>
+                            </div>
+                            <p class="glossary-term-definition">
+                                Group 1 elements in the periodic table consisting of lithium (Li), sodium (Na), potassium (K), rubidium (Rb), cesium (Cs), and francium (Fr). These elements are highly reactive metals with one electron in their outer shell.
+                            </p>
+                            <div class="glossary-term-example">
+                                <strong>Example:</strong> Sodium is an alkali metal that reacts vigorously with water to produce sodium hydroxide and hydrogen gas.
+                            </div>
+                        </div>
+                        
+                        <div class="glossary-term" data-category="elements">
+                            <div class="glossary-term-header">
+                                <h4 class="glossary-term-title">Lithium (Li)</h4>
+                                <span class="glossary-term-category">Elements</span>
+                            </div>
+                            <p class="glossary-term-definition">
+                                The lightest alkali metal with atomic number 3. It has the lowest density of all metals and floats on water. Lithium forms normal oxides when burned in oxygen.
+                            </p>
+                            <div class="glossary-term-example">
+                                <strong>Example:</strong> Lithium is used in rechargeable batteries for mobile phones and electric vehicles.
+                            </div>
+                        </div>
+                        
+                        <div class="glossary-term" data-category="elements">
+                            <div class="glossary-term-header">
+                                <h4 class="glossary-term-title">Sodium (Na)</h4>
+                                <span class="glossary-term-category">Elements</span>
+                            </div>
+                            <p class="glossary-term-definition">
+                                An alkali metal with atomic number 11. It is highly reactive and forms peroxides when burned in oxygen. Sodium is essential for life and is found in common salt (NaCl).
+                            </p>
+                            <div class="glossary-term-example">
+                                <strong>Example:</strong> Sodium vapor lamps produce yellow light and are commonly used in street lighting.
+                            </div>
+                        </div>
+                        
+                        <div class="glossary-term" data-category="elements">
+                            <div class="glossary-term-header">
+                                <h4 class="glossary-term-title">Potassium (K)</h4>
+                                <span class="glossary-term-category">Elements</span>
+                            </div>
+                            <p class="glossary-term-definition">
+                                An alkali metal with atomic number 19. It forms superoxides when burned in oxygen and is essential for plant growth. Potassium has a lower density than sodium.
+                            </p>
+                            <div class="glossary-term-example">
+                                <strong>Example:</strong> Potassium compounds are widely used in fertilizers to promote plant growth.
+                            </div>
+                        </div>
+                        
+                        <div class="glossary-term" data-category="elements">
+                            <div class="glossary-term-header">
+                                <h4 class="glossary-term-title">Rubidium (Rb)</h4>
+                                <span class="glossary-term-category">Elements</span>
+                            </div>
+                            <p class="glossary-term-definition">
+                                An alkali metal with atomic number 37. It is highly reactive and forms superoxides. Rubidium is used in atomic clocks and photocells.
+                            </p>
+                            <div class="glossary-term-example">
+                                <strong>Example:</strong> Rubidium-87 is used in atomic clocks due to its precise frequency.
+                            </div>
+                        </div>
+                        
+                        <div class="glossary-term" data-category="elements">
+                            <div class="glossary-term-header">
+                                <h4 class="glossary-term-title">Cesium (Cs)</h4>
+                                <span class="glossary-term-category">Elements</span>
+                            </div>
+                            <p class="glossary-term-definition">
+                                An alkali metal with atomic number 55. It is the most electropositive stable element and forms superoxides. Cesium has the lowest melting point of all metals.
+                            </p>
+                            <div class="glossary-term-example">
+                                <strong>Example:</strong> Cesium is used in atomic clocks and as a drilling fluid in oil exploration.
+                            </div>
+                        </div>
+                        
+                        <div class="glossary-term" data-category="elements">
+                            <div class="glossary-term-header">
+                                <h4 class="glossary-term-title">Francium (Fr)</h4>
+                                <span class="glossary-term-category">Elements</span>
+                            </div>
+                            <p class="glossary-term-definition">
+                                The heaviest alkali metal with atomic number 87. It is highly radioactive and has no stable isotopes. Francium is extremely rare and found only in trace amounts.
+                            </p>
+                            <div class="glossary-term-example">
+                                <strong>Example:</strong> Francium is used only for research purposes due to its extreme rarity and radioactivity.
+                            </div>
+                        </div>
+                        
+                        <!-- Properties Category -->
+                        <div class="glossary-term" data-category="properties">
+                            <div class="glossary-term-header">
+                                <h4 class="glossary-term-title">Reactivity</h4>
+                                <span class="glossary-term-category">Properties</span>
+                            </div>
+                            <p class="glossary-term-definition">
+                                The tendency of a substance to undergo chemical reactions. In Group 1, reactivity increases down the group due to decreasing ionization energy and increasing atomic radius.
+                            </p>
+                            <div class="glossary-term-example">
+                                <strong>Example:</strong> Potassium is more reactive than sodium because its outer electron is further from the nucleus and easier to lose.
+                            </div>
+                        </div>
+                        
+                        <div class="glossary-term" data-category="properties">
+                            <div class="glossary-term-header">
+                                <h4 class="glossary-term-title">Ionization Energy</h4>
+                                <span class="glossary-term-category">Properties</span>
+                            </div>
+                            <p class="glossary-term-definition">
+                                The energy required to remove the most loosely bound electron from a gaseous atom. For Group 1 elements, this is the first ionization energy, which decreases down the group.
+                            </p>
+                            <div class="glossary-term-example">
+                                <strong>Example:</strong> Sodium has a lower first ionization energy than lithium, making it more reactive.
+                            </div>
+                        </div>
+                        
+                        <div class="glossary-term" data-category="properties">
+                            <div class="glossary-term-header">
+                                <h4 class="glossary-term-title">Atomic Radius</h4>
+                                <span class="glossary-term-category">Properties</span>
+                            </div>
+                            <p class="glossary-term-definition">
+                                The distance from the center of the nucleus to the outer boundary of the electron cloud. In Group 1, atomic radius increases down the group due to additional electron shells.
+                            </p>
+                            <div class="glossary-term-example">
+                                <strong>Example:</strong> Potassium has a larger atomic radius than sodium because it has an extra electron shell.
+                            </div>
+                        </div>
+                        
+                        <div class="glossary-term" data-category="properties">
+                            <div class="glossary-term-header">
+                                <h4 class="glossary-term-title">Electron Configuration</h4>
+                                <span class="glossary-term-category">Properties</span>
+                            </div>
+                            <p class="glossary-term-definition">
+                                The arrangement of electrons in an atom's orbitals. All Group 1 elements have one electron in their outermost shell (ns¹ configuration).
+                            </p>
+                            <div class="glossary-term-example">
+                                <strong>Example:</strong> Sodium has the electron configuration [Ne] 3s¹.
+                            </div>
+                        </div>
+                        
+                        <div class="glossary-term" data-category="properties">
+                            <div class="glossary-term-header">
+                                <h4 class="glossary-term-title">Metallic Bonding</h4>
+                                <span class="glossary-term-category">Properties</span>
+                            </div>
+                            <p class="glossary-term-definition">
+                                The bonding in metals where positive metal ions are held together by a 'sea' of delocalized electrons. Group 1 metals have weak metallic bonding due to only one delocalized electron per atom.
+                            </p>
+                            <div class="glossary-term-example">
+                                <strong>Example:</strong> The weak metallic bonding in sodium explains why it is soft and has a low melting point.
+                            </div>
+                        </div>
+                        
+                        <!-- Reactions Category -->
+                        <div class="glossary-term" data-category="reactions">
+                            <div class="glossary-term-header">
+                                <h4 class="glossary-term-title">Redox Reaction</h4>
+                                <span class="glossary-term-category">Reactions</span>
+                            </div>
+                            <p class="glossary-term-definition">
+                                A chemical reaction involving both reduction and oxidation. Group 1 metals undergo redox reactions where they are oxidized (lose electrons) and another species is reduced.
+                            </p>
+                            <div class="glossary-term-example">
+                                <strong>Example:</strong> 2Na + 2H₂O → 2NaOH + H₂ is a redox reaction where sodium is oxidized and water is reduced.
+                            </div>
+                        </div>
+                        
+                        <div class="glossary-term" data-category="reactions">
+                            <div class="glossary-term-header">
+                                <h4 class="glossary-term-title">Combustion</h4>
+                                <span class="glossary-term-category">Reactions</span>
+                            </div>
+                            <p class="glossary-term-definition">
+                                A chemical reaction between a substance and oxygen that produces heat and light. Group 1 metals burn in oxygen to form oxides, peroxides, or superoxides depending on the metal.
+                            </p>
+                            <div class="glossary-term-example">
+                                <strong>Example:</strong> 4Li + O₂ → 2Li₂O (lithium oxide)
+                            </div>
+                        </div>
+                        
+                        <div class="glossary-term" data-category="reactions">
+                            <div class="glossary-term-header">
+                                <h4 class="glossary-term-title">Flame Test</h4>
+                                <span class="glossary-term-category">Reactions</span>
+                            </div>
+                            <p class="glossary-term-definition">
+                                A qualitative analytical technique used to identify metal ions based on the characteristic color they emit when heated in a flame. Each Group 1 metal produces a unique flame color.
+                            </p>
+                            <div class="glossary-term-example">
+                                <strong>Example:</strong> Sodium produces a yellow flame, potassium produces a lilac flame, and lithium produces a red flame.
+                            </div>
+                        </div>
+                        
+                        <div class="glossary-term" data-category="reactions">
+                            <div class="glossary-term-header">
+                                <h4 class="glossary-term-title">Displacement Reaction</h4>
+                                <span class="glossary-term-category">Reactions</span>
+                            </div>
+                            <p class="glossary-term-definition">
+                                A reaction where a more reactive element displaces a less reactive element from its compound. More reactive Group 1 metals can displace less reactive ones from their salts.
+                            </p>
+                            <div class="glossary-term-example">
+                                <strong>Example:</strong> 2K + 2NaCl → 2KCl + 2Na (potassium displaces sodium)
+                            </div>
+                        </div>
+                        
+                        <!-- Compounds Category -->
+                        <div class="glossary-term" data-category="compounds">
+                            <div class="glossary-term-header">
+                                <h4 class="glossary-term-title">Oxide</h4>
+                                <span class="glossary-term-category">Compounds</span>
+                            </div>
+                            <p class="glossary-term-definition">
+                                A compound containing oxygen and another element. Group 1 oxides have the general formula M₂O and are basic in nature, reacting with water to form metal hydroxides.
+                            </p>
+                            <div class="glossary-term-example">
+                                <strong>Example:</strong> Lithium oxide (Li₂O) reacts with water to form lithium hydroxide: Li₂O + H₂O → 2LiOH
+                            </div>
+                        </div>
+                        
+                        <div class="glossary-term" data-category="compounds">
+                            <div class="glossary-term-header">
+                                <h4 class="glossary-term-title">Peroxide</h4>
+                                <span class="glossary-term-category">Compounds</span>
+                            </div>
+                            <p class="glossary-term-definition">
+                                A compound containing the peroxide ion (O₂²⁻). Group 1 peroxides have the general formula M₂O₂ and react with water to form metal hydroxides and hydrogen peroxide.
+                            </p>
+                            <div class="glossary-term-example">
+                                <strong>Example:</strong> Sodium peroxide (Na₂O₂) reacts with water: Na₂O₂ + 2H₂O → 2NaOH + H₂O₂
+                            </div>
+                        </div>
+                        
+                        <div class="glossary-term" data-category="compounds">
+                            <div class="glossary-term-header">
+                                <h4 class="glossary-term-title">Superoxide</h4>
+                                <span class="glossary-term-category">Compounds</span>
+                            </div>
+                            <p class="glossary-term-definition">
+                                A compound containing the superoxide ion (O₂⁻). Group 1 superoxides have the general formula MO₂ and are formed by the heavier alkali metals (K, Rb, Cs).
+                            </p>
+                            <div class="glossary-term-example">
+                                <strong>Example:</strong> Potassium superoxide (KO₂) reacts with water: 2KO₂ + 2H₂O → 2KOH + H₂O₂ + O₂
+                            </div>
+                        </div>
+                        
+                        <div class="glossary-term" data-category="compounds">
+                            <div class="glossary-term-header">
+                                <h4 class="glossary-term-title">Hydroxide</h4>
+                                <span class="glossary-term-category">Compounds</span>
+                            </div>
+                            <p class="glossary-term-definition">
+                                A compound containing the hydroxide ion (OH⁻). Group 1 hydroxides have the general formula MOH and are strong bases that are highly soluble in water.
+                            </p>
+                            <div class="glossary-term-example">
+                                <strong>Example:</strong> Sodium hydroxide (NaOH) is a strong base used in soap manufacturing and as a drain cleaner.
+                            </div>
+                        </div>
+                        
+                        <div class="glossary-term" data-category="compounds">
+                            <div class="glossary-term-header">
+                                <h4 class="glossary-term-title">Halide</h4>
+                                <span class="glossary-term-category">Compounds</span>
+                            </div>
+                            <p class="glossary-term-definition">
+                                A compound containing a halogen (F, Cl, Br, I) and another element. Group 1 halides have the general formula MX and are typically white crystalline solids.
+                            </p>
+                            <div class="glossary-term-example">
+                                <strong>Example:</strong> Sodium chloride (NaCl) is common table salt and is essential for human health.
+                            </div>
+                        </div>
+                        
+                        <div class="glossary-term" data-category="compounds">
+                            <div class="glossary-term-header">
+                                <h4 class="glossary-term-title">Carbonate</h4>
+                                <span class="glossary-term-category">Compounds</span>
+                            </div>
+                            <p class="glossary-term-definition">
+                                A compound containing the carbonate ion (CO₃²⁻). Group 1 carbonates have the general formula M₂CO₃ and are stable, unlike carbonates of most other metals.
+                            </p>
+                            <div class="glossary-term-example">
+                                <strong>Example:</strong> Sodium carbonate (Na₂CO₃) is used in glass manufacturing and water softening.
+                            </div>
+                        </div>
+                        
+                        <div class="glossary-term" data-category="compounds">
+                            <div class="glossary-term-header">
+                                <h4 class="glossary-term-title">Sulfate</h4>
+                                <span class="glossary-term-category">Compounds</span>
+                            </div>
+                            <p class="glossary-term-definition">
+                                A compound containing the sulfate ion (SO₄²⁻). Group 1 sulfates have the general formula M₂SO₄ and are generally soluble in water.
+                            </p>
+                            <div class="glossary-term-example">
+                                <strong>Example:</strong> Potassium sulfate (K₂SO₄) is used as a fertilizer to provide potassium and sulfur to plants.
+                            </div>
+                        </div>
+                        
+                        <div class="glossary-term" data-category="compounds">
+                            <div class="glossary-term-header">
+                                <h4 class="glossary-term-title">Nitrate</h4>
+                                <span class="glossary-term-category">Compounds</span>
+                            </div>
+                            <p class="glossary-term-definition">
+                                A compound containing the nitrate ion (NO₃⁻). Group 1 nitrates have the general formula MNO₃ and are all soluble in water. They decompose on heating to form nitrites and oxygen.
+                            </p>
+                            <div class="glossary-term-example">
+                                <strong>Example:</strong> Sodium nitrate (NaNO₃) is used in fertilizers and as a food preservative.
                             </div>
                         </div>
                     </div>
@@ -3595,6 +4067,43 @@
             
             // Add active class to clicked tab
             event.target.classList.add('active');
+        }
+        
+        // Glossary functions
+        function filterGlossary() {
+            const searchTerm = document.getElementById('glossarySearch').value.toLowerCase();
+            const terms = document.querySelectorAll('.glossary-term');
+            
+            terms.forEach(term => {
+                const title = term.querySelector('.glossary-term-title').textContent.toLowerCase();
+                const definition = term.querySelector('.glossary-term-definition').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || definition.includes(searchTerm)) {
+                    term.style.display = 'block';
+                } else {
+                    term.style.display = 'none';
+                }
+            });
+        }
+        
+        function filterByCategory(category) {
+            const terms = document.querySelectorAll('.glossary-term');
+            const buttons = document.querySelectorAll('.glossary-category');
+            
+            // Update active button
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Filter terms
+            terms.forEach(term => {
+                if (category === 'all' || term.dataset.category === category) {
+                    term.style.display = 'block';
+                } else {
+                    term.style.display = 'none';
+                }
+            });
         }
         
         // Modal functions
