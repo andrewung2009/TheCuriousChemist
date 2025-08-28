@@ -543,19 +543,6 @@
             margin-right: 0.25rem;
         }
         
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            margin-right: 0.75rem;
-        }
-        
         .notification-badge {
             position: absolute;
             top: -8px;
@@ -880,6 +867,25 @@
             color: #93c5fd;
             text-decoration: underline;
         }
+        
+        /* Mastery Grid Styles */
+        .mastery-cell {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin: 0 auto;
+        }
+        
+        .mastery-level-0 { background-color: #e5e7eb; color: #6b7280; }
+        .mastery-level-1 { background-color: #fef3c7; color: #92400e; }
+        .mastery-level-2 { background-color: #fde68a; color: #92400e; }
+        .mastery-level-3 { background-color: #a7f3d0; color: #065f46; }
+        .mastery-level-4 { background-color: #34d399; color: white; }
+        .mastery-level-5 { background-color: #10b981; color: white; }
     </style>
 </head>
 <body>
@@ -906,7 +912,6 @@
                         <span class="notification-badge" id="notificationCount">0</span>
                     </div>
                     <div id="userProfile" class="flex items-center">
-                        <div class="user-avatar" id="userAvatar">G</div>
                         <span class="text-white text-sm font-medium mr-2" id="userName">Guest</span>
                         <button onclick="showLoginModal()" class="nav-button text-white px-3 py-1 rounded-lg text-sm">
                             <i class="fas fa-sign-in-alt mr-1"></i>Login
@@ -937,11 +942,23 @@
                         <i class="fas fa-coins"></i>
                         <span id="userPoints">0</span> pts
                     </div>
+                    <div class="ml-2 flex items-center">
+                        <i class="fas fa-fire text-orange-500"></i>
+                        <span class="text-white ml-1" id="userStreak">0</span> day streak
+                        <span class="ml-1 text-xs text-white/70" id="streakFreezes">❄️ 0</span>
+                    </div>
+                    <div class="ml-2 flex items-center">
+                        <i class="fas fa-layer-group text-blue-400"></i>
+                        <span class="text-white ml-1" id="userLevel">Level 1</span>
+                    </div>
                     <div id="achievementsContainer" class="flex flex-wrap">
                         <!-- Achievements will be loaded here -->
                     </div>
                 </div>
                 <div class="flex flex-wrap mt-2 sm:mt-0">
+                    <button class="challenge-button" onclick="showShop()">
+                        <i class="fas fa-shopping-cart mr-1"></i> Shop
+                    </button>
                     <button class="challenge-button" onclick="showChallengeModal()">
                         <i class="fas fa-users mr-1"></i> Challenge Friends
                     </button>
@@ -950,15 +967,40 @@
                     </button>
                 </div>
             </div>
+            
+            <!-- Progress Bar for Level -->
+            <div class="mt-2 w-full bg-white/20 rounded-full h-2.5">
+                <div class="bg-yellow-400 h-2.5 rounded-full" id="levelProgressBar" style="width: 0%"></div>
+            </div>
         </div>
         
         <!-- Study Groups Section -->
         <div class="mb-6">
             <h2 class="text-xl font-bold text-white mb-3">
-                <i class="fas fa-users mr-2"></i>Study Groups
+                <i class="fas fa-users mr-2"></i>Study Circles
             </h2>
             <div id="studyGroupsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <!-- Study groups will be loaded here -->
+            </div>
+        </div>
+        
+        <!-- Mastery Grid Section -->
+        <div class="bg-white/10 backdrop-blur-md rounded-xl p-4 mb-6">
+            <h2 class="text-xl font-bold text-white mb-3 text-center">
+                <i class="fas fa-th mr-2"></i>Mastery Grid
+            </h2>
+            <div id="masteryGridContainer">
+                <!-- Mastery grid will be loaded here -->
+            </div>
+        </div>
+        
+        <!-- Peer Review Section -->
+        <div class="bg-white/10 backdrop-blur-md rounded-xl p-4 mb-6">
+            <h2 class="text-xl font-bold text-white mb-3 text-center">
+                <i class="fas fa-comments mr-2"></i>Peer Reviews
+            </h2>
+            <div id="peerReviewsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <!-- Peer reviews will be loaded here -->
             </div>
         </div>
         
@@ -1364,9 +1406,62 @@
         </div>
     </div>
     
+    <!-- Shop Modal -->
+    <div id="shopModal" class="quiz-modal">
+        <div class="quiz-content">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-gray-800">Shop</h2>
+                <button onclick="closeShop()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Streak Freeze -->
+                <div class="bg-gray-100 rounded-lg p-4">
+                    <h3 class="font-semibold text-gray-800 mb-2">Streak Freeze</h3>
+                    <p class="text-gray-600 text-sm mb-3">Use this to maintain your streak when you miss a day.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-yellow-600 font-semibold">50 coins</span>
+                        <button class="bg-blue-600 text-white px-3 py-1 rounded-lg text-sm" onclick="buyItem('streakFreeze', 50)">Buy</button>
+                    </div>
+                </div>
+                
+                <!-- Double XP -->
+                <div class="bg-gray-100 rounded-lg p-4">
+                    <h3 class="font-semibold text-gray-800 mb-2">Double XP</h3>
+                    <p class="text-gray-600 text-sm mb-3">Get double XP for your next quiz.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-yellow-600 font-semibold">100 coins</span>
+                        <button class="bg-blue-600 text-white px-3 py-1 rounded-lg text-sm" onclick="buyItem('doubleXP', 100)">Buy</button>
+                    </div>
+                </div>
+                
+                <!-- Avatar Item -->
+                <div class="bg-gray-100 rounded-lg p-4">
+                    <h3 class="font-semibold text-gray-800 mb-2">Cool Avatar Frame</h3>
+                    <p class="text-gray-600 text-sm mb-3">Show off with a special avatar frame.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-yellow-600 font-semibold">200 coins</span>
+                        <button class="bg-blue-600 text-white px-3 py-1 rounded-lg text-sm" onclick="buyItem('avatarFrame', 200)">Buy</button>
+                    </div>
+                </div>
+                
+                <!-- Hint Reveal -->
+                <div class="bg-gray-100 rounded-lg p-4">
+                    <h3 class="font-semibold text-gray-800 mb-2">Hint Reveal</h3>
+                    <p class="text-gray-600 text-sm mb-3">Reveal a hint during a difficult quiz question.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-yellow-600 font-semibold">30 coins</span>
+                        <button class="bg-blue-600 text-white px-3 py-1 rounded-lg text-sm" onclick="buyItem('hintReveal', 30)">Buy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <!-- Toast Container -->
     <div id="toastContainer"></div>
-
     <script>
         // Firebase Configuration with your provided keys
         const firebaseConfig = {
@@ -1378,12 +1473,10 @@
             appId: "1:806417495419:web:5b80607e8a23e96da4f9de",
             measurementId: "G-S76E52MQ37"
         };
-
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
-
         // Global variables
         let currentUser = null;
         let userData = null;
@@ -1397,7 +1490,6 @@
         let studyGroups = [];
         let comments = [];
         let leaderboard = [];
-
         // Initialize the app
         document.addEventListener('DOMContentLoaded', function() {
             // Check authentication state
@@ -1411,7 +1503,6 @@
                     // User is signed out
                     currentUser = null;
                     document.getElementById('userProfile').innerHTML = `
-                        <div class="user-avatar">G</div>
                         <span class="text-white text-sm font-medium mr-2">Guest</span>
                         <button onclick="showLoginModal()" class="nav-button text-white px-3 py-1 rounded-lg text-sm">
                             <i class="fas fa-sign-in-alt mr-1"></i>Login
@@ -1420,7 +1511,6 @@
                     initializeApp();
                 }
             });
-
             // Set up login form
             document.getElementById('loginForm').addEventListener('submit', (e) => {
                 e.preventDefault();
@@ -1447,7 +1537,6 @@
                         }
                     });
             });
-
             // Animate cards on scroll
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1465,12 +1554,17 @@
                 observer.observe(card);
             });
         });
-
         // Initialize app data
         function initializeApp() {
             loadStudyGroups();
             loadComments();
             loadLeaderboard();
+            loadMasteryGrid();
+            loadPeerReviews();
+            
+            // Update UI for new features
+            updateLevelUI();
+            updateStreakUI();
             
             // Check if pre-quiz should be shown automatically
             const preQuizCompleted = localStorage.getItem('preQuizCompleted');
@@ -1481,7 +1575,6 @@
                 }, 1000);
             }
         }
-
         // Load user data from Firestore
         function loadUserData(userId) {
             const userRef = db.collection('users').doc(userId);
@@ -1498,7 +1591,6 @@
                 console.error("Error getting user data:", error);
             });
         }
-
         // Create new user in Firestore
         function createNewUser(userId) {
             const userRef = db.collection('users').doc(userId);
@@ -1509,9 +1601,13 @@
                 displayName: currentUser.displayName || 'User',
                 photoURL: currentUser.photoURL || '',
                 points: 0,
+                coins: 0,
                 achievements: [],
                 quizzesTaken: 0,
                 bestScore: 0,
+                currentStreak: 1,
+                lastActiveDate: new Date().toDateString(),
+                streakFreezes: 1, // Start with 1 streak freeze
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
             }).then(() => {
                 userData = {
@@ -1520,47 +1616,42 @@
                     displayName: currentUser.displayName || 'User',
                     photoURL: currentUser.photoURL || '',
                     points: 0,
+                    coins: 0,
                     achievements: [],
                     quizzesTaken: 0,
-                    bestScore: 0
+                    bestScore: 0,
+                    currentStreak: 1,
+                    lastActiveDate: new Date().toDateString(),
+                    streakFreezes: 1
                 };
                 updateUserInterface();
             }).catch((error) => {
                 console.error("Error creating user:", error);
             });
         }
-
         // Update user interface with user data
         function updateUserInterface() {
             if (userData) {
                 document.getElementById('userPoints').textContent = userData.points || 0;
+                document.getElementById('userCoins').textContent = userData.coins || 0;
                 document.getElementById('userName').textContent = userData.displayName || 'User';
-                
-                // Update avatar
-                const avatar = document.getElementById('userAvatar');
-                if (userData.photoURL) {
-                    avatar.innerHTML = `<img src="${userData.photoURL}" alt="Avatar" class="w-full h-full object-cover rounded-full">`;
-                } else {
-                    const initials = (userData.displayName || 'User').split(' ').map(n => n[0]).join('').toUpperCase();
-                    avatar.textContent = initials;
-                }
                 
                 // Update achievements
                 updateAchievements();
+                
+                // Update level and streak
+                updateLevelUI();
+                updateStreakUI();
                 
                 // Update best score in challenge modal
                 document.getElementById('bestScore').textContent = `${userData.bestScore}/7`;
                 document.getElementById('totalPointsEarned').textContent = `${userData.points} pts`;
             }
         }
-
         // Update user profile in navigation
         function updateUserProfile(user) {
             if (user) {
                 document.getElementById('userProfile').innerHTML = `
-                    <div class="user-avatar" id="userAvatar">
-                        ${user.photoURL ? `<img src="${user.photoURL}" alt="Avatar" class="w-full h-full object-cover rounded-full">` : 'U'}
-                    </div>
                     <span class="text-white text-sm font-medium mr-2">${user.displayName || 'User'}</span>
                     <button onclick="signOut()" class="nav-button text-white px-3 py-1 rounded-lg text-sm">
                         <i class="fas fa-sign-out-alt mr-1"></i>Logout
@@ -1568,7 +1659,6 @@
                 `;
             }
         }
-
         // Update achievements display
         function updateAchievements() {
             const container = document.getElementById('achievementsContainer');
@@ -1590,7 +1680,6 @@
                 });
             }
         }
-
         // Load study groups from Firestore
         function loadStudyGroups() {
             db.collection('studyGroups').get().then((querySnapshot) => {
@@ -1606,7 +1695,6 @@
                 console.error("Error loading study groups:", error);
             });
         }
-
         // Create study group card
         function createStudyGroupCard(group, groupId) {
             const card = document.createElement('div');
@@ -1622,6 +1710,15 @@
                     <button class="join-button" onclick="joinStudyGroup('${groupId}')">Join</button>
                 </div>
                 <p class="text-white/80 text-sm mb-2">${group.description}</p>
+                <div class="mb-2">
+                    <div class="flex justify-between text-xs text-white/70 mb-1">
+                        <span>Goal: ${group.goal}</span>
+                        <span>${group.progress || 0}%</span>
+                    </div>
+                    <div class="w-full bg-white/20 rounded-full h-2">
+                        <div class="bg-yellow-400 h-2 rounded-full" style="width: ${group.progress || 0}%"></div>
+                    </div>
+                </div>
                 <div class="study-group-members">
                     ${membersHtml}
                     ${group.memberCount > 3 ? `<div class="member-avatar">+${group.memberCount - 3}</div>` : ''}
@@ -1630,7 +1727,6 @@
             
             return card;
         }
-
         // Join study group
         function joinStudyGroup(groupId) {
             if (!currentUser) {
@@ -1652,7 +1748,6 @@
                 showToast('error', 'Error', 'Failed to join study group.');
             });
         }
-
         // Load comments from Firestore
         function loadComments() {
             db.collection('comments')
@@ -1668,7 +1763,6 @@
                     });
                 });
         }
-
         // Create comment element
         function createCommentElement(comment) {
             const commentDiv = document.createElement('div');
@@ -1681,7 +1775,6 @@
             
             return commentDiv;
         }
-
         // Add comment
         function addComment() {
             if (!currentUser) {
@@ -1713,7 +1806,6 @@
                 showToast('error', 'Error', 'Failed to post comment.');
             });
         }
-
         // Load leaderboard from Firestore
         function loadLeaderboard() {
             db.collection('users')
@@ -1730,7 +1822,6 @@
                     });
                 });
         }
-
         // Create leaderboard item
         function createLeaderboardItem(user, index) {
             const item = document.createElement('div');
@@ -1753,7 +1844,6 @@
             
             return item;
         }
-
         // Award points to user
         function awardPoints(points, reason) {
             if (!currentUser) return;
@@ -1761,22 +1851,33 @@
             const userRef = db.collection('users').doc(currentUser.uid);
             
             userRef.update({
-                points: firebase.firestore.FieldValue.increment(points)
+                points: firebase.firestore.FieldValue.increment(points),
+                coins: firebase.firestore.FieldValue.increment(Math.floor(points / 5)) // 1 coin per 5 points
             }).then(() => {
                 if (userData) {
                     userData.points += points;
+                    userData.coins += Math.floor(points / 5);
                     document.getElementById('userPoints').textContent = userData.points;
+                    document.getElementById('userCoins').textContent = userData.coins;
+                    
+                    // Update level UI
+                    updateLevelUI();
                 }
                 
                 showToast('success', 'Points awarded', `+${points} points for ${reason}`);
                 
+                // Update streak
+                updateStreak();
+                
                 // Check for achievements
                 checkAchievements();
+                
+                // Update mastery grid
+                updateMastery(reason);
             }).catch((error) => {
                 console.error("Error awarding points:", error);
             });
         }
-
         // Check and award achievements
         function checkAchievements() {
             if (!userData) return;
@@ -1812,12 +1913,10 @@
                 });
             }
         }
-
         // Show achievement notification
         function showAchievement(achievementName) {
             showToast('success', 'Achievement Unlocked!', achievementName);
         }
-
         // Tab functionality
         function showTab(tabName) {
             // Hide all tab contents
@@ -1838,7 +1937,6 @@
             // Add active class to clicked tab
             event.target.classList.add('active');
         }
-
         // Quiz functions
         const preQuizQuestions = [
             {
@@ -1914,7 +2012,6 @@
                 explanation: "Sodium reacts vigorously with water, fizzing rapidly and moving around on the water surface."
             }
         ];
-
         const postQuizQuestions = [
             {
                 type: 'single',
@@ -1994,7 +2091,6 @@
                 explanation: "Potassium produces a characteristic lilac flame during its reaction with water. Lithium produces a red flame, sodium produces a yellow flame, and rubidium produces a red-violet flame."
             }
         ];
-
         function startPreQuiz() {
             if (!currentUser) {
                 showToast('error', 'Sign in required', 'Please sign in to take quizzes.');
@@ -2010,7 +2106,6 @@
             answerSubmitted = false;
             showQuiz();
         }
-
         function startPostQuiz() {
             if (!currentUser) {
                 showToast('error', 'Sign in required', 'Please sign in to take quizzes.');
@@ -2026,7 +2121,6 @@
             answerSubmitted = false;
             showQuiz();
         }
-
         function showQuiz() {
             document.getElementById('quizModal').classList.add('active');
             document.getElementById('quizProgress').classList.remove('hidden');
@@ -2041,7 +2135,6 @@
             
             loadQuestion();
         }
-
         function loadQuestion() {
             const question = currentQuiz[currentQuestion];
             document.getElementById('questionText').textContent = question.question;
@@ -2184,7 +2277,6 @@
             
             selectedOption = null;
         }
-
         function checkMatchingComplete() {
             const question = currentQuiz[currentQuestion];
             let allSelected = true;
@@ -2198,7 +2290,6 @@
             
             document.getElementById('submitButton').disabled = !allSelected;
         }
-
         function checkOrderingComplete() {
             const question = currentQuiz[currentQuestion];
             let allSelected = true;
@@ -2219,7 +2310,6 @@
             
             document.getElementById('submitButton').disabled = !allSelected || hasDuplicates;
         }
-
         function getOrdinalSuffix(num) {
             const j = num % 10;
             const k = num % 100;
@@ -2234,7 +2324,6 @@
             }
             return "th";
         }
-
         function selectOption(index) {
             if (answerSubmitted) return;
             
@@ -2252,7 +2341,6 @@
             // Enable submit button
             document.getElementById('submitButton').disabled = false;
         }
-
         function toggleMultiSelect(index) {
             if (answerSubmitted) return;
             
@@ -2266,7 +2354,6 @@
                 optionDiv.classList.remove('selected');
             }
         }
-
         function checkMatchingAnswer() {
             const question = currentQuiz[currentQuestion];
             let correct = true;
@@ -2281,7 +2368,6 @@
             
             return correct;
         }
-
         function checkMultipleAnswer() {
             const question = currentQuiz[currentQuestion];
             const selectedIndices = [];
@@ -2300,7 +2386,6 @@
             return correctSet.size === selectedSet.size && 
                    [...correctSet].every(val => selectedSet.has(val));
         }
-
         function checkOrderingAnswer() {
             const question = currentQuiz[currentQuestion];
             const order = [];
@@ -2314,7 +2399,6 @@
             // Check if the order matches the correct order
             return order.every((val, idx) => val === question.correct[idx]);
         }
-
         function submitAnswer() {
             if (answerSubmitted) return;
             
@@ -2361,7 +2445,6 @@
                 }
             }
         }
-
         function nextQuestion() {
             currentQuestion++;
             
@@ -2374,7 +2457,6 @@
             document.getElementById('progressFill').style.width = ((currentQuestion + 1) / currentQuiz.length * 100) + '%';
             loadQuestion();
         }
-
         function previousQuestion() {
             if (currentQuestion > 0) {
                 currentQuestion--;
@@ -2383,7 +2465,6 @@
                 loadQuestion();
             }
         }
-
         function showResults() {
             document.getElementById('quizProgress').classList.add('hidden');
             document.getElementById('quizContent').classList.add('hidden');
@@ -2435,7 +2516,6 @@
                 awardAchievement('First Steps');
             }
         }
-
         function saveQuizResult(score, totalQuestions, quizType) {
             db.collection('quizResults').add({
                 userId: currentUser.uid,
@@ -2450,13 +2530,312 @@
                 console.error("Error saving quiz result:", error);
             });
         }
-
         function closeQuiz() {
             document.getElementById('quizModal').classList.remove('active');
         }
-
         // Social Learning & Gamification Functions
         
+        // Level and XP System
+        function calculateLevel(points) {
+            // Level thresholds: 0, 100, 300, 600, 1000, 1500, 2100, 2800, 3600, 4500, ...
+            const levels = [0, 100, 300, 600, 1000, 1500, 2100, 2800, 3600, 4500];
+            
+            for (let i = levels.length - 1; i >= 0; i--) {
+                if (points >= levels[i]) {
+                    return {
+                        level: i + 1,
+                        currentLevelPoints: points - levels[i],
+                        nextLevelPoints: (levels[i+1] || levels[i] + 1000) - levels[i],
+                        progress: (points - levels[i]) / ((levels[i+1] || levels[i] + 1000) - levels[i]) * 100
+                    };
+                }
+            }
+            
+            return {
+                level: 1,
+                currentLevelPoints: points,
+                nextLevelPoints: 100,
+                progress: points / 100 * 100
+            };
+        }
+
+        function updateLevelUI() {
+            if (userData) {
+                const levelInfo = calculateLevel(userData.points || 0);
+                document.getElementById('userLevel').textContent = `Level ${levelInfo.level}`;
+                document.getElementById('levelProgressBar').style.width = `${levelInfo.progress}%`;
+            }
+        }
+
+        // Streak System
+        function updateStreak() {
+            if (!currentUser) return;
+            
+            const userRef = db.collection('users').doc(currentUser.uid);
+            const today = new Date().toDateString();
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            const yesterdayString = yesterday.toDateString();
+            
+            userRef.get().then((doc) => {
+                const userData = doc.data();
+                let currentStreak = userData.currentStreak || 0;
+                let lastActiveDate = userData.lastActiveDate || '';
+                let streakFreezes = userData.streakFreezes || 0;
+                
+                if (lastActiveDate === today) {
+                    // Already active today, do nothing
+                    return;
+                } else if (lastActiveDate === yesterdayString) {
+                    // Consecutive day
+                    currentStreak++;
+                } else {
+                    // Check if we can use a streak freeze
+                    if (streakFreezes > 0) {
+                        // Use a streak freeze
+                        streakFreezes--;
+                        // Keep the streak
+                    } else {
+                        // Reset streak
+                        currentStreak = 1;
+                    }
+                }
+                
+                userRef.update({
+                    currentStreak: currentStreak,
+                    lastActiveDate: today,
+                    streakFreezes: streakFreezes
+                }).then(() => {
+                    if (userData) {
+                        userData.currentStreak = currentStreak;
+                        userData.lastActiveDate = today;
+                        userData.streakFreezes = streakFreezes;
+                    }
+                    
+                    // Update UI
+                    updateStreakUI();
+                });
+            });
+        }
+
+        function updateStreakUI() {
+            if (userData) {
+                document.getElementById('userStreak').textContent = userData.currentStreak || 0;
+                document.getElementById('streakFreezes').textContent = `❄️ ${userData.streakFreezes || 0}`;
+            }
+        }
+
+        // Shop System
+        function showShop() {
+            document.getElementById('shopModal').classList.add('active');
+        }
+
+        function closeShop() {
+            document.getElementById('shopModal').classList.remove('active');
+        }
+
+        function buyItem(item, cost) {
+            if (!currentUser) {
+                showToast('error', 'Sign in required', 'Please sign in to buy items.');
+                showLoginModal();
+                return;
+            }
+            
+            if (userData.coins < cost) {
+                showToast('error', 'Not enough coins', 'You need more coins to buy this item.');
+                return;
+            }
+            
+            const userRef = db.collection('users').doc(currentUser.uid);
+            
+            userRef.update({
+                coins: firebase.firestore.FieldValue.increment(-cost),
+                [item]: firebase.firestore.FieldValue.increment(1)
+            }).then(() => {
+                if (userData) {
+                    userData.coins -= cost;
+                    document.getElementById('userCoins').textContent = userData.coins;
+                }
+                
+                showToast('success', 'Item purchased', `You have successfully purchased the ${item}.`);
+            }).catch((error) => {
+                console.error("Error buying item:", error);
+                showToast('error', 'Error', 'Failed to buy item.');
+            });
+        }
+
+        // Mastery Grid System
+        function loadMasteryGrid() {
+            if (!currentUser) return;
+            
+            db.collection('mastery')
+                .where('userId', '==', currentUser.uid)
+                .get()
+                .then((querySnapshot) => {
+                    const container = document.getElementById('masteryGridContainer');
+                    container.innerHTML = '';
+                    
+                    // Create a table for the mastery grid
+                    const table = document.createElement('table');
+                    table.className = 'w-full text-white';
+                    
+                    // Header row
+                    const headerRow = document.createElement('tr');
+                    headerRow.innerHTML = `
+                        <th class="p-2">Topic</th>
+                        <th class="p-2">Knowledge</th>
+                        <th class="p-2">Application</th>
+                        <th class="p-2">Analysis</th>
+                    `;
+                    table.appendChild(headerRow);
+                    
+                    // Data rows
+                    const topics = ['Group 1 Properties', 'Reactions with Water', 'Reactions with Oxygen', 'Trends'];
+                    const skills = ['knowledge', 'application', 'analysis'];
+                    
+                    topics.forEach(topic => {
+                        const row = document.createElement('tr');
+                        
+                        // Topic cell
+                        const topicCell = document.createElement('td');
+                        topicCell.className = 'p-2 font-semibold';
+                        topicCell.textContent = topic;
+                        row.appendChild(topicCell);
+                        
+                        // Skill cells
+                        skills.forEach(skill => {
+                            const skillCell = document.createElement('td');
+                            skillCell.className = 'p-2';
+                            
+                            // Find the mastery level for this topic and skill
+                            let masteryLevel = 0;
+                            querySnapshot.forEach(doc => {
+                                const mastery = doc.data();
+                                if (mastery.topic === topic && mastery.skill === skill) {
+                                    masteryLevel = mastery.level;
+                                }
+                            });
+                            
+                            // Create a heatmap cell
+                            const heatDiv = document.createElement('div');
+                            heatDiv.className = `mastery-cell mastery-level-${masteryLevel}`;
+                            heatDiv.textContent = masteryLevel;
+                            skillCell.appendChild(heatDiv);
+                            row.appendChild(skillCell);
+                        });
+                        
+                        table.appendChild(row);
+                    });
+                    
+                    container.appendChild(table);
+                })
+                .catch((error) => {
+                    console.error("Error loading mastery grid:", error);
+                });
+        }
+
+        // Peer Review System
+        function loadPeerReviews() {
+            db.collection('peerReviews')
+                .orderBy('createdAt', 'desc')
+                .limit(5)
+                .onSnapshot((querySnapshot) => {
+                    const container = document.getElementById('peerReviewsContainer');
+                    container.innerHTML = '';
+                    
+                    querySnapshot.forEach((doc) => {
+                        const review = doc.data();
+                        const reviewDiv = createPeerReviewElement(review);
+                        container.appendChild(reviewDiv);
+                    });
+                });
+        }
+
+        function createPeerReviewElement(review) {
+            const reviewDiv = document.createElement('div');
+            reviewDiv.className = 'bg-white/90 rounded-lg p-3';
+            
+            reviewDiv.innerHTML = `
+                <div class="flex justify-between items-start mb-2">
+                    <div class="font-semibold text-gray-800">${review.projectTitle}</div>
+                    <div class="flex items-center">
+                        ${Array(5).fill().map((_, i) => 
+                            `<i class="fas fa-star ${i < review.rating ? 'text-yellow-400' : 'text-gray-300'} text-sm"></i>`
+                        ).join('')}
+                    </div>
+                </div>
+                <p class="text-gray-700 text-sm mb-2">${review.comments}</p>
+                <div class="flex justify-between items-center">
+                    <div class="text-xs text-gray-500">by ${review.reviewerName}</div>
+                    <button class="text-xs text-blue-600 hover:text-blue-800" onclick="markReviewHelpful('${review.id}')">
+                        <i class="fas fa-thumbs-up mr-1"></i> Helpful (${review.helpfulCount || 0})
+                    </button>
+                </div>
+            `;
+            
+            return reviewDiv;
+        }
+
+        function markReviewHelpful(reviewId) {
+            if (!currentUser) {
+                showToast('error', 'Sign in required', 'Please sign in to mark reviews as helpful.');
+                showLoginModal();
+                return;
+            }
+            
+            const reviewRef = db.collection('peerReviews').doc(reviewId);
+            
+            reviewRef.update({
+                helpful: firebase.firestore.FieldValue.arrayUnion(currentUser.uid),
+                helpfulCount: firebase.firestore.FieldValue.increment(1)
+            }).then(() => {
+                showToast('success', 'Marked as helpful', 'You marked this review as helpful.');
+                
+                // Award points for helpful feedback
+                awardPoints(5, 'Helpful feedback');
+            }).catch((error) => {
+                console.error("Error marking review as helpful:", error);
+                showToast('error', 'Error', 'Failed to mark review as helpful.');
+            });
+        }
+
+        function updateMastery(activity) {
+            if (!currentUser) return;
+            
+            // Map activities to topics and skills
+            const masteryMap = {
+                'Correct answer': { topic: 'Group 1 Properties', skill: 'knowledge' },
+                'Comment posted': { topic: 'Group 1 Properties', skill: 'application' },
+                'Quiz completed': { topic: 'Group 1 Properties', skill: 'analysis' }
+            };
+            
+            const masteryInfo = masteryMap[activity];
+            if (masteryInfo) {
+                const masteryRef = db.collection('mastery').doc(`${currentUser.uid}_${masteryInfo.topic}_${masteryInfo.skill}`);
+                
+                masteryRef.get().then((doc) => {
+                    let currentLevel = 0;
+                    if (doc.exists) {
+                        currentLevel = doc.data().level;
+                    }
+                    
+                    // Increment mastery level (max 5)
+                    if (currentLevel < 5) {
+                        masteryRef.set({
+                            userId: currentUser.uid,
+                            topic: masteryInfo.topic,
+                            skill: masteryInfo.skill,
+                            level: currentLevel + 1,
+                            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                        }, { merge: true });
+                        
+                        // Reload mastery grid
+                        loadMasteryGrid();
+                    }
+                });
+            }
+        }
+
         function showChallengeModal() {
             if (!currentUser) {
                 showToast('error', 'Sign in required', 'Please sign in to send challenges.');
@@ -2466,11 +2845,9 @@
             
             document.getElementById('challengeModal').classList.add('active');
         }
-
         function closeChallengeModal() {
             document.getElementById('challengeModal').classList.remove('active');
         }
-
         function sendChallenge() {
             if (!currentUser) {
                 showToast('error', 'Sign in required', 'Please sign in to send challenges.');
@@ -2503,7 +2880,6 @@
                 showToast('error', 'Error', 'Failed to send challenge.');
             });
         }
-
         function shareProgress() {
             if (!currentUser) {
                 showToast('error', 'Sign in required', 'Please sign in to share progress.');
@@ -2526,7 +2902,6 @@
                 showToast('info', 'Share this link', window.location.href);
             }
         }
-
         function shareQuizResult() {
             const scoreText = document.getElementById('finalScore').textContent;
             const percentage = Math.round((score / currentQuiz.length) * 100);
@@ -2546,26 +2921,21 @@
                 showToast('info', 'Share this result', `I scored ${scoreText} on the Group 1 Alkali Metals quiz!`);
             }
         }
-
         function challengeFriend() {
             closeQuiz();
             showChallengeModal();
         }
-
         // Authentication functions
         function showLoginModal() {
             document.getElementById('loginModal').classList.add('active');
         }
-
         function closeLoginModal() {
             document.getElementById('loginModal').classList.remove('active');
         }
-
         function showSignupForm() {
             // This would show a signup form instead of login
             showToast('info', 'Sign up', 'Sign up functionality would be implemented here');
         }
-
         function signInWithGoogle() {
             const provider = new firebase.auth.GoogleAuthProvider();
             
@@ -2588,7 +2958,6 @@
                     }
                 });
         }
-
         function signOut() {
             auth.signOut().then(() => {
                 showToast('success', 'Signed out', 'You have been successfully signed out.');
@@ -2596,7 +2965,6 @@
                 console.error("Error signing out:", error);
             });
         }
-
         // Toast notification function
         function showToast(type, title, message) {
             const toastContainer = document.getElementById('toastContainer');
@@ -2633,7 +3001,6 @@
                 }, 300);
             }, 3000);
         }
-
         // Award achievement function
         function awardAchievement(achievementName) {
             if (!currentUser) return;
