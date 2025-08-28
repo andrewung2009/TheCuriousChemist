@@ -321,6 +321,8 @@
             cursor: pointer;
             transition: all 0.3s ease;
             background: white;
+            display: flex;
+            align-items: center;
         }
         
         .quiz-option:hover {
@@ -341,6 +343,123 @@
         .quiz-option.incorrect {
             border-color: #ef4444;
             background: #fee2e2;
+        }
+        
+        .quiz-option input {
+            margin-right: 0.75rem;
+        }
+        
+        .quiz-option label {
+            cursor: pointer;
+            flex: 1;
+        }
+        
+        /* Drag and Drop Styles */
+        .drag-items-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .drag-item {
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 10px 15px;
+            cursor: move;
+            transition: all 0.2s ease;
+        }
+        
+        .drag-item:hover {
+            background: #e5e7eb;
+            transform: translateY(-2px);
+        }
+        
+        .drag-item.dragging {
+            opacity: 0.5;
+        }
+        
+        .drop-targets-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .drop-target {
+            background: #f9fafb;
+            border: 2px dashed #d1d5db;
+            border-radius: 6px;
+            padding: 15px;
+            min-width: 150px;
+            min-height: 50px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+        
+        .drop-target.drag-over {
+            background: #eff6ff;
+            border-color: #3b82f6;
+        }
+        
+        /* Fill in the Blank Styles */
+        .blank-container {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        .blank-input {
+            display: inline-block;
+            width: 120px;
+            padding: 5px 8px;
+            margin: 0 5px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 1rem;
+            text-align: center;
+        }
+        
+        .blank-input:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+        }
+        
+        /* Matching Styles */
+        .matching-container {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .matching-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .matching-item {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .matching-item:hover {
+            background: #f3f4f6;
+        }
+        
+        .matching-item.selected {
+            background: #eef2ff;
+            border-color: #4f46e5;
+        }
+        
+        .matching-item.matched {
+            background: #d1fae5;
+            border-color: #10b981;
+            cursor: default;
         }
         
         /* Progress Bar */
@@ -842,6 +961,20 @@
             .comparison-table th, .comparison-table td {
                 padding: 0.5rem;
             }
+            
+            .matching-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .drag-items-container,
+            .drop-targets-container {
+                justify-content: center;
+            }
+            
+            .blank-input {
+                width: 100px;
+            }
         }
     </style>
 </head>
@@ -930,7 +1063,7 @@
                     <h3 class="font-semibold text-blue-800">Quiz Details</h3>
                 </div>
                 <ul class="text-left text-blue-700 space-y-1">
-                    <li>• 7 multiple-choice questions</li>
+                    <li>• 7 interactive questions</li>
                     <li>• No time limit</li>
                     <li>• Immediate feedback on answers</li>
                     <li>• Results saved to your profile</li>
@@ -1969,7 +2102,7 @@
         let answerSubmitted = false;
         let justSignedIn = false; // Flag to track if user just signed in
         
-        // Quiz questions - Improved for better educational content
+        // Quiz questions - IGCSE Level with Interactive Types
         const preQuizQuestions = [
             {
                 type: 'single',
@@ -1979,11 +2112,32 @@
                 explanation: "Sodium (Na) has atomic number 11. Its electron configuration is [Ne] 3s¹, meaning it has the same configuration as neon plus one electron in the 3s orbital."
             },
             {
-                type: 'single',
-                question: "Group 1 metals are stored under oil because:",
-                options: ["They are expensive", "They react with air and moisture", "They evaporate easily", "They are radioactive"],
-                correct: 1,
+                type: 'drag-drop',
+                question: "Match the Group 1 element to its flame test color:",
+                dragItems: ["Lithium", "Sodium", "Potassium", "Rubidium"],
+                dropTargets: ["Red", "Yellow", "Lilac", "Red-violet"],
+                correct: { "Lithium": "Red", "Sodium": "Yellow", "Potassium": "Lilac", "Rubidium": "Red-violet" },
+                explanation: "Each Group 1 metal produces a characteristic flame color during flame tests: Lithium (red), Sodium (yellow), Potassium (lilac), and Rubidium (red-violet)."
+            },
+            {
+                type: 'fill-blank',
+                question: "Group 1 metals are stored under oil because they react with ______ and ______ in the air.",
+                correct: ["oxygen", "moisture"],
+                caseSensitive: false,
                 explanation: "Group 1 metals are highly reactive and react with both oxygen and moisture in the air. Storing them under oil prevents these reactions."
+            },
+            {
+                type: 'multiple',
+                question: "Which of the following are properties of Group 1 metals? (Select all that apply)",
+                options: [
+                    "Low density", 
+                    "High melting points", 
+                    "Form +1 ions", 
+                    "Good conductors of electricity",
+                    "High ionization energy"
+                ],
+                correct: [0, 2, 3],
+                explanation: "Group 1 metals have low density, form +1 ions, and are good conductors of electricity. They have low melting points and low ionization energy."
             },
             {
                 type: 'single',
@@ -1993,109 +2147,103 @@
                 explanation: "Sodium reacts with cold water to produce sodium hydroxide (NaOH) and hydrogen gas (H₂). The equation is: 2Na + 2H₂O → 2NaOH + H₂."
             },
             {
-                type: 'single',
-                question: "Which Group 1 element produces a lilac flame during its reaction with water?",
-                options: ["Lithium", "Sodium", "Potassium", "Rubidium"],
-                correct: 2,
-                explanation: "Potassium produces a characteristic lilac flame during its reaction with water. This flame test is used to identify potassium ions."
-            },
-            {
-                type: 'single',
-                question: "As you go down Group 1, the first ionization energy:",
-                options: ["Increases", "Decreases", "Stays the same", "Increases then decreases"],
-                correct: 1,
-                explanation: "First ionization energy decreases down Group 1 because the atomic radius increases and the outer electron is further from the nucleus, making it easier to remove."
-            },
-            {
-                type: 'single',
-                question: "Which of these oxides is formed when lithium burns in oxygen?",
-                options: ["Li₂O", "Li₂O₂", "LiO₂", "Li₂O and Li₂O₂"],
-                correct: 0,
-                explanation: "Lithium primarily forms the normal oxide Li₂O when burned in oxygen, unlike other Group 1 metals which form peroxides or superoxides."
-            },
-            {
-                type: 'single',
-                question: "Which statement about Group 1 metals is INCORRECT?",
-                options: [
-                    "They all have one valence electron",
-                    "They form +1 ions",
-                    "They become less reactive down the group",
-                    "They have low melting points"
+                type: 'matching',
+                question: "Match the reaction to the correct observation:",
+                pairs: [
+                    { left: "Lithium + water", right: "Fizzes steadily" },
+                    { left: "Sodium + water", right: "Melts into a ball" },
+                    { left: "Potassium + water", right: "Ignites with lilac flame" }
                 ],
-                correct: 2,
-                explanation: "Group 1 metals become more reactive down the group, not less reactive. This is because it becomes easier to lose the single valence electron."
-            }
-        ];
-        
-        const postQuizQuestions = [
+                correct: 0,
+                explanation: "Lithium fizzes steadily in water, sodium melts into a ball and moves quickly, while potassium reacts violently and may ignite with a lilac flame."
+            },
             {
                 type: 'single',
                 question: "Which Group 1 element has the lowest density and floats on water?",
                 options: ["Sodium", "Lithium", "Cesium", "Rubidium"],
                 correct: 1,
                 explanation: "Lithium has the lowest density (0.534 g/cm³) of all Group 1 metals, which is less than water (1 g/cm³), so it floats on water."
-            },
+            }
+        ];
+        
+        const postQuizQuestions = [
             {
                 type: 'single',
-                question: "Why does potassium react more vigorously with water than sodium?",
-                options: [
-                    "Potassium has more protons",
-                    "Potassium's outer electron is further from the nucleus",
-                    "Potassium is heavier",
-                    "Potassium has a higher melting point"
-                ],
+                question: "Which element in Group 1 forms a peroxide when burned in oxygen?",
+                options: ["Lithium", "Sodium", "Potassium", "Rubidium"],
                 correct: 1,
-                explanation: "Potassium's outer electron is further from the nucleus and experiences less attraction, making it easier to lose. This increases its reactivity compared to sodium."
+                explanation: "Sodium primarily forms the peroxide Na₂O₂ when burned in air, unlike lithium which forms the normal oxide Li₂O, and potassium/rubidium which form superoxides."
             },
             {
-                type: 'single',
-                question: "Which compound does sodium primarily form when it reacts with oxygen?",
-                options: ["Na₂O", "Na₂O₂", "NaO₂", "Both Na₂O and Na₂O₂"],
-                correct: 1,
-                explanation: "Sodium primarily forms the peroxide Na₂O₂ when burned in air, unlike lithium which forms the normal oxide Li₂O."
-            },
-            {
-                type: 'single',
-                question: "What color flame does rubidium produce during its reactions?",
-                options: ["Red", "Yellow", "Lilac", "Red-violet"],
-                correct: 3,
-                explanation: "Rubidium produces a red-violet flame during its reactions. This is characteristic of the element and is used in flame tests to identify rubidium ions."
-            },
-            {
-                type: 'single',
-                question: "Which statement about Group 1 metals is INCORRECT?",
-                options: [
-                    "They all have one valence electron",
-                    "They form +1 ions",
-                    "They are good conductors of electricity",
-                    "They become less reactive down the group"
+                type: 'drag-drop',
+                question: "Match the reaction to the correct observation:",
+                dragItems: [
+                    "Lithium + water", 
+                    "Sodium + water", 
+                    "Potassium + water"
                 ],
-                correct: 3,
-                explanation: "Group 1 metals become more reactive down the group, not less reactive. This is due to decreasing ionization energy down the group."
+                dropTargets: [
+                    "Fizzes steadily", 
+                    "Melts into a ball", 
+                    "Ignites with lilac flame"
+                ],
+                correct: { 
+                    "Lithium + water": "Fizzes steadily", 
+                    "Sodium + water": "Melts into a ball", 
+                    "Potassium + water": "Ignites with lilac flame" 
+                },
+                explanation: "Lithium fizzes steadily in water, sodium melts into a ball and moves quickly, while potassium reacts violently and may ignite with a lilac flame."
+            },
+            {
+                type: 'fill-blank',
+                question: "The reactivity of Group 1 metals ______ down the group.",
+                correct: ["increases"],
+                caseSensitive: false,
+                explanation: "Reactivity increases down Group 1 because the atomic radius increases and the outer electron is further from the nucleus, making it easier to lose."
+            },
+            {
+                type: 'multiple',
+                question: "Which of these are uses of Group 1 metals and their compounds? (Select all that apply)",
+                options: [
+                    "Lithium in batteries",
+                    "Sodium vapor in street lights",
+                    "Potassium in fertilizers",
+                    "Rubidium in atomic clocks",
+                    "All of the above"
+                ],
+                correct: [0, 1, 2, 3, 4],
+                explanation: "All Group 1 metals have important uses: Lithium in batteries, sodium vapor in street lights, potassium in fertilizers, and rubidium in atomic clocks."
             },
             {
                 type: 'single',
-                question: "What is the main reason cesium is the most reactive Group 1 metal?",
-                options: [
-                    "It has the most electrons",
-                    "It has the largest atomic radius",
-                    "It has the highest density",
-                    "It has the lowest melting point"
-                ],
+                question: "What is the formula of the superoxide formed by potassium?",
+                options: ["KO", "KO₂", "K₂O", "K₂O₂"],
                 correct: 1,
-                explanation: "Cesium has the largest atomic radius in Group 1, so its outer electron is furthest from the nucleus and easiest to lose, making it the most reactive."
+                explanation: "Potassium forms the superoxide KO₂ when burned in oxygen, unlike sodium which forms the peroxide Na₂O₂ and lithium which forms the oxide Li₂O."
             },
             {
-                type: 'single',
-                question: "Which observation best describes francium's properties?",
-                options: [
-                    "It's the most stable Group 1 metal",
-                    "It's extremely rare and radioactive",
-                    "It's commonly found in nature",
-                    "It has a very high melting point"
+                type: 'matching',
+                question: "Match the element to its primary oxide type:",
+                pairs: [
+                    { left: "Lithium", right: "Normal oxide (Li₂O)" },
+                    { left: "Sodium", right: "Peroxide (Na₂O₂)" },
+                    { left: "Potassium", right: "Superoxide (KO₂)" }
                 ],
-                correct: 1,
-                explanation: "Francium is extremely rare, highly radioactive, and has a very short half-life (about 22 minutes), making it difficult to study and observe its properties."
+                correct: 0,
+                explanation: "Lithium forms the normal oxide Li₂O, sodium forms the peroxide Na₂O₂, and potassium forms the superoxide KO₂ when burned in oxygen."
+            },
+            {
+                type: 'multiple',
+                question: "Which statements about the extraction of Group 1 metals are correct? (Select all that apply)",
+                options: [
+                    "They are extracted by electrolysis of molten chlorides",
+                    "They can be extracted by reduction with carbon",
+                    "They are found free in nature",
+                    "They are extracted from their ores",
+                    "The process requires a lot of energy"
+                ],
+                correct: [0, 3, 4],
+                explanation: "Group 1 metals are extracted by electrolysis of their molten chlorides, not by reduction with carbon. They are not found free in nature but in ores, and the process requires a lot of energy."
             }
         ];
         
@@ -2402,14 +2550,22 @@
             document.getElementById('feedback').classList.add('hidden');
             answerSubmitted = false;
             
-            // Load options
-            question.options.forEach((option, index) => {
-                const optionDiv = document.createElement('div');
-                optionDiv.className = 'quiz-option';
-                optionDiv.textContent = option;
-                optionDiv.onclick = () => selectOption(index);
-                optionsContainer.appendChild(optionDiv);
-            });
+            // Load options based on question type
+            switch (question.type) {
+                case 'single':
+                case 'multiple':
+                    loadMultipleChoiceQuestion(question, optionsContainer);
+                    break;
+                case 'drag-drop':
+                    loadDragDropQuestion(question, optionsContainer);
+                    break;
+                case 'fill-blank':
+                    loadFillBlankQuestion(question, optionsContainer);
+                    break;
+                case 'matching':
+                    loadMatchingQuestion(question, optionsContainer);
+                    break;
+            }
             
             document.getElementById('submitButton').disabled = true;
             document.getElementById('prevButton').classList.toggle('hidden', currentQuestion === 0);
@@ -2417,33 +2573,306 @@
             selectedOption = null;
         }
         
-        // Select option
-        function selectOption(index) {
-            if (answerSubmitted) return;
+        // Function to load multiple choice questions (single or multiple)
+        function loadMultipleChoiceQuestion(question, container) {
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'quiz-option';
+                optionDiv.dataset.index = index;
+                
+                const input = document.createElement('input');
+                input.type = question.type === 'single' ? 'radio' : 'checkbox';
+                input.name = 'quiz-option';
+                input.id = `option-${index}`;
+                input.value = index;
+                
+                const label = document.createElement('label');
+                label.htmlFor = `option-${index}`;
+                label.textContent = option;
+                
+                optionDiv.appendChild(input);
+                optionDiv.appendChild(label);
+                
+                optionDiv.onclick = () => selectOption(index, question.type);
+                container.appendChild(optionDiv);
+            });
+        }
+        
+        // Function to load drag and drop questions
+        function loadDragDropQuestion(question, container) {
+            const dragItemsContainer = document.createElement('div');
+            dragItemsContainer.className = 'drag-items-container mb-4';
             
-            selectedOption = index;
-            const options = document.querySelectorAll('.quiz-option');
-            
-            // Remove previous selection
-            options.forEach(option => {
-                option.classList.remove('selected');
+            question.dragItems.forEach((item, index) => {
+                const dragItem = document.createElement('div');
+                dragItem.className = 'drag-item';
+                dragItem.draggable = true;
+                dragItem.textContent = item;
+                dragItem.dataset.index = index;
+                
+                dragItem.addEventListener('dragstart', handleDragStart);
+                dragItem.addEventListener('dragend', handleDragEnd);
+                
+                dragItemsContainer.appendChild(dragItem);
             });
             
-            // Add selection to clicked option
-            options[index].classList.add('selected');
+            const dropTargetsContainer = document.createElement('div');
+            dropTargetsContainer.className = 'drop-targets-container';
+            
+            question.dropTargets.forEach((target, index) => {
+                const dropTarget = document.createElement('div');
+                dropTarget.className = 'drop-target';
+                dropTarget.textContent = target;
+                dropTarget.dataset.index = index;
+                
+                dropTarget.addEventListener('dragover', handleDragOver);
+                dropTarget.addEventListener('drop', handleDrop);
+                
+                dropTargetsContainer.appendChild(dropTarget);
+            });
+            
+            container.appendChild(dragItemsContainer);
+            container.appendChild(dropTargetsContainer);
+            
+            // Create a mapping object to store user's answers
+            window.dragDropAnswers = {};
+        }
+        
+        // Function to load fill in the blank questions
+        function loadFillBlankQuestion(question, container) {
+            const blankContainer = document.createElement('div');
+            blankContainer.className = 'blank-container';
+            
+            // Split the question by blanks
+            const parts = question.question.split('____');
+            
+            parts.forEach((part, index) => {
+                if (part) {
+                    const textSpan = document.createElement('span');
+                    textSpan.textContent = part;
+                    blankContainer.appendChild(textSpan);
+                }
+                
+                // Add input field for each blank except the last one
+                if (index < parts.length - 1) {
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.className = 'blank-input';
+                    input.dataset.blankIndex = index;
+                    input.addEventListener('input', () => {
+                        document.getElementById('submitButton').disabled = false;
+                    });
+                    blankContainer.appendChild(input);
+                }
+            });
+            
+            container.appendChild(blankContainer);
+            
+            // Create an array to store user's answers
+            window.fillBlankAnswers = [];
+        }
+        
+        // Function to load matching questions
+        function loadMatchingQuestion(question, container) {
+            const matchingContainer = document.createElement('div');
+            matchingContainer.className = 'matching-container';
+            
+            const leftColumn = document.createElement('div');
+            leftColumn.className = 'matching-column';
+            
+            const rightColumn = document.createElement('div');
+            rightColumn.className = 'matching-column';
+            
+            question.pairs.forEach((pair, index) => {
+                const leftItem = document.createElement('div');
+                leftItem.className = 'matching-item';
+                leftItem.textContent = pair.left;
+                leftItem.dataset.index = index;
+                leftColumn.appendChild(leftItem);
+                
+                const rightItem = document.createElement('div');
+                rightItem.className = 'matching-item';
+                rightItem.textContent = pair.right;
+                rightItem.dataset.index = index;
+                rightColumn.appendChild(rightItem);
+            });
+            
+            matchingContainer.appendChild(leftColumn);
+            matchingContainer.appendChild(rightColumn);
+            container.appendChild(matchingContainer);
+            
+            // Create an array to store user's matches
+            window.matchingAnswers = [];
+            
+            // Add event listeners for matching
+            const leftItems = leftColumn.querySelectorAll('.matching-item');
+            const rightItems = rightColumn.querySelectorAll('.matching-item');
+            
+            leftItems.forEach(item => {
+                item.addEventListener('click', () => handleMatchingSelect(item, 'left'));
+            });
+            
+            rightItems.forEach(item => {
+                item.addEventListener('click', () => handleMatchingSelect(item, 'right'));
+            });
+        }
+        
+        // Functions to handle drag and drop
+        function handleDragStart(e) {
+            e.dataTransfer.setData('text/plain', e.target.dataset.index);
+            e.target.classList.add('dragging');
+        }
+        
+        function handleDragEnd(e) {
+            e.target.classList.remove('dragging');
+        }
+        
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.target.classList.add('drag-over');
+        }
+        
+        function handleDrop(e) {
+            e.preventDefault();
+            e.target.classList.remove('drag-over');
+            
+            const draggedIndex = e.dataTransfer.getData('text/plain');
+            const targetIndex = e.target.dataset.index;
+            
+            // Store the mapping
+            window.dragDropAnswers[draggedIndex] = targetIndex;
+            
+            // Visual feedback
+            e.target.textContent = currentQuiz[currentQuestion].dragItems[draggedIndex] + ' → ' + 
+                          currentQuiz[currentQuestion].dropTargets[targetIndex];
+            
+            document.getElementById('submitButton').disabled = false;
+        }
+        
+        // Function to handle matching selection
+        let selectedMatchingItem = null;
+        
+        function handleMatchingSelect(item, column) {
+            if (selectedMatchingItem === null) {
+                // First selection
+                selectedMatchingItem = { item, column };
+                item.classList.add('selected');
+            } else if (selectedMatchingItem.column === column) {
+                // Deselect if clicking same item
+                selectedMatchingItem.item.classList.remove('selected');
+                selectedMatchingItem = null;
+            } else {
+                // Match items
+                const firstIndex = parseInt(selectedMatchingItem.item.dataset.index);
+                const secondIndex = parseInt(item.dataset.index);
+                
+                // Store the match
+                window.matchingAnswers[firstIndex] = secondIndex;
+                
+                // Visual feedback
+                selectedMatchingItem.item.classList.remove('selected');
+                selectedMatchingItem.item.classList.add('matched');
+                item.classList.add('matched');
+                
+                selectedMatchingItem = null;
+                document.getElementById('submitButton').disabled = false;
+            }
+        }
+        
+        // Updated selectOption function to handle multiple selection
+        function selectOption(index, type) {
+            if (answerSubmitted) return;
+            
+            const options = document.querySelectorAll('.quiz-option');
+            
+            if (type === 'single') {
+                // Remove previous selection
+                options.forEach(option => {
+                    option.classList.remove('selected');
+                    const input = option.querySelector('input');
+                    if (input) input.checked = false;
+                });
+                
+                // Add selection to clicked option
+                options[index].classList.add('selected');
+                const input = options[index].querySelector('input');
+                if (input) input.checked = true;
+                
+                selectedOption = index;
+            } else {
+                // Multiple selection
+                const input = options[index].querySelector('input');
+                input.checked = !input.checked;
+                
+                if (input.checked) {
+                    options[index].classList.add('selected');
+                    if (!selectedOption) selectedOption = [];
+                    selectedOption.push(index);
+                } else {
+                    options[index].classList.remove('selected');
+                    if (selectedOption && selectedOption.includes(index)) {
+                        selectedOption = selectedOption.filter(i => i !== index);
+                        if (selectedOption.length === 0) selectedOption = null;
+                    }
+                }
+            }
             
             // Enable submit button
             document.getElementById('submitButton').disabled = false;
         }
         
-        // Submit answer
+        // Updated submitAnswer function to handle different question types
         function submitAnswer() {
             if (answerSubmitted) return;
             
             const question = currentQuiz[currentQuestion];
-            const isCorrect = selectedOption === question.correct;
-            
+            let isCorrect = false;
             const feedback = document.getElementById('feedback');
+            
+            switch (question.type) {
+                case 'single':
+                    isCorrect = selectedOption === question.correct;
+                    break;
+                case 'multiple':
+                    if (!selectedOption || !Array.isArray(selectedOption)) {
+                        isCorrect = false;
+                    } else {
+                        // Check if all selected options are correct and all correct options are selected
+                        const correctSet = new Set(question.correct);
+                        const selectedSet = new Set(selectedOption);
+                        isCorrect = selectedOption.length === question.correct.length && 
+                                     selectedOption.every(opt => correctSet.has(opt));
+                    }
+                    break;
+                case 'drag-drop':
+                    // Check if all drag items are correctly matched
+                    isCorrect = Object.keys(window.dragDropAnswers).length === question.dragItems.length &&
+                                 Object.entries(window.dragDropAnswers).every(([dragIndex, dropIndex]) => {
+                                     const dragItem = question.dragItems[dragIndex];
+                                     const dropTarget = question.dropTargets[dropIndex];
+                                     return question.correct[dragItem] === dropTarget;
+                                 });
+                    break;
+                case 'fill-blank':
+                    // Check if all blanks are filled correctly
+                    const blankInputs = document.querySelectorAll('.blank-input');
+                    isCorrect = Array.from(blankInputs).every((input, index) => {
+                        const userAnswer = input.value.trim().toLowerCase();
+                        const correctAnswers = Array.isArray(question.correct) ? 
+                            question.correct.map(a => a.toLowerCase()) : 
+                            [question.correct.toLowerCase()];
+                        return correctAnswers.includes(userAnswer);
+                    });
+                    break;
+                case 'matching':
+                    // Check if all matches are correct
+                    isCorrect = window.matchingAnswers.length === question.pairs.length &&
+                                 window.matchingAnswers.every((rightIndex, leftIndex) => {
+                                     return leftIndex === rightIndex; // Assuming correct pairs are in order
+                                 });
+                    break;
+            }
+            
             if (isCorrect) {
                 feedback.className = 'mb-4 p-3 rounded-lg bg-green-100 text-green-800 text-sm';
                 feedback.textContent = 'Correct! ' + question.explanation;
@@ -2465,10 +2894,27 @@
             answerSubmitted = true;
             
             // Show correct answers for visual feedback
-            const options = document.querySelectorAll('.quiz-option');
-            options[question.correct].classList.add('correct');
-            if (selectedOption !== null && selectedOption !== question.correct) {
-                options[selectedOption].classList.add('incorrect');
+            if (question.type === 'single' || question.type === 'multiple') {
+                const options = document.querySelectorAll('.quiz-option');
+                
+                if (question.type === 'single') {
+                    options[question.correct].classList.add('correct');
+                    if (selectedOption !== null && selectedOption !== question.correct) {
+                        options[selectedOption].classList.add('incorrect');
+                    }
+                } else {
+                    question.correct.forEach(correctIndex => {
+                        options[correctIndex].classList.add('correct');
+                    });
+                    
+                    if (selectedOption && Array.isArray(selectedOption)) {
+                        selectedOption.forEach(selectedIndex => {
+                            if (!question.correct.includes(selectedIndex)) {
+                                options[selectedIndex].classList.add('incorrect');
+                            }
+                        });
+                    }
+                }
             }
         }
         
@@ -3063,6 +3509,3 @@
     </script>
 </body>
 </html>
-
-
-
