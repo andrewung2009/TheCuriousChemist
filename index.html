@@ -1064,6 +1064,41 @@
             background: #eef2ff;
         }
         
+        /* Glossary Styles */
+        .glossary-card {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #6366f1;
+            transition: all 0.3s ease;
+        }
+        
+        .glossary-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .glossary-term {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .glossary-term i {
+            margin-right: 0.5rem;
+            color: #6366f1;
+        }
+        
+        .glossary-definition {
+            color: #475569;
+            line-height: 1.6;
+        }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             .sidebar {
@@ -1316,6 +1351,10 @@
                 <a href="#" class="nav-item" onclick="navigateToSection('discussion')">
                     <i class="fas fa-comments"></i>
                     <span>Discussion</span>
+                </a>
+                <a href="#" class="nav-item" onclick="navigateToSection('glossary')">
+                    <i class="fas fa-book"></i>
+                    <span>Glossary</span>
                 </a>
                 <a href="#" class="nav-item" onclick="navigateToSection('quiz')">
                     <i class="fas fa-graduation-cap"></i>
@@ -1839,7 +1878,7 @@
                                 <p class="text-gray-600">
                                     The reaction with water is a <strong>redox reaction</strong> where the metal is oxidized and water is reduced:
                                 </p>
-                                <div class="equation-box">
+                                <div class="equation-box mt-3">
                                     <p class="text-gray-700 mb-2">Oxidation: 2M → 2M⁺ + 2e⁻</p>
                                     <p class="text-gray-700 mb-2">Reduction: 2H₂O + 2e⁻ → 2OH⁻ + H₂</p>
                                     <p class="text-gray-700">Overall: 2M + 2H₂O → 2MOH + H₂</p>
@@ -1975,7 +2014,7 @@
                             </div>
                             
                             <div>
-                                <h5 class="font-semibold text-gray-700 mb-2">Test for Halide Ions</h5>
+font-semibold text-gray-700                                <h5 class=" mb-2">Test for Halide Ions</h5>
                                 <p class="text-gray-600">
                                     The halide ions (Cl⁻, Br⁻, I⁻) can be identified using <strong>silver nitrate solution</strong>:
                                 </p>
@@ -2092,6 +2131,21 @@
                     <div class="comment-form">
                         <input type="text" id="commentInput" class="comment-input" placeholder="Share your thoughts...">
                         <button onclick="addComment()" class="comment-submit">Post</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Glossary Section -->
+            <div id="glossary-section" class="content-section" style="display: none;">
+                <div class="content-card fade-in">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-book mr-2 text-indigo-600"></i>
+                        Glossary
+                    </h3>
+                    <p class="text-gray-600 mb-6">Key terms and concepts related to Group 1 Alkali Metals</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-4" id="glossaryContainer">
+                        <!-- Glossary terms will be loaded here -->
                     </div>
                 </div>
             </div>
@@ -2443,6 +2497,58 @@
             }
         ];
         
+        // Glossary terms
+        const glossaryTerms = [
+            {
+                term: "Alkali Metals",
+                definition: "Group 1 elements in the periodic table (Li, Na, K, Rb, Cs, Fr). They are highly reactive metals with one electron in their outer shell."
+            },
+            {
+                term: "Electron Configuration",
+                definition: "The arrangement of electrons in an atom. For Group 1 metals, it ends with ns¹ (e.g., Li: 2,1; Na: 2,8,1; K: 2,8,8,1)."
+            },
+            {
+                term: "Ionization Energy",
+                definition: "The energy required to remove the most loosely bound electron from an atom. It decreases down Group 1 as atomic radius increases."
+            },
+            {
+                term: "Reactivity",
+                definition: "The tendency of a substance to undergo chemical reaction. For Group 1 metals, reactivity increases down the group due to decreasing ionization energy."
+            },
+            {
+                term: "Flame Test",
+                definition: "A qualitative test used to identify metal ions by the color they impart to a flame: Li (red), Na (yellow), K (lilac), Rb (red-violet)."
+            },
+            {
+                term: "Electrolysis",
+                definition: "A process that uses electric current to drive a non-spontaneous chemical reaction. Used to extract Group 1 metals from their molten chlorides."
+            },
+            {
+                term: "Oxide",
+                definition: "A compound containing oxygen and another element. Group 1 metals form different types: normal oxides (Li₂O), peroxides (Na₂O₂), and superoxides (KO₂)."
+            },
+            {
+                term: "Peroxide",
+                definition: "A compound containing an oxygen-oxygen single bond or the peroxide anion O₂²⁻. Sodium forms Na₂O₂ when burned in oxygen."
+            },
+            {
+                term: "Superoxide",
+                definition: "A compound containing the superoxide anion O₂⁻. Potassium, rubidium, and cesium form superoxides when burned in oxygen."
+            },
+            {
+                term: "Halide",
+                definition: "A binary compound of a halogen with another element or group. Group 1 metals form ionic halides (e.g., NaCl, KBr)."
+            },
+            {
+                term: "Metallic Bonding",
+                definition: "The bonding in metals, consisting of positive metal ions in a 'sea' of delocalized electrons. Relatively weak in Group 1 metals, making them soft."
+            },
+            {
+                term: "Atomic Radius",
+                definition: "The distance from the center of the nucleus to the outermost electron shell. Increases down Group 1 as more electron shells are added."
+            }
+        ];
+        
         // Initialize the app
         document.addEventListener('DOMContentLoaded', function() {
             // Check authentication state on page load
@@ -2555,6 +2661,11 @@
             // Close sidebar on mobile
             if (window.innerWidth <= 768) {
                 toggleSidebar();
+            }
+            
+            // Load glossary if glossary section is selected
+            if (sectionName === 'glossary') {
+                loadGlossary();
             }
         }
         
@@ -3390,9 +3501,9 @@
                 
                 // Award points
                 awardPoints(20, 'Created study group');
-            }).catch((error) => {
-                console.error("Error creating study group:", error);
-                showToast('error', 'Error', 'Failed to create study group.');
+            }).catch((error) => creating study group:", error);
+ {
+                console.error("Error                showToast('error', 'Error', 'Failed to create study group.');
             }).finally(() => {
                 hideLoading();
             });
@@ -3573,6 +3684,25 @@
                 showToast('error', 'Error', 'Failed to post comment.');
             }).finally(() => {
                 hideLoading();
+            });
+        }
+        
+        // Load glossary
+        function loadGlossary() {
+            const container = document.getElementById('glossaryContainer');
+            container.innerHTML = '';
+            
+            glossaryTerms.forEach(item => {
+                const termCard = document.createElement('div');
+                termCard.className = 'glossary-card';
+                termCard.innerHTML = `
+                    <div class="glossary-term">
+                        <i class="fas fa-bookmark mr-2"></i>
+                        ${item.term}
+                    </div>
+                    <div class="glossary-definition">${item.definition}</div>
+                `;
+                container.appendChild(termCard);
             });
         }
         
