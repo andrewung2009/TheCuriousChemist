@@ -543,6 +543,22 @@
             margin-right: 0.25rem;
         }
         
+        .coins-display {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            margin-right: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .coins-display i {
+            margin-right: 0.25rem;
+        }
+        
         .notification-badge {
             position: absolute;
             top: -8px;
@@ -886,6 +902,86 @@
         .mastery-level-3 { background-color: #a7f3d0; color: #065f46; }
         .mastery-level-4 { background-color: #34d399; color: white; }
         .mastery-level-5 { background-color: #10b981; color: white; }
+        
+        /* Create Study Group Form */
+        .create-group-form {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+        
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: #2563eb;
+        }
+        
+        /* Peer Review Form */
+        .peer-review-form {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .rating-input {
+            display: flex;
+            gap: 0.25rem;
+            margin-bottom: 1rem;
+        }
+        
+        .star-rating {
+            font-size: 1.5rem;
+            color: #d1d5db;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .star-rating.active {
+            color: #fbbf24;
+        }
+        
+        /* Loading overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        
+        .loading-content {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -942,6 +1038,10 @@
                         <i class="fas fa-coins"></i>
                         <span id="userPoints">0</span> pts
                     </div>
+                    <div class="coins-display">
+                        <i class="fas fa-coins"></i>
+                        <span id="userCoins">0</span> coins
+                    </div>
                     <div class="ml-2 flex items-center">
                         <i class="fas fa-fire text-orange-500"></i>
                         <span class="text-white ml-1" id="userStreak">0</span> day streak
@@ -976,9 +1076,14 @@
         
         <!-- Study Groups Section -->
         <div class="mb-6">
-            <h2 class="text-xl font-bold text-white mb-3">
-                <i class="fas fa-users mr-2"></i>Study Circles
-            </h2>
+            <div class="flex justify-between items-center mb-3">
+                <h2 class="text-xl font-bold text-white">
+                    <i class="fas fa-users mr-2"></i>Study Circles
+                </h2>
+                <button class="challenge-button" onclick="showCreateStudyGroup()">
+                    <i class="fas fa-plus mr-1"></i> Create Group
+                </button>
+            </div>
             <div id="studyGroupsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <!-- Study groups will be loaded here -->
             </div>
@@ -996,9 +1101,14 @@
         
         <!-- Peer Review Section -->
         <div class="bg-white/10 backdrop-blur-md rounded-xl p-4 mb-6">
-            <h2 class="text-xl font-bold text-white mb-3 text-center">
-                <i class="fas fa-comments mr-2"></i>Peer Reviews
-            </h2>
+            <div class="flex justify-between items-center mb-3">
+                <h2 class="text-xl font-bold text-white">
+                    <i class="fas fa-comments mr-2"></i>Peer Reviews
+                </h2>
+                <button class="challenge-button" onclick="showCreatePeerReview()">
+                    <i class="fas fa-plus mr-1"></i> Write Review
+                </button>
+            </div>
             <div id="peerReviewsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <!-- Peer reviews will be loaded here -->
             </div>
@@ -1437,16 +1547,6 @@
                     </div>
                 </div>
                 
-                <!-- Avatar Item -->
-                <div class="bg-gray-100 rounded-lg p-4">
-                    <h3 class="font-semibold text-gray-800 mb-2">Cool Avatar Frame</h3>
-                    <p class="text-gray-600 text-sm mb-3">Show off with a special avatar frame.</p>
-                    <div class="flex justify-between items-center">
-                        <span class="text-yellow-600 font-semibold">200 coins</span>
-                        <button class="bg-blue-600 text-white px-3 py-1 rounded-lg text-sm" onclick="buyItem('avatarFrame', 200)">Buy</button>
-                    </div>
-                </div>
-                
                 <!-- Hint Reveal -->
                 <div class="bg-gray-100 rounded-lg p-4">
                     <h3 class="font-semibold text-gray-800 mb-2">Hint Reveal</h3>
@@ -1456,12 +1556,113 @@
                         <button class="bg-blue-600 text-white px-3 py-1 rounded-lg text-sm" onclick="buyItem('hintReveal', 30)">Buy</button>
                     </div>
                 </div>
+                
+                <!-- Extra Quiz Attempt -->
+                <div class="bg-gray-100 rounded-lg p-4">
+                    <h3 class="font-semibold text-gray-800 mb-2">Extra Quiz Attempt</h3>
+                    <p class="text-gray-600 text-sm mb-3">Get an extra attempt on your next quiz.</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-yellow-600 font-semibold">40 coins</span>
+                        <button class="bg-blue-600 text-white px-3 py-1 rounded-lg text-sm" onclick="buyItem('extraAttempt', 40)">Buy</button>
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
+    
+    <!-- Create Study Group Modal -->
+    <div id="createStudyGroupModal" class="quiz-modal">
+        <div class="quiz-content">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-gray-800">Create Study Group</h2>
+                <button onclick="closeCreateStudyGroup()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <form id="createStudyGroupForm">
+                <div class="form-group">
+                    <label class="form-label" for="groupName">Group Name</label>
+                    <input type="text" id="groupName" class="form-input" placeholder="Enter group name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="groupDescription">Description</label>
+                    <textarea id="groupDescription" class="form-input" rows="3" placeholder="Describe your study group" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="groupGoal">Goal</label>
+                    <input type="text" id="groupGoal" class="form-input" placeholder="What's the goal of this group?" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="groupMaxMembers">Max Members</label>
+                    <select id="groupMaxMembers" class="form-input" required>
+                        <option value="5">5 members</option>
+                        <option value="10">10 members</option>
+                        <option value="15">15 members</option>
+                        <option value="20">20 members</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition">
+                    Create Group
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Create Peer Review Modal -->
+    <div id="createPeerReviewModal" class="quiz-modal">
+        <div class="quiz-content">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-gray-800">Write a Peer Review</h2>
+                <button onclick="closeCreatePeerReview()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <form id="createPeerReviewForm">
+                <div class="form-group">
+                    <label class="form-label" for="reviewProject">Project/Topic</label>
+                    <input type="text" id="reviewProject" class="form-input" placeholder="What are you reviewing?" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Rating</label>
+                    <div class="rating-input" id="ratingInput">
+                        <i class="fas fa-star star-rating" data-rating="1"></i>
+                        <i class="fas fa-star star-rating" data-rating="2"></i>
+                        <i class="fas fa-star star-rating" data-rating="3"></i>
+                        <i class="fas fa-star star-rating" data-rating="4"></i>
+                        <i class="fas fa-star star-rating" data-rating="5"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="reviewComments">Comments</label>
+                    <textarea id="reviewComments" class="form-input" rows="4" placeholder="Share your thoughts and feedback" required></textarea>
+                </div>
+                
+                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition">
+                    Submit Review
+                </button>
+            </form>
         </div>
     </div>
     
     <!-- Toast Container -->
     <div id="toastContainer"></div>
+    
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p class="mt-2">Loading...</p>
+        </div>
+    </div>
+    
     <script>
         // Firebase Configuration with your provided keys
         const firebaseConfig = {
@@ -1473,10 +1674,12 @@
             appId: "1:806417495419:web:5b80607e8a23e96da4f9de",
             measurementId: "G-S76E52MQ37"
         };
+        
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
+        
         // Global variables
         let currentUser = null;
         let userData = null;
@@ -1490,6 +1693,8 @@
         let studyGroups = [];
         let comments = [];
         let leaderboard = [];
+        let selectedRating = 0;
+        
         // Initialize the app
         document.addEventListener('DOMContentLoaded', function() {
             // Check authentication state
@@ -1511,11 +1716,19 @@
                     initializeApp();
                 }
             });
+            
             // Set up login form
             document.getElementById('loginForm').addEventListener('submit', (e) => {
                 e.preventDefault();
                 const email = document.getElementById('email').value;
                 const password = document.getElementById('password').value;
+                
+                if (!isValidEmail(email)) {
+                    showToast('error', 'Invalid Email', 'Please enter a valid email address');
+                    return;
+                }
+                
+                showLoading();
                 
                 auth.signInWithEmailAndPassword(email, password)
                     .then((userCredential) => {
@@ -1535,8 +1748,32 @@
                         } else {
                             showToast('error', 'Sign in failed', errorMessage);
                         }
+                    })
+                    .finally(() => {
+                        hideLoading();
                     });
             });
+            
+            // Set up create study group form
+            document.getElementById('createStudyGroupForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                createStudyGroup();
+            });
+            
+            // Set up create peer review form
+            document.getElementById('createPeerReviewForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                createPeerReview();
+            });
+            
+            // Set up rating input
+            document.querySelectorAll('.star-rating').forEach(star => {
+                star.addEventListener('click', function() {
+                    selectedRating = parseInt(this.dataset.rating);
+                    updateStarDisplay();
+                });
+            });
+            
             // Animate cards on scroll
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1553,7 +1790,11 @@
                 card.style.transition = 'all 0.5s ease';
                 observer.observe(card);
             });
+            
+            // Seed initial data
+            seedInitialData();
         });
+        
         // Initialize app data
         function initializeApp() {
             loadStudyGroups();
@@ -1575,6 +1816,7 @@
                 }, 1000);
             }
         }
+        
         // Load user data from Firestore
         function loadUserData(userId) {
             const userRef = db.collection('users').doc(userId);
@@ -1591,6 +1833,7 @@
                 console.error("Error getting user data:", error);
             });
         }
+        
         // Create new user in Firestore
         function createNewUser(userId) {
             const userRef = db.collection('users').doc(userId);
@@ -1629,6 +1872,7 @@
                 console.error("Error creating user:", error);
             });
         }
+        
         // Update user interface with user data
         function updateUserInterface() {
             if (userData) {
@@ -1648,6 +1892,7 @@
                 document.getElementById('totalPointsEarned').textContent = `${userData.points} pts`;
             }
         }
+        
         // Update user profile in navigation
         function updateUserProfile(user) {
             if (user) {
@@ -1659,6 +1904,7 @@
                 `;
             }
         }
+        
         // Update achievements display
         function updateAchievements() {
             const container = document.getElementById('achievementsContainer');
@@ -1680,21 +1926,33 @@
                 });
             }
         }
+        
         // Load study groups from Firestore
         function loadStudyGroups() {
-            db.collection('studyGroups').get().then((querySnapshot) => {
-                const container = document.getElementById('studyGroupsContainer');
-                container.innerHTML = '';
-                
-                querySnapshot.forEach((doc) => {
-                    const group = doc.data();
-                    const groupCard = createStudyGroupCard(group, doc.id);
-                    container.appendChild(groupCard);
+            const container = document.getElementById('studyGroupsContainer');
+            container.innerHTML = '<div class="spinner"></div>';
+            
+            db.collection('studyGroups')
+                .orderBy('createdAt', 'desc')
+                .onSnapshot((querySnapshot) => {
+                    container.innerHTML = '';
+                    
+                    if (querySnapshot.empty) {
+                        container.innerHTML = '<p class="text-white text-center">No study groups yet. Create one!</p>';
+                        return;
+                    }
+                    
+                    querySnapshot.forEach((doc) => {
+                        const group = doc.data();
+                        const groupCard = createStudyGroupCard(group, doc.id);
+                        container.appendChild(groupCard);
+                    });
+                }, (error) => {
+                    console.error("Error loading study groups:", error);
+                    container.innerHTML = '<p class="text-white text-center">Error loading study groups.</p>';
                 });
-            }).catch((error) => {
-                console.error("Error loading study groups:", error);
-            });
         }
+        
         // Create study group card
         function createStudyGroupCard(group, groupId) {
             const card = document.createElement('div');
@@ -1704,10 +1962,14 @@
                 `<div class="member-avatar">${member.charAt(0)}</div>`
             ).join('') : '';
             
+            const isMember = currentUser && group.members && group.members.includes(currentUser.uid);
+            
             card.innerHTML = `
                 <div class="study-group-header">
                     <h3 class="study-group-title">${group.name}</h3>
-                    <button class="join-button" onclick="joinStudyGroup('${groupId}')">Join</button>
+                    <button class="join-button" onclick="${isMember ? 'leaveStudyGroup' : 'joinStudyGroup'}('${groupId}')" ${isMember ? 'style="background-color: #ef4444;"' : ''}>
+                        ${isMember ? 'Leave' : 'Join'}
+                    </button>
                 </div>
                 <p class="text-white/80 text-sm mb-2">${group.description}</p>
                 <div class="mb-2">
@@ -1719,7 +1981,11 @@
                         <div class="bg-yellow-400 h-2 rounded-full" style="width: ${group.progress || 0}%"></div>
                     </div>
                 </div>
-                <div class="study-group-members">
+                <div class="flex justify-between text-xs text-white/70">
+                    <span>${group.memberCount || 0}/${group.maxMembers || 10} members</span>
+                    <span>Created by ${group.creatorName || 'Unknown'}</span>
+                </div>
+                <div class="study-group-members mt-2">
                     ${membersHtml}
                     ${group.memberCount > 3 ? `<div class="member-avatar">+${group.memberCount - 3}</div>` : ''}
                 </div>
@@ -1727,6 +1993,45 @@
             
             return card;
         }
+        
+        // Create new study group
+        function createStudyGroup() {
+            if (!currentUser) {
+                showToast('error', 'Sign in required', 'Please sign in to create study groups.');
+                showLoginModal();
+                return;
+            }
+            
+            const name = document.getElementById('groupName').value;
+            const description = document.getElementById('groupDescription').value;
+            const goal = document.getElementById('groupGoal').value;
+            const maxMembers = parseInt(document.getElementById('groupMaxMembers').value);
+            
+            showLoading();
+            
+            db.collection('studyGroups').add({
+                name: name,
+                description: description,
+                goal: goal,
+                maxMembers: maxMembers,
+                creatorId: currentUser.uid,
+                creatorName: userData.displayName,
+                members: [currentUser.uid],
+                memberCount: 1,
+                progress: 0,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                showToast('success', 'Group Created', 'Your study group has been created successfully.');
+                closeCreateStudyGroup();
+                document.getElementById('createStudyGroupForm').reset();
+            }).catch((error) => {
+                console.error("Error creating study group:", error);
+                showToast('error', 'Error', 'Failed to create study group.');
+            }).finally(() => {
+                hideLoading();
+            });
+        }
+        
         // Join study group
         function joinStudyGroup(groupId) {
             if (!currentUser) {
@@ -1737,44 +2042,98 @@
             
             const groupRef = db.collection('studyGroups').doc(groupId);
             
-            groupRef.update({
-                members: firebase.firestore.FieldValue.arrayUnion(currentUser.uid),
-                memberCount: firebase.firestore.FieldValue.increment(1)
-            }).then(() => {
-                showToast('success', 'Joined group', 'You have successfully joined the study group.');
-                loadStudyGroups();
+            groupRef.get().then((doc) => {
+                const group = doc.data();
+                
+                if (group.members.includes(currentUser.uid)) {
+                    showToast('info', 'Already Member', 'You are already a member of this group.');
+                    return;
+                }
+                
+                if (group.memberCount >= group.maxMembers) {
+                    showToast('error', 'Group Full', 'This study group is already full.');
+                    return;
+                }
+                
+                groupRef.update({
+                    members: firebase.firestore.FieldValue.arrayUnion(currentUser.uid),
+                    memberCount: firebase.firestore.FieldValue.increment(1)
+                }).then(() => {
+                    showToast('success', 'Joined Group', 'You have successfully joined the study group.');
+                    awardPoints(15, 'Joined study group');
+                }).catch((error) => {
+                    console.error("Error joining study group:", error);
+                    showToast('error', 'Error', 'Failed to join study group.');
+                });
             }).catch((error) => {
-                console.error("Error joining study group:", error);
+                console.error("Error getting study group:", error);
                 showToast('error', 'Error', 'Failed to join study group.');
             });
         }
+        
+        // Leave study group
+        function leaveStudyGroup(groupId) {
+            if (!currentUser) {
+                showToast('error', 'Sign in required', 'Please sign in to leave study groups.');
+                showLoginModal();
+                return;
+            }
+            
+            const groupRef = db.collection('studyGroups').doc(groupId);
+            
+            groupRef.update({
+                members: firebase.firestore.FieldValue.arrayRemove(currentUser.uid),
+                memberCount: firebase.firestore.FieldValue.increment(-1)
+            }).then(() => {
+                showToast('success', 'Left Group', 'You have successfully left the study group.');
+            }).catch((error) => {
+                console.error("Error leaving study group:", error);
+                showToast('error', 'Error', 'Failed to leave study group.');
+            });
+        }
+        
         // Load comments from Firestore
         function loadComments() {
+            const container = document.getElementById('commentsContainer');
+            container.innerHTML = '<div class="spinner"></div>';
+            
             db.collection('comments')
                 .orderBy('createdAt', 'desc')
                 .onSnapshot((querySnapshot) => {
-                    const container = document.getElementById('commentsContainer');
                     container.innerHTML = '';
+                    
+                    if (querySnapshot.empty) {
+                        container.innerHTML = '<p class="text-gray-500 text-center">No comments yet. Be the first to comment!</p>';
+                        return;
+                    }
                     
                     querySnapshot.forEach((doc) => {
                         const comment = doc.data();
                         const commentDiv = createCommentElement(comment);
                         container.appendChild(commentDiv);
                     });
+                }, (error) => {
+                    console.error("Error loading comments:", error);
+                    container.innerHTML = '<p class="text-gray-500 text-center">Error loading comments.</p>';
                 });
         }
+        
         // Create comment element
         function createCommentElement(comment) {
             const commentDiv = document.createElement('div');
             commentDiv.className = 'comment';
             
+            const date = comment.createdAt ? new Date(comment.createdAt.toDate()).toLocaleDateString() : 'Unknown date';
+            
             commentDiv.innerHTML = `
                 <div class="comment-author">${comment.authorName || 'Anonymous'}</div>
+                <div class="text-xs text-gray-500 mb-1">${date}</div>
                 <div class="comment-text">${comment.text}</div>
             `;
             
             return commentDiv;
         }
+        
         // Add comment
         function addComment() {
             if (!currentUser) {
@@ -1787,8 +2146,11 @@
             const commentText = commentInput.value.trim();
             
             if (!commentText) {
+                showToast('error', 'Empty Comment', 'Please enter a comment before posting.');
                 return;
             }
+            
+            showLoading();
             
             db.collection('comments').add({
                 authorId: currentUser.uid,
@@ -1797,31 +2159,45 @@
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
             }).then(() => {
                 commentInput.value = '';
-                showToast('success', 'Comment posted', 'Your comment has been posted successfully.');
+                showToast('success', 'Comment Posted', 'Your comment has been posted successfully.');
                 
                 // Award points for participation
                 awardPoints(10, 'Comment posted');
             }).catch((error) => {
                 console.error("Error adding comment:", error);
                 showToast('error', 'Error', 'Failed to post comment.');
+            }).finally(() => {
+                hideLoading();
             });
         }
+        
         // Load leaderboard from Firestore
         function loadLeaderboard() {
+            const container = document.getElementById('leaderboardContainer');
+            container.innerHTML = '<div class="spinner"></div>';
+            
             db.collection('users')
                 .orderBy('points', 'desc')
                 .limit(3)
                 .onSnapshot((querySnapshot) => {
-                    const container = document.getElementById('leaderboardContainer');
                     container.innerHTML = '';
+                    
+                    if (querySnapshot.empty) {
+                        container.innerHTML = '<p class="text-white text-center">No leaderboard data yet.</p>';
+                        return;
+                    }
                     
                     querySnapshot.forEach((doc, index) => {
                         const user = doc.data();
                         const leaderboardItem = createLeaderboardItem(user, index);
                         container.appendChild(leaderboardItem);
                     });
+                }, (error) => {
+                    console.error("Error loading leaderboard:", error);
+                    container.innerHTML = '<p class="text-white text-center">Error loading leaderboard.</p>';
                 });
         }
+        
         // Create leaderboard item
         function createLeaderboardItem(user, index) {
             const item = document.createElement('div');
@@ -1844,6 +2220,7 @@
             
             return item;
         }
+        
         // Award points to user
         function awardPoints(points, reason) {
             if (!currentUser) return;
@@ -1864,7 +2241,7 @@
                     updateLevelUI();
                 }
                 
-                showToast('success', 'Points awarded', `+${points} points for ${reason}`);
+                showToast('success', 'Points Awarded', `+${points} points for ${reason}`);
                 
                 // Update streak
                 updateStreak();
@@ -1878,6 +2255,7 @@
                 console.error("Error awarding points:", error);
             });
         }
+        
         // Check and award achievements
         function checkAchievements() {
             if (!userData) return;
@@ -1897,6 +2275,10 @@
                 newAchievements.push('Alkali Master');
             }
             
+            if (userData.currentStreak >= 7 && !userData.achievements.includes('Week Warrior')) {
+                newAchievements.push('Week Warrior');
+            }
+            
             if (newAchievements.length > 0) {
                 const userRef = db.collection('users').doc(currentUser.uid);
                 
@@ -1913,10 +2295,12 @@
                 });
             }
         }
+        
         // Show achievement notification
         function showAchievement(achievementName) {
             showToast('success', 'Achievement Unlocked!', achievementName);
         }
+        
         // Tab functionality
         function showTab(tabName) {
             // Hide all tab contents
@@ -1937,6 +2321,7 @@
             // Add active class to clicked tab
             event.target.classList.add('active');
         }
+        
         // Quiz functions
         const preQuizQuestions = [
             {
@@ -2012,6 +2397,7 @@
                 explanation: "Sodium reacts vigorously with water, fizzing rapidly and moving around on the water surface."
             }
         ];
+        
         const postQuizQuestions = [
             {
                 type: 'single',
@@ -2091,6 +2477,7 @@
                 explanation: "Potassium produces a characteristic lilac flame during its reaction with water. Lithium produces a red flame, sodium produces a yellow flame, and rubidium produces a red-violet flame."
             }
         ];
+        
         function startPreQuiz() {
             if (!currentUser) {
                 showToast('error', 'Sign in required', 'Please sign in to take quizzes.');
@@ -2106,6 +2493,7 @@
             answerSubmitted = false;
             showQuiz();
         }
+        
         function startPostQuiz() {
             if (!currentUser) {
                 showToast('error', 'Sign in required', 'Please sign in to take quizzes.');
@@ -2121,6 +2509,7 @@
             answerSubmitted = false;
             showQuiz();
         }
+        
         function showQuiz() {
             document.getElementById('quizModal').classList.add('active');
             document.getElementById('quizProgress').classList.remove('hidden');
@@ -2135,6 +2524,7 @@
             
             loadQuestion();
         }
+        
         function loadQuestion() {
             const question = currentQuiz[currentQuestion];
             document.getElementById('questionText').textContent = question.question;
@@ -2169,7 +2559,7 @@
                 const metalHeader = document.createElement('th');
                 metalHeader.textContent = 'Metal';
                 const oxideHeader = document.createElement('th');
-                oxideHeader.textContent = 'Oxide Type';
+                oxideHeader.textContent = 'Reaction';
                 headerRow.appendChild(metalHeader);
                 headerRow.appendChild(oxideHeader);
                 table.appendChild(headerRow);
@@ -2277,6 +2667,7 @@
             
             selectedOption = null;
         }
+        
         function checkMatchingComplete() {
             const question = currentQuiz[currentQuestion];
             let allSelected = true;
@@ -2290,6 +2681,7 @@
             
             document.getElementById('submitButton').disabled = !allSelected;
         }
+        
         function checkOrderingComplete() {
             const question = currentQuiz[currentQuestion];
             let allSelected = true;
@@ -2310,6 +2702,7 @@
             
             document.getElementById('submitButton').disabled = !allSelected || hasDuplicates;
         }
+        
         function getOrdinalSuffix(num) {
             const j = num % 10;
             const k = num % 100;
@@ -2324,6 +2717,7 @@
             }
             return "th";
         }
+        
         function selectOption(index) {
             if (answerSubmitted) return;
             
@@ -2341,6 +2735,7 @@
             // Enable submit button
             document.getElementById('submitButton').disabled = false;
         }
+        
         function toggleMultiSelect(index) {
             if (answerSubmitted) return;
             
@@ -2354,6 +2749,7 @@
                 optionDiv.classList.remove('selected');
             }
         }
+        
         function checkMatchingAnswer() {
             const question = currentQuiz[currentQuestion];
             let correct = true;
@@ -2368,6 +2764,7 @@
             
             return correct;
         }
+        
         function checkMultipleAnswer() {
             const question = currentQuiz[currentQuestion];
             const selectedIndices = [];
@@ -2386,6 +2783,7 @@
             return correctSet.size === selectedSet.size && 
                    [...correctSet].every(val => selectedSet.has(val));
         }
+        
         function checkOrderingAnswer() {
             const question = currentQuiz[currentQuestion];
             const order = [];
@@ -2399,6 +2797,7 @@
             // Check if the order matches the correct order
             return order.every((val, idx) => val === question.correct[idx]);
         }
+        
         function submitAnswer() {
             if (answerSubmitted) return;
             
@@ -2445,6 +2844,7 @@
                 }
             }
         }
+        
         function nextQuestion() {
             currentQuestion++;
             
@@ -2457,6 +2857,7 @@
             document.getElementById('progressFill').style.width = ((currentQuestion + 1) / currentQuiz.length * 100) + '%';
             loadQuestion();
         }
+        
         function previousQuestion() {
             if (currentQuestion > 0) {
                 currentQuestion--;
@@ -2465,6 +2866,7 @@
                 loadQuestion();
             }
         }
+        
         function showResults() {
             document.getElementById('quizProgress').classList.add('hidden');
             document.getElementById('quizContent').classList.add('hidden');
@@ -2516,6 +2918,7 @@
                 awardAchievement('First Steps');
             }
         }
+        
         function saveQuizResult(score, totalQuestions, quizType) {
             db.collection('quizResults').add({
                 userId: currentUser.uid,
@@ -2530,9 +2933,11 @@
                 console.error("Error saving quiz result:", error);
             });
         }
+        
         function closeQuiz() {
             document.getElementById('quizModal').classList.remove('active');
         }
+        
         // Social Learning & Gamification Functions
         
         // Level and XP System
@@ -2657,7 +3062,7 @@
                     document.getElementById('userCoins').textContent = userData.coins;
                 }
                 
-                showToast('success', 'Item purchased', `You have successfully purchased the ${item}.`);
+                showToast('success', 'Item Purchased', `You have successfully purchased the ${item}.`);
             }).catch((error) => {
                 console.error("Error buying item:", error);
                 showToast('error', 'Error', 'Failed to buy item.');
@@ -2668,11 +3073,13 @@
         function loadMasteryGrid() {
             if (!currentUser) return;
             
+            const container = document.getElementById('masteryGridContainer');
+            container.innerHTML = '<div class="spinner"></div>';
+            
             db.collection('mastery')
                 .where('userId', '==', currentUser.uid)
                 .get()
                 .then((querySnapshot) => {
-                    const container = document.getElementById('masteryGridContainer');
                     container.innerHTML = '';
                     
                     // Create a table for the mastery grid
@@ -2731,29 +3138,42 @@
                 })
                 .catch((error) => {
                     console.error("Error loading mastery grid:", error);
+                    container.innerHTML = '<p class="text-white text-center">Error loading mastery grid.</p>';
                 });
         }
 
         // Peer Review System
         function loadPeerReviews() {
+            const container = document.getElementById('peerReviewsContainer');
+            container.innerHTML = '<div class="spinner"></div>';
+            
             db.collection('peerReviews')
                 .orderBy('createdAt', 'desc')
                 .limit(5)
                 .onSnapshot((querySnapshot) => {
-                    const container = document.getElementById('peerReviewsContainer');
                     container.innerHTML = '';
+                    
+                    if (querySnapshot.empty) {
+                        container.innerHTML = '<p class="text-white text-center">No peer reviews yet. Write one!</p>';
+                        return;
+                    }
                     
                     querySnapshot.forEach((doc) => {
                         const review = doc.data();
-                        const reviewDiv = createPeerReviewElement(review);
+                        const reviewDiv = createPeerReviewElement(review, doc.id);
                         container.appendChild(reviewDiv);
                     });
+                }, (error) => {
+                    console.error("Error loading peer reviews:", error);
+                    container.innerHTML = '<p class="text-white text-center">Error loading peer reviews.</p>';
                 });
         }
 
-        function createPeerReviewElement(review) {
+        function createPeerReviewElement(review, reviewId) {
             const reviewDiv = document.createElement('div');
             reviewDiv.className = 'bg-white/90 rounded-lg p-3';
+            
+            const date = review.createdAt ? new Date(review.createdAt.toDate()).toLocaleDateString() : 'Unknown date';
             
             reviewDiv.innerHTML = `
                 <div class="flex justify-between items-start mb-2">
@@ -2766,14 +3186,78 @@
                 </div>
                 <p class="text-gray-700 text-sm mb-2">${review.comments}</p>
                 <div class="flex justify-between items-center">
-                    <div class="text-xs text-gray-500">by ${review.reviewerName}</div>
-                    <button class="text-xs text-blue-600 hover:text-blue-800" onclick="markReviewHelpful('${review.id}')">
+                    <div class="text-xs text-gray-500">by ${review.reviewerName} on ${date}</div>
+                    <button class="text-xs text-blue-600 hover:text-blue-800" onclick="markReviewHelpful('${reviewId}')">
                         <i class="fas fa-thumbs-up mr-1"></i> Helpful (${review.helpfulCount || 0})
                     </button>
                 </div>
             `;
             
             return reviewDiv;
+        }
+
+        function showCreatePeerReview() {
+            if (!currentUser) {
+                showToast('error', 'Sign in required', 'Please sign in to write peer reviews.');
+                showLoginModal();
+                return;
+            }
+            
+            document.getElementById('createPeerReviewModal').classList.add('active');
+        }
+
+        function closeCreatePeerReview() {
+            document.getElementById('createPeerReviewModal').classList.remove('active');
+            document.getElementById('createPeerReviewForm').reset();
+            selectedRating = 0;
+            updateStarDisplay();
+        }
+
+        function createPeerReview() {
+            if (!currentUser) {
+                showToast('error', 'Sign in required', 'Please sign in to write peer reviews.');
+                showLoginModal();
+                return;
+            }
+            
+            const projectTitle = document.getElementById('reviewProject').value;
+            const comments = document.getElementById('reviewComments').value;
+            
+            if (!projectTitle || !comments || selectedRating === 0) {
+                showToast('error', 'Missing Fields', 'Please fill in all fields and select a rating.');
+                return;
+            }
+            
+            showLoading();
+            
+            db.collection('peerReviews').add({
+                reviewerId: currentUser.uid,
+                reviewerName: userData.displayName,
+                projectTitle: projectTitle,
+                rating: selectedRating,
+                comments: comments,
+                helpfulCount: 0,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                showToast('success', 'Review Submitted', 'Your peer review has been submitted successfully.');
+                closeCreatePeerReview();
+                awardPoints(20, 'Peer review submitted');
+            }).catch((error) => {
+                console.error("Error creating peer review:", error);
+                showToast('error', 'Error', 'Failed to submit peer review.');
+            }).finally(() => {
+                hideLoading();
+            });
+        }
+
+        function updateStarDisplay() {
+            document.querySelectorAll('.star-rating').forEach((star, index) => {
+                if (index < selectedRating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
         }
 
         function markReviewHelpful(reviewId) {
@@ -2789,7 +3273,7 @@
                 helpful: firebase.firestore.FieldValue.arrayUnion(currentUser.uid),
                 helpfulCount: firebase.firestore.FieldValue.increment(1)
             }).then(() => {
-                showToast('success', 'Marked as helpful', 'You marked this review as helpful.');
+                showToast('success', 'Marked as Helpful', 'You marked this review as helpful.');
                 
                 // Award points for helpful feedback
                 awardPoints(5, 'Helpful feedback');
@@ -2845,9 +3329,11 @@
             
             document.getElementById('challengeModal').classList.add('active');
         }
+        
         function closeChallengeModal() {
             document.getElementById('challengeModal').classList.remove('active');
         }
+        
         function sendChallenge() {
             if (!currentUser) {
                 showToast('error', 'Sign in required', 'Please sign in to send challenges.');
@@ -2859,9 +3345,16 @@
             const message = document.getElementById('message').value;
             
             if (!friendEmail) {
-                showToast('error', 'Error', 'Please enter your friend\'s email address');
+                showToast('error', 'Missing Email', 'Please enter your friend\'s email address');
                 return;
             }
+            
+            if (!isValidEmail(friendEmail)) {
+                showToast('error', 'Invalid Email', 'Please enter a valid email address');
+                return;
+            }
+            
+            showLoading();
             
             // Save challenge to Firestore
             db.collection('challenges').add({
@@ -2873,13 +3366,16 @@
                 status: 'pending',
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
             }).then(() => {
-                showToast('success', 'Challenge sent', `Challenge sent to ${friendEmail}!`);
+                showToast('success', 'Challenge Sent', `Challenge sent to ${friendEmail}!`);
                 closeChallengeModal();
             }).catch((error) => {
                 console.error("Error sending challenge:", error);
                 showToast('error', 'Error', 'Failed to send challenge.');
+            }).finally(() => {
+                hideLoading();
             });
         }
+        
         function shareProgress() {
             if (!currentUser) {
                 showToast('error', 'Sign in required', 'Please sign in to share progress.');
@@ -2889,7 +3385,7 @@
             
             const shareData = {
                 title: 'Chemistry Mastery - Group 1 Alkali Metals',
-                text: `I'm learning about Group 1 Alkali Metals on Chemistry Mastery. I've earned ${userData.points} points! Join me!`,
+                text: `I'm learning about Group 1 Alkali Metals on Chemistry Mastery. I've earned ${userData.points} points and reached Level ${calculateLevel(userData.points).level}! Join me!`,
                 url: window.location.href
             };
             
@@ -2902,6 +3398,7 @@
                 showToast('info', 'Share this link', window.location.href);
             }
         }
+        
         function shareQuizResult() {
             const scoreText = document.getElementById('finalScore').textContent;
             const percentage = Math.round((score / currentQuiz.length) * 100);
@@ -2921,21 +3418,42 @@
                 showToast('info', 'Share this result', `I scored ${scoreText} on the Group 1 Alkali Metals quiz!`);
             }
         }
+        
         function challengeFriend() {
             closeQuiz();
             showChallengeModal();
         }
+        
+        // Study Group Modal Functions
+        function showCreateStudyGroup() {
+            if (!currentUser) {
+                showToast('error', 'Sign in required', 'Please sign in to create study groups.');
+                showLoginModal();
+                return;
+            }
+            
+            document.getElementById('createStudyGroupModal').classList.add('active');
+        }
+        
+        function closeCreateStudyGroup() {
+            document.getElementById('createStudyGroupModal').classList.remove('active');
+            document.getElementById('createStudyGroupForm').reset();
+        }
+        
         // Authentication functions
         function showLoginModal() {
             document.getElementById('loginModal').classList.add('active');
         }
+        
         function closeLoginModal() {
             document.getElementById('loginModal').classList.remove('active');
         }
+        
         function showSignupForm() {
             // This would show a signup form instead of login
             showToast('info', 'Sign up', 'Sign up functionality would be implemented here');
         }
+        
         function signInWithGoogle() {
             const provider = new firebase.auth.GoogleAuthProvider();
             
@@ -2958,6 +3476,7 @@
                     }
                 });
         }
+        
         function signOut() {
             auth.signOut().then(() => {
                 showToast('success', 'Signed out', 'You have been successfully signed out.');
@@ -2965,6 +3484,20 @@
                 console.error("Error signing out:", error);
             });
         }
+        
+        // Utility functions
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+        
+        function showLoading() {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+        }
+        
+        function hideLoading() {
+            document.getElementById('loadingOverlay').style.display = 'none';
+        }
+        
         // Toast notification function
         function showToast(type, title, message) {
             const toastContainer = document.getElementById('toastContainer');
@@ -3001,6 +3534,7 @@
                 }, 300);
             }, 3000);
         }
+        
         // Award achievement function
         function awardAchievement(achievementName) {
             if (!currentUser) return;
@@ -3018,6 +3552,73 @@
                 showAchievement(achievementName);
             }).catch((error) => {
                 console.error("Error awarding achievement:", error);
+            });
+        }
+        
+        // Seed initial data
+        function seedInitialData() {
+            // Check if study groups exist
+            db.collection('studyGroups').get().then(snapshot => {
+                if (snapshot.empty) {
+                    // Create sample study groups
+                    const sampleGroups = [
+                        {
+                            name: "Alkali Metals Beginners",
+                            description: "Learn the basics of Group 1 elements",
+                            goal: "Complete all lessons",
+                            maxMembers: 10,
+                            creatorId: "system",
+                            creatorName: "System",
+                            members: [],
+                            memberCount: 0,
+                            progress: 25
+                        },
+                        {
+                            name: "Advanced Reactions",
+                            description: "Master complex reaction mechanisms",
+                            goal: "Score 90%+ on all quizzes",
+                            maxMembers: 15,
+                            creatorId: "system",
+                            creatorName: "System",
+                            members: [],
+                            memberCount: 0,
+                            progress: 60
+                        }
+                    ];
+                    
+                    sampleGroups.forEach(group => {
+                        db.collection('studyGroups').add(group);
+                    });
+                }
+            });
+            
+            // Check if peer reviews exist
+            db.collection('peerReviews').get().then(snapshot => {
+                if (snapshot.empty) {
+                    // Create sample peer reviews
+                    const sampleReviews = [
+                        {
+                            reviewerId: "system",
+                            reviewerName: "Dr. Smith",
+                            projectTitle: "Group 1 Properties Project",
+                            rating: 4,
+                            comments: "Great understanding of the properties! Could use more detail on reactivity trends.",
+                            helpfulCount: 3
+                        },
+                        {
+                            reviewerId: "system",
+                            reviewerName: "Prof. Johnson",
+                            projectTitle: "Reactions with Water Experiment",
+                            rating: 5,
+                            comments: "Excellent experimental design and analysis. Clear demonstration of increasing reactivity down the group.",
+                            helpfulCount: 7
+                        }
+                    ];
+                    
+                    sampleReviews.forEach(review => {
+                        db.collection('peerReviews').add(review);
+                    });
+                }
             });
         }
     </script>
