@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2398,9 +2399,6 @@
         const auth = firebase.auth();
         const database = firebase.database();
         
-        // Google Apps Script URL - Replace with your deployed URL
-        const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbytm_vpeEMyNB1GU8KsPvm-En8pKJvFcDD5WRIvxz4OxqSrpfY5y42ghsISc8ik1UpY2w/exec";
-        
         // Global variables
         let currentUser = null;
         let userData = null;
@@ -3397,7 +3395,7 @@
             });
         }
         
-        // Save quiz result to Firebase and Google Sheets
+        // Save quiz result
         function saveQuizResult(score, totalQuestions, quizType) {
             const resultsRef = database.ref('quizResults').push();
             
@@ -3410,51 +3408,8 @@
                 quizType: quizType,
                 topic: 'Group 1 - Alkali Metals',
                 createdAt: firebase.database.ServerValue.TIMESTAMP
-            }).then(() => {
-                // Also send to Google Sheets
-                sendToGoogleSheets({
-                    userId: currentUser.uid,
-                    userName: userData.displayName,
-                    quizType: quizType,
-                    score: score,
-                    totalQuestions: totalQuestions,
-                    percentage: Math.round((score / totalQuestions) * 100),
-                    topic: 'Group 1 - Alkali Metals'
-                });
             }).catch((error) => {
                 console.error("Error saving quiz result:", error);
-            });
-        }
-        
-        // Send quiz result to Google Sheets
-        function sendToGoogleSheets(data) {
-            fetch(GOOGLE_APPS_SCRIPT_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    secretKey: "Yey92BNufOs88vJ7p6ZMf81H2rSvT8njYlut8FDI",
-                    timestamp: new Date(),
-                    userId: data.userId,
-                    userName: data.userName,
-                    email: currentUser.email || "",
-                    quizType: data.quizType,
-                    score: data.score,
-                    totalQuestions: data.totalQuestions,
-                    percentage: data.percentage
-                })
-            })
-            .then(response => response.json())
-            .then(result => {
-                if (result.status === 'success') {
-                    console.log('Quiz result saved to Google Sheets successfully');
-                } else {
-                    console.error('Failed to save to Google Sheets:', result.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error sending to Google Sheets:', error);
             });
         }
         
@@ -3959,4 +3914,3 @@
     </script>
 </body>
 </html>
-
