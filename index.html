@@ -1040,15 +1040,8 @@
                     </div>
                 </div>
                 
-                <div class="lesson-container" id="dashboardLesson">
-                    <!-- Current lesson preview will be loaded here -->
-                </div>
-            </div>
-            
-            <!-- Lessons Section -->
-            <div id="lessonsSection" class="content-section" style="display: none;">
-                <div id="lessonContent">
-                    <!-- Lesson content will be loaded here -->
+                <div id="currentLessonContent">
+                    <!-- Current lesson content will be loaded here -->
                 </div>
             </div>
             
@@ -1387,10 +1380,10 @@
         let quizType = '';
         let answerSubmitted = false;
         let justSignedIn = false;
-        let currentLesson = 1;
+        let currentLessonId = 1;
         let lessonsCompleted = [];
         
-        // Lesson data with full content
+        // Lesson data
         const lessons = [
             {
                 id: 1,
@@ -1398,168 +1391,159 @@
                 icon: "fa-users",
                 description: "Introduction to Group 1 elements",
                 content: `
-                    <div class="lesson-header">
-                        <div class="lesson-number">1</div>
-                        <h2 class="lesson-title">Meet the Alkali Metals Family</h2>
-                    </div>
-                    
-                    <div class="lesson-content">
-                        <p>Welcome to your chemistry adventure! Today, we're exploring Group 1 elements - the Alkali Metals family. These elements are like the superheroes of the periodic table - super reactive and full of surprises!</p>
-                        
-                        <div class="fun-fact">
-                            <h4 class="font-bold text-blue-800">Fun Fact!</h4>
-                            <p>Alkali metals are so reactive they can explode if dropped in water! That's why they're stored in oil - to keep them away from air and moisture.</p>
+                    <div class="lesson-container">
+                        <div class="lesson-header">
+                            <div class="lesson-number">1</div>
+                            <h2 class="lesson-title">Meet the Alkali Metals Family</h2>
                         </div>
                         
-                        <p>The Alkali Metals family includes six members:</p>
-                        
-                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 my-4">
-                            <div class="element-card">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Lithiumcut_cropped.jpg" alt="Lithium" class="element-image">
-                                <h4 class="font-bold">Lithium (Li)</h4>
-                                <p class="text-sm text-gray-600">Atomic Number: 3</p>
+                        <div class="lesson-content">
+                            <p>Welcome to your chemistry adventure! Today, we're exploring Group 1 elements - the Alkali Metals family. These elements are like the superheroes of the periodic table - super reactive and full of surprises!</p>
+                            
+                            <div class="fun-fact">
+                                <h4 class="font-bold text-blue-800">Fun Fact!</h4>
+                                <p>Alkali metals are so reactive they can explode if dropped in water! That's why they're stored in oil - to keep them away from air and moisture.</p>
                             </div>
-                            <div class="element-card">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Na_%28Sodium%29.jpg" alt="Sodium" class="element-image">
-                                <h4 class="font-bold">Sodium (Na)</h4>
-                                <p class="text-sm text-gray-600">Atomic Number: 11</p>
+                            
+                            <p>The Alkali Metals family includes six members:</p>
+                            
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 my-4">
+                                <div class="element-card">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Lithiumcut_cropped.jpg" alt="Lithium" class="element-image">
+                                    <h4 class="font-bold">Lithium (Li)</h4>
+                                    <p class="text-sm text-gray-600">Atomic Number: 3</p>
+                                </div>
+                                <div class="element-card">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Na_%28Sodium%29.jpg" alt="Sodium" class="element-image">
+                                    <h4 class="font-bold">Sodium (Na)</h4>
+                                    <p class="text-sm text-gray-600">Atomic Number: 11</p>
+                                </div>
+                                <div class="element-card">
+                                    <img src="https://cdn.britannica.com/77/131177-050-79292189/fragments-Potassium-metal.jpg" alt="Potassium" class="element-image">
+                                    <h4 class="font-bold">Potassium (K)</h4>
+                                    <p class="text-sm text-gray-600">Atomic Number: 19</p>
+                                </div>
                             </div>
-                            <div class="element-card">
-                                <img src="https://cdn.britannica.com/77/131177-050-79292189/fragments-Potassium-metal.jpg" alt="Potassium" class="element-image">
-                                <h4 class="font-bold">Potassium (K)</h4>
-                                <p class="text-sm text-gray-600">Atomic Number: 19</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="interactive-demo">
-                        <div class="demo-title">
-                            <i class="fas fa-flask"></i>
-                            Interactive Demo: Reactivity with Water
-                        </div>
-                        <p>Watch what happens when alkali metals meet water!</p>
-                        
-                        <div class="reaction-demo">
-                            <div class="reaction-item">
-                                <div class="reaction-icon">💧</div>
-                                <p>Water</p>
-                            </div>
-                            <div class="reaction-plus">+</div>
-                            <div class="reaction-item">
-                                <div class="reaction-icon">🔥</div>
-                                <p>Sodium</p>
-                            </div>
-                            <div class="reaction-arrow">→</div>
-                            <div class="reaction-item">
-                                <div class="reaction-icon">💨</div>
-                                <p>Hydrogen Gas</p>
-                            </div>
-                            <div class="reaction-plus">+</div>
-                            <div class="reaction-item">
-                                <div class="reaction-icon">🧪</div>
-                                <p>Sodium Hydroxide</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="lesson-nav">
-                        <button class="btn btn-secondary" disabled>
-                            <i class="fas fa-arrow-left mr-2"></i>
-                            Previous
-                        </button>
-                        <button class="btn btn-primary" onclick="completeLesson()">
-                            Next Lesson
-                            <i class="fas fa-arrow-right ml-2"></i>
-                        </button>
-                    </div>
-                `,
-                locked: false
-            },
-            {
-                id: 2,
-                title: "Physical Properties of Alkali Metals",
-                icon: "fa-cube",
-                description: "Density, melting points, and more",
-                content: `
-                    <div class="lesson-header">
-                        <div class="lesson-number">2</div>
-                        <h2 class="lesson-title">Physical Properties of Alkali Metals</h2>
-                    </div>
-                    
-                    <div class="lesson-content">
-                        <p>Alkali metals have some fascinating physical properties that make them unique. Let's explore what makes them special!</p>
-                        
-                        <div class="bg-yellow-50 p-4 rounded-lg mb-4">
-                            <h4 class="font-bold text-yellow-800 mb-2">Key Characteristics</h4>
-                            <ul class="list-disc pl-5 text-yellow-700">
-                                <li>Soft and can be cut with a knife</li>
-                                <li>Shiny and silvery when freshly cut</li>
-                                <li>Low density (lithium floats on water!)</li>
-                                <li>Low melting and boiling points</li>
-                                <li>Excellent conductors of heat and electricity</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="fun-fact">
-                            <h4 class="font-bold text-blue-800">Did You Know?</h4>
-                            <p>Lithium is the lightest metal in the world! It's so light that it can float on water - but be careful, it will also react with it!</p>
                         </div>
                         
                         <div class="interactive-demo">
                             <div class="demo-title">
-                                <i class="fas fa-balance-scale"></i>
-                                Density Comparison
+                                <i class="fas fa-flask"></i>
+                                Interactive Demo: Reactivity with Water
                             </div>
-                            <p>Compare the density of alkali metals with water (1 g/cm³):</p>
+                            <p>Watch what happens when alkali metals meet water!</p>
                             
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-4">
-                                <div class="bg-white p-3 rounded-lg shadow text-center">
-                                    <div class="text-2xl mb-1">Li</div>
-                                    <div class="font-bold">0.53 g/cm³</div>
-                                    <div class="text-green-600 text-sm">Floats!</div>
+                            <div class="reaction-demo">
+                                <div class="reaction-item">
+                                    <div class="reaction-icon">💧</div>
+                                    <p>Water</p>
                                 </div>
-                                <div class="bg-white p-3 rounded-lg shadow text-center">
-                                    <div class="text-2xl mb-1">Na</div>
-                                    <div class="font-bold">0.97 g/cm³</div>
-                                    <div class="text-green-600 text-sm">Floats!</div>
+                                <div class="reaction-plus">+</div>
+                                <div class="reaction-item">
+                                    <div class="reaction-icon">🔥</div>
+                                    <p>Sodium</p>
                                 </div>
-                                <div class="bg-white p-3 rounded-lg shadow text-center">
-                                    <div class="text-2xl mb-1">K</div>
-                                    <div class="font-bold">0.89 g/cm³</div>
-                                    <div class="text-green-600 text-sm">Floats!</div>
+                                <div class="reaction-arrow">→</div>
+                                <div class="reaction-item">
+                                    <div class="reaction-icon">💨</div>
+                                    <p>Hydrogen Gas</p>
                                 </div>
-                                <div class="bg-white p-3 rounded-lg shadow text-center">
-                                    <div class="text-2xl mb-1">Rb</div>
-                                    <div class="font-bold">1.53 g/cm³</div>
-                                    <div class="text-red-600 text-sm">Sinks</div>
+                                <div class="reaction-plus">+</div>
+                                <div class="reaction-item">
+                                    <div class="reaction-icon">🧪</div>
+                                    <p>Sodium Hydroxide</p>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="bg-purple-50 p-4 rounded-lg mt-4">
-                            <h4 class="font-bold text-purple-800 mb-2">Trends Down the Group</h4>
-                            <p>As we move down Group 1:</p>
-                            <ul class="list-disc pl-5 text-purple-700 mt-2">
-                                <li>Atomic radius increases</li>
-                                <li>Density generally increases (except K < Na)</li>
-                                <li>Melting and boiling points decrease</li>
-                                <li>Reactivity increases</li>
-                            </ul>
+                        <div class="lesson-nav">
+                            <button class="btn btn-secondary" disabled>
+                                <i class="fas fa-arrow-left mr-2"></i>
+                                Previous
+                            </button>
+                            <button class="btn btn-primary" onclick="nextLesson()">
+                                Next Lesson
+                                <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
                         </div>
                     </div>
-                    
-                    <div class="lesson-nav">
-                        <button class="btn btn-secondary" onclick="previousLesson()">
-                            <i class="fas fa-arrow-left mr-2"></i>
-                            Previous
-                        </button>
-                        <button class="btn btn-primary" onclick="completeLesson()">
-                            Next Lesson
-                            <i class="fas fa-arrow-right ml-2"></i>
-                        </button>
+                `
+            },
+            {
+                id: 2,
+                title: "Physical Properties",
+                icon: "fa-cube",
+                description: "Density, melting points, and more",
+                content: `
+                    <div class="lesson-container">
+                        <div class="lesson-header">
+                            <div class="lesson-number">2</div>
+                            <h2 class="lesson-title">Physical Properties of Alkali Metals</h2>
+                        </div>
+                        
+                        <div class="lesson-content">
+                            <p>Alkali metals have some fascinating physical properties that make them unique. Let's explore what makes them special!</p>
+                            
+                            <div class="bg-yellow-50 p-4 rounded-lg mb-4">
+                                <h4 class="font-bold text-yellow-800 mb-2">Key Characteristics</h4>
+                                <ul class="list-disc pl-5 text-yellow-700">
+                                    <li>Soft and can be cut with a knife</li>
+                                    <li>Shiny and silvery when freshly cut</li>
+                                    <li>Low density (lithium floats on water!)</li>
+                                    <li>Low melting and boiling points</li>
+                                    <li>Excellent conductors of heat and electricity</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="fun-fact">
+                                <h4 class="font-bold text-blue-800">Did You Know?</h4>
+                                <p>Lithium is the lightest metal in the world! It's so light that it can float on water - but be careful, it will also react with it!</p>
+                            </div>
+                            
+                            <div class="interactive-demo">
+                                <div class="demo-title">
+                                    <i class="fas fa-balance-scale"></i>
+                                    Density Comparison
+                                </div>
+                                <p>Compare the density of alkali metals with water (1 g/cm³):</p>
+                                
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-4">
+                                    <div class="bg-white p-3 rounded-lg shadow text-center">
+                                        <div class="text-2xl mb-1">Li</div>
+                                        <div class="font-bold">0.53 g/cm³</div>
+                                        <div class="text-green-600 text-sm">Floats!</div>
+                                    </div>
+                                    <div class="bg-white p-3 rounded-lg shadow text-center">
+                                        <div class="text-2xl mb-1">Na</div>
+                                        <div class="font-bold">0.97 g/cm³</div>
+                                        <div class="text-green-600 text-sm">Floats!</div>
+                                    </div>
+                                    <div class="bg-white p-3 rounded-lg shadow text-center">
+                                        <div class="text-2xl mb-1">K</div>
+                                        <div class="font-bold">0.89 g/cm³</div>
+                                        <div class="text-green-600 text-sm">Floats!</div>
+                                    </div>
+                                    <div class="bg-white p-3 rounded-lg shadow text-center">
+                                        <div class="text-2xl mb-1">Rb</div>
+                                        <div class="font-bold">1.53 g/cm³</div>
+                                        <div class="text-red-600 text-sm">Sinks</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="lesson-nav">
+                            <button class="btn btn-secondary" onclick="previousLesson()">
+                                <i class="fas fa-arrow-left mr-2"></i>
+                                Previous
+                            </button>
+                            <button class="btn btn-primary" onclick="nextLesson()">
+                                Next Lesson
+                                <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
                     </div>
-                `,
-                locked: true
+                `
             },
             {
                 id: 3,
@@ -1567,71 +1551,62 @@
                 icon: "fa-flask",
                 description: "Reactivity and chemical behavior",
                 content: `
-                    <div class="lesson-header">
-                        <div class="lesson-number">3</div>
-                        <h2 class="lesson-title">Chemical Properties</h2>
-                    </div>
-                    
-                    <div class="lesson-content">
-                        <p>Alkali metals are the most reactive metals in the periodic table! Their chemical behavior is fascinating and predictable.</p>
-                        
-                        <div class="bg-red-50 p-4 rounded-lg mb-4">
-                            <h4 class="font-bold text-red-800 mb-2">Why So Reactive?</h4>
-                            <p>Alkali metals have only <strong>one electron</strong> in their outer shell. They're desperate to lose this electron to achieve a stable noble gas configuration!</p>
+                    <div class="lesson-container">
+                        <div class="lesson-header">
+                            <div class="lesson-number">3</div>
+                            <h2 class="lesson-title">Chemical Properties</h2>
                         </div>
                         
-                        <div class="fun-fact">
-                            <h4 class="font-bold text-blue-800">Amazing Fact!</h4>
-                            <p>Cesium is so reactive that it explodes on contact with water even at -116°C! That's colder than Antarctica!</p>
-                        </div>
-                        
-                        <div class="interactive-demo">
-                            <div class="demo-title">
-                                <i class="fas fa-atom"></i>
-                                Electron Configuration
-                            </div>
-                            <p>All Group 1 metals end with ns¹ configuration:</p>
+                        <div class="lesson-content">
+                            <p>Alkali metals are known for their high reactivity. Let's discover why they're so reactive and what makes them special!</p>
                             
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
-                                <div class="bg-white p-3 rounded-lg shadow text-center">
-                                    <div class="font-bold mb-1">Lithium</div>
-                                    <div class="text-sm">1s² 2s¹</div>
+                            <div class="bg-purple-50 p-4 rounded-lg mb-4">
+                                <h4 class="font-bold text-purple-800 mb-2">Why So Reactive?</h4>
+                                <p>Alkali metals have only <strong>one electron</strong> in their outer shell. They're desperate to lose this electron to achieve a stable configuration, making them extremely reactive!</p>
+                            </div>
+                            
+                            <div class="fun-fact">
+                                <h4 class="font-bold text-blue-800">Reactivity Trend</h4>
+                                <p>Reactivity <strong>increases</strong> as you go down the group: Li < Na < K < Rb < Cs < Fr</p>
+                                <p>This happens because the outer electron gets further from the nucleus and is easier to remove!</p>
+                            </div>
+                            
+                            <div class="interactive-demo">
+                                <div class="demo-title">
+                                    <i class="fas fa-atom"></i>
+                                    Electron Configuration
                                 </div>
-                                <div class="bg-white p-3 rounded-lg shadow text-center">
-                                    <div class="font-bold mb-1">Sodium</div>
-                                    <div class="text-sm">1s² 2s² 2p⁶ 3s¹</div>
-                                </div>
-                                <div class="bg-white p-3 rounded-lg shadow text-center">
-                                    <div class="font-bold mb-1">Potassium</div>
-                                    <div class="text-sm">1s² 2s² 2p⁶ 3s² 3p⁶ 4s¹</div>
+                                <p>Notice how all alkali metals end with just one electron in their outer shell:</p>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
+                                    <div class="bg-white p-3 rounded-lg shadow text-center">
+                                        <div class="font-bold mb-1">Lithium</div>
+                                        <div class="text-sm">2, 1</div>
+                                    </div>
+                                    <div class="bg-white p-3 rounded-lg shadow text-center">
+                                        <div class="font-bold mb-1">Sodium</div>
+                                        <div class="text-sm">2, 8, 1</div>
+                                    </div>
+                                    <div class="bg-white p-3 rounded-lg shadow text-center">
+                                        <div class="font-bold mb-1">Potassium</div>
+                                        <div class="text-sm">2, 8, 8, 1</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="bg-green-50 p-4 rounded-lg mt-4">
-                            <h4 class="font-bold text-green-800 mb-2">Ionization Energy</h4>
-                            <p>Ionization energy <strong>decreases</strong> down the group because:</p>
-                            <ul class="list-disc pl-5 text-green-700 mt-2">
-                                <li>Atomic radius increases</li>
-                                <li>Outer electron is further from nucleus</li>
-                                <li>More electron shells shield the outer electron</li>
-                            </ul>
-                            <p class="mt-2 font-bold">Result: Easier to lose the electron = More reactive!</p>
+                        <div class="lesson-nav">
+                            <button class="btn btn-secondary" onclick="previousLesson()">
+                                <i class="fas fa-arrow-left mr-2"></i>
+                                Previous
+                            </button>
+                            <button class="btn btn-primary" onclick="nextLesson()">
+                                Next Lesson
+                                <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
                         </div>
                     </div>
-                    
-                    <div class="lesson-nav">
-                        <button class="btn btn-secondary" onclick="previousLesson()">
-                            <i class="fas fa-arrow-left mr-2"></i>
-                            Previous
-                        </button>
-                        <button class="btn btn-primary" onclick="completeLesson()">
-                            Next Lesson
-                            <i class="fas fa-arrow-right ml-2"></i>
-                        </button>
-                    </div>
-                `,
-                locked: true
+                `
             },
             {
                 id: 4,
@@ -1639,77 +1614,61 @@
                 icon: "fa-water",
                 description: "Explosive experiments!",
                 content: `
-                    <div class="lesson-header">
-                        <div class="lesson-number">4</div>
-                        <h2 class="lesson-title">Reactions with Water</h2>
-                    </div>
-                    
-                    <div class="lesson-content">
-                        <p>Get ready for some explosive chemistry! Alkali metals react vigorously with water to produce hydrogen gas and metal hydroxides.</p>
-                        
-                        <div class="bg-blue-50 p-4 rounded-lg mb-4">
-                            <h4 class="font-bold text-blue-800 mb-2">General Reaction</h4>
-                            <p class="text-center font-mono text-lg">2M(s) + 2H₂O(l) → 2MOH(aq) + H₂(g)</p>
-                            <p class="text-sm mt-2">Where M = any Group 1 metal</p>
+                    <div class="lesson-container">
+                        <div class="lesson-header">
+                            <div class="lesson-number">4</div>
+                            <h2 class="lesson-title">Reactions with Water</h2>
                         </div>
                         
-                        <div class="fun-fact">
-                            <h4 class="font-bold text-blue-800">Safety First!</h4>
-                            <p>Never try these reactions at home! The hydrogen gas produced is highly flammable and can explode. Always wear safety goggles in the lab!</p>
-                        </div>
-                        
-                        <div class="interactive-demo">
-                            <div class="demo-title">
-                                <i class="fas fa-fire"></i>
-                                Reactivity Comparison
-                            </div>
-                            <p>Watch how reactivity increases down the group:</p>
+                        <div class="lesson-content">
+                            <p>Get ready for some explosive chemistry! Alkali metals react vigorously with water to produce hydrogen gas and metal hydroxides.</p>
                             
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
-                                <div class="bg-white p-3 rounded-lg shadow">
-                                    <h5 class="font-bold text-center mb-2">Lithium</h5>
-                                    <p class="text-sm">• Fizzes steadily</p>
-                                    <p class="text-sm">• Moves slowly</p>
-                                    <p class="text-sm">• Doesn't melt</p>
+                            <div class="bg-red-50 p-4 rounded-lg mb-4">
+                                <h4 class="font-bold text-red-800 mb-2">⚠️ Safety First!</h4>
+                                <p>These reactions can be dangerous! Never try these experiments without proper safety equipment and supervision.</p>
+                            </div>
+                            
+                            <div class="fun-fact">
+                                <h4 class="font-bold text-blue-800">General Reaction</h4>
+                                <p>All alkali metals follow the same pattern: 2M + 2H₂O → 2MOH + H₂</p>
+                                <p>Where M is the alkali metal</p>
+                            </div>
+                            
+                            <div class="interactive-demo">
+                                <div class="demo-title">
+                                    <i class="fas fa-eye"></i>
+                                    What to Observe
                                 </div>
-                                <div class="bg-white p-3 rounded-lg shadow">
-                                    <h5 class="font-bold text-center mb-2">Sodium</h5>
-                                    <p class="text-sm">• Fizzes rapidly</p>
-                                    <p class="text-sm">• Melts into ball</p>
-                                    <p class="text-sm">• Moves quickly</p>
-                                </div>
-                                <div class="bg-white p-3 rounded-lg shadow">
-                                    <h5 class="font-bold text-center mb-2">Potassium</h5>
-                                    <p class="text-sm">• Fizzes violently</p>
-                                    <p class="text-sm">• May ignite</p>
-                                    <p class="text-sm">• Lilac flame</p>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
+                                    <div class="bg-white p-3 rounded-lg shadow">
+                                        <div class="font-bold text-blue-600 mb-1">Lithium</div>
+                                        <p class="text-sm">Fizzes steadily, moves slowly</p>
+                                    </div>
+                                    <div class="bg-white p-3 rounded-lg shadow">
+                                        <div class="font-bold text-yellow-600 mb-1">Sodium</div>
+                                        <p class="text-sm">Melts into a ball, moves quickly</p>
+                                    </div>
+                                    <div class="bg-white p-3 rounded-lg shadow">
+                                        <div class="font-bold text-purple-600 mb-1">Potassium</div>
+                                        <p class="text-sm">Ignites with lilac flame!</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="bg-yellow-50 p-4 rounded-lg mt-4">
-                            <h4 class="font-bold text-yellow-800 mb-2">Why the Difference?</h4>
-                            <p>The reactivity increases down the group because:</p>
-                            <ul class="list-disc pl-5 text-yellow-700 mt-2">
-                                <li>Lower ionization energy</li>
-                                <li>Easier to lose the valence electron</li>
-                                <li>More vigorous reaction with water</li>
-                            </ul>
+                        <div class="lesson-nav">
+                            <button class="btn btn-secondary" onclick="previousLesson()">
+                                <i class="fas fa-arrow-left mr-2"></i>
+                                Previous
+                            </button>
+                            <button class="btn btn-primary" onclick="nextLesson()">
+                                Next Lesson
+                                <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
                         </div>
                     </div>
-                    
-                    <div class="lesson-nav">
-                        <button class="btn btn-secondary" onclick="previousLesson()">
-                            <i class="fas fa-arrow-left mr-2"></i>
-                            Previous
-                        </button>
-                        <button class="btn btn-primary" onclick="completeLesson()">
-                            Next Lesson
-                            <i class="fas fa-arrow-right ml-2"></i>
-                        </button>
-                    </div>
-                `,
-                locked: true
+                `
             },
             {
                 id: 5,
@@ -1717,92 +1676,68 @@
                 icon: "fa-wind",
                 description: "What happens in the air",
                 content: `
-                    <div class="lesson-header">
-                        <div class="lesson-number">5</div>
-                        <h2 class="lesson-title">Reactions with Oxygen</h2>
-                    </div>
-                    
-                    <div class="lesson-content">
-                        <p>Alkali metals tarnish quickly in air as they react with oxygen. But did you know they form different types of oxides?</p>
-                        
-                        <div class="bg-purple-50 p-4 rounded-lg mb-4">
-                            <h4 class="font-bold text-purple-800 mb-2">Types of Oxides Formed</h4>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-3">
-                                <div class="bg-white p-3 rounded-lg shadow text-center">
-                                    <h5 class="font-bold mb-1">Normal Oxides</h5>
-                                    <p class="text-sm">M₂O</p>
-                                    <p class="text-xs mt-1">Lithium only</p>
-                                </div>
-                                <div class="bg-white p-3 rounded-lg shadow text-center">
-                                    <h5 class="font-bold mb-1">Peroxides</h5>
-                                    <p class="text-sm">M₂O₂</p>
-                                    <p class="text-xs mt-1">Sodium mainly</p>
-                                </div>
-                                <div class="bg-white p-3 rounded-lg shadow text-center">
-                                    <h5 class="font-bold mb-1">Superoxides</h5>
-                                    <p class="text-sm">MO₂</p>
-                                    <p class="text-xs mt-1">K, Rb, Cs</p>
-                                </div>
-                            </div>
+                    <div class="lesson-container">
+                        <div class="lesson-header">
+                            <div class="lesson-number">5</div>
+                            <h2 class="lesson-title">Reactions with Oxygen</h2>
                         </div>
                         
-                        <div class="fun-fact">
-                            <h4 class="font-bold text-blue-800">Interesting Pattern!</h4>
-                            <p>The larger the metal ion, the larger the oxide ion it can stabilize. That's why heavier alkali metals form superoxides!</p>
-                        </div>
-                        
-                        <div class="interactive-demo">
-                            <div class="demo-title">
-                                <i class="fas fa-vial"></i>
-                                Reactions of Oxides with Water
-                            </div>
-                            <p>All these oxides react with water to form alkaline solutions:</p>
+                        <div class="lesson-content">
+                            <p>Alkali metals tarnish quickly in air as they react with oxygen. But did you know they form different types of oxides?</p>
                             
-                            <div class="reaction-demo flex-col md:flex-row">
-                                <div class="reaction-item">
-                                    <div class="reaction-icon">🧪</div>
-                                    <p>Li₂O</p>
-                                </div>
-                                <div class="reaction-plus">+</div>
-                                <div class="reaction-item">
-                                    <div class="reaction-icon">💧</div>
-                                    <p>H₂O</p>
-                                </div>
-                                <div class="reaction-arrow">→</div>
-                                <div class="reaction-item">
-                                    <div class="reaction-icon">🧴</div>
-                                    <p>2LiOH</p>
-                                </div>
+                            <div class="bg-green-50 p-4 rounded-lg mb-4">
+                                <h4 class="font-bold text-green-800 mb-2">Types of Oxides</h4>
+                                <ul class="list-disc pl-5 text-green-700">
+                                    <li><strong>Normal oxides</strong> (Li₂O) - Lithium only</li>
+                                    <li><strong>Peroxides</strong> (Na₂O₂) - Sodium forms this</li>
+                                    <li><strong>Superoxides</strong> (KO₂) - Potassium and below</li>
+                                </ul>
                             </div>
                             
-                            <div class="bg-gray-100 p-3 rounded-lg mt-4">
-                                <p class="text-sm"><strong>Note:</strong> Peroxides and superoxides also produce hydrogen peroxide (H₂O₂) when reacting with water!</p>
+                            <div class="fun-fact">
+                                <h4 class="font-bold text-blue-800">Why Different Products?</h4>
+                                <p>As you go down the group, the metal ions get larger. Larger ions can stabilize larger anions like O₂²⁻ (peroxide) and O₂⁻ (superoxide)!</p>
+                            </div>
+                            
+                            <div class="interactive-demo">
+                                <div class="demo-title">
+                                    <i class="fas fa-fire"></i>
+                                    Flame Test Colors
+                                </div>
+                                <p>Each alkali metal produces a unique flame color:</p>
+                                
+                                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 my-4">
+                                    <div class="bg-white p-3 rounded-lg shadow text-center">
+                                        <div class="w-8 h-8 bg-red-500 rounded-full mx-auto mb-2"></div>
+                                        <div class="font-bold">Lithium</div>
+                                        <div class="text-sm text-red-600">Red flame</div>
+                                    </div>
+                                    <div class="bg-white p-3 rounded-lg shadow text-center">
+                                        <div class="w-8 h-8 bg-yellow-400 rounded-full mx-auto mb-2"></div>
+                                        <div class="font-bold">Sodium</div>
+                                        <div class="text-sm text-yellow-600">Yellow flame</div>
+                                    </div>
+                                    <div class="bg-white p-3 rounded-lg shadow text-center">
+                                        <div class="w-8 h-8 bg-purple-400 rounded-full mx-auto mb-2"></div>
+                                        <div class="font-bold">Potassium</div>
+                                        <div class="text-sm text-purple-600">Lilac flame</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         
-                        <div class="bg-green-50 p-4 rounded-lg mt-4">
-                            <h4 class="font-bold text-green-800 mb-2">Practical Applications</h4>
-                            <p>Sodium peroxide (Na₂O₂) is used in:</p>
-                            <ul class="list-disc pl-5 text-green-700 mt-2">
-                                <li>Bleaching agents</li>
-                                <li>Oxygen generation in submarines</li>
-                                <li>Chemical synthesis</li>
-                            </ul>
+                        <div class="lesson-nav">
+                            <button class="btn btn-secondary" onclick="previousLesson()">
+                                <i class="fas fa-arrow-left mr-2"></i>
+                                Previous
+                            </button>
+                            <button class="btn btn-primary" onclick="nextLesson()">
+                                Next Lesson
+                                <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
                         </div>
                     </div>
-                    
-                    <div class="lesson-nav">
-                        <button class="btn btn-secondary" onclick="previousLesson()">
-                            <i class="fas fa-arrow-left mr-2"></i>
-                            Previous
-                        </button>
-                        <button class="btn btn-primary" onclick="completeLesson()">
-                            Next Lesson
-                            <i class="fas fa-arrow-right ml-2"></i>
-                        </button>
-                    </div>
-                `,
-                locked: true
+                `
             },
             {
                 id: 6,
@@ -1810,105 +1745,68 @@
                 icon: "fa-industry",
                 description: "How we use alkali metals",
                 content: `
-                    <div class="lesson-header">
-                        <div class="lesson-number">6</div>
-                        <h2 class="lesson-title">Real-World Applications</h2>
-                    </div>
-                    
-                    <div class="lesson-content">
-                        <p>Alkali metals aren't just lab curiosities - they're essential to our modern world! Let's explore how we use them every day.</p>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                            <div class="bg-indigo-50 p-4 rounded-lg">
-                                <h4 class="font-bold text-indigo-800 mb-2">Lithium (Li)</h4>
-                                <ul class="text-sm text-indigo-700 space-y-1">
-                                    <li>• Smartphone batteries</li>
-                                    <li>• Electric vehicles</li>
-                                    <li>• Mood stabilizers</li>
-                                    <li>• Glass ceramics</li>
-                                </ul>
-                            </div>
-                            <div class="bg-green-50 p-4 rounded-lg">
-                                <h4 class="font-bold text-green-800 mb-2">Sodium (Na)</h4>
-                                <ul class="text-sm text-green-700 space-y-1">
-                                    <li>• Street lighting</li>
-                                    <li>• Table salt (NaCl)</li>
-                                    <li>• Soap production</li>
-                                    <li>• Paper manufacturing</li>
-                                </ul>
-                            </div>
-                            <div class="bg-purple-50 p-4 rounded-lg">
-                                <h4 class="font-bold text-purple-800 mb-2">Potassium (K)</h4>
-                                <ul class="text-sm text-purple-700 space-y-1">
-                                    <li>• Fertilizers (KCl)</li>
-                                    <li>• Soap production</li>
-                                    <li>• Glass manufacturing</li>
-                                    <li>• Essential for life</li>
-                                </ul>
-                            </div>
+                    <div class="lesson-container">
+                        <div class="lesson-header">
+                            <div class="lesson-number">6</div>
+                            <h2 class="lesson-title">Real-World Applications</h2>
                         </div>
                         
-                        <div class="fun-fact">
-                            <h4 class="font-bold text-blue-800">Amazing Fact!</h4>
-                            <p>Without potassium, your heart couldn't beat! It's essential for nerve impulses and muscle contractions.</p>
-                        </div>
-                        
-                        <div class="interactive-demo">
-                            <div class="demo-title">
-                                <i class="fas fa-mobile-alt"></i>
-                                Lithium in Technology
-                            </div>
-                            <p>Lithium-ion batteries power most of our portable devices:</p>
+                        <div class="lesson-content">
+                            <p>Alkali metals aren't just lab curiosities - they're essential to modern life! Let's explore their amazing applications.</p>
                             
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 my-4">
-                                <div class="bg-white p-3 rounded-lg shadow text-center">
-                                    <div class="text-3xl mb-2">📱</div>
-                                    <p class="text-sm">Smartphones</p>
+                            <div class="bg-indigo-50 p-4 rounded-lg mb-4">
+                                <h4 class="font-bold text-indigo-800 mb-2">Lithium: The Battery King</h4>
+                                <p>Lithium-ion batteries power everything from smartphones to electric cars. They're lightweight, rechargeable, and store lots of energy!</p>
+                            </div>
+                            
+                            <div class="fun-fact">
+                                <h4 class="font-bold text-blue-800">Medical Marvel</h4>
+                                <p>Lithium compounds are used to treat bipolar disorder. Who knew chemistry could help mental health?</p>
+                            </div>
+                            
+                            <div class="interactive-demo">
+                                <div class="demo-title">
+                                    <i class="fas fa-lightbulb"></i>
+                                    Everyday Uses
                                 </div>
-                                <div class="bg-white p-3 rounded-lg shadow text-center">
-                                    <div class="text-3xl mb-2">💻</div>
-                                    <p class="text-sm">Laptops</p>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
+                                    <div class="bg-white p-3 rounded-lg shadow">
+                                        <div class="text-3xl mb-2">🧂</div>
+                                        <div class="font-bold">Sodium Chloride</div>
+                                        <p class="text-sm">Table salt - essential for life!</p>
+                                    </div>
+                                    <div class="bg-white p-3 rounded-lg shadow">
+                                        <div class="text-3xl mb-2">💡</div>
+                                        <div class="font-bold">Street Lights</div>
+                                        <p class="text-sm">Sodium vapor lamps light our cities</p>
+                                    </div>
+                                    <div class="bg-white p-3 rounded-lg shadow">
+                                        <div class="text-3xl mb-2">🌱</div>
+                                        <div class="font-bold">Fertilizers</div>
+                                        <p class="text-sm">Potassium helps plants grow</p>
+                                    </div>
                                 </div>
-                                <div class="bg-white p-3 rounded-lg shadow text-center">
-                                    <div class="text-3xl mb-2">🚗</div>
-                                    <p class="text-sm">Electric Cars</p>
-                                </div>
-                                <div class="bg-white p-3 rounded-lg shadow text-center">
-                                    <div class="text-3xl mb-2">⌚</div>
-                                    <p class="text-sm">Smartwatches</p>
-                                </div>
+                            </div>
+                            
+                            <div class="bg-yellow-50 p-4 rounded-lg mt-4">
+                                <h4 class="font-bold text-yellow-800 mb-2">Future Uses</h4>
+                                <p>Scientists are exploring new uses for alkali metals in nuclear fusion, advanced batteries, and even space propulsion!</p>
                             </div>
                         </div>
                         
-                        <div class="bg-yellow-50 p-4 rounded-lg mt-4">
-                            <h4 class="font-bold text-yellow-800 mb-2">Future Applications</h4>
-                            <p>Scientists are exploring new uses for alkali metals in:</p>
-                            <ul class="list-disc pl-5 text-yellow-700 mt-2">
-                                <li>Nuclear fusion reactors (lithium)</li>
-                                <li>Advanced battery technologies</li>
-                                <li>Medical treatments</li>
-                                <li>Space exploration</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="bg-green-50 p-4 rounded-lg mt-4">
-                            <h4 class="font-bold text-green-800 mb-2">Congratulations!</h4>
-                            <p>You've completed your journey through Group 1 Alkali Metals! You now understand their properties, reactions, and real-world importance. Keep exploring the wonderful world of chemistry!</p>
+                        <div class="lesson-nav">
+                            <button class="btn btn-secondary" onclick="previousLesson()">
+                                <i class="fas fa-arrow-left mr-2"></i>
+                                Previous
+                            </button>
+                            <button class="btn btn-success" onclick="completeAllLessons()">
+                                <i class="fas fa-check mr-2"></i>
+                                Complete Journey
+                            </button>
                         </div>
                     </div>
-                    
-                    <div class="lesson-nav">
-                        <button class="btn btn-secondary" onclick="previousLesson()">
-                            <i class="fas fa-arrow-left mr-2"></i>
-                            Previous
-                        </button>
-                        <button class="btn btn-success" onclick="completeAllLessons()">
-                            <i class="fas fa-check mr-2"></i>
-                            Complete Course
-                        </button>
-                    </div>
-                `,
-                locked: true
+                `
             }
         ];
         
@@ -2170,15 +2068,16 @@
             document.getElementById('dashboardSection').style.display = 'block';
             updateActiveNav('dashboard');
             loadLessonProgress();
-            loadDashboardLesson();
+            loadCurrentLesson();
         }
         
         // Show lessons
         function showLessons() {
             hideAllSections();
-            document.getElementById('lessonsSection').style.display = 'block';
+            document.getElementById('dashboardSection').style.display = 'block';
             updateActiveNav('lessons');
-            loadLessonContent();
+            loadLessonProgress();
+            loadCurrentLesson();
         }
         
         // Show achievements
@@ -2636,7 +2535,7 @@
             // Load lessons
             lessons.forEach(lesson => {
                 const isCompleted = completedLessons.includes(lesson.id);
-                const isLocked = lesson.locked && !isCompleted;
+                const isLocked = lesson.id > 1 && !completedLessons.includes(lesson.id - 1);
                 
                 const lessonItem = document.createElement('div');
                 lessonItem.className = `lesson-item ${isCompleted ? 'completed' : ''} ${isLocked ? 'locked' : ''}`;
@@ -2653,8 +2552,8 @@
                 
                 if (!isLocked) {
                     lessonItem.onclick = () => {
-                        currentLesson = lesson.id;
-                        showLessons();
+                        currentLessonId = lesson.id;
+                        loadCurrentLesson();
                     };
                 }
                 
@@ -2662,40 +2561,15 @@
             });
         }
         
-        // Load dashboard lesson preview
-        function loadDashboardLesson() {
-            const dashboardLesson = document.getElementById('dashboardLesson');
-            const completedLessons = userData.lessonsCompleted || [];
-            
-            // Find the next incomplete lesson
-            let nextLesson = lessons.find(lesson => !completedLessons.includes(lesson.id)) || lessons[0];
-            
-            dashboardLesson.innerHTML = `
-                <div class="lesson-header">
-                    <div class="lesson-number">${nextLesson.id}</div>
-                    <h2 class="lesson-title">${nextLesson.title}</h2>
-                </div>
-                
-                <div class="lesson-content">
-                    <p>${nextLesson.description}</p>
-                    
-                    <div class="text-center mt-6">
-                        <button onclick="showLessons()" class="btn btn-primary btn-large">
-                            <i class="fas fa-play mr-2"></i>
-                            Continue Learning
-                        </button>
-                    </div>
-                </div>
-            `;
-        }
-        
-        // Load lesson content
-        function loadLessonContent() {
-            const lessonContent = document.getElementById('lessonContent');
-            const lesson = lessons.find(l => l.id === currentLesson);
+        // Load current lesson
+        function loadCurrentLesson() {
+            const lessonContent = document.getElementById('currentLessonContent');
+            const lesson = lessons.find(l => l.id === currentLessonId);
             
             if (lesson) {
                 lessonContent.innerHTML = lesson.content;
+            } else {
+                lessonContent.innerHTML = '<div class="lesson-container"><p>Lesson not found.</p></div>';
             }
         }
         
@@ -2709,31 +2583,27 @@
             document.getElementById('badgesUnlocked').textContent = achievements.length;
         }
         
-        // Complete current lesson
-        function completeLesson() {
-            if (!userData.lessonsCompleted.includes(currentLesson)) {
-                userData.lessonsCompleted.push(currentLesson);
+        // Next lesson
+        function nextLesson() {
+            // Mark current lesson as completed
+            if (!userData.lessonsCompleted.includes(currentLessonId)) {
+                userData.lessonsCompleted.push(currentLessonId);
                 
                 const userRef = database.ref('users/' + currentUser.uid);
                 userRef.update({
                     lessonsCompleted: userData.lessonsCompleted
                 }).then(() => {
                     // Award points for completing lesson
-                    awardPoints(20, `Completed lesson ${currentLesson}`);
+                    awardPoints(20, `Completed lesson ${currentLessonId}`);
                     
                     // Check for achievements
                     checkAchievements();
                     
-                    // Unlock next lesson
-                    if (currentLesson < lessons.length) {
-                        lessons[currentLesson].locked = false;
-                    }
-                    
                     // Move to next lesson
-                    currentLesson++;
-                    
-                    if (currentLesson <= lessons.length) {
-                        loadLessonContent();
+                    if (currentLessonId < lessons.length) {
+                        currentLessonId++;
+                        loadCurrentLesson();
+                        loadLessonProgress();
                     } else {
                         // All lessons completed
                         showToast('success', 'Congratulations!', 'You have completed all lessons!');
@@ -2744,10 +2614,10 @@
                 });
             } else {
                 // Move to next lesson
-                currentLesson++;
-                
-                if (currentLesson <= lessons.length) {
-                    loadLessonContent();
+                if (currentLessonId < lessons.length) {
+                    currentLessonId++;
+                    loadCurrentLesson();
+                    loadLessonProgress();
                 } else {
                     // All lessons completed
                     showToast('success', 'Congratulations!', 'You have completed all lessons!');
@@ -2756,39 +2626,44 @@
             }
         }
         
+        // Previous lesson
+        function previousLesson() {
+            if (currentLessonId > 1) {
+                currentLessonId--;
+                loadCurrentLesson();
+            }
+        }
+        
         // Complete all lessons
         function completeAllLessons() {
-            if (!userData.lessonsCompleted.includes(currentLesson)) {
-                userData.lessonsCompleted.push(currentLesson);
+            // Mark current lesson as completed
+            if (!userData.lessonsCompleted.includes(currentLessonId)) {
+                userData.lessonsCompleted.push(currentLessonId);
                 
                 const userRef = database.ref('users/' + currentUser.uid);
                 userRef.update({
                     lessonsCompleted: userData.lessonsCompleted
                 }).then(() => {
                     // Award points for completing lesson
-                    awardPoints(20, `Completed lesson ${currentLesson}`);
+                    awardPoints(20, `Completed lesson ${currentLessonId}`);
                     
                     // Check for achievements
                     checkAchievements();
                     
                     // Show completion message
-                    showToast('success', 'Course Complete!', 'Congratulations! You have mastered Group 1 Alkali Metals!');
+                    showToast('success', 'Journey Complete!', 'Congratulations on completing all lessons!');
+                    
+                    // Return to dashboard
                     showDashboard();
                 }).catch((error) => {
                     console.error("Error updating lesson progress:", error);
                 });
             } else {
                 // Show completion message
-                showToast('success', 'Course Complete!', 'Congratulations! You have mastered Group 1 Alkali Metals!');
+                showToast('success', 'Journey Complete!', 'Congratulations on completing all lessons!');
+                
+                // Return to dashboard
                 showDashboard();
-            }
-        }
-        
-        // Previous lesson
-        function previousLesson() {
-            if (currentLesson > 1) {
-                currentLesson--;
-                loadLessonContent();
             }
         }
         
