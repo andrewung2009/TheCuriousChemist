@@ -13,9 +13,10 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
     
     <style>
-        /* Keep existing styles */
+        /* Import Google Font */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
+        /* Global Styles */
         * {
             margin: 0;
             padding: 0;
@@ -29,7 +30,7 @@
             overflow-x: hidden;
         }
         
-        /* Keep all existing animations and styles */
+        /* Animations - Simplified and more subtle */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -50,59 +51,6 @@
             50% { text-shadow: 0 0 20px rgba(79, 70, 229, 0.9), 0 0 30px rgba(79, 70, 229, 0.7); }
         }
         
-        @keyframes typewriter {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        @keyframes highlight {
-            0% { background-color: rgba(79, 70, 229, 0.2); }
-            50% { background-color: rgba(79, 70, 229, 0.4); }
-            100% { background-color: rgba(79, 70, 229, 0.2); }
-        }
-        
-        @keyframes textReveal {
-            0% { 
-                opacity: 0;
-                transform: translateY(30px) scale(0.9);
-                filter: blur(10px);
-            }
-            100% { 
-                opacity: 1;
-                transform: translateY(0) scale(1);
-                filter: blur(0);
-            }
-        }
-        
-        @keyframes slideUp {
-            0% { 
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            100% { 
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes letterPop {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-        
-        @keyframes colorShift {
-            0% { color: #4f46e5; }
-            25% { color: #7c3aed; }
-            50% { color: #ec4899; }
-            75% { color: #8b5cf6; }
-            100% { color: #4f46e5; }
-        }
-        
         .fade-in {
             animation: fadeIn 0.6s ease-out forwards;
         }
@@ -121,60 +69,7 @@
             color: #4f46e5;
         }
         
-        .typewriter {
-            overflow: hidden;
-            white-space: nowrap;
-            animation: typewriter 3s steps(40) 1s 1 normal both;
-        }
-        
-        .bounce-text {
-            display: inline-block;
-            animation: bounce 1s ease infinite;
-        }
-        
-        .highlight-text {
-            background: linear-gradient(120deg, rgba(79, 70, 229, 0.2) 0%, rgba(79, 70, 229, 0.4) 100%);
-            padding: 0 5px;
-            border-radius: 4px;
-            font-weight: 600;
-            animation: highlight 3s infinite;
-        }
-        
-        .text-reveal {
-            animation: textReveal 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            opacity: 0;
-        }
-        
-        .slide-up {
-            animation: slideUp 0.7s ease-out forwards;
-            opacity: 0;
-        }
-        
-        .letter-pop {
-            display: inline-block;
-            animation: letterPop 0.5s ease forwards;
-            opacity: 0;
-        }
-        
-        .color-shift {
-            animation: colorShift 5s ease infinite;
-        }
-        
-        /* Animation Delays */
-        .delay-100 { animation-delay: 0.1s; }
-        .delay-200 { animation-delay: 0.2s; }
-        .delay-300 { animation-delay: 0.3s; }
-        .delay-400 { animation-delay: 0.4s; }
-        .delay-500 { animation-delay: 0.5s; }
-        .delay-600 { animation-delay: 0.6s; }
-        .delay-700 { animation-delay: 0.7s; }
-        .delay-800 { animation-delay: 0.8s; }
-        .delay-900 { animation-delay: 0.9s; }
-        .delay-1000 { animation-delay: 1s; }
-        .delay-1200 { animation-delay: 1.2s; }
-        .delay-1500 { animation-delay: 1.5s; }
-        
-        /* Sidebar Styles */
+        /* Sidebar Styles - Simplified */
         .sidebar {
             position: fixed;
             top: 0;
@@ -256,66 +151,7 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         
-        /* Learning Path Styles */
-        .learning-path {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 2rem 0;
-            position: relative;
-        }
-        
-        .learning-path::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.3);
-            z-index: 0;
-        }
-        
-        .path-step {
-            background: white;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            z-index: 1;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .path-step.active {
-            background: #4f46e5;
-            color: white;
-            transform: scale(1.1);
-        }
-        
-        .path-step.completed {
-            background: #10b981;
-            color: white;
-        }
-        
-        .path-step.locked {
-            background: #9ca3af;
-            color: white;
-        }
-        
-        .path-label {
-            position: absolute;
-            bottom: -30px;
-            white-space: nowrap;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: white;
-        }
-        
-        /* Content Cards */
+        /* Card Styles - Simplified */
         .content-card {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 1rem;
@@ -329,16 +165,6 @@
         .content-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-        }
-        
-        .content-card.locked {
-            opacity: 0.6;
-            filter: grayscale(100%);
-            cursor: not-allowed;
-        }
-        
-        .content-card.locked:hover {
-            transform: none;
         }
         
         /* Element Cards */
@@ -384,7 +210,7 @@
             border: 3px solid #e5e7eb;
         }
         
-        /* Tab Styles */
+        /* Tab Styles - Simplified */
         .tabs {
             display: flex;
             border-bottom: 2px solid #e5e7eb;
@@ -430,7 +256,7 @@
             display: block;
         }
         
-        /* Quiz Styles */
+        /* Quiz Styles - Simplified */
         .quiz-option {
             padding: 1rem;
             border: 2px solid #e5e7eb;
@@ -472,161 +298,7 @@
             flex: 1;
         }
         
-        /* Drag and Drop Styles */
-        .drag-items-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .drag-item {
-            background: #f3f4f6;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            padding: 10px 15px;
-            cursor: move;
-            transition: all 0.2s ease;
-        }
-        
-        .drag-item:hover {
-            background: #e5e7eb;
-            transform: translateY(-2px);
-        }
-        
-        .drag-item.dragging {
-            opacity: 0.5;
-        }
-        
-        .drop-targets-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        
-        .drop-target {
-            background: #f9fafb;
-            border: 2px dashed #d1d5db;
-            border-radius: 6px;
-            padding: 15px;
-            min-width: 150px;
-            min-height: 50px;
-            text-align: center;
-            transition: all 0.2s ease;
-        }
-        
-        .drop-target.drag-over {
-            background: #eff6ff;
-            border-color: #3b82f6;
-        }
-        
-        /* Fill in the Blank Styles */
-        .blank-container {
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-        
-        .blank-input {
-            display: inline-block;
-            width: 120px;
-            padding: 5px 8px;
-            margin: 0 5px;
-            border: 1px solid #d1d5db;
-            border-radius: 4px;
-            font-size: 1rem;
-            text-align: center;
-        }
-        
-        .blank-input:focus {
-            outline: none;
-            border-color: #4f46e5;
-            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
-        }
-        
-        /* Matching Styles */
-        .matching-container {
-            display: flex;
-            gap: 30px;
-        }
-        
-        .matching-column {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        .matching-item {
-            background: #f9fafb;
-            border: 1px solid #e5e7eb;
-            border-radius: 6px;
-            padding: 12px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .matching-item:hover {
-            background: #f3f4f6;
-        }
-        
-        .matching-item.selected {
-            background: #eef2ff;
-            border-color: #4f46e5;
-        }
-        
-        .matching-item.matched {
-            background: #d1fae5;
-            border-color: #10b981;
-            cursor: default;
-        }
-        
-        /* Progress Bar */
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: #e5e7eb;
-            border-radius: 4px;
-            overflow: hidden;
-            margin: 1rem 0;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #4f46e5, #7c3aed);
-            transition: width 0.3s ease;
-        }
-        
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-        }
-        
-        .modal.active {
-            display: flex;
-        }
-        
-        .modal-content {
-            background: white;
-            border-radius: 1rem;
-            padding: 2rem;
-            max-width: 600px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-        }
-        
-        /* Button Styles */
+        /* Button Styles - Simplified */
         .btn {
             padding: 0.75rem 1.5rem;
             border-radius: 0.5rem;
@@ -669,76 +341,37 @@
             color: white;
         }
         
-        /* Lock Overlay */
-        .lock-overlay {
-            position: absolute;
+        /* Modal Styles - Simplified */
+        .modal {
+            display: none;
+            position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
             align-items: center;
             justify-content: center;
-            border-radius: 1rem;
-            color: white;
-            font-size: 3rem;
-        }
-        
-        /* Toast Notification */
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: white;
             padding: 1rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            z-index: 2000;
+        }
+        
+        .modal.active {
             display: flex;
-            align-items: center;
-            transform: translateX(400px);
-            transition: transform 0.3s ease;
         }
         
-        .toast.show {
-            transform: translateX(0);
+        .modal-content {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
         }
         
-        .toast-icon {
-            margin-right: 0.75rem;
-            font-size: 1.25rem;
-        }
-        
-        .toast.success .toast-icon {
-            color: #10b981;
-        }
-        
-        .toast.error .toast-icon {
-            color: #ef4444;
-        }
-        
-        .toast.info .toast-icon {
-            color: #3b82f6;
-        }
-        
-        /* Loading Spinner */
-        .spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #4f46e5;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* Landing Page Styles */
+        /* Landing Page Styles - Simplified */
         .landing-container {
             min-height: 100vh;
             display: flex;
@@ -804,268 +437,66 @@
             animation: bounce 2s infinite;
         }
         
-        /* Pre-Quiz Introduction Styles */
-        .prequiz-container {
-            min-height: 100vh;
+        /* Learning Path - Simplified */
+        .learning-path {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            padding: 2rem;
-        }
-        
-        .prequiz-card {
-            background: white;
-            border-radius: 2rem;
-            padding: 3rem;
-            max-width: 800px;
-            width: 100%;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-            text-align: center;
-        }
-        
-        .prequiz-icon {
-            font-size: 4rem;
-            color: #4f46e5;
-            margin-bottom: 1rem;
-            animation: pulse 2s infinite;
-        }
-        
-        .prequiz-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #1f2937;
-            margin-bottom: 1rem;
-        }
-        
-        .prequiz-subtitle {
-            font-size: 1.25rem;
-            color: #6b7280;
-            margin-bottom: 2rem;
-        }
-        
-        .support-message {
-            background: #eff6ff;
-            border-left: 4px solid #3b82f6;
-            padding: 1rem;
-            border-radius: 0.5rem;
             margin: 2rem 0;
-            text-align: left;
+            position: relative;
         }
         
-        .support-message h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #1e40af;
-            margin-bottom: 0.5rem;
+        .learning-path::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            z-index: 0;
         }
         
-        .support-message p {
-            color: #1e3a8a;
-            line-height: 1.6;
-        }
-        
-        /* Study Group Styles */
-        .study-group-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .study-group-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        }
-        
-        .member-avatar {
-            width: 30px;
-            height: 30px;
+        .path-step {
+            background: white;
             border-radius: 50%;
-            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            width: 60px;
+            height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 0.75rem;
-            margin-right: -10px;
-            border: 2px solid white;
-        }
-        
-        /* Comment Styles */
-        .comment-section {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            margin-top: 2rem;
-        }
-        
-        .comment {
-            background: #f9fafb;
-            border-radius: 0.75rem;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border-left: 4px solid #4f46e5;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
         }
         
-        .comment:hover {
-            transform: translateX(5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        .path-step.active {
+            background: #4f46e5;
+            color: white;
+            transform: scale(1.1);
         }
         
-        .comment-author {
-            font-weight: 600;
-            color: #1f2937;
-            margin-bottom: 0.25rem;
+        .path-step.completed {
+            background: #10b981;
+            color: white;
         }
         
-        .comment-text {
-            color: #4b5563;
+        .path-step.locked {
+            background: #9ca3af;
+            color: white;
         }
         
-        .comment-form {
-            display: flex;
-            margin-top: 1rem;
-            gap: 0.5rem;
-        }
-        
-        .comment-input {
-            flex: 1;
-            padding: 0.75rem;
-            border: 1px solid #d1d5db;
-            border-radius: 0.5rem;
+        .path-label {
+            position: absolute;
+            bottom: -30px;
+            white-space: nowrap;
             font-size: 0.875rem;
-        }
-        
-        .comment-submit {
-            background: #4f46e5;
+            font-weight: 500;
             color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
         }
         
-        .comment-submit:hover {
-            background: #4338ca;
-        }
-        
-        /* Highlight Box */
-        .highlight-box {
-            background: #f0f9ff;
-            border-left: 4px solid #0ea5e9;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin: 1rem 0;
-            transition: all 0.3s ease;
-        }
-        
-        .highlight-box:hover {
-            transform: translateX(5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .highlight-box h4 {
-            color: #0c4a6e;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
-        .highlight-box p {
-            color: #075985;
-        }
-        
-        /* Equation Box */
-        .equation-box {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin: 1rem 0;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .equation-box:hover {
-            transform: scale(1.02);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .equation-box .equation {
-            font-family: 'Courier New', monospace;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #1e293b;
-            margin: 0.5rem 0;
-        }
-        
-        /* Key Point Box */
-        .key-point {
-            background: #fffbeb;
-            border-left: 4px solid #f59e0b;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin: 1rem 0;
-            transition: all 0.3s ease;
-        }
-        
-        .key-point:hover {
-            transform: translateX(5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .key-point h4 {
-            color: #92400e;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
-        .key-point p {
-            color: #78350f;
-        }
-        
-        /* Comparison Table */
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5rem 0;
-            background: white;
-            border-radius: 0.5rem;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        }
-        
-        .comparison-table th {
-            background: #4f46e5;
-            color: white;
-            padding: 0.75rem;
-            text-align: left;
-            font-weight: 600;
-        }
-        
-        .comparison-table td {
-            padding: 0.75rem;
-            border-bottom: 1px solid #e5e7eb;
-        }
-        
-        .comparison-table tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .comparison-table tr:nth-child(even) {
-            background: #f9fafb;
-        }
-        
-        .comparison-table tr:hover {
-            background: #eef2ff;
-        }
-        
-        /* Unit and Lesson Styles - NEW */
+        /* Unit and Lesson Styles */
         .unit-container {
             margin-bottom: 2rem;
         }
@@ -1214,7 +645,7 @@
             margin-left: auto;
         }
         
-        /* Lesson Content Styles - NEW */
+        /* Lesson Content Styles */
         .lesson-content-container {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 1rem;
@@ -1291,80 +722,334 @@
             margin-left: 0.5rem;
         }
         
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-            
-            .sidebar.active {
-                transform: translateX(0);
-            }
-            
-            .main-content {
-                margin-left: 0;
-            }
-            
-            .menu-toggle {
-                display: block;
-            }
-            
-            .landing-title, .prequiz-title {
-                font-size: 2rem;
-            }
-            
-            .feature-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .element-grid {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            }
-            
-            .learning-path {
-                flex-direction: column;
-                gap: 2rem;
-            }
-            
-            .learning-path::before {
-                width: 4px;
-                height: 100%;
-                top: 0;
-                left: 50%;
-                right: auto;
-                transform: translateX(-50%);
-            }
-            
-            .comparison-table {
-                font-size: 0.875rem;
-            }
-            
-            .comparison-table th, .comparison-table td {
-                padding: 0.5rem;
-            }
-            
-            .matching-container {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .drag-items-container,
-            .drop-targets-container {
-                justify-content: center;
-            }
-            
-            .blank-input {
-                width: 100px;
-            }
-            
-            .lessons-container {
-                margin-left: 1rem;
-            }
-            
-            .lesson-navigation {
-                flex-direction: column;
-                gap: 1rem;
-            }
+        /* Highlight Box - Simplified */
+        .highlight-box {
+            background: #f0f9ff;
+            border-left: 4px solid #0ea5e9;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .highlight-box:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .highlight-box h4 {
+            color: #0c4a6e;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .highlight-box p {
+            color: #075985;
+        }
+        
+        /* Equation Box */
+        .equation-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .equation-box:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .equation-box .equation {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0.5rem 0;
+        }
+        
+        /* Key Point Box */
+        .key-point {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .key-point:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .key-point h4 {
+            color: #92400e;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .key-point p {
+            color: #78350f;
+        }
+        
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .comparison-table th {
+            background: #4f46e5;
+            color: white;
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .comparison-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #f9fafb;
+        }
+        
+        .comparison-table tr:hover {
+            background: #eef2ff;
+        }
+        
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4f46e5, #7c3aed);
+            transition: width 0.3s ease;
+        }
+        
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+        
+        .toast.show {
+            transform: translateX(0);
+        }
+        
+        .toast-icon {
+            margin-right: 0.75rem;
+            font-size: 1.25rem;
+        }
+        
+        .toast.success .toast-icon {
+            color: #10b981;
+        }
+        
+        .toast.error .toast-icon {
+            color: #ef4444;
+        }
+        
+        .toast.info .toast-icon {
+            color: #3b82f6;
+        }
+        
+        /* Loading Spinner */
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #4f46e5;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Study Group Styles */
+        .study-group-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .study-group-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .member-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin-right: -10px;
+            border: 2px solid white;
+        }
+        
+        /* Comment Styles */
+        .comment-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .comment {
+            background: #f9fafb;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #4f46e5;
+            transition: all 0.3s ease;
+        }
+        
+        .comment:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .comment-author {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.25rem;
+        }
+        
+        .comment-text {
+            color: #4b5563;
+        }
+        
+        .comment-form {
+            display: flex;
+            margin-top: 1rem;
+            gap: 0.5rem;
+        }
+        
+        .comment-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .comment-submit {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .comment-submit:hover {
+            background: #4338ca;
+        }
+        
+        /* Pre-Quiz Introduction Styles */
+        .prequiz-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .prequiz-card {
+            background: white;
+            border-radius: 2rem;
+            padding: 3rem;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        
+        .prequiz-icon {
+            font-size: 4rem;
+            color: #4f46e5;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+        
+        .prequiz-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+        
+        .prequiz-subtitle {
+            font-size: 1.25rem;
+            color: #6b7280;
+            margin-bottom: 2rem;
+        }
+        
+        .support-message {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 2rem 0;
+            text-align: left;
+        }
+        
+        .support-message h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 0.5rem;
+        }
+        
+        .support-message p {
+            color: #1e3a8a;
+            line-height: 1.6;
         }
         
         /* Auth Modal Styles */
@@ -1438,54 +1123,98 @@
         .close-btn:hover {
             color: #1f2937;
         }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .landing-title, .prequiz-title {
+                font-size: 2rem;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .element-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+            
+            .learning-path {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .learning-path::before {
+                width: 4px;
+                height: 100%;
+                top: 0;
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+            }
+            
+            .comparison-table {
+                font-size: 0.875rem;
+            }
+            
+            .comparison-table th, .comparison-table td {
+                padding: 0.5rem;
+            }
+            
+            .lessons-container {
+                margin-left: 1rem;
+            }
+            
+            .lesson-navigation {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Landing Page (shown when user hasn't signed in) -->
     <div id="landingPage" class="landing-container">
         <div class="landing-card">
-            <div class="landing-icon text-reveal delay-100">
+            <div class="landing-icon fade-in">
                 <i class="fas fa-atom"></i>
             </div>
-            <h1 class="landing-title glow-text text-reveal delay-300">
-                <span class="letter-pop delay-300">C</span>
-                <span class="letter-pop delay-320">h</span>
-                <span class="letter-pop delay-340">e</span>
-                <span class="letter-pop delay-360">m</span>
-                <span class="letter-pop delay-380">i</span>
-                <span class="letter-pop delay-400">s</span>
-                <span class="letter-pop delay-420">t</span>
-                <span class="letter-pop delay-440">r</span>
-                <span class="letter-pop delay-460">y</span>
-                <span class="letter-pop delay-480"> </span>
-                <span class="letter-pop delay-500">M</span>
-                <span class="letter-pop delay-520">a</span>
-                <span class="letter-pop delay-540">s</span>
-                <span class="letter-pop delay-560">t</span>
-                <span class="letter-pop delay-580">e</span>
-                <span class="letter-pop delay-600">r</span>
-                <span class="letter-pop delay-620">y</span>
-            </h1>
-            <p class="landing-subtitle text-reveal delay-700">
-                Master <strong class="color-shift">Group 1 Alkali Metals</strong> through Interactive Learning
+            <h1 class="landing-title glow-text">Chemistry Mastery</h1>
+            <p class="landing-subtitle">
+                Master <strong class="text-indigo-600">Group 1 Alkali Metals</strong> through Interactive Learning
             </p>
             
             <div class="feature-grid">
-                <div class="feature-card slide-up delay-800">
+                <div class="feature-card fade-in">
                     <div class="feature-icon">
                         <i class="fas fa-clipboard-check"></i>
                     </div>
                     <h3 class="font-semibold">Step-by-Step Learning</h3>
                     <p class="text-sm text-gray-600">Progress through <strong>structured lessons</strong></p>
                 </div>
-                <div class="feature-card slide-up delay-900">
+                <div class="feature-card fade-in">
                     <div class="feature-icon">
                         <i class="fas fa-book-open"></i>
                     </div>
                     <h3 class="font-semibold">Interactive Content</h3>
                     <p class="text-sm text-gray-600">Learn through <strong>engaging materials</strong></p>
                 </div>
-                <div class="feature-card slide-up delay-1000">
+                <div class="feature-card fade-in">
                     <div class="feature-icon">
                         <i class="fas fa-users"></i>
                     </div>
@@ -1495,8 +1224,8 @@
             </div>
             
             <div class="mt-8">
-                <p class="text-lg font-semibold text-gray-700 mb-4 text-reveal delay-1100">Your Learning Journey</p>
-                <div class="learning-path slide-up delay-1200">
+                <p class="text-lg font-semibold text-gray-700 mb-4">Your Learning Journey</p>
+                <div class="learning-path">
                     <div class="path-step active">
                         <i class="fas fa-play"></i>
                         <span class="path-label">Pre-Quiz</span>
@@ -1513,11 +1242,11 @@
             </div>
             
             <div class="mt-8 space-y-4">
-                <button onclick="showLoginModal()" class="btn btn-primary w-full slide-up delay-1300">
+                <button onclick="showLoginModal()" class="btn btn-primary w-full">
                     <i class="fas fa-sign-in-alt"></i>
                     Sign In to Begin
                 </button>
-                <button onclick="signInWithGoogle()" class="btn btn-secondary w-full slide-up delay-1500">
+                <button onclick="signInWithGoogle()" class="btn btn-secondary w-full">
                     <i class="fab fa-google"></i>
                     Continue with Google
                 </button>
@@ -1528,40 +1257,20 @@
     <!-- Pre-Quiz Introduction Page (shown after sign-in) -->
     <div id="prequizPage" class="prequiz-container" style="display: none;">
         <div class="prequiz-card">
-            <div class="prequiz-icon text-reveal delay-100">
+            <div class="prequiz-icon">
                 <i class="fas fa-clipboard-list"></i>
             </div>
-            <h1 class="prequiz-title glow-text text-reveal delay-300">
-                <span class="letter-pop delay-300">P</span>
-                <span class="letter-pop delay-320">r</span>
-                <span class="letter-pop delay-340">e</span>
-                <span class="letter-pop delay-360">-</span>
-                <span class="letter-pop delay-380">A</span>
-                <span class="letter-pop delay-400">s</span>
-                <span class="letter-pop delay-420">s</span>
-                <span class="letter-pop delay-440">e</span>
-                <span class="letter-pop delay-460">s</span>
-                <span class="letter-pop delay-480">s</span>
-                <span class="letter-pop delay-500">m</span>
-                <span class="letter-pop delay-520">e</span>
-                <span class="letter-pop delay-540">n</span>
-                <span class="letter-pop delay-560">t</span>
-                <span class="letter-pop delay-580"> </span>
-                <span class="letter-pop delay-600">Q</span>
-                <span class="letter-pop delay-620">u</span>
-                <span class="letter-pop delay-640">i</span>
-                <span class="letter-pop delay-660">z</span>
-            </h1>
-            <p class="prequiz-subtitle text-reveal delay-700">
-                Let's check your <strong class="color-shift">current knowledge</strong> of Group 1 Alkali Metals
+            <h1 class="prequiz-title glow-text">Pre-Assessment Quiz</h1>
+            <p class="prequiz-subtitle">
+                Let's check your <strong class="text-indigo-600">current knowledge</strong> of Group 1 Alkali Metals
             </p>
             
-            <div class="support-message slide-up delay-800">
+            <div class="support-message">
                 <h3><i class="fas fa-lightbulb mr-2"></i>Before You Begin</h3>
                 <p>This quiz helps us understand your <strong>current knowledge level</strong>. Don't worry if you don't know all the answers - this is just a <strong>starting point</strong>! Take your time, read each question carefully, and do your best. Your results will help us <strong>personalize your learning experience</strong>.</p>
             </div>
             
-            <div class="bg-blue-50 p-4 rounded-lg mb-6 slide-up delay-900">
+            <div class="bg-blue-50 p-4 rounded-lg mb-6">
                 <div class="flex items-center mb-2">
                     <i class="fas fa-info-circle text-blue-500 mr-2"></i>
                     <h3 class="font-semibold text-blue-800">Quiz Details</h3>
@@ -1575,7 +1284,7 @@
             </div>
             
             <div class="mt-8">
-                <button onclick="startPreQuiz()" class="btn btn-primary w-full slide-up delay-1000">
+                <button onclick="startPreQuiz()" class="btn btn-primary w-full">
                     <i class="fas fa-play mr-2"></i>
                     Start Pre-Quiz
                 </button>
@@ -1673,7 +1382,7 @@
             
             <!-- Study Groups Section -->
             <div id="study-groups-section" class="content-section" style="display: none;">
-                <div class="content-card fade-in">
+                <div class="content-card">
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="text-xl font-bold text-gray-800 flex items-center">
                             <i class="fas fa-users mr-2 text-indigo-600"></i>
@@ -1692,7 +1401,7 @@
             
             <!-- Discussion Section -->
             <div id="discussion-section" class="content-section" style="display: none;">
-                <div class="comment-section fade-in">
+                <div class="comment-section">
                     <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
                         <i class="fas fa-comments mr-2 text-indigo-600"></i>
                         Discussion
@@ -1709,7 +1418,7 @@
             
             <!-- Post Quiz Section -->
             <div id="quiz-section" class="content-section" style="display: none;">
-                <div class="content-card fade-in">
+                <div class="content-card">
                     <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
                         <i class="fas fa-graduation-cap mr-2 text-indigo-600"></i>
                         Final Assessment
@@ -2515,7 +2224,7 @@
                                 dragItems: ["Lithium", "Sodium", "Potassium"],
                                 dropTargets: ["Fizzes steadily", "Melts into a ball", "Ignites with lilac flame"],
                                 correct: { "Lithium": "Fizzes steadily", "Sodium": "Melts into a ball", "Potassium": "Ignites with lilac flame" },
-                                explanation: "Lithium reacts steadily with water without melting, sodium melts into a ball due to the heat of reaction, and potassium reacts so violently it may ignite with a characteristic lilac flame."
+                                explanation: "Lithium reacts steadily with water without melting, sodium melts into a ball due to the heat of reaction, and potassium reacts violently and may ignite with a lilac flame."
                             }
                         }
                     },
