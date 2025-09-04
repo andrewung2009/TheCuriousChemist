@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,17 +9,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Google Sheets API -->
-    <script src="https://apis.google.com/js/api.js"></script>
-    
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-S76E52MQ37"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-S76E52MQ37');
-    </script>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
@@ -109,23 +104,6 @@
             100% { color: #4f46e5; }
         }
         
-        @keyframes flash {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-        
-        @keyframes valenceElectronGlow {
-            0%, 100% { 
-                color: #4f46e5;
-                text-shadow: 0 0 5px rgba(79, 70, 229, 0.7);
-            }
-            50% { 
-                color: #f59e0b;
-                text-shadow: 0 0 15px rgba(245, 158, 11, 0.9);
-                transform: scale(1.2);
-            }
-        }
-        
         .fade-in {
             animation: fadeIn 0.6s ease-out forwards;
         }
@@ -181,92 +159,6 @@
         
         .color-shift {
             animation: colorShift 5s ease infinite;
-        }
-        
-        .valence-electron {
-            display: inline-block;
-            animation: valenceElectronGlow 2s infinite;
-            font-weight: bold;
-            cursor: pointer;
-            position: relative;
-        }
-        
-        .valence-electron:hover::after {
-            content: 'Valence Electron: The electron in the outermost shell of an atom';
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            white-space: nowrap;
-            z-index: 10;
-            font-size: 14px;
-            width: 300px;
-        }
-        
-        .term-hover {
-            position: relative;
-            display: inline-block;
-            cursor: help;
-            border-bottom: 1px dashed #4f46e5;
-            color: #4f46e5;
-            font-weight: 500;
-        }
-        
-        .term-hover:hover::after {
-            content: '';
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 150px;
-            background-image: url('https://media.giphy.com/media/3o7aCTPPm4OHfRLSH6/giphy.gif');
-            background-size: cover;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            z-index: 10;
-        }
-        
-        .melting-point-chart {
-            height: 300px;
-            margin: 20px 0;
-            position: relative;
-        }
-        
-        .chart-bar {
-            position: absolute;
-            bottom: 0;
-            width: 60px;
-            background: linear-gradient(to top, #4f46e5, #7c3aed);
-            border-radius: 6px 6px 0 0;
-            transition: all 0.3s ease;
-        }
-        
-        .chart-bar:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
-        }
-        
-        .chart-label {
-            position: absolute;
-            bottom: -30px;
-            width: 60px;
-            text-align: center;
-            font-weight: 500;
-            color: white;
-        }
-        
-        .chart-value {
-            position: absolute;
-            top: -25px;
-            width: 60px;
-            text-align: center;
-            font-weight: 600;
-            color: white;
         }
         
         /* Animation Delays */
@@ -448,39 +340,6 @@
         
         .content-card.locked:hover {
             transform: none;
-        }
-        
-        /* Module Styles */
-        .module {
-            margin-bottom: 2rem;
-        }
-        
-        .module-header {
-            background: linear-gradient(135deg, #4f46e5, #7c3aed);
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 0.75rem 0.75rem 0 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .module-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
-        
-        .module-progress {
-            font-size: 0.875rem;
-            display: flex;
-            align-items: center;
-        }
-        
-        .module-content {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 0 0 0.75rem 0.75rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
         
         /* Element Cards */
@@ -1097,107 +956,6 @@
             background: #4338ca;
         }
         
-        /* Feedback Styles */
-        .feedback-section {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            margin-top: 2rem;
-        }
-        
-        .feedback-buttons {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .feedback-btn {
-            flex: 1;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            background: #f9fafb;
-            border: 1px solid #e5e7eb;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .feedback-btn:hover {
-            background: #f3f4f6;
-            transform: translateY(-2px);
-        }
-        
-        .feedback-btn.active {
-            background: #eef2ff;
-            border-color: #4f46e5;
-            color: #4f46e5;
-        }
-        
-        .feedback-btn i {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .review-form {
-            margin-top: 1.5rem;
-        }
-        
-        .review-textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #d1d5db;
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
-            min-height: 100px;
-            margin-bottom: 1rem;
-        }
-        
-        .review-submit {
-            background: #4f46e5;
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        
-        .review-submit:hover {
-            background: #4338ca;
-        }
-        
-        .review-list {
-            margin-top: 1.5rem;
-        }
-        
-        .review-item {
-            background: #f9fafb;
-            border-radius: 0.75rem;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border-left: 4px solid #4f46e5;
-        }
-        
-        .review-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-        }
-        
-        .review-author {
-            font-weight: 600;
-            color: #1f2937;
-        }
-        
-        .review-rating {
-            color: #f59e0b;
-        }
-        
-        .review-text {
-            color: #4b5563;
-        }
-        
         /* Highlight Box */
         .highlight-box {
             background: #f0f9ff;
@@ -1308,26 +1066,6 @@
             background: #eef2ff;
         }
         
-        /* Video Container */
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 0.75rem;
-            margin: 1.5rem 0;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-        
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 0.75rem;
-        }
-        
         /* Responsive Design */
         @media (max-width: 768px) {
             .sidebar {
@@ -1392,12 +1130,6 @@
             
             .blank-input {
                 width: 100px;
-            }
-            
-            .module-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
             }
         }
     </style>
@@ -1479,9 +1211,9 @@
                     <i class="fas fa-sign-in-alt"></i>
                     Sign In to Begin
                 </button>
-                <button onclick="showSignupModal()" class="btn btn-secondary w-full slide-up delay-1500">
-                    <i class="fas fa-user-plus"></i>
-                    Create Account
+                <button onclick="signInWithGoogle()" class="btn btn-secondary w-full slide-up delay-1500">
+                    <i class="fab fa-google"></i>
+                    Continue with Google
                 </button>
             </div>
         </div>
@@ -1641,149 +1373,115 @@
             
             <!-- Overview Section -->
             <div id="overview-section" class="content-section">
-                <!-- Module 1: Introduction -->
-                <div class="module fade-in">
-                    <div class="module-header">
-                        <h3 class="module-title">Module 1: Introduction to Group 1</h3>
-                        <div class="module-progress">
-                            <i class="fas fa-check-circle text-green-400 mr-1"></i>
-                            <span>Completed</span>
+                <!-- Hero Section -->
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-white mb-3 glow-text">Group 1: The Alkali Metals</h2>
+                    <p class="text-lg text-white/90 max-w-2xl mx-auto">
+                        Explore the <strong>most reactive metals</strong> in the periodic table
+                    </p>
+                </div>
+                
+                <!-- Introduction -->
+                <div class="content-card fade-in">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-info-circle mr-2 text-indigo-600"></i>
+                        Introduction
+                    </h3>
+                    <p class="text-gray-700 mb-4">
+                        Group 1 elements, known as the <strong>alkali metals</strong>, occupy the first column of the periodic table. 
+                        They consist of lithium (Li), sodium (Na), potassium (K), rubidium (Rb), cesium (Cs), and francium (Fr). 
+                        These elements share similar properties because they all have <strong>one electron in their outer shell</strong>, 
+                        which they readily lose to form +1 ions.
+                    </p>
+                    
+                    <div class="highlight-box">
+                        <h4>Electron Configuration</h4>
+                        <p>All Group 1 elements have an electron number configuration that ends with a <strong>single electron</strong> in the outermost shell, such as lithium 2,1, sodium 2,8,1, and potassium 2,8,8,1; this single valence electron is <strong>easily lost</strong>, which makes these elements highly reactive metals.</p>
+                    </div>
+                    
+                    <p class="text-gray-700 mt-4">
+                        Alkali metals are <strong>soft, shiny metals</strong> with low densities and low melting points. 
+                        Their reactivity increases as you move down the group. Due to their <strong>high reactivity</strong>, 
+                        they are never found free in nature but always occur in compounds, often as chlorides, 
+                        carbonates, or sulfates.
+                    </p>
+                </div>
+                
+                <!-- Key Characteristics -->
+                <div class="content-card fade-in">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-star mr-2 text-indigo-600"></i>
+                        Key Characteristics
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-700 mb-3">Physical Properties</h4>
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span><strong>Soft metals</strong> that can be cut with a knife</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span><strong>Low density</strong> - lithium floats on water</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span><strong>Low melting and boiling points</strong></span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span><strong>Good conductors</strong> of heat and electricity</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-700 mb-3">Chemical Properties</h4>
+                            <ul class="space-y-2 text-gray-600">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span><strong>Highly reactive</strong> with one valence electron</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>Form <strong>+1 ions</strong> by losing their valence electron</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span><strong>Reactivity increases</strong> down the group</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span><strong>Never found free</strong> in nature</span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="module-content">
-                        <!-- Hero Section -->
-                        <div class="text-center mb-8">
-                            <h2 class="text-3xl font-bold text-white mb-3 glow-text">Group 1: The Alkali Metals</h2>
-                            <p class="text-lg text-white/90 max-w-2xl mx-auto">
-                                Explore the <strong>most reactive metals</strong> in the periodic table
-                            </p>
-                        </div>
-                        
-                        <!-- Introduction -->
-                        <div class="content-card">
-                            <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                                <i class="fas fa-info-circle mr-2 text-indigo-600"></i>
-                                Introduction
-                            </h3>
-                            <p class="text-gray-700 mb-4">
-                                Group 1 elements, known as the <strong>alkali metals</strong>, occupy the first column of the periodic table. 
-                                They consist of lithium (Li), sodium (Na), potassium (K), rubidium (Rb), cesium (Cs), and francium (Fr). 
-                                These elements share similar properties because they all have <span class="valence-electron">1</span> valence electron in their outer shell, 
-                                which they readily lose to form +1 ions.
-                            </p>
-                            
-                            <div class="highlight-box">
-                                <h4>Electron Configuration</h4>
-                                <p>All Group 1 elements have an electron configuration that ends with a <strong>single electron</strong> in the outermost shell, such as lithium 2,1, sodium 2,8,1, and potassium 2,8,8,1; this single <span class="term-hover">valence electron</span> is <strong>easily lost</strong>, which makes these elements highly reactive metals.</p>
-                            </div>
-                            
-                            <p class="text-gray-700 mt-4">
-                                Alkali metals are <strong>soft, shiny metals</strong> with low densities and low melting points. 
-                                Their reactivity increases as you move down the group. Due to their <strong>high reactivity</strong>, 
-                                they are never found free in nature but always occur in compounds, often as chlorides, 
-                                carbonates, or sulfates.
-                            </p>
-                        </div>
-                        
-                        <!-- Key Characteristics -->
-                        <div class="content-card">
-                            <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                                <i class="fas fa-star mr-2 text-indigo-600"></i>
-                                Key Characteristics
-                            </h3>
-                            <div class="grid md:grid-cols-2 gap-6">
-                                <div>
-                                    <h4 class="font-semibold text-gray-700 mb-3">Physical Properties</h4>
-                                    <ul class="space-y-2 text-gray-600">
-                                        <li class="flex items-start">
-                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                                            <span><strong>Soft metals</strong> that can be cut with a knife</span>
-                                        </li>
-                                        <li class="flex items-start">
-                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                                            <span><strong>Low density</strong> - lithium floats on water</span>
-                                        </li>
-                                        <li class="flex items-start">
-                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                                            <span><strong>Low melting and boiling points</strong></span>
-                                        </li>
-                                        <li class="flex items-start">
-                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                                            <span><strong>Good conductors</strong> of heat and electricity</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-gray-700 mb-3">Chemical Properties</h4>
-                                    <ul class="space-y-2 text-gray-600">
-                                        <li class="flex items-start">
-                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                                            <span><strong>Highly reactive</strong> with one valence electron</span>
-                                        </li>
-                                        <li class="flex items-start">
-                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                                            <span>Form <strong>+1 ions</strong> by losing their valence electron</span>
-                                        </li>
-                                        <li class="flex items-start">
-                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                                            <span><strong>Reactivity increases</strong> down the group</span>
-                                        </li>
-                                        <li class="flex items-start">
-                                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                                            <span><strong>Never found free</strong> in nature</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <div class="key-point mt-4">
-                                <h4>Remember</h4>
-                                <p>Group 1 metals are <strong>so reactive</strong> they must be stored under oil to prevent reaction with air and moisture!</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Video Section -->
-                        <div class="content-card">
-                            <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                                <i class="fas fa-video mr-2 text-indigo-600"></i>
-                                Video Explanation
-                            </h3>
-                            <div class="video-container">
-                                <iframe src="https://www.youtube.com/embed/6p2JnxKEI1k" title="Group 1 Alkali Metals" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            </div>
-                        </div>
+                    
+                    <div class="key-point mt-4">
+                        <h4>Remember</h4>
+                        <p>Group 1 metals are <strong>so reactive</strong> they must be stored under oil to prevent reaction with air and moisture!</p>
                     </div>
                 </div>
                 
-                <!-- Module 2: Applications -->
-                <div class="module fade-in">
-                    <div class="module-header">
-                        <h3 class="module-title">Module 2: Real-World Applications</h3>
-                        <div class="module-progress">
-                            <i class="fas fa-check-circle text-green-400 mr-1"></i>
-                            <span>Completed</span>
+                <!-- Applications -->
+                <div class="content-card fade-in">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-industry mr-2 text-indigo-600"></i>
+                        Real-World Applications
+                    </h3>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">Lithium</h4>
+                            <p class="text-sm text-blue-600">Used in <strong>batteries</strong> for phones and electric vehicles, glass production, and as a medication for bipolar disorder</p>
                         </div>
-                    </div>
-                    <div class="module-content">
-                        <div class="content-card">
-                            <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                                <i class="fas fa-industry mr-2 text-indigo-600"></i>
-                                Real-World Applications
-                            </h3>
-                            <div class="grid md:grid-cols-3 gap-4">
-                                <div class="bg-blue-50 p-4 rounded-lg">
-                                    <h4 class="font-semibold text-blue-800 mb-2">Lithium</h4>
-                                    <p class="text-sm text-blue-600">Used in <strong>batteries</strong> for phones and electric vehicles, glass production, and as a medication for bipolar disorder</p>
-                                </div>
-                                <div class="bg-green-50 p-4 rounded-lg">
-                                    <h4 class="font-semibold text-green-800 mb-2">Sodium</h4>
-                                    <p class="text-sm text-green-600">Essential for life (<strong>nerve function</strong>), used in street lights (sodium vapor lamps), and food preservation (salt)</p>
-                                </div>
-                                <div class="bg-purple-50 p-4 rounded-lg">
-                                    <h4 class="font-semibold text-purple-800 mb-2">Potassium</h4>
-                                    <p class="text-sm text-purple-600">Vital for plants (<strong>fertilizers</strong>), essential for nerve and muscle function in animals, used in soap production</p>
-                                </div>
-                            </div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-green-800 mb-2">Sodium</h4>
+                            <p class="text-sm text-green-600">Essential for life (<strong>nerve function</strong>), used in street lights (sodium vapor lamps), and food preservation (salt)</p>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-purple-800 mb-2">Potassium</h4>
+                            <p class="text-sm text-purple-600">Vital for plants (<strong>fertilizers</strong>), essential for nerve and muscle function in animals, used in soap production</p>
                         </div>
                     </div>
                 </div>
@@ -1791,356 +1489,294 @@
             
             <!-- Elements Section -->
             <div id="elements-section" class="content-section" style="display: none;">
-                <!-- Module 3: Element Details -->
-                <div class="module fade-in">
-                    <div class="module-header">
-                        <h3 class="module-title">Module 3: Meet the Elements</h3>
-                        <div class="module-progress">
-                            <i class="fas fa-check-circle text-green-400 mr-1"></i>
-                            <span>Completed</span>
+                <div class="content-card fade-in">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-th mr-2 text-indigo-600"></i>
+                        Meet the Elements
+                    </h3>
+                    <div class="element-grid">
+                        <div class="element-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Lithiumcut_cropped.jpg" alt="Lithium" class="element-image">
+                            <h4 class="font-bold text-lg">Lithium (Li)</h4>
+                            <p class="text-sm text-gray-600">Atomic: <strong>3</strong></p>
+                        </div>
+                        <div class="element-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Na_%28Sodium%29.jpg" alt="Sodium" class="element-image">
+                            <h4 class="font-bold text-lg">Sodium (Na)</h4>
+                            <p class="text-sm text-gray-600">Atomic: <strong>11</strong></p>
+                        </div>
+                        <div class="element-card">
+                            <img src="https://cdn.britannica.com/77/131177-050-79292189/fragments-Potassium-metal.jpg" alt="Potassium" class="element-image">
+                            <h4 class="font-bold text-lg">Potassium (K)</h4>
+                            <p class="text-sm text-gray-600">Atomic: <strong>19</strong></p>
+                        </div>
+                        <div class="element-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Rb5.JPG" alt="Rubidium" class="element-image">
+                            <h4 class="font-bold text-lg">Rubidium (Rb)</h4>
+                            <p class="text-sm text-gray-600">Atomic: <strong>37</strong></p>
+                        </div>
+                        <div class="element-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Cesium.jpg" alt="Cesium" class="element-image">
+                            <h4 class="font-bold text-lg">Cesium (Cs)</h4>
+                            <p class="text-sm text-gray-600">Atomic: <strong>55</strong></p>
+                        </div>
+                        <div class="element-card">
+                            <img src="https://i0.wp.com/periodic-table.com/wp-content/uploads/2018/11/Francium.jpg?fit=238%2C212&ssl=1" alt="Francium" class="element-image">
+                            <h4 class="font-bold text-lg">Francium (Fr)</h4>
+                            <p class="text-sm text-gray-600">Atomic: <strong>87</strong></p>
                         </div>
                     </div>
-                    <div class="module-content">
-                        <div class="content-card">
-                            <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                                <i class="fas fa-th mr-2 text-indigo-600"></i>
-                                Meet the Elements
-                            </h3>
-                            <div class="element-grid">
-                                <div class="element-card">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Lithiumcut_cropped.jpg" alt="Lithium" class="element-image">
-                                    <h4 class="font-bold text-lg">Lithium (Li)</h4>
-                                    <p class="text-sm text-gray-600">Atomic: <strong>3</strong></p>
-                                </div>
-                                <div class="element-card">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Na_%28Sodium%29.jpg" alt="Sodium" class="element-image">
-                                    <h4 class="font-bold text-lg">Sodium (Na)</h4>
-                                    <p class="text-sm text-gray-600">Atomic: <strong>11</strong></p>
-                                </div>
-                                <div class="element-card">
-                                    <img src="https://cdn.britannica.com/77/131177-050-79292189/fragments-Potassium-metal.jpg" alt="Potassium" class="element-image">
-                                    <h4 class="font-bold text-lg">Potassium (K)</h4>
-                                    <p class="text-sm text-gray-600">Atomic: <strong>19</strong></p>
-                                </div>
-                                <div class="element-card">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Rb5.JPG" alt="Rubidium" class="element-image">
-                                    <h4 class="font-bold text-lg">Rubidium (Rb)</h4>
-                                    <p class="text-sm text-gray-600">Atomic: <strong>37</strong></p>
-                                </div>
-                                <div class="element-card">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Cesium.jpg" alt="Cesium" class="element-image">
-                                    <h4 class="font-bold text-lg">Cesium (Cs)</h4>
-                                    <p class="text-sm text-gray-600">Atomic: <strong>55</strong></p>
-                                </div>
-                                <div class="element-card">
-                                    <img src="https://i0.wp.com/periodic-table.com/wp-content/uploads/2018/11/Francium.jpg?fit=238%2C212&ssl=1" alt="Francium" class="element-image">
-                                    <h4 class="font-bold text-lg">Francium (Fr)</h4>
-                                    <p class="text-sm text-gray-600">Atomic: <strong>87</strong></p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Element Details -->
-                        <div class="content-card">
-                            <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                                <i class="fas fa-info mr-2 text-indigo-600"></i>
-                                Element Details
-                            </h3>
-                            <div class="overflow-x-auto">
-                                <table class="comparison-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Element</th>
-                                            <th>Symbol</th>
-                                            <th>Atomic Number</th>
-                                            <th>Electron Configuration</th>
-                                            <th>Density (g/cm³)</th>
-                                            <th>Melting Point (°C)</th>
-                                            <th>Key Uses</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="font-medium">Lithium</td>
-                                            <td>Li</td>
-                                            <td>3</td>
-                                            <td>2, 1</td>
-                                            <td>0.534</td>
-                                            <td>180.5</td>
-                                            <td><strong>Batteries</strong>, ceramics, mood stabilizers</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-medium">Sodium</td>
-                                            <td>Na</td>
-                                            <td>11</td>
-                                            <td>2, 8, 1</td>
-                                            <td>0.968</td>
-                                            <td>97.8</td>
-                                            <td><strong>Street lights</strong>, salt, soap</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-medium">Potassium</td>
-                                            <td>K</td>
-                                            <td>19</td>
-                                            <td>2, 8, 8, 1</td>
-                                            <td>0.89</td>
-                                            <td>63.5</td>
-                                            <td><strong>Fertilizers</strong>, soap, glass</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-medium">Rubidium</td>
-                                            <td>Rb</td>
-                                            <td>37</td>
-                                            <td>2, 8, 18, 8,1</td>
-                                            <td>1.532</td>
-                                            <td>39.3</td>
-                                            <td><strong>Atomic clocks</strong>, photocells</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-medium">Cesium</td>
-                                            <td>Cs</td>
-                                            <td>55</td>
-                                            <td>2, 8, 18, 18, 8, 1</td>
-                                            <td>1.93</td>
-                                            <td>28.4</td>
-                                            <td><strong>Atomic clocks</strong>, drilling fluids</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-medium">Francium</td>
-                                            <td>Fr</td>
-                                            <td>87</td>
-                                            <td>2, 8, 18, 32, 18, 8, 1</td>
-                                            <td>~1.87</td>
-                                            <td>~27</td>
-                                            <td><strong>Research purposes</strong> only</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            
-                            <div class="highlight-box mt-4">
-                                <h4>Occurrence and Extraction</h4>
-                                <p>Group 1 metals are <strong>never found free</strong> in nature due to their high reactivity. They are typically found as:
-                                <ul class="list-disc pl-5 mt-2">
-                                    <li><strong>Chlorides</strong> (e.g., rock salt - NaCl)</li>
-                                    <li><strong>Carbonates</strong> (e.g., limestone - CaCO₃, which contains Na and K impurities)</li>
-                                    <li><strong>Sulfates</strong> (e.g., Chile saltpeter - NaNO₃)</li>
-                                </ul>
-                                <p class="mt-2">They are extracted by <strong>electrolysis</strong> of their molten chlorides, as chemical reduction is not possible.</p>
-                            </div>
-                        </div>
+                </div>
+                
+                <!-- Element Details -->
+                <div class="content-card fade-in">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-info mr-2 text-indigo-600"></i>
+                        Element Details
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Element</th>
+                                    <th>Symbol</th>
+                                    <th>Atomic Number</th>
+                                    <th>Electron Configuration</th>
+                                    <th>Density (g/cm³)</th>
+                                    <th>Melting Point (°C)</th>
+                                    <th>Key Uses</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="font-medium">Lithium</td>
+                                    <td>Li</td>
+                                    <td>3</td>
+                                    <td>2, 1</td>
+                                    <td>0.534</td>
+                                    <td>180.5</td>
+                                    <td><strong>Batteries</strong>, ceramics, mood stabilizers</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-medium">Sodium</td>
+                                    <td>Na</td>
+                                    <td>11</td>
+                                    <td>2, 8, 1</td>
+                                    <td>0.968</td>
+                                    <td>97.8</td>
+                                    <td><strong>Street lights</strong>, salt, soap</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-medium">Potassium</td>
+                                    <td>K</td>
+                                    <td>19</td>
+                                    <td>2, 8, 8, 1</td>
+                                    <td>0.89</td>
+                                    <td>63.5</td>
+                                    <td><strong>Fertilizers</strong>, soap, glass</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-medium">Rubidium</td>
+                                    <td>Rb</td>
+                                    <td>37</td>
+                                    <td>2, 8, 18, 8,1</td>
+                                    <td>1.532</td>
+                                    <td>39.3</td>
+                                    <td><strong>Atomic clocks</strong>, photocells</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-medium">Cesium</td>
+                                    <td>Cs</td>
+                                    <td>55</td>
+                                    <td>2, 8, 18, 18, 8, 1</td>
+                                    <td>1.93</td>
+                                    <td>28.4</td>
+                                    <td><strong>Atomic clocks</strong>, drilling fluids</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-medium">Francium</td>
+                                    <td>Fr</td>
+                                    <td>87</td>
+                                    <td>2, 8, 18, 32, 18, 8, 1</td>
+                                    <td>~1.87</td>
+                                    <td>~27</td>
+                                    <td><strong>Research purposes</strong> only</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="highlight-box mt-4">
+                        <h4>Occurrence and Extraction</h4>
+                        <p>Group 1 metals are <strong>never found free</strong> in nature due to their high reactivity. They are typically found as:
+                        <ul class="list-disc pl-5 mt-2">
+                            <li><strong>Chlorides</strong> (e.g., rock salt - NaCl)</li>
+                            <li><strong>Carbonates</strong> (e.g., limestone - CaCO₃, which contains Na and K impurities)</li>
+                            <li><strong>Sulfates</strong> (e.g., Chile saltpeter - NaNO₃)</li>
+                        </ul>
+                        <p class="mt-2">They are extracted by <strong>electrolysis</strong> of their molten chlorides, as chemical reduction is not possible.</p>
                     </div>
                 </div>
             </div>
             
             <!-- Properties Section -->
             <div id="properties-section" class="content-section" style="display: none;">
-                <!-- Module 4: Properties -->
-                <div class="module fade-in">
-                    <div class="module-header">
-                        <h3 class="module-title">Module 4: Properties & Characteristics</h3>
-                        <div class="module-progress">
-                            <i class="fas fa-check-circle text-green-400 mr-1"></i>
-                            <span>Completed</span>
+                <div class="content-card fade-in">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-flask mr-2 text-indigo-600"></i>
+                        Properties & Characteristics
+                    </h3>
+                    
+                    <div class="tabs">
+                        <button class="tab active" onclick="showTab('physical')">Physical</button>
+                        <button class="tab" onclick="showTab('chemical')">Chemical</button>
+                        <button class="tab" onclick="showTab('trends')">Trends</button>
+                    </div>
+                    
+                    <div id="physical" class="tab-content active">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-2">Physical Properties</h4>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                        <span><strong>Soft metals</strong> that can be cut with a knife</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                        <span><strong>Low density</strong> - lithium floats on water</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                        <span><strong>Low melting and boiling points</strong></span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                        <span><strong>Good conductors</strong> of heat and electricity</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-2">Appearance</h4>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                        <span><strong>Silvery-white, shiny metals</strong></span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                        <span><strong>Tarnish quickly</strong> in air</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                        <span><strong>Freshly cut surfaces</strong> are highly reflective</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="highlight-box mt-4">
+                            <h4>Why are Group 1 metals soft?</h4>
+                            <p>Group 1 metals have a <strong>metallic structure</strong> held together by metallic bonds. The bonds are <strong>relatively weak</strong> because:
+                            <ul class="list-disc pl-5 mt-2">
+                                <li>Each atom contributes only <strong>one electron</strong> to the "sea" of delocalized electrons</li>
+                                <li>The <strong>atomic radius is relatively large</strong></li>
+                                <li>The <strong>charge on the cation is only +1</strong></li>
+                            </ul>
+                            <p class="mt-2">These factors result in <strong>weak metallic bonding</strong>, making the metals soft with low melting points.</p>
                         </div>
                     </div>
-                    <div class="module-content">
-                        <div class="content-card">
-                            <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                                <i class="fas fa-flask mr-2 text-indigo-600"></i>
-                                Properties & Characteristics
-                            </h3>
-                            
-                            <div class="tabs">
-                                <button class="tab active" onclick="showTab('physical')">Physical</button>
-                                <button class="tab" onclick="showTab('chemical')">Chemical</button>
-                                <button class="tab" onclick="showTab('trends')">Trends</button>
+                    
+                    <div id="chemical" class="tab-content">
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-2">Chemical Properties</h4>
+                                <p class="text-gray-600 mb-4">
+                                    Group 1 elements are <strong>highly reactive metals</strong> with one valence electron that they readily lose to form +1 ions.
+                                </p>
+                                <div class="equation-box">
+                                    <p class="text-gray-700 mb-2">General ionization reaction:</p>
+                                    <p class="equation">M → M⁺ + e⁻</p>
+                                </div>
                             </div>
                             
-                            <div id="physical" class="tab-content active">
-                                <div class="grid md:grid-cols-2 gap-4">
-                                    <div>
-                                        <h4 class="font-semibold text-gray-700 mb-2">Physical Properties</h4>
-                                        <ul class="space-y-2 text-gray-600">
-                                            <li class="flex items-start">
-                                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                                                <span><strong>Soft metals</strong> that can be cut with a knife</span>
-                                            </li>
-                                            <li class="flex items-start">
-                                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                                                <span><strong>Low density</strong> - lithium floats on water</span>
-                                            </li>
-                                            <li class="flex items-start">
-                                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                                                <span><strong>Low melting and boiling points</strong></span>
-                                            </li>
-                                            <li class="flex items-start">
-                                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                                                <span><strong>Good conductors</strong> of heat and electricity</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-semibold text-gray-700 mb-2">Appearance</h4>
-                                        <ul class="space-y-2 text-gray-600">
-                                            <li class="flex items-start">
-                                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                                                <span><strong>Silvery-white, shiny metals</strong></span>
-                                            </li>
-                                            <li class="flex items-start">
-                                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                                                <span><strong>Tarnish quickly</strong> in air</span>
-                                            </li>
-                                            <li class="flex items-start">
-                                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                                                <span><strong>Freshly cut surfaces</strong> are highly reflective</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-2">Reactivity</h4>
+                                <p class="text-gray-600">
+                                    Reactivity increases down the group as the atomic radius increases and the valence electron is further from the nucleus, making it <strong>easier to lose</strong>. This is shown by the <strong>decreasing first ionization energy</strong> down the group.
+                                </p>
                                 
-                                <div class="highlight-box mt-4">
-                                    <h4>Why are Group 1 metals soft?</h4>
-                                    <p>Group 1 metals have a <strong>metallic structure</strong> held together by metallic bonds. The bonds are <strong>relatively weak</strong> because:
+                                <div class="highlight-box mt-3">
+                                    <h4>Ionization Energy Trend</h4>
+                                    <p>First ionization energy decreases down Group 1 because:
                                     <ul class="list-disc pl-5 mt-2">
-                                        <li>Each atom contributes only <strong>one electron</strong> to the "sea" of delocalized electrons</li>
-                                        <li>The <strong>atomic radius is relatively large</strong></li>
-                                        <li>The <strong>charge on the cation is only +1</strong></li>
+                                        <li><strong>Atomic radius increases</strong></li>
+                                        <li><strong>Outer electron is further from the nucleus</strong></li>
+                                        <li><strong>More inner electron shells shield</strong> the outer electron from the nucleus</li>
                                     </ul>
-                                    <p class="mt-2">These factors result in <strong>weak metallic bonding</strong>, making the metals soft with low melting points.</p>
+                                    <p class="mt-2">This makes it <strong>easier to remove</strong> the outer electron, increasing reactivity.</p>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    
+                    <div id="trends" class="tab-content">
+                        <div class="space-y-4">
+                            <h4 class="font-semibold text-gray-700 mb-3">Trends Down Group 1</h4>
                             
-                            <div id="chemical" class="tab-content">
-                                <div class="space-y-4">
-                                    <div>
-                                        <h4 class="font-semibold text-gray-700 mb-2">Chemical Properties</h4>
-                                        <p class="text-gray-600 mb-4">
-                                            Group 1 elements are <strong>highly reactive metals</strong> with one valence electron that they readily lose to form +1 ions.
-                                        </p>
-                                        <div class="equation-box">
-                                            <p class="text-gray-700 mb-2">General ionization reaction:</p>
-                                            <p class="equation">M → M⁺ + e⁻</p>
-                                        </div>
-                                    </div>
-                                    
-                                    <div>
-                                        <h4 class="font-semibold text-gray-700 mb-2">Reactivity</h4>
-                                        <p class="text-gray-600">
-                                            Reactivity increases down the group as the atomic radius increases and the valence electron is further from the nucleus, making it <strong>easier to lose</strong>. This is shown by the <strong>decreasing first ionization energy</strong> down the group.
-                                        </p>
-                                        
-                                        <div class="highlight-box mt-3">
-                                            <h4>Ionization Energy Trend</h4>
-                                            <p>First ionization energy decreases down Group 1 because:
-                                            <ul class="list-disc pl-5 mt-2">
-                                                <li><strong>Atomic radius increases</strong></li>
-                                                <li><strong>Outer electron is further from the nucleus</strong></li>
-                                                <li><strong>More inner electron shells shield</strong> the outer electron from the nucleus</li>
-                                            </ul>
-                                            <p class="mt-2">This makes it <strong>easier to remove</strong> the outer electron, increasing reactivity.</p>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="overflow-x-auto">
+                                <table class="comparison-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Property</th>
+                                            <th>Trend</th>
+                                            <th>Reason</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Atomic radius</td>
+                                            <td><strong>Increases</strong></td>
+                                            <td>More electron shells</td>
+                                        </tr>
+                                        <tr>
+                                            <td>First ionization energy</td>
+                                            <td><strong>Decreases</strong></td>
+                                            <td>Outer electron further from nucleus</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Reactivity</td>
+                                            <td><strong>Increases</strong></td>
+                                            <td>Easier to lose valence electron</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Melting/boiling point</td>
+                                            <td><strong>Decreases</strong></td>
+                                            <td>Weaker metallic bonding</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Density</td>
+                                            <td><strong>Increases</strong></td>
+                                            <td>Exception: K < Na</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             
-                            <div id="trends" class="tab-content">
-                                <div class="space-y-4">
-                                    <h4 class="font-semibold text-gray-700 mb-3">Trends Down Group 1</h4>
-                                    
-                                    <div class="overflow-x-auto">
-                                        <table class="comparison-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Property</th>
-                                                    <th>Trend</th>
-                                                    <th>Reason</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Atomic radius</td>
-                                                    <td><strong>Increases</strong></td>
-                                                    <td>More electron shells</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>First ionization energy</td>
-                                                    <td><strong>Decreases</strong></td>
-                                                    <td>Outer electron further from nucleus</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Reactivity</td>
-                                                    <td><strong>Increases</strong></td>
-                                                    <td>Easier to lose valence electron</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Melting/boiling point</td>
-                                                    <td><strong>Decreases</strong></td>
-                                                    <td>Weaker metallic bonding</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Density</td>
-                                                    <td><strong>Increases</strong></td>
-                                                    <td>Exception: K < Na</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    
-                                    <div class="key-point">
-                                        <h4>Important Exception</h4>
-                                        <p>While density generally increases down Group 1, <strong>potassium (K) is less dense than sodium (Na)</strong>. This is because the increase in atomic mass is offset by a larger increase in atomic volume.</p>
-                                    </div>
-                                    
-                                    <!-- Melting Point Chart -->
-                                    <div class="content-card mt-4">
-                                        <h4 class="font-semibold text-gray-700 mb-3">Melting Point Trend</h4>
-                                        <p class="text-gray-600 mb-4">The melting points of Group 1 metals decrease down the group due to weaker metallic bonding.</p>
-                                        
-                                        <div class="melting-point-chart">
-                                            <div class="chart-bar" style="left: 20px; height: 180.5px;">
-                                                <div class="chart-value">180.5°C</div>
-                                            </div>
-                                            <div class="chart-label" style="left: 20px;">Li</div>
-                                            
-                                            <div class="chart-bar" style="left: 120px; height: 97.8px;">
-                                                <div class="chart-value">97.8°C</div>
-                                            </div>
-                                            <div class="chart-label" style="left: 120px;">Na</div>
-                                            
-                                            <div class="chart-bar" style="left: 220px; height: 63.5px;">
-                                                <div class="chart-value">63.5°C</div>
-                                            </div>
-                                            <div class="chart-label" style="left: 220px;">K</div>
-                                            
-                                            <div class="chart-bar" style="left: 320px; height: 39.3px;">
-                                                <div class="chart-value">39.3°C</div>
-                                            </div>
-                                            <div class="chart-label" style="left: 320px;">Rb</div>
-                                            
-                                            <div class="chart-bar" style="left: 420px; height: 28.4px;">
-                                                <div class="chart-value">28.4°C</div>
-                                            </div>
-                                            <div class="chart-label" style="left: 420px;">Cs</div>
-                                            
-                                            <div class="chart-bar" style="left: 520px; height: 27px;">
-                                                <div class="chart-value">~27°C</div>
-                                            </div>
-                                            <div class="chart-label" style="left: 520px;">Fr</div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="highlight-box mt-3">
-                                        <h4>Practical Observation of Trends</h4>
-                                        <p>The reactivity trend can be clearly observed in the reaction with water:
-                                        <ul class="list-disc pl-5 mt-2">
-                                            <li><strong>Lithium:</strong> Fizzes steadily, moves slowly on surface</li>
-                                            <li><strong>Sodium:</strong> Fizzes rapidly, melts into a ball, moves quickly</li>
-                                            <li><strong>Potassium:</strong> Fizzes very rapidly, may ignite with lilac flame, moves very quickly</li>
-                                        </ul>
-                                        </p>
-                                    </div>
-                                </div>
+                            <div class="key-point">
+                                <h4>Important Exception</h4>
+                                <p>While density generally increases down Group 1, <strong>potassium (K) is less dense than sodium (Na)</strong>. This is because the increase in atomic mass is offset by a larger increase in atomic volume.</p>
+                            </div>
+                            
+                            <div class="highlight-box mt-3">
+                                <h4>Practical Observation of Trends</h4>
+                                <p>The reactivity trend can be clearly observed in the reaction with water:
+                                <ul class="list-disc pl-5 mt-2">
+                                    <li><strong>Lithium:</strong> Fizzes steadily, moves slowly on surface</li>
+                                    <li><strong>Sodium:</strong> Fizzes rapidly, melts into a ball, moves quickly</li>
+                                    <li><strong>Potassium:</strong> Fizzes very rapidly, may ignite with lilac flame, moves very quickly</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -2149,289 +1785,277 @@
             
             <!-- Reactions Section -->
             <div id="reactions-section" class="content-section" style="display: none;">
-                <!-- Module 5: Chemical Reactions -->
-                <div class="module fade-in">
-                    <div class="module-header">
-                        <h3 class="module-title">Module 5: Chemical Reactions</h3>
-                        <div class="module-progress">
-                            <i class="fas fa-check-circle text-green-400 mr-1"></i>
-                            <span>Completed</span>
+                <div class="content-card fade-in">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-vial mr-2 text-indigo-600"></i>
+                        Chemical Reactions
+                    </h3>
+                    
+                    <div class="tabs">
+                        <button class="tab active" onclick="showTab('water')">With Water</button>
+                        <button class="tab" onclick="showTab('oxygen')">With Oxygen</button>
+                        <button class="tab" onclick="showTab('halogens')">With Halogens</button>
+                        <button class="tab" onclick="showTab('acids')">With Acids</button>
+                    </div>
+                    
+                    <div id="water" class="tab-content active">
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-3">Reaction with Water</h4>
+                                <div class="equation-box">
+                                    <p class="text-gray-700 mb-2">General equation:</p>
+                                    <p class="equation">2M(s) + 2H₂O(l) → 2MOH(aq) + H₂(g)</p>
+                                </div>
+                                <p class="text-gray-600 mb-4">
+                                    All Group 1 metals react with water to produce <strong>hydrogen gas</strong> and the corresponding <strong>metal hydroxide</strong>. 
+                                    The reactivity increases down the group, with lithium reacting relatively slowly and cesium reacting explosively.
+                                </p>
+                                
+                                <div class="highlight-box">
+                                    <h4>Observations for Different Metals</h4>
+                                    <div class="grid md:grid-cols-3 gap-4 mt-3">
+                                        <div class="bg-blue-50 p-3 rounded-lg">
+                                            <h5 class="font-semibold text-blue-800">Lithium</h5>
+                                            <p class="text-sm text-blue-600"><strong>Fizzes steadily</strong></p>
+                                            <p class="text-xs text-blue-500 mt-1">Doesn't melt</p>
+                                            <p class="text-xs text-blue-500 mt-1">Moves slowly on surface</p>
+                                        </div>
+                                        <div class="bg-blue-50 p-3 rounded-lg">
+                                            <h5 class="font-semibold text-blue-800">Sodium</h5>
+                                            <p class="text-sm text-blue-600"><strong>Fizzes rapidly</strong></p>
+                                            <p class="text-xs text-blue-500 mt-1">Melts into a ball</p>
+                                            <p class="text-xs text-blue-500 mt-1">Moves quickly on surface</p>
+                                        </div>
+                                        <div class="bg-blue-50 p-3 rounded-lg">
+                                            <h5 class="font-semibold text-blue-800">Potassium</h5>
+                                            <p class="text-sm text-blue-600"><strong>Fizzes very rapidly</strong></p>
+                                            <p class="text-xs text-blue-500 mt-1">Ignites with lilac flame</p>
+                                            <p class="text-xs text-blue-500 mt-1">May explode</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-3">Reaction Mechanism</h4>
+                                <p class="text-gray-600">
+                                    The reaction with water is a <strong>redox reaction</strong> where the metal is oxidized and water is reduced:
+                                </p>
+                                <div class="equation-box">
+                                    <p class="text-gray-700 mb-2">Oxidation: 2M → 2M⁺ + 2e⁻</p>
+                                    <p class="text-gray-700 mb-2">Reduction: 2H₂O + 2e⁻ → 2OH⁻ + H₂</p>
+                                    <p class="text-gray-700">Overall: 2M + 2H₂O → 2MOH + H₂</p>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-indigo-50 p-4 rounded-lg">
+                                <h5 class="font-semibold text-indigo-800 mb-2">Safety Note:</h5>
+                                <p class="text-indigo-700">
+                                    Due to their <strong>violent reactions</strong> with water, Group 1 metals must be stored under oil to prevent contact with moisture in the air. 
+                                    Small pieces should always be used for demonstrations, and <strong>safety goggles</strong> must be worn.
+                                </p>
+                            </div>
                         </div>
                     </div>
-                    <div class="module-content">
-                        <div class="content-card">
-                            <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                                <i class="fas fa-vial mr-2 text-indigo-600"></i>
-                                Chemical Reactions
-                            </h3>
-                            
-                            <div class="tabs">
-                                <button class="tab active" onclick="showTab('water')">With Water</button>
-                                <button class="tab" onclick="showTab('oxygen')">With Oxygen</button>
-                                <button class="tab" onclick="showTab('halogens')">With Halogens</button>
-                                <button class="tab" onclick="showTab('acids')">With Acids</button>
-                            </div>
-                            
-                            <div id="water" class="tab-content active">
-                                <div class="space-y-6">
-                                    <div>
-                                        <h4 class="font-semibold text-gray-700 mb-3">Reaction with Water</h4>
-                                        <div class="equation-box">
-                                            <p class="text-gray-700 mb-2">General equation:</p>
-                                            <p class="equation">2M(s) + 2H₂O(l) → 2MOH(aq) + H₂(g)</p>
-                                        </div>
-                                        <p class="text-gray-600 mb-4">
-                                            All Group 1 metals react with water to produce <strong>hydrogen gas</strong> and the corresponding <strong>metal hydroxide</strong>. 
-                                            The reactivity increases down the group, with lithium reacting relatively slowly and cesium reacting explosively.
-                                        </p>
-                                        
-                                        <div class="highlight-box">
-                                            <h4>Observations for Different Metals</h4>
-                                            <div class="grid md:grid-cols-3 gap-4 mt-3">
-                                                <div class="bg-blue-50 p-3 rounded-lg">
-                                                    <h5 class="font-semibold text-blue-800">Lithium</h5>
-                                                    <p class="text-sm text-blue-600"><strong>Fizzes steadily</strong></p>
-                                                    <p class="text-xs text-blue-500 mt-1">Doesn't melt</p>
-                                                    <p class="text-xs text-blue-500 mt-1">Moves slowly on surface</p>
-                                                </div>
-                                                <div class="bg-blue-50 p-3 rounded-lg">
-                                                    <h5 class="font-semibold text-blue-800">Sodium</h5>
-                                                    <p class="text-sm text-blue-600"><strong>Fizzes rapidly</strong></p>
-                                                    <p class="text-xs text-blue-500 mt-1">Melts into a ball</p>
-                                                    <p class="text-xs text-blue-500 mt-1">Moves quickly on surface</p>
-                                                </div>
-                                                <div class="bg-blue-50 p-3 rounded-lg">
-                                                    <h5 class="font-semibold text-blue-800">Potassium</h5>
-                                                    <p class="text-sm text-blue-600"><strong>Fizzes very rapidly</strong></p>
-                                                    <p class="text-xs text-blue-500 mt-1">Ignites with lilac flame</p>
-                                                    <p class="text-xs text-blue-500 mt-1">May explode</p>
-                                                </div>
-                                            </div>
+                    
+                    <div id="oxygen" class="tab-content">
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-3">Reaction with Oxygen</h4>
+                                <p class="text-gray-600 mb-4">
+                                    Group 1 metals react with oxygen to form <strong>oxides, peroxides, or superoxides</strong> depending on the metal and reaction conditions.
+                                </p>
+                                
+                                <div class="grid md:grid-cols-3 gap-4">
+                                    <div class="bg-green-50 p-3 rounded-lg">
+                                        <h5 class="font-semibold text-green-800">Lithium</h5>
+                                        <p class="text-sm text-green-600">Forms <strong>Li₂O (oxide)</strong></p>
+                                        <div class="equation-box mt-2">
+                                            <p class="equation text-sm">4Li + O₂ → 2Li₂O</p>
                                         </div>
                                     </div>
-                                    
-                                    <div>
-                                        <h4 class="font-semibold text-gray-700 mb-3">Reaction Mechanism</h4>
-                                        <p class="text-gray-600">
-                                            The reaction with water is a <strong>redox reaction</strong> where the metal is oxidized and water is reduced:
-                                        </p>
-                                        <div class="equation-box">
-                                            <p class="text-gray-700 mb-2">Oxidation: 2M → 2M⁺ + 2e⁻</p>
-                                            <p class="text-gray-700 mb-2">Reduction: 2H₂O + 2e⁻ → 2OH⁻ + H₂</p>
-                                            <p class="text-gray-700">Overall: 2M + 2H₂O → 2MOH + H₂</p>
+                                    <div class="bg-green-50 p-3 rounded-lg">
+                                        <h5 class="font-semibold text-green-800">Sodium</h5>
+                                        <p class="text-sm text-green-600">Forms <strong>Na₂O₂ (peroxide)</strong></p>
+                                        <div class="equation-box mt-2">
+                                            <p class="equation text-sm">2Na + O₂ → Na₂O₂</p>
                                         </div>
                                     </div>
-                                    
-                                    <div class="bg-indigo-50 p-4 rounded-lg">
-                                        <h5 class="font-semibold text-indigo-800 mb-2">Safety Note:</h5>
-                                        <p class="text-indigo-700">
-                                            Due to their <strong>violent reactions</strong> with water, Group 1 metals must be stored under oil to prevent contact with moisture in the air. 
-                                            Small pieces should always be used for demonstrations, and <strong>safety goggles</strong> must be worn.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div id="oxygen" class="tab-content">
-                                <div class="space-y-6">
-                                    <div>
-                                        <h4 class="font-semibold text-gray-700 mb-3">Reaction with Oxygen</h4>
-                                        <p class="text-gray-600 mb-4">
-                                            Group 1 metals react with oxygen to form <strong>oxides, peroxides, or superoxides</strong> depending on the metal and reaction conditions.
-                                        </p>
-                                        
-                                        <div class="grid md:grid-cols-3 gap-4">
-                                            <div class="bg-green-50 p-3 rounded-lg">
-                                                <h5 class="font-semibold text-green-800">Lithium</h5>
-                                                <p class="text-sm text-green-600">Forms <strong>Li₂O (oxide)</strong></p>
-                                                <div class="equation-box mt-2">
-                                                    <p class="equation text-sm">4Li + O₂ → 2Li₂O</p>
-                                                </div>
-                                            </div>
-                                            <div class="bg-green-50 p-3 rounded-lg">
-                                                <h5 class="font-semibold text-green-800">Sodium</h5>
-                                                <p class="text-sm text-green-600">Forms <strong>Na₂O₂ (peroxide)</strong></p>
-                                                <div class="equation-box mt-2">
-                                                    <p class="equation text-sm">2Na + O₂ → Na₂O₂</p>
-                                                </div>
-                                            </div>
-                                            <div class="bg-green-50 p-3 rounded-lg">
-                                                <h5 class="font-semibold text-green-800">Potassium</h5>
-                                                <p class="text-sm text-green-600">Forms <strong>KO₂ (superoxide)</strong></p>
-                                                <div class="equation-box mt-2">
-                                                    <p class="equation text-sm">K + O₂ → KO₂</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div>
-                                        <h5 class="font-semibold text-gray-700 mb-2">Trend in Oxide Formation:</h5>
-                                        <p class="text-gray-600">
-                                            As we move down the group, the tendency to form peroxides and superoxides increases due to the <strong>larger size of the metal ions</strong>, which can stabilize larger anions.
-                                        </p>
-                                        
-                                        <div class="highlight-box mt-3">
-                                            <h4>Why the Change in Products?</h4>
-                                            <p>The stability of different oxides depends on the <strong>size of the cation</strong>:
-                                            <ul class="list-disc pl-5 mt-2">
-                                                <li><strong>Small Li⁺</strong> stabilizes the small O²⁻ ion in Li₂O</li>
-                                                <li><strong>Medium Na⁺</strong> stabilizes the O₂²⁻ ion in Na₂O₂</li>
-                                                <li><strong>Large K⁺, Rb⁺, Cs⁺</strong> stabilize the large O₂⁻ ion in superoxides</li>
-                                            </ul>
-                                            <p class="mt-2">This is an example of how <strong>cation size affects compound stability</strong>.</p>
-                                        </div>
-                                    </div>
-                                    
-                                    <div>
-                                        <h5 class="font-semibold text-gray-700 mb-2">Reactions of the Oxides with Water</h5>
-                                        <p class="text-gray-600">All Group 1 oxides, peroxides, and superoxides react with water to form <strong>alkaline solutions</strong>:</p>
-                                        <div class="grid md:grid-cols-3 gap-4 mt-3">
-                                            <div class="bg-purple-50 p-3 rounded-lg">
-                                                <h5 class="font-semibold text-purple-800">Oxide</h5>
-                                                <div class="equation-box mt-2">
-                                                    <p class="equation text-sm">Li₂O + H₂O → 2LiOH</p>
-                                                </div>
-                                            </div>
-                                            <div class="bg-purple-50 p-3 rounded-lg">
-                                                <h5 class="font-semibold text-purple-800">Peroxide</h5>
-                                                <div class="equation-box mt-2">
-                                                    <p class="equation text-sm">Na₂O₂ + 2H₂O → 2NaOH + H₂O₂</p>
-                                                </div>
-                                            </div>
-                                            <div class="bg-purple-50 p-3 rounded-lg">
-                                                <h5 class="font-semibold text-purple-800">Superoxide</h5>
-                                                <div class="equation-box mt-2">
-                                                    <p class="equation text-sm">2KO₂ + 2H₂O → 2KOH + H₂O₂ + O₂</p>
-                                                </div>
-                                            </div>
+                                    <div class="bg-green-50 p-3 rounded-lg">
+                                        <h5 class="font-semibold text-green-800">Potassium</h5>
+                                        <p class="text-sm text-green-600">Forms <strong>KO₂ (superoxide)</strong></p>
+                                        <div class="equation-box mt-2">
+                                            <p class="equation text-sm">K + O₂ → KO₂</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             
-                            <div id="halogens" class="tab-content">
-                                <div class="space-y-6">
-                                    <div>
-                                        <h4 class="font-semibold text-gray-700 mb-3">Reaction with Halogens</h4>
-                                        <div class="equation-box">
-                                            <p class="text-gray-700 mb-2">General equation:</p>
-                                            <p class="equation">2M(s) + X₂ → 2MX(s)</p>
-                                            <p class="text-gray-600 text-sm">Where X = F, Cl, Br, I</p>
-                                        </div>
-                                        <p class="text-gray-600 mb-4">
-                                            Group 1 metals react <strong>vigorously</strong> with halogens to form ionic halides. These reactions are <strong>highly exothermic</strong> and often produce bright flames.
-                                        </p>
-                                        <div class="grid md:grid-cols-2 gap-4">
-                                            <div class="bg-purple-50 p-3 rounded-lg">
-                                                <h5 class="font-semibold text-purple-800">With Chlorine</h5>
-                                                <div class="equation-box mt-2">
-                                                    <p class="equation text-sm">2Na + Cl₂ → 2NaCl</p>
-                                                </div>
-                                                <p class="text-sm text-purple-600 mt-2"><strong>Bright yellow flame</strong></p>
-                                            </div>
-                                            <div class="bg-purple-50 p-3 rounded-lg">
-                                                <h5 class="font-semibold text-purple-800">With Bromine</h5>
-                                                <div class="equation-box mt-2">
-                                                    <p class="equation text-sm">2K + Br₂ → 2KBr</p>
-                                                </div>
-                                                <p class="text-sm text-purple-600 mt-2"><strong>Red-brown vapor</strong></p>
-                                            </div>
+                            <div>
+                                <h5 class="font-semibold text-gray-700 mb-2">Trend in Oxide Formation:</h5>
+                                <p class="text-gray-600">
+                                    As we move down the group, the tendency to form peroxides and superoxides increases due to the <strong>larger size of the metal ions</strong>, which can stabilize larger anions.
+                                </p>
+                                
+                                <div class="highlight-box mt-3">
+                                    <h4>Why the Change in Products?</h4>
+                                    <p>The stability of different oxides depends on the <strong>size of the cation</strong>:
+                                    <ul class="list-disc pl-5 mt-2">
+                                        <li><strong>Small Li⁺</strong> stabilizes the small O²⁻ ion in Li₂O</li>
+                                        <li><strong>Medium Na⁺</strong> stabilizes the O₂²⁻ ion in Na₂O₂</li>
+                                        <li><strong>Large K⁺, Rb⁺, Cs⁺</strong> stabilize the large O₂⁻ ion in superoxides</li>
+                                    </ul>
+                                    <p class="mt-2">This is an example of how <strong>cation size affects compound stability</strong>.</p>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h5 class="font-semibold text-gray-700 mb-2">Reactions of the Oxides with Water</h5>
+                                <p class="text-gray-600">All Group 1 oxides, peroxides, and superoxides react with water to form <strong>alkaline solutions</strong>:</p>
+                                <div class="grid md:grid-cols-3 gap-4 mt-3">
+                                    <div class="bg-purple-50 p-3 rounded-lg">
+                                        <h5 class="font-semibold text-purple-800">Oxide</h5>
+                                        <div class="equation-box mt-2">
+                                            <p class="equation text-sm">Li₂O + H₂O → 2LiOH</p>
                                         </div>
                                     </div>
-                                    
-                                    <div class="bg-purple-50 p-4 rounded-lg">
-                                        <h5 class="font-semibold text-purple-800 mb-2">Properties of Halides:</h5>
-                                        <ul class="text-sm text-purple-700 space-y-1">
-                                            <li>• All are <strong>white crystalline solids</strong> at room temperature</li>
-                                            <li>• <strong>High melting and boiling points</strong> due to strong ionic bonding</li>
-                                            <li>• <strong>Soluble in water</strong>, forming neutral solutions</li>
-                                            <li>• <strong>Conduct electricity</strong> when molten or in aqueous solution</li>
-                                        </ul>
+                                    <div class="bg-purple-50 p-3 rounded-lg">
+                                        <h5 class="font-semibold text-purple-800">Peroxide</h5>
+                                        <div class="equation-box mt-2">
+                                            <p class="equation text-sm">Na₂O₂ + 2H₂O → 2NaOH + H₂O₂</p>
+                                        </div>
                                     </div>
-                                    
-                                    <div>
-                                        <h5 class="font-semibold text-gray-700 mb-2">Test for Halide Ions</h5>
-                                        <p class="text-gray-600">
-                                            The halide ions (Cl⁻, Br⁻, I⁻) can be identified using <strong>silver nitrate solution</strong>:
-                                        </p>
-                                        <div class="grid md:grid-cols-3 gap-4 mt-3">
-                                            <div class="bg-yellow-50 p-3 rounded-lg">
-                                                <h5 class="font-semibold text-yellow-800">Chloride</h5>
-                                                <p class="text-sm text-yellow-600">Forms <strong>white precipitate</strong> of AgCl</p>
-                                                <p class="text-xs text-yellow-500 mt-1">Soluble in dilute NH₃</p>
-                                            </div>
-                                            <div class="bg-yellow-50 p-3 rounded-lg">
-                                                <h5 class="font-semibold text-yellow-800">Bromide</h5>
-                                                <p class="text-sm text-yellow-600">Forms <strong>cream precipitate</strong> of AgBr</p>
-                                                <p class="text-xs text-yellow-500 mt-1">Partially soluble in conc. NH₃</p>
-                                            </div>
-                                            <div class="bg-yellow-50 p-3 rounded-lg">
-                                                <h5 class="font-semibold text-yellow-800">Iodide</h5>
-                                                <p class="text-sm text-yellow-600">Forms <strong>yellow precipitate</strong> of AgI</p>
-                                                <p class="text-xs text-yellow-500 mt-1">Insoluble in NH₃</p>
-                                            </div>
+                                    <div class="bg-purple-50 p-3 rounded-lg">
+                                        <h5 class="font-semibold text-purple-800">Superoxide</h5>
+                                        <div class="equation-box mt-2">
+                                            <p class="equation text-sm">2KO₂ + 2H₂O → 2KOH + H₂O₂ + O₂</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <div id="acids" class="tab-content">
-                                <div class="space-y-6">
-                                    <div>
-                                        <h4 class="font-semibold text-gray-700 mb-3">Reaction with Acids</h4>
-                                        <div class="equation-box">
-                                            <p class="text-gray-700 mb-2">General equation:</p>
-                                            <p class="equation">2M(s) + 2H⁺(aq) → 2M⁺(aq) + H₂(g)</p>
+                        </div>
+                    </div>
+                    
+                    <div id="halogens" class="tab-content">
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-3">Reaction with Halogens</h4>
+                                <div class="equation-box">
+                                    <p class="text-gray-700 mb-2">General equation:</p>
+                                    <p class="equation">2M(s) + X₂ → 2MX(s)</p>
+                                    <p class="text-gray-600 text-sm">Where X = F, Cl, Br, I</p>
+                                </div>
+                                <p class="text-gray-600 mb-4">
+                                    Group 1 metals react <strong>vigorously</strong> with halogens to form ionic halides. These reactions are <strong>highly exothermic</strong> and often produce bright flames.
+                                </p>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div class="bg-purple-50 p-3 rounded-lg">
+                                        <h5 class="font-semibold text-purple-800">With Chlorine</h5>
+                                        <div class="equation-box mt-2">
+                                            <p class="equation text-sm">2Na + Cl₂ → 2NaCl</p>
                                         </div>
-                                        <p class="text-gray-600 mb-4">
-                                            Group 1 metals react with acids to produce <strong>hydrogen gas</strong> and the corresponding salt. These reactions are <strong>extremely vigorous and dangerous</strong> due to the high reactivity of the metals.
-                                        </p>
-                                        
-                                        <div class="bg-red-50 p-4 rounded-lg mb-4">
-                                            <h5 class="font-semibold text-red-800 mb-2">⚠️ Safety Warning:</h5>
-                                            <p class="text-red-700">
-                                                These reactions are <strong>too violent</strong> to be performed safely in a school laboratory. The hydrogen gas produced is <strong>highly flammable</strong> and can explode. 
-                                                Never attempt to react Group 1 metals with acids outside of specialized facilities with proper safety equipment.
-                                            </p>
-                                        </div>
+                                        <p class="text-sm text-purple-600 mt-2"><strong>Bright yellow flame</strong></p>
                                     </div>
-                                    
-                                    <div>
-                                        <h5 class="font-semibold text-gray-700 mb-2">Example Reactions:</h5>
-                                        <div class="space-y-2">
-                                            <div class="bg-gray-50 p-3 rounded-lg">
-                                                <p class="text-sm font-mono">2Li(s) + 2HCl(aq) → 2LiCl(aq) + H₂(g)</p>
-                                            </div>
-                                            <div class="bg-gray-50 p-3 rounded-lg">
-                                                <p class="text-sm font-mono">2Na(s) + H₂SO₄(aq) → Na₂SO₄(aq) + H₂(g)</p>
-                                            </div>
+                                    <div class="bg-purple-50 p-3 rounded-lg">
+                                        <h5 class="font-semibold text-purple-800">With Bromine</h5>
+                                        <div class="equation-box mt-2">
+                                            <p class="equation text-sm">2K + Br₂ → 2KBr</p>
                                         </div>
-                                    </div>
-                                    
-                                    <div>
-                                        <h5 class="font-semibold text-gray-700 mb-2">Reaction Mechanism</h5>
-                                        <p class="text-gray-600">
-                                            The reaction with acids is a <strong>redox reaction</strong> where the metal is oxidized and hydrogen ions from the acid are reduced:
-                                        </p>
-                                        <div class="equation-box mt-3">
-                                            <p class="text-gray-700 mb-2">Oxidation: 2M → 2M⁺ + 2e⁻</p>
-                                            <p class="text-gray-700 mb-2">Reduction: 2H⁺ + 2e⁻ → H₂</p>
-                                            <p class="text-gray-700">Overall: 2M + 2H⁺ → 2M⁺ + H₂</p>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="highlight-box">
-                                        <h4>Why So Vigorous?</h4>
-                                        <p>The reaction with acids is more vigorous than with water because:
-                                        <ul class="list-disc pl-5 mt-2">
-                                            <li>Acids provide a <strong>higher concentration of H⁺ ions</strong> than water</li>
-                                            <li>The <strong>reduction potential of H⁺ is higher</strong> than that of H₂O</li>
-                                            <li>This makes the reaction <strong>more thermodynamically favorable</strong></li>
-                                        </ul>
-                                        </p>
+                                        <p class="text-sm text-purple-600 mt-2"><strong>Red-brown vapor</strong></p>
                                     </div>
                                 </div>
+                            </div>
+                            
+                            <div class="bg-purple-50 p-4 rounded-lg">
+                                <h5 class="font-semibold text-purple-800 mb-2">Properties of Halides:</h5>
+                                <ul class="text-sm text-purple-700 space-y-1">
+                                    <li>• All are <strong>white crystalline solids</strong> at room temperature</li>
+                                    <li>• <strong>High melting and boiling points</strong> due to strong ionic bonding</li>
+                                    <li>• <strong>Soluble in water</strong>, forming neutral solutions</li>
+                                    <li>• <strong>Conduct electricity</strong> when molten or in aqueous solution</li>
+                                </ul>
+                            </div>
+                            
+                            <div>
+                                <h5 class="font-semibold text-gray-700 mb-2">Test for Halide Ions</h5>
+                                <p class="text-gray-600">
+                                    The halide ions (Cl⁻, Br⁻, I⁻) can be identified using <strong>silver nitrate solution</strong>:
+                                </p>
+                                <div class="grid md:grid-cols-3 gap-4 mt-3">
+                                    <div class="bg-yellow-50 p-3 rounded-lg">
+                                        <h5 class="font-semibold text-yellow-800">Chloride</h5>
+                                        <p class="text-sm text-yellow-600">Forms <strong>white precipitate</strong> of AgCl</p>
+                                        <p class="text-xs text-yellow-500 mt-1">Soluble in dilute NH₃</p>
+                                    </div>
+                                    <div class="bg-yellow-50 p-3 rounded-lg">
+                                        <h5 class="font-semibold text-yellow-800">Bromide</h5>
+                                        <p class="text-sm text-yellow-600">Forms <strong>cream precipitate</strong> of AgBr</p>
+                                        <p class="text-xs text-yellow-500 mt-1">Partially soluble in conc. NH₃</p>
+                                    </div>
+                                    <div class="bg-yellow-50 p-3 rounded-lg">
+                                        <h5 class="font-semibold text-yellow-800">Iodide</h5>
+                                        <p class="text-sm text-yellow-600">Forms <strong>yellow precipitate</strong> of AgI</p>
+                                        <p class="text-xs text-yellow-500 mt-1">Insoluble in NH₃</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="acids" class="tab-content">
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-3">Reaction with Acids</h4>
+                                <div class="equation-box">
+                                    <p class="text-gray-700 mb-2">General equation:</p>
+                                    <p class="equation">2M(s) + 2H⁺(aq) → 2M⁺(aq) + H₂(g)</p>
+                                </div>
+                                <p class="text-gray-600 mb-4">
+                                    Group 1 metals react with acids to produce <strong>hydrogen gas</strong> and the corresponding salt. These reactions are <strong>extremely vigorous and dangerous</strong> due to the high reactivity of the metals.
+                                </p>
+                                
+                                <div class="bg-red-50 p-4 rounded-lg mb-4">
+                                    <h5 class="font-semibold text-red-800 mb-2">⚠️ Safety Warning:</h5>
+                                    <p class="text-red-700">
+                                        These reactions are <strong>too violent</strong> to be performed safely in a school laboratory. The hydrogen gas produced is <strong>highly flammable</strong> and can explode. 
+                                        Never attempt to react Group 1 metals with acids outside of specialized facilities with proper safety equipment.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h5 class="font-semibold text-gray-700 mb-2">Example Reactions:</h5>
+                                <div class="space-y-2">
+                                    <div class="bg-gray-50 p-3 rounded-lg">
+                                        <p class="text-sm font-mono">2Li(s) + 2HCl(aq) → 2LiCl(aq) + H₂(g)</p>
+                                    </div>
+                                    <div class="bg-gray-50 p-3 rounded-lg">
+                                        <p class="text-sm font-mono">2Na(s) + H₂SO₄(aq) → Na₂SO₄(aq) + H₂(g)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h5 class="font-semibold text-gray-700 mb-2">Reaction Mechanism</h5>
+                                <p class="text-gray-600">
+                                    The reaction with acids is a <strong>redox reaction</strong> where the metal is oxidized and hydrogen ions from the acid are reduced:
+                                </p>
+                                <div class="equation-box mt-3">
+                                    <p class="text-gray-700 mb-2">Oxidation: 2M → 2M⁺ + 2e⁻</p>
+                                    <p class="text-gray-700 mb-2">Reduction: 2H⁺ + 2e⁻ → H₂</p>
+                                    <p class="text-gray-700">Overall: 2M + 2H⁺ → 2M⁺ + H₂</p>
+                                </div>
+                            </div>
+                            
+                            <div class="highlight-box">
+                                <h4>Why So Vigorous?</h4>
+                                <p>The reaction with acids is more vigorous than with water because:
+                                <ul class="list-disc pl-5 mt-2">
+                                    <li>Acids provide a <strong>higher concentration of H⁺ ions</strong> than water</li>
+                                    <li>The <strong>reduction potential of H⁺ is higher</strong> than that of H₂O</li>
+                                    <li>This makes the reaction <strong>more thermodynamically favorable</strong></li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -2470,35 +2094,6 @@
                     <div class="comment-form">
                         <input type="text" id="commentInput" class="comment-input" placeholder="Share your thoughts...">
                         <button onclick="addComment()" class="comment-submit">Post</button>
-                    </div>
-                </div>
-                
-                <!-- Feedback Section -->
-                <div class="feedback-section fade-in">
-                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                        <i class="fas fa-thumbs-up mr-2 text-indigo-600"></i>
-                        Feedback
-                    </h3>
-                    
-                    <div class="feedback-buttons">
-                        <div class="feedback-btn" onclick="submitFeedback('thumbs-up')">
-                            <i class="fas fa-thumbs-up"></i>
-                            <p>Helpful</p>
-                        </div>
-                        <div class="feedback-btn" onclick="submitFeedback('thumbs-down')">
-                            <i class="fas fa-thumbs-down"></i>
-                            <p>Not Helpful</p>
-                        </div>
-                    </div>
-                    
-                    <div class="review-form">
-                        <h4 class="font-semibold text-gray-700 mb-2">Write a Review</h4>
-                        <textarea id="reviewText" class="review-textarea" placeholder="Share your experience with this learning module..."></textarea>
-                        <button onclick="submitReview()" class="review-submit">Submit Review</button>
-                    </div>
-                    
-                    <div class="review-list" id="reviewList">
-                        <!-- Reviews will be loaded here -->
                     </div>
                 </div>
             </div>
@@ -2553,60 +2148,6 @@
                 <button onclick="signInWithGoogle()" class="btn btn-secondary w-full mt-2">
                     <i class="fab fa-google"></i>
                     Google
-                </button>
-            </div>
-            
-            <div class="mt-6 text-center">
-                <p class="text-gray-600">Don't have an account?</p>
-                <button onclick="switchToSignup()" class="btn btn-secondary w-full mt-2">
-                    <i class="fas fa-user-plus"></i>
-                    Create Account
-                </button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Signup Modal -->
-    <div id="signupModal" class="modal">
-        <div class="modal-content">
-            <div class="text-center mb-6">
-                <i class="fas fa-atom text-4xl text-indigo-600 mb-3"></i>
-                <h2 class="text-2xl font-bold text-gray-800">Create Your Account</h2>
-                <p class="text-gray-600">Join us to start your <strong>learning journey</strong></p>
-            </div>
-            
-            <form id="signupForm" class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                    <input type="text" id="fullName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="John Doe" required>
-                </div>
-                
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                    <input type="email" id="signupEmail" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="your@email.com" required>
-                </div>
-                
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                    <input type="password" id="signupPassword" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="••••••••" required>
-                </div>
-                
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
-                    <input type="password" id="confirmPassword" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="••••••••" required>
-                </div>
-                
-                <button type="submit" class="btn btn-primary w-full">
-                    <i class="fas fa-user-plus"></i>
-                    Create Account
-                </button>
-            </form>
-            
-            <div class="mt-6 text-center">
-                <p class="text-gray-600">Already have an account?</p>
-                <button onclick="switchToLogin()" class="btn btn-secondary w-full mt-2">
-                    <i class="fas fa-sign-in-alt"></i>
-                    Sign In
                 </button>
             </div>
         </div>
@@ -2731,10 +2272,22 @@
     </div>
     
     <script>
-        // Google Sheets API Configuration
-        const SPREADSHEET_ID = 'YOUR_SPREADSHEET_ID';
-        const API_KEY = 'YOUR_API_KEY';
-        const DISCOVERY_DOCS = ['https://sheets.googleapis.com/$discovery/rest?version=v4'];
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBOp4x0lTFvmt2s3MQKBRYmZT9IJ2ZaRi8",
+            authDomain: "group-1-alkali-metals.firebaseapp.com",
+            databaseURL: "https://group-1-alkali-metals-default-rtdb.firebaseio.com",
+            projectId: "group-1-alkali-metals",
+            storageBucket: "group-1-alkali-metals.firebasestorage.app",
+            messagingSenderId: "806417495419",
+            appId: "1:806417495419:web:5b80607e8a23e96da4f9de",
+            measurementId: "G-S76E52MQ37"
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const database = firebase.database();
         
         // Global variables
         let currentUser = null;
@@ -2746,7 +2299,6 @@
         let quizType = '';
         let answerSubmitted = false;
         let justSignedIn = false; // Flag to track if user just signed in
-        let gapiLoaded = false;
         
         // Quiz questions - IGCSE Level with Interactive Types
         const preQuizQuestions = [
@@ -2879,68 +2431,47 @@
                 explanation: "Lithium forms the normal oxide Li₂O, sodium forms the peroxide Na₂O₂, and potassium forms the superoxide KO₂ when burned in oxygen."
             },
             {
-                type: 'single',
-                question: "Which statement correctly describes the trend in melting points of Group 1 metals?",
+                type: 'multiple',
+                question: "Which statements about the extraction of Group 1 metals are correct? (Select all that apply)",
                 options: [
-                    "Melting point increases down the group",
-                    "Melting point decreases down the group",
-                    "Melting point remains constant down the group",
-                    "Melting point is highest for sodium and decreases for elements above and below it"
+                    "They are extracted by electrolysis of molten chlorides",
+                    "They can be extracted by reduction with carbon",
+                    "They are found free in nature",
+                    "They are extracted from their ores",
+                    "The process requires a lot of energy"
                 ],
-                correct: 1,
-                explanation: "The melting point of Group 1 metals decreases down the group due to weaker metallic bonding as the atomic size increases and the delocalized electrons are further from the positive nuclei."
+                correct: [0, 3, 4],
+                explanation: "Group 1 metals are extracted by electrolysis of their molten chlorides, not by reduction with carbon. They are not found free in nature but in ores, and the process requires a lot of energy."
             }
         ];
         
-        // Initialize Google Sheets API
-        function initGoogleSheetsApi() {
-            gapi.load('client', () => {
-                gapi.client.init({
-                    apiKey: API_KEY,
-                    discoveryDocs: DISCOVERY_DOCS,
-                }).then(() => {
-                    gapiLoaded = true;
-                    console.log('Google Sheets API loaded');
-                }, (error) => {
-                    console.error('Error loading Google Sheets API:', error);
-                });
-            });
-        }
-        
-        // Load Google Sheets API
-        function loadGoogleSheetsApi() {
-            const script = document.createElement('script');
-            script.src = 'https://apis.google.com/js/api.js';
-            script.onload = initGoogleSheetsApi;
-            document.body.appendChild(script);
-        }
-        
         // Initialize the app
         document.addEventListener('DOMContentLoaded', function() {
-            // Load Google Sheets API
-            loadGoogleSheetsApi();
-            
-            // Check if user is already logged in (from localStorage)
-            const savedUser = localStorage.getItem('currentUser');
-            if (savedUser) {
-                try {
-                    currentUser = JSON.parse(savedUser);
-                    userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            // Check authentication state on page load
+            auth.onAuthStateChanged((user) => {
+                if (user) {
+                    currentUser = user;
+                    console.log("User is signed in:", user.uid);
                     
-                    if (userData.preQuizCompleted) {
-                        showMainApp();
-                    } else {
+                    // Check if this is a fresh sign-in (not just page reload)
+                    if (justSignedIn) {
+                        console.log("User just signed in, showing pre-quiz introduction");
+                        // User just signed in, show pre-quiz introduction
                         showPreQuizIntroduction();
+                        justSignedIn = false; // Reset the flag
+                    } else {
+                        // This is a page reload or existing session
+                        console.log("Existing session, checking pre-quiz status");
+                        checkPreQuizStatus();
                     }
-                } catch (error) {
-                    console.error('Error parsing saved user data:', error);
-                    localStorage.removeItem('currentUser');
-                    localStorage.removeItem('userData');
+                } else {
+                    console.log("No user signed in");
+                    // Show landing page
                     document.getElementById('landingPage').style.display = 'flex';
+                    document.getElementById('prequizPage').style.display = 'none';
+                    document.getElementById('mainApp').style.display = 'none';
                 }
-            } else {
-                document.getElementById('landingPage').style.display = 'flex';
-            }
+            });
             
             // Set up login form
             document.getElementById('loginForm').addEventListener('submit', (e) => {
@@ -2955,109 +2486,31 @@
                 
                 showLoading();
                 
-                // Simulate login (replace with actual authentication)
-                setTimeout(() => {
-                    // Check if user exists in Google Sheets
-                    checkUserInSheets(email).then((user) => {
-                        if (user) {
-                            currentUser = user;
-                            userData = user;
-                            
-                            // Save to localStorage
-                            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                            localStorage.setItem('userData', JSON.stringify(userData));
-                            
-                            showToast('success', 'Welcome back!', 'You have been successfully signed in.');
-                            closeLoginModal();
-                            
-                            // Set flag to indicate user just signed in
-                            justSignedIn = true;
-                            
-                            // Track sign-in event
-                            gtag('event', 'login', {
-                                method: 'email'
-                            });
-                            
-                            if (userData.preQuizCompleted) {
-                                showMainApp();
-                            } else {
-                                showPreQuizIntroduction();
-                            }
+                auth.signInWithEmailAndPassword(email, password)
+                    .then((userCredential) => {
+                        const user = userCredential.user;
+                        console.log("Sign in successful:", user.uid);
+                        showToast('success', 'Welcome back!', 'You have been successfully signed in.');
+                        closeLoginModal();
+                        // Set flag to indicate user just signed in
+                        justSignedIn = true;
+                        // The onAuthStateChanged listener will handle showing the pre-quiz introduction
+                    })
+                    .catch((error) => {
+                        const errorCode = error.code;
+                        const errorMessage = error.message;
+                        console.error("Sign in error:", errorCode, errorMessage);
+                        
+                        if (errorCode === 'auth/unauthorized-domain') {
+                            showToast('error', 'Domain not authorized', 
+                                'Please add your GitHub Pages domain to the authorized domains in your Firebase project settings.');
                         } else {
-                            showToast('error', 'Sign in failed', 'Invalid email or password.');
+                            showToast('error', 'Sign in failed', errorMessage);
                         }
-                    }).catch((error) => {
-                        console.error('Error checking user:', error);
-                        showToast('error', 'Sign in failed', 'An error occurred. Please try again.');
-                    }).finally(() => {
+                    })
+                    .finally(() => {
                         hideLoading();
                     });
-                }, 1000);
-            });
-            
-            // Set up signup form
-            document.getElementById('signupForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                const fullName = document.getElementById('fullName').value;
-                const email = document.getElementById('signupEmail').value;
-                const password = document.getElementById('signupPassword').value;
-                const confirmPassword = document.getElementById('confirmPassword').value;
-                
-                if (!isValidEmail(email)) {
-                    showToast('error', 'Invalid Email', 'Please enter a valid email address');
-                    return;
-                }
-                
-                if (password !== confirmPassword) {
-                    showToast('error', 'Password Mismatch', 'Passwords do not match.');
-                    return;
-                }
-                
-                if (password.length < 6) {
-                    showToast('error', 'Weak Password', 'Password must be at least 6 characters long.');
-                    return;
-                }
-                
-                showLoading();
-                
-                // Create new user
-                const newUser = {
-                    id: Date.now().toString(),
-                    fullName: fullName,
-                    email: email,
-                    password: password, // In a real app, this should be hashed
-                    points: 0,
-                    currentStreak: 1,
-                    lastActiveDate: new Date().toDateString(),
-                    preQuizCompleted: false,
-                    postQuizCompleted: false,
-                    createdAt: new Date().toISOString()
-                };
-                
-                // Save user to Google Sheets
-                saveUserToSheets(newUser).then(() => {
-                    currentUser = newUser;
-                    userData = newUser;
-                    
-                    // Save to localStorage
-                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                    localStorage.setItem('userData', JSON.stringify(userData));
-                    
-                    showToast('success', 'Account Created!', 'Your account has been created successfully.');
-                    closeSignupModal();
-                    
-                    // Track sign-up event
-                    gtag('event', 'sign_up', {
-                        method: 'email'
-                    });
-                    
-                    showPreQuizIntroduction();
-                }).catch((error) => {
-                    console.error('Error creating user:', error);
-                    showToast('error', 'Sign up failed', 'An error occurred. Please try again.');
-                }).finally(() => {
-                    hideLoading();
-                });
             });
             
             // Set up create study group form
@@ -3072,287 +2525,10 @@
                     showLoginModal();
                 }
                 if (e.target.matches('#landingPage .btn-secondary') || e.target.closest('#landingPage .btn-secondary')) {
-                    showSignupModal();
+                    signInWithGoogle();
                 }
             });
         });
-        
-        // Check if user exists in Google Sheets
-        async function checkUserInSheets(email) {
-            if (!gapiLoaded) {
-                throw new Error('Google Sheets API not loaded');
-            }
-            
-            try {
-                const response = await gapi.client.sheets.spreadsheets.values.get({
-                    spreadsheetId: SPREADSHEET_ID,
-                    range: 'Users!A2:F',
-                });
-                
-                const rows = response.result.values;
-                if (rows && rows.length) {
-                    for (let i = 0; i < rows.length; i++) {
-                        if (rows[i][1] === email) { // Email is in column B
-                            return {
-                                id: rows[i][0],
-                                fullName: rows[i][1],
-                                email: rows[i][2],
-                                points: parseInt(rows[i][3]) || 0,
-                                currentStreak: parseInt(rows[i][4]) || 1,
-                                preQuizCompleted: rows[i][5] === 'TRUE'
-                            };
-                        }
-                    }
-                }
-                return null;
-            } catch (error) {
-                console.error('Error checking user in sheets:', error);
-                throw error;
-            }
-        }
-        
-        // Save user to Google Sheets
-        async function saveUserToSheets(user) {
-            if (!gapiLoaded) {
-                throw new Error('Google Sheets API not loaded');
-            }
-            
-            try {
-                const values = [
-                    [
-                        user.id,
-                        user.fullName,
-                        user.email,
-                        user.points,
-                        user.currentStreak,
-                        user.preQuizCompleted ? 'TRUE' : 'FALSE',
-                        user.postQuizCompleted ? 'TRUE' : 'FALSE',
-                        user.createdAt
-                    ]
-                ];
-                
-                const response = await gapi.client.sheets.spreadsheets.values.append({
-                    spreadsheetId: SPREADSHEET_ID,
-                    range: 'Users!A2:H',
-                    valueInputOption: 'USER_ENTERED',
-                    resource: {
-                        values: values
-                    }
-                });
-                
-                console.log('User saved to sheets:', response);
-                return response;
-            } catch (error) {
-                console.error('Error saving user to sheets:', error);
-                throw error;
-            }
-        }
-        
-        // Update user data in Google Sheets
-        async function updateUserInSheets(user) {
-            if (!gapiLoaded) {
-                throw new Error('Google Sheets API not loaded');
-            }
-            
-            try {
-                // Find user row
-                const findResponse = await gapi.client.sheets.spreadsheets.values.get({
-                    spreadsheetId: SPREADSHEET_ID,
-                    range: 'Users!A2:A',
-                });
-                
-                const rows = findResponse.result.values;
-                let rowIndex = -1;
-                
-                if (rows && rows.length) {
-                    for (let i = 0; i < rows.length; i++) {
-                        if (rows[i][0] === user.id) {
-                            rowIndex = i + 2; // +2 because of header and 0-based index
-                            break;
-                        }
-                    }
-                }
-                
-                if (rowIndex === -1) {
-                    throw new Error('User not found in sheets');
-                }
-                
-                // Update user data
-                const values = [
-                    [
-                        user.id,
-                        user.fullName,
-                        user.email,
-                        user.points,
-                        user.currentStreak,
-                        user.preQuizCompleted ? 'TRUE' : 'FALSE',
-                        user.postQuizCompleted ? 'TRUE' : 'FALSE',
-                        user.createdAt
-                    ]
-                ];
-                
-                const updateResponse = await gapi.client.sheets.spreadsheets.values.update({
-                    spreadsheetId: SPREADSHEET_ID,
-                    range: `Users!A${rowIndex}:H${rowIndex}`,
-                    valueInputOption: 'USER_ENTERED',
-                    resource: {
-                        values: values
-                    }
-                });
-                
-                console.log('User updated in sheets:', updateResponse);
-                return updateResponse;
-            } catch (error) {
-                console.error('Error updating user in sheets:', error);
-                throw error;
-            }
-        }
-        
-        // Save quiz result to Google Sheets
-        async function saveQuizResultToSheets(result) {
-            if (!gapiLoaded) {
-                throw new Error('Google Sheets API not loaded');
-            }
-            
-            try {
-                const values = [
-                    [
-                        result.id,
-                        result.userId,
-                        result.userName,
-                        result.score,
-                        result.totalQuestions,
-                        result.percentage,
-                        result.quizType,
-                        result.topic,
-                        result.createdAt
-                    ]
-                ];
-                
-                const response = await gapi.client.sheets.spreadsheets.values.append({
-                    spreadsheetId: SPREADSHEET_ID,
-                    range: 'QuizResults!A2:I',
-                    valueInputOption: 'USER_ENTERED',
-                    resource: {
-                        values: values
-                    }
-                });
-                
-                console.log('Quiz result saved to sheets:', response);
-                return response;
-            } catch (error) {
-                console.error('Error saving quiz result to sheets:', error);
-                throw error;
-            }
-        }
-        
-        // Save study group to Google Sheets
-        async function saveStudyGroupToSheets(group) {
-            if (!gapiLoaded) {
-                throw new Error('Google Sheets API not loaded');
-            }
-            
-            try {
-                const values = [
-                    [
-                        group.id,
-                        group.name,
-                        group.description,
-                        group.goal,
-                        group.maxMembers,
-                        group.creatorId,
-                        group.creatorName,
-                        group.members.join(','),
-                        group.memberCount,
-                        group.createdAt
-                    ]
-                ];
-                
-                const response = await gapi.client.sheets.spreadsheets.values.append({
-                    spreadsheetId: SPREADSHEET_ID,
-                    range: 'StudyGroups!A2:J',
-                    valueInputOption: 'USER_ENTERED',
-                    resource: {
-                        values: values
-                    }
-                });
-                
-                console.log('Study group saved to sheets:', response);
-                return response;
-            } catch (error) {
-                console.error('Error saving study group to sheets:', error);
-                throw error;
-            }
-        }
-        
-        // Save comment to Google Sheets
-        async function saveCommentToSheets(comment) {
-            if (!gapiLoaded) {
-                throw new Error('Google Sheets API not loaded');
-            }
-            
-            try {
-                const values = [
-                    [
-                        comment.id,
-                        comment.authorId,
-                        comment.authorName,
-                        comment.text,
-                        comment.createdAt
-                    ]
-                ];
-                
-                const response = await gapi.client.sheets.spreadsheets.values.append({
-                    spreadsheetId: SPREADSHEET_ID,
-                    range: 'Comments!A2:E',
-                    valueInputOption: 'USER_ENTERED',
-                    resource: {
-                        values: values
-                    }
-                });
-                
-                console.log('Comment saved to sheets:', response);
-                return response;
-            } catch (error) {
-                console.error('Error saving comment to sheets:', error);
-                throw error;
-            }
-        }
-        
-        // Save review to Google Sheets
-        async function saveReviewToSheets(review) {
-            if (!gapiLoaded) {
-                throw new Error('Google Sheets API not loaded');
-            }
-            
-            try {
-                const values = [
-                    [
-                        review.id,
-                        review.userId,
-                        review.userName,
-                        review.rating,
-                        review.text,
-                        review.createdAt
-                    ]
-                ];
-                
-                const response = await gapi.client.sheets.spreadsheets.values.append({
-                    spreadsheetId: SPREADSHEET_ID,
-                    range: 'Reviews!A2:F',
-                    valueInputOption: 'USER_ENTERED',
-                    resource: {
-                        values: values
-                    }
-                });
-                
-                console.log('Review saved to sheets:', response);
-                return response;
-            } catch (error) {
-                console.error('Error saving review to sheets:', error);
-                throw error;
-            }
-        }
         
         // Toggle sidebar (mobile)
         function toggleSidebar() {
@@ -3382,11 +2558,6 @@
             if (window.innerWidth <= 768) {
                 toggleSidebar();
             }
-            
-            // Track navigation event
-            gtag('event', 'page_view', {
-                page_title: sectionName
-            });
         }
         
         // Show pre-quiz introduction page
@@ -3395,10 +2566,66 @@
             document.getElementById('landingPage').style.display = 'none';
             document.getElementById('prequizPage').style.display = 'flex';
             document.getElementById('mainApp').style.display = 'none';
+        }
+        
+        // Check if user has completed pre-quiz
+        function checkPreQuizStatus() {
+            console.log("Checking pre-quiz status for user:", currentUser.uid);
             
-            // Track pre-quiz introduction view
-            gtag('event', 'page_view', {
-                page_title: 'Pre-Quiz Introduction'
+            if (!currentUser) {
+                console.log("No current user, showing landing page");
+                document.getElementById('landingPage').style.display = 'flex';
+                document.getElementById('prequizPage').style.display = 'none';
+                document.getElementById('mainApp').style.display = 'none';
+                return;
+            }
+            
+            const userRef = database.ref('users/' + currentUser.uid);
+            
+            userRef.once('value').then((snapshot) => {
+                console.log("User data snapshot:", snapshot.val());
+                
+                if (snapshot.exists()) {
+                    userData = snapshot.val();
+                    console.log("User data loaded:", userData);
+                    
+                    if (userData.preQuizCompleted) {
+                        console.log("Pre-quiz completed, showing main app");
+                        showMainApp();
+                    } else {
+                        console.log("Pre-quiz not completed, showing pre-quiz introduction");
+                        showPreQuizIntroduction();
+                    }
+                } else {
+                    console.log("User data doesn't exist, creating new user");
+                    // Create new user
+                    const newUser = {
+                        uid: currentUser.uid,
+                        email: currentUser.email,
+                        displayName: currentUser.displayName || 'User',
+                        points: 0,
+                        currentStreak: 1,
+                        lastActiveDate: new Date().toDateString(),
+                        preQuizCompleted: false,
+                        postQuizCompleted: false,
+                        createdAt: firebase.database.ServerValue.TIMESTAMP
+                    };
+                    
+                    userRef.set(newUser).then(() => {
+                        userData = newUser;
+                        console.log("New user created, showing pre-quiz introduction");
+                        showPreQuizIntroduction();
+                    }).catch((error) => {
+                        console.error("Error creating new user:", error);
+                        showToast('error', 'Error', 'Failed to create user profile.');
+                    });
+                }
+            }).catch((error) => {
+                console.error("Error checking pre-quiz status:", error);
+                showToast('error', 'Error', 'Failed to check your progress.');
+                document.getElementById('landingPage').style.display = 'flex';
+                document.getElementById('prequizPage').style.display = 'none';
+                document.getElementById('mainApp').style.display = 'none';
             });
         }
         
@@ -3410,23 +2637,43 @@
             document.getElementById('mainApp').style.display = 'block';
             
             // Update user profile
-            document.getElementById('userName').textContent = userData.fullName || userData.email || 'User';
+            document.getElementById('userName').textContent = userData.displayName || 'User';
             document.getElementById('userPoints').textContent = userData.points || 0;
             document.getElementById('userStreak').textContent = userData.currentStreak || 0;
             
             // Load data
             loadStudyGroups();
             loadComments();
-            loadReviews();
             
             // Add fade-in animation to elements
             document.querySelectorAll('.fade-in').forEach((el, index) => {
                 el.style.animationDelay = `${index * 0.1}s`;
             });
+        }
+        
+        // Load user data
+        function loadUserData(userId) {
+            const userRef = database.ref('users/' + userId);
             
-            // Track main app view
-            gtag('event', 'page_view', {
-                page_title: 'Main App'
+            userRef.once('value').then((snapshot) => {
+                if (!snapshot.exists()) {
+                    // Create new user
+                    const newUser = {
+                        uid: userId,
+                        email: currentUser.email,
+                        displayName: currentUser.displayName || 'User',
+                        points: 0,
+                        currentStreak: 1,
+                        lastActiveDate: new Date().toDateString(),
+                        preQuizCompleted: false,
+                        postQuizCompleted: false,
+                        createdAt: firebase.database.ServerValue.TIMESTAMP
+                    };
+                    
+                    userRef.set(newUser).then(() => {
+                        userData = newUser;
+                    });
+                }
             });
         }
         
@@ -3450,11 +2697,6 @@
             selectedOption = null;
             answerSubmitted = false;
             showQuiz();
-            
-            // Track pre-quiz start
-            gtag('event', 'quiz_start', {
-                quiz_type: 'pre'
-            });
         }
         
         // Start post-quiz
@@ -3472,11 +2714,6 @@
             selectedOption = null;
             answerSubmitted = false;
             showQuiz();
-            
-            // Track post-quiz start
-            gtag('event', 'quiz_start', {
-                quiz_type: 'post'
-            });
         }
         
         // Show quiz modal
@@ -3506,7 +2743,7 @@
             
             // Reset buttons and feedback
             document.getElementById('submitButton').style.display = 'inline-flex';
-            document.getElementById('submitButton').disabled = true;
+            document.getElementById('submitButton').disabled = false;
             document.getElementById('nextButton').classList.add('hidden');
             document.getElementById('feedback').classList.add('hidden');
             answerSubmitted = false;
@@ -3528,6 +2765,7 @@
                     break;
             }
             
+            document.getElementById('submitButton').disabled = true;
             document.getElementById('prevButton').classList.toggle('hidden', currentQuestion === 0);
             
             selectedOption = null;
@@ -3770,7 +3008,7 @@
                     selectedOption.push(index);
                 } else {
                     options[index].classList.remove('selected');
-                    if (selectedOption && Array.isArray(selectedOption)) {
+                    if (selectedOption && selectedOption.includes(index)) {
                         selectedOption = selectedOption.filter(i => i !== index);
                         if (selectedOption.length === 0) selectedOption = null;
                     }
@@ -3840,23 +3078,9 @@
                 
                 // Award points
                 awardPoints(10, 'Correct answer');
-                
-                // Track correct answer
-                gtag('event', 'quiz_answer', {
-                    quiz_type: quizType,
-                    question_number: currentQuestion + 1,
-                    is_correct: true
-                });
             } else {
                 feedback.className = 'mb-4 p-3 rounded-lg bg-red-100 text-red-800 text-sm';
                 feedback.textContent = 'Incorrect. ' + question.explanation;
-                
-                // Track incorrect answer
-                gtag('event', 'quiz_answer', {
-                    quiz_type: quizType,
-                    question_number: currentQuestion + 1,
-                    is_correct: false
-                });
             }
             
             feedback.classList.remove('hidden');
@@ -3941,14 +3165,6 @@
             // Save quiz result
             saveQuizResult(score, currentQuiz.length, quizType);
             
-            // Track quiz completion
-            gtag('event', 'quiz_complete', {
-                quiz_type: quizType,
-                score: score,
-                total_questions: currentQuiz.length,
-                percentage: percentage
-            });
-            
             // Show appropriate actions
             if (quizType === 'pre') {
                 document.getElementById('postQuizActions').style.display = 'block';
@@ -3963,18 +3179,18 @@
         function completePreQuiz() {
             if (!currentUser) return;
             
-            console.log("Completing pre-quiz for user:", currentUser.id);
+            console.log("Completing pre-quiz for user:", currentUser.uid);
             
-            // Update user data
-            userData.preQuizCompleted = true;
-            userData.preQuizScore = score;
-            userData.preQuizDate = new Date().toISOString();
+            const userRef = database.ref('users/' + currentUser.uid);
             
-            // Save to localStorage
-            localStorage.setItem('userData', JSON.stringify(userData));
-            
-            // Update user in Google Sheets
-            updateUserInSheets(userData).then(() => {
+            userRef.update({
+                preQuizCompleted: true,
+                preQuizScore: score,
+                preQuizDate: firebase.database.ServerValue.TIMESTAMP
+            }).then(() => {
+                userData.preQuizCompleted = true;
+                userData.preQuizScore = score;
+                
                 console.log("Pre-quiz completed, showing main app");
                 
                 // Award points for completing pre-quiz
@@ -3995,19 +3211,18 @@
         
         // Save quiz result
         function saveQuizResult(score, totalQuestions, quizType) {
-            const result = {
-                id: Date.now().toString(),
-                userId: currentUser.id,
-                userName: userData.fullName || userData.email,
+            const resultsRef = database.ref('quizResults').push();
+            
+            resultsRef.set({
+                userId: currentUser.uid,
+                userName: userData.displayName,
                 score: score,
                 totalQuestions: totalQuestions,
                 percentage: Math.round((score / totalQuestions) * 100),
                 quizType: quizType,
                 topic: 'Group 1 - Alkali Metals',
-                createdAt: new Date().toISOString()
-            };
-            
-            saveQuizResultToSheets(result).catch((error) => {
+                createdAt: firebase.database.ServerValue.TIMESTAMP
+            }).catch((error) => {
                 console.error("Error saving quiz result:", error);
             });
         }
@@ -4027,9 +3242,11 @@
         function awardPoints(points, reason) {
             if (!currentUser || !userData) return;
             
-            // Update user data
-            userData.points = (userData.points || 0) + points;
-            userData.lastActiveDate = new Date().toDateString();
+            const userRef = database.ref('users/' + currentUser.uid);
+            
+            const updates = {};
+            updates['/points'] = (userData.points || 0) + points;
+            updates['/lastActiveDate'] = new Date().toDateString();
             
             // Update streak
             const today = new Date().toDateString();
@@ -4038,29 +3255,23 @@
             const yesterdayString = yesterday.toDateString();
             
             if (userData.lastActiveDate === yesterdayString) {
-                userData.currentStreak = (userData.currentStreak || 1) + 1;
+                updates['/currentStreak'] = (userData.currentStreak || 1) + 1;
             } else if (userData.lastActiveDate !== today) {
-                userData.currentStreak = 1;
+                updates['/currentStreak'] = 1;
             }
             
-            // Save to localStorage
-            localStorage.setItem('userData', JSON.stringify(userData));
-            
-            // Update user in Google Sheets
-            updateUserInSheets(userData).catch((error) => {
-                console.error("Error updating user data:", error);
-            });
-            
-            // Update UI
-            document.getElementById('userPoints').textContent = userData.points;
-            document.getElementById('userStreak').textContent = userData.currentStreak;
-            
-            showToast('success', 'Points Awarded', `+${points} points for ${reason}`);
-            
-            // Track points awarded
-            gtag('event', 'points_awarded', {
-                points: points,
-                reason: reason
+            userRef.update(updates).then(() => {
+                userData.points = updates['/points'];
+                userData.currentStreak = updates['/currentStreak'];
+                userData.lastActiveDate = updates['/lastActiveDate'];
+                
+                // Update UI
+                document.getElementById('userPoints').textContent = userData.points;
+                document.getElementById('userStreak').textContent = userData.currentStreak;
+                
+                showToast('success', 'Points Awarded', `+${points} points for ${reason}`);
+            }).catch((error) => {
+                console.error("Error awarding points:", error);
             });
         }
         
@@ -4069,10 +3280,83 @@
             const container = document.getElementById('studyGroupsContainer');
             container.innerHTML = '<div class="spinner"></div>';
             
-            // Simulate loading from Google Sheets
-            setTimeout(() => {
-                container.innerHTML = '<p class="text-gray-500 text-center">No study groups yet. Create one!</p>';
-            }, 1000);
+            const groupsRef = database.ref('studyGroups');
+            
+            groupsRef.orderByChild('createdAt').on('value', (snapshot) => {
+                container.innerHTML = '';
+                
+                if (!snapshot.exists()) {
+                    container.innerHTML = '<p class="text-gray-500 text-center">No study groups yet. Create one!</p>';
+                    return;
+                }
+                
+                const groupsArray = [];
+                snapshot.forEach((childSnapshot) => {
+                    groupsArray.push({
+                        id: childSnapshot.key,
+                        ...childSnapshot.val()
+                    });
+                });
+                
+                // Sort by creation date (newest first)
+                groupsArray.sort((a, b) => {
+                    return new Date(b.createdAt) - new Date(a.createdAt);
+                });
+                
+                groupsArray.forEach(group => {
+                    const groupCard = createStudyGroupCard(group);
+                    container.appendChild(groupCard);
+                });
+            }, (error) => {
+                console.error("Error loading study groups:", error);
+                container.innerHTML = '<p class="text-gray-500 text-center">Error loading study groups.</p>';
+            });
+        }
+        
+        // Create study group card
+        function createStudyGroupCard(group) {
+            const card = document.createElement('div');
+            card.className = 'study-group-card';
+            
+            const isMember = currentUser && group.members && group.members.includes(currentUser.uid);
+            
+            card.innerHTML = `
+                <div class="flex justify-between items-start mb-3">
+                    <div>
+                        <h4 class="font-bold text-lg text-gray-800">${group.name}</h4>
+                        <p class="text-sm text-gray-600">Created by ${group.creatorName}</p>
+                    </div>
+                    <button onclick="${isMember ? 'leaveStudyGroup' : 'joinStudyGroup'}('${group.id}')" 
+                            class="btn ${isMember ? 'btn-danger' : 'btn-primary'} text-sm">
+                        ${isMember ? 'Leave' : 'Join'}
+                    </button>
+                </div>
+                
+                <p class="text-gray-700 mb-3">${group.description}</p>
+                
+                <div class="flex justify-between items-center mb-3">
+                    <div>
+                        <span class="text-sm font-medium text-gray-700">Goal:</span>
+                        <span class="text-sm text-gray-600">${group.goal}</span>
+                    </div>
+                    <div class="text-sm text-gray-600">
+                        ${group.memberCount || 0}/${group.maxMembers} members
+                    </div>
+                </div>
+                
+                <div class="flex items-center">
+                    <div class="flex -space-x-2">
+                        ${(group.members || []).slice(0, 5).map(member => 
+                            `<div class="member-avatar">${member.charAt(0).toUpperCase()}</div>`
+                        ).join('')}
+                        ${(group.memberCount || 0) > 5 ? 
+                            `<div class="member-avatar">+${(group.memberCount || 0) - 5}</div>` : ''
+                        }
+                    </div>
+                </div>
+            `;
+            
+            return card;
         }
         
         // Create study group
@@ -4089,32 +3373,25 @@
             
             showLoading();
             
-            const group = {
-                id: Date.now().toString(),
+            const groupsRef = database.ref('studyGroups').push();
+            
+            groupsRef.set({
                 name: name,
                 description: description,
                 goal: goal,
                 maxMembers: maxMembers,
-                creatorId: currentUser.id,
-                creatorName: userData.fullName || userData.email,
-                members: [currentUser.id],
+                creatorId: currentUser.uid,
+                creatorName: userData.displayName,
+                members: [currentUser.uid],
                 memberCount: 1,
-                createdAt: new Date().toISOString()
-            };
-            
-            saveStudyGroupToSheets(group).then(() => {
+                createdAt: firebase.database.ServerValue.TIMESTAMP
+            }).then(() => {
                 showToast('success', 'Group Created', 'Your study group has been created successfully.');
                 closeCreateStudyGroup();
                 document.getElementById('createStudyGroupForm').reset();
                 
                 // Award points
                 awardPoints(20, 'Created study group');
-                
-                // Track study group creation
-                gtag('event', 'study_group_created');
-                
-                // Reload study groups
-                loadStudyGroups();
             }).catch((error) => {
                 console.error("Error creating study group:", error);
                 showToast('error', 'Error', 'Failed to create study group.');
@@ -4130,18 +3407,83 @@
                 return;
             }
             
-            showToast('success', 'Joined Group', 'You have successfully joined the study group.');
+            const groupRef = database.ref('studyGroups/' + groupId);
             
-            // Award points
-            awardPoints(10, 'Joined study group');
-            
-            // Track study group join
-            gtag('event', 'study_group_joined');
+            groupRef.once('value').then((snapshot) => {
+                const group = snapshot.val();
+                
+                if (!group) {
+                    showToast('error', 'Error', 'Study group not found.');
+                    return;
+                }
+                
+                // Make sure members is an array
+                const members = Array.isArray(group.members) ? [...group.members] : [];
+                
+                if (members.includes(currentUser.uid)) {
+                    showToast('info', 'Already Member', 'You are already a member of this group.');
+                    return;
+                }
+                
+                if ((group.memberCount || 0) >= (group.maxMembers || 10)) {
+                    showToast('error', 'Group Full', 'This study group is already full.');
+                    return;
+                }
+                
+                // Add current user to members array
+                members.push(currentUser.uid);
+                
+                const updates = {};
+                updates['/members'] = members;
+                updates['/memberCount'] = (group.memberCount || 0) + 1;
+                
+                groupRef.update(updates).then(() => {
+                    showToast('success', 'Joined Group', 'You have successfully joined the study group.');
+                    
+                    // Award points
+                    awardPoints(10, 'Joined study group');
+                }).catch((error) => {
+                    console.error("Error joining study group:", error);
+                    showToast('error', 'Error', 'Failed to join study group.');
+                });
+            }).catch((error) => {
+                console.error("Error getting study group:", error);
+                showToast('error', 'Error', 'Failed to join study group.');
+            });
         }
         
         // Leave study group
         function leaveStudyGroup(groupId) {
-            showToast('success', 'Left Group', 'You have successfully left the study group.');
+            if (!currentUser) {
+                showToast('error', 'Sign in required', 'Please sign in to leave study groups.');
+                return;
+            }
+            
+            const groupRef = database.ref('studyGroups/' + groupId);
+            
+            groupRef.once('value').then((snapshot) => {
+                const group = snapshot.val();
+                
+                // Make sure members is an array
+                const members = Array.isArray(group.members) ? [...group.members] : [];
+                
+                // Filter out current user
+                const updatedMembers = members.filter(member => member !== currentUser.uid);
+                
+                const updates = {};
+                updates['/members'] = updatedMembers;
+                updates['/memberCount'] = Math.max(0, (group.memberCount || 0) - 1);
+                
+                groupRef.update(updates).then(() => {
+                    showToast('success', 'Left Group', 'You have successfully left the study group.');
+                }).catch((error) => {
+                    console.error("Error leaving study group:", error);
+                    showToast('error', 'Error', 'Failed to leave study group.');
+                });
+            }).catch((error) => {
+                console.error("Error getting study group:", error);
+                showToast('error', 'Error', 'Failed to leave study group.');
+            });
         }
         
         // Load comments
@@ -4149,10 +3491,53 @@
             const container = document.getElementById('commentsContainer');
             container.innerHTML = '<div class="spinner"></div>';
             
-            // Simulate loading from Google Sheets
-            setTimeout(() => {
-                container.innerHTML = '<p class="text-gray-500 text-center">No comments yet. Be the first to comment!</p>';
-            }, 1000);
+            const commentsRef = database.ref('comments');
+            
+            commentsRef.orderByChild('createdAt').on('value', (snapshot) => {
+                container.innerHTML = '';
+                
+                if (!snapshot.exists()) {
+                    container.innerHTML = '<p class="text-gray-500 text-center">No comments yet. Be the first to comment!</p>';
+                    return;
+                }
+                
+                const commentsArray = [];
+                snapshot.forEach((childSnapshot) => {
+                    commentsArray.push({
+                        id: childSnapshot.key,
+                        ...childSnapshot.val()
+                    });
+                });
+                
+                // Sort by creation date (newest first)
+                commentsArray.sort((a, b) => {
+                    return new Date(b.createdAt) - new Date(a.createdAt);
+                });
+                
+                commentsArray.forEach(comment => {
+                    const commentDiv = createCommentElement(comment);
+                    container.appendChild(commentDiv);
+                });
+            }, (error) => {
+                console.error("Error loading comments:", error);
+                container.innerHTML = '<p class="text-gray-500 text-center">Error loading comments.</p>';
+            });
+        }
+        
+        // Create comment element
+        function createCommentElement(comment) {
+            const commentDiv = document.createElement('div');
+            commentDiv.className = 'comment';
+            
+            const date = comment.createdAt ? new Date(comment.createdAt).toLocaleDateString() : 'Unknown date';
+            
+            commentDiv.innerHTML = `
+                <div class="comment-author">${comment.authorName || 'Anonymous'}</div>
+                <div class="text-xs text-gray-500 mb-1">${date}</div>
+                <div class="comment-text">${comment.text}</div>
+            `;
+            
+            return commentDiv;
         }
         
         // Add comment
@@ -4172,124 +3557,22 @@
             
             showLoading();
             
-            const comment = {
-                id: Date.now().toString(),
-                authorId: currentUser.id,
-                authorName: userData.fullName || userData.email,
-                text: commentText,
-                createdAt: new Date().toISOString()
-            };
+            const commentsRef = database.ref('comments').push();
             
-            saveCommentToSheets(comment).then(() => {
+            commentsRef.set({
+                authorId: currentUser.uid,
+                authorName: userData.displayName,
+                text: commentText,
+                createdAt: firebase.database.ServerValue.TIMESTAMP
+            }).then(() => {
                 commentInput.value = '';
                 showToast('success', 'Comment Posted', 'Your comment has been posted successfully.');
                 
                 // Award points
                 awardPoints(5, 'Comment posted');
-                
-                // Track comment posted
-                gtag('event', 'comment_posted');
-                
-                // Reload comments
-                loadComments();
             }).catch((error) => {
                 console.error("Error adding comment:", error);
                 showToast('error', 'Error', 'Failed to post comment.');
-            }).finally(() => {
-                hideLoading();
-            });
-        }
-        
-        // Load reviews
-        function loadReviews() {
-            const container = document.getElementById('reviewList');
-            container.innerHTML = '<div class="spinner"></div>';
-            
-            // Simulate loading from Google Sheets
-            setTimeout(() => {
-                container.innerHTML = '<p class="text-gray-500 text-center">No reviews yet. Be the first to review!</p>';
-            }, 1000);
-        }
-        
-        // Submit feedback
-        function submitFeedback(type) {
-            if (!currentUser) {
-                showToast('error', 'Sign in required', 'Please sign in to submit feedback.');
-                return;
-            }
-            
-            // Update UI
-            const feedbackButtons = document.querySelectorAll('.feedback-btn');
-            feedbackButtons.forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            event.target.closest('.feedback-btn').classList.add('active');
-            
-            showToast('success', 'Feedback Submitted', 'Thank you for your feedback!');
-            
-            // Track feedback
-            gtag('event', 'feedback_submitted', {
-                feedback_type: type
-            });
-        }
-        
-        // Submit review
-        function submitReview() {
-            if (!currentUser) {
-                showToast('error', 'Sign in required', 'Please sign in to submit a review.');
-                return;
-            }
-            
-            const reviewText = document.getElementById('reviewText').value.trim();
-            
-            if (!reviewText) {
-                showToast('error', 'Empty Review', 'Please enter a review before submitting.');
-                return;
-            }
-            
-            showLoading();
-            
-            // Get rating from active feedback button
-            let rating = 0;
-            const activeFeedbackBtn = document.querySelector('.feedback-btn.active');
-            if (activeFeedbackBtn) {
-                rating = activeFeedbackBtn.querySelector('i').classList.contains('fa-thumbs-up') ? 5 : 1;
-            }
-            
-            const review = {
-                id: Date.now().toString(),
-                userId: currentUser.id,
-                userName: userData.fullName || userData.email,
-                rating: rating,
-                text: reviewText,
-                createdAt: new Date().toISOString()
-            };
-            
-            saveReviewToSheets(review).then(() => {
-                document.getElementById('reviewText').value = '';
-                
-                // Reset feedback buttons
-                const feedbackButtons = document.querySelectorAll('.feedback-btn');
-                feedbackButtons.forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                
-                showToast('success', 'Review Submitted', 'Your review has been submitted successfully.');
-                
-                // Award points
-                awardPoints(15, 'Review submitted');
-                
-                // Track review submitted
-                gtag('event', 'review_submitted', {
-                    rating: rating
-                });
-                
-                // Reload reviews
-                loadReviews();
-            }).catch((error) => {
-                console.error("Error submitting review:", error);
-                showToast('error', 'Error', 'Failed to submit review.');
             }).finally(() => {
                 hideLoading();
             });
@@ -4325,24 +3608,6 @@
             document.getElementById('loginModal').classList.remove('active');
         }
         
-        function showSignupModal() {
-            document.getElementById('signupModal').classList.add('active');
-        }
-        
-        function closeSignupModal() {
-            document.getElementById('signupModal').classList.remove('active');
-        }
-        
-        function switchToSignup() {
-            closeLoginModal();
-            showSignupModal();
-        }
-        
-        function switchToLogin() {
-            closeSignupModal();
-            showLoginModal();
-        }
-        
         function showCreateStudyGroup() {
             document.getElementById('createStudyGroupModal').classList.add('active');
         }
@@ -4351,22 +3616,43 @@
             document.getElementById('createStudyGroupModal').classList.remove('active');
         }
         
-        // Sign out
+        // Authentication functions
+        function signInWithGoogle() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            
+            auth.signInWithPopup(provider)
+                .then((result) => {
+                    const user = result.user;
+                    console.log("Google sign in successful:", user.uid);
+                    showToast('success', 'Welcome!', 'You have been successfully signed in with Google.');
+                    closeLoginModal();
+                    // Set flag to indicate user just signed in
+                    justSignedIn = true;
+                    // The onAuthStateChanged listener will handle showing the pre-quiz introduction
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.error("Google sign in error:", errorCode, errorMessage);
+                    
+                    if (errorCode === 'auth/unauthorized-domain') {
+                        showToast('error', 'Domain not authorized', 
+                            'Please add your GitHub Pages domain to the authorized domains in your Firebase project settings.');
+                    } else {
+                        showToast('error', 'Sign in failed', errorMessage);
+                    }
+                });
+        }
+        
         function signOut() {
-            currentUser = null;
-            userData = null;
-            
-            // Clear localStorage
-            localStorage.removeItem('currentUser');
-            localStorage.removeItem('userData');
-            
-            showToast('success', 'Signed out', 'You have been successfully signed out.');
-            document.getElementById('landingPage').style.display = 'flex';
-            document.getElementById('prequizPage').style.display = 'none';
-            document.getElementById('mainApp').style.display = 'none';
-            
-            // Track sign out
-            gtag('event', 'sign_out');
+            auth.signOut().then(() => {
+                showToast('success', 'Signed out', 'You have been successfully signed out.');
+                document.getElementById('landingPage').style.display = 'flex';
+                document.getElementById('prequizPage').style.display = 'none';
+                document.getElementById('mainApp').style.display = 'none';
+            }).catch((error) => {
+                console.error("Error signing out:", error);
+            });
         }
         
         // Utility functions
