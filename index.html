@@ -276,6 +276,7 @@
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            z-index: 5;
         }
         
         .lesson-item::before {
@@ -590,6 +591,7 @@
             text-decoration: none;
             transition: all 0.2s ease;
             border-left: 3px solid transparent;
+            cursor: pointer;
         }
         
         .nav-item:hover {
@@ -679,6 +681,7 @@
             padding: 0.5rem;
             border-radius: 0.5rem;
             font-size: 0.9rem;
+            cursor: pointer;
         }
         
         .logout-btn:hover {
@@ -1027,26 +1030,26 @@
             </div>
             
             <div class="sidebar-nav">
-                <a href="#" class="nav-item active" onclick="showDashboard()">
+                <div class="nav-item active" onclick="showDashboard()">
                     <i class="fas fa-home"></i>
                     <span>Dashboard</span>
-                </a>
-                <a href="#" class="nav-item" onclick="showLessons()">
+                </div>
+                <div class="nav-item" onclick="showLessons()">
                     <i class="fas fa-book-open"></i>
                     <span>Lessons</span>
-                </a>
-                <a href="#" class="nav-item" onclick="showAchievements()">
+                </div>
+                <div class="nav-item" onclick="showAchievements()">
                     <i class="fas fa-trophy"></i>
                     <span>Achievements</span>
-                </a>
-                <a href="#" class="nav-item" onclick="showStudyGroups()">
+                </div>
+                <div class="nav-item" onclick="showStudyGroups()">
                     <i class="fas fa-users"></i>
                     <span>Study Groups</span>
-                </a>
-                <a href="#" class="nav-item" onclick="showDiscussion()">
+                </div>
+                <div class="nav-item" onclick="showDiscussion()">
                     <i class="fas fa-comments"></i>
                     <span>Discussion</span>
-                </a>
+                </div>
             </div>
             
             <div class="user-profile">
@@ -1073,10 +1076,10 @@
                     </div>
                 </div>
                 
-                <button onclick="signOut()" class="logout-btn">
+                <div class="logout-btn" onclick="signOut()">
                     <i class="fas fa-sign-out-alt mr-1"></i>
                     Logout
-                </button>
+                </div>
             </div>
         </div>
         
@@ -1974,6 +1977,20 @@
         
         // Initialize the app
         document.addEventListener('DOMContentLoaded', function() {
+            // Add event delegation for lesson items
+            document.getElementById('lessonList').addEventListener('click', function(e) {
+                // Find the closest lesson item
+                const lessonItem = e.target.closest('.lesson-item');
+                if (lessonItem && !lessonItem.classList.contains('locked')) {
+                    // Get the lesson id from the data attribute
+                    const lessonId = parseInt(lessonItem.dataset.lessonId);
+                    if (lessonId) {
+                        currentLessonId = lessonId;
+                        loadCurrentLesson();
+                    }
+                }
+            });
+            
             // Check authentication state on page load
             auth.onAuthStateChanged((user) => {
                 if (user) {
@@ -2605,6 +2622,7 @@
                 
                 const lessonItem = document.createElement('div');
                 lessonItem.className = `lesson-item ${isCompleted ? 'completed' : ''} ${isLocked ? 'locked' : ''}`;
+                lessonItem.dataset.lessonId = lesson.id;
                 
                 lessonItem.innerHTML = `
                     <div class="lesson-icon">
@@ -2615,13 +2633,6 @@
                         ${isCompleted ? 'Completed' : isLocked ? 'Locked' : 'Available'}
                     </div>
                 `;
-                
-                if (!isLocked) {
-                    lessonItem.addEventListener('click', function() {
-                        currentLessonId = lesson.id;
-                        loadCurrentLesson();
-                    });
-                }
                 
                 lessonList.appendChild(lessonItem);
             });
