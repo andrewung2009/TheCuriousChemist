@@ -487,6 +487,8 @@
             justify-content: center;
             gap: 0.5rem;
             font-family: 'Poppins', sans-serif;
+            position: relative;
+            z-index: 10;
         }
         
         .btn-primary {
@@ -733,6 +735,7 @@
             overflow-y: auto;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
             position: relative;
+            z-index: 1001;
         }
         
         .modal-header {
@@ -755,6 +758,7 @@
             color: #6b7280;
             cursor: pointer;
             transition: color 0.2s;
+            z-index: 10;
         }
         
         .close-btn:hover {
@@ -831,6 +835,8 @@
             background: white;
             display: flex;
             align-items: center;
+            position: relative;
+            z-index: 5;
         }
         
         .quiz-option:hover {
@@ -1292,7 +1298,7 @@
                 </button>
             </div>
             
-            <div class="mb-4">
+            <div id="quizProgress" class="mb-4">
                 <div class="flex justify-between items-center mb-2">
                     <span class="text-sm text-gray-600">Question <span id="currentQuestion">1</span> of <span id="totalQuestions">7</span></span>
                     <span class="text-sm text-gray-600">Score: <span id="currentScore">0</span></span>
@@ -2290,6 +2296,9 @@
         
         // Show quiz modal
         function showQuiz() {
+            // Hide loading overlay to ensure buttons are clickable
+            hideLoading();
+            
             document.getElementById('quizModal').classList.add('active');
             document.getElementById('quizProgress').style.display = 'block';
             document.getElementById('quizContent').style.display = 'block';
@@ -2338,7 +2347,13 @@
                 optionDiv.appendChild(input);
                 optionDiv.appendChild(label);
                 
-                optionDiv.onclick = () => selectOption(index);
+                // Add click event listener with proper event handling
+                optionDiv.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    selectOption(index);
+                });
+                
                 optionsContainer.appendChild(optionDiv);
             });
             
@@ -2602,10 +2617,10 @@
                 `;
                 
                 if (!isLocked) {
-                    lessonItem.onclick = () => {
+                    lessonItem.addEventListener('click', function() {
                         currentLessonId = lesson.id;
                         loadCurrentLesson();
-                    };
+                    });
                 }
                 
                 lessonList.appendChild(lessonItem);
@@ -2814,8 +2829,8 @@
                         <h4 class="font-bold text-lg">${group.name}</h4>
                         <p class="text-sm text-gray-600">Created by ${group.creatorName}</p>
                     </div>
-                    <button onclick="${isMember ? 'leaveStudyGroup' : 'joinStudyGroup'}('${group.id}')" 
-                            class="btn ${isMember ? 'btn-danger' : 'btn-primary'} text-sm">
+                    <button class="btn ${isMember ? 'btn-danger' : 'btn-primary'} text-sm" 
+                            onclick="${isMember ? 'leaveStudyGroup' : 'joinStudyGroup'}('${group.id}')">
                         ${isMember ? 'Leave' : 'Join'}
                     </button>
                 </div>
