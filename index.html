@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1132,6 +1130,78 @@
                 width: 100px;
             }
         }
+        
+        /* Auth Modal Styles */
+        .auth-tabs {
+            display: flex;
+            border-bottom: 2px solid #e5e7eb;
+            margin-bottom: 1.5rem;
+        }
+        
+        .auth-tab {
+            flex: 1;
+            padding: 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 500;
+            color: #6b7280;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .auth-tab::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #4f46e5;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .auth-tab.active {
+            color: #4f46e5;
+        }
+        
+        .auth-tab.active::after {
+            transform: scaleX(1);
+        }
+        
+        .auth-content {
+            display: none;
+        }
+        
+        .auth-content.active {
+            display: block;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            color: #6b7280;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .close-btn:hover {
+            color: #1f2937;
+        }
     </style>
 </head>
 <body>
@@ -1851,7 +1921,7 @@
                             <div class="bg-indigo-50 p-4 rounded-lg">
                                 <h5 class="font-semibold text-indigo-800 mb-2">Safety Note:</h5>
                                 <p class="text-indigo-700">
-                                    Due to their <strong>violent reactions</strong> with water, Group 1 metals must be stored under oil to prevent contact with moisture in the air. 
+                                    Due to their <strong>violent reactions</strong> with water, Group 1 metals must be stored under oil to prevent contact with air and moisture. 
                                     Small pieces should always be used for demonstrations, and <strong>safety goggles</strong> must be worn.
                                 </p>
                             </div>
@@ -2120,28 +2190,67 @@
     <!-- Login Modal -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
-            <div class="text-center mb-6">
-                <i class="fas fa-atom text-4xl text-indigo-600 mb-3"></i>
-                <h2 class="text-2xl font-bold text-gray-800">Welcome to Chemistry Mastery</h2>
-                <p class="text-gray-600">Sign in to begin your <strong>learning journey</strong></p>
+            <div class="modal-header">
+                <h2 class="modal-title">Welcome to Chemistry Mastery</h2>
+                <button class="close-btn" onclick="closeLoginModal()">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
             
-            <form id="loginForm" class="space-y-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                    <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="your@email.com" required>
-                </div>
-                
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                    <input type="password" id="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="••••••••" required>
-                </div>
-                
-                <button type="submit" class="btn btn-primary w-full">
-                    <i class="fas fa-sign-in-alt"></i>
-                    Sign In
-                </button>
-            </form>
+            <div class="auth-tabs">
+                <div class="auth-tab active" onclick="switchAuthTab('login')">Sign In</div>
+                <div class="auth-tab" onclick="switchAuthTab('signup')">Sign Up</div>
+            </div>
+            
+            <!-- Login Form -->
+            <div id="loginForm" class="auth-content active">
+                <form id="loginFormElement" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" id="loginEmail" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="your@email.com" required>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <input type="password" id="loginPassword" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="••••••••" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-full">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Sign In
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Signup Form -->
+            <div id="signupForm" class="auth-content">
+                <form id="signupFormElement" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                        <input type="text" id="signupName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="John Doe" required>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" id="signupEmail" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="your@email.com" required>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <input type="password" id="signupPassword" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="••••••••" required>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+                        <input type="password" id="signupConfirmPassword" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="••••••••" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-full">
+                        <i class="fas fa-user-plus"></i>
+                        Create Account
+                    </button>
+                </form>
+            </div>
             
             <div class="mt-6 text-center">
                 <p class="text-gray-600">Or continue with</p>
@@ -2474,10 +2583,10 @@
             });
             
             // Set up login form
-            document.getElementById('loginForm').addEventListener('submit', (e) => {
+            document.getElementById('loginFormElement').addEventListener('submit', (e) => {
                 e.preventDefault();
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
                 
                 if (!isValidEmail(email)) {
                     showToast('error', 'Invalid Email', 'Please enter a valid email address');
@@ -2506,6 +2615,83 @@
                                 'Please add your GitHub Pages domain to the authorized domains in your Firebase project settings.');
                         } else {
                             showToast('error', 'Sign in failed', errorMessage);
+                        }
+                    })
+                    .finally(() => {
+                        hideLoading();
+                    });
+            });
+            
+            // Set up signup form
+            document.getElementById('signupFormElement').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('signupName').value;
+                const email = document.getElementById('signupEmail').value;
+                const password = document.getElementById('signupPassword').value;
+                const confirmPassword = document.getElementById('signupConfirmPassword').value;
+                
+                if (!isValidEmail(email)) {
+                    showToast('error', 'Invalid Email', 'Please enter a valid email address');
+                    return;
+                }
+                
+                if (password !== confirmPassword) {
+                    showToast('error', 'Password Mismatch', 'The passwords you entered do not match.');
+                    return;
+                }
+                
+                if (password.length < 6) {
+                    showToast('error', 'Password Too Short', 'Password must be at least 6 characters long.');
+                    return;
+                }
+                
+                showLoading();
+                
+                auth.createUserWithEmailAndPassword(email, password)
+                    .then((userCredential) => {
+                        const user = userCredential.user;
+                        
+                        // Update user profile with display name
+                        return user.updateProfile({
+                            displayName: name
+                        }).then(() => {
+                            console.log("Sign up successful:", user.uid);
+                            showToast('success', 'Account Created!', 'Your account has been created successfully.');
+                            closeLoginModal();
+                            
+                            // Set flag to indicate user just signed in
+                            justSignedIn = true;
+                            
+                            // Create user data in database
+                            const newUser = {
+                                uid: user.uid,
+                                email: email,
+                                displayName: name,
+                                points: 0,
+                                currentStreak: 1,
+                                lastActiveDate: new Date().toDateString(),
+                                preQuizCompleted: false,
+                                postQuizCompleted: false,
+                                createdAt: firebase.database.ServerValue.TIMESTAMP
+                            };
+                            
+                            return database.ref('users/' + user.uid).set(newUser);
+                        });
+                    })
+                    .then(() => {
+                        // The onAuthStateChanged listener will handle showing the pre-quiz introduction
+                    })
+                    .catch((error) => {
+                        const errorCode = error.code;
+                        const errorMessage = error.message;
+                        console.error("Sign up error:", errorCode, errorMessage);
+                        
+                        if (errorCode === 'auth/email-already-in-use') {
+                            showToast('error', 'Email Already In Use', 'This email address is already associated with an account.');
+                        } else if (errorCode === 'auth/weak-password') {
+                            showToast('error', 'Weak Password', 'Password must be at least 6 characters long.');
+                        } else {
+                            showToast('error', 'Sign up failed', errorMessage);
                         }
                     })
                     .finally(() => {
@@ -2743,7 +2929,7 @@
             
             // Reset buttons and feedback
             document.getElementById('submitButton').style.display = 'inline-flex';
-            document.getElementById('submitButton').disabled = false;
+            document.getElementById('submitButton').disabled = true;
             document.getElementById('nextButton').classList.add('hidden');
             document.getElementById('feedback').classList.add('hidden');
             answerSubmitted = false;
@@ -2765,7 +2951,6 @@
                     break;
             }
             
-            document.getElementById('submitButton').disabled = true;
             document.getElementById('prevButton').classList.toggle('hidden', currentQuestion === 0);
             
             selectedOption = null;
@@ -3596,6 +3781,27 @@
             document.getElementById(tabName).classList.add('active');
             
             // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+        
+        // Auth tab functionality
+        function switchAuthTab(tabName) {
+            // Hide all auth contents
+            const authContents = document.querySelectorAll('.auth-content');
+            authContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all auth tabs
+            const authTabs = document.querySelectorAll('.auth-tab');
+            authTabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected auth content
+            document.getElementById(`${tabName}Form`).classList.add('active');
+            
+            // Add active class to clicked auth tab
             event.target.classList.add('active');
         }
         
