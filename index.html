@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -102,28 +103,6 @@
             100% { color: #4f46e5; }
         }
         
-        /* New animations for interactive elements */
-        @keyframes flash {
-            0%, 100% { 
-                color: #4f46e5;
-                text-shadow: 0 0 5px rgba(79, 70, 229, 0.7);
-            }
-            50% { 
-                color: #f59e0b;
-                text-shadow: 0 0 15px rgba(245, 158, 11, 0.9);
-            }
-        }
-        
-        @keyframes flame {
-            0%, 100% { 
-                background-color: rgba(255, 255, 255, 0.2);
-                transform: scale(1);
-            }
-            50% { 
-                transform: scale(1.1);
-            }
-        }
-        
         .fade-in {
             animation: fadeIn 0.6s ease-out forwards;
         }
@@ -181,15 +160,19 @@
             animation: colorShift 5s ease infinite;
         }
         
-        .flash-number {
-            animation: flash 2s infinite;
-            cursor: pointer;
-            position: relative;
-        }
-        
-        .flame-animation {
-            animation: flame 1.5s infinite;
-        }
+        /* Animation Delays */
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-600 { animation-delay: 0.6s; }
+        .delay-700 { animation-delay: 0.7s; }
+        .delay-800 { animation-delay: 0.8s; }
+        .delay-900 { animation-delay: 0.9s; }
+        .delay-1000 { animation-delay: 1s; }
+        .delay-1200 { animation-delay: 1.2s; }
+        .delay-1500 { animation-delay: 1.5s; }
         
         /* Sidebar Styles */
         .sidebar {
@@ -1082,232 +1065,6 @@
             background: #eef2ff;
         }
         
-        /* Interactive Elements */
-        .valence-electron {
-            position: relative;
-            display: inline-block;
-        }
-        
-        .valence-tooltip {
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 0.5rem 0.75rem;
-            border-radius: 0.375rem;
-            font-size: 0.875rem;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
-            z-index: 10;
-        }
-        
-        .valence-electron:hover .valence-tooltip {
-            opacity: 1;
-        }
-        
-        .interactive-popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            max-width: 400px;
-            z-index: 1000;
-            display: none;
-        }
-        
-        .interactive-popup.active {
-            display: block;
-        }
-        
-        .popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-            display: none;
-        }
-        
-        .popup-overlay.active {
-            display: block;
-        }
-        
-        .quiz-checkpoint {
-            background: #f3f4f6;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin: 1rem 0;
-            border-left: 4px solid #4f46e5;
-        }
-        
-        .quiz-checkpoint h4 {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
-        .quiz-options {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            margin: 0.75rem 0;
-        }
-        
-        .quiz-option-btn {
-            background: white;
-            border: 1px solid #d1d5db;
-            border-radius: 0.375rem;
-            padding: 0.5rem 0.75rem;
-            text-align: left;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .quiz-option-btn:hover {
-            background: #f9fafb;
-            border-color: #4f46e5;
-        }
-        
-        .quiz-option-btn.correct {
-            background: #d1fae5;
-            border-color: #10b981;
-        }
-        
-        .quiz-option-btn.incorrect {
-            background: #fee2e2;
-            border-color: #ef4444;
-        }
-        
-        .quiz-feedback {
-            margin-top: 0.75rem;
-            padding: 0.75rem;
-            border-radius: 0.375rem;
-            font-size: 0.875rem;
-        }
-        
-        .quiz-feedback.correct {
-            background: #d1fae5;
-            color: #065f46;
-        }
-        
-        .quiz-feedback.incorrect {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-        
-        .flame-test-item {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            margin: 0.25rem;
-            border-radius: 0.375rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .flame-test-item:hover {
-            transform: translateY(-3px);
-        }
-        
-        .flame-test-item.lithium {
-            background: rgba(239, 68, 68, 0.2);
-            border: 1px solid rgba(239, 68, 68, 0.5);
-        }
-        
-        .flame-test-item.sodium {
-            background: rgba(245, 158, 11, 0.2);
-            border: 1px solid rgba(245, 158, 11, 0.5);
-        }
-        
-        .flame-test-item.potassium {
-            background: rgba(139, 92, 246, 0.2);
-            border: 1px solid rgba(139, 92, 246, 0.5);
-        }
-        
-        .flame-test-item:hover.lithium {
-            background: rgba(239, 68, 68, 0.4);
-            box-shadow: 0 0 10px rgba(239, 68, 68, 0.7);
-        }
-        
-        .flame-test-item:hover.sodium {
-            background: rgba(245, 158, 11, 0.4);
-            box-shadow: 0 0 10px rgba(245, 158, 11, 0.7);
-        }
-        
-        .flame-test-item:hover.potassium {
-            background: rgba(139, 92, 246, 0.4);
-            box-shadow: 0 0 10px rgba(139, 92, 246, 0.7);
-        }
-        
-        .reactivity-scale {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 1.5rem 0;
-            padding: 1rem;
-            background: #f9fafb;
-            border-radius: 0.5rem;
-            position: relative;
-        }
-        
-        .reactivity-scale::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #4f46e5, #ec4899);
-            z-index: 1;
-        }
-        
-        .reactivity-item {
-            background: white;
-            border: 2px solid #4f46e5;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            z-index: 2;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .reactivity-item:hover {
-            transform: scale(1.1);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .everyday-connection {
-            background: #f0fdf4;
-            border-left: 4px solid #22c55e;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin: 1rem 0;
-        }
-        
-        .everyday-connection h4 {
-            color: #166534;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
-        .everyday-connection p {
-            color: #15803d;
-        }
-        
         /* Responsive Design */
         @media (max-width: 768px) {
             .sidebar {
@@ -1708,44 +1465,9 @@
                         which they readily lose to form +1 ions.
                     </p>
                     
-                    <!-- Valence Electrons Interactive Section -->
                     <div class="highlight-box">
                         <h4>Electron Configuration</h4>
-                        <p>All Group 1 elements have an electron number configuration that ends with a <strong>single electron</strong> in the outermost shell, such as:
-                        </p>
-                        <div class="flex justify-center my-3">
-                            <div class="text-center mx-3">
-                                <div class="font-bold">Lithium</div>
-                                <div class="text-lg">
-                                    <span>2,</span>
-                                    <span class="valence-electron">
-                                        <span class="flash-number" onclick="showValenceElectronPopup()">1</span>
-                                        <span class="valence-tooltip">This single valence electron is what makes Group 1 metals so reactive.</span>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="text-center mx-3">
-                                <div class="font-bold">Sodium</div>
-                                <div class="text-lg">
-                                    <span>2,8,</span>
-                                    <span class="valence-electron">
-                                        <span class="flash-number" onclick="showValenceElectronPopup()">1</span>
-                                        <span class="valence-tooltip">This single valence electron is what makes Group 1 metals so reactive.</span>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="text-center mx-3">
-                                <div class="font-bold">Potassium</div>
-                                <div class="text-lg">
-                                    <span>2,8,8,</span>
-                                    <span class="valence-electron">
-                                        <span class="flash-number" onclick="showValenceElectronPopup()">1</span>
-                                        <span class="valence-tooltip">This single valence electron is what makes Group 1 metals so reactive.</span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="mt-2">This single valence electron is <strong>easily lost</strong>, which makes these elements highly reactive metals.</p>
+                        <p>All Group 1 elements have an electron number configuration that ends with a <strong>single electron</strong> in the outermost shell, such as lithium 2,1, sodium 2,8,1, and potassium 2,8,8,1; this single valence electron is <strong>easily lost</strong>, which makes these elements highly reactive metals.</p>
                     </div>
                     
                     <p class="text-gray-700 mt-4">
@@ -1785,19 +1507,23 @@
                             </ul>
                         </div>
                         <div>
-                            <h4 class="font-semibold text-gray-700 mb-3">Appearance</h4>
+                            <h4 class="font-semibold text-gray-700 mb-3">Chemical Properties</h4>
                             <ul class="space-y-2 text-gray-600">
                                 <li class="flex items-start">
                                     <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                                    <span><strong>Silvery-white, shiny metals</strong></span>
+                                    <span><strong>Highly reactive</strong> with one valence electron</span>
                                 </li>
                                 <li class="flex items-start">
                                     <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                                    <span><strong>Tarnish quickly</strong> in air</span>
+                                    <span>Form <strong>+1 ions</strong> by losing their valence electron</span>
                                 </li>
                                 <li class="flex items-start">
                                     <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                                    <span><strong>Freshly cut surfaces</strong> are highly reflective</span>
+                                    <span><strong>Reactivity increases</strong> down the group</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span><strong>Never found free</strong> in nature</span>
                                 </li>
                             </ul>
                         </div>
@@ -1828,12 +1554,6 @@
                             <h4 class="font-semibold text-purple-800 mb-2">Potassium</h4>
                             <p class="text-sm text-purple-600">Vital for plants (<strong>fertilizers</strong>), essential for nerve and muscle function in animals, used in soap production</p>
                         </div>
-                    </div>
-                    
-                    <!-- Everyday Connection -->
-                    <div class="everyday-connection mt-4">
-                        <h4>Everyday Connection</h4>
-                        <p>Sodium is found in common table salt (NaCl), while Lithium is used in rechargeable batteries for your phone and electric vehicles!</p>
                     </div>
                 </div>
             </div>
@@ -1955,18 +1675,6 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-                    
-                    <!-- Melting Point Quiz Checkpoint -->
-                    <div class="quiz-checkpoint mt-4">
-                        <h4>Did you notice that the melting point decreases as we go down the group?</h4>
-                        <p>Let's test your understanding:</p>
-                        <div class="quiz-options">
-                            <button class="quiz-option-btn" onclick="checkMeltingPointAnswer(this, 'a')">Lithium</button>
-                            <button class="quiz-option-btn" onclick="checkMeltingPointAnswer(this, 'b')">Sodium</button>
-                            <button class="quiz-option-btn" onclick="checkMeltingPointAnswer(this, 'c')">Caesium</button>
-                        </div>
-                        <div id="meltingPointFeedback" class="quiz-feedback" style="display: none;"></div>
                     </div>
                     
                     <div class="highlight-box mt-4">
@@ -2126,40 +1834,20 @@
                                 </table>
                             </div>
                             
-                            <!-- Density Quiz Checkpoint -->
-                            <div class="quiz-checkpoint mt-4">
-                                <h4>Which alkali metal is denser, Lithium or Rubidium?</h4>
-                                <div class="quiz-options">
-                                    <button class="quiz-option-btn" onclick="checkDensityAnswer(this, 'lithium')">Lithium</button>
-                                    <button class="quiz-option-btn" onclick="checkDensityAnswer(this, 'rubidium')">Rubidium</button>
-                                </div>
-                                <div id="densityFeedback" class="quiz-feedback" style="display: none;"></div>
-                            </div>
-                            
                             <div class="key-point">
                                 <h4>Important Exception</h4>
                                 <p>While density generally increases down Group 1, <strong>potassium (K) is less dense than sodium (Na)</strong>. This is because the increase in atomic mass is offset by a larger increase in atomic volume.</p>
                             </div>
                             
-                            <!-- Reactivity Trend Visualization -->
                             <div class="highlight-box mt-3">
                                 <h4>Practical Observation of Trends</h4>
-                                <p>The reactivity trend can be clearly observed in the reaction with water:</p>
-                                
-                                <div class="reactivity-scale">
-                                    <div class="reactivity-item" data-element="lithium">Li</div>
-                                    <div class="reactivity-item" data-element="sodium">Na</div>
-                                    <div class="reactivity-item" data-element="potassium">K</div>
-                                </div>
-                                
-                                <div class="quiz-checkpoint mt-3">
-                                    <h4>Which will react more violently with water: Lithium or Potassium?</h4>
-                                    <div class="quiz-options">
-                                        <button class="quiz-option-btn" onclick="checkReactivityAnswer(this, 'lithium')">Lithium</button>
-                                        <button class="quiz-option-btn" onclick="checkReactivityAnswer(this, 'potassium')">Potassium</button>
-                                    </div>
-                                    <div id="reactivityFeedback" class="quiz-feedback" style="display: none;"></div>
-                                </div>
+                                <p>The reactivity trend can be clearly observed in the reaction with water:
+                                <ul class="list-disc pl-5 mt-2">
+                                    <li><strong>Lithium:</strong> Fizzes steadily, moves slowly on surface</li>
+                                    <li><strong>Sodium:</strong> Fizzes rapidly, melts into a ball, moves quickly</li>
+                                    <li><strong>Potassium:</strong> Fizzes very rapidly, may ignite with lilac flame, moves very quickly</li>
+                                </ul>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -2443,39 +2131,6 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- Flame Test Colors Section -->
-                <div class="content-card fade-in">
-                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                        <i class="fas fa-fire mr-2 text-indigo-600"></i>
-                        Flame Test Colors
-                    </h3>
-                    
-                    <p class="text-gray-700 mb-4">
-                        Group 1 metals produce characteristic flame colors when heated in a Bunsen burner flame. These colors are useful for <strong>identifying the metals</strong> in laboratory tests.
-                    </p>
-                    
-                    <div class="flex flex-wrap justify-center mb-4">
-                        <div class="flame-test-item lithium" data-color="red">
-                            <i class="fas fa-fire mr-2"></i>
-                            Lithium (Red)
-                        </div>
-                        <div class="flame-test-item sodium" data-color="yellow">
-                            <i class="fas fa-fire mr-2"></i>
-                            Sodium (Yellow)
-                        </div>
-                        <div class="flame-test-item potassium" data-color="lilac">
-                            <i class="fas fa-fire mr-2"></i>
-                            Potassium (Lilac)
-                        </div>
-                    </div>
-                    
-                    <div class="highlight-box">
-                        <h4>How Flame Tests Work</h4>
-                        <p>When Group 1 metals are heated, their electrons absorb energy and jump to higher energy levels. When they fall back to their original levels, they emit energy as light of <strong>specific wavelengths</strong>, which we see as characteristic colors.</p>
-                        <p class="mt-2">These flame colors are useful for <strong>identifying Group 1 metals</strong> in the lab, especially when testing for the presence of these metals in unknown compounds.</p>
-                    </div>
-                </div>
             </div>
             
             <!-- Study Groups Section -->
@@ -2531,156 +2186,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    
-    <!-- Landing Page (shown when user hasn't signed in) -->
-    <div id="landingPage" class="landing-container">
-        <div class="landing-card">
-            <div class="landing-icon text-reveal delay-100">
-                <i class="fas fa-atom"></i>
-            </div>
-            <h1 class="landing-title glow-text text-reveal delay-300">
-                <span class="letter-pop delay-300">C</span>
-                <span class="letter-pop delay-320">h</span>
-                <span class="letter-pop delay-340">e</span>
-                <span class="letter-pop delay-360">m</span>
-                <span class="letter-pop delay-380">i</span>
-                <span class="letter-pop delay-400">s</span>
-                <span class="letter-pop delay-420">t</span>
-                <span class="letter-pop delay-440">r</span>
-                <span class="letter-pop delay-460">y</span>
-                <span class="letter-pop delay-480"> </span>
-                <span class="letter-pop delay-500">M</span>
-                <span class="letter-pop delay-520">a</span>
-                <span class="letter-pop delay-540">s</span>
-                <span class="letter-pop delay-560">t</span>
-                <span class="letter-pop delay-580">e</span>
-                <span class="letter-pop delay-600">r</span>
-                <span class="letter-pop delay-620">y</span>
-            </h1>
-            <p class="landing-subtitle text-reveal delay-700">
-                Master <strong class="color-shift">Group 1 Alkali Metals</strong> through Interactive Learning
-            </p>
-            
-            <div class="feature-grid">
-                <div class="feature-card slide-up delay-800">
-                    <div class="feature-icon">
-                        <i class="fas fa-clipboard-check"></i>
-                    </div>
-                    <h3 class="font-semibold">Pre-Assessment</h3>
-                    <p class="text-sm text-gray-600">Test your <strong>current knowledge</strong></p>
-                </div>
-                <div class="feature-card slide-up delay-900">
-                    <div class="feature-icon">
-                        <i class="fas fa-book-open"></i>
-                    </div>
-                    <h3 class="font-semibold">Interactive Content</h3>
-                    <p class="text-sm text-gray-600">Learn through <strong>engaging materials</strong></p>
-                </div>
-                <div class="feature-card slide-up delay-1000">
-                    <div class="feature-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3 class="font-semibold">Collaborative Learning</h3>
-                    <p class="text-sm text-gray-600">Study with <strong>peers</strong></p>
-                </div>
-            </div>
-            
-            <div class="mt-8">
-                <p class="text-lg font-semibold text-gray-700 mb-4 text-reveal delay-1100">Your Learning Journey</p>
-                <div class="learning-path slide-up delay-1200">
-                    <div class="path-step active">
-                        <i class="fas fa-play"></i>
-                        <span class="path-label">Pre-Quiz</span>
-                    </div>
-                    <div class="path-step locked">
-                        <i class="fas fa-lock"></i>
-                        <span class="path-label">Learn</span>
-                    </div>
-                    <div class="path-step locked">
-                        <i class="fas fa-lock"></i>
-                        <span class="path-label">Post-Quiz</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="mt-8 space-y-4">
-                <button onclick="showLoginModal()" class="btn btn-primary w-full slide-up delay-1300">
-                    <i class="fas fa-sign-in-alt"></i>
-                    Sign In to Begin
-                </button>
-                <button onclick="signInWithGoogle()" class="btn btn-secondary w-full slide-up delay-1500">
-                    <i class="fab fa-google"></i>
-                    Continue with Google
-                </button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Pre-Quiz Introduction Page (shown after sign-in) -->
-    <div id="prequizPage" class="prequiz-container" style="display: none;">
-        <div class="prequiz-card">
-            <div class="prequiz-icon text-reveal delay-100">
-                <i class="fas fa-clipboard-list"></i>
-            </div>
-            <h1 class="prequiz-title glow-text text-reveal delay-300">
-                <span class="letter-pop delay-300">P</span>
-                <span class="letter-pop delay-320">r</span>
-                <span class="letter-pop delay-340">e</span>
-                <span class="letter-pop delay-360">-</span>
-                <span class="letter-pop delay-380">A</span>
-                <span class="letter-pop delay-400">s</span>
-                <span class="letter-pop delay-420">s</span>
-                <span class="letter-pop delay-440">e</span>
-                <span class="letter-pop delay-460">s</span>
-                <span class="letter-pop delay-480">s</span>
-                <span class="letter-pop delay-500">m</span>
-                <span class="letter-pop delay-520">e</span>
-                <span class="letter-pop delay-540">n</span>
-                <span class="letter-pop delay-560">t</span>
-                <span class="letter-pop delay-580"> </span>
-                <span class="letter-pop delay-600">Q</span>
-                <span class="letter-pop delay-620">u</span>
-                <span class="letter-pop delay-640">i</span>
-                <span class="letter-pop delay-660">z</span>
-            </h1>
-            <p class="prequiz-subtitle text-reveal delay-700">
-                Let's check your <strong class="color-shift">current knowledge</strong> of Group 1 Alkali Metals
-            </p>
-            
-            <div class="support-message slide-up delay-800">
-                <h3><i class="fas fa-lightbulb mr-2"></i>Before You Begin</h3>
-                <p>This quiz helps us understand your <strong>current knowledge level</strong>. Don't worry if you don't know all the answers - this is just a <strong>starting point</strong>! Take your time, read each question carefully, and do your best. Your results will help us <strong>personalize your learning experience</strong>.</p>
-            </div>
-            
-            <div class="bg-blue-50 p-4 rounded-lg mb-6 slide-up delay-900">
-                <div class="flex items-center mb-2">
-                    <i class="fas fa-info-circle text-blue-500 mr-2"></i>
-                    <h3 class="font-semibold text-blue-800">Quiz Details</h3>
-                </div>
-                <ul class="text-left text-blue-700 space-y-1">
-                    <li>• <strong>7 interactive questions</strong></li>
-                    <li>• <strong>No time limit</strong></li>
-                    <li>• <strong>Immediate feedback</strong> on answers</li>
-                    <li>• <strong>Results saved</strong> to your profile</li>
-                </ul>
-            </div>
-            
-            <div class="mt-8">
-                <button onclick="startPreQuiz()" class="btn btn-primary w-full slide-up delay-1000">
-                    <i class="fas fa-play mr-2"></i>
-                    Start Pre-Quiz
-                </button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Valence Electron Popup -->
-    <div class="popup-overlay" id="valencePopupOverlay" onclick="closeValenceElectronPopup()"></div>
-    <div class="interactive-popup" id="valencePopup">
-        <h3 class="font-bold text-lg mb-2">Valence Electron</h3>
-        <p>Because they only have one electron in the outer shell, Group 1 metals lose it easily and form positive ions (+1). This explains their high reactivity.</p>
-        <button class="btn btn-primary mt-3" onclick="closeValenceElectronPopup()">Got it!</button>
     </div>
     
     <!-- Login Modal -->
@@ -4316,81 +3821,6 @@
         
         function closeCreateStudyGroup() {
             document.getElementById('createStudyGroupModal').classList.remove('active');
-        }
-        
-        // Valence electron popup functions
-        function showValenceElectronPopup() {
-            document.getElementById('valencePopupOverlay').classList.add('active');
-            document.getElementById('valencePopup').classList.add('active');
-        }
-        
-        function closeValenceElectronPopup() {
-            document.getElementById('valencePopupOverlay').classList.remove('active');
-            document.getElementById('valencePopup').classList.remove('active');
-        }
-        
-        // Quiz checkpoint functions
-        function checkMeltingPointAnswer(button, answer) {
-            // Reset all buttons
-            const buttons = document.querySelectorAll('#meltingPointFeedback').parentNode.querySelectorAll('.quiz-option-btn');
-            buttons.forEach(btn => {
-                btn.classList.remove('correct', 'incorrect');
-            });
-            
-            const feedback = document.getElementById('meltingPointFeedback');
-            feedback.style.display = 'block';
-            
-            if (answer === 'c') { // Caesium
-                button.classList.add('correct');
-                feedback.className = 'quiz-feedback correct';
-                feedback.textContent = 'Yes! Caesium has the lowest melting point in the group.';
-            } else {
-                button.classList.add('incorrect');
-                feedback.className = 'quiz-feedback incorrect';
-                feedback.textContent = 'Not quite. Remember, the melting point decreases as the atoms get larger down the group.';
-            }
-        }
-        
-        function checkDensityAnswer(button, answer) {
-            // Reset all buttons
-            const buttons = document.querySelectorAll('#densityFeedback').parentNode.querySelectorAll('.quiz-option-btn');
-            buttons.forEach(btn => {
-                btn.classList.remove('correct', 'incorrect');
-            });
-            
-            const feedback = document.getElementById('densityFeedback');
-            feedback.style.display = 'block';
-            
-            if (answer === 'rubidium') { // Rubidium
-                button.classList.add('correct');
-                feedback.className = 'quiz-feedback correct';
-                feedback.textContent = 'Right! Density generally increases down the group (though sodium is an exception).';
-            } else {
-                button.classList.add('incorrect');
-                feedback.className = 'quiz-feedback incorrect';
-                feedback.textContent = 'Not quite. Density increases as we go down the group because the atoms get heavier.';
-            }
-        }
-        
-        function checkReactivityAnswer(button, answer) {
-            // Reset all buttons
-            const buttons = document.querySelectorAll('#reactivityFeedback').parentNode.querySelectorAll('.quiz-option-btn');
-            buttons.forEach(btn => {
-                btn.classList.remove('correct', 'incorrect');
-            });
-            
-            const feedback = document.getElementById('reactivityFeedback');
-            feedback.style.display = 'block';
-            
-            if (answer === 'potassium') { // Potassium
-                button.classList.add('correct');
-                feedback.className = 'quiz-feedback correct';
-                feedback.textContent = 'Correct! Potassium reacts more vigorously because the valence electron is further from the nucleus and easier to lose.';
-            } else {
-                button.classList.add('incorrect');
-                feedback.className = 'quiz-feedback incorrect';
-                feedback.textContent = 'Not quite. Reactivity increases down the group because the valence electron is further from the nucleus and easier to lose.';
-            }
         }
         
         // Authentication functions
