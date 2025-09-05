@@ -3427,6 +3427,7 @@
             // Check authentication state on page load
             auth.onAuthStateChanged((user) => {
                 authInitialized = true;
+                console.log("Auth state changed, user:", user);
                 if (user) {
                     currentUser = user;
                     console.log("User is signed in:", user.uid);
@@ -4181,22 +4182,33 @@
             ];
             
             // Start pre-quiz
-            const startPreQuiz = () => {
+            const startPreQuiz = (retryCount = 0) => {
+                console.log("startPreQuiz called, retryCount:", retryCount);
+                console.log("authInitialized:", AuthModule.authInitialized);
+                console.log("currentUser:", firebase.auth().currentUser);
+                
                 // Check if user is authenticated
                 if (!AuthModule.authInitialized) {
-                    // Wait for auth to initialize
-                    setTimeout(() => {
-                        startPreQuiz();
-                    }, 500);
-                    return;
+                    if (retryCount < 10) { // Max 10 retries (5 seconds)
+                        console.log("Auth not initialized, waiting...");
+                        // Wait for auth to initialize
+                        setTimeout(() => {
+                            startPreQuiz(retryCount + 1);
+                        }, 500);
+                        return;
+                    } else {
+                        console.log("Auth not initialized after 10 retries, proceeding anyway");
+                    }
                 }
                 
                 if (!firebase.auth().currentUser) {
+                    console.log("No current user, showing login modal");
                     UIModule.showToast('error', 'Sign in required', 'Please sign in to take the quiz.');
                     AuthModule.showLoginModal();
                     return;
                 }
                 
+                console.log("Starting pre-quiz");
                 // Hide pre-quiz introduction page
                 document.getElementById('prequizPage').style.display = 'none';
                 
@@ -5412,6 +5424,7 @@
                 const user = firebase.auth().currentUser;
                 if (!user) {
                     UIModule.showToast('error', 'Sign in required', 'Please sign in to send messages.');
+                    AuthModule.showLoginModal();
                     return;
                 }
                 
