@@ -5720,25 +5720,24 @@
          window.deleteComment = DiscussionModule.deleteComment;
          window.deleteReply = DiscussionModule.deleteReply;
          window.toggleReplyForm = DiscussionModule.toggleReplyForm;
-
+         
          // Fix for quiz navigation
-const fixedNextQuestion = () => {
-    currentQuestion++;
-    
-    if (currentQuestion >= currentQuiz.length) {
-        showResults();
-        return;
-    }
-    
-    document.getElementById('currentQuestion').textContent = currentQuestion + 1;
-    document.getElementById('progressFill').style.width = ((currentQuestion + 1) / currentQuiz.length * 100) + '%';
-    loadQuestion();
-};
-
-// Replace the original function
-window.nextQuestion = fixedNextQuestion;
+         const fixedNextQuestion = () => {
+         currentQuestion++;
+         
+         if (currentQuestion >= currentQuiz.length) {
+         showResults();
+         return;
+         }
+         
+         document.getElementById('currentQuestion').textContent = currentQuestion + 1;
+         document.getElementById('progressFill').style.width = ((currentQuestion + 1) / currentQuiz.length * 100) + '%';
+         loadQuestion();
+         };
+         
+         // Replace the original function
+         window.nextQuestion = fixedNextQuestion;
          
       </script>
    </body>
 </html>
-
