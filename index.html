@@ -3422,9 +3422,11 @@
             let currentUser = null;
             let userData = null;
             let justSignedIn = false;
+            let authInitialized = false;
             
             // Check authentication state on page load
             auth.onAuthStateChanged((user) => {
+                authInitialized = true;
                 if (user) {
                     currentUser = user;
                     console.log("User is signed in:", user.uid);
@@ -3785,8 +3787,17 @@
             
             // Complete a section
             const completeSection = (sectionName) => {
-                if (!currentUser || !userData) {
-                    UIModule.showToast('error', 'Error', 'Please sign in to mark sections as complete.');
+                // Check if user is authenticated
+                if (!authInitialized) {
+                    // Wait for auth to initialize
+                    setTimeout(() => {
+                        completeSection(sectionName);
+                    }, 500);
+                    return;
+                }
+                
+                if (!firebase.auth().currentUser) {
+                    UIModule.showToast('error', 'Sign in required', 'Please sign in to mark sections as complete.');
                     return;
                 }
                 
@@ -3800,7 +3811,7 @@
                 const completedSections = userData.completedSections || [];
                 completedSections.push(sectionName);
                 
-                const userRef = database.ref('users/' + currentUser.uid);
+                const userRef = database.ref('users/' + firebase.auth().currentUser.uid);
                 userRef.update({
                     completedSections: completedSections
                 }).then(() => {
@@ -3841,9 +3852,22 @@
             
             // Award points to user
             const awardPoints = (points, reason) => {
-                if (!currentUser || !userData) return;
+                // Check if user is authenticated
+                if (!authInitialized) {
+                    // Wait for auth to initialize
+                    setTimeout(() => {
+                        awardPoints(points, reason);
+                    }, 500);
+                    return;
+                }
                 
-                const userRef = database.ref('users/' + currentUser.uid);
+                const user = firebase.auth().currentUser;
+                if (!user) {
+                    console.error("No user signed in when awarding points");
+                    return;
+                }
+                
+                const userRef = database.ref('users/' + user.uid);
                 
                 const updates = {};
                 updates['/points'] = (userData.points || 0) + points;
@@ -4158,7 +4182,16 @@
             
             // Start pre-quiz
             const startPreQuiz = () => {
-                if (!AuthModule.currentUser) {
+                // Check if user is authenticated
+                if (!AuthModule.authInitialized) {
+                    // Wait for auth to initialize
+                    setTimeout(() => {
+                        startPreQuiz();
+                    }, 500);
+                    return;
+                }
+                
+                if (!firebase.auth().currentUser) {
                     UIModule.showToast('error', 'Sign in required', 'Please sign in to take the quiz.');
                     AuthModule.showLoginModal();
                     return;
@@ -4178,7 +4211,16 @@
             
             // Start post-quiz
             const startPostQuiz = () => {
-                if (!AuthModule.currentUser) {
+                // Check if user is authenticated
+                if (!AuthModule.authInitialized) {
+                    // Wait for auth to initialize
+                    setTimeout(() => {
+                        startPostQuiz();
+                    }, 500);
+                    return;
+                }
+                
+                if (!firebase.auth().currentUser) {
                     UIModule.showToast('error', 'Sign in required', 'Please sign in to take the quiz.');
                     AuthModule.showLoginModal();
                     return;
@@ -4748,9 +4790,23 @@
             
             // Complete pre-quiz and unlock main content
             const completePreQuiz = () => {
-                if (!AuthModule.currentUser) return;
+                // Check if user is authenticated
+                if (!AuthModule.authInitialized) {
+                    // Wait for auth to initialize
+                    setTimeout(() => {
+                        completePreQuiz();
+                    }, 500);
+                    return;
+                }
                 
-                const userRef = firebase.database().ref('users/' + AuthModule.currentUser.uid);
+                const user = firebase.auth().currentUser;
+                if (!user) {
+                    UIModule.showToast('error', 'Sign in required', 'Please sign in to complete the quiz.');
+                    AuthModule.showLoginModal();
+                    return;
+                }
+                
+                const userRef = firebase.database().ref('users/' + user.uid);
                 
                 userRef.update({
                     preQuizCompleted: true,
@@ -4781,7 +4837,7 @@
                 const resultsRef = firebase.database().ref('quizResults').push();
                 
                 resultsRef.set({
-                    userId: AuthModule.currentUser.uid,
+                    userId: firebase.auth().currentUser.uid,
                     userName: AuthModule.userData.displayName,
                     score: score,
                     totalQuestions: totalQuestions,
@@ -4800,7 +4856,7 @@
                 document.getElementById('quizModal').setAttribute('aria-hidden', 'true');
                 
                 // If user hasn't completed pre-quiz, show pre-quiz introduction
-                if (AuthModule.currentUser && AuthModule.userData && !AuthModule.userData.preQuizCompleted) {
+                if (firebase.auth().currentUser && AuthModule.userData && !AuthModule.userData.preQuizCompleted) {
                     AuthModule.showPreQuizIntroduction();
                 }
             };
@@ -4866,7 +4922,7 @@
                 const card = document.createElement('div');
                 card.className = 'study-group-card';
                 
-                const isMember = AuthModule.currentUser && group.members && group.members.includes(AuthModule.currentUser.uid);
+                const isMember = firebase.auth().currentUser && group.members && group.members.includes(firebase.auth().currentUser.uid);
                 const memberCount = group.members ? group.members.length : 0;
                 const maxMembers = group.maxMembers || 10;
                 const isFull = memberCount >= maxMembers;
@@ -4925,6 +4981,21 @@
             
             // Show create study group modal
             const showCreateStudyGroup = () => {
+                // Check if user is authenticated
+                if (!AuthModule.authInitialized) {
+                    // Wait for auth to initialize
+                    setTimeout(() => {
+                        showCreateStudyGroup();
+                    }, 500);
+                    return;
+                }
+                
+                if (!firebase.auth().currentUser) {
+                    UIModule.showToast('error', 'Sign in required', 'Please sign in to create study groups.');
+                    AuthModule.showLoginModal();
+                    return;
+                }
+                
                 document.getElementById('createStudyGroupModal').classList.add('active');
                 document.getElementById('createStudyGroupModal').setAttribute('aria-hidden', 'false');
             };
@@ -4938,6 +5009,22 @@
             // Handle create study group form submission
             const handleCreateStudyGroup = (event) => {
                 event.preventDefault();
+                
+                // Check if user is authenticated
+                if (!AuthModule.authInitialized) {
+                    // Wait for auth to initialize
+                    setTimeout(() => {
+                        handleCreateStudyGroup(event);
+                    }, 500);
+                    return;
+                }
+                
+                const user = firebase.auth().currentUser;
+                if (!user) {
+                    UIModule.showToast('error', 'Sign in required', 'Please sign in to create study groups.');
+                    AuthModule.showLoginModal();
+                    return;
+                }
                 
                 const name = document.getElementById('groupName').value.trim();
                 const description = document.getElementById('groupDescription').value.trim();
@@ -4957,9 +5044,9 @@
                     description: description,
                     goal: goal,
                     maxMembers: maxMembers,
-                    creatorId: AuthModule.currentUser.uid,
+                    creatorId: user.uid,
                     creatorName: AuthModule.userData.displayName,
-                    members: [AuthModule.currentUser.uid],
+                    members: [user.uid],
                     memberCount: 1,
                     createdAt: firebase.database.ServerValue.TIMESTAMP,
                     lastActivity: firebase.database.ServerValue.TIMESTAMP,
@@ -4989,8 +5076,19 @@
             
             // Join study group
             const joinStudyGroup = (groupId) => {
-                if (!AuthModule.currentUser) {
+                // Check if user is authenticated
+                if (!AuthModule.authInitialized) {
+                    // Wait for auth to initialize
+                    setTimeout(() => {
+                        joinStudyGroup(groupId);
+                    }, 500);
+                    return;
+                }
+                
+                const user = firebase.auth().currentUser;
+                if (!user) {
                     UIModule.showToast('error', 'Sign in required', 'Please sign in to join study groups.');
+                    AuthModule.showLoginModal();
                     return;
                 }
                 
@@ -5006,7 +5104,7 @@
                     // Make sure members is an array
                     const members = Array.isArray(group.members) ? [...group.members] : [];
                     
-                    if (members.includes(AuthModule.currentUser.uid)) {
+                    if (members.includes(user.uid)) {
                         UIModule.showToast('info', 'Already Member', 'You are already a member of this group.');
                         return;
                     }
@@ -5017,7 +5115,7 @@
                     }
                     
                     // Add current user to members array
-                    members.push(AuthModule.currentUser.uid);
+                    members.push(user.uid);
                     
                     const updates = {};
                     updates['/members'] = members;
@@ -5044,8 +5142,19 @@
             
             // Leave study group
             const leaveStudyGroup = (groupId) => {
-                if (!AuthModule.currentUser) {
+                // Check if user is authenticated
+                if (!AuthModule.authInitialized) {
+                    // Wait for auth to initialize
+                    setTimeout(() => {
+                        leaveStudyGroup(groupId);
+                    }, 500);
+                    return;
+                }
+                
+                const user = firebase.auth().currentUser;
+                if (!user) {
                     UIModule.showToast('error', 'Sign in required', 'Please sign in to leave study groups.');
+                    AuthModule.showLoginModal();
                     return;
                 }
                 
@@ -5057,7 +5166,7 @@
                     const members = Array.isArray(group.members) ? [...group.members] : [];
                     
                     // Filter out current user
-                    const updatedMembers = members.filter(member => member !== AuthModule.currentUser.uid);
+                    const updatedMembers = members.filter(member => member !== user.uid);
                     
                     const updates = {};
                     updates['/members'] = updatedMembers;
@@ -5081,8 +5190,19 @@
             
             // View group details
             const viewGroupDetails = (groupId) => {
-                if (!AuthModule.currentUser) {
+                // Check if user is authenticated
+                if (!AuthModule.authInitialized) {
+                    // Wait for auth to initialize
+                    setTimeout(() => {
+                        viewGroupDetails(groupId);
+                    }, 500);
+                    return;
+                }
+                
+                const user = firebase.auth().currentUser;
+                if (!user) {
                     UIModule.showToast('error', 'Sign in required', 'Please sign in to view group details.');
+                    AuthModule.showLoginModal();
                     return;
                 }
                 
@@ -5112,7 +5232,7 @@
                         group.members.forEach(memberId => {
                             const memberBadge = document.createElement('div');
                             memberBadge.className = 'bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm';
-                            memberBadge.textContent = memberId === AuthModule.currentUser.uid ? 'You' : `Member ${memberId.charAt(0).toUpperCase()}`;
+                            memberBadge.textContent = memberId === user.uid ? 'You' : `Member ${memberId.charAt(0).toUpperCase()}`;
                             membersList.appendChild(memberBadge);
                         });
                         
@@ -5204,7 +5324,7 @@
                 const date = message.createdAt ? new Date(message.createdAt) : new Date();
                 const formattedDate = Utils.formatDate(date);
                 const formattedTime = Utils.formatTime(date);
-                const isAuthor = AuthModule.currentUser && message.authorId === AuthModule.currentUser.uid;
+                const isAuthor = firebase.auth().currentUser && message.authorId === firebase.auth().currentUser.uid;
                 
                 messageDiv.innerHTML = `
                     <div class="group-message-author">
@@ -5223,6 +5343,22 @@
             const handleGroupMessage = (event) => {
                 event.preventDefault();
                 
+                // Check if user is authenticated
+                if (!AuthModule.authInitialized) {
+                    // Wait for auth to initialize
+                    setTimeout(() => {
+                        handleGroupMessage(event);
+                    }, 500);
+                    return;
+                }
+                
+                const user = firebase.auth().currentUser;
+                if (!user) {
+                    UIModule.showToast('error', 'Sign in required', 'Please sign in to send messages.');
+                    AuthModule.showLoginModal();
+                    return;
+                }
+                
                 const messageInput = document.getElementById('groupMessageInput');
                 const messageText = messageInput.value.trim();
                 
@@ -5236,7 +5372,7 @@
                 const messagesRef = firebase.database().ref('groupMessages').push();
                 const newMessage = {
                     groupId: currentGroupId,
-                    authorId: AuthModule.currentUser.uid,
+                    authorId: user.uid,
                     authorName: AuthModule.userData.displayName,
                     text: messageText,
                     createdAt: firebase.database.ServerValue.TIMESTAMP
@@ -5264,7 +5400,17 @@
             
             // Send group message
             const sendGroupMessage = (groupId, messageText) => {
-                if (!AuthModule.currentUser) {
+                // Check if user is authenticated
+                if (!AuthModule.authInitialized) {
+                    // Wait for auth to initialize
+                    setTimeout(() => {
+                        sendGroupMessage(groupId, messageText);
+                    }, 500);
+                    return;
+                }
+                
+                const user = firebase.auth().currentUser;
+                if (!user) {
                     UIModule.showToast('error', 'Sign in required', 'Please sign in to send messages.');
                     return;
                 }
@@ -5281,7 +5427,7 @@
                 const messagesRef = firebase.database().ref('groupMessages').push();
                 const newMessage = {
                     groupId: groupId,
-                    authorId: AuthModule.currentUser.uid,
+                    authorId: user.uid,
                     authorName: AuthModule.userData.displayName,
                     text: text,
                     createdAt: firebase.database.ServerValue.TIMESTAMP
@@ -5313,7 +5459,17 @@
             
             // Update group progress when user completes a section
             const updateGroupProgress = () => {
-                if (!AuthModule.currentUser || !AuthModule.userData) return;
+                // Check if user is authenticated
+                if (!AuthModule.authInitialized) {
+                    // Wait for auth to initialize
+                    setTimeout(() => {
+                        updateGroupProgress();
+                    }, 500);
+                    return;
+                }
+                
+                const user = firebase.auth().currentUser;
+                if (!user || !AuthModule.userData) return;
                 
                 // Get user's completed sections
                 const completedSections = AuthModule.userData.completedSections || [];
@@ -5330,7 +5486,7 @@
                         const groupId = childSnapshot.key;
                         
                         // Check if user is a member of this group
-                        if (group.members && group.members.includes(AuthModule.currentUser.uid)) {
+                        if (group.members && group.members.includes(user.uid)) {
                             // Get current group progress
                             const groupProgress = group.groupProgress || {};
                             let progressUpdated = false;
@@ -5437,7 +5593,7 @@
                 const date = comment.createdAt ? new Date(comment.createdAt) : new Date();
                 const formattedDate = Utils.formatDate(date);
                 const formattedTime = Utils.formatTime(date);
-                const isAuthor = AuthModule.currentUser && comment.authorId === AuthModule.currentUser.uid;
+                const isAuthor = firebase.auth().currentUser && comment.authorId === firebase.auth().currentUser.uid;
                 
                 commentDiv.innerHTML = `
                     <div class="comment-author">
@@ -5448,13 +5604,13 @@
                     <div class="comment-time">${formattedDate} at ${formattedTime}</div>
                     <div class="comment-text">${comment.text}</div>
                     <div class="vote-container">
-                        <button class="vote-button ${comment.votes && comment.votes[AuthModule.currentUser.uid] ? 'voted' : ''}" 
+                        <button class="vote-button ${comment.votes && comment.votes[firebase.auth().currentUser?.uid] ? 'voted' : ''}" 
                                 onclick="toggleCommentVote('${comment.id}', 'up')"
                                 aria-label="Upvote comment">
                             <i class="fas fa-thumbs-up vote-icon"></i>
                             <span class="vote-count">${comment.upvotes || 0}</span>
                         </button>
-                        <button class="vote-button ${comment.votes && comment.votes[AuthModule.currentUser.uid] === false ? 'voted' : ''}" 
+                        <button class="vote-button ${comment.votes && comment.votes[firebase.auth().currentUser?.uid] === false ? 'voted' : ''}" 
                                 onclick="toggleCommentVote('${comment.id}', 'down')"
                                 aria-label="Downvote comment">
                             <i class="fas fa-thumbs-down vote-icon"></i>
@@ -5528,7 +5684,7 @@
                 const date = reply.createdAt ? new Date(reply.createdAt) : new Date();
                 const formattedDate = Utils.formatDate(date);
                 const formattedTime = Utils.formatTime(date);
-                const isAuthor = AuthModule.currentUser && reply.authorId === AuthModule.currentUser.uid;
+                const isAuthor = firebase.auth().currentUser && reply.authorId === firebase.auth().currentUser.uid;
                 
                 replyDiv.innerHTML = `
                     <div class="reply-author">
@@ -5569,8 +5725,19 @@
             const addComment = (event) => {
                 event.preventDefault();
                 
-                if (!AuthModule.currentUser) {
+                // Check if user is authenticated
+                if (!AuthModule.authInitialized) {
+                    // Wait for auth to initialize
+                    setTimeout(() => {
+                        addComment(event);
+                    }, 500);
+                    return;
+                }
+                
+                const user = firebase.auth().currentUser;
+                if (!user) {
                     UIModule.showToast('error', 'Sign in required', 'Please sign in to post comments.');
+                    AuthModule.showLoginModal();
                     return;
                 }
                 
@@ -5586,7 +5753,7 @@
                 
                 const commentsRef = firebase.database().ref('comments').push();
                 const newComment = {
-                    authorId: AuthModule.currentUser.uid,
+                    authorId: user.uid,
                     authorName: AuthModule.userData.displayName,
                     text: commentText,
                     upvotes: 0,
@@ -5613,8 +5780,19 @@
             const addReply = (event, commentId) => {
                 event.preventDefault();
                 
-                if (!AuthModule.currentUser) {
+                // Check if user is authenticated
+                if (!AuthModule.authInitialized) {
+                    // Wait for auth to initialize
+                    setTimeout(() => {
+                        addReply(event, commentId);
+                    }, 500);
+                    return;
+                }
+                
+                const user = firebase.auth().currentUser;
+                if (!user) {
                     UIModule.showToast('error', 'Sign in required', 'Please sign in to post replies.');
+                    AuthModule.showLoginModal();
                     return;
                 }
                 
@@ -5631,7 +5809,7 @@
                 const repliesRef = firebase.database().ref('replies').push();
                 const newReply = {
                     commentId: commentId,
-                    authorId: AuthModule.currentUser.uid,
+                    authorId: user.uid,
                     authorName: AuthModule.userData.displayName,
                     text: replyText,
                     createdAt: firebase.database.ServerValue.TIMESTAMP
@@ -5653,8 +5831,19 @@
             
             // Toggle comment vote
             const toggleCommentVote = (commentId, voteType) => {
-                if (!AuthModule.currentUser) {
+                // Check if user is authenticated
+                if (!AuthModule.authInitialized) {
+                    // Wait for auth to initialize
+                    setTimeout(() => {
+                        toggleCommentVote(commentId, voteType);
+                    }, 500);
+                    return;
+                }
+                
+                const user = firebase.auth().currentUser;
+                if (!user) {
                     UIModule.showToast('error', 'Sign in required', 'Please sign in to vote on comments.');
+                    AuthModule.showLoginModal();
                     return;
                 }
                 
@@ -5669,7 +5858,7 @@
                     
                     // Get current votes
                     const votes = comment.votes || {};
-                    const currentVote = votes[AuthModule.currentUser.uid];
+                    const currentVote = votes[user.uid];
                     const upvotes = comment.upvotes || 0;
                     const downvotes = comment.downvotes || 0;
                     
@@ -5680,11 +5869,11 @@
                     if (voteType === 'up') {
                         if (currentVote === true) {
                             // Remove upvote
-                            delete newVotes[AuthModule.currentUser.uid];
+                            delete newVotes[user.uid];
                             newUpvotes = Math.max(0, upvotes - 1);
                         } else {
                             // Add or change to upvote
-                            newVotes[AuthModule.currentUser.uid] = true;
+                            newVotes[user.uid] = true;
                             newUpvotes = upvotes + 1;
                             if (currentVote === false) {
                                 // Was downvoted before
@@ -5694,11 +5883,11 @@
                     } else { // voteType === 'down'
                         if (currentVote === false) {
                             // Remove downvote
-                            delete newVotes[AuthModule.currentUser.uid];
+                            delete newVotes[user.uid];
                             newDownvotes = Math.max(0, downvotes - 1);
                         } else {
                             // Add or change to downvote
-                            newVotes[AuthModule.currentUser.uid] = false;
+                            newVotes[user.uid] = false;
                             newDownvotes = downvotes + 1;
                             if (currentVote === true) {
                                 // Was upvoted before
@@ -5727,8 +5916,19 @@
             
             // Delete comment
             const deleteComment = (commentId) => {
-                if (!AuthModule.currentUser) {
+                // Check if user is authenticated
+                if (!AuthModule.authInitialized) {
+                    // Wait for auth to initialize
+                    setTimeout(() => {
+                        deleteComment(commentId);
+                    }, 500);
+                    return;
+                }
+                
+                const user = firebase.auth().currentUser;
+                if (!user) {
                     UIModule.showToast('error', 'Sign in required', 'Please sign in to delete comments.');
+                    AuthModule.showLoginModal();
                     return;
                 }
                 
@@ -5751,8 +5951,19 @@
             
             // Delete reply
             const deleteReply = (replyId, commentId) => {
-                if (!AuthModule.currentUser) {
+                // Check if user is authenticated
+                if (!AuthModule.authInitialized) {
+                    // Wait for auth to initialize
+                    setTimeout(() => {
+                        deleteReply(replyId, commentId);
+                    }, 500);
+                    return;
+                }
+                
+                const user = firebase.auth().currentUser;
+                if (!user) {
                     UIModule.showToast('error', 'Sign in required', 'Please sign in to delete replies.');
+                    AuthModule.showLoginModal();
                     return;
                 }
                 
