@@ -3408,20 +3408,13 @@
              };
              
              // Complete a section
-             const completeSection = (sectionName) => {
-                 // Check if user is authenticated
-                 if (!authInitialized) {
-                     // Wait for auth to initialize
-                     setTimeout(() => {
-                         completeSection(sectionName);
-                     }, 500);
-                     return;
-                 }
-                 
-                 if (!firebase.auth().currentUser) {
-                     UIModule.showToast('error', 'Sign in required', 'Please sign in to mark sections as complete.');
-                     return;
-                 }
+            const completeSection = (sectionName) => {
+         // Quick check if user is signed in
+         const user = firebase.auth().currentUser;
+         if (!user) {
+         UIModule.showToast('error', 'Sign in required', 'Please sign in to mark sections as complete.');
+         return;
+         }
                  
                  // Check if section is already completed
                  if (userData.completedSections && userData.completedSections.includes(sectionName)) {
@@ -4279,7 +4272,13 @@
              
              // Updated submitAnswer function to handle different question types
              const submitAnswer = () => {
-                 if (answerSubmitted) return;
+         if (answerSubmitted) return;
+         
+         // Check if button is disabled
+         if (document.getElementById('submitButton').disabled) {
+         UIModule.showToast('error', 'Incomplete Answer', 'Please provide an answer before submitting.');
+         return;
+         }
                      // Check if button is disabled
          if (document.getElementById('submitButton').disabled) {
          UIModule.showToast('error', 'Incomplete Answer', 'Please provide an answer before submitting.');
@@ -4516,7 +4515,9 @@
                  nextQuestion,
                  previousQuestion,
                  completePreQuiz,
-                 closeQuiz
+                 closeQuiz,
+                submitAnswer,
+                selectOption
              };
          })();
          
@@ -4528,7 +4529,7 @@
                  container.innerHTML = '<div class="spinner"></div>';
                  
                  const groupsRef = firebase.database().ref('studyGroups');
-                 groupsRef.orderByChild('createdAt').on('value', (snapshot) => {
+                 groupsRef.orderByChild('createdAt').once('value').then((snapshot) => {
                      container.innerHTML = '';
                      
                      if (!snapshot.exists()) {
@@ -5700,6 +5701,7 @@
          window.startPreQuiz = QuizModule.startPreQuiz;
          window.startPostQuiz = QuizModule.startPostQuiz;
          window.submitAnswer = QuizModule.submitAnswer;
+         window.selectOption = QuizModule.selectOption;
          window.nextQuestion = QuizModule.nextQuestion;
          window.previousQuestion = QuizModule.previousQuestion;
          window.completePreQuiz = QuizModule.completePreQuiz;
