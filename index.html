@@ -3858,10 +3858,17 @@
          function loadStudyGroups() {
          const container = document.getElementById('studyGroupsContainer');
          container.innerHTML = '<div class="spinner"></div>';
+         
+         // First, let's check if we can connect to Firebase
+         database.ref('.info/connected').once('value').then((snapshot) => {
+         if (snapshot.val() === true) {
+         console.log("Connected to Firebase");
+         // Now load the study groups
          const groupsRef = database.ref('studyGroups');
          groupsRef.orderByChild('createdAt').on('value', (snapshot) => {
          container.innerHTML = '';
          if (!snapshot.exists()) {
+         console.log("No study groups found");
          container.innerHTML = `
          <div class="empty-state">
          <div class="empty-state-icon">
@@ -3883,6 +3890,7 @@
          groupsArray.sort((a, b) => {
          return new Date(b.createdAt) - new Date(a.createdAt);
          });
+         console.log("Loaded study groups:", groupsArray);
          groupsArray.forEach(group => {
          const groupCard = createStudyGroupCard(group);
          container.appendChild(groupCard);
@@ -3890,6 +3898,14 @@
          }, (error) => {
          console.error("Error loading study groups:", error);
          container.innerHTML = '<p class="text-gray-500 text-center">Error loading study groups.</p>';
+         });
+         } else {
+         console.log("Not connected to Firebase");
+         container.innerHTML = '<p class="text-gray-500 text-center">Unable to connect to the server. Please check your internet connection.</p>';
+         }
+         }).catch((error) => {
+         console.error("Error checking Firebase connection:", error);
+         container.innerHTML = '<p class="text-gray-500 text-center">Unable to connect to the server.</p>';
          });
          }
          
@@ -4319,10 +4335,17 @@
          function loadComments() {
          const container = document.getElementById('commentsContainer');
          container.innerHTML = '<div class="spinner"></div>';
+         
+         // First, let's check if we can connect to Firebase
+         database.ref('.info/connected').once('value').then((snapshot) => {
+         if (snapshot.val() === true) {
+         console.log("Connected to Firebase");
+         // Now load the comments
          const commentsRef = database.ref('comments');
          commentsRef.orderByChild('createdAt').on('value', (snapshot) => {
          container.innerHTML = '';
          if (!snapshot.exists()) {
+         console.log("No comments found");
          container.innerHTML = `
          <div class="empty-state">
          <div class="empty-state-icon">
@@ -4344,6 +4367,7 @@
          commentsArray.sort((a, b) => {
          return new Date(b.createdAt) - new Date(a.createdAt);
          });
+         console.log("Loaded comments:", commentsArray);
          commentsArray.forEach(comment => {
          const commentDiv = createCommentElement(comment);
          container.appendChild(commentDiv);
@@ -4351,6 +4375,14 @@
          }, (error) => {
          console.error("Error loading comments:", error);
          container.innerHTML = '<p class="text-gray-500 text-center">Error loading comments.</p>';
+         });
+         } else {
+         console.log("Not connected to Firebase");
+         container.innerHTML = '<p class="text-gray-500 text-center">Unable to connect to the server. Please check your internet connection.</p>';
+         }
+         }).catch((error) => {
+         console.error("Error checking Firebase connection:", error);
+         container.innerHTML = '<p class="text-gray-500 text-center">Unable to connect to the server.</p>';
          });
          }
          
@@ -4372,7 +4404,7 @@
          <div class="comment-time">${formattedDate} at ${formattedTime}</div>
          <div class="comment-text">${comment.text}</div>
          <div class="vote-container">
-         <button class="vote-button ${comment.votes && comment.votes[currentUser.uid] ? 'voted' : ''}" 
+         <button class="vote-button ${comment.votes && comment.votes[currentUser.uid] === true ? 'voted' : ''}" 
          onclick="toggleCommentVote('${comment.id}', 'up')">
          <i class="fas fa-thumbs-up vote-icon"></i>
          <span class="vote-count">${comment.upvotes || 0}</span>
