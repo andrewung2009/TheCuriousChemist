@@ -2302,6 +2302,41 @@
          padding: var(--space-sm) var(--space-md);
          font-size: 0.875rem;
          }
+         /* Add to your CSS */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+    
+    .menu-toggle {
+        display: block;
+    }
+    
+    .content-card {
+        padding: 1rem;
+    }
+    
+    .element-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .comparison-table {
+        font-size: 0.8rem;
+    }
+    
+    .comparison-table th,
+    .comparison-table td {
+        padding: 0.5rem;
+    }
+}   
          .theme-toggle {
          bottom: var(--space-md);
          right: var(--space-md);
@@ -7225,4 +7260,5 @@ const loadStudyGroups = () => {
       </script>
    </body>
 </html>
+
 
