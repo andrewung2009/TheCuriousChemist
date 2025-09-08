@@ -4573,43 +4573,52 @@
           };
           
           // Handle login
-          const handleLogin = (event) => {
-              event.preventDefault();
-              const email = document.getElementById('loginEmail').value;
-              const password = document.getElementById('loginPassword').value;
-              
-              if (!Utils.isValidEmail(email)) {
-                  UIModule.showToast('error', 'Invalid Email', 'Please enter a valid email address');
-                  return;
-              }
-              
-              UIModule.showLoading();
-              
-              auth.signInWithEmailAndPassword(email, password)
-                  .then((userCredential) => {
-                      const user = userCredential.user;
-                      console.log("Sign in successful:", user.uid);
-                      UIModule.showToast('success', 'Welcome back!', 'You have been successfully signed in.');
-                      closeLoginModal();
-                      justSignedIn = true;
-                  })
-                  .catch((error) => {
-                      const errorCode = error.code;
-                      const errorMessage = error.message;
-                      console.error("Sign in error:", errorCode, errorMessage);
-                      
-                      if (errorCode === 'auth/unauthorized-domain') {
-                          UIModule.showToast('error', 'Domain not authorized', 
-                              'Please add your GitHub Pages domain to the authorized domains in your Firebase project settings.');
-                      } else {
-                          UIModule.showToast('error', 'Sign in failed', errorMessage);
-                      }
-                  })
-                  .finally(() => {
-                      UIModule.hideLoading();
-                  });
-          };
-          
+const handleLogin = (event) => {
+    event.preventDefault();
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    
+    if (!Utils.isValidEmail(email)) {
+        UIModule.showToast('error', 'Invalid Email', 'Please enter a valid email address');
+        return;
+    }
+    
+    UIModule.showLoading();
+    
+    auth.signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            console.log("Sign in successful:", user.uid);
+            UIModule.showToast('success', 'Welcome back!', 'You have been successfully signed in.');
+            closeLoginModal();
+            justSignedIn = true;
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.error("Sign in error:", errorCode, errorMessage);
+            
+            if (errorCode === 'auth/unauthorized-domain') {
+                UIModule.showToast('error', 'Domain not authorized', 
+                    'Please add your domain to the authorized domains in your Firebase project settings. Go to Firebase Console > Authentication > Settings > Authorized domains.');
+            } else if (errorCode === 'auth/user-not-found') {
+                UIModule.showToast('error', 'User not found', 'No account found with this email address. Please sign up first.');
+            } else if (errorCode === 'auth/wrong-password') {
+                UIModule.showToast('error', 'Incorrect password', 'The password you entered is incorrect. Please try again.');
+            } else if (errorCode === 'auth/invalid-email') {
+                UIModule.showToast('error', 'Invalid email', 'The email address is not valid.');
+            } else if (errorCode === 'auth/user-disabled') {
+                UIModule.showToast('error', 'Account disabled', 'This account has been disabled by an administrator.');
+            } else if (errorCode === 'auth/too-many-requests') {
+                UIModule.showToast('error', 'Too many attempts', 'Too many unsuccessful login attempts. Please try again later or reset your password.');
+            } else {
+                UIModule.showToast('error', 'Sign in failed', errorMessage);
+            }
+        })
+        .finally(() => {
+            UIModule.hideLoading();
+        });
+};
           // Handle signup
           const handleSignup = (event) => {
               event.preventDefault();
@@ -7641,3 +7650,4 @@
    </script>
 </body>
 </html>
+
