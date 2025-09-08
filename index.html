@@ -4143,87 +4143,66 @@
                  });
              };
              
-         // Handle login
-         const handleLogin = (event) => {
-         event.preventDefault();
-         const email = document.getElementById('loginEmail').value;
-         const password = document.getElementById('loginPassword').value;
-         
-         if (!Utils.isValidEmail(email)) {
-           UIModule.showToast('error', 'Invalid Email', 'Please enter a valid email address');
-           return;
-         }
-         
-         UIModule.showLoading();
-         
-         auth.signInWithEmailAndPassword(email, password)
-           .then((userCredential) => {
-               const user = userCredential.user;
-               console.log("Sign in successful:", user.uid);
-               UIModule.showToast('success', 'Welcome back!', 'You have been successfully signed in.');
-               closeLoginModal();
-               
-               // Check if user exists in database
-               const userRef = database.ref('users/' + user.uid);
-               userRef.once('value').then((snapshot) => {
-                   if (snapshot.exists()) {
-                       userData = snapshot.val();
-                       
-                       if (userData.preQuizCompleted) {
-                           showMainApp();
-                       } else {
-                           showPreQuizIntroduction();
-                       }
-                   } else {
-                       // Create new user profile
-                       const newUser = {
-                           uid: user.uid,
-                           email: user.email,
-                           displayName: user.displayName || 'User',
-                           points: 0,
-                           currentStreak: 1,
-                           lastActiveDate: new Date().toDateString(),
-                           preQuizCompleted: false,
-                           postQuizCompleted: false,
-                           completedSections: [],
-                           bookmarks: [],
-                           notes: {},
-                           createdAt: firebase.database.ServerValue.TIMESTAMP
-                       };
-                       
-                       userRef.set(newUser).then(() => {
-                           userData = newUser;
-                           showPreQuizIntroduction();
-                       }).catch((error) => {
-                           console.error("Error creating user profile:", error);
-                           UIModule.showToast('error', 'Error', 'Failed to create user profile.');
-                       });
-                   }
-               }).catch((error) => {
-                   console.error("Error checking user data:", error);
-                   UIModule.showToast('error', 'Error', 'Failed to load your data.');
-               });
-           })
-           .catch((error) => {
-               const errorCode = error.code;
-               const errorMessage = error.message;
-               console.error("Sign in error:", errorCode, errorMessage);
-               
-               if (errorCode === 'auth/unauthorized-domain') {
-                   UIModule.showToast('error', 'Domain not authorized', 
-                       'Please add your domain to the authorized domains in your Firebase project settings.');
-               } else if (errorCode === 'auth/user-not-found') {
-                   UIModule.showToast('error', 'User not found', 'No account found with this email address.');
-               } else if (errorCode === 'auth/wrong-password') {
-                   UIModule.showToast('error', 'Incorrect password', 'The password you entered is incorrect.');
-               } else {
-                   UIModule.showToast('error', 'Sign in failed', errorMessage);
-               }
-           })
-           .finally(() => {
-               UIModule.hideLoading();
-           });
-         };
+        const handleLogin = (event) => {
+    event.preventDefault();
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    
+    if (!Utils.isValidEmail(email)) {
+        UIModule.showToast('error', 'Invalid Email', 'Please enter a valid email address');
+        return;
+    }
+    
+    UIModule.showLoading();
+    
+    auth.signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            console.log("Sign in successful:", user.uid);
+            
+            // Check if user exists in database
+            const userRef = database.ref('users/' + user.uid);
+            userRef.once('value').then((snapshot) => {
+                if (snapshot.exists()) {
+                    userData = snapshot.val();
+                    
+                    if (userData.preQuizCompleted) {
+                        showMainApp();
+                    } else {
+                        showPreQuizIntroduction();
+                    }
+                } else {
+                    // Create new user profile
+                    const newUser = {
+                        uid: user.uid,
+                        email: user.email,
+                        displayName: user.displayName || 'User',
+                        points: 0,
+                        currentStreak: 1,
+                        lastActiveDate: new Date().toDateString(),
+                        preQuizCompleted: false,
+                        postQuizCompleted: false,
+                        completedSections: [],
+                        bookmarks: [],
+                        notes: {},
+                        createdAt: firebase.database.ServerValue.TIMESTAMP
+                    };
+                    
+                    userRef.set(newUser).then(() => {
+                        userData = newUser;
+                        showPreQuizIntroduction();
+                    });
+                }
+            });
+        })
+        .catch((error) => {
+            console.error("Sign in error:", error);
+            UIModule.showToast('error', 'Sign in failed', error.message);
+        })
+        .finally(() => {
+            UIModule.hideLoading();
+        });
+};
              // Handle signup
              const handleSignup = (event) => {
                  event.preventDefault();
@@ -4397,43 +4376,42 @@
              };
              
              // Update progress tracker
-             const updateProgressTracker = () => {
-                 if (!userData) return;
-                 
-                 const sectionOrder = ['overview', 'elements', 'properties', 'reactions'];
-                 const completedSections = userData.completedSections || [];
-                 const totalSections = sectionOrder.length;
-                 const completedCount = completedSections.length;
-                 const percentage = Math.round((completedCount / totalSections) * 100);
-                 
-                 // Update progress percentage and bar
-                 document.getElementById('progressPercentage').textContent = `${percentage}%`;
-                 document.getElementById('overallProgressFill').style.width = `${percentage}%`;
-                 
-                 // Update progress items
-                 sectionOrder.forEach((section, index) => {
-                     const progressItem = document.getElementById(`progress-${section}`);
-                     const statusElement = progressItem.querySelector('.progress-item-status');
-                     const iconElement = progressItem.querySelector('.progress-item-icon');
-                     
-                     if (completedSections.includes(section)) {
-                         progressItem.classList.add('completed');
-                         progressItem.classList.remove('active', 'locked');
-                         statusElement.textContent = 'Completed';
-                         iconElement.style.color = 'var(--success-500)';
-                     } else if (index === 0 || completedSections.includes(sectionOrder[index - 1])) {
-                         progressItem.classList.add('active');
-                         progressItem.classList.remove('completed', 'locked');
-                         statusElement.textContent = 'In Progress';
-                         iconElement.style.color = 'var(--primary-600)';
-                     } else {
-                         progressItem.classList.add('locked');
-                         progressItem.classList.remove('completed', 'active');
-                         statusElement.textContent = 'Locked';
-                         iconElement.style.color = 'var(--gray-400)';
-                     }
-                 });
-             };
+            // Add this to AuthModule
+
+const updateProgressTracker = () => {
+    if (!userData) return;
+    
+    const sectionOrder = ['overview', 'elements', 'properties', 'reactions'];
+    const completedSections = userData.completedSections || [];
+    const totalSections = sectionOrder.length;
+    const completedCount = completedSections.length;
+    const percentage = Math.round((completedCount / totalSections) * 100);
+    
+    // Update progress percentage and bar
+    document.getElementById('progressPercentage').textContent = `${percentage}%`;
+    document.getElementById('overallProgressFill').style.width = `${percentage}%`;
+    
+    // Update progress items
+    sectionOrder.forEach((section, index) => {
+        const progressItem = document.getElementById(`progress-${section}`);
+        const statusElement = progressItem.querySelector('.progress-item-status');
+        const iconElement = progressItem.querySelector('.progress-item-icon');
+        
+        if (completedSections.includes(section)) {
+            progressItem.classList.add('completed');
+            statusElement.textContent = 'Completed';
+            iconElement.style.color = 'var(--success-500)';
+        } else if (index === 0 || completedSections.includes(sectionOrder[index - 1])) {
+            progressItem.classList.add('active');
+            statusElement.textContent = 'In Progress';
+            iconElement.style.color = 'var(--primary-600)';
+        } else {
+            progressItem.classList.add('locked');
+            statusElement.textContent = 'Locked';
+            iconElement.style.color = 'var(--gray-400)';
+        }
+    });
+};
              
              // Complete a section
              const completeSection = (sectionName) => {
@@ -5387,38 +5365,44 @@
                  touchItem = null;
              };
              
-             // Functions to handle drag and drop
-             const handleDragStart = (e) => {
-                 e.dataTransfer.setData('text/plain', e.target.dataset.index);
-                 e.target.classList.add('dragging');
-             };
-             
-             const handleDragEnd = (e) => {
-                 e.target.classList.remove('dragging');
-             };
-             
-             const handleDragOver = (e) => {
-                 e.preventDefault();
-                 e.target.classList.add('drag-over');
-             };
-             
-             const handleDrop = (e) => {
-                 e.preventDefault();
-                 e.target.classList.remove('drag-over');
-                 
-                 const draggedIndex = e.dataTransfer.getData('text/plain');
-                 const targetIndex = e.target.dataset.index;
-                 
-                 // Store the mapping
-                 window.dragDropAnswers[draggedIndex] = targetIndex;
-                 
-                 // Visual feedback
-                 e.target.textContent = currentQuiz[currentQuestion].dragItems[draggedIndex] + ' → ' + 
-                           currentQuiz[currentQuestion].dropTargets[targetIndex];
-                 
-                 // Enable submit button
-                 document.getElementById('submitButton').disabled = false;
-             };
+            // Add these functions to QuizModule
+
+// Handle drag start
+const handleDragStart = (e) => {
+    e.dataTransfer.setData('text/plain', e.target.dataset.index);
+    e.target.classList.add('dragging');
+};
+
+// Handle drag end
+const handleDragEnd = (e) => {
+    e.target.classList.remove('dragging');
+};
+
+// Handle drag over
+const handleDragOver = (e) => {
+    e.preventDefault();
+    e.target.classList.add('drag-over');
+};
+
+// Handle drop
+const handleDrop = (e) => {
+    e.preventDefault();
+    e.target.classList.remove('drag-over');
+    
+    const draggedIndex = e.dataTransfer.getData('text/plain');
+    const targetIndex = e.target.dataset.index;
+    
+    // Store the mapping
+    window.dragDropAnswers = window.dragDropAnswers || {};
+    window.dragDropAnswers[draggedIndex] = targetIndex;
+    
+    // Visual feedback
+    e.target.textContent = currentQuiz[currentQuestion].dragItems[draggedIndex] + ' → ' + 
+               currentQuiz[currentQuestion].dropTargets[targetIndex];
+    
+    // Enable submit button
+    document.getElementById('submitButton').disabled = false;
+};
              
              // Function to handle matching selection
              let selectedMatchingItem = null;
@@ -5756,51 +5740,39 @@
              };
          })();
          
-         // Study Group Module
-         const StudyGroupModule = (() => {
-             // Load study groups
-             const loadStudyGroups = () => {
-                 const container = document.getElementById('studyGroupsContainer');
-                 container.innerHTML = '<div class="spinner"></div>';
-                 
-                 const groupsRef = firebase.database().ref('studyGroups');
-                 groupsRef.orderByChild('createdAt').once('value').then((snapshot) => {
-                     container.innerHTML = '';
-                     
-                     if (!snapshot.exists()) {
-                         container.innerHTML = `
-                             <div class="empty-state">
-                                 <div class="empty-state-icon" aria-hidden="true">
-                                     <i class="fas fa-users"></i>
-                                 </div>
-                                 <h3 class="empty-state-title">No Study Groups Yet</h3>
-                                 <p class="empty-state-description">Create your first study group to collaborate with peers on mastering Group 1 Alkali Metals.</p>
-                             </div>`;
-                         return;
-                     }
-                     
-                     const groupsArray = [];
-                     snapshot.forEach((childSnapshot) => {
-                         groupsArray.push({
-                             id: childSnapshot.key,
-                             ...childSnapshot.val()
-                         });
-                     });
-                     
-                     // Sort by creation date (newest first)
-                     groupsArray.sort((a, b) => {
-                         return new Date(b.createdAt) - new Date(a.createdAt);
-                     });
-                     
-                     groupsArray.forEach(group => {
-                         const groupCard = createStudyGroupCard(group);
-                         container.appendChild(groupCard);
-                     });
-                 }, (error) => {
-                     console.error("Error loading study groups:", error);
-                     container.innerHTML = '<p class="text-gray-500 text-center">Error loading study groups.</p>';
-                 });
-             };
+        // Add this to StudyGroupModule
+
+// Load study groups
+const loadStudyGroups = () => {
+    const container = document.getElementById('studyGroupsContainer');
+    container.innerHTML = '<div class="spinner"></div>';
+    
+    const groupsRef = database.ref('studyGroups');
+    groupsRef.on('value', (snapshot) => {
+        container.innerHTML = '';
+        
+        if (!snapshot.exists()) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="empty-state-title">No Study Groups Yet</h3>
+                    <p class="empty-state-description">Create your first study group to collaborate with peers.</p>
+                </div>`;
+            return;
+        }
+        
+        snapshot.forEach((childSnapshot) => {
+            const group = childSnapshot.val();
+            const groupCard = createStudyGroupCard({
+                id: childSnapshot.key,
+                ...group
+            });
+            container.appendChild(groupCard);
+        });
+    });
+};
              
              // Create study group card
              const createStudyGroupCard = (group) => {
@@ -7253,3 +7225,4 @@
       </script>
    </body>
 </html>
+
