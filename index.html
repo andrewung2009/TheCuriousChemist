@@ -511,6 +511,20 @@
          100% { background-position: 1000px 0; }
       }
       
+      /* Valence Electron Animation */
+      @keyframes valenceFlash {
+         0%, 100% { 
+            color: var(--primary-600);
+            transform: scale(1);
+            text-shadow: 0 0 5px rgba(79, 70, 229, 0.5);
+         }
+         50% { 
+            color: var(--secondary-600);
+            transform: scale(1.3);
+            text-shadow: 0 0 15px rgba(139, 92, 246, 0.8);
+         }
+      }
+      
       /* Animation Classes */
       .fade-in {
          animation: fadeIn 0.6s ease-out forwards;
@@ -567,6 +581,153 @@
       
       .color-shift {
          animation: colorShift 5s ease infinite;
+      }
+      
+      /* Valence Electron Special Effect */
+      .valence-electron {
+         display: inline-block;
+         position: relative;
+         font-weight: bold;
+         color: var(--primary-600);
+         cursor: pointer;
+         animation: valenceFlash 2s infinite;
+      }
+      
+      .valence-tooltip {
+         position: absolute;
+         bottom: 125%;
+         left: 50%;
+         transform: translateX(-50%);
+         background: var(--primary-600);
+         color: white;
+         padding: 8px 12px;
+         border-radius: var(--radius-md);
+         font-size: 0.875rem;
+         white-space: nowrap;
+         opacity: 0;
+         pointer-events: none;
+         transition: opacity var(--transition-normal) ease;
+         z-index: 10;
+         box-shadow: var(--shadow-lg);
+         width: 200px;
+         text-align: center;
+      }
+      
+      .valence-tooltip::after {
+         content: '';
+         position: absolute;
+         top: 100%;
+         left: 50%;
+         transform: translateX(-50%);
+         border: 6px solid transparent;
+         border-top-color: var(--primary-600);
+      }
+      
+      .valence-electron:hover .valence-tooltip {
+         opacity: 1;
+      }
+      
+      /* Melting Point Tooltip */
+      .melting-point-cell {
+         position: relative;
+         cursor: pointer;
+      }
+      
+      .melting-tooltip {
+         position: absolute;
+         bottom: 125%;
+         left: 50%;
+         transform: translateX(-50%);
+         background: white;
+         border: 1px solid var(--gray-200);
+         border-radius: var(--radius-lg);
+         padding: 12px;
+         width: 280px;
+         box-shadow: var(--shadow-xl);
+         opacity: 0;
+         pointer-events: none;
+         transition: opacity var(--transition-normal) ease;
+         z-index: 10;
+      }
+      
+      .melting-tooltip::after {
+         content: '';
+         position: absolute;
+         top: 100%;
+         left: 50%;
+         transform: translateX(-50%);
+         border: 8px solid transparent;
+         border-top-color: white;
+      }
+      
+      .melting-point-cell:hover .melting-tooltip {
+         opacity: 1;
+      }
+      
+      .melting-tooltip h4 {
+         font-weight: 600;
+         margin-bottom: 8px;
+         color: var(--primary-700);
+      }
+      
+      .melting-tooltip p {
+         font-size: 0.875rem;
+         margin-bottom: 10px;
+         color: var(--gray-600);
+      }
+      
+      .melting-quiz {
+         margin-top: 10px;
+         padding-top: 10px;
+         border-top: 1px solid var(--gray-200);
+      }
+      
+      .melting-quiz p {
+         font-weight: 500;
+         margin-bottom: 8px;
+         color: var(--gray-700);
+      }
+      
+      .melting-quiz input {
+         width: 100%;
+         padding: 6px 8px;
+         border: 1px solid var(--gray-300);
+         border-radius: var(--radius-sm);
+         font-size: 0.875rem;
+         margin-bottom: 8px;
+      }
+      
+      .melting-quiz button {
+         background: var(--primary-600);
+         color: white;
+         border: none;
+         padding: 6px 12px;
+         border-radius: var(--radius-sm);
+         font-size: 0.875rem;
+         cursor: pointer;
+         transition: background var(--transition-normal) ease;
+      }
+      
+      .melting-quiz button:hover {
+         background: var(--primary-700);
+      }
+      
+      .quiz-result {
+         margin-top: 8px;
+         padding: 6px;
+         border-radius: var(--radius-sm);
+         font-size: 0.875rem;
+         font-weight: 500;
+      }
+      
+      .quiz-result.correct {
+         background: var(--success-100);
+         color: var(--success-700);
+      }
+      
+      .quiz-result.incorrect {
+         background: var(--error-100);
+         color: var(--error-700);
       }
       
       /* Animation Delays */
@@ -1791,6 +1952,13 @@
          padding: var(--space-md);
          margin-bottom: var(--space-md);
          border-left: 4px solid var(--success-500);
+         transition: all var(--transition-normal) ease;
+         position: relative;
+      }
+      
+      .group-message:hover {
+         transform: translateX(5px);
+         box-shadow: var(--shadow-md);
       }
       
       .group-message-author {
@@ -1853,6 +2021,82 @@
       
       .group-message-submit:hover {
          background: var(--success-600);
+      }
+      
+      /* Feedback Form Styles */
+      .feedback-form {
+         background: rgba(255, 255, 255, 0.95);
+         border-radius: var(--radius-xl);
+         padding: var(--space-xl);
+         margin-top: var(--space-xl);
+         box-shadow: var(--shadow-lg);
+      }
+      
+      .feedback-form h3 {
+         font-size: 1.25rem;
+         font-weight: 600;
+         color: var(--gray-800);
+         margin-bottom: var(--space-lg);
+         display: flex;
+         align-items: center;
+      }
+      
+      .feedback-form h3 i {
+         margin-right: var(--space-sm);
+         color: var(--primary-600);
+      }
+      
+      .form-group {
+         margin-bottom: var(--space-lg);
+      }
+      
+      .form-group label {
+         display: block;
+         font-weight: 500;
+         color: var(--gray-700);
+         margin-bottom: var(--space-sm);
+      }
+      
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+         width: 100%;
+         padding: var(--space-md);
+         border: 1px solid var(--gray-300);
+         border-radius: var(--radius-md);
+         font-size: 1rem;
+         transition: all var(--transition-normal) ease;
+      }
+      
+      .form-group input:focus,
+      .form-group textarea:focus,
+      .form-group select:focus {
+         outline: none;
+         border-color: var(--primary-600);
+         box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+      }
+      
+      .form-group textarea {
+         resize: vertical;
+         min-height: 120px;
+      }
+      
+      .rating-container {
+         display: flex;
+         gap: var(--space-md);
+         margin-bottom: var(--space-md);
+      }
+      
+      .rating-star {
+         font-size: 1.5rem;
+         color: var(--gray-300);
+         cursor: pointer;
+         transition: color var(--transition-normal) ease;
+      }
+      
+      .rating-star:hover,
+      .rating-star.active {
+         color: var(--warning-500);
       }
       
       /* Highlight Box */
@@ -2721,6 +2965,10 @@
             <i class="fas fa-comments"></i>
             <span>Discussion</span>
             </a>
+            <a href="#" class="nav-item" id="nav-feedback" onclick="navigateToSection('feedback')">
+            <i class="fas fa-comment-dots"></i>
+            <span>Feedback</span>
+            </a>
             <a href="#" class="nav-item locked" id="nav-quiz" onclick="navigateToSection('quiz')">
             <i class="fas fa-graduation-cap"></i>
             <span>Final Quiz</span>
@@ -2867,7 +3115,7 @@
                </p>
                <div class="highlight-box">
                   <h4>Electron Configuration</h4>
-                  <p>All Group 1 elements have an electron number configuration that ends with a <strong>single electron</strong> in the outermost shell, such as lithium 2,1, sodium 2,8,1, and potassium 2,8,8,1; this single valence electron is <strong>easily lost</strong>, which makes these elements highly reactive metals.</p>
+                  <p>All Group 1 elements have an electron number configuration that ends with a <strong>single electron</strong> in the outermost shell, such as lithium 2,<span class="valence-electron">1<span class="valence-tooltip">This is the valence electron that makes Group 1 metals special! It's easily lost, making these elements highly reactive.</span></span>, sodium 2,8,<span class="valence-electron">1<span class="valence-tooltip">This is the valence electron that makes Group 1 metals special! It's easily lost, making these elements highly reactive.</span></span>, and potassium 2,8,8,<span class="valence-electron">1<span class="valence-tooltip">This is the valence electron that makes Group 1 metals special! It's easily lost, making these elements highly reactive.</span></span>; this single valence electron is <strong>easily lost</strong>, which makes these elements highly reactive metals.</p>
                </div>
                <p class="text-gray-700 mt-4">
                   Alkali metals are <strong>soft, shiny metals</strong> with low densities and low melting points. 
@@ -2986,31 +3234,37 @@
                      <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Lithiumcut_cropped.jpg" alt="Lithium metal sample" class="element-image" loading="lazy">
                      <h4 class="font-bold text-lg">Lithium (Li)</h4>
                      <p class="text-sm text-gray-600">Atomic: <strong>3</strong></p>
+                     <p class="text-sm text-gray-600">Electron: 2,<span class="valence-electron">1<span class="valence-tooltip">This is the valence electron that makes Group 1 metals special! It's easily lost, making these elements highly reactive.</span></span></p>
                   </div>
                   <div class="element-card">
                      <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Na_%28Sodium%29.jpg" alt="Sodium metal sample" class="element-image" loading="lazy">
                      <h4 class="font-bold text-lg">Sodium (Na)</h4>
                      <p class="text-sm text-gray-600">Atomic: <strong>11</strong></p>
+                     <p class="text-sm text-gray-600">Electron: 2,8,<span class="valence-electron">1<span class="valence-tooltip">This is the valence electron that makes Group 1 metals special! It's easily lost, making these elements highly reactive.</span></span></p>
                   </div>
                   <div class="element-card">
                      <img src="https://cdn.britannica.com/77/131177-050-79292189/fragments-Potassium-metal.jpg" alt="Potassium metal sample" class="element-image" loading="lazy">
                      <h4 class="font-bold text-lg">Potassium (K)</h4>
                      <p class="text-sm text-gray-600">Atomic: <strong>19</strong></p>
+                     <p class="text-sm text-gray-600">Electron: 2,8,8,<span class="valence-electron">1<span class="valence-tooltip">This is the valence electron that makes Group 1 metals special! It's easily lost, making these elements highly reactive.</span></span></p>
                   </div>
                   <div class="element-card">
                      <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Rb5.JPG" alt="Rubidium metal sample" class="element-image" loading="lazy">
                      <h4 class="font-bold text-lg">Rubidium (Rb)</h4>
                      <p class="text-sm text-gray-600">Atomic: <strong>37</strong></p>
+                     <p class="text-sm text-gray-600">Electron: 2,8,18,8,<span class="valence-electron">1<span class="valence-tooltip">This is the valence electron that makes Group 1 metals special! It's easily lost, making these elements highly reactive.</span></span></p>
                   </div>
                   <div class="element-card">
                      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Cesium.jpg" alt="Cesium metal sample" class="element-image" loading="lazy">
                      <h4 class="font-bold text-lg">Cesium (Cs)</h4>
                      <p class="text-sm text-gray-600">Atomic: <strong>55</strong></p>
+                     <p class="text-sm text-gray-600">Electron: 2,8,18,18,8,<span class="valence-electron">1<span class="valence-tooltip">This is the valence electron that makes Group 1 metals special! It's easily lost, making these elements highly reactive.</span></span></p>
                   </div>
                   <div class="element-card">
                      <img src="https://i0.wp.com/periodic-table.com/wp-content/uploads/2018/11/Francium.jpg?fit=238%2C212&ssl=1" alt="Francium representation" class="element-image" loading="lazy">
                      <h4 class="font-bold text-lg">Francium (Fr)</h4>
                      <p class="text-sm text-gray-600">Atomic: <strong>87</strong></p>
+                     <p class="text-sm text-gray-600">Electron: 2,8,18,32,18,8,<span class="valence-electron">1<span class="valence-tooltip">This is the valence electron that makes Group 1 metals special! It's easily lost, making these elements highly reactive.</span></span></p>
                   </div>
                </div>
             </div>
@@ -3039,54 +3293,120 @@
                            <td class="font-medium">Lithium</td>
                            <td>Li</td>
                            <td>3</td>
-                           <td>2, 1</td>
+                           <td>2, <span class="valence-electron">1<span class="valence-tooltip">This is the valence electron that makes Group 1 metals special! It's easily lost, making these elements highly reactive.</span></span></td>
                            <td>0.534</td>
-                           <td>180.5</td>
+                           <td class="melting-point-cell">180.5
+                              <div class="melting-tooltip">
+                                 <h4>Did you realize?</h4>
+                                 <p>The melting point decreases down the group due to weaker metallic bonding as atomic size increases.</p>
+                                 <div class="melting-quiz">
+                                    <p>Why does the melting point decrease down the group?</p>
+                                    <input type="text" class="melting-quiz-answer" placeholder="Your answer...">
+                                    <button class="melting-quiz-submit">Submit</button>
+                                    <div class="quiz-result"></div>
+                                 </div>
+                              </div>
+                           </td>
                            <td><strong>Batteries</strong>, ceramics, mood stabilizers</td>
                         </tr>
                         <tr>
                            <td class="font-medium">Sodium</td>
                            <td>Na</td>
                            <td>11</td>
-                           <td>2, 8, 1</td>
+                           <td>2, 8, <span class="valence-electron">1<span class="valence-tooltip">This is the valence electron that makes Group 1 metals special! It's easily lost, making these elements highly reactive.</span></span></td>
                            <td>0.968</td>
-                           <td>97.8</td>
+                           <td class="melting-point-cell">97.8
+                              <div class="melting-tooltip">
+                                 <h4>Did you realize?</h4>
+                                 <p>The melting point decreases down the group due to weaker metallic bonding as atomic size increases.</p>
+                                 <div class="melting-quiz">
+                                    <p>Why does the melting point decrease down the group?</p>
+                                    <input type="text" class="melting-quiz-answer" placeholder="Your answer...">
+                                    <button class="melting-quiz-submit">Submit</button>
+                                    <div class="quiz-result"></div>
+                                 </div>
+                              </div>
+                           </td>
                            <td><strong>Street lights</strong>, salt, soap</td>
                         </tr>
                         <tr>
                            <td class="font-medium">Potassium</td>
                            <td>K</td>
                            <td>19</td>
-                           <td>2, 8, 8, 1</td>
+                           <td>2, 8, 8, <span class="valence-electron">1<span class="valence-tooltip">This is the valence electron that makes Group 1 metals special! It's easily lost, making these elements highly reactive.</span></span></td>
                            <td>0.89</td>
-                           <td>63.5</td>
+                           <td class="melting-point-cell">63.5
+                              <div class="melting-tooltip">
+                                 <h4>Did you realize?</h4>
+                                 <p>The melting point decreases down the group due to weaker metallic bonding as atomic size increases.</p>
+                                 <div class="melting-quiz">
+                                    <p>Why does the melting point decrease down the group?</p>
+                                    <input type="text" class="melting-quiz-answer" placeholder="Your answer...">
+                                    <button class="melting-quiz-submit">Submit</button>
+                                    <div class="quiz-result"></div>
+                                 </div>
+                              </div>
+                           </td>
                            <td><strong>Fertilizers</strong>, soap, glass</td>
                         </tr>
                         <tr>
                            <td class="font-medium">Rubidium</td>
                            <td>Rb</td>
                            <td>37</td>
-                           <td>2, 8, 18, 8,1</td>
+                           <td>2, 8, 18, 8, <span class="valence-electron">1<span class="valence-tooltip">This is the valence electron that makes Group 1 metals special! It's easily lost, making these elements highly reactive.</span></span></td>
                            <td>1.532</td>
-                           <td>39.3</td>
+                           <td class="melting-point-cell">39.3
+                              <div class="melting-tooltip">
+                                 <h4>Did you realize?</h4>
+                                 <p>The melting point decreases down the group due to weaker metallic bonding as atomic size increases.</p>
+                                 <div class="melting-quiz">
+                                    <p>Why does the melting point decrease down the group?</p>
+                                    <input type="text" class="melting-quiz-answer" placeholder="Your answer...">
+                                    <button class="melting-quiz-submit">Submit</button>
+                                    <div class="quiz-result"></div>
+                                 </div>
+                              </div>
+                           </td>
                            <td><strong>Atomic clocks</strong>, photocells</td>
                         </tr>
                         <tr>
                            <td class="font-medium">Cesium</td>
                            <td>Cs</td>
                            <td>55</td>
-                           <td>2, 8, 18, 18, 8, 1</td>
+                           <td>2, 8, 18, 18, 8, <span class="valence-electron">1<span class="valence-tooltip">This is the valence electron that makes Group 1 metals special! It's easily lost, making these elements highly reactive.</span></span></td>
                            <td>1.93</td>
-                           <td>28.4</td>
+                           <td class="melting-point-cell">28.4
+                              <div class="melting-tooltip">
+                                 <h4>Did you realize?</h4>
+                                 <p>The melting point decreases down the group due to weaker metallic bonding as atomic size increases.</p>
+                                 <div class="melting-quiz">
+                                    <p>Why does the melting point decrease down the group?</p>
+                                    <input type="text" class="melting-quiz-answer" placeholder="Your answer...">
+                                    <button class="melting-quiz-submit">Submit</button>
+                                    <div class="quiz-result"></div>
+                                 </div>
+                              </div>
+                           </td>
                            <td><strong>Atomic clocks</strong>, drilling fluids</td>
                         </tr>
                         <tr>
                            <td class="font-medium">Francium</td>
                            <td>Fr</td>
                            <td>87</td>
-                           <td>2, 8, 18, 32, 18, 8, 1</td>
+                           <td>2, 8, 18, 32, 18, 8, <span class="valence-electron">1<span class="valence-tooltip">This is the valence electron that makes Group 1 metals special! It's easily lost, making these elements highly reactive.</span></span></td>
                            <td>~1.87</td>
-                           <td>~27</td>
+                           <td class="melting-point-cell">~27
+                              <div class="melting-tooltip">
+                                 <h4>Did you realize?</h4>
+                                 <p>The melting point decreases down the group due to weaker metallic bonding as atomic size increases.</p>
+                                 <div class="melting-quiz">
+                                    <p>Why does the melting point decrease down the group?</p>
+                                    <input type="text" class="melting-quiz-answer" placeholder="Your answer...">
+                                    <button class="melting-quiz-submit">Submit</button>
+                                    <div class="quiz-result"></div>
+                                 </div>
+                              </div>
+                           </td>
                            <td><strong>Research purposes</strong> only</td>
                         </tr>
                      </tbody>
@@ -3633,6 +3953,49 @@
                <form class="comment-form" onsubmit="addComment(event)">
                   <input type="text" id="commentInput" class="comment-input" placeholder="Share your thoughts..." aria-label="Write a comment">
                   <button type="submit" class="comment-submit">Post</button>
+               </form>
+            </div>
+         </section>
+         
+         <!-- Feedback Section -->
+         <section id="feedback-section" class="content-section" style="display: none;">
+            <div class="feedback-form fade-in">
+               <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <i class="fas fa-comment-dots mr-2 text-indigo-600" aria-hidden="true"></i>
+                  Feedback
+               </h3>
+               <form id="feedbackFormElement" class="space-y-4" onsubmit="handleFeedbackSubmit(event)">
+                  <div class="form-group">
+                     <label for="feedbackName" class="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+                     <input type="text" id="feedbackName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter your name" required>
+                  </div>
+                  <div class="form-group">
+                     <label for="feedbackEmail" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                     <input type="email" id="feedbackEmail" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="your@email.com" required>
+                  </div>
+                  <div class="form-group">
+                     <label for="feedbackRating" class="block text-sm font-medium text-gray-700 mb-1">Rating</label>
+                     <div class="rating-container">
+                        <i class="fas fa-star rating-star" data-rating="1"></i>
+                        <i class="fas fa-star rating-star" data-rating="2"></i>
+                        <i class="fas fa-star rating-star" data-rating="3"></i>
+                        <i class="fas fa-star rating-star" data-rating="4"></i>
+                        <i class="fas fa-star rating-star" data-rating="5"></i>
+                     </div>
+                     <input type="hidden" id="ratingValue" value="0">
+                  </div>
+                  <div class="form-group">
+                     <label for="feedbackComment" class="block text-sm font-medium text-gray-700 mb-1">Comments</label>
+                     <textarea id="feedbackComment" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" rows="4" placeholder="Share your feedback..." required></textarea>
+                  </div>
+                  <div class="form-group">
+                     <label for="feedbackSuggestion" class="block text-sm font-medium text-gray-700 mb-1">Suggestions for Improvement</label>
+                     <textarea id="feedbackSuggestion" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" rows="3" placeholder="Any suggestions for improving this learning platform?"></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary w-full">
+                     <i class="fas fa-paper-plane mr-2"></i>
+                     Submit Feedback
+                  </button>
                </form>
             </div>
          </section>
@@ -4199,6 +4562,9 @@
               
               // Initialize search functionality
               SearchModule.initSearch();
+              
+              // Initialize melting point quiz functionality
+              initMeltingPointQuiz();
               
               // Add fade-in animation to elements
               document.querySelectorAll('.fade-in').forEach((el, index) => {
@@ -6241,6 +6607,20 @@
                   </div>
                   <div class="group-message-text">${message.text}</div>
                   <div class="group-message-time">${formattedDate} at ${formattedTime}</div>
+                  <div class="vote-container">
+                      <button class="vote-button ${message.votes && message.votes[firebase.auth().currentUser?.uid] ? 'voted' : ''}" 
+                              onclick="toggleGroupMessageVote('${message.id}', 'up')"
+                              aria-label="Upvote message">
+                          <i class="fas fa-thumbs-up vote-icon"></i>
+                          <span class="vote-count">${message.upvotes || 0}</span>
+                      </button>
+                      <button class="vote-button ${message.votes && message.votes[firebase.auth().currentUser?.uid] === false ? 'voted' : ''}" 
+                              onclick="toggleGroupMessageVote('${message.id}', 'down')"
+                              aria-label="Downvote message">
+                          <i class="fas fa-thumbs-down vote-icon"></i>
+                          <span class="vote-count">${message.downvotes || 0}</span>
+                      </button>
+                  </div>
               `;
               
               return messageDiv;
@@ -6282,6 +6662,9 @@
                   authorId: user.uid,
                   authorName: AuthModule.userData.displayName,
                   text: messageText,
+                  upvotes: 0,
+                  downvotes: 0,
+                  votes: {},
                   createdAt: firebase.database.ServerValue.TIMESTAMP
               };
               
@@ -6338,6 +6721,9 @@
                   authorId: user.uid,
                   authorName: AuthModule.userData.displayName,
                   text: text,
+                  upvotes: 0,
+                  downvotes: 0,
+                  votes: {},
                   createdAt: firebase.database.ServerValue.TIMESTAMP
               };
               
@@ -6362,6 +6748,91 @@
                   UIModule.showToast('error', 'Error', 'Failed to send message.');
               }).finally(() => {
                   UIModule.hideLoading();
+              });
+          };
+          
+          // Toggle group message vote
+          const toggleGroupMessageVote = (messageId, voteType) => {
+              // Check if user is authenticated
+              if (!AuthModule.authInitialized) {
+                  // Wait for auth to initialize
+                  setTimeout(() => {
+                      toggleGroupMessageVote(messageId, voteType);
+                  }, 500);
+                  return;
+              }
+              
+              const user = firebase.auth().currentUser;
+              if (!user) {
+                  UIModule.showToast('error', 'Sign in required', 'Please sign in to vote on messages.');
+                  AuthModule.showLoginModal();
+                  return;
+              }
+              
+              const messageRef = firebase.database().ref('groupMessages/' + messageId);
+              messageRef.once('value').then((snapshot) => {
+                  const message = snapshot.val();
+                  
+                  if (!message) {
+                      UIModule.showToast('error', 'Error', 'Message not found.');
+                      return;
+                  }
+                  
+                  // Get current votes
+                  const votes = message.votes || {};
+                  const currentVote = votes[user.uid];
+                  const upvotes = message.upvotes || 0;
+                  const downvotes = message.downvotes || 0;
+                  
+                  let newUpvotes = upvotes;
+                  let newDownvotes = downvotes;
+                  let newVotes = { ...votes };
+                  
+                  if (voteType === 'up') {
+                      if (currentVote === true) {
+                          // Remove upvote
+                          delete newVotes[user.uid];
+                          newUpvotes = Math.max(0, upvotes - 1);
+                      } else {
+                          // Add or change to upvote
+                          newVotes[user.uid] = true;
+                          newUpvotes = upvotes + 1;
+                          if (currentVote === false) {
+                              // Was downvoted before
+                              newDownvotes = Math.max(0, downvotes - 1);
+                          }
+                      }
+                  } else { // voteType === 'down'
+                      if (currentVote === false) {
+                          // Remove downvote
+                          delete newVotes[user.uid];
+                          newDownvotes = Math.max(0, downvotes - 1);
+                      } else {
+                          // Add or change to downvote
+                          newVotes[user.uid] = false;
+                          newDownvotes = downvotes + 1;
+                          if (currentVote === true) {
+                              // Was upvoted before
+                              newUpvotes = Math.max(0, upvotes - 1);
+                          }
+                      }
+                  }
+                  
+                  // Update the message
+                  const updates = {};
+                  updates['/upvotes'] = newUpvotes;
+                  updates['/downvotes'] = newDownvotes;
+                  updates['/votes'] = newVotes;
+                  
+                  messageRef.update(updates).then(() => {
+                      // Update UI will be handled by the real-time listener
+                  }).catch((error) => {
+                      console.error("Error voting on group message:", error);
+                      UIModule.showToast('error', 'Error', 'Failed to vote on message.');
+                  });
+              }).catch((error) => {
+                  console.error("Error getting group message:", error);
+                  UIModule.showToast('error', 'Error', 'Failed to vote on message.');
               });
           };
           
@@ -6902,6 +7373,82 @@
           };
       })();
       
+      // Feedback Module
+      const FeedbackModule = (() => {
+          // Handle feedback form submission
+          const handleFeedbackSubmit = (event) => {
+              event.preventDefault();
+              
+              // Check if user is authenticated
+              if (!AuthModule.authInitialized) {
+                  // Wait for auth to initialize
+                  setTimeout(() => {
+                      handleFeedbackSubmit(event);
+                  }, 500);
+                  return;
+              }
+              
+              const user = firebase.auth().currentUser;
+              if (!user) {
+                  UIModule.showToast('error', 'Sign in required', 'Please sign in to submit feedback.');
+                  AuthModule.showLoginModal();
+                  return;
+              }
+              
+              const name = document.getElementById('feedbackName').value.trim();
+              const email = document.getElementById('feedbackEmail').value.trim();
+              const rating = parseInt(document.getElementById('ratingValue').value);
+              const comment = document.getElementById('feedbackComment').value.trim();
+              const suggestion = document.getElementById('feedbackSuggestion').value.trim();
+              
+              if (!name || !email || !comment) {
+                  UIModule.showToast('error', 'Missing Fields', 'Please fill in all required fields.');
+                  return;
+              }
+              
+              if (!Utils.isValidEmail(email)) {
+                  UIModule.showToast('error', 'Invalid Email', 'Please enter a valid email address.');
+                  return;
+              }
+              
+              UIModule.showLoading();
+              
+              const feedbackRef = firebase.database().ref('feedback').push();
+              const newFeedback = {
+                  userId: user.uid,
+                  userName: name,
+                  userEmail: email,
+                  rating: rating,
+                  comment: comment,
+                  suggestion: suggestion,
+                  createdAt: firebase.database.ServerValue.TIMESTAMP
+              };
+              
+              feedbackRef.set(newFeedback).then(() => {
+                  // Reset form
+                  document.getElementById('feedbackFormElement').reset();
+                  document.getElementById('ratingValue').value = '0';
+                  document.querySelectorAll('.rating-star').forEach(star => {
+                      star.classList.remove('active');
+                  });
+                  
+                  UIModule.showToast('success', 'Feedback Submitted', 'Thank you for your feedback!');
+                  
+                  // Award points
+                  AuthModule.awardPoints(15, 'Submitted feedback');
+              }).catch((error) => {
+                  console.error("Error submitting feedback:", error);
+                  UIModule.showToast('error', 'Error', 'Failed to submit feedback.');
+              }).finally(() => {
+                  UIModule.hideLoading();
+              });
+          };
+          
+          return {
+              handleFeedbackSubmit
+          };
+      })();
+      
       // Glossary Module
       const GlossaryModule = (() => {
           // Initialize glossary search
@@ -6936,6 +7483,50 @@
           };
       })();
       
+      // Melting Point Quiz Module
+      const MeltingPointQuizModule = (() => {
+          // Initialize melting point quiz functionality
+          const initMeltingPointQuiz = () => {
+              // Add event listeners to all melting point quiz submit buttons
+              document.addEventListener('click', (e) => {
+                  if (e.target.classList.contains('melting-quiz-submit')) {
+                      const meltingPointCell = e.target.closest('.melting-point-cell');
+                      const quizInput = meltingPointCell.querySelector('.melting-quiz-answer');
+                      const quizResult = meltingPointCell.querySelector('.quiz-result');
+                      
+                      const userAnswer = quizInput.value.trim().toLowerCase();
+                      const correctAnswers = [
+                          'increasing atomic size',
+                          'weaker metallic bonding',
+                          'larger atomic radius',
+                          'weaker bonds',
+                          'atomic size increases',
+                          'bonding weakens'
+                      ];
+                      
+                      const isCorrect = correctAnswers.some(answer => userAnswer.includes(answer));
+                      
+                      if (isCorrect) {
+                          quizResult.textContent = 'Correct! The melting point decreases down the group due to increasing atomic size, which weakens the metallic bonding.';
+                          quizResult.className = 'quiz-result correct';
+                      } else {
+                          quizResult.textContent = 'Not quite. Think about how atomic size affects bonding strength.';
+                          quizResult.className = 'quiz-result incorrect';
+                      }
+                      
+                      // Award points for correct answer
+                      if (isCorrect) {
+                          AuthModule.awardPoints(5, 'Correct melting point quiz answer');
+                      }
+                  }
+              });
+          };
+          
+          return {
+              initMeltingPointQuiz
+          };
+      })();
+      
       // Initialize the app
       const initializeApp = () => {
           // Initialize theme
@@ -6945,6 +7536,9 @@
           if (document.getElementById('glossarySearch')) {
               GlossaryModule.initGlossarySearch();
           }
+          
+          // Initialize melting point quiz functionality
+          MeltingPointQuizModule.initMeltingPointQuiz();
           
           // Add keyboard navigation
           document.addEventListener('keydown', (e) => {
@@ -6972,6 +7566,27 @@
               }
               if (e.target.closest('#landingPage .btn-secondary')) {
                   AuthModule.signInWithGoogle();
+              }
+          });
+          
+          // Add rating star click handlers
+          document.addEventListener('click', (e) => {
+              if (e.target.classList.contains('rating-star')) {
+                  const rating = parseInt(e.target.dataset.rating);
+                  const ratingValue = document.getElementById('ratingValue');
+                  const stars = document.querySelectorAll('.rating-star');
+                  
+                  // Update rating value
+                  ratingValue.value = rating;
+                  
+                  // Update star display
+                  stars.forEach((star, index) => {
+                      if (index < rating) {
+                          star.classList.add('active');
+                      } else {
+                          star.classList.remove('active');
+                      }
+                  });
               }
           });
           
@@ -7015,12 +7630,14 @@
       window.viewGroupDetails = StudyGroupModule.viewGroupDetails;
       window.closeGroupDetail = StudyGroupModule.closeGroupDetail;
       window.handleGroupMessage = StudyGroupModule.handleGroupMessage;
+      window.toggleGroupMessageVote = StudyGroupModule.toggleGroupMessageVote;
       window.addComment = DiscussionModule.addComment;
       window.addReply = DiscussionModule.addReply;
       window.toggleCommentVote = DiscussionModule.toggleCommentVote;
       window.deleteComment = DiscussionModule.deleteComment;
       window.deleteReply = DiscussionModule.deleteReply;
       window.toggleReplyForm = DiscussionModule.toggleReplyForm;
+      window.handleFeedbackSubmit = FeedbackModule.handleFeedbackSubmit;
    </script>
 </body>
 </html>
