@@ -756,53 +756,70 @@
         .drag-item, .sequence-item, .reaction-product {
             cursor: move;
             user-select: none;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
         
-        .drag-item:active, .sequence-item:active, .reaction-product:active {
-            cursor: grabbing;
+        .drag-item:hover, .sequence-item:hover, .reaction-product:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }
         
-        .match-item {
-            cursor: pointer;
-            transition: all 0.2s ease;
+        .drag-item.dragging, .sequence-item.dragging, .reaction-product.dragging {
+            opacity: 0.5;
+            transform: rotate(5deg);
         }
         
-        .match-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        .match-item.selected {
-            border: 2px solid var(--primary);
-            background: rgba(79, 70, 229, 0.1);
-        }
-        
-        .match-item.matched {
-            border: 2px solid var(--success);
-            background: rgba(16, 185, 129, 0.1);
-        }
-        
-        #dropZone, #sequenceZone {
+        .drop-zone, #sequenceZone {
             min-height: 120px;
+            border: 2px dashed #cbd5e1;
+            border-radius: 0.5rem;
+            padding: 1rem;
             transition: all 0.3s ease;
+            position: relative;
+            background-color: #f8fafc;
         }
         
-        #dropZone.drag-over, #sequenceZone.drag-over {
-            background: rgba(79, 70, 229, 0.1);
-            border-color: var(--primary);
+        .drop-zone.drag-over, #sequenceZone.drag-over {
+            background-color: #eef2ff;
+            border-color: #4f46e5;
+            border-style: solid;
+        }
+        
+        .drop-zone-placeholder {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #94a3b8;
+            pointer-events: none;
         }
         
         .dropped-item {
-            margin: 0.25rem;
             display: inline-block;
+            margin: 0.25rem;
+            padding: 0.5rem 0.75rem;
+            background-color: #dbeafe;
+            border-radius: 0.375rem;
             position: relative;
+            animation: dropIn 0.3s ease;
+        }
+        
+        @keyframes dropIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .dropped-item .remove-btn {
             position: absolute;
             top: -8px;
             right: -8px;
-            background: var(--danger);
+            background: #ef4444;
             color: white;
             border-radius: 50%;
             width: 20px;
@@ -813,15 +830,23 @@
             font-size: 12px;
             cursor: pointer;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: background 0.2s;
         }
         
         .dropped-item .remove-btn:hover {
             background: #dc2626;
         }
         
-        .reaction-arrow {
-            font-size: 2rem;
-            margin: 0 1rem;
+        .drag-instructions {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-bottom: 0.75rem;
+            text-align: center;
+        }
+        
+        .reset-btn {
+            margin-top: 0.75rem;
+            font-size: 0.875rem;
         }
         
         /* Anti-cheating styles */
@@ -2252,13 +2277,14 @@
                     break;
             }
             
+            // Show/hide navigation buttons
             document.getElementById('prevButton').classList.toggle('hidden', currentQuestion === 0);
-            document.getElementById('submitButton').style.display = answeredQuestion ? 'none' : 'inline-flex';
-            document.getElementById('submitButton').disabled = answeredQuestion ? true : !answeredQuestion;
-            document.getElementById('nextButton').classList.add('hidden');
-            document.getElementById('feedback').classList.remove('hidden');
             
+            // Show submit button if not answered, show next button if answered
             if (answeredQuestion) {
+                document.getElementById('submitButton').style.display = 'none';
+                document.getElementById('nextButton').classList.remove('hidden');
+                
                 // Show feedback for answered question
                 const feedback = document.getElementById('feedback');
                 if (answeredQuestion.isCorrect) {
@@ -2268,7 +2294,11 @@
                     feedback.className = 'mb-4 p-3 rounded-lg bg-red-100 text-red-800 text-sm';
                     feedback.textContent = 'Incorrect. ' + question.explanation;
                 }
+                feedback.classList.remove('hidden');
             } else {
+                document.getElementById('submitButton').style.display = 'inline-flex';
+                document.getElementById('submitButton').disabled = true;
+                document.getElementById('nextButton').classList.add('hidden');
                 document.getElementById('feedback').classList.add('hidden');
             }
             
@@ -2318,18 +2348,22 @@
         // Drag and Drop Loader with Enhanced Functionality
         function loadDragDrop(question, container, answeredQuestion) {
             container.innerHTML = `
-                <div class="mb-4">
-                    <p class="text-sm text-gray-600 mb-2">Drag items to arrange them:</p>
+                <div class="drag-container">
+                    <p class="drag-instructions">Drag items to arrange them in order:</p>
                     <div id="dragItems" class="flex flex-wrap gap-2 mb-4">
                         ${question.items.map((item, index) => `
-                            <div class="drag-item bg-blue-100 px-4 py-2 rounded-lg cursor-move" draggable="true" data-index="${index}">
+                            <div class="drag-item bg-blue-100 px-4 py-2 rounded-lg" draggable="true" data-index="${index}">
                                 ${item}
                             </div>
                         `).join('')}
                     </div>
-                    <div id="dropZone" class="min-h-[100px] border-2 border-dashed border-gray-300 rounded-lg p-4">
-                        <p class="text-gray-400 text-center">Drop items here in order</p>
+                    <div id="dropZone" class="drop-zone">
+                        <div class="drop-zone-placeholder">Drop items here in order</div>
                     </div>
+                    <button onclick="resetDragDrop()" class="btn btn-secondary reset-btn">
+                        <i class="fas fa-redo mr-1"></i>
+                        Reset
+                    </button>
                 </div>
             `;
             
@@ -2339,7 +2373,7 @@
                 dropZone.innerHTML = '';
                 answeredQuestion.userOrder.forEach(item => {
                     const itemDiv = document.createElement('div');
-                    itemDiv.className = 'dropped-item bg-green-100 px-4 py-2 rounded-lg';
+                    itemDiv.className = 'dropped-item';
                     itemDiv.textContent = item;
                     dropZone.appendChild(itemDiv);
                 });
@@ -2360,14 +2394,16 @@
             const dropZone = document.getElementById('dropZone');
             let draggedItem = null;
             
+            // Desktop drag events
             dragItems.forEach(item => {
                 item.addEventListener('dragstart', (e) => {
                     draggedItem = e.target;
-                    e.target.style.opacity = '0.5';
+                    e.target.classList.add('dragging');
+                    e.dataTransfer.effectAllowed = 'copy';
                 });
                 
                 item.addEventListener('dragend', (e) => {
-                    e.target.style.opacity = '';
+                    e.target.classList.remove('dragging');
                 });
             });
             
@@ -2386,10 +2422,9 @@
                 
                 if (draggedItem) {
                     const clone = draggedItem.cloneNode(true);
-                    clone.classList.remove('bg-blue-100');
-                    clone.classList.add('bg-green-100');
+                    clone.classList.remove('bg-blue-100', 'dragging');
+                    clone.classList.add('dropped-item');
                     clone.draggable = false;
-                    clone.style.cursor = 'default';
                     
                     // Add remove button
                     const removeBtn = document.createElement('span');
@@ -2398,20 +2433,141 @@
                     removeBtn.onclick = () => removeDroppedItem(clone, draggedItem);
                     clone.appendChild(removeBtn);
                     
-                    if (dropZone.children.length === 1 && dropZone.children[0].tagName === 'P') {
-                        dropZone.innerHTML = '';
+                    // Remove placeholder if exists
+                    const placeholder = dropZone.querySelector('.drop-zone-placeholder');
+                    if (placeholder) {
+                        placeholder.remove();
                     }
                     
                     dropZone.appendChild(clone);
                     draggedItem.style.display = 'none';
                     
                     // Enable submit if all items are dropped
-                    const droppedItems = dropZone.querySelectorAll('.drag-item, .bg-green-100');
+                    const droppedItems = dropZone.querySelectorAll('.dropped-item');
                     if (droppedItems.length === question.items.length) {
                         document.getElementById('submitButton').disabled = false;
                     }
                 }
             });
+            
+            // Touch events for mobile
+            dragItems.forEach(item => {
+                item.addEventListener('touchstart', handleTouchStart, {passive: false});
+                item.addEventListener('touchmove', handleTouchMove, {passive: false});
+                item.addEventListener('touchend', handleTouchEnd, {passive: false});
+            });
+            
+            let touchItem = null;
+            let touchOffset = {x: 0, y: 0};
+            
+            function handleTouchStart(e) {
+                touchItem = e.target.closest('.drag-item');
+                if (!touchItem) return;
+                
+                const touch = e.touches[0];
+                const rect = touchItem.getBoundingClientRect();
+                
+                touchOffset.x = touch.clientX - rect.left;
+                touchOffset.y = touch.clientY - rect.top;
+                
+                // Create a clone for dragging
+                const clone = touchItem.cloneNode(true);
+                clone.style.position = 'fixed';
+                clone.style.zIndex = '1000';
+                clone.style.pointerEvents = 'none';
+                clone.style.opacity = '0.8';
+                clone.classList.add('dragging');
+                document.body.appendChild(clone);
+                
+                touchItem.dataset.cloneId = 'clone-' + Date.now();
+                clone.dataset.originalId = touchItem.dataset.cloneId;
+                
+                // Position the clone
+                clone.style.left = (touch.clientX - touchOffset.x) + 'px';
+                clone.style.top = (touch.clientY - touchOffset.y) + 'px';
+                
+                e.preventDefault();
+            }
+            
+            function handleTouchMove(e) {
+                if (!touchItem) return;
+                
+                const touch = e.touches[0];
+                const clone = document.querySelector('[data-clone-id="' + touchItem.dataset.cloneId + '"]');
+                
+                if (clone) {
+                    clone.style.left = (touch.clientX - touchOffset.x) + 'px';
+                    clone.style.top = (touch.clientY - touchOffset.y) + 'px';
+                    
+                    // Check if over drop zone
+                    const dropZoneRect = dropZone.getBoundingClientRect();
+                    if (
+                        touch.clientX >= dropZoneRect.left &&
+                        touch.clientX <= dropZoneRect.right &&
+                        touch.clientY >= dropZoneRect.top &&
+                        touch.clientY <= dropZoneRect.bottom
+                    ) {
+                        dropZone.classList.add('drag-over');
+                    } else {
+                        dropZone.classList.remove('drag-over');
+                    }
+                }
+                
+                e.preventDefault();
+            }
+            
+            function handleTouchEnd(e) {
+                if (!touchItem) return;
+                
+                const touch = e.changedTouches[0];
+                const clone = document.querySelector('[data-clone-id="' + touchItem.dataset.cloneId + '"]');
+                
+                if (clone) {
+                    clone.remove();
+                    
+                    // Check if dropped in drop zone
+                    const dropZoneRect = dropZone.getBoundingClientRect();
+                    if (
+                        touch.clientX >= dropZoneRect.left &&
+                        touch.clientX <= dropZoneRect.right &&
+                        touch.clientY >= dropZoneRect.top &&
+                        touch.clientY <= dropZoneRect.bottom
+                    ) {
+                        // Create dropped item
+                        const droppedItem = touchItem.cloneNode(true);
+                        droppedItem.classList.remove('bg-blue-100');
+                        droppedItem.classList.add('dropped-item');
+                        droppedItem.draggable = false;
+                        
+                        // Add remove button
+                        const removeBtn = document.createElement('span');
+                        removeBtn.className = 'remove-btn';
+                        removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                        removeBtn.onclick = () => removeDroppedItem(droppedItem, touchItem);
+                        droppedItem.appendChild(removeBtn);
+                        
+                        // Remove placeholder if exists
+                        const placeholder = dropZone.querySelector('.drop-zone-placeholder');
+                        if (placeholder) {
+                            placeholder.remove();
+                        }
+                        
+                        dropZone.appendChild(droppedItem);
+                        touchItem.style.display = 'none';
+                        
+                        // Enable submit if all items are dropped
+                        const droppedItems = dropZone.querySelectorAll('.dropped-item');
+                        if (droppedItems.length === question.items.length) {
+                            document.getElementById('submitButton').disabled = false;
+                        }
+                    }
+                    
+                    dropZone.classList.remove('drag-over');
+                }
+                
+                touchItem = null;
+                e.preventDefault();
+            }
         }
         
         // Function to remove dropped item
@@ -2421,10 +2577,29 @@
             originalItem.style.display = 'block';
             
             // Check if all items are removed
-            const droppedItems = dropZone.querySelectorAll('.drag-item, .bg-green-100');
+            const droppedItems = dropZone.querySelectorAll('.dropped-item');
             if (droppedItems.length === 0) {
+                // Add placeholder back
+                const placeholder = document.createElement('div');
+                placeholder.className = 'drop-zone-placeholder';
+                placeholder.textContent = 'Drop items here in order';
+                dropZone.appendChild(placeholder);
+                
                 document.getElementById('submitButton').disabled = true;
             }
+        }
+        
+        // Function to reset drag and drop
+        function resetDragDrop() {
+            const dropZone = document.getElementById('dropZone');
+            dropZone.innerHTML = '<div class="drop-zone-placeholder">Drop items here in order</div>';
+            
+            const dragItems = document.querySelectorAll('.drag-item');
+            dragItems.forEach(item => {
+                item.style.display = 'block';
+            });
+            
+            document.getElementById('submitButton').disabled = true;
         }
         
         // Fill in the Blanks Loader
@@ -2637,18 +2812,22 @@
         // Sequence Loader with Enhanced Functionality
         function loadSequence(question, container, answeredQuestion) {
             container.innerHTML = `
-                <div class="mb-4">
-                    <p class="text-sm text-gray-600 mb-2">Drag items to arrange them in order:</p>
+                <div class="drag-container">
+                    <p class="drag-instructions">Drag items to arrange them in sequence:</p>
                     <div id="sequenceItems" class="flex flex-wrap gap-2 mb-4">
                         ${question.items.map((item, index) => `
-                            <div class="sequence-item bg-purple-100 px-4 py-2 rounded-lg cursor-move" draggable="true" data-index="${index}">
+                            <div class="sequence-item bg-purple-100 px-4 py-2 rounded-lg" draggable="true" data-index="${index}">
                                 ${item}
                             </div>
                         `).join('')}
                     </div>
-                    <div id="sequenceZone" class="min-h-[100px] border-2 border-dashed border-gray-300 rounded-lg p-4">
-                        <p class="text-gray-400 text-center">Drop items here in sequence</p>
+                    <div id="sequenceZone" class="drop-zone">
+                        <div class="drop-zone-placeholder">Drop items here in sequence</div>
                     </div>
+                    <button onclick="resetSequence()" class="btn btn-secondary reset-btn">
+                        <i class="fas fa-redo mr-1"></i>
+                        Reset
+                    </button>
                 </div>
             `;
             
@@ -2658,7 +2837,7 @@
                 sequenceZone.innerHTML = '';
                 answeredQuestion.userSequence.forEach(item => {
                     const itemDiv = document.createElement('div');
-                    itemDiv.className = 'dropped-item bg-green-100 px-4 py-2 rounded-lg';
+                    itemDiv.className = 'dropped-item';
                     itemDiv.textContent = item;
                     sequenceZone.appendChild(itemDiv);
                 });
@@ -2679,14 +2858,16 @@
             const sequenceZone = document.getElementById('sequenceZone');
             let draggedItem = null;
             
+            // Desktop drag events
             sequenceItems.forEach(item => {
                 item.addEventListener('dragstart', (e) => {
                     draggedItem = e.target;
-                    e.target.style.opacity = '0.5';
+                    e.target.classList.add('dragging');
+                    e.dataTransfer.effectAllowed = 'copy';
                 });
                 
                 item.addEventListener('dragend', (e) => {
-                    e.target.style.opacity = '';
+                    e.target.classList.remove('dragging');
                 });
             });
             
@@ -2705,10 +2886,9 @@
                 
                 if (draggedItem) {
                     const clone = draggedItem.cloneNode(true);
-                    clone.classList.remove('bg-purple-100');
-                    clone.classList.add('bg-green-100');
+                    clone.classList.remove('bg-purple-100', 'dragging');
+                    clone.classList.add('dropped-item');
                     clone.draggable = false;
-                    clone.style.cursor = 'default';
                     
                     // Add remove button
                     const removeBtn = document.createElement('span');
@@ -2717,20 +2897,141 @@
                     removeBtn.onclick = () => removeSequenceItem(clone, draggedItem);
                     clone.appendChild(removeBtn);
                     
-                    if (sequenceZone.children.length === 1 && sequenceZone.children[0].tagName === 'P') {
-                        sequenceZone.innerHTML = '';
+                    // Remove placeholder if exists
+                    const placeholder = sequenceZone.querySelector('.drop-zone-placeholder');
+                    if (placeholder) {
+                        placeholder.remove();
                     }
                     
                     sequenceZone.appendChild(clone);
                     draggedItem.style.display = 'none';
                     
                     // Enable submit if all items are dropped
-                    const droppedItems = sequenceZone.querySelectorAll('.sequence-item, .bg-green-100');
+                    const droppedItems = sequenceZone.querySelectorAll('.dropped-item');
                     if (droppedItems.length === question.items.length) {
                         document.getElementById('submitButton').disabled = false;
                     }
                 }
             });
+            
+            // Touch events for mobile
+            sequenceItems.forEach(item => {
+                item.addEventListener('touchstart', handleSequenceTouchStart, {passive: false});
+                item.addEventListener('touchmove', handleSequenceTouchMove, {passive: false});
+                item.addEventListener('touchend', handleSequenceTouchEnd, {passive: false});
+            });
+            
+            let touchItem = null;
+            let touchOffset = {x: 0, y: 0};
+            
+            function handleSequenceTouchStart(e) {
+                touchItem = e.target.closest('.sequence-item');
+                if (!touchItem) return;
+                
+                const touch = e.touches[0];
+                const rect = touchItem.getBoundingClientRect();
+                
+                touchOffset.x = touch.clientX - rect.left;
+                touchOffset.y = touch.clientY - rect.top;
+                
+                // Create a clone for dragging
+                const clone = touchItem.cloneNode(true);
+                clone.style.position = 'fixed';
+                clone.style.zIndex = '1000';
+                clone.style.pointerEvents = 'none';
+                clone.style.opacity = '0.8';
+                clone.classList.add('dragging');
+                document.body.appendChild(clone);
+                
+                touchItem.dataset.cloneId = 'clone-' + Date.now();
+                clone.dataset.originalId = touchItem.dataset.cloneId;
+                
+                // Position the clone
+                clone.style.left = (touch.clientX - touchOffset.x) + 'px';
+                clone.style.top = (touch.clientY - touchOffset.y) + 'px';
+                
+                e.preventDefault();
+            }
+            
+            function handleSequenceTouchMove(e) {
+                if (!touchItem) return;
+                
+                const touch = e.touches[0];
+                const clone = document.querySelector('[data-clone-id="' + touchItem.dataset.cloneId + '"]');
+                
+                if (clone) {
+                    clone.style.left = (touch.clientX - touchOffset.x) + 'px';
+                    clone.style.top = (touch.clientY - touchOffset.y) + 'px';
+                    
+                    // Check if over sequence zone
+                    const sequenceZoneRect = sequenceZone.getBoundingClientRect();
+                    if (
+                        touch.clientX >= sequenceZoneRect.left &&
+                        touch.clientX <= sequenceZoneRect.right &&
+                        touch.clientY >= sequenceZoneRect.top &&
+                        touch.clientY <= sequenceZoneRect.bottom
+                    ) {
+                        sequenceZone.classList.add('drag-over');
+                    } else {
+                        sequenceZone.classList.remove('drag-over');
+                    }
+                }
+                
+                e.preventDefault();
+            }
+            
+            function handleSequenceTouchEnd(e) {
+                if (!touchItem) return;
+                
+                const touch = e.changedTouches[0];
+                const clone = document.querySelector('[data-clone-id="' + touchItem.dataset.cloneId + '"]');
+                
+                if (clone) {
+                    clone.remove();
+                    
+                    // Check if dropped in sequence zone
+                    const sequenceZoneRect = sequenceZone.getBoundingClientRect();
+                    if (
+                        touch.clientX >= sequenceZoneRect.left &&
+                        touch.clientX <= sequenceZoneRect.right &&
+                        touch.clientY >= sequenceZoneRect.top &&
+                        touch.clientY <= sequenceZoneRect.bottom
+                    ) {
+                        // Create dropped item
+                        const droppedItem = touchItem.cloneNode(true);
+                        droppedItem.classList.remove('bg-purple-100');
+                        droppedItem.classList.add('dropped-item');
+                        droppedItem.draggable = false;
+                        
+                        // Add remove button
+                        const removeBtn = document.createElement('span');
+                        removeBtn.className = 'remove-btn';
+                        removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                        removeBtn.onclick = () => removeSequenceItem(droppedItem, touchItem);
+                        droppedItem.appendChild(removeBtn);
+                        
+                        // Remove placeholder if exists
+                        const placeholder = sequenceZone.querySelector('.drop-zone-placeholder');
+                        if (placeholder) {
+                            placeholder.remove();
+                        }
+                        
+                        sequenceZone.appendChild(droppedItem);
+                        touchItem.style.display = 'none';
+                        
+                        // Enable submit if all items are dropped
+                        const droppedItems = sequenceZone.querySelectorAll('.dropped-item');
+                        if (droppedItems.length === question.items.length) {
+                            document.getElementById('submitButton').disabled = false;
+                        }
+                    }
+                    
+                    sequenceZone.classList.remove('drag-over');
+                }
+                
+                touchItem = null;
+                e.preventDefault();
+            }
         }
         
         // Function to remove sequence item
@@ -2740,122 +3041,29 @@
             originalItem.style.display = 'block';
             
             // Check if all items are removed
-            const droppedItems = sequenceZone.querySelectorAll('.sequence-item, .bg-green-100');
+            const droppedItems = sequenceZone.querySelectorAll('.dropped-item');
             if (droppedItems.length === 0) {
+                // Add placeholder back
+                const placeholder = document.createElement('div');
+                placeholder.className = 'drop-zone-placeholder';
+                placeholder.textContent = 'Drop items here in sequence';
+                sequenceZone.appendChild(placeholder);
+                
                 document.getElementById('submitButton').disabled = true;
             }
         }
         
-        // Reaction Simulator Loader with Enhanced Functionality
-        function loadReactionSimulator(question, container, answeredQuestion) {
-            container.innerHTML = `
-                <div class="text-center mb-6">
-                    <div class="flex items-center justify-center gap-4 mb-4">
-                        <div class="bg-blue-100 px-4 py-2 rounded-lg">${question.reactants[0]}</div>
-                        <div class="text-2xl">+</div>
-                        <div class="bg-blue-100 px-4 py-2 rounded-lg">${question.reactants[1]}</div>
-                        <div class="text-2xl">→</div>
-                        <div id="reactionProducts" class="flex gap-2 min-w-[200px] min-h-[40px] border-2 border-dashed border-gray-300 rounded-lg p-2">
-                            <!-- Products will be dropped here -->
-                        </div>
-                    </div>
-                    <p class="text-sm text-gray-600 mb-4">Drag the correct products to the arrow:</p>
-                    <div class="flex flex-wrap justify-center gap-2">
-                        ${question.products.map(product => `
-                            <div class="reaction-product bg-green-100 px-3 py-1 rounded-lg cursor-move" draggable="true" data-product="${product}">
-                                ${product}
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
+        // Function to reset sequence
+        function resetSequence() {
+            const sequenceZone = document.getElementById('sequenceZone');
+            sequenceZone.innerHTML = '<div class="drop-zone-placeholder">Drop items here in sequence</div>';
             
-            if (answeredQuestion) {
-                // Show the products
-                const productsZone = document.getElementById('reactionProducts');
-                productsZone.innerHTML = '';
-                answeredQuestion.userProducts.forEach(product => {
-                    const productDiv = document.createElement('div');
-                    productDiv.className = 'dropped-item bg-blue-200 px-3 py-1 rounded-lg';
-                    productDiv.textContent = product;
-                    productsZone.appendChild(productDiv);
-                });
-                
-                // Hide original products
-                const reactionProducts = document.querySelectorAll('.reaction-product');
-                reactionProducts.forEach(product => {
-                    product.style.display = 'none';
-                });
-            } else {
-                setupReactionSimulator(question);
-            }
-        }
-        
-        // Enhanced Reaction Simulator Setup
-        function setupReactionSimulator(question) {
-            const reactionProducts = document.querySelectorAll('.reaction-product');
-            const productsZone = document.getElementById('reactionProducts');
-            let draggedProduct = null;
-            
-            reactionProducts.forEach(product => {
-                product.addEventListener('dragstart', (e) => {
-                    draggedProduct = e.target;
-                    e.target.style.opacity = '0.5';
-                });
-                
-                product.addEventListener('dragend', (e) => {
-                    e.target.style.opacity = '';
-                });
+            const sequenceItems = document.querySelectorAll('.sequence-item');
+            sequenceItems.forEach(item => {
+                item.style.display = 'block';
             });
             
-            productsZone.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                productsZone.style.backgroundColor = '#f0f9ff';
-            });
-            
-            productsZone.addEventListener('dragleave', () => {
-                productsZone.style.backgroundColor = '';
-            });
-            
-            productsZone.addEventListener('drop', (e) => {
-                e.preventDefault();
-                productsZone.style.backgroundColor = '';
-                
-                if (draggedProduct) {
-                    const clone = draggedProduct.cloneNode(true);
-                    clone.classList.remove('bg-green-100');
-                    clone.classList.add('bg-blue-200');
-                    clone.draggable = false;
-                    clone.style.cursor = 'default';
-                    
-                    // Add remove button
-                    const removeBtn = document.createElement('span');
-                    removeBtn.className = 'remove-btn';
-                    removeBtn.innerHTML = '<i class="fas fa-times"></i>';
-                    removeBtn.onclick = () => removeReactionProduct(clone, draggedProduct);
-                    clone.appendChild(removeBtn);
-                    
-                    productsZone.appendChild(clone);
-                    draggedProduct.style.display = 'none';
-                    
-                    // Check if at least one product is dropped
-                    if (productsZone.children.length > 0) {
-                        document.getElementById('submitButton').disabled = false;
-                    }
-                }
-            });
-        }
-        
-        // Function to remove reaction product
-        function removeReactionProduct(clone, originalProduct) {
-            const productsZone = document.getElementById('reactionProducts');
-            productsZone.removeChild(clone);
-            originalProduct.style.display = 'block';
-            
-            // Check if all products are removed
-            if (productsZone.children.length === 0) {
-                document.getElementById('submitButton').disabled = true;
-            }
+            document.getElementById('submitButton').disabled = true;
         }
         
         // True/False Selection
@@ -2916,7 +3124,7 @@
                     break;
                     
                 case 'dragdrop':
-                    const droppedItems = document.querySelectorAll('#dropZone .bg-green-100');
+                    const droppedItems = document.querySelectorAll('#dropZone .dropped-item');
                     const userOrder = Array.from(droppedItems).map(item => item.textContent.replace('×', '').trim());
                     isCorrect = JSON.stringify(userOrder) === JSON.stringify(question.correct);
                     answerData = {
@@ -2968,7 +3176,7 @@
                     break;
                     
                 case 'sequence':
-                    const sequenceItems = document.querySelectorAll('#sequenceZone .bg-green-100');
+                    const sequenceItems = document.querySelectorAll('#sequenceZone .dropped-item');
                     const userSequence = Array.from(sequenceItems).map(item => item.textContent.replace('×', '').trim());
                     isCorrect = JSON.stringify(userSequence) === JSON.stringify(question.correct);
                     answerData = {
@@ -3868,7 +4076,6 @@
                             </div>
                             ${group.creatorId === currentUser.uid ? `
                                 <button onclick="showAddAnnouncementModal('${group.id}')" class="btn btn-primary btn-sm mt-2">
-                                    <i class="fas
                                     <i class="fas fa-plus mr-1"></i>
                                     Add Announcement
                                 </button>
