@@ -268,6 +268,15 @@
             background: var(--gray-200);
         }
         
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+        
         .highlight-box {
             background: rgba(79, 70, 229, 0.1);
             border-left: 4px solid var(--primary);
@@ -729,6 +738,56 @@
             min-height: 100px;
         }
         
+        /* Quiz Enhancement Styles */
+        .drag-item, .sequence-item, .reaction-product {
+            cursor: move;
+            user-select: none;
+        }
+        
+        .drag-item:active, .sequence-item:active, .reaction-product:active {
+            cursor: grabbing;
+        }
+        
+        .match-item {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .match-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .match-item.selected {
+            border: 2px solid var(--primary);
+            background: rgba(79, 70, 229, 0.1);
+        }
+        
+        .match-item.matched {
+            border: 2px solid var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+        
+        #dropZone, #sequenceZone {
+            min-height: 120px;
+            transition: all 0.3s ease;
+        }
+        
+        #dropZone.drag-over, #sequenceZone.drag-over {
+            background: rgba(79, 70, 229, 0.1);
+            border-color: var(--primary);
+        }
+        
+        .dropped-item {
+            margin: 0.25rem;
+            display: inline-block;
+        }
+        
+        .reaction-arrow {
+            font-size: 2rem;
+            margin: 0 1rem;
+        }
+        
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -772,7 +831,7 @@
                 <div class="bg-purple-50 p-6 rounded-xl">
                     <i class="fas fa-graduation-cap text-3xl text-purple-600 mb-3"></i>
                     <h3 class="font-semibold">Test</h3>
-                    <p class="text-sm text-gray-600">Quiz yourself</p>
+                    <p class="text-sm text-gray-600">Innovative quiz</p>
                 </div>
             </div>
             
@@ -788,7 +847,6 @@
             </div>
         </div>
     </div>
-
     <!-- Main App -->
     <div id="mainApp" style="display: none;">
         <!-- Sidebar -->
@@ -841,7 +899,6 @@
                 </button>
             </div>
         </nav>
-
         <!-- Main Content -->
         <main class="main-content">
             <!-- Progress Tracker -->
@@ -876,7 +933,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Overview Section -->
             <section id="overview-section" class="content-section">
                 <div class="content-card">
@@ -902,7 +958,6 @@
                     </button>
                 </div>
             </section>
-
             <!-- Elements Section -->
             <section id="elements-section" class="content-section" style="display: none;">
                 <div class="content-card">
@@ -954,7 +1009,6 @@
                     </button>
                 </div>
             </section>
-
             <!-- Properties Section -->
             <section id="properties-section" class="content-section" style="display: none;">
                 <div class="content-card">
@@ -1052,7 +1106,6 @@
                     </button>
                 </div>
             </section>
-
             <!-- Reactions Section -->
             <section id="reactions-section" class="content-section" style="display: none;">
                 <div class="content-card">
@@ -1106,7 +1159,6 @@
                     </button>
                 </div>
             </section>
-
             <!-- Quiz Section -->
             <section id="quiz-section" class="content-section" style="display: none;">
                 <div class="content-card">
@@ -1115,7 +1167,7 @@
                         Test Your Knowledge
                     </h3>
                     <p class="text-gray-600 mb-6">
-                        Take this quiz to test your understanding of Group 1 Alkali Metals.
+                        Take this innovative quiz to test your understanding of Group 1 Alkali Metals.
                     </p>
                     <button onclick="startQuiz()" class="btn btn-primary w-full">
                         <i class="fas fa-play mr-2"></i>
@@ -1123,7 +1175,6 @@
                     </button>
                 </div>
             </section>
-
             <!-- Discussion Section -->
             <section id="discussion-section" class="content-section" style="display: none;">
                 <div class="content-card">
@@ -1148,7 +1199,6 @@
                     </div>
                 </div>
             </section>
-
             <!-- Study Groups Section -->
             <section id="study-groups-section" class="content-section" style="display: none;">
                 <div class="content-card">
@@ -1175,7 +1225,6 @@
             </section>
         </main>
     </div>
-
     <!-- Login Modal -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
@@ -1217,7 +1266,6 @@
             </div>
         </div>
     </div>
-
     <!-- Signup Modal -->
     <div id="signupModal" class="modal">
         <div class="modal-content">
@@ -1256,7 +1304,6 @@
             </div>
         </div>
     </div>
-
     <!-- Create Post Modal -->
     <div id="createPostModal" class="modal">
         <div class="modal-content">
@@ -1287,7 +1334,6 @@
             </form>
         </div>
     </div>
-
     <!-- Create Study Group Modal -->
     <div id="createGroupModal" class="modal">
         <div class="modal-content">
@@ -1336,7 +1382,6 @@
             </form>
         </div>
     </div>
-
     <!-- Quiz Modal -->
     <div id="quizModal" class="modal">
         <div class="modal-content">
@@ -1348,11 +1393,11 @@
             </div>
             <div id="quizProgress" class="mb-4">
                 <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm text-gray-600">Question <span id="currentQuestion">1</span> of <span id="totalQuestions">5</span></span>
+                    <span class="text-sm text-gray-600">Question <span id="currentQuestion">1</span> of <span id="totalQuestions">8</span></span>
                     <span class="text-sm text-gray-600">Score: <span id="currentScore">0</span></span>
                 </div>
                 <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill" style="width: 20%"></div>
+                    <div class="progress-fill" id="progressFill" style="width: 12.5%"></div>
                 </div>
             </div>
             <div id="quizContent">
@@ -1380,7 +1425,7 @@
             <div id="quizResults" class="hidden text-center">
                 <i class="fas fa-trophy text-5xl text-yellow-500 mb-4"></i>
                 <h3 class="text-2xl font-bold mb-3">Quiz Complete!</h3>
-                <div class="text-4xl font-bold text-indigo-600 mb-3" id="finalScore">0/5</div>
+                <div class="text-4xl font-bold text-indigo-600 mb-3" id="finalScore">0/8</div>
                 <p class="text-gray-600 mb-6" id="scoreMessage">Great job!</p>
                 <button onclick="closeQuiz()" class="btn btn-primary">
                     <i class="fas fa-check"></i>
@@ -1389,10 +1434,8 @@
             </div>
         </div>
     </div>
-
     <!-- Toast Container -->
     <div id="toastContainer"></div>
-
     <script>
         // Firebase configuration
         const firebaseConfig = {
@@ -1405,12 +1448,10 @@
             appId: "1:806417495419:web:5b80607e8a23e96da4f9de",
             measurementId: "G-S76E52MQ37"
         };
-
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const database = firebase.database();
-
         // Global variables
         let currentUser = null;
         let userData = null;
@@ -1421,41 +1462,83 @@
         let score = 0;
         let selectedOption = null;
         let answerSubmitted = false;
-
-        // Quiz questions
+        
+        // Enhanced Quiz Questions with Multiple Types
         quizQuestions = [
+            // MCQ Questions
             {
-                question: "What happens to the melting point of Group 1 metals as you go down the group?",
-                options: ["Increases", "Decreases", "Stays the same", "No pattern"],
-                correct: 1,
-                explanation: "The melting point decreases down Group 1 due to increasing atomic size and weaker metallic bonding."
+                type: 'mcq',
+                question: "What is the electron configuration of the outer shell of all Group 1 elements?",
+                options: ["1 electron", "2 electrons", "8 electrons", "Variable number of electrons"],
+                correct: 0,
+                explanation: "All Group 1 elements have one electron in their outer shell, which they readily lose to form +1 ions."
             },
             {
-                question: "Which Group 1 metal has the highest density?",
-                options: ["Lithium", "Sodium", "Potassium", "Cesium"],
-                correct: 3,
-                explanation: "Cesium has the highest density in Group 1 at 1.93 g/cm³."
-            },
-            {
-                question: "What gas is produced when Group 1 metals react with water?",
-                options: ["Oxygen", "Hydrogen", "Nitrogen", "Carbon dioxide"],
+                type: 'mcq',
+                question: "Which of the following statements about the reactivity of Group 1 metals is correct?",
+                options: ["Reactivity decreases down the group", "Reactivity increases down the group", "Reactivity stays the same down the group", "Reactivity is highest for lithium"],
                 correct: 1,
-                explanation: "Group 1 metals react with water to produce hydrogen gas: 2M + 2H₂O → 2MOH + H₂."
+                explanation: "Reactivity increases down Group 1 because the outer electron is further from the nucleus and easier to lose."
             },
+            
+            // Drag and Drop Question
             {
-                question: "Which of these is the correct order of reactivity for Group 1 metals (most reactive first)?",
-                options: ["Li > Na > K", "K > Na > Li", "Na > K > Li", "All equally reactive"],
-                correct: 1,
-                explanation: "Reactivity increases down Group 1: Potassium > Sodium > Lithium."
+                type: 'dragdrop',
+                question: "Arrange these Group 1 metals in order of increasing reactivity (least reactive first):",
+                items: ["Lithium", "Sodium", "Potassium", "Cesium"],
+                correct: ["Lithium", "Sodium", "Potassium", "Cesium"],
+                explanation: "Reactivity increases down the group: Lithium < Sodium < Potassium < Cesium"
             },
+            
+            // Fill in the Blanks
             {
-                question: "What type of oxide does sodium form when burned in oxygen?",
-                options: ["Normal oxide (Na₂O)", "Peroxide (Na₂O₂)", "Superoxide (NaO₂)", "No reaction"],
-                correct: 1,
-                explanation: "Sodium forms the peroxide Na₂O₂ when burned in oxygen."
+                type: 'fillblank',
+                question: "When Group 1 metals react with water, they produce [blank1] gas and metal [blank2].",
+                blanks: [
+                    { id: 'blank1', answer: 'hydrogen', options: ['hydrogen', 'oxygen', 'nitrogen', 'carbon dioxide'] },
+                    { id: 'blank2', answer: 'hydroxides', options: ['hydroxides', 'oxides', 'peroxides', 'carbonates'] }
+                ],
+                explanation: "The general equation is: 2M(s) + 2H₂O(l) → 2MOH(aq) + H₂(g)"
+            },
+            
+            // Matching Question
+            {
+                type: 'matching',
+                question: "Match each element to the oxide it forms when burned in oxygen:",
+                leftItems: ["Lithium", "Sodium", "Potassium"],
+                rightItems: ["Li₂O (oxide)", "Na₂O₂ (peroxide)", "KO₂ (superoxide)"],
+                correct: [0, 1, 2], // Index mapping
+                explanation: "Lithium forms normal oxide, sodium forms peroxide, and potassium forms superoxide."
+            },
+            
+            // True/False with Explanation
+            {
+                type: 'truefalse',
+                question: "The melting point of Group 1 metals increases as you go down the group.",
+                correct: false,
+                explanation: "False. The melting point decreases down Group 1 due to increasing atomic size and weaker metallic bonding."
+            },
+            
+            // Sequence Ordering
+            {
+                type: 'sequence',
+                question: "Order these Group 1 metals from highest to lowest melting point:",
+                items: ["Lithium", "Sodium", "Potassium", "Cesium"],
+                correct: ["Lithium", "Sodium", "Potassium", "Cesium"],
+                explanation: "Melting point decreases down the group: Lithium (180.5°C) > Sodium (97.8°C) > Potassium (63.5°C) > Cesium (28.4°C)"
+            },
+            
+            // Innovative: Reaction Simulator
+            {
+                type: 'reaction',
+                question: "Simulate the reaction of potassium with water by dragging the correct products to the reaction arrow:",
+                reactants: ["K", "H₂O"],
+                products: ["KOH", "H₂", "O₂", "K₂O"],
+                correctProducts: ["KOH", "H₂"],
+                explanation: "Potassium reacts with water: 2K + 2H₂O → 2KOH + H₂"
             }
         ];
-
+        
         // Initialize app
         function initApp() {
             // Check authentication state
@@ -1468,7 +1551,7 @@
                 }
             });
         }
-
+        
         // Load user data from Firebase
         function loadUserData() {
             const userRef = database.ref('users/' + currentUser.uid);
@@ -1498,13 +1581,13 @@
                 showToast('error', 'Error', 'Failed to load your data.');
             });
         }
-
+        
         // Show landing page
         function showLandingPage() {
             document.getElementById('landingPage').style.display = 'flex';
             document.getElementById('mainApp').style.display = 'none';
         }
-
+        
         // Show main app
         function showMainApp() {
             document.getElementById('landingPage').style.display = 'none';
@@ -1521,30 +1604,30 @@
             loadDiscussionPosts();
             loadStudyGroups();
         }
-
+        
         // Authentication functions
         function showLoginModal() {
             document.getElementById('loginModal').classList.add('active');
         }
-
+        
         function closeLoginModal() {
             document.getElementById('loginModal').classList.remove('active');
         }
-
+        
         function showSignup() {
             closeLoginModal();
             document.getElementById('signupModal').classList.add('active');
         }
-
+        
         function showLogin() {
             closeSignupModal();
             document.getElementById('loginModal').classList.add('active');
         }
-
+        
         function closeSignupModal() {
             document.getElementById('signupModal').classList.remove('active');
         }
-
+        
         function signInWithGoogle() {
             const provider = new firebase.auth.GoogleAuthProvider();
             auth.signInWithPopup(provider)
@@ -1557,7 +1640,7 @@
                     showToast('error', 'Sign in failed', error.message);
                 });
         }
-
+        
         function handleEmailLogin(event) {
             event.preventDefault();
             
@@ -1574,7 +1657,7 @@
                     showToast('error', 'Sign in failed', error.message);
                 });
         }
-
+        
         function handleSignup(event) {
             event.preventDefault();
             
@@ -1605,7 +1688,7 @@
                     showToast('error', 'Sign up failed', error.message);
                 });
         }
-
+        
         function signOut() {
             auth.signOut().then(() => {
                 showToast('info', 'Goodbye!', 'You have been successfully signed out.');
@@ -1615,7 +1698,7 @@
                 showToast('error', 'Error', 'Failed to sign out.');
             });
         }
-
+        
         // Navigation functions
         function navigateToSection(sectionName) {
             // Check if section is locked
@@ -1624,53 +1707,53 @@
                 showToast('info', 'Section Locked', 'Please complete previous sections first.');
                 return;
             }
-
+            
             // Hide all sections
             const sections = document.querySelectorAll('.content-section');
             sections.forEach(section => {
                 section.style.display = 'none';
             });
-
+            
             // Show selected section
             document.getElementById(`${sectionName}-section`).style.display = 'block';
-
+            
             // Update active nav item
             const navItems = document.querySelectorAll('.nav-item');
             navItems.forEach(item => {
                 item.classList.remove('active');
             });
             navItem.classList.add('active');
-
+            
             currentSection = sectionName;
         }
-
+        
         function showTab(tabName) {
             // Hide all tab contents
             const tabContents = document.querySelectorAll('.tab-content');
             tabContents.forEach(content => {
                 content.classList.remove('active');
             });
-
+            
             // Remove active class from all tabs
             const tabs = document.querySelectorAll('.tab');
             tabs.forEach(tab => {
                 tab.classList.remove('active');
             });
-
+            
             // Show selected tab content
             document.getElementById(tabName).classList.add('active');
-
+            
             // Add active class to clicked tab
             const activeTab = document.querySelector(`[onclick="showTab('${tabName}')"]`);
             activeTab.classList.add('active');
         }
-
+        
         function completeSection(sectionName) {
             if (completedSections.includes(sectionName)) {
                 showToast('info', 'Already Completed', 'This section is already marked as complete.');
                 return;
             }
-
+            
             completedSections.push(sectionName);
             
             // Save to Firebase
@@ -1696,7 +1779,7 @@
                 });
             }
         }
-
+        
         function updateSectionCompletionStatus() {
             // Update nav items
             const navItems = document.querySelectorAll('.nav-item');
@@ -1707,7 +1790,7 @@
                     item.classList.add('completed');
                 }
             });
-
+            
             // Unlock next sections
             const sectionOrder = ['overview', 'elements', 'properties', 'reactions', 'quiz'];
             sectionOrder.forEach((section, index) => {
@@ -1719,7 +1802,7 @@
                     }
                 }
             });
-
+            
             // Check if all sections are completed to unlock quiz
             const allSectionsCompleted = ['overview', 'elements', 'properties', 'reactions'].every(section => 
                 completedSections.includes(section)
@@ -1732,7 +1815,7 @@
                 }
             }
         }
-
+        
         function updateProgressTracker() {
             const totalSections = 4; // overview, elements, properties, reactions
             const completedCount = completedSections.length;
@@ -1761,8 +1844,8 @@
                 }
             });
         }
-
-        // Quiz functions
+        
+        // Enhanced Quiz Functions
         function startQuiz() {
             currentQuestion = 0;
             score = 0;
@@ -1781,7 +1864,7 @@
             
             loadQuestion();
         }
-
+        
         function loadQuestion() {
             const question = quizQuestions[currentQuestion];
             document.getElementById('questionText').textContent = question.question;
@@ -1789,6 +1872,42 @@
             const optionsContainer = document.getElementById('optionsContainer');
             optionsContainer.innerHTML = '';
             
+            switch(question.type) {
+                case 'mcq':
+                    loadMCQ(question, optionsContainer);
+                    break;
+                case 'dragdrop':
+                    loadDragDrop(question, optionsContainer);
+                    break;
+                case 'fillblank':
+                    loadFillBlank(question, optionsContainer);
+                    break;
+                case 'matching':
+                    loadMatching(question, optionsContainer);
+                    break;
+                case 'truefalse':
+                    loadTrueFalse(question, optionsContainer);
+                    break;
+                case 'sequence':
+                    loadSequence(question, optionsContainer);
+                    break;
+                case 'reaction':
+                    loadReactionSimulator(question, optionsContainer);
+                    break;
+            }
+            
+            document.getElementById('prevButton').classList.toggle('hidden', currentQuestion === 0);
+            document.getElementById('submitButton').style.display = 'inline-flex';
+            document.getElementById('submitButton').disabled = true;
+            document.getElementById('nextButton').classList.add('hidden');
+            document.getElementById('feedback').classList.add('hidden');
+            
+            selectedOption = null;
+            answerSubmitted = false;
+        }
+        
+        // MCQ Loader
+        function loadMCQ(question, container) {
             question.options.forEach((option, index) => {
                 const optionDiv = document.createElement('div');
                 optionDiv.className = 'quiz-option';
@@ -1808,19 +1927,392 @@
                 optionDiv.appendChild(label);
                 
                 optionDiv.onclick = () => selectOption(index);
-                optionsContainer.appendChild(optionDiv);
+                container.appendChild(optionDiv);
+            });
+        }
+        
+        // Drag and Drop Loader
+        function loadDragDrop(question, container) {
+            container.innerHTML = `
+                <div class="mb-4">
+                    <p class="text-sm text-gray-600 mb-2">Drag items to arrange them:</p>
+                    <div id="dragItems" class="flex flex-wrap gap-2 mb-4">
+                        ${question.items.map((item, index) => `
+                            <div class="drag-item bg-blue-100 px-4 py-2 rounded-lg cursor-move" draggable="true" data-index="${index}">
+                                ${item}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div id="dropZone" class="min-h-[100px] border-2 border-dashed border-gray-300 rounded-lg p-4">
+                        <p class="text-gray-400 text-center">Drop items here in order</p>
+                    </div>
+                </div>
+            `;
+            
+            setupDragAndDrop(question);
+        }
+        
+        // Fill in the Blanks Loader
+        function loadFillBlank(question, container) {
+            let html = '<div class="space-y-4">';
+            
+            question.blanks.forEach(blank => {
+                html += `
+                    <div class="mb-3">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">${blank.id.replace('blank', 'Blank ')}:</label>
+                        <select id="${blank.id}" class="form-input w-full">
+                            <option value="">Select an answer</option>
+                            ${blank.options.map(option => `
+                                <option value="${option}">${option}</option>
+                            `).join('')}
+                        </select>
+                    </div>
+                `;
             });
             
-            document.getElementById('prevButton').classList.toggle('hidden', currentQuestion === 0);
-            document.getElementById('submitButton').style.display = 'inline-flex';
-            document.getElementById('submitButton').disabled = true;
-            document.getElementById('nextButton').classList.add('hidden');
-            document.getElementById('feedback').classList.add('hidden');
+            html += '</div>';
+            container.innerHTML = html;
             
-            selectedOption = null;
-            answerSubmitted = false;
+            // Enable submit when all blanks are filled
+            question.blanks.forEach(blank => {
+                document.getElementById(blank.id).addEventListener('change', () => {
+                    const allFilled = question.blanks.every(b => document.getElementById(b.id).value);
+                    document.getElementById('submitButton').disabled = !allFilled;
+                });
+            });
         }
-
+        
+        // Matching Loader
+        function loadMatching(question, container) {
+            container.innerHTML = `
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-semibold mb-3">Elements</h4>
+                        <div class="space-y-2">
+                            ${question.leftItems.map((item, index) => `
+                                <div class="match-item bg-gray-100 p-3 rounded-lg" data-left="${index}">
+                                    ${item}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-3">Oxides</h4>
+                        <div class="space-y-2">
+                            ${question.rightItems.map((item, index) => `
+                                <div class="match-item bg-gray-100 p-3 rounded-lg" data-right="${index}">
+                                    ${item}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4 text-center">
+                    <button onclick="checkMatching()" class="btn btn-primary">Check Matches</button>
+                </div>
+            `;
+            
+            setupMatching(question);
+        }
+        
+        // True/False Loader
+        function loadTrueFalse(question, container) {
+            container.innerHTML = `
+                <div class="flex justify-center gap-6">
+                    <div class="quiz-option text-center" onclick="selectTrueFalse(true)">
+                        <input type="radio" name="tf-option" id="tf-true" value="true">
+                        <label for="tf-true" class="block mt-2">True</label>
+                    </div>
+                    <div class="quiz-option text-center" onclick="selectTrueFalse(false)">
+                        <input type="radio" name="tf-option" id="tf-false" value="false">
+                        <label for="tf-false" class="block mt-2">False</label>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Sequence Loader
+        function loadSequence(question, container) {
+            container.innerHTML = `
+                <div class="mb-4">
+                    <p class="text-sm text-gray-600 mb-2">Drag items to arrange them in order:</p>
+                    <div id="sequenceItems" class="flex flex-wrap gap-2 mb-4">
+                        ${question.items.map((item, index) => `
+                            <div class="sequence-item bg-purple-100 px-4 py-2 rounded-lg cursor-move" draggable="true" data-index="${index}">
+                                ${item}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div id="sequenceZone" class="min-h-[100px] border-2 border-dashed border-gray-300 rounded-lg p-4">
+                        <p class="text-gray-400 text-center">Drop items here in sequence</p>
+                    </div>
+                </div>
+            `;
+            
+            setupSequence(question);
+        }
+        
+        // Reaction Simulator Loader
+        function loadReactionSimulator(question, container) {
+            container.innerHTML = `
+                <div class="text-center mb-6">
+                    <div class="flex items-center justify-center gap-4 mb-4">
+                        <div class="bg-blue-100 px-4 py-2 rounded-lg">${question.reactants[0]}</div>
+                        <div class="text-2xl">+</div>
+                        <div class="bg-blue-100 px-4 py-2 rounded-lg">${question.reactants[1]}</div>
+                        <div class="text-2xl">→</div>
+                        <div id="reactionProducts" class="flex gap-2 min-w-[200px] min-h-[40px] border-2 border-dashed border-gray-300 rounded-lg p-2">
+                            <!-- Products will be dropped here -->
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Drag the correct products to the arrow:</p>
+                    <div class="flex flex-wrap justify-center gap-2">
+                        ${question.products.map(product => `
+                            <div class="reaction-product bg-green-100 px-3 py-1 rounded-lg cursor-move" draggable="true" data-product="${product}">
+                                ${product}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            setupReactionSimulator(question);
+        }
+        
+        // Drag and Drop Setup
+        function setupDragAndDrop(question) {
+            const dragItems = document.querySelectorAll('.drag-item');
+            const dropZone = document.getElementById('dropZone');
+            let draggedItem = null;
+            
+            dragItems.forEach(item => {
+                item.addEventListener('dragstart', (e) => {
+                    draggedItem = e.target;
+                    e.target.style.opacity = '0.5';
+                });
+                
+                item.addEventListener('dragend', (e) => {
+                    e.target.style.opacity = '';
+                });
+            });
+            
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('drag-over');
+            });
+            
+            dropZone.addEventListener('dragleave', () => {
+                dropZone.classList.remove('drag-over');
+            });
+            
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('drag-over');
+                
+                if (draggedItem) {
+                    const clone = draggedItem.cloneNode(true);
+                    clone.classList.remove('bg-blue-100');
+                    clone.classList.add('bg-green-100');
+                    clone.draggable = false;
+                    clone.style.cursor = 'default';
+                    
+                    if (dropZone.children.length === 1 && dropZone.children[0].tagName === 'P') {
+                        dropZone.innerHTML = '';
+                    }
+                    
+                    dropZone.appendChild(clone);
+                    draggedItem.style.display = 'none';
+                    
+                    // Enable submit if all items are dropped
+                    const droppedItems = dropZone.querySelectorAll('.drag-item, .bg-green-100');
+                    if (droppedItems.length === question.items.length) {
+                        document.getElementById('submitButton').disabled = false;
+                    }
+                }
+            });
+        }
+        
+        // Matching Setup
+        function setupMatching(question) {
+            const leftItems = document.querySelectorAll('[data-left]');
+            const rightItems = document.querySelectorAll('[data-right]');
+            let selectedLeft = null;
+            let selectedRight = null;
+            let matches = {};
+            
+            leftItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    if (selectedLeft) {
+                        selectedLeft.classList.remove('selected');
+                    }
+                    selectedLeft = item;
+                    item.classList.add('selected');
+                    
+                    if (selectedRight) {
+                        matches[selectedLeft.dataset.left] = selectedRight.dataset.right;
+                        selectedLeft.classList.remove('selected');
+                        selectedLeft.classList.add('matched');
+                        selectedRight.classList.remove('selected');
+                        selectedRight.classList.add('matched');
+                        selectedLeft = null;
+                        selectedRight = null;
+                        
+                        // Check if all matches are made
+                        if (Object.keys(matches).length === question.leftItems.length) {
+                            document.getElementById('submitButton').disabled = false;
+                        }
+                    }
+                });
+            });
+            
+            rightItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    if (selectedRight) {
+                        selectedRight.classList.remove('selected');
+                    }
+                    selectedRight = item;
+                    item.classList.add('selected');
+                    
+                    if (selectedLeft) {
+                        matches[selectedLeft.dataset.left] = selectedRight.dataset.right;
+                        selectedLeft.classList.remove('selected');
+                        selectedLeft.classList.add('matched');
+                        selectedRight.classList.remove('selected');
+                        selectedRight.classList.add('matched');
+                        selectedLeft = null;
+                        selectedRight = null;
+                        
+                        // Check if all matches are made
+                        if (Object.keys(matches).length === question.leftItems.length) {
+                            document.getElementById('submitButton').disabled = false;
+                        }
+                    }
+                });
+            });
+            
+            window.checkMatching = () => {
+                // This will be used in submitAnswer
+            };
+        }
+        
+        // Sequence Setup
+        function setupSequence(question) {
+            const sequenceItems = document.querySelectorAll('.sequence-item');
+            const sequenceZone = document.getElementById('sequenceZone');
+            let draggedItem = null;
+            
+            sequenceItems.forEach(item => {
+                item.addEventListener('dragstart', (e) => {
+                    draggedItem = e.target;
+                    e.target.style.opacity = '0.5';
+                });
+                
+                item.addEventListener('dragend', (e) => {
+                    e.target.style.opacity = '';
+                });
+            });
+            
+            sequenceZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                sequenceZone.classList.add('drag-over');
+            });
+            
+            sequenceZone.addEventListener('dragleave', () => {
+                sequenceZone.classList.remove('drag-over');
+            });
+            
+            sequenceZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                sequenceZone.classList.remove('drag-over');
+                
+                if (draggedItem) {
+                    const clone = draggedItem.cloneNode(true);
+                    clone.classList.remove('bg-purple-100');
+                    clone.classList.add('bg-green-100');
+                    clone.draggable = false;
+                    clone.style.cursor = 'default';
+                    
+                    if (sequenceZone.children.length === 1 && sequenceZone.children[0].tagName === 'P') {
+                        sequenceZone.innerHTML = '';
+                    }
+                    
+                    sequenceZone.appendChild(clone);
+                    draggedItem.style.display = 'none';
+                    
+                    // Enable submit if all items are dropped
+                    const droppedItems = sequenceZone.querySelectorAll('.sequence-item, .bg-green-100');
+                    if (droppedItems.length === question.items.length) {
+                        document.getElementById('submitButton').disabled = false;
+                    }
+                }
+            });
+        }
+        
+        // Reaction Simulator Setup
+        function setupReactionSimulator(question) {
+            const reactionProducts = document.querySelectorAll('.reaction-product');
+            const productsZone = document.getElementById('reactionProducts');
+            let draggedProduct = null;
+            
+            reactionProducts.forEach(product => {
+                product.addEventListener('dragstart', (e) => {
+                    draggedProduct = e.target;
+                    e.target.style.opacity = '0.5';
+                });
+                
+                product.addEventListener('dragend', (e) => {
+                    e.target.style.opacity = '';
+                });
+            });
+            
+            productsZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                productsZone.style.backgroundColor = '#f0f9ff';
+            });
+            
+            productsZone.addEventListener('dragleave', () => {
+                productsZone.style.backgroundColor = '';
+            });
+            
+            productsZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                productsZone.style.backgroundColor = '';
+                
+                if (draggedProduct) {
+                    const clone = draggedProduct.cloneNode(true);
+                    clone.classList.remove('bg-green-100');
+                    clone.classList.add('bg-blue-200');
+                    clone.draggable = false;
+                    clone.style.cursor = 'default';
+                    
+                    productsZone.appendChild(clone);
+                    draggedProduct.style.display = 'none';
+                    
+                    // Check if at least one product is dropped
+                    if (productsZone.children.length > 0) {
+                        document.getElementById('submitButton').disabled = false;
+                    }
+                }
+            });
+        }
+        
+        // True/False Selection
+        function selectTrueFalse(value) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(option => {
+                option.classList.remove('selected');
+                const input = option.querySelector('input');
+                input.checked = false;
+            });
+            
+            const selectedOption = value ? document.getElementById('tf-true').parentElement : document.getElementById('tf-false').parentElement;
+            selectedOption.classList.add('selected');
+            selectedOption.querySelector('input').checked = true;
+            
+            selectedOption = value;
+            document.getElementById('submitButton').disabled = false;
+        }
+        
         function selectOption(index) {
             if (answerSubmitted) return;
             
@@ -1837,13 +2329,53 @@
             selectedOption = index;
             document.getElementById('submitButton').disabled = false;
         }
-
+        
+        // Enhanced Submit Answer Function
         function submitAnswer() {
             if (answerSubmitted) return;
             
             const question = quizQuestions[currentQuestion];
-            const isCorrect = selectedOption === question.correct;
+            let isCorrect = false;
             const feedback = document.getElementById('feedback');
+            
+            switch(question.type) {
+                case 'mcq':
+                    isCorrect = selectedOption === question.correct;
+                    break;
+                    
+                case 'dragdrop':
+                    const droppedItems = document.querySelectorAll('#dropZone .bg-green-100');
+                    const userOrder = Array.from(droppedItems).map(item => item.textContent);
+                    isCorrect = JSON.stringify(userOrder) === JSON.stringify(question.correct);
+                    break;
+                    
+                case 'fillblank':
+                    isCorrect = question.blanks.every(blank => 
+                        document.getElementById(blank.id).value === blank.answer
+                    );
+                    break;
+                    
+                case 'matching':
+                    const leftMatches = document.querySelectorAll('[data-left].matched');
+                    isCorrect = leftMatches.length === question.leftItems.length;
+                    break;
+                    
+                case 'truefalse':
+                    isCorrect = selectedOption === question.correct;
+                    break;
+                    
+                case 'sequence':
+                    const sequenceItems = document.querySelectorAll('#sequenceZone .bg-green-100');
+                    const userSequence = Array.from(sequenceItems).map(item => item.textContent);
+                    isCorrect = JSON.stringify(userSequence) === JSON.stringify(question.correct);
+                    break;
+                    
+                case 'reaction':
+                    const products = document.querySelectorAll('#reactionProducts .bg-blue-200');
+                    const userProducts = Array.from(products).map(item => item.dataset.product);
+                    isCorrect = JSON.stringify(userProducts.sort()) === JSON.stringify(question.correctProducts.sort());
+                    break;
+            }
             
             if (isCorrect) {
                 feedback.className = 'mb-4 p-3 rounded-lg bg-green-100 text-green-800 text-sm';
@@ -1860,15 +2392,8 @@
             document.getElementById('currentScore').textContent = score;
             
             answerSubmitted = true;
-            
-            // Show correct answers
-            const options = document.querySelectorAll('.quiz-option');
-            options[question.correct].classList.add('correct');
-            if (selectedOption !== null && selectedOption !== question.correct) {
-                options[selectedOption].classList.add('incorrect');
-            }
         }
-
+        
         function nextQuestion() {
             currentQuestion++;
             
@@ -1881,7 +2406,7 @@
             document.getElementById('progressFill').style.width = ((currentQuestion + 1) / quizQuestions.length * 100) + '%';
             loadQuestion();
         }
-
+        
         function previousQuestion() {
             if (currentQuestion > 0) {
                 currentQuestion--;
@@ -1890,7 +2415,7 @@
                 loadQuestion();
             }
         }
-
+        
         function showResults() {
             document.getElementById('quizProgress').style.display = 'none';
             document.getElementById('quizContent').style.display = 'none';
@@ -1912,11 +2437,11 @@
             
             document.getElementById('scoreMessage').textContent = message;
         }
-
+        
         function closeQuiz() {
             document.getElementById('quizModal').classList.remove('active');
         }
-
+        
         // Discussion functions
         function showCreatePostModal() {
             if (!currentUser) {
@@ -1926,12 +2451,12 @@
             }
             document.getElementById('createPostModal').classList.add('active');
         }
-
+        
         function closeCreatePostModal() {
             document.getElementById('createPostModal').classList.remove('active');
             document.getElementById('createPostForm').reset();
         }
-
+        
         function handleCreatePost(event) {
             event.preventDefault();
             
@@ -1966,7 +2491,7 @@
                 showToast('error', 'Error', 'Failed to create post.');
             });
         }
-
+        
         function loadDiscussionPosts() {
             const postsContainer = document.getElementById('discussionPosts');
             postsContainer.innerHTML = '<div class="spinner"></div>';
@@ -2009,7 +2534,7 @@
                 postsContainer.innerHTML = '<p class="text-gray-500 text-center">Error loading posts.</p>';
             });
         }
-
+        
         function createDiscussionPostElement(post) {
             const postDiv = document.createElement('div');
             postDiv.className = 'discussion-post';
@@ -2072,7 +2597,7 @@
             
             return postDiv;
         }
-
+        
         function togglePostVote(postId, voteType) {
             if (!currentUser) {
                 showToast('error', 'Sign in required', 'Please sign in to vote on posts.');
@@ -2142,7 +2667,7 @@
                 showToast('error', 'Error', 'Failed to vote on post.');
             });
         }
-
+        
         function deletePost(postId) {
             if (!confirm('Are you sure you want to delete this post?')) {
                 return;
@@ -2156,7 +2681,7 @@
                 showToast('error', 'Error', 'Failed to delete post.');
             });
         }
-
+        
         function toggleComments(postId) {
             const commentsSection = document.getElementById(`comments-${postId}`);
             if (commentsSection.style.display === 'none') {
@@ -2170,7 +2695,7 @@
                 commentsSection.style.display = 'none';
             }
         }
-
+        
         function loadPostComments(postId) {
             const commentsContainer = document.getElementById(`comments-list-${postId}`);
             if (!commentsContainer) return;
@@ -2200,7 +2725,7 @@
                 });
             });
         }
-
+        
         function createCommentElement(comment) {
             const commentDiv = document.createElement('div');
             commentDiv.className = 'comment';
@@ -2228,7 +2753,7 @@
             
             return commentDiv;
         }
-
+        
         function addComment(event, postId) {
             event.preventDefault();
             
@@ -2272,7 +2797,7 @@
                 showToast('error', 'Error', 'Failed to post comment.');
             });
         }
-
+        
         function deleteComment(commentId, postId) {
             if (!confirm('Are you sure you want to delete this comment?')) {
                 return;
@@ -2295,7 +2820,7 @@
                 showToast('error', 'Error', 'Failed to delete comment.');
             });
         }
-
+        
         // Study Groups functions
         function showCreateGroupModal() {
             if (!currentUser) {
@@ -2305,12 +2830,12 @@
             }
             document.getElementById('createGroupModal').classList.add('active');
         }
-
+        
         function closeCreateGroupModal() {
             document.getElementById('createGroupModal').classList.remove('active');
             document.getElementById('createGroupForm').reset();
         }
-
+        
         function handleCreateGroup(event) {
             event.preventDefault();
             
@@ -2346,7 +2871,7 @@
                 showToast('error', 'Error', 'Failed to create study group.');
             });
         }
-
+        
         function loadStudyGroups() {
             const groupsContainer = document.getElementById('studyGroupsList');
             groupsContainer.innerHTML = '<div class="spinner"></div>';
@@ -2384,7 +2909,7 @@
                 groupsContainer.innerHTML = '<p class="text-gray-500 text-center">Error loading study groups.</p>';
             });
         }
-
+        
         function createStudyGroupElement(group) {
             const groupDiv = document.createElement('div');
             groupDiv.className = 'study-group-card';
@@ -2443,7 +2968,7 @@
             
             return groupDiv;
         }
-
+        
         function joinStudyGroup(groupId) {
             if (!currentUser) {
                 showToast('error', 'Sign in required', 'Please sign in to join study groups.');
@@ -2487,7 +3012,7 @@
                 showToast('error', 'Error', 'Failed to join study group.');
             });
         }
-
+        
         function leaveStudyGroup(groupId) {
             if (!currentUser) {
                 showToast('error', 'Sign in required', 'Please sign in to leave study groups.');
@@ -2518,7 +3043,7 @@
                 showToast('error', 'Error', 'Failed to leave study group.');
             });
         }
-
+        
         // Toast notification function
         function showToast(type, title, message) {
             const toastContainer = document.getElementById('toastContainer');
@@ -2555,7 +3080,7 @@
                 }, 300);
             }, 3000);
         }
-
+        
         // Initialize the app when DOM is ready
         document.addEventListener('DOMContentLoaded', initApp);
     </script>
