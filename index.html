@@ -377,52 +377,6 @@
             max-width: 800px;
         }
         
-        .quiz-option {
-            padding: 1rem;
-            border: 2px solid var(--gray-200);
-            border-radius: 0.5rem;
-            margin: 0.75rem 0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: white;
-            display: flex;
-            align-items: center;
-        }
-        
-        .quiz-option:hover {
-            border-color: var(--primary);
-            background: rgba(79, 70, 229, 0.1);
-        }
-        
-        .quiz-option.selected {
-            border-color: var(--primary);
-            background: rgba(79, 70, 229, 0.1);
-        }
-        
-        .quiz-option.correct {
-            border-color: var(--success);
-            background: rgba(16, 185, 129, 0.1);
-        }
-        
-        .quiz-option.incorrect {
-            border-color: var(--danger);
-            background: rgba(239, 68, 68, 0.1);
-        }
-        
-        .quiz-option.disabled {
-            pointer-events: none;
-            opacity: 0.7;
-        }
-        
-        .quiz-option input {
-            margin-right: 1rem;
-        }
-        
-        .quiz-option label {
-            cursor: pointer;
-            flex: 1;
-        }
-        
         .toast {
             position: fixed;
             bottom: 20px;
@@ -486,701 +440,184 @@
             color: var(--gray-600);
         }
         
-        /* Discussion Styles */
-        .discussion-post {
-            background: white;
-            border-radius: 0.75rem;
-            padding: 1.25rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            transition: all 0.2s ease;
-        }
-        
-        .discussion-post:hover {
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        .post-header {
+        /* Quiz Styles */
+        .quiz-container {
             display: flex;
-            align-items: center;
-            margin-bottom: 0.75rem;
+            flex-direction: column;
+            gap: 2rem;
         }
         
-        .post-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            margin-right: 0.75rem;
-        }
-        
-        .post-meta {
-            flex: 1;
-        }
-        
-        .post-author {
-            font-weight: 600;
-            color: var(--gray-800);
-        }
-        
-        .post-time {
-            font-size: 0.875rem;
-            color: var(--gray-500);
-        }
-        
-        .post-title {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: var(--gray-900);
-            margin-bottom: 0.5rem;
-        }
-        
-        .post-content {
-            color: var(--gray-700);
-            line-height: 1.5;
-            margin-bottom: 0.75rem;
-        }
-        
-        .post-actions {
-            display: flex;
-            gap: 1rem;
-            padding-top: 0.75rem;
-            border-top: 1px solid var(--gray-200);
-        }
-        
-        .post-action {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--gray-500);
-            cursor: pointer;
-            transition: color 0.2s ease;
-            font-size: 0.875rem;
-        }
-        
-        .post-action:hover {
-            color: var(--primary);
-        }
-        
-        .post-action.voted {
-            color: var(--primary);
-        }
-        
-        .comments-section {
-            margin-top: 1rem;
-            padding-left: 1rem;
-            border-left: 3px solid var(--gray-200);
-        }
-        
-        .comment {
+        .quiz-question {
             background: var(--gray-50);
-            border-radius: 0.5rem;
-            padding: 0.75rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .comment-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 0.5rem;
-        }
-        
-        .comment-avatar {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: var(--gray-400);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-right: 0.5rem;
-        }
-        
-        .comment-author {
-            font-weight: 500;
-            color: var(--gray-700);
-            font-size: 0.875rem;
-        }
-        
-        .comment-time {
-            font-size: 0.75rem;
-            color: var(--gray-500);
-            margin-left: 0.5rem;
-        }
-        
-        .comment-content {
-            color: var(--gray-600);
-            font-size: 0.875rem;
-            line-height: 1.4;
-        }
-        
-        /* Study Group Styles */
-        .study-group-card {
-            background: white;
             border-radius: 0.75rem;
-            padding: 1.25rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            transition: all 0.2s ease;
-            position: relative;
+            padding: 1.5rem;
+            border: 1px solid var(--gray-200);
         }
         
-        .study-group-card:hover {
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        .group-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 0.75rem;
-        }
-        
-        .group-title {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: var(--gray-900);
-        }
-        
-        .group-topic {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            margin-top: 0.25rem;
-        }
-        
-        .group-description {
-            color: var(--gray-700);
-            line-height: 1.5;
-            margin-bottom: 0.75rem;
-        }
-        
-        .group-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.75rem;
-        }
-        
-        .group-members {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .member-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 0.75rem;
-            border: 2px solid white;
-        }
-        
-        .group-stats {
-            font-size: 0.875rem;
-            color: var(--gray-500);
-        }
-        
-        .group-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-        
-        .empty-state {
-            text-align: center;
-            padding: 3rem 1rem;
-            color: var(--gray-500);
-        }
-        
-        .empty-state-icon {
-            font-size: 3rem;
-            color: var(--gray-300);
-            margin-bottom: 1rem;
-        }
-        
-        .empty-state-title {
+        .quiz-question h3 {
             font-size: 1.25rem;
             font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
-        .form-group {
             margin-bottom: 1rem;
+            color: var(--gray-800);
         }
         
-        .form-label {
-            display: block;
-            font-weight: 500;
-            color: var(--gray-700);
-            margin-bottom: 0.5rem;
-        }
-        
-        .form-input {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid var(--gray-300);
-            border-radius: 0.5rem;
-            font-size: 1rem;
-            transition: border-color 0.2s ease;
-        }
-        
-        .form-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-        }
-        
-        .form-textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-        
-        /* Quiz Enhancement Styles */
-        /* Interactive Lab Simulation Styles */
-        .lab-container {
-            background: linear-gradient(to bottom, #e0f2fe, #f0f9ff);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            position: relative;
-            min-height: 300px;
-            border: 2px solid #bae6fd;
-            overflow: hidden;
-        }
-        
-        .lab-bench {
-            background: #9ca3af;
-            height: 80px;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            border-top: 3px solid #6b7280;
-        }
-        
-        .lab-equipment {
-            position: absolute;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        
-        .lab-equipment:hover {
-            transform: translateY(-5px);
-        }
-        
-        .beaker {
-            width: 80px;
-            height: 100px;
-            background: rgba(255, 255, 255, 0.7);
-            border: 2px solid #9ca3af;
-            border-radius: 0 0 20px 20px;
-            bottom: 80px;
-            left: 50px;
-            overflow: hidden;
-        }
-        
-        .beaker-water {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 60%;
-            background: rgba(59, 130, 246, 0.3);
-            border-radius: 0 0 18px 18px;
-        }
-        
-        .metal-sample {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            position: absolute;
-            bottom: 180px;
-            left: 150px;
-            cursor: grab;
-            transition: all 0.3s ease;
+        .drag-drop-area {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: white;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            justify-content: space-between;
+            gap: 2rem;
+            margin-top: 1.5rem;
         }
         
-        .metal-sample.lithium {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-        }
-        
-        .metal-sample.sodium {
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-        }
-        
-        .metal-sample.potassium {
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-        }
-        
-        .reaction-bubble {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            animation: bubble 2s infinite ease-in-out;
-        }
-        
-        @keyframes bubble {
-            0% {
-                transform: translateY(0) scale(0.5);
-                opacity: 0.7;
-            }
-            100% {
-                transform: translateY(-100px) scale(1.2);
-                opacity: 0;
-            }
-        }
-        
-        .lab-controls {
+        .drag-column, .drop-column {
+            flex: 1;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             gap: 1rem;
-            margin-top: 1rem;
         }
         
-        .lab-instruction {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 0.75rem;
-            border-radius: 0.5rem;
-            margin-bottom: 1rem;
+        .column-title {
+            font-weight: 600;
             text-align: center;
+            padding: 0.5rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 0.5rem;
+        }
+        
+        .draggable-item {
+            background: white;
+            border: 2px solid var(--gray-300);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+            cursor: grab;
+            transition: all 0.2s ease;
             font-weight: 500;
         }
         
-        .observation-panel {
-            background: white;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin-top: 1rem;
-            border: 1px solid #e5e7eb;
+        .draggable-item:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
-        .observation-title {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--gray-800);
+        .draggable-item.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
         }
         
-        .observation-text {
-            color: var(--gray-600);
-            font-style: italic;
-        }
-        
-        /* Chemical Equation Balancer Styles */
-        .equation-balancer {
-            background: white;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-        
-        .equation-display {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin: 1.5rem 0;
-            padding: 1rem;
+        .drop-zone {
             background: var(--gray-100);
+            border: 2px dashed var(--gray-300);
             border-radius: 0.5rem;
+            padding: 1rem;
             min-height: 80px;
-        }
-        
-        .equation-term {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-        
-        .coefficient {
-            width: 40px;
-            height: 40px;
-            border-radius: 0.5rem;
-            border: 2px solid var(--gray-300);
-            background: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: var(--gray-800);
-        }
-        
-        .coefficient.correct {
-            border-color: var(--success);
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--success);
-        }
-        
-        .chemical {
-            font-family: 'Courier New', monospace;
-            font-weight: 600;
-            font-size: 1.2rem;
-            color: var(--gray-800);
-        }
-        
-        .plus-sign, .arrow {
-            font-size: 1.5rem;
-            color: var(--gray-600);
-            margin: 0 0.5rem;
-        }
-        
-        .coefficient-controls {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        
-        .coefficient-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: 1px solid var(--gray-300);
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
+            text-align: center;
             transition: all 0.2s ease;
         }
         
-        .coefficient-btn:hover {
-            background: var(--gray-100);
+        .drop-zone.drag-over {
             border-color: var(--primary);
-            color: var(--primary);
+            background: rgba(79, 70, 229, 0.1);
         }
         
-        .equation-status {
-            text-align: center;
-            margin-top: 1rem;
-            font-weight: 500;
-            padding: 0.5rem;
-            border-radius: 0.5rem;
-        }
-        
-        .equation-status.balanced {
+        .drop-zone.correct {
+            border-color: var(--success);
             background: rgba(16, 185, 129, 0.1);
+        }
+        
+        .drop-zone.incorrect {
+            border-color: var(--danger);
+            background: rgba(239, 68, 68, 0.1);
+        }
+        
+        .quiz-feedback {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            display: none;
+        }
+        
+        .quiz-feedback.show {
+            display: block;
+        }
+        
+        .quiz-feedback.correct {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
             color: var(--success);
         }
         
-        .equation-status.unbalanced {
+        .quiz-feedback.incorrect {
             background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger);
             color: var(--danger);
         }
         
-        /* Enhanced Discussion and Study Group Styles */
-        .discussion-controls {
+        .quiz-controls {
             display: flex;
             justify-content: space-between;
+            margin-top: 1.5rem;
+        }
+        
+        .quiz-score {
+            display: flex;
             align-items: center;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            gap: 1rem;
+            gap: 0.5rem;
+            font-weight: 600;
         }
         
-        .search-box {
-            position: relative;
-            flex: 1;
-            min-width: 250px;
+        .quiz-score i {
+            color: var(--warning);
         }
         
-        .search-box input {
-            width: 100%;
-            padding: 0.75rem 1rem 0.75rem 2.5rem;
-            border: 1px solid var(--gray-300);
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
+        .quiz-results {
+            text-align: center;
+            padding: 2rem;
         }
         
-        .search-box i {
-            position: absolute;
-            left: 0.75rem;
-            top: 50%;
-            transform: translateY(-50%);
+        .quiz-results h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .quiz-results .score-display {
+            font-size: 3rem;
+            font-weight: 800;
+            margin: 1rem 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .quiz-results .trophy {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .quiz-results .trophy.gold {
+            color: #FFD700;
+        }
+        
+        .quiz-results .trophy.silver {
+            color: #C0C0C0;
+        }
+        
+        .quiz-results .trophy.bronze {
+            color: #CD7F32;
+        }
+        
+        .quiz-results .trophy.none {
             color: var(--gray-400);
         }
         
-        .filter-buttons {
-            display: flex;
-            gap: 0.5rem;
-        }
-        
-        .filter-btn {
-            padding: 0.5rem 1rem;
-            border: 1px solid var(--gray-300);
-            border-radius: 0.25rem;
-            background: white;
+        .quiz-results .message {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
             color: var(--gray-700);
-            font-size: 0.875rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .filter-btn:hover {
-            background: var(--gray-100);
-        }
-        
-        .filter-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-        
-        .post-tag {
-            display: inline-block;
-            background: var(--gray-100);
-            color: var(--gray-700);
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            font-size: 0.75rem;
-            margin-right: 0.5rem;
-        }
-        
-        .post-tag:hover {
-            background: var(--gray-200);
-        }
-        
-        .group-chat {
-            background: var(--gray-50);
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin-top: 1rem;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-        
-        .chat-message {
-            margin-bottom: 0.75rem;
-            padding: 0.5rem;
-            border-radius: 0.5rem;
-            background: white;
-        }
-        
-        .chat-message.own {
-            background: var(--primary);
-            color: white;
-            margin-left: 2rem;
-        }
-        
-        .chat-input {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 0.75rem;
-        }
-        
-        .chat-input input {
-            flex: 1;
-            padding: 0.5rem;
-            border: 1px solid var(--gray-300);
-            border-radius: 0.25rem;
-            font-size: 0.875rem;
-        }
-        
-        .group-announcement {
-            background: rgba(79, 70, 229, 0.1);
-            border-left: 3px solid var(--primary);
-            padding: 0.75rem;
-            border-radius: 0.25rem;
-            margin-bottom: 0.75rem;
-        }
-        
-        .group-announcement h5 {
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-            color: var(--primary);
-        }
-        
-        .group-announcement p {
-            font-size: 0.875rem;
-            color: var(--gray-700);
-        }
-        
-        .resource-item {
-            display: flex;
-            align-items: center;
-            padding: 0.5rem;
-            border: 1px solid var(--gray-200);
-            border-radius: 0.25rem;
-            margin-bottom: 0.5rem;
-            background: white;
-            transition: all 0.2s ease;
-        }
-        
-        .resource-item:hover {
-            border-color: var(--primary);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .resource-icon {
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--gray-100);
-            border-radius: 0.25rem;
-            margin-right: 0.75rem;
-            color: var(--primary);
-        }
-        
-        .resource-info {
-            flex: 1;
-        }
-        
-        .resource-name {
-            font-weight: 500;
-            font-size: 0.875rem;
-            color: var(--gray-800);
-        }
-        
-        .resource-meta {
-            font-size: 0.75rem;
-            color: var(--gray-500);
-        }
-        
-        .resource-actions {
-            display: flex;
-            gap: 0.25rem;
-        }
-        
-        .resource-btn {
-            padding: 0.25rem 0.5rem;
-            background: transparent;
-            border: none;
-            color: var(--gray-500);
-            cursor: pointer;
-            border-radius: 0.25rem;
-            transition: all 0.2s ease;
-        }
-        
-        .resource-btn:hover {
-            background: var(--gray-100);
-            color: var(--primary);
         }
         
         @media (max-width: 768px) {
@@ -1200,13 +637,8 @@
                 grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             }
             
-            .discussion-controls {
+            .drag-drop-area {
                 flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .search-box {
-                min-width: auto;
             }
         }
     </style>
@@ -1571,7 +1003,7 @@
                         Test Your Knowledge
                     </h3>
                     <p class="text-gray-600 mb-6">
-                        Take this innovative quiz to test your understanding of Group 1 Alkali Metals.
+                        Take this interactive quiz to test your understanding of Group 1 Alkali Metals.
                     </p>
                     <button onclick="startQuiz()" class="btn btn-primary w-full">
                         <i class="fas fa-play mr-2"></i>
@@ -1591,19 +1023,6 @@
                             <i class="fas fa-plus mr-2"></i>
                             New Post
                         </button>
-                    </div>
-                    
-                    <!-- Discussion Controls -->
-                    <div class="discussion-controls">
-                        <div class="search-box">
-                            <i class="fas fa-search"></i>
-                            <input type="text" id="discussionSearch" placeholder="Search discussions..." onkeyup="filterDiscussions()">
-                        </div>
-                        <div class="filter-buttons">
-                            <button class="filter-btn active" onclick="sortDiscussions('newest')">Newest</button>
-                            <button class="filter-btn" onclick="sortDiscussions('oldest')">Oldest</button>
-                            <button class="filter-btn" onclick="sortDiscussions('popular')">Most Popular</button>
-                        </div>
                     </div>
                     
                     <div id="discussionPosts">
@@ -1753,37 +1172,6 @@
             </form>
         </div>
     </div>
-    <!-- Edit Post Modal -->
-    <div id="editPostModal" class="modal">
-        <div class="modal-content">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold text-gray-800">Edit Post</h2>
-                <button onclick="closeEditPostModal()" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
-            </div>
-            
-            <form id="editPostForm" class="space-y-4" onsubmit="handleEditPost(event)">
-                <input type="hidden" id="editPostId">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
-                    <input type="text" id="editPostTitle" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter post title" required>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Content</label>
-                    <textarea id="editPostContent" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 form-textarea" placeholder="What would you like to discuss?" required></textarea>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Tags (comma separated)</label>
-                    <input type="text" id="editPostTags" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., melting-point, reactivity, questions">
-                </div>
-                <button type="submit" class="btn btn-primary w-full">
-                    <i class="fas fa-save mr-2"></i>
-                    Save Changes
-                </button>
-            </form>
-        </div>
-    </div>
     <!-- Create Study Group Modal -->
     <div id="createGroupModal" class="modal">
         <div class="modal-content">
@@ -1832,66 +1220,40 @@
             </form>
         </div>
     </div>
-    <!-- Study Group Details Modal -->
-    <div id="groupDetailsModal" class="modal modal-lg">
-        <div class="modal-content">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold text-gray-800" id="groupDetailsTitle">Study Group Details</h2>
-                <button onclick="closeGroupDetailsModal()" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
-            </div>
-            
-            <div id="groupDetailsContent">
-                <!-- Group details will be loaded here -->
-            </div>
-        </div>
-    </div>
     <!-- Quiz Modal -->
-    <div id="quizModal" class="modal quiz-modal">
-        <div class="modal-content">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold text-gray-800">Group 1 Quiz</h2>
+    <div id="quizModal" class="modal">
+        <div class="modal-content modal-lg">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Group 1 Alkali Metals Quiz</h2>
                 <button onclick="closeQuiz()" class="text-gray-500 hover:text-gray-700">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
-            <div id="quizProgress" class="mb-4">
+            
+            <div id="quizProgress" class="mb-6">
                 <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm text-gray-600">Question <span id="currentQuestion">1</span> of <span id="totalQuestions">8</span></span>
-                    <span class="text-sm text-gray-600">Score: <span id="currentScore">0</span></span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill" style="width: 12.5%"></div>
-                </div>
-            </div>
-            <div id="quizContent">
-                <div class="mb-6">
-                    <h3 class="text-lg font-semibold mb-4" id="questionText">Loading question...</h3>
-                    <div id="optionsContainer"></div>
-                </div>
-                <div id="feedback" class="hidden mb-4 p-3 rounded-lg text-sm"></div>
-                <div class="flex justify-between items-center">
-                    <button id="prevButton" class="btn btn-secondary hidden" onclick="previousQuestion()">
-                        <i class="fas fa-arrow-left"></i>
-                        Previous
-                    </button>
-                    <div class="flex gap-2">
-                        <button id="submitButton" class="btn btn-primary" onclick="submitAnswer()">
-                            Submit Answer
-                        </button>
-                        <button id="nextButton" class="btn btn-primary hidden" onclick="nextQuestion()">
-                            Next
-                            <i class="fas fa-arrow-right ml-1"></i>
-                        </button>
+                    <span class="text-sm text-gray-600">Question <span id="currentQuestion">1</span> of <span id="totalQuestions">3</span></span>
+                    <div class="quiz-score">
+                        <i class="fas fa-star"></i>
+                        <span>Score: <span id="currentScore">0</span></span>
                     </div>
                 </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 33.33%"></div>
+                </div>
             </div>
-            <div id="quizResults" class="hidden text-center">
-                <i class="fas fa-trophy text-5xl text-yellow-500 mb-4"></i>
-                <h3 class="text-2xl font-bold mb-3">Quiz Complete!</h3>
-                <div class="text-4xl font-bold text-indigo-600 mb-3" id="finalScore">0/8</div>
-                <p class="text-gray-600 mb-6" id="scoreMessage">Great job!</p>
+            
+            <div id="quizContent" class="quiz-container">
+                <!-- Quiz questions will be loaded here -->
+            </div>
+            
+            <div id="quizResults" class="quiz-results" style="display: none;">
+                <div class="trophy none" id="quizTrophy">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h3>Quiz Complete!</h3>
+                <div class="score-display" id="finalScore">0/3</div>
+                <p class="message" id="scoreMessage">Great job!</p>
                 <button onclick="closeQuiz()" class="btn btn-primary">
                     <i class="fas fa-check"></i>
                     Finish
@@ -1913,111 +1275,43 @@
             appId: "1:806417495419:web:5b80607e8a23e96da4f9de",
             measurementId: "G-S76E52MQ37"
         };
+        
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const database = firebase.database();
+        
         // Global variables
         let currentUser = null;
         let userData = null;
         let currentSection = 'overview';
         let completedSections = [];
-        let quizQuestions = [];
         let currentQuestion = 0;
         let score = 0;
-        let selectedOption = null;
-        let answerSubmitted = false;
-        let quizAnswers = []; // To store answers for each question
-        let discussionPosts = [];
-        let studyGroups = [];
-        let currentSort = 'newest';
+        let quizAnswers = [];
         
-        // Enhanced Quiz Questions with Multiple Types
-        quizQuestions = [
-            // MCQ Questions
+        // Quiz questions
+        const quizQuestions = [
             {
-                type: 'mcq',
-                question: "What is the electron configuration of the outer shell of all Group 1 elements?",
-                options: ["1 electron", "2 electrons", "8 electrons", "Variable number of electrons"],
-                correct: 0,
-                explanation: "All Group 1 elements have one electron in their outer shell, which they readily lose to form +1 ions."
-            },
-            {
-                type: 'mcq',
-                question: "Which of the following statements about the reactivity of Group 1 metals is correct?",
-                options: ["Reactivity decreases down the group", "Reactivity increases down the group", "Reactivity stays the same down the group", "Reactivity is highest for lithium"],
-                correct: 1,
-                explanation: "Reactivity increases down Group 1 because the outer electron is further from the nucleus and easier to lose."
-            },
-            
-            // Interactive Lab Simulation
-            {
-                type: 'lab-simulation',
-                question: "Simulate the reaction of alkali metals with water by clicking on the metals and observing their reactivity:",
-                metals: [
-                    { name: "Lithium", symbol: "Li", color: "lithium", reactivity: "low", observation: "Fizzes steadily" },
-                    { name: "Sodium", symbol: "Na", color: "sodium", reactivity: "medium", observation: "Fizzes rapidly, melts into a ball" },
-                    { name: "Potassium", symbol: "K", color: "potassium", reactivity: "high", observation: "Fizzes violently, ignites with lilac flame" }
-                ],
-                correct: ["potassium", "sodium", "lithium"], // Order of reactivity (most to least)
-                explanation: "Reactivity increases down Group 1: Potassium > Sodium > Lithium"
-            },
-            
-            // Fill in the Blanks
-            {
-                type: 'fillblank',
-                question: "When Group 1 metals react with water, they produce [blank1] gas and metal [blank2].",
-                blanks: [
-                    { id: 'blank1', answer: 'hydrogen', options: ['hydrogen', 'oxygen', 'nitrogen', 'carbon dioxide'] },
-                    { id: 'blank2', answer: 'hydroxides', options: ['hydroxides', 'oxides', 'peroxides', 'carbonates'] }
-                ],
-                explanation: "The general equation is: 2M(s) + 2H₂O(l) → 2MOH(aq) + H₂(g)"
-            },
-            
-            // Matching Question
-            {
-                type: 'matching',
-                question: "Match each element to the oxide it forms when burned in oxygen:",
+                question: "Match the Group 1 element to its reaction with water",
                 leftItems: ["Lithium", "Sodium", "Potassium"],
-                rightItems: ["Li₂O (oxide)", "Na₂O₂ (peroxide)", "KO₂ (superoxide)"],
-                correct: [0, 1, 2], // Index mapping
-                explanation: "Lithium forms normal oxide, sodium forms peroxide, and potassium forms superoxide."
+                rightItems: ["Fizzes steadily", "Fizzes rapidly, melts into a ball", "Fizzes violently, ignites with lilac flame"],
+                correct: [0, 1, 2],
+                explanation: "Reactivity increases down the group: Lithium fizzes steadily, sodium fizzes rapidly and melts, potassium fizzes violently and ignites."
             },
-            
-            // True/False with Explanation
             {
-                type: 'truefalse',
-                question: "The melting point of Group 1 metals increases as you go down the group.",
-                correct: false,
-                explanation: "False. The melting point decreases down Group 1 due to increasing atomic size and weaker metallic bonding."
+                question: "Match the Group 1 element to the oxide it forms",
+                leftItems: ["Lithium", "Sodium", "Potassium"],
+                rightItems: ["Lithium oxide (Li₂O)", "Sodium peroxide (Na₂O₂)", "Potassium superoxide (KO₂)"],
+                correct: [0, 1, 2],
+                explanation: "Lithium forms the normal oxide, sodium forms the peroxide, and potassium forms the superoxide when burned in oxygen."
             },
-            
-            // Chemical Equation Balancer
             {
-                type: 'equation-balancer',
-                question: "Balance the following chemical equation for the reaction of sodium with water:",
-                equation: {
-                    left: [
-                        { symbol: "Na", coefficient: 1 },
-                        { symbol: "H₂O", coefficient: 1 }
-                    ],
-                    right: [
-                        { symbol: "NaOH", coefficient: 1 },
-                        { symbol: "H₂", coefficient: 1 }
-                    ]
-                },
-                correct: [2, 2, 2, 1], // Correct coefficients for Na, H₂O, NaOH, H₂
-                explanation: "The balanced equation is: 2Na + 2H₂O → 2NaOH + H₂"
-            },
-            
-            // Innovative: Reaction Simulator
-            {
-                type: 'reaction',
-                question: "Simulate the reaction of potassium with water by dragging the correct products to the reaction arrow:",
-                reactants: ["K", "H₂O"],
-                products: ["KOH", "H₂", "O₂", "K₂O"],
-                correctProducts: ["KOH", "H₂"],
-                explanation: "Potassium reacts with water: 2K + 2H₂O → 2KOH + H₂"
+                question: "Match the Group 1 element to its density",
+                leftItems: ["Lithium", "Sodium", "Potassium"],
+                rightItems: ["0.534 g/cm³", "0.968 g/cm³", "0.89 g/cm³"],
+                correct: [0, 1, 2],
+                explanation: "Density generally increases down the group, with potassium being an exception as it's less dense than sodium."
             }
         ];
         
@@ -2082,10 +1376,6 @@
             // Update progress
             updateProgressTracker();
             updateSectionCompletionStatus();
-            
-            // Load discussion posts and study groups
-            loadDiscussionPosts();
-            loadStudyGroups();
         }
         
         // Authentication functions
@@ -2328,12 +1618,10 @@
             });
         }
         
-        // Enhanced Quiz Functions
+        // Quiz functions
         function startQuiz() {
             currentQuestion = 0;
             score = 0;
-            selectedOption = null;
-            answerSubmitted = false;
             quizAnswers = [];
             
             document.getElementById('quizModal').classList.add('active');
@@ -2346,924 +1634,227 @@
             document.getElementById('currentScore').textContent = score;
             document.getElementById('progressFill').style.width = ((currentQuestion + 1) / quizQuestions.length * 100) + '%';
             
-            loadQuestion();
-            
-            // Add anti-cheating measures
-            addAntiCheatingMeasures();
+            loadQuizQuestion();
         }
         
-        function addAntiCheatingMeasures() {
-            // Disable right-click
-            document.getElementById('quizModal').addEventListener('contextmenu', e => e.preventDefault());
-            
-            // Disable text selection
-            document.getElementById('quizModal').addEventListener('selectstart', e => e.preventDefault());
-            document.getElementById('quizModal').addEventListener('mousedown', e => e.preventDefault());
-            
-            // Warn before leaving
-            window.addEventListener('beforeunload', preventQuizExit);
-        }
-        
-        function removeAntiCheatingMeasures() {
-            // Re-enable right-click
-            document.getElementById('quizModal').removeEventListener('contextmenu', e => e.preventDefault());
-            
-            // Re-enable text selection
-            document.getElementById('quizModal').removeEventListener('selectstart', e => e.preventDefault());
-            document.getElementById('quizModal').removeEventListener('mousedown', e => e.preventDefault());
-            
-            // Remove beforeunload listener
-            window.removeEventListener('beforeunload', preventQuizExit);
-        }
-        
-        function preventQuizExit(e) {
-            if (document.getElementById('quizModal').classList.contains('active')) {
-                e.preventDefault();
-                e.returnValue = '';
-                return '';
-            }
-        }
-        
-        function loadQuestion() {
+        function loadQuizQuestion() {
             const question = quizQuestions[currentQuestion];
-            document.getElementById('questionText').textContent = question.question;
+            const quizContent = document.getElementById('quizContent');
             
-            const optionsContainer = document.getElementById('optionsContainer');
-            optionsContainer.innerHTML = '';
-            
-            // Check if this question has been answered already
-            const answeredQuestion = quizAnswers[currentQuestion];
-            
-            switch(question.type) {
-                case 'mcq':
-                    loadMCQ(question, optionsContainer, answeredQuestion);
-                    break;
-                case 'lab-simulation':
-                    loadLabSimulation(question, optionsContainer, answeredQuestion);
-                    break;
-                case 'fillblank':
-                    loadFillBlank(question, optionsContainer, answeredQuestion);
-                    break;
-                case 'matching':
-                    loadMatching(question, optionsContainer, answeredQuestion);
-                    break;
-                case 'truefalse':
-                    loadTrueFalse(question, optionsContainer, answeredQuestion);
-                    break;
-                case 'equation-balancer':
-                    loadEquationBalancer(question, optionsContainer, answeredQuestion);
-                    break;
-                case 'reaction':
-                    loadReactionSimulator(question, optionsContainer, answeredQuestion);
-                    break;
-            }
-            
-            // Show/hide navigation buttons
-            document.getElementById('prevButton').classList.toggle('hidden', currentQuestion === 0);
-            
-            // Show submit button if not answered, show next button if answered
-            if (answeredQuestion) {
-                document.getElementById('submitButton').style.display = 'none';
-                document.getElementById('nextButton').classList.remove('hidden');
-                
-                // Show feedback for answered question
-                const feedback = document.getElementById('feedback');
-                if (answeredQuestion.isCorrect) {
-                    feedback.className = 'mb-4 p-3 rounded-lg bg-green-100 text-green-800 text-sm';
-                    feedback.textContent = 'Correct! ' + question.explanation;
-                } else {
-                    feedback.className = 'mb-4 p-3 rounded-lg bg-red-100 text-red-800 text-sm';
-                    feedback.textContent = 'Incorrect. ' + question.explanation;
-                }
-                feedback.classList.remove('hidden');
-            } else {
-                document.getElementById('submitButton').style.display = 'inline-flex';
-                document.getElementById('submitButton').disabled = true;
-                document.getElementById('nextButton').classList.add('hidden');
-                document.getElementById('feedback').classList.add('hidden');
-            }
-            
-            selectedOption = answeredQuestion ? answeredQuestion.selected : null;
-            answerSubmitted = !!answeredQuestion;
-        }
-        
-        // MCQ Loader
-        function loadMCQ(question, container, answeredQuestion) {
-            question.options.forEach((option, index) => {
-                const optionDiv = document.createElement('div');
-                optionDiv.className = 'quiz-option';
-                if (answeredQuestion) {
-                    optionDiv.classList.add('disabled');
-                    if (answeredQuestion.selected === index) {
-                        optionDiv.classList.add(answeredQuestion.isCorrect ? 'correct' : 'incorrect');
-                    }
-                }
-                optionDiv.dataset.index = index;
-                
-                const input = document.createElement('input');
-                input.type = 'radio';
-                input.name = 'quiz-option';
-                input.id = `option-${index}`;
-                input.value = index;
-                if (answeredQuestion && answeredQuestion.selected === index) {
-                    input.checked = true;
-                }
-                if (answeredQuestion) {
-                    input.disabled = true;
-                }
-                
-                const label = document.createElement('label');
-                label.htmlFor = `option-${index}`;
-                label.textContent = option;
-                
-                optionDiv.appendChild(input);
-                optionDiv.appendChild(label);
-                
-                if (!answeredQuestion) {
-                    optionDiv.onclick = () => selectOption(index);
-                }
-                container.appendChild(optionDiv);
-            });
-        }
-        
-        // Interactive Lab Simulation Loader
-        function loadLabSimulation(question, container, answeredQuestion) {
-            container.innerHTML = `
-                <div class="lab-container">
-                    <div class="lab-instruction">Click on each metal to observe its reaction with water. Then, order the metals by reactivity (most reactive first).</div>
+            quizContent.innerHTML = `
+                <div class="quiz-question">
+                    <h3>${question.question}</h3>
                     
-                    <div class="beaker">
-                        <div class="beaker-water"></div>
-                    </div>
-                    
-                    ${question.metals.map((metal, index) => `
-                        <div class="metal-sample ${metal.color}" data-index="${index}" data-name="${metal.name}" data-reactivity="${metal.reactivity}" onclick="testMetalReactivity(${index})">
-                            ${metal.symbol}
+                    <div class="drag-drop-area">
+                        <div class="drag-column">
+                            <div class="column-title">Elements</div>
+                            ${question.leftItems.map((item, index) => `
+                                <div class="draggable-item" draggable="true" data-index="${index}" data-item="${item}">
+                                    ${item}
+                                </div>
+                            `).join('')}
                         </div>
-                    `).join('')}
-                    
-                    <div class="lab-bench"></div>
-                    
-                    <div id="reactionBubbles"></div>
-                </div>
-                
-                <div class="observation-panel">
-                    <div class="observation-title">Observation:</div>
-                    <div class="observation-text" id="observationText">Click on a metal to see its reaction with water.</div>
-                </div>
-                
-                <div class="mt-4">
-                    <h4 class="font-semibold mb-2">Order the metals by reactivity (most reactive first):</h4>
-                    <div id="reactivityOrder" class="flex flex-wrap gap-2 mb-4">
-                        ${question.metals.map((metal, index) => `
-                            <div class="btn btn-secondary" id="metal-btn-${index}" data-index="${index}" onclick="addToReactivityOrder(${index})">
-                                ${metal.name}
-                            </div>
-                        `).join('')}
+                        
+                        <div class="drop-column">
+                            <div class="column-title">Properties</div>
+                            ${question.rightItems.map((item, index) => `
+                                <div class="drop-zone" data-index="${index}" data-item="${item}">
+                                    ${item}
+                                </div>
+                            `).join('')}
+                        </div>
                     </div>
-                    <div id="orderedMetals" class="flex flex-wrap gap-2 mb-4 min-h-[40px] p-2 bg-gray-100 rounded-lg">
-                        <!-- Ordered metals will appear here -->
-                    </div>
+                    
+                    <div class="quiz-feedback" id="quizFeedback"></div>
                 </div>
                 
-                <div class="lab-controls">
-                    <button onclick="resetLabSimulation()" class="btn btn-secondary">
+                <div class="quiz-controls">
+                    <button class="btn btn-secondary" onclick="resetQuizQuestion()">
                         <i class="fas fa-redo mr-1"></i>
                         Reset
+                    </button>
+                    <button class="btn btn-primary" onclick="submitQuizAnswer()">
+                        <i class="fas fa-check mr-1"></i>
+                        Check Answer
                     </button>
                 </div>
             `;
             
-            if (answeredQuestion) {
-                // Show the ordered metals
-                const orderedMetalsDiv = document.getElementById('orderedMetals');
-                orderedMetalsDiv.innerHTML = '';
-                
-                answeredQuestion.userOrder.forEach(metalIndex => {
-                    const metal = question.metals[metalIndex];
-                    const metalDiv = document.createElement('div');
-                    metalDiv.className = 'btn btn-primary';
-                    metalDiv.textContent = metal.name;
-                    orderedMetalsDiv.appendChild(metalDiv);
-                });
-                
-                // Hide the metal buttons
-                const metalButtons = document.querySelectorAll('#reactivityOrder .btn');
-                metalButtons.forEach(button => {
-                    button.style.display = 'none';
-                });
-            }
+            // Setup drag and drop
+            setupDragAndDrop();
         }
         
-        // Test metal reactivity
-        function testMetalReactivity(metalIndex) {
-            const question = quizQuestions[currentQuestion];
-            const metal = question.metals[metalIndex];
+        function setupDragAndDrop() {
+            const draggableItems = document.querySelectorAll('.draggable-item');
+            const dropZones = document.querySelectorAll('.drop-zone');
             
-            // Update observation text
-            document.getElementById('observationText').textContent = `${metal.name} reaction: ${metal.observation}`;
-            
-            // Create reaction bubbles based on reactivity
-            const reactionBubbles = document.getElementById('reactionBubbles');
-            reactionBubbles.innerHTML = '';
-            
-            const bubbleCount = metal.reactivity === 'high' ? 15 : metal.reactivity === 'medium' ? 8 : 4;
-            
-            for (let i = 0; i < bubbleCount; i++) {
-                setTimeout(() => {
-                    const bubble = document.createElement('div');
-                    bubble.className = 'reaction-bubble';
-                    
-                    // Random size and position
-                    const size = Math.random() * 20 + 10;
-                    bubble.style.width = `${size}px`;
-                    bubble.style.height = `${size}px`;
-                    bubble.style.left = `${Math.random() * 80 + 10}%`;
-                    bubble.style.bottom = '80px';
-                    bubble.style.animationDelay = `${Math.random() * 2}s`;
-                    
-                    reactionBubbles.appendChild(bubble);
-                    
-                    // Remove bubble after animation
-                    setTimeout(() => {
-                        if (bubble.parentNode) {
-                            bubble.parentNode.removeChild(bubble);
-                        }
-                    }, 2000);
-                }, i * 100);
-            }
-            
-            // Add to reactivity order
-            addToReactivityOrder(metalIndex);
-        }
-        
-        // Add metal to reactivity order
-        function addToReactivityOrder(metalIndex) {
-            const question = quizQuestions[currentQuestion];
-            const metal = question.metals[metalIndex];
-            
-            // Check if metal is already in the order
-            const orderedMetalsDiv = document.getElementById('orderedMetals');
-            const existingMetals = Array.from(orderedMetalsDiv.children);
-            
-            if (existingMetals.some(child => child.dataset.index == metalIndex)) {
-                return; // Metal already in order
-            }
-            
-            // Add metal to order
-            const metalDiv = document.createElement('div');
-            metalDiv.className = 'btn btn-primary';
-            metalDiv.textContent = metal.name;
-            metalDiv.dataset.index = metalIndex;
-            
-            orderedMetalsDiv.appendChild(metalDiv);
-            
-            // Hide the metal button
-            const metalButton = document.getElementById(`metal-btn-${metalIndex}`);
-            if (metalButton) {
-                metalButton.style.display = 'none';
-            }
-            
-            // Enable submit if all metals are ordered
-            if (orderedMetalsDiv.children.length === question.metals.length) {
-                document.getElementById('submitButton').disabled = false;
-            }
-        }
-        
-        // Reset lab simulation
-        function resetLabSimulation() {
-            const question = quizQuestions[currentQuestion];
-            
-            // Clear observation text
-            document.getElementById('observationText').textContent = 'Click on a metal to see its reaction with water.';
-            
-            // Clear reaction bubbles
-            document.getElementById('reactionBubbles').innerHTML = '';
-            
-            // Clear ordered metals
-            document.getElementById('orderedMetals').innerHTML = '';
-            
-            // Show all metal buttons
-            const metalButtons = document.querySelectorAll('#reactivityOrder .btn');
-            metalButtons.forEach(button => {
-                button.style.display = 'inline-flex';
+            draggableItems.forEach(item => {
+                item.addEventListener('dragstart', handleDragStart);
+                item.addEventListener('dragend', handleDragEnd);
             });
             
-            document.getElementById('submitButton').disabled = true;
-        }
-        
-        // Fill in the Blanks Loader
-        function loadFillBlank(question, container, answeredQuestion) {
-            let html = '<div class="space-y-4">';
-            
-            question.blanks.forEach(blank => {
-                html += `
-                    <div class="mb-3">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">${blank.id.replace('blank', 'Blank ')}:</label>
-                        <select id="${blank.id}" class="form-input w-full" ${answeredQuestion ? 'disabled' : ''}>
-                            <option value="">Select an answer</option>
-                            ${blank.options.map(option => `
-                                <option value="${option}" ${answeredQuestion && answeredQuestion.answers[blank.id] === option ? 'selected' : ''}>${option}</option>
-                            `).join('')}
-                        </select>
-                    </div>
-                `;
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', handleDragOver);
+                zone.addEventListener('drop', handleDrop);
+                zone.addEventListener('dragleave', handleDragLeave);
             });
-            
-            html += '</div>';
-            container.innerHTML = html;
-            
-            // Enable submit when all blanks are filled
-            if (!answeredQuestion) {
-                question.blanks.forEach(blank => {
-                    document.getElementById(blank.id).addEventListener('change', () => {
-                        const allFilled = question.blanks.every(b => document.getElementById(b.id).value);
-                        document.getElementById('submitButton').disabled = !allFilled;
-                    });
-                });
+        }
+        
+        let draggedElement = null;
+        
+        function handleDragStart(e) {
+            draggedElement = e.target;
+            e.target.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', e.target.innerHTML);
+        }
+        
+        function handleDragEnd(e) {
+            e.target.classList.remove('dragging');
+        }
+        
+        function handleDragOver(e) {
+            if (e.preventDefault) {
+                e.preventDefault();
             }
+            e.dataTransfer.dropEffect = 'move';
+            e.target.classList.add('drag-over');
+            return false;
         }
         
-        // Matching Loader with Enhanced Functionality
-        function loadMatching(question, container, answeredQuestion) {
-            container.innerHTML = `
-                <div class="grid grid-cols-2 gap-6">
-                    <div>
-                        <h4 class="font-semibold mb-3">Elements</h4>
-                        <div class="space-y-2">
-                            ${question.leftItems.map((item, index) => `
-                                <div class="match-item bg-gray-100 p-3 rounded-lg" data-left="${index}">
-                                    ${item}
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold mb-3">Oxides</h4>
-                        <div class="space-y-2">
-                            ${question.rightItems.map((item, index) => `
-                                <div class="match-item bg-gray-100 p-3 rounded-lg" data-right="${index}">
-                                    ${item}
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-4 text-center">
-                    <button onclick="checkMatching()" class="btn btn-primary">Check Matches</button>
-                    <button onclick="clearMatches()" class="btn btn-secondary ml-2">Clear All</button>
-                </div>
-            `;
-            
-            if (answeredQuestion) {
-                // Show the matched items
-                const leftItems = document.querySelectorAll('[data-left]');
-                const rightItems = document.querySelectorAll('[data-right]');
-                
-                leftItems.forEach((item, index) => {
-                    const matchIndex = answeredQuestion.matches[index];
-                    if (matchIndex !== undefined) {
-                        item.classList.add('matched', 'bg-green-100');
-                        const rightItem = rightItems[matchIndex];
-                        rightItem.classList.add('matched', 'bg-green-100');
-                    }
-                });
-                
-                // Disable interaction
-                leftItems.forEach(item => {
-                    item.style.pointerEvents = 'none';
-                });
-                rightItems.forEach(item => {
-                    item.style.pointerEvents = 'none';
-                });
-                
-                // Hide buttons
-                container.querySelector('.mt-4').style.display = 'none';
-            } else {
-                setupMatching(question);
+        function handleDragLeave(e) {
+            e.target.classList.remove('drag-over');
+        }
+        
+        function handleDrop(e) {
+            if (e.stopPropagation) {
+                e.stopPropagation();
             }
-        }
-        
-        // Enhanced Matching Setup
-        function setupMatching(question) {
-            const leftItems = document.querySelectorAll('[data-left]');
-            const rightItems = document.querySelectorAll('[data-right]');
-            let selectedLeft = null;
-            let selectedRight = null;
-            let matches = {};
             
-            leftItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    if (item.classList.contains('matched')) {
-                        // If already matched, unmatch it
-                        const rightIndex = matches[item.dataset.left];
-                        const rightItem = document.querySelector(`[data-right="${rightIndex}"]`);
-                        item.classList.remove('matched', 'bg-green-100');
-                        rightItem.classList.remove('matched', 'bg-green-100');
-                        delete matches[item.dataset.left];
-                        return;
-                    }
-                    
-                    if (selectedLeft) {
-                        selectedLeft.classList.remove('selected');
-                    }
-                    selectedLeft = item;
-                    item.classList.add('selected');
-                    
-                    if (selectedRight) {
-                        matches[selectedLeft.dataset.left] = selectedRight.dataset.right;
-                        selectedLeft.classList.remove('selected');
-                        selectedLeft.classList.add('matched', 'bg-green-100');
-                        selectedRight.classList.remove('selected');
-                        selectedRight.classList.add('matched', 'bg-green-100');
-                        selectedLeft = null;
-                        selectedRight = null;
-                        
-                        // Check if all matches are made
-                        if (Object.keys(matches).length === question.leftItems.length) {
-                            document.getElementById('submitButton').disabled = false;
-                        }
-                    }
-                });
-            });
+            e.target.classList.remove('drag-over');
             
-            rightItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    if (item.classList.contains('matched')) {
-                        // If already matched, unmatch it
-                        const leftIndex = Object.keys(matches).find(key => matches[key] === item.dataset.right);
-                        const leftItem = document.querySelector(`[data-left="${leftIndex}"]`);
-                        leftItem.classList.remove('matched', 'bg-green-100');
-                        item.classList.remove('matched', 'bg-green-100');
-                        delete matches[leftIndex];
-                        return;
-                    }
-                    
-                    if (selectedRight) {
-                        selectedRight.classList.remove('selected');
-                    }
-                    selectedRight = item;
-                    item.classList.add('selected');
-                    
-                    if (selectedLeft) {
-                        matches[selectedLeft.dataset.left] = selectedRight.dataset.right;
-                        selectedLeft.classList.remove('selected');
-                        selectedLeft.classList.add('matched', 'bg-green-100');
-                        selectedRight.classList.remove('selected');
-                        selectedRight.classList.add('matched', 'bg-green-100');
-                        selectedLeft = null;
-                        selectedRight = null;
-                        
-                        // Check if all matches are made
-                        if (Object.keys(matches).length === question.leftItems.length) {
-                            document.getElementById('submitButton').disabled = false;
-                        }
-                    }
-                });
-            });
-            
-            window.checkMatching = () => {
-                // This will be used in submitAnswer
-            };
-            
-            window.clearMatches = () => {
-                matches = {};
-                leftItems.forEach(item => {
-                    item.classList.remove('matched', 'bg-green-100', 'selected');
-                });
-                rightItems.forEach(item => {
-                    item.classList.remove('matched', 'bg-green-100', 'selected');
-                });
-                document.getElementById('submitButton').disabled = true;
-            };
-        }
-        
-        // True/False Loader
-        function loadTrueFalse(question, container, answeredQuestion) {
-            container.innerHTML = `
-                <div class="flex justify-center gap-6">
-                    <div class="quiz-option text-center ${answeredQuestion && answeredQuestion.selected === true ? 'correct' : ''}" ${answeredQuestion ? 'disabled' : ''}>
-                        <input type="radio" name="tf-option" id="tf-true" value="true" ${answeredQuestion && answeredQuestion.selected === true ? 'checked' : ''} ${answeredQuestion ? 'disabled' : ''}>
-                        <label for="tf-true" class="block mt-2">True</label>
-                    </div>
-                    <div class="quiz-option text-center ${answeredQuestion && answeredQuestion.selected === false ? 'incorrect' : ''}" ${answeredQuestion ? 'disabled' : ''}>
-                        <input type="radio" name="tf-option" id="tf-false" value="false" ${answeredQuestion && answeredQuestion.selected === false ? 'checked' : ''} ${answeredQuestion ? 'disabled' : ''}>
-                        <label for="tf-false" class="block mt-2">False</label>
-                    </div>
-                </div>
-            `;
-            
-            if (!answeredQuestion) {
-                document.getElementById('tf-true').parentElement.onclick = () => selectTrueFalse(true);
-                document.getElementById('tf-false').parentElement.onclick = () => selectTrueFalse(false);
-            }
-        }
-        
-        // Chemical Equation Balancer Loader
-        function loadEquationBalancer(question, container, answeredQuestion) {
-            const equation = question.equation;
-            
-            container.innerHTML = `
-                <div class="equation-balancer">
-                    <div class="equation-display">
-                        ${equation.left.map((term, index) => `
-                            <div class="equation-term">
-                                <div class="coefficient" id="coeff-left-${index}" data-term="left-${index}">
-                                    ${answeredQuestion ? answeredQuestion.coefficients[index] : term.coefficient}
-                                </div>
-                                <div class="chemical">${term.symbol}</div>
-                            </div>
-                        `).join('')}
-                        
-                        <div class="plus-sign">+</div>
-                        
-                        ${equation.right.map((term, index) => `
-                            <div class="equation-term">
-                                <div class="coefficient" id="coeff-right-${index}" data-term="right-${index}">
-                                    ${answeredQuestion ? answeredQuestion.coefficients[equation.left.length + index] : term.coefficient}
-                                </div>
-                                <div class="chemical">${term.symbol}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-                    
-                    <div class="coefficient-controls">
-                        ${equation.left.map((term, index) => `
-                            <div class="flex items-center gap-2">
-                                <span class="font-medium">${term.symbol}:</span>
-                                <button class="coefficient-btn" onclick="changeCoefficient('left-${index}', -1)">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <span id="value-left-${index}" class="font-semibold w-8 text-center">
-                                    ${answeredQuestion ? answeredQuestion.coefficients[index] : term.coefficient}
-                                </span>
-                                <button class="coefficient-btn" onclick="changeCoefficient('left-${index}', 1)">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </div>
-                        `).join('')}
-                        
-                        ${equation.right.map((term, index) => `
-                            <div class="flex items-center gap-2">
-                                <span class="font-medium">${term.symbol}:</span>
-                                <button class="coefficient-btn" onclick="changeCoefficient('right-${index}', -1)">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <span id="value-right-${index}" class="font-semibold w-8 text-center">
-                                    ${answeredQuestion ? answeredQuestion.coefficients[equation.left.length + index] : term.coefficient}
-                                </span>
-                                <button class="coefficient-btn" onclick="changeCoefficient('right-${index}', 1)">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </div>
-                        `).join('')}
-                    </div>
-                    
-                    <div id="equationStatus" class="equation-status unbalanced">
-                        Equation not balanced
-                    </div>
-                    
-                    <div class="text-center mt-4">
-                        <button onclick="checkEquationBalance()" class="btn btn-primary">
-                            Check Balance
-                        </button>
-                        <button onclick="resetEquation()" class="btn btn-secondary ml-2">
-                            Reset
-                        </button>
-                    </div>
-                </div>
-            `;
-            
-            if (answeredQuestion) {
-                // Show the correct coefficients
-                equation.left.forEach((term, index) => {
-                    const coeff = document.getElementById(`coeff-left-${index}`);
-                    const value = document.getElementById(`value-left-${index}`);
-                    const correctCoeff = question.correct[index];
-                    
-                    coeff.textContent = correctCoeff;
-                    value.textContent = correctCoeff;
-                    
-                    if (correctCoeff === answeredQuestion.coefficients[index]) {
-                        coeff.classList.add('correct');
-                    }
-                });
-                
-                equation.right.forEach((term, index) => {
-                    const coeff = document.getElementById(`coeff-right-${index}`);
-                    const value = document.getElementById(`value-right-${index}`);
-                    const correctCoeff = question.correct[equation.left.length + index];
-                    
-                    coeff.textContent = correctCoeff;
-                    value.textContent = correctCoeff;
-                    
-                    if (correctCoeff === answeredQuestion.coefficients[equation.left.length + index]) {
-                        coeff.classList.add('correct');
-                    }
-                });
-                
-                // Show equation status
-                const status = document.getElementById('equationStatus');
-                if (answeredQuestion.isCorrect) {
-                    status.className = 'equation-status balanced';
-                    status.textContent = 'Equation balanced correctly!';
-                } else {
-                    status.className = 'equation-status unbalanced';
-                    status.textContent = 'Equation not balanced correctly';
+            if (draggedElement && e.target.classList.contains('drop-zone')) {
+                // Check if drop zone already has an item
+                if (e.target.querySelector('.draggable-item')) {
+                    return false;
                 }
                 
-                // Disable controls
-                const buttons = container.querySelectorAll('.coefficient-btn');
-                buttons.forEach(button => {
-                    button.disabled = true;
-                });
+                // Clone the dragged element
+                const clonedItem = draggedElement.cloneNode(true);
+                clonedItem.classList.remove('dragging');
                 
-                // Hide action buttons
-                container.querySelector('.text-center').style.display = 'none';
-            } else {
-                // Initialize equation state
-                window.equationState = {
-                    left: equation.left.map(term => term.coefficient),
-                    right: equation.right.map(term => term.coefficient)
-                };
+                // Add to drop zone
+                e.target.appendChild(clonedItem);
                 
-                // Enable submit button when equation is balanced
-                window.equationBalanced = false;
+                // Remove from original position
+                draggedElement.style.display = 'none';
             }
+            
+            return false;
         }
         
-        // Change coefficient value
-        function changeCoefficient(termId, change) {
-            const isLeft = termId.startsWith('left-');
-            const index = parseInt(termId.split('-')[1]);
-            const side = isLeft ? 'left' : 'right';
-            
-            // Update value
-            window.equationState[side][index] = Math.max(1, window.equationState[side][index] + change);
-            
-            // Update display
-            const coeffElement = document.getElementById(`coeff-${termId}`);
-            const valueElement = document.getElementById(`value-${termId}`);
-            const newValue = window.equationState[side][index];
-            
-            coeffElement.textContent = newValue;
-            valueElement.textContent = newValue;
-            
-            // Reset equation status
-            const status = document.getElementById('equationStatus');
-            status.className = 'equation-status unbalanced';
-            status.textContent = 'Equation not balanced';
-            
-            window.equationBalanced = false;
-            document.getElementById('submitButton').disabled = true;
-        }
-        
-        // Check if equation is balanced
-        function checkEquationBalance() {
+        function resetQuizQuestion() {
             const question = quizQuestions[currentQuestion];
-            const equation = question.equation;
+            const dropZones = document.querySelectorAll('.drop-zone');
+            const draggableItems = document.querySelectorAll('.draggable-item');
             
-            // Get current coefficients
-            const currentCoeffs = [
-                ...window.equationState.left,
-                ...window.equationState.right
-            ];
+            // Clear drop zones
+            dropZones.forEach(zone => {
+                zone.innerHTML = zone.dataset.item;
+                zone.classList.remove('correct', 'incorrect');
+            });
             
-            // Check if equation is balanced
-            const isBalanced = JSON.stringify(currentCoeffs) === JSON.stringify(question.correct);
+            // Show all draggable items
+            draggableItems.forEach(item => {
+                item.style.display = 'block';
+            });
             
-            // Update equation status
-            const status = document.getElementById('equationStatus');
-            if (isBalanced) {
-                status.className = 'equation-status balanced';
-                status.textContent = 'Equation balanced correctly!';
-                window.equationBalanced = true;
-                document.getElementById('submitButton').disabled = false;
-            } else {
-                status.className = 'equation-status unbalanced';
-                status.textContent = 'Equation not balanced';
-                window.equationBalanced = false;
-                document.getElementById('submitButton').disabled = true;
-            }
+            // Hide feedback
+            document.getElementById('quizFeedback').classList.remove('show');
         }
         
-        // Reset equation
-        function resetEquation() {
+        function submitQuizAnswer() {
             const question = quizQuestions[currentQuestion];
-            const equation = question.equation;
+            const dropZones = document.querySelectorAll('.drop-zone');
+            const feedback = document.getElementById('quizFeedback');
             
-            // Reset equation state
-            window.equationState = {
-                left: equation.left.map(term => term.coefficient),
-                right: equation.right.map(term => term.coefficient)
+            let userAnswers = [];
+            let isCorrect = true;
+            
+            // Collect user answers
+            dropZones.forEach((zone, index) => {
+                const draggedItem = zone.querySelector('.draggable-item');
+                if (draggedItem) {
+                    const itemIndex = parseInt(draggedItem.dataset.index);
+                    userAnswers.push(itemIndex);
+                    
+                    // Check if answer is correct
+                    if (itemIndex !== question.correct[index]) {
+                        isCorrect = false;
+                        zone.classList.add('incorrect');
+                    } else {
+                        zone.classList.add('correct');
+                    }
+                } else {
+                    userAnswers.push(null);
+                    isCorrect = false;
+                }
+            });
+            
+            // Store answer
+            quizAnswers[currentQuestion] = {
+                userAnswers: userAnswers,
+                isCorrect: isCorrect
             };
             
-            // Reset display
-            equation.left.forEach((term, index) => {
-                const coeffElement = document.getElementById(`coeff-left-${index}`);
-                const valueElement = document.getElementById(`value-left-${index}`);
-                const newValue = term.coefficient;
-                
-                coeffElement.textContent = newValue;
-                valueElement.textContent = newValue;
-                coeffElement.classList.remove('correct');
-            });
+            // Show feedback
+            feedback.innerHTML = `
+                <strong>${isCorrect ? 'Correct!' : 'Incorrect'}</strong>
+                <p>${question.explanation}</p>
+            `;
+            feedback.className = `quiz-feedback show ${isCorrect ? 'correct' : 'incorrect'}`;
             
-            equation.right.forEach((term, index) => {
-                const coeffElement = document.getElementById(`coeff-right-${index}`);
-                const valueElement = document.getElementById(`value-right-${index}`);
-                const newValue = term.coefficient;
-                
-                coeffElement.textContent = newValue;
-                valueElement.textContent = newValue;
-                coeffElement.classList.remove('correct');
-            });
-            
-            // Reset equation status
-            const status = document.getElementById('equationStatus');
-            status.className = 'equation-status unbalanced';
-            status.textContent = 'Equation not balanced';
-            
-            window.equationBalanced = false;
-            document.getElementById('submitButton').disabled = true;
-        }
-        
-        // True/False Selection
-        function selectTrueFalse(value) {
-            const options = document.querySelectorAll('.quiz-option');
-            options.forEach(option => {
-                option.classList.remove('selected');
-                const input = option.querySelector('input');
-                input.checked = false;
-            });
-            
-            const selectedOption = value ? document.getElementById('tf-true').parentElement : document.getElementById('tf-false').parentElement;
-            selectedOption.classList.add('selected');
-            selectedOption.querySelector('input').checked = true;
-            
-            selectedOption = value;
-            document.getElementById('submitButton').disabled = false;
-        }
-        
-        function selectOption(index) {
-            if (answerSubmitted) return;
-            
-            const options = document.querySelectorAll('.quiz-option');
-            options.forEach(option => {
-                option.classList.remove('selected');
-                const input = option.querySelector('input');
-                input.checked = false;
-            });
-            
-            options[index].classList.add('selected');
-            options[index].querySelector('input').checked = true;
-            
-            selectedOption = index;
-            document.getElementById('submitButton').disabled = false;
-        }
-        
-        // Enhanced Submit Answer Function
-        function submitAnswer() {
-            if (answerSubmitted) return;
-            
-            const question = quizQuestions[currentQuestion];
-            let isCorrect = false;
-            const feedback = document.getElementById('feedback');
-            let answerData = {
-                selected: selectedOption,
-                submitted: true,
-                isCorrect: false
-            };
-            
-            switch(question.type) {
-                case 'mcq':
-                    isCorrect = selectedOption === question.correct;
-                    answerData = {
-                        selected: selectedOption,
-                        submitted: true,
-                        isCorrect: isCorrect
-                    };
-                    break;
-                    
-                case 'lab-simulation':
-                    const orderedMetalsDiv = document.getElementById('orderedMetals');
-                    const userOrder = Array.from(orderedMetalsDiv.children).map(child => parseInt(child.dataset.index));
-                    isCorrect = JSON.stringify(userOrder) === JSON.stringify(question.correct);
-                    answerData = {
-                        userOrder: userOrder,
-                        submitted: true,
-                        isCorrect: isCorrect
-                    };
-                    break;
-                    
-                case 'fillblank':
-                    const answers = {};
-                    question.blanks.forEach(blank => {
-                        answers[blank.id] = document.getElementById(blank.id).value;
-                    });
-                    isCorrect = question.blanks.every(blank => 
-                        document.getElementById(blank.id).value === blank.answer
-                    );
-                    answerData = {
-                        answers: answers,
-                        submitted: true,
-                        isCorrect: isCorrect
-                    };
-                    break;
-                    
-                case 'matching':
-                    const leftMatches = document.querySelectorAll('[data-left].matched');
-                    const matches = {};
-                    leftMatches.forEach(item => {
-                        const rightItem = document.querySelector(`[data-right].matched`);
-                        if (rightItem) {
-                            matches[item.dataset.left] = rightItem.dataset.right;
-                        }
-                    });
-                    isCorrect = leftMatches.length === question.leftItems.length;
-                    answerData = {
-                        matches: matches,
-                        submitted: true,
-                        isCorrect: isCorrect
-                    };
-                    break;
-                    
-                case 'truefalse':
-                    isCorrect = selectedOption === question.correct;
-                    answerData = {
-                        selected: selectedOption,
-                        submitted: true,
-                        isCorrect: isCorrect
-                    };
-                    break;
-                    
-                case 'equation-balancer':
-                    const currentCoeffs = [
-                        ...window.equationState.left,
-                        ...window.equationState.right
-                    ];
-                    isCorrect = JSON.stringify(currentCoeffs) === JSON.stringify(question.correct);
-                    answerData = {
-                        coefficients: currentCoeffs,
-                        submitted: true,
-                        isCorrect: isCorrect
-                    };
-                    break;
-                    
-                case 'reaction':
-                    const products = document.querySelectorAll('#reactionProducts .bg-blue-200');
-                    const userProducts = Array.from(products).map(item => item.dataset.product);
-                    isCorrect = JSON.stringify(userProducts.sort()) === JSON.stringify(question.correctProducts.sort());
-                    answerData = {
-                        userProducts: userProducts,
-                        submitted: true,
-                        isCorrect: isCorrect
-                    };
-                    break;
-            }
-            
-            quizAnswers[currentQuestion] = answerData;
-            
+            // Update score
             if (isCorrect) {
-                feedback.className = 'mb-4 p-3 rounded-lg bg-green-100 text-green-800 text-sm';
-                feedback.textContent = 'Correct! ' + question.explanation;
                 score++;
-            } else {
-                feedback.className = 'mb-4 p-3 rounded-lg bg-red-100 text-red-800 text-sm';
-                feedback.textContent = 'Incorrect. ' + question.explanation;
+                document.getElementById('currentScore').textContent = score;
             }
             
-            feedback.classList.remove('hidden');
-            document.getElementById('submitButton').style.display = 'none';
-            document.getElementById('nextButton').classList.remove('hidden');
-            document.getElementById('currentScore').textContent = score;
-            
-            answerSubmitted = true;
+            // Update button to next question
+            const controls = document.querySelector('.quiz-controls');
+            if (currentQuestion < quizQuestions.length - 1) {
+                controls.innerHTML = `
+                    <button class="btn btn-secondary" onclick="resetQuizQuestion()">
+                        <i class="fas fa-redo mr-1"></i>
+                        Reset
+                    </button>
+                    <button class="btn btn-primary" onclick="nextQuizQuestion()">
+                        Next Question
+                        <i class="fas fa-arrow-right ml-1"></i>
+                    </button>
+                `;
+            } else {
+                controls.innerHTML = `
+                    <button class="btn btn-secondary" onclick="resetQuizQuestion()">
+                        <i class="fas fa-redo mr-1"></i>
+                        Reset
+                    </button>
+                    <button class="btn btn-primary" onclick="finishQuiz()">
+                        Finish Quiz
+                        <i class="fas fa-check ml-1"></i>
+                    </button>
+                `;
+            }
         }
         
-        function nextQuestion() {
+        function nextQuizQuestion() {
             currentQuestion++;
-            
-            if (currentQuestion >= quizQuestions.length) {
-                showResults();
-                return;
-            }
-            
             document.getElementById('currentQuestion').textContent = currentQuestion + 1;
             document.getElementById('progressFill').style.width = ((currentQuestion + 1) / quizQuestions.length * 100) + '%';
-            loadQuestion();
+            loadQuizQuestion();
         }
         
-        function previousQuestion() {
-            if (currentQuestion > 0) {
-                currentQuestion--;
-                document.getElementById('currentQuestion').textContent = currentQuestion + 1;
-                document.getElementById('progressFill').style.width = ((currentQuestion + 1) / quizQuestions.length * 100) + '%';
-                loadQuestion();
-            }
-        }
-        
-        function showResults() {
+        function finishQuiz() {
             document.getElementById('quizProgress').style.display = 'none';
             document.getElementById('quizContent').style.display = 'none';
             document.getElementById('quizResults').style.display = 'block';
@@ -3271,26 +1862,27 @@
             const percentage = Math.round((score / quizQuestions.length) * 100);
             document.getElementById('finalScore').textContent = `${score}/${quizQuestions.length}`;
             
-            let message = '';
+            // Set trophy and message based on score
+            const trophy = document.getElementById('quizTrophy');
+            const message = document.getElementById('scoreMessage');
+            
             if (percentage >= 80) {
-                message = 'Excellent! You have a strong understanding of Group 1 elements.';
+                trophy.className = 'trophy gold';
+                message.textContent = 'Excellent! You have a strong understanding of Group 1 elements.';
             } else if (percentage >= 60) {
-                message = 'Good job! You have a solid foundation to build upon.';
+                trophy.className = 'trophy silver';
+                message.textContent = 'Good job! You have a solid foundation to build upon.';
             } else if (percentage >= 40) {
-                message = 'Not bad! Review the materials to improve your understanding.';
+                trophy.className = 'trophy bronze';
+                message.textContent = 'Not bad! Review the materials to improve your understanding.';
             } else {
-                message = 'Keep practicing! Review the materials carefully.';
+                trophy.className = 'trophy none';
+                message.textContent = 'Keep practicing! Review the materials carefully.';
             }
-            
-            document.getElementById('scoreMessage').textContent = message;
-            
-            // Remove anti-cheating measures
-            removeAntiCheatingMeasures();
         }
         
         function closeQuiz() {
             document.getElementById('quizModal').classList.remove('active');
-            removeAntiCheatingMeasures();
         }
         
         // Discussion functions
@@ -3308,29 +1900,6 @@
             document.getElementById('createPostForm').reset();
         }
         
-        function showEditPostModal(postId) {
-            if (!currentUser) {
-                showToast('error', 'Sign in required', 'Please sign in to edit posts.');
-                showLoginModal();
-                return;
-            }
-            
-            const post = discussionPosts.find(p => p.id === postId);
-            if (!post) return;
-            
-            document.getElementById('editPostId').value = postId;
-            document.getElementById('editPostTitle').value = post.title;
-            document.getElementById('editPostContent').value = post.content;
-            document.getElementById('editPostTags').value = post.tags ? post.tags.join(', ') : '';
-            
-            document.getElementById('editPostModal').classList.add('active');
-        }
-        
-        function closeEditPostModal() {
-            document.getElementById('editPostModal').classList.remove('active');
-            document.getElementById('editPostForm').reset();
-        }
-        
         function handleCreatePost(event) {
             event.preventDefault();
             
@@ -3343,539 +1912,8 @@
                 return;
             }
             
-            const postsRef = database.ref('discussionPosts').push();
-            const newPost = {
-                authorId: currentUser.uid,
-                authorName: userData.displayName,
-                title: title,
-                content: content,
-                tags: tags ? tags.split(',').map(tag => tag.trim()) : [],
-                upvotes: 0,
-                downvotes: 0,
-                votes: {},
-                comments: 0,
-                saved: 0,
-                createdAt: firebase.database.ServerValue.TIMESTAMP
-            };
-            
-            postsRef.set(newPost).then(() => {
-                showToast('success', 'Post Created!', 'Your post has been published successfully.');
-                closeCreatePostModal();
-            }).catch((error) => {
-                console.error("Error creating post:", error);
-                showToast('error', 'Error', 'Failed to create post.');
-            });
-        }
-        
-        function handleEditPost(event) {
-            event.preventDefault();
-            
-            const postId = document.getElementById('editPostId').value;
-            const title = document.getElementById('editPostTitle').value.trim();
-            const content = document.getElementById('editPostContent').value.trim();
-            const tags = document.getElementById('editPostTags').value.trim();
-            
-            if (!title || !content) {
-                showToast('error', 'Missing Fields', 'Please fill in all required fields.');
-                return;
-            }
-            
-            const postRef = database.ref('discussionPosts/' + postId);
-            postRef.once('value').then((snapshot) => {
-                const post = snapshot.val();
-                
-                if (!post) {
-                    showToast('error', 'Error', 'Post not found.');
-                    return;
-                }
-                
-                if (post.authorId !== currentUser.uid) {
-                    showToast('error', 'Permission Denied', 'You can only edit your own posts.');
-                    return;
-                }
-                
-                const updates = {};
-                updates['/title'] = title;
-                updates['/content'] = content;
-                updates['/tags'] = tags ? tags.split(',').map(tag => tag.trim()) : [];
-                updates['/editedAt'] = firebase.database.ServerValue.TIMESTAMP;
-                
-                postRef.update(updates).then(() => {
-                    showToast('success', 'Post Updated!', 'Your post has been updated successfully.');
-                    closeEditPostModal();
-                }).catch((error) => {
-                    console.error("Error updating post:", error);
-                    showToast('error', 'Error', 'Failed to update post.');
-                });
-            }).catch((error) => {
-                console.error("Error getting post:", error);
-                showToast('error', 'Error', 'Failed to update post.');
-            });
-        }
-        
-        function loadDiscussionPosts() {
-            const postsContainer = document.getElementById('discussionPosts');
-            postsContainer.innerHTML = '<div class="spinner"></div>';
-            
-            const postsRef = database.ref('discussionPosts');
-            postsRef.orderByChild('createdAt').on('value', (snapshot) => {
-                postsContainer.innerHTML = '';
-                
-                if (!snapshot.exists()) {
-                    postsContainer.innerHTML = `
-                        <div class="empty-state">
-                            <div class="empty-state-icon">
-                                <i class="fas fa-comments"></i>
-                            </div>
-                            <h3 class="empty-state-title">No Posts Yet</h3>
-                            <p class="empty-state-description">Be the first to start a discussion about Group 1 Alkali Metals.</p>
-                        </div>`;
-                    return;
-                }
-                
-                discussionPosts = [];
-                snapshot.forEach((childSnapshot) => {
-                    discussionPosts.push({
-                        id: childSnapshot.key,
-                        ...childSnapshot.val()
-                    });
-                });
-                
-                // Sort based on current sort option
-                sortDiscussionPosts();
-                
-                discussionPosts.forEach(post => {
-                    const postElement = createDiscussionPostElement(post);
-                    postsContainer.appendChild(postElement);
-                });
-            }, (error) => {
-                console.error("Error loading discussion posts:", error);
-                postsContainer.innerHTML = '<p class="text-gray-500 text-center">Error loading posts.</p>';
-            });
-        }
-        
-        function sortDiscussionPosts() {
-            switch(currentSort) {
-                case 'newest':
-                    discussionPosts.sort((a, b) => {
-                        return new Date(b.createdAt) - new Date(a.createdAt);
-                    });
-                    break;
-                case 'oldest':
-                    discussionPosts.sort((a, b) => {
-                        return new Date(a.createdAt) - new Date(b.createdAt);
-                    });
-                    break;
-                case 'popular':
-                    discussionPosts.sort((a, b) => {
-                        const aScore = (a.upvotes || 0) - (a.downvotes || 0);
-                        const bScore = (b.upvotes || 0) - (b.downvotes || 0);
-                        return bScore - aScore;
-                    });
-                    break;
-            }
-        }
-        
-        function sortDiscussions(sortType) {
-            currentSort = sortType;
-            
-            // Update active button
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            // Re-sort and re-render
-            sortDiscussionPosts();
-            
-            const postsContainer = document.getElementById('discussionPosts');
-            postsContainer.innerHTML = '';
-            
-            discussionPosts.forEach(post => {
-                const postElement = createDiscussionPostElement(post);
-                postsContainer.appendChild(postElement);
-            });
-        }
-        
-        function filterDiscussions() {
-            const searchTerm = document.getElementById('discussionSearch').value.toLowerCase();
-            
-            const postsContainer = document.getElementById('discussionPosts');
-            postsContainer.innerHTML = '';
-            
-            const filteredPosts = discussionPosts.filter(post => {
-                return post.title.toLowerCase().includes(searchTerm) || 
-                       post.content.toLowerCase().includes(searchTerm) ||
-                       (post.tags && post.tags.some(tag => tag.toLowerCase().includes(searchTerm)));
-            });
-            
-            if (filteredPosts.length === 0) {
-                postsContainer.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-state-icon">
-                            <i class="fas fa-search"></i>
-                        </div>
-                        <h3 class="empty-state-title">No Posts Found</h3>
-                        <p class="empty-state-description">No posts match your search criteria.</p>
-                    </div>`;
-                return;
-            }
-            
-            filteredPosts.forEach(post => {
-                const postElement = createDiscussionPostElement(post);
-                postsContainer.appendChild(postElement);
-            });
-        }
-        
-        function createDiscussionPostElement(post) {
-            const postDiv = document.createElement('div');
-            postDiv.className = 'discussion-post';
-            
-            const date = new Date(post.createdAt);
-            const formattedDate = date.toLocaleDateString();
-            const formattedTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            
-            const isAuthor = currentUser && post.authorId === currentUser.uid;
-            const userVote = post.votes && post.votes[currentUser.uid];
-            const isSaved = userData && userData.savedPosts && userData.savedPosts.includes(post.id);
-            
-            postDiv.innerHTML = `
-                <div class="post-header">
-                    <div class="post-avatar">${post.authorName ? post.authorName.charAt(0).toUpperCase() : 'A'}</div>
-                    <div class="post-meta">
-                        <div class="post-author">${post.authorName || 'Anonymous'}</div>
-                        <div class="post-time">${formattedDate} at ${formattedTime}</div>
-                    </div>
-                </div>
-                <h3 class="post-title">${post.title}</h3>
-                <div class="post-content">${post.content}</div>
-                ${post.tags && post.tags.length > 0 ? `
-                    <div class="mt-2">
-                        ${post.tags.map(tag => `<span class="post-tag">#${tag}</span>`).join('')}
-                    </div>
-                ` : ''}
-                <div class="post-actions">
-                    <div class="post-action ${userVote === true ? 'voted' : ''}" onclick="togglePostVote('${post.id}', 'up')">
-                        <i class="fas fa-arrow-up"></i>
-                        <span>${post.upvotes || 0}</span>
-                    </div>
-                    <div class="post-action ${userVote === false ? 'voted' : ''}" onclick="togglePostVote('${post.id}', 'down')">
-                        <i class="fas fa-arrow-down"></i>
-                        <span>${post.downvotes || 0}</span>
-                    </div>
-                    <div class="post-action" onclick="toggleComments('${post.id}')">
-                        <i class="fas fa-comment"></i>
-                        <span>${post.comments || 0}</span>
-                    </div>
-                    <div class="post-action ${isSaved ? 'voted' : ''}" onclick="toggleSavePost('${post.id}')">
-                        <i class="fas fa-bookmark"></i>
-                        <span>${post.saved || 0}</span>
-                    </div>
-                    ${isAuthor ? `
-                        <div class="post-action" onclick="showEditPostModal('${post.id}')">
-                            <i class="fas fa-edit"></i>
-                            Edit
-                        </div>
-                        <div class="post-action text-red-500" onclick="deletePost('${post.id}')">
-                            <i class="fas fa-trash"></i>
-                            Delete
-                        </div>
-                    ` : ''}
-                </div>
-                <div id="comments-${post.id}" class="comments-section" style="display: none;">
-                    <div class="mb-3">
-                        <form onsubmit="addComment(event, '${post.id}')" class="flex gap-2">
-                            <input type="text" id="comment-input-${post.id}" class="form-input flex-1" placeholder="Add a comment...">
-                            <button type="submit" class="btn btn-primary">Comment</button>
-                        </form>
-                    </div>
-                    <div id="comments-list-${post.id}"></div>
-                </div>
-            `;
-            
-            // Load comments for this post
-            loadPostComments(post.id);
-            
-            return postDiv;
-        }
-        
-        function togglePostVote(postId, voteType) {
-            if (!currentUser) {
-                showToast('error', 'Sign in required', 'Please sign in to vote on posts.');
-                showLoginModal();
-                return;
-            }
-            
-            const postRef = database.ref('discussionPosts/' + postId);
-            postRef.once('value').then((snapshot) => {
-                const post = snapshot.val();
-                
-                if (!post) {
-                    showToast('error', 'Error', 'Post not found.');
-                    return;
-                }
-                
-                const votes = post.votes || {};
-                const currentVote = votes[currentUser.uid];
-                const upvotes = post.upvotes || 0;
-                const downvotes = post.downvotes || 0;
-                
-                let newUpvotes = upvotes;
-                let newDownvotes = downvotes;
-                let newVotes = { ...votes };
-                
-                if (voteType === 'up') {
-                    if (currentVote === true) {
-                        // Remove upvote
-                        delete newVotes[currentUser.uid];
-                        newUpvotes = Math.max(0, upvotes - 1);
-                    } else {
-                        // Add or change to upvote
-                        newVotes[currentUser.uid] = true;
-                        newUpvotes = upvotes + 1;
-                        if (currentVote === false) {
-                            // Was downvoted before
-                            newDownvotes = Math.max(0, downvotes - 1);
-                        }
-                    }
-                } else { // voteType === 'down'
-                    if (currentVote === false) {
-                        // Remove downvote
-                        delete newVotes[currentUser.uid];
-                        newDownvotes = Math.max(0, downvotes - 1);
-                    } else {
-                        // Add or change to downvote
-                        newVotes[currentUser.uid] = false;
-                        newDownvotes = downvotes + 1;
-                        if (currentVote === true) {
-                            // Was upvoted before
-                            newUpvotes = Math.max(0, upvotes - 1);
-                        }
-                    }
-                }
-                
-                const updates = {};
-                updates['/upvotes'] = newUpvotes;
-                updates['/downvotes'] = newDownvotes;
-                updates['/votes'] = newVotes;
-                
-                postRef.update(updates).catch((error) => {
-                    console.error("Error voting on post:", error);
-                    showToast('error', 'Error', 'Failed to vote on post.');
-                });
-            }).catch((error) => {
-                console.error("Error getting post:", error);
-                showToast('error', 'Error', 'Failed to vote on post.');
-            });
-        }
-        
-        function toggleSavePost(postId) {
-            if (!currentUser) {
-                showToast('error', 'Sign in required', 'Please sign in to save posts.');
-                showLoginModal();
-                return;
-            }
-            
-            const userRef = database.ref('users/' + currentUser.uid);
-            userRef.once('value').then((snapshot) => {
-                const userData = snapshot.val();
-                const savedPosts = userData.savedPosts || [];
-                
-                const postIndex = savedPosts.indexOf(postId);
-                const postRef = database.ref('discussionPosts/' + postId);
-                
-                if (postIndex > -1) {
-                    // Remove from saved posts
-                    savedPosts.splice(postIndex, 1);
-                    
-                    // Decrement saved count
-                    postRef.transaction((post) => {
-                        if (post) {
-                            post.saved = Math.max(0, (post.saved || 0) - 1);
-                        }
-                        return post;
-                    });
-                    
-                    showToast('info', 'Post Unsaved', 'This post has been removed from your saved posts.');
-                } else {
-                    // Add to saved posts
-                    savedPosts.push(postId);
-                    
-                    // Increment saved count
-                    postRef.transaction((post) => {
-                        if (post) {
-                            post.saved = (post.saved || 0) + 1;
-                        }
-                        return post;
-                    });
-                    
-                    showToast('success', 'Post Saved!', 'This post has been added to your saved posts.');
-                }
-                
-                // Update user data
-                userRef.update({
-                    savedPosts: savedPosts
-                });
-                
-                // Update local user data
-                userData.savedPosts = savedPosts;
-            }).catch((error) => {
-                console.error("Error saving post:", error);
-                showToast('error', 'Error', 'Failed to save post.');
-            });
-        }
-        
-        function deletePost(postId) {
-            if (!confirm('Are you sure you want to delete this post?')) {
-                return;
-            }
-            
-            const postRef = database.ref('discussionPosts/' + postId);
-            postRef.remove().then(() => {
-                showToast('success', 'Post Deleted', 'Your post has been deleted successfully.');
-            }).catch((error) => {
-                console.error("Error deleting post:", error);
-                showToast('error', 'Error', 'Failed to delete post.');
-            });
-        }
-        
-        function toggleComments(postId) {
-            const commentsSection = document.getElementById(`comments-${postId}`);
-            if (commentsSection.style.display === 'none') {
-                commentsSection.style.display = 'block';
-                // Focus on comment input
-                const commentInput = document.getElementById(`comment-input-${postId}`);
-                if (commentInput) {
-                    commentInput.focus();
-                }
-            } else {
-                commentsSection.style.display = 'none';
-            }
-        }
-        
-        function loadPostComments(postId) {
-            const commentsContainer = document.getElementById(`comments-list-${postId}`);
-            if (!commentsContainer) return;
-            
-            const commentsRef = database.ref('postComments').orderByChild('postId').equalTo(postId);
-            commentsRef.on('value', (snapshot) => {
-                commentsContainer.innerHTML = '';
-                
-                if (!snapshot.exists()) return;
-                
-                const commentsArray = [];
-                snapshot.forEach((childSnapshot) => {
-                    commentsArray.push({
-                        id: childSnapshot.key,
-                        ...childSnapshot.val()
-                    });
-                });
-                
-                // Sort by creation date (oldest first)
-                commentsArray.sort((a, b) => {
-                    return new Date(a.createdAt) - new Date(b.createdAt);
-                });
-                
-                commentsArray.forEach(comment => {
-                    const commentElement = createCommentElement(comment);
-                    commentsContainer.appendChild(commentElement);
-                });
-            });
-        }
-        
-        function createCommentElement(comment) {
-            const commentDiv = document.createElement('div');
-            commentDiv.className = 'comment';
-            
-            const date = new Date(comment.createdAt);
-            const formattedDate = date.toLocaleDateString();
-            const formattedTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            const isAuthor = currentUser && comment.authorId === currentUser.uid;
-            
-            commentDiv.innerHTML = `
-                <div class="comment-header">
-                    <div class="comment-avatar">${comment.authorName ? comment.authorName.charAt(0).toUpperCase() : 'A'}</div>
-                    <div class="comment-author">${comment.authorName || 'Anonymous'}</div>
-                    <div class="comment-time">${formattedDate} at ${formattedTime}</div>
-                </div>
-                <div class="comment-content">${comment.content}</div>
-                ${isAuthor ? `
-                    <div class="mt-2">
-                        <button onclick="deleteComment('${comment.id}', '${comment.postId}')" class="text-red-500 text-sm hover:text-red-700">
-                            <i class="fas fa-trash mr-1"></i>Delete
-                        </button>
-                    </div>
-                ` : ''}
-            `;
-            
-            return commentDiv;
-        }
-        
-        function addComment(event, postId) {
-            event.preventDefault();
-            
-            if (!currentUser) {
-                showToast('error', 'Sign in required', 'Please sign in to comment.');
-                showLoginModal();
-                return;
-            }
-            
-            const commentInput = document.getElementById(`comment-input-${postId}`);
-            const content = commentInput.value.trim();
-            
-            if (!content) {
-                showToast('error', 'Empty Comment', 'Please enter a comment before posting.');
-                return;
-            }
-            
-            const commentsRef = database.ref('postComments').push();
-            const newComment = {
-                postId: postId,
-                authorId: currentUser.uid,
-                authorName: userData.displayName,
-                content: content,
-                createdAt: firebase.database.ServerValue.TIMESTAMP
-            };
-            
-            commentsRef.set(newComment).then(() => {
-                // Update comment count on post
-                const postRef = database.ref('discussionPosts/' + postId);
-                postRef.transaction((post) => {
-                    if (post) {
-                        post.comments = (post.comments || 0) + 1;
-                    }
-                    return post;
-                });
-                
-                commentInput.value = '';
-                showToast('success', 'Comment Added', 'Your comment has been posted successfully.');
-            }).catch((error) => {
-                console.error("Error adding comment:", error);
-                showToast('error', 'Error', 'Failed to post comment.');
-            });
-        }
-        
-        function deleteComment(commentId, postId) {
-            if (!confirm('Are you sure you want to delete this comment?')) {
-                return;
-            }
-            
-            const commentRef = database.ref('postComments/' + commentId);
-            commentRef.remove().then(() => {
-                // Update comment count on post
-                const postRef = database.ref('discussionPosts/' + postId);
-                postRef.transaction((post) => {
-                    if (post) {
-                        post.comments = Math.max(0, (post.comments || 0) - 1);
-                    }
-                    return post;
-                });
-                
-                showToast('success', 'Comment Deleted', 'Your comment has been deleted successfully.');
-            }).catch((error) => {
-                console.error("Error deleting comment:", error);
-                showToast('error', 'Error', 'Failed to delete comment.');
-            });
+            showToast('success', 'Post Created!', 'Your post has been published successfully.');
+            closeCreatePostModal();
         }
         
         // Study Groups functions
@@ -3899,727 +1937,14 @@
             const name = document.getElementById('groupName').value.trim();
             const topic = document.getElementById('groupTopic').value;
             const description = document.getElementById('groupDescription').value.trim();
-            const maxMembers = parseInt(document.getElementById('groupMaxMembers').value);
             
             if (!name || !topic || !description) {
                 showToast('error', 'Missing Fields', 'Please fill in all fields.');
                 return;
             }
             
-            const groupsRef = database.ref('studyGroups').push();
-            const newGroup = {
-                name: name,
-                topic: topic,
-                description: description,
-                maxMembers: maxMembers,
-                creatorId: currentUser.uid,
-                creatorName: userData.displayName,
-                members: [currentUser.uid],
-                memberCount: 1,
-                announcements: [],
-                resources: [],
-                createdAt: firebase.database.ServerValue.TIMESTAMP,
-                lastActivity: firebase.database.ServerValue.TIMESTAMP
-            };
-            
-            groupsRef.set(newGroup).then(() => {
-                showToast('success', 'Group Created!', 'Your study group has been created successfully.');
-                closeCreateGroupModal();
-            }).catch((error) => {
-                console.error("Error creating study group:", error);
-                showToast('error', 'Error', 'Failed to create study group.');
-            });
-        }
-        
-        function loadStudyGroups() {
-            const groupsContainer = document.getElementById('studyGroupsList');
-            groupsContainer.innerHTML = '<div class="spinner"></div>';
-            
-            const groupsRef = database.ref('studyGroups');
-            groupsRef.on('value', (snapshot) => {
-                groupsContainer.innerHTML = '';
-                
-                if (!snapshot.exists()) {
-                    groupsContainer.innerHTML = `
-                        <div class="empty-state">
-                            <div class="empty-state-icon">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <h3 class="empty-state-title">No Study Groups Yet</h3>
-                            <p class="empty-state-description">Create your first study group to collaborate with peers.</p>
-                        </div>`;
-                    return;
-                }
-                
-                studyGroups = [];
-                snapshot.forEach((childSnapshot) => {
-                    studyGroups.push({
-                        id: childSnapshot.key,
-                        ...childSnapshot.val()
-                    });
-                });
-                
-                studyGroups.forEach(group => {
-                    const groupElement = createStudyGroupElement(group);
-                    groupsContainer.appendChild(groupElement);
-                });
-            }, (error) => {
-                console.error("Error loading study groups:", error);
-                groupsContainer.innerHTML = '<p class="text-gray-500 text-center">Error loading study groups.</p>';
-            });
-        }
-        
-        function createStudyGroupElement(group) {
-            const groupDiv = document.createElement('div');
-            groupDiv.className = 'study-group-card';
-            
-            const isMember = currentUser && group.members && group.members.includes(currentUser.uid);
-            const memberCount = group.members ? group.members.length : 0;
-            const maxMembers = group.maxMembers || 10;
-            const isFull = memberCount >= maxMembers;
-            
-            const createdDate = new Date(group.createdAt);
-            const formattedDate = createdDate.toLocaleDateString();
-            
-            // Format topic for display
-            const topicLabels = {
-                'melting-point': 'Melting Point Trends',
-                'density': 'Density Trends',
-                'reactivity': 'Reactivity Series',
-                'reactions': 'Chemical Reactions',
-                'electron-configuration': 'Electron Configuration',
-                'experiments': 'Laboratory Experiments',
-                'exam-prep': 'Exam Preparation'
-            };
-            
-            groupDiv.innerHTML = `
-                <div class="group-header">
-                    <div>
-                        <h3 class="group-title">${group.name}</h3>
-                        <span class="group-topic">${topicLabels[group.topic] || group.topic}</span>
-                    </div>
-                </div>
-                <p class="group-description">${group.description}</p>
-                <div class="group-meta">
-                    <div class="group-members">
-                        <div class="flex -space-x-2">
-                            ${(group.members || []).slice(0, 5).map(member =>
-                                `<div class="member-avatar" title="${member}">${member.charAt(0).toUpperCase()}</div>`
-                            ).join('')}
-                            ${(memberCount || 0) > 5 ?
-                                `<div class="member-avatar">+${(memberCount || 0) - 5}</div>` : ''
-                            }
-                        </div>
-                        <span class="ml-2 text-sm">${memberCount}/${maxMembers} members</span>
-                    </div>
-                    <div class="group-stats">
-                        Created on ${formattedDate}
-                    </div>
-                </div>
-                <div class="group-actions">
-                    <button onclick="showGroupDetails('${group.id}')" class="btn btn-primary btn-sm">
-                        <i class="fas fa-eye mr-1"></i>
-                        View Details
-                    </button>
-                    <button onclick="${isMember ? 'leaveStudyGroup' : 'joinStudyGroup'}('${group.id}')"
-                            class="btn ${isMember ? 'btn-danger' : 'btn-primary'} btn-sm"
-                            ${isFull && !isMember ? 'disabled' : ''}>
-                        ${isMember ? 'Leave Group' : isFull ? 'Full' : 'Join Group'}
-                    </button>
-                </div>
-            `;
-            
-            return groupDiv;
-        }
-        
-        function showGroupDetails(groupId) {
-            if (!currentUser) {
-                showToast('error', 'Sign in required', 'Please sign in to view group details.');
-                showLoginModal();
-                return;
-            }
-            
-            const group = studyGroups.find(g => g.id === groupId);
-            if (!group) return;
-            
-            const isMember = currentUser && group.members && group.members.includes(currentUser.uid);
-            
-            // Format topic for display
-            const topicLabels = {
-                'melting-point': 'Melting Point Trends',
-                'density': 'Density Trends',
-                'reactivity': 'Reactivity Series',
-                'reactions': 'Chemical Reactions',
-                'electron-configuration': 'Electron Configuration',
-                'experiments': 'Laboratory Experiments',
-                'exam-prep': 'Exam Preparation'
-            };
-            
-            document.getElementById('groupDetailsTitle').textContent = group.name;
-            
-            let content = `
-                <div class="mb-6">
-                    <div class="flex justify-between items-start mb-4">
-                        <div>
-                            <h3 class="text-xl font-bold">${group.name}</h3>
-                            <span class="group-topic">${topicLabels[group.topic] || group.topic}</span>
-                        </div>
-                        <button onclick="closeGroupDetailsModal()" class="text-gray-500 hover:text-gray-700">
-                            <i class="fas fa-times text-xl"></i>
-                        </button>
-                    </div>
-                    
-                    <p class="text-gray-700 mb-4">${group.description}</p>
-                    
-                    <div class="grid grid-cols-2 gap-4 mb-6">
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <h4 class="font-semibold text-gray-800 mb-2">Group Info</h4>
-                            <p class="text-sm text-gray-600">Created: ${new Date(group.createdAt).toLocaleDateString()}</p>
-                            <p class="text-sm text-gray-600">Members: ${group.memberCount || 0}/${group.maxMembers || 10}</p>
-                            <p class="text-sm text-gray-600">Creator: ${group.creatorName}</p>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <h4 class="font-semibold text-gray-800 mb-2">Activity</h4>
-                            <p class="text-sm text-gray-600">Last active: ${new Date(group.lastActivity).toLocaleDateString()}</p>
-                            <p class="text-sm text-gray-600">Announcements: ${group.announcements ? group.announcements.length : 0}</p>
-                            <p class="text-sm text-gray-600">Resources: ${group.resources ? group.resources.length : 0}</p>
-                        </div>
-                    </div>
-                    
-                    ${isMember ? `
-                        <div class="mb-6">
-                            <h4 class="font-semibold text-gray-800 mb-3">Group Announcements</h4>
-                            <div id="groupAnnouncements">
-                                ${(group.announcements || []).map(announcement => `
-                                    <div class="group-announcement">
-                                        <h5>${announcement.title}</h5>
-                                        <p>${announcement.content}</p>
-                                        <p class="text-xs text-gray-500">${new Date(announcement.createdAt).toLocaleDateString()}</p>
-                                    </div>
-                                `).join('') || '<p class="text-gray-500">No announcements yet.</p>'}
-                            </div>
-                            ${group.creatorId === currentUser.uid ? `
-                                <button onclick="showAddAnnouncementModal('${group.id}')" class="btn btn-primary btn-sm mt-2">
-                                    <i class="fas fa-plus mr-1"></i>
-                                    Add Announcement
-                                </button>
-                            ` : ''}
-                        </div>
-                        
-                        <div class="mb-6">
-                            <h4 class="font-semibold text-gray-800 mb-3">Group Resources</h4>
-                            <div id="groupResources">
-                                ${(group.resources || []).map(resource => `
-                                    <div class="resource-item">
-                                        <div class="resource-icon">
-                                            <i class="fas fa-file-alt"></i>
-                                        </div>
-                                        <div class="resource-info">
-                                            <div class="resource-name">${resource.name}</div>
-                                            <div class="resource-meta">Added by ${resource.addedBy} • ${new Date(resource.createdAt).toLocaleDateString()}</div>
-                                        </div>
-                                        <div class="resource-actions">
-                                            <button class="resource-btn" onclick="downloadResource('${resource.url}')">
-                                                <i class="fas fa-download"></i>
-                                            </button>
-                                            ${group.creatorId === currentUser.uid ? `
-                                                <button class="resource-btn" onclick="removeResource('${group.id}', '${resource.id}')">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            ` : ''}
-                                        </div>
-                                    </div>
-                                `).join('') || '<p class="text-gray-500">No resources shared yet.</p>'}
-                            </div>
-                            ${isMember ? `
-                                <button onclick="showAddResourceModal('${group.id}')" class="btn btn-primary btn-sm mt-2">
-                                    <i class="fas fa-plus mr-1"></i>
-                                    Add Resource
-                                </button>
-                            ` : ''}
-                        </div>
-                        
-                        <div class="mb-6">
-                            <h4 class="font-semibold text-gray-800 mb-3">Group Chat</h4>
-                            <div class="group-chat" id="groupChat-${group.id}">
-                                <!-- Chat messages will be loaded here -->
-                            </div>
-                            <div class="chat-input">
-                                <input type="text" id="chatInput-${group.id}" placeholder="Type a message..." onkeypress="if(event.key === 'Enter') sendChatMessage(event, '${group.id}')">
-                                <button onclick="sendChatMessage(event, '${group.id}')" class="btn btn-primary btn-sm">Send</button>
-                            </div>
-                        </div>
-                    ` : `
-                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
-                            <p class="text-yellow-700">Join this study group to access announcements, resources, and group chat.</p>
-                        </div>
-                    `}
-                </div>
-            `;
-            
-            document.getElementById('groupDetailsContent').innerHTML = content;
-            document.getElementById('groupDetailsModal').classList.add('active');
-            
-            // Load chat messages if member
-            if (isMember) {
-                loadGroupChat(group.id);
-            }
-        }
-        
-        function closeGroupDetailsModal() {
-            document.getElementById('groupDetailsModal').classList.remove('active');
-        }
-        
-        function joinStudyGroup(groupId) {
-            if (!currentUser) {
-                showToast('error', 'Sign in required', 'Please sign in to join study groups.');
-                showLoginModal();
-                return;
-            }
-            
-            const groupRef = database.ref('studyGroups/' + groupId);
-            groupRef.once('value').then((snapshot) => {
-                const group = snapshot.val();
-                
-                if (!group) {
-                    showToast('error', 'Error', 'Study group not found.');
-                    return;
-                }
-                
-                if (group.members && group.members.includes(currentUser.uid)) {
-                    showToast('info', 'Already Member', 'You are already a member of this group.');
-                    return;
-                }
-                
-                if ((group.memberCount || 0) >= (group.maxMembers || 10)) {
-                    showToast('error', 'Group Full', 'This study group is already full.');
-                    return;
-                }
-                
-                const members = [...(group.members || []), currentUser.uid];
-                const updates = {};
-                updates['/members'] = members;
-                updates['/memberCount'] = members.length;
-                updates['/lastActivity'] = firebase.database.ServerValue.TIMESTAMP;
-                
-                groupRef.update(updates).then(() => {
-                    showToast('success', 'Joined Group', 'You have successfully joined the study group.');
-                    
-                    // Add welcome message to chat
-                    const chatRef = database.ref('groupChat').push();
-                    chatRef.set({
-                        groupId: groupId,
-                        authorId: 'system',
-                        authorName: 'System',
-                        content: `${userData.displayName} has joined the group.`,
-                        createdAt: firebase.database.ServerValue.TIMESTAMP
-                    });
-                }).catch((error) => {
-                    console.error("Error joining study group:", error);
-                    showToast('error', 'Error', 'Failed to join study group.');
-                });
-            }).catch((error) => {
-                console.error("Error getting study group:", error);
-                showToast('error', 'Error', 'Failed to join study group.');
-            });
-        }
-        
-        function leaveStudyGroup(groupId) {
-            if (!currentUser) {
-                showToast('error', 'Sign in required', 'Please sign in to leave study groups.');
-                showLoginModal();
-                return;
-            }
-            
-            const groupRef = database.ref('studyGroups/' + groupId);
-            groupRef.once('value').then((snapshot) => {
-                const group = snapshot.val();
-                
-                // Filter out current user
-                const updatedMembers = (group.members || []).filter(member => member !== currentUser.uid);
-                
-                const updates = {};
-                updates['/members'] = updatedMembers;
-                updates['/memberCount'] = updatedMembers.length;
-                updates['/lastActivity'] = firebase.database.ServerValue.TIMESTAMP;
-                
-                groupRef.update(updates).then(() => {
-                    showToast('success', 'Left Group', 'You have successfully left the study group.');
-                    
-                    // Add goodbye message to chat
-                    const chatRef = database.ref('groupChat').push();
-                    chatRef.set({
-                        groupId: groupId,
-                        authorId: 'system',
-                        authorName: 'System',
-                        content: `${userData.displayName} has left the group.`,
-                        createdAt: firebase.database.ServerValue.TIMESTAMP
-                    });
-                }).catch((error) => {
-                    console.error("Error leaving study group:", error);
-                    showToast('error', 'Error', 'Failed to leave study group.');
-                });
-            }).catch((error) => {
-                console.error("Error getting study group:", error);
-                showToast('error', 'Error', 'Failed to leave study group.');
-            });
-        }
-        
-        // Add Announcement Modal
-        function showAddAnnouncementModal(groupId) {
-            if (!currentUser) {
-                showToast('error', 'Sign in required', 'Please sign in to add announcements.');
-                showLoginModal();
-                return;
-            }
-            
-            const modal = document.createElement('div');
-            modal.className = 'modal';
-            modal.innerHTML = `
-                <div class="modal-content">
-                    <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-2xl font-bold text-gray-800">Add Announcement</h2>
-                        <button onclick="this.closest('.modal').classList.remove('active')" class="text-gray-500 hover:text-gray-700">
-                            <i class="fas fa-times text-xl"></i>
-                        </button>
-                    </div>
-                    
-                    <form onsubmit="addAnnouncement(event, '${groupId}')" class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
-                            <input type="text" id="announcementTitle" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Announcement title" required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Content</label>
-                            <textarea id="announcementContent" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 form-textarea" placeholder="Announcement content" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-full">
-                            <i class="fas fa-bullhorn mr-2"></i>
-                            Post Announcement
-                        </button>
-                    </form>
-                </div>
-            `;
-            
-            document.body.appendChild(modal);
-            modal.classList.add('active');
-        }
-        
-        function addAnnouncement(event, groupId) {
-            event.preventDefault();
-            
-            const title = document.getElementById('announcementTitle').value.trim();
-            const content = document.getElementById('announcementContent').value.trim();
-            
-            if (!title || !content) {
-                showToast('error', 'Missing Fields', 'Please fill in all fields.');
-                return;
-            }
-            
-            const groupRef = database.ref('studyGroups/' + groupId);
-            groupRef.once('value').then((snapshot) => {
-                const group = snapshot.val();
-                
-                if (!group) {
-                    showToast('error', 'Error', 'Study group not found.');
-                    return;
-                }
-                
-                if (group.creatorId !== currentUser.uid) {
-                    showToast('error', 'Permission Denied', 'Only the group creator can add announcements.');
-                    return;
-                }
-                
-                const announcements = group.announcements || [];
-                const newAnnouncement = {
-                    id: Date.now().toString(),
-                    title: title,
-                    content: content,
-                    createdBy: currentUser.uid,
-                    createdAt: firebase.database.ServerValue.TIMESTAMP
-                };
-                
-                announcements.push(newAnnouncement);
-                
-                groupRef.update({
-                    announcements: announcements,
-                    lastActivity: firebase.database.ServerValue.TIMESTAMP
-                }).then(() => {
-                    showToast('success', 'Announcement Added', 'Your announcement has been posted successfully.');
-                    
-                    // Close modal
-                    event.target.closest('.modal').classList.remove('active');
-                    
-                    // Add announcement message to chat
-                    const chatRef = database.ref('groupChat').push();
-                    chatRef.set({
-                        groupId: groupId,
-                        authorId: 'system',
-                        authorName: 'System',
-                        content: `New announcement: ${title}`,
-                        createdAt: firebase.database.ServerValue.TIMESTAMP
-                    });
-                    
-                    // Refresh group details
-                    showGroupDetails(groupId);
-                }).catch((error) => {
-                    console.error("Error adding announcement:", error);
-                    showToast('error', 'Error', 'Failed to add announcement.');
-                });
-            }).catch((error) => {
-                console.error("Error getting study group:", error);
-                showToast('error', 'Error', 'Failed to add announcement.');
-            });
-        }
-        
-        // Add Resource Modal
-        function showAddResourceModal(groupId) {
-            if (!currentUser) {
-                showToast('error', 'Sign in required', 'Please sign in to add resources.');
-                showLoginModal();
-                return;
-            }
-            
-            const modal = document.createElement('div');
-            modal.className = 'modal';
-            modal.innerHTML = `
-                <div class="modal-content">
-                    <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-2xl font-bold text-gray-800">Add Resource</h2>
-                        <button onclick="this.closest('.modal').classList.remove('active')" class="text-gray-500 hover:text-gray-700">
-                            <i class="fas fa-times text-xl"></i>
-                        </button>
-                    </div>
-                    
-                    <form onsubmit="addResource(event, '${groupId}')" class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Resource Name</label>
-                            <input type="text" id="resourceName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Resource name" required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">URL</label>
-                            <input type="url" id="resourceUrl" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="https://example.com" required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                            <textarea id="resourceDescription" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 form-textarea" placeholder="Brief description of the resource"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-full">
-                            <i class="fas fa-plus mr-2"></i>
-                            Add Resource
-                        </button>
-                    </form>
-                </div>
-            `;
-            
-            document.body.appendChild(modal);
-            modal.classList.add('active');
-        }
-        
-        function addResource(event, groupId) {
-            event.preventDefault();
-            
-            const name = document.getElementById('resourceName').value.trim();
-            const url = document.getElementById('resourceUrl').value.trim();
-            const description = document.getElementById('resourceDescription').value.trim();
-            
-            if (!name || !url) {
-                showToast('error', 'Missing Fields', 'Please fill in all required fields.');
-                return;
-            }
-            
-            const groupRef = database.ref('studyGroups/' + groupId);
-            groupRef.once('value').then((snapshot) => {
-                const group = snapshot.val();
-                
-                if (!group) {
-                    showToast('error', 'Error', 'Study group not found.');
-                    return;
-                }
-                
-                if (!group.members || !group.members.includes(currentUser.uid)) {
-                    showToast('error', 'Permission Denied', 'Only group members can add resources.');
-                    return;
-                }
-                
-                const resources = group.resources || [];
-                const newResource = {
-                    id: Date.now().toString(),
-                    name: name,
-                    url: url,
-                    description: description,
-                    addedBy: userData.displayName,
-                    addedById: currentUser.uid,
-                    createdAt: firebase.database.ServerValue.TIMESTAMP
-                };
-                
-                resources.push(newResource);
-                
-                groupRef.update({
-                    resources: resources,
-                    lastActivity: firebase.database.ServerValue.TIMESTAMP
-                }).then(() => {
-                    showToast('success', 'Resource Added', 'Your resource has been shared successfully.');
-                    
-                    // Close modal
-                    event.target.closest('.modal').classList.remove('active');
-                    
-                    // Add resource message to chat
-                    const chatRef = database.ref('groupChat').push();
-                    chatRef.set({
-                        groupId: groupId,
-                        authorId: 'system',
-                        authorName: 'System',
-                        content: `${userData.displayName} shared a new resource: ${name}`,
-                        createdAt: firebase.database.ServerValue.TIMESTAMP
-                    });
-                    
-                    // Refresh group details
-                    showGroupDetails(groupId);
-                }).catch((error) => {
-                    console.error("Error adding resource:", error);
-                    showToast('error', 'Error', 'Failed to add resource.');
-                });
-            }).catch((error) => {
-                console.error("Error getting study group:", error);
-                showToast('error', 'Error', 'Failed to add resource.');
-            });
-        }
-        
-        function removeResource(groupId, resourceId) {
-            if (!confirm('Are you sure you want to remove this resource?')) {
-                return;
-            }
-            
-            const groupRef = database.ref('studyGroups/' + groupId);
-            groupRef.once('value').then((snapshot) => {
-                const group = snapshot.val();
-                
-                if (!group) {
-                    showToast('error', 'Error', 'Study group not found.');
-                    return;
-                }
-                
-                if (group.creatorId !== currentUser.uid) {
-                    showToast('error', 'Permission Denied', 'Only the group creator can remove resources.');
-                    return;
-                }
-                
-                const resources = (group.resources || []).filter(r => r.id !== resourceId);
-                
-                groupRef.update({
-                    resources: resources,
-                    lastActivity: firebase.database.ServerValue.TIMESTAMP
-                }).then(() => {
-                    showToast('success', 'Resource Removed', 'The resource has been removed successfully.');
-                    
-                    // Refresh group details
-                    showGroupDetails(groupId);
-                }).catch((error) => {
-                    console.error("Error removing resource:", error);
-                    showToast('error', 'Error', 'Failed to remove resource.');
-                });
-            }).catch((error) => {
-                console.error("Error getting study group:", error);
-                showToast('error', 'Error', 'Failed to remove resource.');
-            });
-        }
-        
-        function downloadResource(url) {
-            window.open(url, '_blank');
-        }
-        
-        // Group Chat Functions
-        function loadGroupChat(groupId) {
-            const chatContainer = document.getElementById(`groupChat-${groupId}`);
-            if (!chatContainer) return;
-            
-            const chatRef = database.ref('groupChat').orderByChild('groupId').equalTo(groupId);
-            chatRef.on('value', (snapshot) => {
-                chatContainer.innerHTML = '';
-                
-                if (!snapshot.exists()) {
-                    chatContainer.innerHTML = '<p class="text-gray-500 text-center">No messages yet. Start the conversation!</p>';
-                    return;
-                }
-                
-                const messages = [];
-                snapshot.forEach((childSnapshot) => {
-                    messages.push({
-                        id: childSnapshot.key,
-                        ...childSnapshot.val()
-                    });
-                });
-                
-                // Sort by creation date (oldest first)
-                messages.sort((a, b) => {
-                    return new Date(a.createdAt) - new Date(b.createdAt);
-                });
-                
-                messages.forEach(message => {
-                    const messageDiv = document.createElement('div');
-                    messageDiv.className = 'chat-message';
-                    
-                    if (message.authorId === currentUser.uid) {
-                        messageDiv.classList.add('own');
-                    }
-                    
-                    const date = new Date(message.createdAt);
-                    const formattedTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                    
-                    messageDiv.innerHTML = `
-                        <div class="font-semibold text-sm">${message.authorName}</div>
-                        <div class="text-sm">${message.content}</div>
-                        <div class="text-xs text-gray-500">${formattedTime}</div>
-                    `;
-                    
-                    chatContainer.appendChild(messageDiv);
-                });
-                
-                // Scroll to bottom
-                chatContainer.scrollTop = chatContainer.scrollHeight;
-            });
-        }
-        
-        function sendChatMessage(event, groupId) {
-            if (event.key === 'Enter' || event.type === 'click') {
-                event.preventDefault();
-                
-                if (!currentUser) {
-                    showToast('error', 'Sign in required', 'Please sign in to send messages.');
-                    showLoginModal();
-                    return;
-                }
-                
-                const input = document.getElementById(`chatInput-${groupId}`);
-                const content = input.value.trim();
-                
-                if (!content) {
-                    return;
-                }
-                
-                const chatRef = database.ref('groupChat').push();
-                const newMessage = {
-                    groupId: groupId,
-                    authorId: currentUser.uid,
-                    authorName: userData.displayName,
-                    content: content,
-                    createdAt: firebase.database.ServerValue.TIMESTAMP
-                };
-                
-                chatRef.set(newMessage).then(() => {
-                    input.value = '';
-                    
-                    // Update group activity
-                    const groupRef = database.ref('studyGroups/' + groupId);
-                    groupRef.update({
-                        lastActivity: firebase.database.ServerValue.TIMESTAMP
-                    });
-                }).catch((error) => {
-                    console.error("Error sending chat message:", error);
-                    showToast('error', 'Error', 'Failed to send message.');
-                });
-            }
+            showToast('success', 'Group Created!', 'Your study group has been created successfully.');
+            closeCreateGroupModal();
         }
         
         // Toast notification function
