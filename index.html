@@ -781,11 +781,49 @@
         .dropped-item {
             margin: 0.25rem;
             display: inline-block;
+            position: relative;
+        }
+        
+        .dropped-item .remove-btn {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--danger);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .dropped-item .remove-btn:hover {
+            background: #dc2626;
         }
         
         .reaction-arrow {
             font-size: 2rem;
             margin: 0 1rem;
+        }
+        
+        /* Anti-cheating styles */
+        .quiz-modal {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        
+        .quiz-modal .modal-content {
+            pointer-events: none;
+        }
+        
+        .quiz-modal .modal-content > * {
+            pointer-events: auto;
         }
         
         @media (max-width: 768px) {
@@ -1383,7 +1421,7 @@
         </div>
     </div>
     <!-- Quiz Modal -->
-    <div id="quizModal" class="modal">
+    <div id="quizModal" class="modal quiz-modal">
         <div class="modal-content">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-bold text-gray-800">Group 1 Quiz</h2>
@@ -1863,6 +1901,41 @@
             document.getElementById('progressFill').style.width = ((currentQuestion + 1) / quizQuestions.length * 100) + '%';
             
             loadQuestion();
+            
+            // Add anti-cheating measures
+            addAntiCheatingMeasures();
+        }
+        
+        function addAntiCheatingMeasures() {
+            // Disable right-click
+            document.getElementById('quizModal').addEventListener('contextmenu', e => e.preventDefault());
+            
+            // Disable text selection
+            document.getElementById('quizModal').addEventListener('selectstart', e => e.preventDefault());
+            document.getElementById('quizModal').addEventListener('mousedown', e => e.preventDefault());
+            
+            // Warn before leaving
+            window.addEventListener('beforeunload', preventQuizExit);
+        }
+        
+        function removeAntiCheatingMeasures() {
+            // Re-enable right-click
+            document.getElementById('quizModal').removeEventListener('contextmenu', e => e.preventDefault());
+            
+            // Re-enable text selection
+            document.getElementById('quizModal').removeEventListener('selectstart', e => e.preventDefault());
+            document.getElementById('quizModal').removeEventListener('mousedown', e => e.preventDefault());
+            
+            // Remove beforeunload listener
+            window.removeEventListener('beforeunload', preventQuizExit);
+        }
+        
+        function preventQuizExit(e) {
+            if (document.getElementById('quizModal').classList.contains('active')) {
+                e.preventDefault();
+                e.returnValue = '';
+                return '';
+            }
         }
         
         function loadQuestion() {
@@ -1931,7 +2004,7 @@
             });
         }
         
-        // Drag and Drop Loader
+        // Drag and Drop Loader with Enhanced Functionality
         function loadDragDrop(question, container) {
             container.innerHTML = `
                 <div class="mb-4">
@@ -1952,134 +2025,7 @@
             setupDragAndDrop(question);
         }
         
-        // Fill in the Blanks Loader
-        function loadFillBlank(question, container) {
-            let html = '<div class="space-y-4">';
-            
-            question.blanks.forEach(blank => {
-                html += `
-                    <div class="mb-3">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">${blank.id.replace('blank', 'Blank ')}:</label>
-                        <select id="${blank.id}" class="form-input w-full">
-                            <option value="">Select an answer</option>
-                            ${blank.options.map(option => `
-                                <option value="${option}">${option}</option>
-                            `).join('')}
-                        </select>
-                    </div>
-                `;
-            });
-            
-            html += '</div>';
-            container.innerHTML = html;
-            
-            // Enable submit when all blanks are filled
-            question.blanks.forEach(blank => {
-                document.getElementById(blank.id).addEventListener('change', () => {
-                    const allFilled = question.blanks.every(b => document.getElementById(b.id).value);
-                    document.getElementById('submitButton').disabled = !allFilled;
-                });
-            });
-        }
-        
-        // Matching Loader
-        function loadMatching(question, container) {
-            container.innerHTML = `
-                <div class="grid grid-cols-2 gap-6">
-                    <div>
-                        <h4 class="font-semibold mb-3">Elements</h4>
-                        <div class="space-y-2">
-                            ${question.leftItems.map((item, index) => `
-                                <div class="match-item bg-gray-100 p-3 rounded-lg" data-left="${index}">
-                                    ${item}
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold mb-3">Oxides</h4>
-                        <div class="space-y-2">
-                            ${question.rightItems.map((item, index) => `
-                                <div class="match-item bg-gray-100 p-3 rounded-lg" data-right="${index}">
-                                    ${item}
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-4 text-center">
-                    <button onclick="checkMatching()" class="btn btn-primary">Check Matches</button>
-                </div>
-            `;
-            
-            setupMatching(question);
-        }
-        
-        // True/False Loader
-        function loadTrueFalse(question, container) {
-            container.innerHTML = `
-                <div class="flex justify-center gap-6">
-                    <div class="quiz-option text-center" onclick="selectTrueFalse(true)">
-                        <input type="radio" name="tf-option" id="tf-true" value="true">
-                        <label for="tf-true" class="block mt-2">True</label>
-                    </div>
-                    <div class="quiz-option text-center" onclick="selectTrueFalse(false)">
-                        <input type="radio" name="tf-option" id="tf-false" value="false">
-                        <label for="tf-false" class="block mt-2">False</label>
-                    </div>
-                </div>
-            `;
-        }
-        
-        // Sequence Loader
-        function loadSequence(question, container) {
-            container.innerHTML = `
-                <div class="mb-4">
-                    <p class="text-sm text-gray-600 mb-2">Drag items to arrange them in order:</p>
-                    <div id="sequenceItems" class="flex flex-wrap gap-2 mb-4">
-                        ${question.items.map((item, index) => `
-                            <div class="sequence-item bg-purple-100 px-4 py-2 rounded-lg cursor-move" draggable="true" data-index="${index}">
-                                ${item}
-                            </div>
-                        `).join('')}
-                    </div>
-                    <div id="sequenceZone" class="min-h-[100px] border-2 border-dashed border-gray-300 rounded-lg p-4">
-                        <p class="text-gray-400 text-center">Drop items here in sequence</p>
-                    </div>
-                </div>
-            `;
-            
-            setupSequence(question);
-        }
-        
-        // Reaction Simulator Loader
-        function loadReactionSimulator(question, container) {
-            container.innerHTML = `
-                <div class="text-center mb-6">
-                    <div class="flex items-center justify-center gap-4 mb-4">
-                        <div class="bg-blue-100 px-4 py-2 rounded-lg">${question.reactants[0]}</div>
-                        <div class="text-2xl">+</div>
-                        <div class="bg-blue-100 px-4 py-2 rounded-lg">${question.reactants[1]}</div>
-                        <div class="text-2xl">→</div>
-                        <div id="reactionProducts" class="flex gap-2 min-w-[200px] min-h-[40px] border-2 border-dashed border-gray-300 rounded-lg p-2">
-                            <!-- Products will be dropped here -->
-                        </div>
-                    </div>
-                    <p class="text-sm text-gray-600 mb-4">Drag the correct products to the arrow:</p>
-                    <div class="flex flex-wrap justify-center gap-2">
-                        ${question.products.map(product => `
-                            <div class="reaction-product bg-green-100 px-3 py-1 rounded-lg cursor-move" draggable="true" data-product="${product}">
-                                ${product}
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-            
-            setupReactionSimulator(question);
-        }
-        
-        // Drag and Drop Setup
+        // Enhanced Drag and Drop Setup
         function setupDragAndDrop(question) {
             const dragItems = document.querySelectorAll('.drag-item');
             const dropZone = document.getElementById('dropZone');
@@ -2116,6 +2062,13 @@
                     clone.draggable = false;
                     clone.style.cursor = 'default';
                     
+                    // Add remove button
+                    const removeBtn = document.createElement('span');
+                    removeBtn.className = 'remove-btn';
+                    removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                    removeBtn.onclick = () => removeDroppedItem(clone, draggedItem);
+                    clone.appendChild(removeBtn);
+                    
                     if (dropZone.children.length === 1 && dropZone.children[0].tagName === 'P') {
                         dropZone.innerHTML = '';
                     }
@@ -2132,7 +2085,84 @@
             });
         }
         
-        // Matching Setup
+        // Function to remove dropped item
+        function removeDroppedItem(clone, originalItem) {
+            const dropZone = document.getElementById('dropZone');
+            dropZone.removeChild(clone);
+            originalItem.style.display = 'block';
+            
+            // Check if all items are removed
+            const droppedItems = dropZone.querySelectorAll('.drag-item, .bg-green-100');
+            if (droppedItems.length === 0) {
+                document.getElementById('submitButton').disabled = true;
+            }
+        }
+        
+        // Fill in the Blanks Loader
+        function loadFillBlank(question, container) {
+            let html = '<div class="space-y-4">';
+            
+            question.blanks.forEach(blank => {
+                html += `
+                    <div class="mb-3">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">${blank.id.replace('blank', 'Blank ')}:</label>
+                        <select id="${blank.id}" class="form-input w-full">
+                            <option value="">Select an answer</option>
+                            ${blank.options.map(option => `
+                                <option value="${option}">${option}</option>
+                            `).join('')}
+                        </select>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            container.innerHTML = html;
+            
+            // Enable submit when all blanks are filled
+            question.blanks.forEach(blank => {
+                document.getElementById(blank.id).addEventListener('change', () => {
+                    const allFilled = question.blanks.every(b => document.getElementById(b.id).value);
+                    document.getElementById('submitButton').disabled = !allFilled;
+                });
+            });
+        }
+        
+        // Matching Loader with Enhanced Functionality
+        function loadMatching(question, container) {
+            container.innerHTML = `
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-semibold mb-3">Elements</h4>
+                        <div class="space-y-2">
+                            ${question.leftItems.map((item, index) => `
+                                <div class="match-item bg-gray-100 p-3 rounded-lg" data-left="${index}">
+                                    ${item}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-3">Oxides</h4>
+                        <div class="space-y-2">
+                            ${question.rightItems.map((item, index) => `
+                                <div class="match-item bg-gray-100 p-3 rounded-lg" data-right="${index}">
+                                    ${item}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4 text-center">
+                    <button onclick="checkMatching()" class="btn btn-primary">Check Matches</button>
+                    <button onclick="clearMatches()" class="btn btn-secondary ml-2">Clear All</button>
+                </div>
+            `;
+            
+            setupMatching(question);
+        }
+        
+        // Enhanced Matching Setup
         function setupMatching(question) {
             const leftItems = document.querySelectorAll('[data-left]');
             const rightItems = document.querySelectorAll('[data-right]');
@@ -2142,6 +2172,16 @@
             
             leftItems.forEach(item => {
                 item.addEventListener('click', () => {
+                    if (item.classList.contains('matched')) {
+                        // If already matched, unmatch it
+                        const rightIndex = matches[item.dataset.left];
+                        const rightItem = document.querySelector(`[data-right="${rightIndex}"]`);
+                        item.classList.remove('matched', 'bg-green-100');
+                        rightItem.classList.remove('matched', 'bg-green-100');
+                        delete matches[item.dataset.left];
+                        return;
+                    }
+                    
                     if (selectedLeft) {
                         selectedLeft.classList.remove('selected');
                     }
@@ -2151,9 +2191,9 @@
                     if (selectedRight) {
                         matches[selectedLeft.dataset.left] = selectedRight.dataset.right;
                         selectedLeft.classList.remove('selected');
-                        selectedLeft.classList.add('matched');
+                        selectedLeft.classList.add('matched', 'bg-green-100');
                         selectedRight.classList.remove('selected');
-                        selectedRight.classList.add('matched');
+                        selectedRight.classList.add('matched', 'bg-green-100');
                         selectedLeft = null;
                         selectedRight = null;
                         
@@ -2167,6 +2207,16 @@
             
             rightItems.forEach(item => {
                 item.addEventListener('click', () => {
+                    if (item.classList.contains('matched')) {
+                        // If already matched, unmatch it
+                        const leftIndex = Object.keys(matches).find(key => matches[key] === item.dataset.right);
+                        const leftItem = document.querySelector(`[data-left="${leftIndex}"]`);
+                        leftItem.classList.remove('matched', 'bg-green-100');
+                        item.classList.remove('matched', 'bg-green-100');
+                        delete matches[leftIndex];
+                        return;
+                    }
+                    
                     if (selectedRight) {
                         selectedRight.classList.remove('selected');
                     }
@@ -2176,9 +2226,9 @@
                     if (selectedLeft) {
                         matches[selectedLeft.dataset.left] = selectedRight.dataset.right;
                         selectedLeft.classList.remove('selected');
-                        selectedLeft.classList.add('matched');
+                        selectedLeft.classList.add('matched', 'bg-green-100');
                         selectedRight.classList.remove('selected');
-                        selectedRight.classList.add('matched');
+                        selectedRight.classList.add('matched', 'bg-green-100');
                         selectedLeft = null;
                         selectedRight = null;
                         
@@ -2193,9 +2243,57 @@
             window.checkMatching = () => {
                 // This will be used in submitAnswer
             };
+            
+            window.clearMatches = () => {
+                matches = {};
+                leftItems.forEach(item => {
+                    item.classList.remove('matched', 'bg-green-100', 'selected');
+                });
+                rightItems.forEach(item => {
+                    item.classList.remove('matched', 'bg-green-100', 'selected');
+                });
+                document.getElementById('submitButton').disabled = true;
+            };
         }
         
-        // Sequence Setup
+        // True/False Loader
+        function loadTrueFalse(question, container) {
+            container.innerHTML = `
+                <div class="flex justify-center gap-6">
+                    <div class="quiz-option text-center" onclick="selectTrueFalse(true)">
+                        <input type="radio" name="tf-option" id="tf-true" value="true">
+                        <label for="tf-true" class="block mt-2">True</label>
+                    </div>
+                    <div class="quiz-option text-center" onclick="selectTrueFalse(false)">
+                        <input type="radio" name="tf-option" id="tf-false" value="false">
+                        <label for="tf-false" class="block mt-2">False</label>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Sequence Loader with Enhanced Functionality
+        function loadSequence(question, container) {
+            container.innerHTML = `
+                <div class="mb-4">
+                    <p class="text-sm text-gray-600 mb-2">Drag items to arrange them in order:</p>
+                    <div id="sequenceItems" class="flex flex-wrap gap-2 mb-4">
+                        ${question.items.map((item, index) => `
+                            <div class="sequence-item bg-purple-100 px-4 py-2 rounded-lg cursor-move" draggable="true" data-index="${index}">
+                                ${item}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div id="sequenceZone" class="min-h-[100px] border-2 border-dashed border-gray-300 rounded-lg p-4">
+                        <p class="text-gray-400 text-center">Drop items here in sequence</p>
+                    </div>
+                </div>
+            `;
+            
+            setupSequence(question);
+        }
+        
+        // Enhanced Sequence Setup
         function setupSequence(question) {
             const sequenceItems = document.querySelectorAll('.sequence-item');
             const sequenceZone = document.getElementById('sequenceZone');
@@ -2232,6 +2330,13 @@
                     clone.draggable = false;
                     clone.style.cursor = 'default';
                     
+                    // Add remove button
+                    const removeBtn = document.createElement('span');
+                    removeBtn.className = 'remove-btn';
+                    removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                    removeBtn.onclick = () => removeSequenceItem(clone, draggedItem);
+                    clone.appendChild(removeBtn);
+                    
                     if (sequenceZone.children.length === 1 && sequenceZone.children[0].tagName === 'P') {
                         sequenceZone.innerHTML = '';
                     }
@@ -2248,7 +2353,47 @@
             });
         }
         
-        // Reaction Simulator Setup
+        // Function to remove sequence item
+        function removeSequenceItem(clone, originalItem) {
+            const sequenceZone = document.getElementById('sequenceZone');
+            sequenceZone.removeChild(clone);
+            originalItem.style.display = 'block';
+            
+            // Check if all items are removed
+            const droppedItems = sequenceZone.querySelectorAll('.sequence-item, .bg-green-100');
+            if (droppedItems.length === 0) {
+                document.getElementById('submitButton').disabled = true;
+            }
+        }
+        
+        // Reaction Simulator Loader with Enhanced Functionality
+        function loadReactionSimulator(question, container) {
+            container.innerHTML = `
+                <div class="text-center mb-6">
+                    <div class="flex items-center justify-center gap-4 mb-4">
+                        <div class="bg-blue-100 px-4 py-2 rounded-lg">${question.reactants[0]}</div>
+                        <div class="text-2xl">+</div>
+                        <div class="bg-blue-100 px-4 py-2 rounded-lg">${question.reactants[1]}</div>
+                        <div class="text-2xl">→</div>
+                        <div id="reactionProducts" class="flex gap-2 min-w-[200px] min-h-[40px] border-2 border-dashed border-gray-300 rounded-lg p-2">
+                            <!-- Products will be dropped here -->
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-4">Drag the correct products to the arrow:</p>
+                    <div class="flex flex-wrap justify-center gap-2">
+                        ${question.products.map(product => `
+                            <div class="reaction-product bg-green-100 px-3 py-1 rounded-lg cursor-move" draggable="true" data-product="${product}">
+                                ${product}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            setupReactionSimulator(question);
+        }
+        
+        // Enhanced Reaction Simulator Setup
         function setupReactionSimulator(question) {
             const reactionProducts = document.querySelectorAll('.reaction-product');
             const productsZone = document.getElementById('reactionProducts');
@@ -2285,6 +2430,13 @@
                     clone.draggable = false;
                     clone.style.cursor = 'default';
                     
+                    // Add remove button
+                    const removeBtn = document.createElement('span');
+                    removeBtn.className = 'remove-btn';
+                    removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                    removeBtn.onclick = () => removeReactionProduct(clone, draggedProduct);
+                    clone.appendChild(removeBtn);
+                    
                     productsZone.appendChild(clone);
                     draggedProduct.style.display = 'none';
                     
@@ -2294,6 +2446,18 @@
                     }
                 }
             });
+        }
+        
+        // Function to remove reaction product
+        function removeReactionProduct(clone, originalProduct) {
+            const productsZone = document.getElementById('reactionProducts');
+            productsZone.removeChild(clone);
+            originalProduct.style.display = 'block';
+            
+            // Check if all products are removed
+            if (productsZone.children.length === 0) {
+                document.getElementById('submitButton').disabled = true;
+            }
         }
         
         // True/False Selection
@@ -2345,7 +2509,7 @@
                     
                 case 'dragdrop':
                     const droppedItems = document.querySelectorAll('#dropZone .bg-green-100');
-                    const userOrder = Array.from(droppedItems).map(item => item.textContent);
+                    const userOrder = Array.from(droppedItems).map(item => item.textContent.replace('×', '').trim());
                     isCorrect = JSON.stringify(userOrder) === JSON.stringify(question.correct);
                     break;
                     
@@ -2366,7 +2530,7 @@
                     
                 case 'sequence':
                     const sequenceItems = document.querySelectorAll('#sequenceZone .bg-green-100');
-                    const userSequence = Array.from(sequenceItems).map(item => item.textContent);
+                    const userSequence = Array.from(sequenceItems).map(item => item.textContent.replace('×', '').trim());
                     isCorrect = JSON.stringify(userSequence) === JSON.stringify(question.correct);
                     break;
                     
@@ -2436,10 +2600,14 @@
             }
             
             document.getElementById('scoreMessage').textContent = message;
+            
+            // Remove anti-cheating measures
+            removeAntiCheatingMeasures();
         }
         
         function closeQuiz() {
             document.getElementById('quizModal').classList.remove('active');
+            removeAntiCheatingMeasures();
         }
         
         // Discussion functions
