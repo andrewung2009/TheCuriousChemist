@@ -277,6 +277,11 @@
             background: #dc2626;
         }
         
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+        
         .highlight-box {
             background: rgba(79, 70, 229, 0.1);
             border-left: 4px solid var(--primary);
@@ -368,6 +373,10 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
         
+        .modal-lg {
+            max-width: 800px;
+        }
+        
         .quiz-option {
             padding: 1rem;
             border: 2px solid var(--gray-200);
@@ -398,6 +407,11 @@
         .quiz-option.incorrect {
             border-color: var(--danger);
             background: rgba(239, 68, 68, 0.1);
+        }
+        
+        .quiz-option.disabled {
+            pointer-events: none;
+            opacity: 0.7;
         }
         
         .quiz-option input {
@@ -826,6 +840,196 @@
             pointer-events: auto;
         }
         
+        /* Enhanced Discussion and Study Group Styles */
+        .discussion-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .search-box {
+            position: relative;
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 0.25rem;
+            background: white;
+            color: var(--gray-700);
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .filter-btn:hover {
+            background: var(--gray-100);
+        }
+        
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .post-tag {
+            display: inline-block;
+            background: var(--gray-100);
+            color: var(--gray-700);
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            margin-right: 0.5rem;
+        }
+        
+        .post-tag:hover {
+            background: var(--gray-200);
+        }
+        
+        .group-chat {
+            background: var(--gray-50);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .chat-message {
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            background: white;
+        }
+        
+        .chat-message.own {
+            background: var(--primary);
+            color: white;
+            margin-left: 2rem;
+        }
+        
+        .chat-input {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid var(--gray-300);
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+        }
+        
+        .group-announcement {
+            background: rgba(79, 70, 229, 0.1);
+            border-left: 3px solid var(--primary);
+            padding: 0.75rem;
+            border-radius: 0.25rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .group-announcement h5 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--primary);
+        }
+        
+        .group-announcement p {
+            font-size: 0.875rem;
+            color: var(--gray-700);
+        }
+        
+        .resource-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            border: 1px solid var(--gray-200);
+            border-radius: 0.25rem;
+            margin-bottom: 0.5rem;
+            background: white;
+            transition: all 0.2s ease;
+        }
+        
+        .resource-item:hover {
+            border-color: var(--primary);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .resource-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gray-100);
+            border-radius: 0.25rem;
+            margin-right: 0.75rem;
+            color: var(--primary);
+        }
+        
+        .resource-info {
+            flex: 1;
+        }
+        
+        .resource-name {
+            font-weight: 500;
+            font-size: 0.875rem;
+            color: var(--gray-800);
+        }
+        
+        .resource-meta {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+        
+        .resource-actions {
+            display: flex;
+            gap: 0.25rem;
+        }
+        
+        .resource-btn {
+            padding: 0.25rem 0.5rem;
+            background: transparent;
+            border: none;
+            color: var(--gray-500);
+            cursor: pointer;
+            border-radius: 0.25rem;
+            transition: all 0.2s ease;
+        }
+        
+        .resource-btn:hover {
+            background: var(--gray-100);
+            color: var(--primary);
+        }
+        
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -841,6 +1045,15 @@
             
             .element-grid {
                 grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+            
+            .discussion-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-box {
+                min-width: auto;
             }
         }
     </style>
@@ -1226,6 +1439,20 @@
                             New Post
                         </button>
                     </div>
+                    
+                    <!-- Discussion Controls -->
+                    <div class="discussion-controls">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="discussionSearch" placeholder="Search discussions..." onkeyup="filterDiscussions()">
+                        </div>
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" onclick="sortDiscussions('newest')">Newest</button>
+                            <button class="filter-btn" onclick="sortDiscussions('oldest')">Oldest</button>
+                            <button class="filter-btn" onclick="sortDiscussions('popular')">Most Popular</button>
+                        </div>
+                    </div>
+                    
                     <div id="discussionPosts">
                         <div class="empty-state">
                             <div class="empty-state-icon">
@@ -1250,6 +1477,7 @@
                             Create Group
                         </button>
                     </div>
+                    
                     <div id="studyGroupsList">
                         <div class="empty-state">
                             <div class="empty-state-icon">
@@ -1372,6 +1600,37 @@
             </form>
         </div>
     </div>
+    <!-- Edit Post Modal -->
+    <div id="editPostModal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Edit Post</h2>
+                <button onclick="closeEditPostModal()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <form id="editPostForm" class="space-y-4" onsubmit="handleEditPost(event)">
+                <input type="hidden" id="editPostId">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                    <input type="text" id="editPostTitle" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter post title" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Content</label>
+                    <textarea id="editPostContent" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 form-textarea" placeholder="What would you like to discuss?" required></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Tags (comma separated)</label>
+                    <input type="text" id="editPostTags" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., melting-point, reactivity, questions">
+                </div>
+                <button type="submit" class="btn btn-primary w-full">
+                    <i class="fas fa-save mr-2"></i>
+                    Save Changes
+                </button>
+            </form>
+        </div>
+    </div>
     <!-- Create Study Group Modal -->
     <div id="createGroupModal" class="modal">
         <div class="modal-content">
@@ -1418,6 +1677,21 @@
                     Create Group
                 </button>
             </form>
+        </div>
+    </div>
+    <!-- Study Group Details Modal -->
+    <div id="groupDetailsModal" class="modal modal-lg">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800" id="groupDetailsTitle">Study Group Details</h2>
+                <button onclick="closeGroupDetailsModal()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div id="groupDetailsContent">
+                <!-- Group details will be loaded here -->
+            </div>
         </div>
     </div>
     <!-- Quiz Modal -->
@@ -1500,6 +1774,10 @@
         let score = 0;
         let selectedOption = null;
         let answerSubmitted = false;
+        let quizAnswers = []; // To store answers for each question
+        let discussionPosts = [];
+        let studyGroups = [];
+        let currentSort = 'newest';
         
         // Enhanced Quiz Questions with Multiple Types
         quizQuestions = [
@@ -1605,6 +1883,7 @@
                         email: currentUser.email,
                         displayName: currentUser.displayName || 'User',
                         completedSections: [],
+                        savedPosts: [],
                         createdAt: firebase.database.ServerValue.TIMESTAMP
                     };
                     
@@ -1889,6 +2168,7 @@
             score = 0;
             selectedOption = null;
             answerSubmitted = false;
+            quizAnswers = [];
             
             document.getElementById('quizModal').classList.add('active');
             document.getElementById('quizProgress').style.display = 'block';
@@ -1945,45 +2225,68 @@
             const optionsContainer = document.getElementById('optionsContainer');
             optionsContainer.innerHTML = '';
             
+            // Check if this question has been answered already
+            const answeredQuestion = quizAnswers[currentQuestion];
+            
             switch(question.type) {
                 case 'mcq':
-                    loadMCQ(question, optionsContainer);
+                    loadMCQ(question, optionsContainer, answeredQuestion);
                     break;
                 case 'dragdrop':
-                    loadDragDrop(question, optionsContainer);
+                    loadDragDrop(question, optionsContainer, answeredQuestion);
                     break;
                 case 'fillblank':
-                    loadFillBlank(question, optionsContainer);
+                    loadFillBlank(question, optionsContainer, answeredQuestion);
                     break;
                 case 'matching':
-                    loadMatching(question, optionsContainer);
+                    loadMatching(question, optionsContainer, answeredQuestion);
                     break;
                 case 'truefalse':
-                    loadTrueFalse(question, optionsContainer);
+                    loadTrueFalse(question, optionsContainer, answeredQuestion);
                     break;
                 case 'sequence':
-                    loadSequence(question, optionsContainer);
+                    loadSequence(question, optionsContainer, answeredQuestion);
                     break;
                 case 'reaction':
-                    loadReactionSimulator(question, optionsContainer);
+                    loadReactionSimulator(question, optionsContainer, answeredQuestion);
                     break;
             }
             
             document.getElementById('prevButton').classList.toggle('hidden', currentQuestion === 0);
-            document.getElementById('submitButton').style.display = 'inline-flex';
-            document.getElementById('submitButton').disabled = true;
+            document.getElementById('submitButton').style.display = answeredQuestion ? 'none' : 'inline-flex';
+            document.getElementById('submitButton').disabled = answeredQuestion ? true : !answeredQuestion;
             document.getElementById('nextButton').classList.add('hidden');
-            document.getElementById('feedback').classList.add('hidden');
+            document.getElementById('feedback').classList.remove('hidden');
             
-            selectedOption = null;
-            answerSubmitted = false;
+            if (answeredQuestion) {
+                // Show feedback for answered question
+                const feedback = document.getElementById('feedback');
+                if (answeredQuestion.isCorrect) {
+                    feedback.className = 'mb-4 p-3 rounded-lg bg-green-100 text-green-800 text-sm';
+                    feedback.textContent = 'Correct! ' + question.explanation;
+                } else {
+                    feedback.className = 'mb-4 p-3 rounded-lg bg-red-100 text-red-800 text-sm';
+                    feedback.textContent = 'Incorrect. ' + question.explanation;
+                }
+            } else {
+                document.getElementById('feedback').classList.add('hidden');
+            }
+            
+            selectedOption = answeredQuestion ? answeredQuestion.selected : null;
+            answerSubmitted = !!answeredQuestion;
         }
         
         // MCQ Loader
-        function loadMCQ(question, container) {
+        function loadMCQ(question, container, answeredQuestion) {
             question.options.forEach((option, index) => {
                 const optionDiv = document.createElement('div');
                 optionDiv.className = 'quiz-option';
+                if (answeredQuestion) {
+                    optionDiv.classList.add('disabled');
+                    if (answeredQuestion.selected === index) {
+                        optionDiv.classList.add(answeredQuestion.isCorrect ? 'correct' : 'incorrect');
+                    }
+                }
                 optionDiv.dataset.index = index;
                 
                 const input = document.createElement('input');
@@ -1991,6 +2294,12 @@
                 input.name = 'quiz-option';
                 input.id = `option-${index}`;
                 input.value = index;
+                if (answeredQuestion && answeredQuestion.selected === index) {
+                    input.checked = true;
+                }
+                if (answeredQuestion) {
+                    input.disabled = true;
+                }
                 
                 const label = document.createElement('label');
                 label.htmlFor = `option-${index}`;
@@ -1999,13 +2308,15 @@
                 optionDiv.appendChild(input);
                 optionDiv.appendChild(label);
                 
-                optionDiv.onclick = () => selectOption(index);
+                if (!answeredQuestion) {
+                    optionDiv.onclick = () => selectOption(index);
+                }
                 container.appendChild(optionDiv);
             });
         }
         
         // Drag and Drop Loader with Enhanced Functionality
-        function loadDragDrop(question, container) {
+        function loadDragDrop(question, container, answeredQuestion) {
             container.innerHTML = `
                 <div class="mb-4">
                     <p class="text-sm text-gray-600 mb-2">Drag items to arrange them:</p>
@@ -2022,7 +2333,25 @@
                 </div>
             `;
             
-            setupDragAndDrop(question);
+            if (answeredQuestion) {
+                // Show the dropped items
+                const dropZone = document.getElementById('dropZone');
+                dropZone.innerHTML = '';
+                answeredQuestion.userOrder.forEach(item => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'dropped-item bg-green-100 px-4 py-2 rounded-lg';
+                    itemDiv.textContent = item;
+                    dropZone.appendChild(itemDiv);
+                });
+                
+                // Hide original items
+                const dragItems = document.querySelectorAll('.drag-item');
+                dragItems.forEach(item => {
+                    item.style.display = 'none';
+                });
+            } else {
+                setupDragAndDrop(question);
+            }
         }
         
         // Enhanced Drag and Drop Setup
@@ -2099,17 +2428,17 @@
         }
         
         // Fill in the Blanks Loader
-        function loadFillBlank(question, container) {
+        function loadFillBlank(question, container, answeredQuestion) {
             let html = '<div class="space-y-4">';
             
             question.blanks.forEach(blank => {
                 html += `
                     <div class="mb-3">
                         <label class="block text-sm font-medium text-gray-700 mb-1">${blank.id.replace('blank', 'Blank ')}:</label>
-                        <select id="${blank.id}" class="form-input w-full">
+                        <select id="${blank.id}" class="form-input w-full" ${answeredQuestion ? 'disabled' : ''}>
                             <option value="">Select an answer</option>
                             ${blank.options.map(option => `
-                                <option value="${option}">${option}</option>
+                                <option value="${option}" ${answeredQuestion && answeredQuestion.answers[blank.id] === option ? 'selected' : ''}>${option}</option>
                             `).join('')}
                         </select>
                     </div>
@@ -2120,16 +2449,18 @@
             container.innerHTML = html;
             
             // Enable submit when all blanks are filled
-            question.blanks.forEach(blank => {
-                document.getElementById(blank.id).addEventListener('change', () => {
-                    const allFilled = question.blanks.every(b => document.getElementById(b.id).value);
-                    document.getElementById('submitButton').disabled = !allFilled;
+            if (!answeredQuestion) {
+                question.blanks.forEach(blank => {
+                    document.getElementById(blank.id).addEventListener('change', () => {
+                        const allFilled = question.blanks.every(b => document.getElementById(b.id).value);
+                        document.getElementById('submitButton').disabled = !allFilled;
+                    });
                 });
-            });
+            }
         }
         
         // Matching Loader with Enhanced Functionality
-        function loadMatching(question, container) {
+        function loadMatching(question, container, answeredQuestion) {
             container.innerHTML = `
                 <div class="grid grid-cols-2 gap-6">
                     <div>
@@ -2159,7 +2490,33 @@
                 </div>
             `;
             
-            setupMatching(question);
+            if (answeredQuestion) {
+                // Show the matched items
+                const leftItems = document.querySelectorAll('[data-left]');
+                const rightItems = document.querySelectorAll('[data-right]');
+                
+                leftItems.forEach((item, index) => {
+                    const matchIndex = answeredQuestion.matches[index];
+                    if (matchIndex !== undefined) {
+                        item.classList.add('matched', 'bg-green-100');
+                        const rightItem = rightItems[matchIndex];
+                        rightItem.classList.add('matched', 'bg-green-100');
+                    }
+                });
+                
+                // Disable interaction
+                leftItems.forEach(item => {
+                    item.style.pointerEvents = 'none';
+                });
+                rightItems.forEach(item => {
+                    item.style.pointerEvents = 'none';
+                });
+                
+                // Hide buttons
+                container.querySelector('.mt-4').style.display = 'none';
+            } else {
+                setupMatching(question);
+            }
         }
         
         // Enhanced Matching Setup
@@ -2257,23 +2614,28 @@
         }
         
         // True/False Loader
-        function loadTrueFalse(question, container) {
+        function loadTrueFalse(question, container, answeredQuestion) {
             container.innerHTML = `
                 <div class="flex justify-center gap-6">
-                    <div class="quiz-option text-center" onclick="selectTrueFalse(true)">
-                        <input type="radio" name="tf-option" id="tf-true" value="true">
+                    <div class="quiz-option text-center ${answeredQuestion && answeredQuestion.selected === true ? 'correct' : ''}" ${answeredQuestion ? 'disabled' : ''}>
+                        <input type="radio" name="tf-option" id="tf-true" value="true" ${answeredQuestion && answeredQuestion.selected === true ? 'checked' : ''} ${answeredQuestion ? 'disabled' : ''}>
                         <label for="tf-true" class="block mt-2">True</label>
                     </div>
-                    <div class="quiz-option text-center" onclick="selectTrueFalse(false)">
-                        <input type="radio" name="tf-option" id="tf-false" value="false">
+                    <div class="quiz-option text-center ${answeredQuestion && answeredQuestion.selected === false ? 'incorrect' : ''}" ${answeredQuestion ? 'disabled' : ''}>
+                        <input type="radio" name="tf-option" id="tf-false" value="false" ${answeredQuestion && answeredQuestion.selected === false ? 'checked' : ''} ${answeredQuestion ? 'disabled' : ''}>
                         <label for="tf-false" class="block mt-2">False</label>
                     </div>
                 </div>
             `;
+            
+            if (!answeredQuestion) {
+                document.getElementById('tf-true').parentElement.onclick = () => selectTrueFalse(true);
+                document.getElementById('tf-false').parentElement.onclick = () => selectTrueFalse(false);
+            }
         }
         
         // Sequence Loader with Enhanced Functionality
-        function loadSequence(question, container) {
+        function loadSequence(question, container, answeredQuestion) {
             container.innerHTML = `
                 <div class="mb-4">
                     <p class="text-sm text-gray-600 mb-2">Drag items to arrange them in order:</p>
@@ -2290,7 +2652,25 @@
                 </div>
             `;
             
-            setupSequence(question);
+            if (answeredQuestion) {
+                // Show the sequence items
+                const sequenceZone = document.getElementById('sequenceZone');
+                sequenceZone.innerHTML = '';
+                answeredQuestion.userSequence.forEach(item => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'dropped-item bg-green-100 px-4 py-2 rounded-lg';
+                    itemDiv.textContent = item;
+                    sequenceZone.appendChild(itemDiv);
+                });
+                
+                // Hide original items
+                const sequenceItems = document.querySelectorAll('.sequence-item');
+                sequenceItems.forEach(item => {
+                    item.style.display = 'none';
+                });
+            } else {
+                setupSequence(question);
+            }
         }
         
         // Enhanced Sequence Setup
@@ -2367,7 +2747,7 @@
         }
         
         // Reaction Simulator Loader with Enhanced Functionality
-        function loadReactionSimulator(question, container) {
+        function loadReactionSimulator(question, container, answeredQuestion) {
             container.innerHTML = `
                 <div class="text-center mb-6">
                     <div class="flex items-center justify-center gap-4 mb-4">
@@ -2390,7 +2770,25 @@
                 </div>
             `;
             
-            setupReactionSimulator(question);
+            if (answeredQuestion) {
+                // Show the products
+                const productsZone = document.getElementById('reactionProducts');
+                productsZone.innerHTML = '';
+                answeredQuestion.userProducts.forEach(product => {
+                    const productDiv = document.createElement('div');
+                    productDiv.className = 'dropped-item bg-blue-200 px-3 py-1 rounded-lg';
+                    productDiv.textContent = product;
+                    productsZone.appendChild(productDiv);
+                });
+                
+                // Hide original products
+                const reactionProducts = document.querySelectorAll('.reaction-product');
+                reactionProducts.forEach(product => {
+                    product.style.display = 'none';
+                });
+            } else {
+                setupReactionSimulator(question);
+            }
         }
         
         // Enhanced Reaction Simulator Setup
@@ -2501,45 +2899,98 @@
             const question = quizQuestions[currentQuestion];
             let isCorrect = false;
             const feedback = document.getElementById('feedback');
+            let answerData = {
+                selected: selectedOption,
+                submitted: true,
+                isCorrect: false
+            };
             
             switch(question.type) {
                 case 'mcq':
                     isCorrect = selectedOption === question.correct;
+                    answerData = {
+                        selected: selectedOption,
+                        submitted: true,
+                        isCorrect: isCorrect
+                    };
                     break;
                     
                 case 'dragdrop':
                     const droppedItems = document.querySelectorAll('#dropZone .bg-green-100');
                     const userOrder = Array.from(droppedItems).map(item => item.textContent.replace('×', '').trim());
                     isCorrect = JSON.stringify(userOrder) === JSON.stringify(question.correct);
+                    answerData = {
+                        userOrder: userOrder,
+                        submitted: true,
+                        isCorrect: isCorrect
+                    };
                     break;
                     
                 case 'fillblank':
+                    const answers = {};
+                    question.blanks.forEach(blank => {
+                        answers[blank.id] = document.getElementById(blank.id).value;
+                    });
                     isCorrect = question.blanks.every(blank => 
                         document.getElementById(blank.id).value === blank.answer
                     );
+                    answerData = {
+                        answers: answers,
+                        submitted: true,
+                        isCorrect: isCorrect
+                    };
                     break;
                     
                 case 'matching':
                     const leftMatches = document.querySelectorAll('[data-left].matched');
+                    const matches = {};
+                    leftMatches.forEach(item => {
+                        const rightItem = document.querySelector(`[data-right].matched`);
+                        if (rightItem) {
+                            matches[item.dataset.left] = rightItem.dataset.right;
+                        }
+                    });
                     isCorrect = leftMatches.length === question.leftItems.length;
+                    answerData = {
+                        matches: matches,
+                        submitted: true,
+                        isCorrect: isCorrect
+                    };
                     break;
                     
                 case 'truefalse':
                     isCorrect = selectedOption === question.correct;
+                    answerData = {
+                        selected: selectedOption,
+                        submitted: true,
+                        isCorrect: isCorrect
+                    };
                     break;
                     
                 case 'sequence':
                     const sequenceItems = document.querySelectorAll('#sequenceZone .bg-green-100');
                     const userSequence = Array.from(sequenceItems).map(item => item.textContent.replace('×', '').trim());
                     isCorrect = JSON.stringify(userSequence) === JSON.stringify(question.correct);
+                    answerData = {
+                        userSequence: userSequence,
+                        submitted: true,
+                        isCorrect: isCorrect
+                    };
                     break;
                     
                 case 'reaction':
                     const products = document.querySelectorAll('#reactionProducts .bg-blue-200');
                     const userProducts = Array.from(products).map(item => item.dataset.product);
                     isCorrect = JSON.stringify(userProducts.sort()) === JSON.stringify(question.correctProducts.sort());
+                    answerData = {
+                        userProducts: userProducts,
+                        submitted: true,
+                        isCorrect: isCorrect
+                    };
                     break;
             }
+            
+            quizAnswers[currentQuestion] = answerData;
             
             if (isCorrect) {
                 feedback.className = 'mb-4 p-3 rounded-lg bg-green-100 text-green-800 text-sm';
@@ -2625,6 +3076,29 @@
             document.getElementById('createPostForm').reset();
         }
         
+        function showEditPostModal(postId) {
+            if (!currentUser) {
+                showToast('error', 'Sign in required', 'Please sign in to edit posts.');
+                showLoginModal();
+                return;
+            }
+            
+            const post = discussionPosts.find(p => p.id === postId);
+            if (!post) return;
+            
+            document.getElementById('editPostId').value = postId;
+            document.getElementById('editPostTitle').value = post.title;
+            document.getElementById('editPostContent').value = post.content;
+            document.getElementById('editPostTags').value = post.tags ? post.tags.join(', ') : '';
+            
+            document.getElementById('editPostModal').classList.add('active');
+        }
+        
+        function closeEditPostModal() {
+            document.getElementById('editPostModal').classList.remove('active');
+            document.getElementById('editPostForm').reset();
+        }
+        
         function handleCreatePost(event) {
             event.preventDefault();
             
@@ -2648,6 +3122,7 @@
                 downvotes: 0,
                 votes: {},
                 comments: 0,
+                saved: 0,
                 createdAt: firebase.database.ServerValue.TIMESTAMP
             };
             
@@ -2657,6 +3132,52 @@
             }).catch((error) => {
                 console.error("Error creating post:", error);
                 showToast('error', 'Error', 'Failed to create post.');
+            });
+        }
+        
+        function handleEditPost(event) {
+            event.preventDefault();
+            
+            const postId = document.getElementById('editPostId').value;
+            const title = document.getElementById('editPostTitle').value.trim();
+            const content = document.getElementById('editPostContent').value.trim();
+            const tags = document.getElementById('editPostTags').value.trim();
+            
+            if (!title || !content) {
+                showToast('error', 'Missing Fields', 'Please fill in all required fields.');
+                return;
+            }
+            
+            const postRef = database.ref('discussionPosts/' + postId);
+            postRef.once('value').then((snapshot) => {
+                const post = snapshot.val();
+                
+                if (!post) {
+                    showToast('error', 'Error', 'Post not found.');
+                    return;
+                }
+                
+                if (post.authorId !== currentUser.uid) {
+                    showToast('error', 'Permission Denied', 'You can only edit your own posts.');
+                    return;
+                }
+                
+                const updates = {};
+                updates['/title'] = title;
+                updates['/content'] = content;
+                updates['/tags'] = tags ? tags.split(',').map(tag => tag.trim()) : [];
+                updates['/editedAt'] = firebase.database.ServerValue.TIMESTAMP;
+                
+                postRef.update(updates).then(() => {
+                    showToast('success', 'Post Updated!', 'Your post has been updated successfully.');
+                    closeEditPostModal();
+                }).catch((error) => {
+                    console.error("Error updating post:", error);
+                    showToast('error', 'Error', 'Failed to update post.');
+                });
+            }).catch((error) => {
+                console.error("Error getting post:", error);
+                showToast('error', 'Error', 'Failed to update post.');
             });
         }
         
@@ -2680,26 +3201,97 @@
                     return;
                 }
                 
-                const postsArray = [];
+                discussionPosts = [];
                 snapshot.forEach((childSnapshot) => {
-                    postsArray.push({
+                    discussionPosts.push({
                         id: childSnapshot.key,
                         ...childSnapshot.val()
                     });
                 });
                 
-                // Sort by creation date (newest first)
-                postsArray.sort((a, b) => {
-                    return new Date(b.createdAt) - new Date(a.createdAt);
-                });
+                // Sort based on current sort option
+                sortDiscussionPosts();
                 
-                postsArray.forEach(post => {
+                discussionPosts.forEach(post => {
                     const postElement = createDiscussionPostElement(post);
                     postsContainer.appendChild(postElement);
                 });
             }, (error) => {
                 console.error("Error loading discussion posts:", error);
                 postsContainer.innerHTML = '<p class="text-gray-500 text-center">Error loading posts.</p>';
+            });
+        }
+        
+        function sortDiscussionPosts() {
+            switch(currentSort) {
+                case 'newest':
+                    discussionPosts.sort((a, b) => {
+                        return new Date(b.createdAt) - new Date(a.createdAt);
+                    });
+                    break;
+                case 'oldest':
+                    discussionPosts.sort((a, b) => {
+                        return new Date(a.createdAt) - new Date(b.createdAt);
+                    });
+                    break;
+                case 'popular':
+                    discussionPosts.sort((a, b) => {
+                        const aScore = (a.upvotes || 0) - (a.downvotes || 0);
+                        const bScore = (b.upvotes || 0) - (b.downvotes || 0);
+                        return bScore - aScore;
+                    });
+                    break;
+            }
+        }
+        
+        function sortDiscussions(sortType) {
+            currentSort = sortType;
+            
+            // Update active button
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Re-sort and re-render
+            sortDiscussionPosts();
+            
+            const postsContainer = document.getElementById('discussionPosts');
+            postsContainer.innerHTML = '';
+            
+            discussionPosts.forEach(post => {
+                const postElement = createDiscussionPostElement(post);
+                postsContainer.appendChild(postElement);
+            });
+        }
+        
+        function filterDiscussions() {
+            const searchTerm = document.getElementById('discussionSearch').value.toLowerCase();
+            
+            const postsContainer = document.getElementById('discussionPosts');
+            postsContainer.innerHTML = '';
+            
+            const filteredPosts = discussionPosts.filter(post => {
+                return post.title.toLowerCase().includes(searchTerm) || 
+                       post.content.toLowerCase().includes(searchTerm) ||
+                       (post.tags && post.tags.some(tag => tag.toLowerCase().includes(searchTerm)));
+            });
+            
+            if (filteredPosts.length === 0) {
+                postsContainer.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3 class="empty-state-title">No Posts Found</h3>
+                        <p class="empty-state-description">No posts match your search criteria.</p>
+                    </div>`;
+                return;
+            }
+            
+            filteredPosts.forEach(post => {
+                const postElement = createDiscussionPostElement(post);
+                postsContainer.appendChild(postElement);
             });
         }
         
@@ -2713,6 +3305,7 @@
             
             const isAuthor = currentUser && post.authorId === currentUser.uid;
             const userVote = post.votes && post.votes[currentUser.uid];
+            const isSaved = userData && userData.savedPosts && userData.savedPosts.includes(post.id);
             
             postDiv.innerHTML = `
                 <div class="post-header">
@@ -2726,7 +3319,7 @@
                 <div class="post-content">${post.content}</div>
                 ${post.tags && post.tags.length > 0 ? `
                     <div class="mt-2">
-                        ${post.tags.map(tag => `<span class="inline-block bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-xs mr-1">#${tag}</span>`).join('')}
+                        ${post.tags.map(tag => `<span class="post-tag">#${tag}</span>`).join('')}
                     </div>
                 ` : ''}
                 <div class="post-actions">
@@ -2742,7 +3335,15 @@
                         <i class="fas fa-comment"></i>
                         <span>${post.comments || 0}</span>
                     </div>
+                    <div class="post-action ${isSaved ? 'voted' : ''}" onclick="toggleSavePost('${post.id}')">
+                        <i class="fas fa-bookmark"></i>
+                        <span>${post.saved || 0}</span>
+                    </div>
                     ${isAuthor ? `
+                        <div class="post-action" onclick="showEditPostModal('${post.id}')">
+                            <i class="fas fa-edit"></i>
+                            Edit
+                        </div>
                         <div class="post-action text-red-500" onclick="deletePost('${post.id}')">
                             <i class="fas fa-trash"></i>
                             Delete
@@ -2833,6 +3434,62 @@
             }).catch((error) => {
                 console.error("Error getting post:", error);
                 showToast('error', 'Error', 'Failed to vote on post.');
+            });
+        }
+        
+        function toggleSavePost(postId) {
+            if (!currentUser) {
+                showToast('error', 'Sign in required', 'Please sign in to save posts.');
+                showLoginModal();
+                return;
+            }
+            
+            const userRef = database.ref('users/' + currentUser.uid);
+            userRef.once('value').then((snapshot) => {
+                const userData = snapshot.val();
+                const savedPosts = userData.savedPosts || [];
+                
+                const postIndex = savedPosts.indexOf(postId);
+                const postRef = database.ref('discussionPosts/' + postId);
+                
+                if (postIndex > -1) {
+                    // Remove from saved posts
+                    savedPosts.splice(postIndex, 1);
+                    
+                    // Decrement saved count
+                    postRef.transaction((post) => {
+                        if (post) {
+                            post.saved = Math.max(0, (post.saved || 0) - 1);
+                        }
+                        return post;
+                    });
+                    
+                    showToast('info', 'Post Unsaved', 'This post has been removed from your saved posts.');
+                } else {
+                    // Add to saved posts
+                    savedPosts.push(postId);
+                    
+                    // Increment saved count
+                    postRef.transaction((post) => {
+                        if (post) {
+                            post.saved = (post.saved || 0) + 1;
+                        }
+                        return post;
+                    });
+                    
+                    showToast('success', 'Post Saved!', 'This post has been added to your saved posts.');
+                }
+                
+                // Update user data
+                userRef.update({
+                    savedPosts: savedPosts
+                });
+                
+                // Update local user data
+                userData.savedPosts = savedPosts;
+            }).catch((error) => {
+                console.error("Error saving post:", error);
+                showToast('error', 'Error', 'Failed to save post.');
             });
         }
         
@@ -3027,6 +3684,8 @@
                 creatorName: userData.displayName,
                 members: [currentUser.uid],
                 memberCount: 1,
+                announcements: [],
+                resources: [],
                 createdAt: firebase.database.ServerValue.TIMESTAMP,
                 lastActivity: firebase.database.ServerValue.TIMESTAMP
             };
@@ -3060,15 +3719,15 @@
                     return;
                 }
                 
-                const groupsArray = [];
+                studyGroups = [];
                 snapshot.forEach((childSnapshot) => {
-                    groupsArray.push({
+                    studyGroups.push({
                         id: childSnapshot.key,
                         ...childSnapshot.val()
                     });
                 });
                 
-                groupsArray.forEach(group => {
+                studyGroups.forEach(group => {
                     const groupElement = createStudyGroupElement(group);
                     groupsContainer.appendChild(groupElement);
                 });
@@ -3126,8 +3785,12 @@
                     </div>
                 </div>
                 <div class="group-actions">
+                    <button onclick="showGroupDetails('${group.id}')" class="btn btn-primary btn-sm">
+                        <i class="fas fa-eye mr-1"></i>
+                        View Details
+                    </button>
                     <button onclick="${isMember ? 'leaveStudyGroup' : 'joinStudyGroup'}('${group.id}')"
-                            class="btn ${isMember ? 'btn-danger' : 'btn-primary'} text-sm"
+                            class="btn ${isMember ? 'btn-danger' : 'btn-primary'} btn-sm"
                             ${isFull && !isMember ? 'disabled' : ''}>
                         ${isMember ? 'Leave Group' : isFull ? 'Full' : 'Join Group'}
                     </button>
@@ -3135,6 +3798,145 @@
             `;
             
             return groupDiv;
+        }
+        
+        function showGroupDetails(groupId) {
+            if (!currentUser) {
+                showToast('error', 'Sign in required', 'Please sign in to view group details.');
+                showLoginModal();
+                return;
+            }
+            
+            const group = studyGroups.find(g => g.id === groupId);
+            if (!group) return;
+            
+            const isMember = currentUser && group.members && group.members.includes(currentUser.uid);
+            
+            // Format topic for display
+            const topicLabels = {
+                'melting-point': 'Melting Point Trends',
+                'density': 'Density Trends',
+                'reactivity': 'Reactivity Series',
+                'reactions': 'Chemical Reactions',
+                'electron-configuration': 'Electron Configuration',
+                'experiments': 'Laboratory Experiments',
+                'exam-prep': 'Exam Preparation'
+            };
+            
+            document.getElementById('groupDetailsTitle').textContent = group.name;
+            
+            let content = `
+                <div class="mb-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold">${group.name}</h3>
+                            <span class="group-topic">${topicLabels[group.topic] || group.topic}</span>
+                        </div>
+                        <button onclick="closeGroupDetailsModal()" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <p class="text-gray-700 mb-4">${group.description}</p>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-gray-800 mb-2">Group Info</h4>
+                            <p class="text-sm text-gray-600">Created: ${new Date(group.createdAt).toLocaleDateString()}</p>
+                            <p class="text-sm text-gray-600">Members: ${group.memberCount || 0}/${group.maxMembers || 10}</p>
+                            <p class="text-sm text-gray-600">Creator: ${group.creatorName}</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-gray-800 mb-2">Activity</h4>
+                            <p class="text-sm text-gray-600">Last active: ${new Date(group.lastActivity).toLocaleDateString()}</p>
+                            <p class="text-sm text-gray-600">Announcements: ${group.announcements ? group.announcements.length : 0}</p>
+                            <p class="text-sm text-gray-600">Resources: ${group.resources ? group.resources.length : 0}</p>
+                        </div>
+                    </div>
+                    
+                    ${isMember ? `
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-800 mb-3">Group Announcements</h4>
+                            <div id="groupAnnouncements">
+                                ${(group.announcements || []).map(announcement => `
+                                    <div class="group-announcement">
+                                        <h5>${announcement.title}</h5>
+                                        <p>${announcement.content}</p>
+                                        <p class="text-xs text-gray-500">${new Date(announcement.createdAt).toLocaleDateString()}</p>
+                                    </div>
+                                `).join('') || '<p class="text-gray-500">No announcements yet.</p>'}
+                            </div>
+                            ${group.creatorId === currentUser.uid ? `
+                                <button onclick="showAddAnnouncementModal('${group.id}')" class="btn btn-primary btn-sm mt-2">
+                                    <i class="fas
+                                    <i class="fas fa-plus mr-1"></i>
+                                    Add Announcement
+                                </button>
+                            ` : ''}
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-800 mb-3">Group Resources</h4>
+                            <div id="groupResources">
+                                ${(group.resources || []).map(resource => `
+                                    <div class="resource-item">
+                                        <div class="resource-icon">
+                                            <i class="fas fa-file-alt"></i>
+                                        </div>
+                                        <div class="resource-info">
+                                            <div class="resource-name">${resource.name}</div>
+                                            <div class="resource-meta">Added by ${resource.addedBy} • ${new Date(resource.createdAt).toLocaleDateString()}</div>
+                                        </div>
+                                        <div class="resource-actions">
+                                            <button class="resource-btn" onclick="downloadResource('${resource.url}')">
+                                                <i class="fas fa-download"></i>
+                                            </button>
+                                            ${group.creatorId === currentUser.uid ? `
+                                                <button class="resource-btn" onclick="removeResource('${group.id}', '${resource.id}')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            ` : ''}
+                                        </div>
+                                    </div>
+                                `).join('') || '<p class="text-gray-500">No resources shared yet.</p>'}
+                            </div>
+                            ${isMember ? `
+                                <button onclick="showAddResourceModal('${group.id}')" class="btn btn-primary btn-sm mt-2">
+                                    <i class="fas fa-plus mr-1"></i>
+                                    Add Resource
+                                </button>
+                            ` : ''}
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-800 mb-3">Group Chat</h4>
+                            <div class="group-chat" id="groupChat-${group.id}">
+                                <!-- Chat messages will be loaded here -->
+                            </div>
+                            <div class="chat-input">
+                                <input type="text" id="chatInput-${group.id}" placeholder="Type a message..." onkeypress="if(event.key === 'Enter') sendChatMessage(event, '${group.id}')">
+                                <button onclick="sendChatMessage(event, '${group.id}')" class="btn btn-primary btn-sm">Send</button>
+                            </div>
+                        </div>
+                    ` : `
+                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
+                            <p class="text-yellow-700">Join this study group to access announcements, resources, and group chat.</p>
+                        </div>
+                    `}
+                </div>
+            `;
+            
+            document.getElementById('groupDetailsContent').innerHTML = content;
+            document.getElementById('groupDetailsModal').classList.add('active');
+            
+            // Load chat messages if member
+            if (isMember) {
+                loadGroupChat(group.id);
+            }
+        }
+        
+        function closeGroupDetailsModal() {
+            document.getElementById('groupDetailsModal').classList.remove('active');
         }
         
         function joinStudyGroup(groupId) {
@@ -3171,6 +3973,16 @@
                 
                 groupRef.update(updates).then(() => {
                     showToast('success', 'Joined Group', 'You have successfully joined the study group.');
+                    
+                    // Add welcome message to chat
+                    const chatRef = database.ref('groupChat').push();
+                    chatRef.set({
+                        groupId: groupId,
+                        authorId: 'system',
+                        authorName: 'System',
+                        content: `${userData.displayName} has joined the group.`,
+                        createdAt: firebase.database.ServerValue.TIMESTAMP
+                    });
                 }).catch((error) => {
                     console.error("Error joining study group:", error);
                     showToast('error', 'Error', 'Failed to join study group.');
@@ -3202,6 +4014,16 @@
                 
                 groupRef.update(updates).then(() => {
                     showToast('success', 'Left Group', 'You have successfully left the study group.');
+                    
+                    // Add goodbye message to chat
+                    const chatRef = database.ref('groupChat').push();
+                    chatRef.set({
+                        groupId: groupId,
+                        authorId: 'system',
+                        authorName: 'System',
+                        content: `${userData.displayName} has left the group.`,
+                        createdAt: firebase.database.ServerValue.TIMESTAMP
+                    });
                 }).catch((error) => {
                     console.error("Error leaving study group:", error);
                     showToast('error', 'Error', 'Failed to leave study group.');
@@ -3210,6 +4032,363 @@
                 console.error("Error getting study group:", error);
                 showToast('error', 'Error', 'Failed to leave study group.');
             });
+        }
+        
+        // Add Announcement Modal
+        function showAddAnnouncementModal(groupId) {
+            if (!currentUser) {
+                showToast('error', 'Sign in required', 'Please sign in to add announcements.');
+                showLoginModal();
+                return;
+            }
+            
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800">Add Announcement</h2>
+                        <button onclick="this.closest('.modal').classList.remove('active')" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <form onsubmit="addAnnouncement(event, '${groupId}')" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                            <input type="text" id="announcementTitle" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Announcement title" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Content</label>
+                            <textarea id="announcementContent" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 form-textarea" placeholder="Announcement content" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-full">
+                            <i class="fas fa-bullhorn mr-2"></i>
+                            Post Announcement
+                        </button>
+                    </form>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            modal.classList.add('active');
+        }
+        
+        function addAnnouncement(event, groupId) {
+            event.preventDefault();
+            
+            const title = document.getElementById('announcementTitle').value.trim();
+            const content = document.getElementById('announcementContent').value.trim();
+            
+            if (!title || !content) {
+                showToast('error', 'Missing Fields', 'Please fill in all fields.');
+                return;
+            }
+            
+            const groupRef = database.ref('studyGroups/' + groupId);
+            groupRef.once('value').then((snapshot) => {
+                const group = snapshot.val();
+                
+                if (!group) {
+                    showToast('error', 'Error', 'Study group not found.');
+                    return;
+                }
+                
+                if (group.creatorId !== currentUser.uid) {
+                    showToast('error', 'Permission Denied', 'Only the group creator can add announcements.');
+                    return;
+                }
+                
+                const announcements = group.announcements || [];
+                const newAnnouncement = {
+                    id: Date.now().toString(),
+                    title: title,
+                    content: content,
+                    createdBy: currentUser.uid,
+                    createdAt: firebase.database.ServerValue.TIMESTAMP
+                };
+                
+                announcements.push(newAnnouncement);
+                
+                groupRef.update({
+                    announcements: announcements,
+                    lastActivity: firebase.database.ServerValue.TIMESTAMP
+                }).then(() => {
+                    showToast('success', 'Announcement Added', 'Your announcement has been posted successfully.');
+                    
+                    // Close modal
+                    event.target.closest('.modal').classList.remove('active');
+                    
+                    // Add announcement message to chat
+                    const chatRef = database.ref('groupChat').push();
+                    chatRef.set({
+                        groupId: groupId,
+                        authorId: 'system',
+                        authorName: 'System',
+                        content: `New announcement: ${title}`,
+                        createdAt: firebase.database.ServerValue.TIMESTAMP
+                    });
+                    
+                    // Refresh group details
+                    showGroupDetails(groupId);
+                }).catch((error) => {
+                    console.error("Error adding announcement:", error);
+                    showToast('error', 'Error', 'Failed to add announcement.');
+                });
+            }).catch((error) => {
+                console.error("Error getting study group:", error);
+                showToast('error', 'Error', 'Failed to add announcement.');
+            });
+        }
+        
+        // Add Resource Modal
+        function showAddResourceModal(groupId) {
+            if (!currentUser) {
+                showToast('error', 'Sign in required', 'Please sign in to add resources.');
+                showLoginModal();
+                return;
+            }
+            
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800">Add Resource</h2>
+                        <button onclick="this.closest('.modal').classList.remove('active')" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    
+                    <form onsubmit="addResource(event, '${groupId}')" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Resource Name</label>
+                            <input type="text" id="resourceName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Resource name" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">URL</label>
+                            <input type="url" id="resourceUrl" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="https://example.com" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                            <textarea id="resourceDescription" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 form-textarea" placeholder="Brief description of the resource"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-full">
+                            <i class="fas fa-plus mr-2"></i>
+                            Add Resource
+                        </button>
+                    </form>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            modal.classList.add('active');
+        }
+        
+        function addResource(event, groupId) {
+            event.preventDefault();
+            
+            const name = document.getElementById('resourceName').value.trim();
+            const url = document.getElementById('resourceUrl').value.trim();
+            const description = document.getElementById('resourceDescription').value.trim();
+            
+            if (!name || !url) {
+                showToast('error', 'Missing Fields', 'Please fill in all required fields.');
+                return;
+            }
+            
+            const groupRef = database.ref('studyGroups/' + groupId);
+            groupRef.once('value').then((snapshot) => {
+                const group = snapshot.val();
+                
+                if (!group) {
+                    showToast('error', 'Error', 'Study group not found.');
+                    return;
+                }
+                
+                if (!group.members || !group.members.includes(currentUser.uid)) {
+                    showToast('error', 'Permission Denied', 'Only group members can add resources.');
+                    return;
+                }
+                
+                const resources = group.resources || [];
+                const newResource = {
+                    id: Date.now().toString(),
+                    name: name,
+                    url: url,
+                    description: description,
+                    addedBy: userData.displayName,
+                    addedById: currentUser.uid,
+                    createdAt: firebase.database.ServerValue.TIMESTAMP
+                };
+                
+                resources.push(newResource);
+                
+                groupRef.update({
+                    resources: resources,
+                    lastActivity: firebase.database.ServerValue.TIMESTAMP
+                }).then(() => {
+                    showToast('success', 'Resource Added', 'Your resource has been shared successfully.');
+                    
+                    // Close modal
+                    event.target.closest('.modal').classList.remove('active');
+                    
+                    // Add resource message to chat
+                    const chatRef = database.ref('groupChat').push();
+                    chatRef.set({
+                        groupId: groupId,
+                        authorId: 'system',
+                        authorName: 'System',
+                        content: `${userData.displayName} shared a new resource: ${name}`,
+                        createdAt: firebase.database.ServerValue.TIMESTAMP
+                    });
+                    
+                    // Refresh group details
+                    showGroupDetails(groupId);
+                }).catch((error) => {
+                    console.error("Error adding resource:", error);
+                    showToast('error', 'Error', 'Failed to add resource.');
+                });
+            }).catch((error) => {
+                console.error("Error getting study group:", error);
+                showToast('error', 'Error', 'Failed to add resource.');
+            });
+        }
+        
+        function removeResource(groupId, resourceId) {
+            if (!confirm('Are you sure you want to remove this resource?')) {
+                return;
+            }
+            
+            const groupRef = database.ref('studyGroups/' + groupId);
+            groupRef.once('value').then((snapshot) => {
+                const group = snapshot.val();
+                
+                if (!group) {
+                    showToast('error', 'Error', 'Study group not found.');
+                    return;
+                }
+                
+                if (group.creatorId !== currentUser.uid) {
+                    showToast('error', 'Permission Denied', 'Only the group creator can remove resources.');
+                    return;
+                }
+                
+                const resources = (group.resources || []).filter(r => r.id !== resourceId);
+                
+                groupRef.update({
+                    resources: resources,
+                    lastActivity: firebase.database.ServerValue.TIMESTAMP
+                }).then(() => {
+                    showToast('success', 'Resource Removed', 'The resource has been removed successfully.');
+                    
+                    // Refresh group details
+                    showGroupDetails(groupId);
+                }).catch((error) => {
+                    console.error("Error removing resource:", error);
+                    showToast('error', 'Error', 'Failed to remove resource.');
+                });
+            }).catch((error) => {
+                console.error("Error getting study group:", error);
+                showToast('error', 'Error', 'Failed to remove resource.');
+            });
+        }
+        
+        function downloadResource(url) {
+            window.open(url, '_blank');
+        }
+        
+        // Group Chat Functions
+        function loadGroupChat(groupId) {
+            const chatContainer = document.getElementById(`groupChat-${groupId}`);
+            if (!chatContainer) return;
+            
+            const chatRef = database.ref('groupChat').orderByChild('groupId').equalTo(groupId);
+            chatRef.on('value', (snapshot) => {
+                chatContainer.innerHTML = '';
+                
+                if (!snapshot.exists()) {
+                    chatContainer.innerHTML = '<p class="text-gray-500 text-center">No messages yet. Start the conversation!</p>';
+                    return;
+                }
+                
+                const messages = [];
+                snapshot.forEach((childSnapshot) => {
+                    messages.push({
+                        id: childSnapshot.key,
+                        ...childSnapshot.val()
+                    });
+                });
+                
+                // Sort by creation date (oldest first)
+                messages.sort((a, b) => {
+                    return new Date(a.createdAt) - new Date(b.createdAt);
+                });
+                
+                messages.forEach(message => {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = 'chat-message';
+                    
+                    if (message.authorId === currentUser.uid) {
+                        messageDiv.classList.add('own');
+                    }
+                    
+                    const date = new Date(message.createdAt);
+                    const formattedTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    
+                    messageDiv.innerHTML = `
+                        <div class="font-semibold text-sm">${message.authorName}</div>
+                        <div class="text-sm">${message.content}</div>
+                        <div class="text-xs text-gray-500">${formattedTime}</div>
+                    `;
+                    
+                    chatContainer.appendChild(messageDiv);
+                });
+                
+                // Scroll to bottom
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            });
+        }
+        
+        function sendChatMessage(event, groupId) {
+            if (event.key === 'Enter' || event.type === 'click') {
+                event.preventDefault();
+                
+                if (!currentUser) {
+                    showToast('error', 'Sign in required', 'Please sign in to send messages.');
+                    showLoginModal();
+                    return;
+                }
+                
+                const input = document.getElementById(`chatInput-${groupId}`);
+                const content = input.value.trim();
+                
+                if (!content) {
+                    return;
+                }
+                
+                const chatRef = database.ref('groupChat').push();
+                const newMessage = {
+                    groupId: groupId,
+                    authorId: currentUser.uid,
+                    authorName: userData.displayName,
+                    content: content,
+                    createdAt: firebase.database.ServerValue.TIMESTAMP
+                };
+                
+                chatRef.set(newMessage).then(() => {
+                    input.value = '';
+                    
+                    // Update group activity
+                    const groupRef = database.ref('studyGroups/' + groupId);
+                    groupRef.update({
+                        lastActivity: firebase.database.ServerValue.TIMESTAMP
+                    });
+                }).catch((error) => {
+                    console.error("Error sending chat message:", error);
+                    showToast('error', 'Error', 'Failed to send message.');
+                });
+            }
         }
         
         // Toast notification function
