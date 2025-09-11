@@ -93,7 +93,7 @@
             transform: scaleX(1);
         }
         
-        /* Enhanced sidebar with more apparent hover */
+        /* Enhanced Sidebar Styles */
         .sidebar {
             position: fixed;
             top: 0;
@@ -101,10 +101,12 @@
             height: 100vh;
             width: 280px;
             background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             z-index: 100;
             overflow-y: auto;
             transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
         
         body.dark-mode .sidebar {
@@ -112,57 +114,134 @@
             color: #f3f4f6;
         }
         
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        body.dark-mode .sidebar-header {
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-container {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        body.dark-mode .search-container {
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .search-box {
+            position: relative;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 0.6rem 0.6rem 0.6rem 2.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+        }
+        
+        body.dark-mode .search-box input {
+            background: #1f2937;
+            border-color: #374151;
+            color: #f3f4f6;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+        }
+        
+        .nav-section {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        body.dark-mode .nav-section {
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-section-title {
+            padding: 0 1.5rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #64748b;
+        }
+        
+        body.dark-mode .nav-section-title {
+            color: #94a3b8;
+        }
+        
+        .nav-items {
+            display: flex;
+            flex-direction: column;
+        }
+        
         .nav-item {
             display: flex;
             align-items: center;
-            padding: 0.75rem 1rem;
-            color: var(--gray-600);
+            padding: 0.75rem 1.5rem;
+            color: #475569;
             text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
         }
         
         body.dark-mode .nav-item {
-            color: #d1d5db;
+            color: #cbd5e1;
         }
         
         .nav-item::before {
             content: '';
             position: absolute;
-            top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(79, 70, 229, 0.1);
-            transform: translateX(-100%);
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: #4f46e5;
+            transform: scaleY(0);
             transition: transform 0.3s ease;
         }
         
-        body.dark-mode .nav-item::before {
-            background: rgba(79, 70, 229, 0.2);
+        .nav-item:hover::before {
+            transform: scaleY(1);
         }
         
         .nav-item:hover {
-            color: var(--primary);
-            border-left-color: var(--primary);
+            background: rgba(79, 70, 229, 0.05);
+            color: #4f46e5;
         }
         
         body.dark-mode .nav-item:hover {
+            background: rgba(79, 70, 229, 0.1);
             color: #818cf8;
-        }
-        
-        .nav-item:hover::before {
-            transform: translateX(0);
         }
         
         .nav-item.active {
             background: rgba(79, 70, 229, 0.1);
-            color: var(--primary);
-            border-left-color: var(--primary);
+            color: #4f46e5;
             font-weight: 600;
         }
         
@@ -171,17 +250,185 @@
             color: #818cf8;
         }
         
-        .nav-item.locked {
-            color: var(--gray-400);
-            cursor: not-allowed;
+        .nav-item.active::before {
+            transform: scaleY(1);
         }
         
-        .nav-item.locked::after {
-            content: '\f023';
-            font-family: 'Font Awesome 5 Free';
-            font-weight: 900;
+        .nav-icon {
+            width: 1.25rem;
+            margin-right: 0.75rem;
+            text-align: center;
+        }
+        
+        .nav-check {
             margin-left: auto;
+            color: #10b981;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-item.completed .nav-check {
+            opacity: 1;
+        }
+        
+        .nav-lock {
+            margin-left: auto;
+            color: #94a3b8;
+        }
+        
+        .nav-badge {
+            margin-left: auto;
+            background: #ef4444;
+            color: white;
+            font-size: 0.625rem;
+            font-weight: 600;
+            padding: 0.125rem 0.375rem;
+            border-radius: 9999px;
+            min-width: 1.25rem;
+            text-align: center;
+        }
+        
+        .user-section {
+            margin-top: auto;
+            padding: 1.5rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        body.dark-mode .user-section {
+            border-top-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .xp-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-radius: 0.5rem;
+        }
+        
+        body.dark-mode .xp-container {
+            background: linear-gradient(135deg, #451a03, #78350f);
+        }
+        
+        .xp-label {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            color: #92400e;
+        }
+        
+        body.dark-mode .xp-label {
+            color: #fcd34d;
+        }
+        
+        .xp-value {
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: #92400e;
+        }
+        
+        body.dark-mode .xp-value {
+            color: #fcd34d;
+        }
+        
+        .badges-container {
+            margin-bottom: 1rem;
+        }
+        
+        .badges-label {
             font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #475569;
+        }
+        
+        body.dark-mode .badges-label {
+            color: #cbd5e1;
+        }
+        
+        .badges-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .settings-container {
+            margin-bottom: 1rem;
+        }
+        
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+        
+        .setting-label {
+            font-size: 0.875rem;
+            color: #475569;
+        }
+        
+        body.dark-mode .setting-label {
+            color: #cbd5e1;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        body.dark-mode .user-info {
+            border-top-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .user-details {
+            flex: 1;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            color: #1e293b;
+        }
+        
+        body.dark-mode .user-name {
+            color: #f1f5f9;
+        }
+        
+        .user-email {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+        
+        body.dark-mode .user-email {
+            color: #94a3b8;
+        }
+        
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 0.5rem;
+            background: #f1f5f9;
+            color: #64748b;
+            transition: all 0.3s ease;
+        }
+        
+        body.dark-mode .logout-btn {
+            background: #374151;
+            color: #94a3b8;
+        }
+        
+        .logout-btn:hover {
+            background: #ef4444;
+            color: white;
+            transform: rotate(90deg);
         }
         
         .main-content {
@@ -2116,117 +2363,135 @@
     <div id="mainApp" style="display: none;">
         <!-- Sidebar -->
         <nav class="sidebar" id="sidebar">
-            <div class="p-6 border-b border-gray-200">
-                <div class="flex items-center">
+            <div class="sidebar-header">
+                <div class="logo-container">
                     <i class="fas fa-atom text-indigo-600 text-2xl mr-3 transform transition-all duration-300 hover:rotate-180"></i>
-                    <h1 class="text-xl font-bold text-gray-800">Group 1 Alkali Metals</h1>
-                </div>
-                <p class="text-sm text-gray-600 mt-1">IGCSE Chemistry</p>
-            </div>
-            
-            <!-- Search Bar -->
-            <div class="px-4 py-3 border-t border-gray-200">
-                <div class="relative">
-                    <input type="text" id="searchInput" placeholder="Search content..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                    <i class="fas fa-search absolute left-3 top-3 text-gray-400 transform transition-all duration-300 hover:scale-110"></i>
-                </div>
-            </div>
-            
-            <div class="py-4">
-                <a href="#" class="nav-item active" id="nav-overview" onclick="navigateToSection('overview')">
-                    <i class="fas fa-home mr-3 transform transition-all duration-300 hover:scale-110"></i>
-                    <span>Overview</span>
-                </a>
-                <a href="#" class="nav-item locked" id="nav-elements" onclick="navigateToSection('elements')">
-                    <i class="fas fa-th mr-3 transform transition-all duration-300 hover:scale-110"></i>
-                    <span>Elements</span>
-                </a>
-                <a href="#" class="nav-item locked" id="nav-properties" onclick="navigateToSection('properties')">
-                    <i class="fas fa-chart-line mr-3 transform transition-all duration-300 hover:scale-110"></i>
-                    <span>Properties</span>
-                </a>
-                <a href="#" class="nav-item locked" id="nav-reactions" onclick="navigateToSection('reactions')">
-                    <i class="fas fa-flask mr-3 transform transition-all duration-300 hover:scale-110"></i>
-                    <span>Reactions</span>
-                </a>
-                <a href="#" class="nav-item locked" id="nav-quiz" onclick="navigateToSection('quiz')">
-                    <i class="fas fa-graduation-cap mr-3 transform transition-all duration-300 hover:scale-110"></i>
-                    <span>Quiz</span>
-                </a>
-                <a href="#" class="nav-item" id="nav-discussion" onclick="navigateToSection('discussion')">
-                    <i class="fas fa-comments mr-3 transform transition-all duration-300 hover:scale-110"></i>
-                    <span>Discussion</span>
-                </a>
-                <a href="#" class="nav-item" id="nav-study-groups" onclick="navigateToSection('study-groups')">
-                    <i class="fas fa-users mr-3 transform transition-all duration-300 hover:scale-110"></i>
-                    <span>Study Groups</span>
-                </a>
-                <a href="#" class="nav-item" id="nav-leaderboard" onclick="navigateToSection('leaderboard')">
-                    <i class="fas fa-trophy mr-3 transform transition-all duration-300 hover:scale-110"></i>
-                    <span>Leaderboard</span>
-                </a>
-                <a href="#" class="nav-item" onclick="showFeedbackModal()">
-                    <i class="fas fa-comment-dots mr-3 transform transition-all duration-300 hover:scale-110"></i>
-                    <span>Feedback</span>
-                </a>
-                <a href="#" class="nav-item" onclick="exportToPDF()">
-                    <i class="fas fa-file-pdf mr-3 transform transition-all duration-300 hover:scale-110"></i>
-                    <span>Export Notes</span>
-                </a>
-            </div>
-            
-            <!-- XP Display -->
-            <div class="px-4 py-3 border-t border-gray-200">
-                <div class="flex items-center justify-between">
-                    <span class="text-sm font-medium text-gray-700">Your XP:</span>
-                    <div class="xp-display">
-                        <i class="fas fa-star"></i>
-                        <span id="userXP">0</span>
+                    <div>
+                        <h1 class="text-xl font-bold text-gray-800">Group 1 Alkali Metals</h1>
+                        <p class="text-sm text-gray-600">IGCSE Chemistry</p>
                     </div>
                 </div>
             </div>
             
-            <!-- Badges -->
-            <div class="px-4 py-3 border-t border-gray-200">
-                <div class="flex items-center justify-between mb-2">
-                    <span class="text-sm font-medium text-gray-700">Badges:</span>
-                </div>
-                <div id="userBadges" class="flex flex-wrap gap-1">
-                    <!-- Badges will be loaded here -->
+            <!-- Search Bar -->
+            <div class="search-container">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search content...">
                 </div>
             </div>
             
-            <!-- Dark Mode Toggle -->
-            <div class="px-4 py-3 border-t border-gray-200">
-                <div class="flex items-center justify-between">
-                    <span class="text-sm font-medium text-gray-700">Dark Mode</span>
-                    <label class="switch">
-                        <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
-                        <span class="slider round"></span>
-                    </label>
+            <!-- Main Navigation -->
+            <div class="nav-section">
+                <h3 class="nav-section-title">Learning Path</h3>
+                <div class="nav-items">
+                    <a href="#" class="nav-item active" id="nav-overview" onclick="navigateToSection('overview')">
+                        <i class="fas fa-home nav-icon"></i>
+                        <span>Overview</span>
+                        <i class="fas fa-check nav-check"></i>
+                    </a>
+                    <a href="#" class="nav-item locked" id="nav-elements" onclick="navigateToSection('elements')">
+                        <i class="fas fa-th nav-icon"></i>
+                        <span>Elements</span>
+                        <i class="fas fa-lock nav-lock"></i>
+                    </a>
+                    <a href="#" class="nav-item locked" id="nav-properties" onclick="navigateToSection('properties')">
+                        <i class="fas fa-chart-line nav-icon"></i>
+                        <span>Properties</span>
+                        <i class="fas fa-lock nav-lock"></i>
+                    </a>
+                    <a href="#" class="nav-item locked" id="nav-reactions" onclick="navigateToSection('reactions')">
+                        <i class="fas fa-flask nav-icon"></i>
+                        <span>Reactions</span>
+                        <i class="fas fa-lock nav-lock"></i>
+                    </a>
+                    <a href="#" class="nav-item locked" id="nav-quiz" onclick="navigateToSection('quiz')">
+                        <i class="fas fa-graduation-cap nav-icon"></i>
+                        <span>Quiz</span>
+                        <i class="fas fa-lock nav-lock"></i>
+                    </a>
                 </div>
             </div>
             
-            <!-- Sound Effects Toggle -->
-            <div class="px-4 py-3 border-t border-gray-200">
-                <div class="flex items-center justify-between">
-                    <span class="text-sm font-medium text-gray-700">Sound Effects</span>
-                    <label class="switch">
-                        <input type="checkbox" id="soundToggle" checked onchange="toggleSound()">
-                        <span class="slider round"></span>
-                    </label>
+            <!-- Community Section -->
+            <div class="nav-section">
+                <h3 class="nav-section-title">Community</h3>
+                <div class="nav-items">
+                    <a href="#" class="nav-item" id="nav-discussion" onclick="navigateToSection('discussion')">
+                        <i class="fas fa-comments nav-icon"></i>
+                        <span>Discussion</span>
+                        <span class="nav-badge">3</span>
+                    </a>
+                    <a href="#" class="nav-item" id="nav-study-groups" onclick="navigateToSection('study-groups')">
+                        <i class="fas fa-users nav-icon"></i>
+                        <span>Study Groups</span>
+                        <span class="nav-badge">2</span>
+                    </a>
+                    <a href="#" class="nav-item" id="nav-leaderboard" onclick="navigateToSection('leaderboard')">
+                        <i class="fas fa-trophy nav-icon"></i>
+                        <span>Leaderboard</span>
+                    </a>
                 </div>
             </div>
             
-            <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200">
-                <div class="flex items-center justify-between mb-3">
-                    <span class="text-sm text-gray-600">Signed in as:</span>
-                    <span class="text-sm font-medium text-gray-800" id="userName">User</span>
+            <!-- Tools Section -->
+            <div class="nav-section">
+                <h3 class="nav-section-title">Tools</h3>
+                <div class="nav-items">
+                    <a href="#" class="nav-item" onclick="showFeedbackModal()">
+                        <i class="fas fa-comment-dots nav-icon"></i>
+                        <span>Feedback</span>
+                    </a>
+                    <a href="#" class="nav-item" onclick="exportToPDF()">
+                        <i class="fas fa-file-pdf nav-icon"></i>
+                        <span>Export Notes</span>
+                    </a>
                 </div>
-                <button onclick="signOut()" class="btn btn-secondary w-full text-sm transform transition-all duration-300 hover:scale-105">
-                    <i class="fas fa-sign-out-alt mr-1"></i>
-                    Logout
-                </button>
+            </div>
+            
+            <!-- User Section -->
+            <div class="user-section">
+                <div class="xp-container">
+                    <div class="xp-label">
+                        <i class="fas fa-star text-yellow-500"></i>
+                        <span>Your XP</span>
+                    </div>
+                    <div class="xp-value" id="userXP">0</div>
+                </div>
+                
+                <div class="badges-container">
+                    <div class="badges-label">Badges</div>
+                    <div id="userBadges" class="badges-list">
+                        <!-- Badges will be loaded here -->
+                    </div>
+                </div>
+                
+                <div class="settings-container">
+                    <div class="setting-item">
+                        <span class="setting-label">Dark Mode</span>
+                        <label class="switch">
+                            <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <span class="setting-label">Sound Effects</span>
+                        <label class="switch">
+                            <input type="checkbox" id="soundToggle" checked onchange="toggleSound()">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="user-info">
+                    <div class="user-details">
+                        <div class="user-name" id="userName">User</div>
+                        <div class="user-email" id="userEmail">user@example.com</div>
+                    </div>
+                    <button onclick="signOut()" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
             </div>
         </nav>
         <!-- Main Content -->
@@ -3421,6 +3686,7 @@
             
             // Update user info
             document.getElementById('userName').textContent = userData.displayName || 'User';
+            document.getElementById('userEmail').textContent = currentUser.email || 'user@example.com';
             
             // Update XP and badges
             updateUserXP();
@@ -3459,7 +3725,8 @@
             badges.forEach(badge => {
                 const badgeElement = document.createElement('div');
                 badgeElement.className = 'badge';
-                badgeElement.innerHTML = `<i class="fas fa-medal"></i> ${badge}`;
+                badgeElement.innerHTML = `<i class="fas fa-medal"></i>`;
+                badgeElement.title = badge;
                 badgesContainer.appendChild(badgeElement);
             });
         }
