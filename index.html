@@ -695,12 +695,14 @@
             border-radius: 0.5rem;
             margin: 0.75rem 0;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             background: white;
             display: flex;
             align-items: center;
             position: relative;
             overflow: hidden;
+            transform: translateY(0);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
         
         body.dark-mode .quiz-option {
@@ -716,24 +718,18 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(79, 70, 229, 0.1);
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(139, 92, 246, 0.2));
             transform: scale(0);
-            transition: transform 0.3s ease;
+            transition: transform 0.5s ease;
             border-radius: 0.5rem;
-        }
-        
-        body.dark-mode .quiz-option::before {
-            background: rgba(79, 70, 229, 0.2);
+            z-index: 0;
         }
         
         .quiz-option:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(79, 70, 229, 0.25);
             border-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        body.dark-mode .quiz-option:hover {
-            border-color: #818cf8;
+            background: rgba(79, 70, 229, 0.05);
         }
         
         .quiz-option:hover::before {
@@ -743,37 +739,34 @@
         .quiz-option.selected {
             border-color: var(--primary);
             background: rgba(79, 70, 229, 0.1);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        body.dark-mode .quiz-option.selected {
-            background: rgba(79, 70, 229, 0.2);
-            border-color: #818cf8;
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(79, 70, 229, 0.2);
         }
         
         .quiz-option.correct {
             border-color: var(--success);
             background: rgba(16, 185, 129, 0.1);
-            animation: pulse 0.5s ease;
+            animation: correctPulse 0.8s ease;
         }
         
         .quiz-option.incorrect {
             border-color: var(--danger);
             background: rgba(239, 68, 68, 0.1);
-            animation: shake 0.5s ease;
+            animation: incorrectShake 0.6s ease;
         }
         
-        @keyframes pulse {
+        @keyframes correctPulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(16, 185, 129, 0.5); }
             100% { transform: scale(1); }
         }
         
-        @keyframes shake {
+        @keyframes incorrectShake {
             0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
+            20% { transform: translateX(-10px); }
+            40% { transform: translateX(10px); }
+            60% { transform: translateX(-8px); }
+            80% { transform: translateX(8px); }
         }
         
         .quiz-option.disabled {
@@ -783,12 +776,82 @@
         
         .quiz-option input {
             margin-right: 1rem;
+            position: relative;
+            z-index: 1;
         }
         
         .quiz-option label {
             cursor: pointer;
             flex: 1;
+            position: relative;
+            z-index: 1;
+            transition: color 0.3s ease;
         }
+        
+        .quiz-option:hover label {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        body.dark-mode .quiz-option:hover label {
+            color: #818cf8;
+        }
+        
+        /* Enhanced quiz modal */
+        .quiz-modal {
+            backdrop-filter: blur(8px);
+        }
+        
+        .quiz-modal .modal-content {
+            animation: modalSlideIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        @keyframes modalSlideIn {
+            from { 
+                opacity: 0;
+                transform: translateY(50px) scale(0.95);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        #questionText {
+            animation: fadeInUp 0.7s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        #optionsContainer .quiz-option {
+            animation: fadeInScale 0.5s ease-out forwards;
+            opacity: 0;
+        }
+        
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        #optionsContainer .quiz-option:nth-child(1) { animation-delay: 0.1s; }
+        #optionsContainer .quiz-option:nth-child(2) { animation-delay: 0.2s; }
+        #optionsContainer .quiz-option:nth-child(3) { animation-delay: 0.3s; }
+        #optionsContainer .quiz-option:nth-child(4) { animation-delay: 0.4s; }
         
         /* Enhanced toast notification */
         .toast {
@@ -2278,6 +2341,156 @@
             border-radius: 50%;
         }
         
+        /* Equation Balancer Styles */
+        .equation-balancer {
+            margin-top: 1rem;
+        }
+        
+        .equation-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .equation-term {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .coefficient {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            min-width: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .coefficient.correct {
+            color: var(--success);
+        }
+        
+        .chemical {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+        
+        body.dark-mode .chemical {
+            color: #f3f4f6;
+        }
+        
+        .plus-sign {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gray-600);
+        }
+        
+        .coefficient-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .coefficient-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--gray-200);
+            border: none;
+            color: var(--gray-700);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .coefficient-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        .equation-status {
+            text-align: center;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .equation-status.balanced {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+        
+        .equation-status.unbalanced {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+        
+        /* Matching Styles */
+        .match-item {
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.3s ease;
+        }
+        
+        .match-item:hover {
+            background: rgba(79, 70, 229, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .match-item.selected {
+            background: rgba(79, 70, 229, 0.2);
+            border: 2px solid var(--primary);
+        }
+        
+        .match-item.matched {
+            background: rgba(16, 185, 129, 0.1);
+            border: 2px solid var(--success);
+        }
+        
+        /* Fade-in effect for content */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Staggered animation for lists */
+        .fade-in-stagger > * {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .fade-in-stagger.visible > * {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .fade-in-stagger.visible > *:nth-child(1) { transition-delay: 0.1s; }
+        .fade-in-stagger.visible > *:nth-child(2) { transition-delay: 0.2s; }
+        .fade-in-stagger.visible > *:nth-child(3) { transition-delay: 0.3s; }
+        .fade-in-stagger.visible > *:nth-child(4) { transition-delay: 0.4s; }
+        .fade-in-stagger.visible > *:nth-child(5) { transition-delay: 0.5s; }
+        
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -2334,17 +2547,17 @@
             
             <div class="grid grid-cols-3 gap-6 mb-8">
                 <div class="bg-blue-50 p-6 rounded-xl transform transition-all duration-300 hover:scale-110 hover:shadow-lg">
-                    <i class="fas fa-book-open text-3xl text-blue-600 mb-3"></i>
+                    <i class="fas fa-book-open text-3xl text-blue-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
                     <h3 class="font-semibold">Learn</h3>
                     <p class="text-sm text-gray-600">Interactive content</p>
                 </div>
                 <div class="bg-green-50 p-6 rounded-xl transform transition-all duration-300 hover:scale-110 hover:shadow-lg">
-                    <i class="fas fa-chart-line text-3xl text-green-600 mb-3"></i>
+                    <i class="fas fa-chart-line text-3xl text-green-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
                     <h3 class="font-semibold">Track</h3>
                     <p class="text-sm text-gray-600">Progress monitoring</p>
                 </div>
                 <div class="bg-purple-50 p-6 rounded-xl transform transition-all duration-300 hover:scale-110 hover:shadow-lg">
-                    <i class="fas fa-graduation-cap text-3xl text-purple-600 mb-3"></i>
+                    <i class="fas fa-graduation-cap text-3xl text-purple-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
                     <h3 class="font-semibold">Test</h3>
                     <p class="text-sm text-gray-600">Innovative quiz</p>
                 </div>
@@ -2492,7 +2705,7 @@
             </div>
             
             <!-- Progress Tracker -->
-            <div class="content-card">
+            <div class="content-card fade-in">
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-lg font-bold text-gray-800">Your Progress</h3>
                     <div class="text-lg font-bold text-indigo-600" id="progressPercentage">0%</div>
@@ -2525,13 +2738,13 @@
             </div>
             <!-- Overview Section -->
             <section id="overview-section" class="content-section">
-                <div class="content-card">
+                <div class="content-card fade-in">
                     <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
                         <i class="fas fa-info-circle mr-2 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                         Introduction to Group 1 Alkali Metals
                     </h3>
                     
-                    <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4">
+                    <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4 fade-in-stagger">
                         <li>Group 1 elements: <span class="element-hover">Lithium (Li)
                             <span class="element-info">Atomic number: 3<br>Lightest metal element</span>
                         </span>, <span class="element-hover">Sodium (Na)
@@ -2547,7 +2760,7 @@
                     
                     <!-- Key Properties with Tooltips -->
                     <div class="grid grid-cols-2 gap-4 mb-6">
-                        <div class="bg-gray-50 p-4 rounded-lg transform transition-all duration-300 hover:scale-105">
+                        <div class="bg-gray-50 p-4 rounded-lg transform transition-all duration-300 hover:scale-105 fade-in">
                             <h4 class="font-semibold text-gray-800 mb-2">Key Properties</h4>
                             <ul class="space-y-2">
                                 <li><span class="keyword">Soft<span class="keyword-info">Can be cut with a knife</span></span> metals</li>
@@ -2557,7 +2770,7 @@
                                 <li>Characteristic <span class="keyword">flame test<span class="keyword-info">Li: red, Na: yellow, K: lilac</span></span> colors</li>
                             </ul>
                         </div>
-                        <div class="bg-gray-50 p-4 rounded-lg transform transition-all duration-300 hover:scale-105">
+                        <div class="bg-gray-50 p-4 rounded-lg transform transition-all duration-300 hover:scale-105 fade-in">
                             <h4 class="font-semibold text-gray-800 mb-2">Trends</h4>
                             <ul class="space-y-2">
                                 <li><span class="tooltip">Melting Point<span class="tooltiptext">Does melting point increase or decrease down the group?</span></span> <i class="fas fa-arrow-down text-red-500 transform transition-all duration-300 hover:scale-125"></i> down group</li>
@@ -2569,14 +2782,14 @@
                     </div>
                     
                     <!-- YouTube Video -->
-                    <div class="mt-6">
+                    <div class="mt-6 fade-in">
                         <h4 class="font-semibold mb-2">Learn More:</h4>
                         <div class="aspect-w-16 aspect-h-9">
                             <iframe src="https://www.youtube.com/embed/6D6a1_L2sV8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-64 rounded-lg transform transition-all duration-300 hover:scale-105"></iframe>
                         </div>
                     </div>
                     
-                    <button class="btn btn-success w-full mt-4 transform transition-all duration-300 hover:scale-105" onclick="completeSection('overview')">
+                    <button class="btn btn-success w-full mt-4 transform transition-all duration-300 hover:scale-105 fade-in" onclick="completeSection('overview')">
                         <i class="fas fa-check mr-2"></i>
                         Mark as Complete
                     </button>
@@ -2584,14 +2797,14 @@
             </section>
             <!-- Elements Section -->
             <section id="elements-section" class="content-section" style="display: none;">
-                <div class="content-card">
+                <div class="content-card fade-in">
                     <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
                         <i class="fas fa-th mr-2 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                         Group 1 Elements
                     </h3>
                     
                     <!-- Interactive Periodic Table -->
-                    <div class="mb-6">
+                    <div class="mb-6 fade-in">
                         <h4 class="font-semibold mb-2">Interactive Periodic Table</h4>
                         <div class="periodic-table">
                             <!-- Simplified periodic table with Group 1 highlighted -->
@@ -2633,7 +2846,7 @@
                         </div>
                     </div>
                     
-                    <div class="element-grid">
+                    <div class="element-grid fade-in-stagger">
                         <div class="element-card">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Lithiumcut_cropped.jpg" alt="Lithium" class="element-image">
                             <h4 class="font-bold text-lg">Lithium (Li)</h4>
@@ -2678,7 +2891,7 @@
                         </div>
                     </div>
                     
-                    <button class="btn btn-success w-full mt-4 transform transition-all duration-300 hover:scale-105" onclick="completeSection('elements')">
+                    <button class="btn btn-success w-full mt-4 transform transition-all duration-300 hover:scale-105 fade-in" onclick="completeSection('elements')">
                         <i class="fas fa-check mr-2"></i>
                         Mark as Complete
                     </button>
@@ -2686,7 +2899,7 @@
             </section>
             <!-- Properties Section -->
             <section id="properties-section" class="content-section" style="display: none;">
-                <div class="content-card">
+                <div class="content-card fade-in">
                     <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
                         <i class="fas fa-chart-line mr-2 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                         Trends in Group 1
@@ -2697,13 +2910,13 @@
                         <button class="tab" onclick="showTab('reactivity')">Reactivity</button>
                     </div>
                     <div id="melting-point" class="tab-content active">
-                        <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4">
+                        <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4 fade-in-stagger">
                             <li>Melting point <strong>decreases</strong> down Group 1</li>
                             <li>Due to increasing atomic size and weaker metallic bonding</li>
                             <li>Li: 180.5°C → Cs: 28.4°C</li>
                         </ul>
                         
-                        <table class="trend-table">
+                        <table class="trend-table fade-in">
                             <thead>
                                 <tr>
                                     <th>Element</th>
@@ -2735,12 +2948,12 @@
                         </table>
                     </div>
                     <div id="density" class="tab-content">
-                        <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4">
+                        <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4 fade-in-stagger">
                             <li>Density generally <strong>increases</strong> down Group 1</li>
                             <li>Exception: Potassium (0.89 g/cm³) is less dense than Sodium (0.97 g/cm³)</li>
                             <li>Li: 0.53 g/cm³ → Cs: 1.93 g/cm³</li>
                         </ul>
-                        <table class="trend-table">
+                        <table class="trend-table fade-in">
                             <thead>
                                 <tr>
                                     <th>Element</th>
@@ -2772,19 +2985,19 @@
                         </table>
                     </div>
                     <div id="reactivity" class="tab-content">
-                        <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4">
+                        <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4 fade-in-stagger">
                             <li>Reactivity <strong>increases</strong> down Group 1</li>
                             <li>Outer electron further from nucleus, easier to lose</li>
                             <li>Reaction with water becomes more vigorous</li>
                         </ul>
                         
-                        <div class="highlight-box">
+                        <div class="highlight-box fade-in">
                             <h4>Reactivity Series</h4>
                             <p>Most Reactive: Cesium > Rubidium > Potassium > Sodium > Lithium :Least Reactive</p>
                         </div>
                     </div>
                     
-                    <button class="btn btn-success w-full mt-4 transform transition-all duration-300 hover:scale-105" onclick="completeSection('properties')">
+                    <button class="btn btn-success w-full mt-4 transform transition-all duration-300 hover:scale-105 fade-in" onclick="completeSection('properties')">
                         <i class="fas fa-check mr-2"></i>
                         Mark as Complete
                     </button>
@@ -2792,7 +3005,7 @@
             </section>
             <!-- Reactions Section -->
             <section id="reactions-section" class="content-section" style="display: none;">
-                <div class="content-card">
+                <div class="content-card fade-in">
                     <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
                         <i class="fas fa-flask mr-2 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                         Reactions of Group 1 Metals
@@ -2802,17 +3015,17 @@
                         <button class="tab" onclick="showTab('oxygen')">With Oxygen</button>
                     </div>
                     <div id="water" class="tab-content active">
-                        <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4">
+                        <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4 fade-in-stagger">
                             <li>All Group 1 metals react with water</li>
                             <li>Products: Metal hydroxide + Hydrogen gas</li>
                             <li>Reactivity increases down the group</li>
                         </ul>
-                        <div class="equation-box">
+                        <div class="equation-box fade-in">
                             <p class="text-gray-700 mb-2">General equation:</p>
                             <p class="equation">2M(s) + 2H₂O(l) → 2MOH(aq) + H₂(g)</p>
                         </div>
                         
-                        <div class="highlight-box">
+                        <div class="highlight-box fade-in">
                             <h4>Observations</h4>
                             <ul class="list-disc pl-5 space-y-1">
                                 <li><strong>Lithium:</strong> Fizzes steadily</li>
@@ -2822,11 +3035,11 @@
                         </div>
                     </div>
                     <div id="oxygen" class="tab-content">
-                        <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4">
+                        <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4 fade-in-stagger">
                             <li>Group 1 metals react with oxygen when heated</li>
                             <li>Form different types of oxides down the group</li>
                         </ul>
-                        <div class="grid grid-cols-3 gap-4">
+                        <div class="grid grid-cols-3 gap-4 fade-in-stagger">
                             <div class="bg-blue-50 p-3 rounded-lg transform transition-all duration-300 hover:scale-105">
                                 <h5 class="font-semibold text-blue-800">Lithium</h5>
                                 <p class="text-sm text-blue-600">Forms Li₂O (oxide)</p>
@@ -2842,7 +3055,7 @@
                         </div>
                     </div>
                     
-                    <button class="btn btn-success w-full mt-4 transform transition-all duration-300 hover:scale-105" onclick="completeSection('reactions')">
+                    <button class="btn btn-success w-full mt-4 transform transition-all duration-300 hover:scale-105 fade-in" onclick="completeSection('reactions')">
                         <i class="fas fa-check mr-2"></i>
                         Mark as Complete
                     </button>
@@ -2850,7 +3063,7 @@
             </section>
             <!-- Quiz Section -->
             <section id="quiz-section" class="content-section" style="display: none;">
-                <div class="content-card">
+                <div class="content-card fade-in">
                     <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
                         <i class="fas fa-graduation-cap mr-2 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                         Test Your Knowledge
@@ -2866,7 +3079,7 @@
             </section>
             <!-- Discussion Section -->
             <section id="discussion-section" class="content-section" style="display: none;">
-                <div class="content-card">
+                <div class="content-card fade-in">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-xl font-bold text-gray-800 flex items-center">
                             <i class="fas fa-comments mr-2 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
@@ -2904,7 +3117,7 @@
             </section>
             <!-- Study Groups Section -->
             <section id="study-groups-section" class="content-section" style="display: none;">
-                <div class="content-card">
+                <div class="content-card fade-in">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-xl font-bold text-gray-800 flex items-center">
                             <i class="fas fa-users mr-2 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
@@ -2929,7 +3142,7 @@
             </section>
             <!-- Leaderboard Section -->
             <section id="leaderboard-section" class="content-section" style="display: none;">
-                <div class="content-card">
+                <div class="content-card fade-in">
                     <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
                         <i class="fas fa-trophy mr-2 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                         Leaderboard
@@ -3487,6 +3700,83 @@
                     showToast('info', 'Element Info', `You clicked on ${elementName}`);
                 });
             });
+            
+            // Initialize fade-in effect on scroll
+            initializeFadeInEffect();
+        }
+        
+        // Initialize fade-in effect on scroll
+        function initializeFadeInEffect() {
+            // Set up Intersection Observer for fade-in effect
+            const fadeOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const fadeObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, fadeOptions);
+
+            // Observe all elements with fade-in class
+            document.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
+                fadeObserver.observe(el);
+            });
+
+            // Add fade-in class to content elements
+            addFadeInClasses();
+        }
+        
+        // Add fade-in classes to relevant elements
+        function addFadeInClasses() {
+            // Content cards
+            document.querySelectorAll('.content-card').forEach(card => {
+                card.classList.add('fade-in');
+            });
+            
+            // Paragraphs in content sections
+            document.querySelectorAll('.content-section p').forEach(p => {
+                p.classList.add('fade-in');
+            });
+            
+            // Lists
+            document.querySelectorAll('.content-section ul, .content-section ol').forEach(list => {
+                list.classList.add('fade-in-stagger');
+            });
+            
+            // Headings
+            document.querySelectorAll('.content-section h2, .content-section h3, .content-section h4').forEach(heading => {
+                heading.classList.add('fade-in');
+            });
+            
+            // Highlight boxes and equation boxes
+            document.querySelectorAll('.highlight-box, .equation-box').forEach(box => {
+                box.classList.add('fade-in');
+            });
+            
+            // Element cards
+            document.querySelectorAll('.element-card').forEach(card => {
+                card.classList.add('fade-in');
+            });
+            
+            // Tables
+            document.querySelectorAll('.trend-table').forEach(table => {
+                table.classList.add('fade-in');
+            });
+            
+            // Tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.add('fade-in');
+            });
+            
+            // Discussion posts and study groups
+            document.querySelectorAll('.discussion-post, .study-group-card').forEach(post => {
+                post.classList.add('fade-in');
+            });
         }
         
         // Load user data from Firebase
@@ -3842,6 +4132,10 @@
             const sectionElement = document.getElementById(`${sectionName}-section`);
             if (sectionElement) {
                 sectionElement.style.display = 'block';
+                // Reinitialize fade-in for the new section
+                setTimeout(() => {
+                    initializeFadeInEffect();
+                }, 100);
             }
             
             // Update active nav item
@@ -4088,6 +4382,13 @@
             const question = quizQuestions[currentQuestion];
             document.getElementById('questionText').textContent = question.question;
             
+            // Reset animation for question text
+            const questionText = document.getElementById('questionText');
+            questionText.style.animation = 'none';
+            setTimeout(() => {
+                questionText.style.animation = 'fadeInUp 0.7s ease-out';
+            }, 10);
+            
             const optionsContainer = document.getElementById('optionsContainer');
             optionsContainer.innerHTML = '';
             
@@ -4139,6 +4440,13 @@
             
             selectedOption = answeredQuestion ? answeredQuestion.selected : null;
             answerSubmitted = !!answeredQuestion;
+            
+            // Apply fade-in to options
+            setTimeout(() => {
+                document.querySelectorAll('#optionsContainer .quiz-option').forEach(option => {
+                    option.style.animation = 'fadeInScale 0.5s ease-out forwards';
+                });
+            }, 100);
         }
         
         // MCQ Loader
@@ -5164,7 +5472,7 @@
         
         function createDiscussionPostElement(post) {
             const postDiv = document.createElement('div');
-            postDiv.className = 'discussion-post';
+            postDiv.className = 'discussion-post fade-in';
             
             const date = new Date(post.createdAt);
             const formattedDate = date.toLocaleDateString();
@@ -5230,6 +5538,20 @@
             
             // Load comments for this post
             loadPostComments(post.id);
+            
+            // Observe the element for fade-in
+            setTimeout(() => {
+                const fadeObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            fadeObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                
+                fadeObserver.observe(postDiv);
+            }, 10);
             
             return postDiv;
         }
@@ -5606,7 +5928,7 @@
         
         function createStudyGroupElement(group) {
             const groupDiv = document.createElement('div');
-            groupDiv.className = 'study-group-card';
+            groupDiv.className = 'study-group-card fade-in';
             
             const isMember = currentUser && group.members && group.members.includes(currentUser.uid);
             const memberCount = group.members ? group.members.length : 0;
@@ -5663,6 +5985,20 @@
                     </button>
                 </div>
             `;
+            
+            // Observe the element for fade-in
+            setTimeout(() => {
+                const fadeObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            fadeObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                
+                fadeObserver.observe(groupDiv);
+            }, 10);
             
             return groupDiv;
         }
@@ -6278,7 +6614,7 @@
                 // Sort by XP descending
                 users.sort((a, b) => (b.xp || 0) - (a.xp || 0));
                 const table = document.createElement('table');
-                table.className = 'trend-table';
+                table.className = 'trend-table fade-in';
                 table.innerHTML = `
                     <thead>
                         <tr>
