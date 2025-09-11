@@ -2275,6 +2275,74 @@
         .fade-in-stagger.visible > *:nth-child(4) { transition-delay: 0.4s; }
         .fade-in-stagger.visible > *:nth-child(5) { transition-delay: 0.5s; }
         
+        /* Enhanced interactive elements */
+        .interactive-element {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            display: inline-block;
+        }
+        
+        .interactive-element:hover {
+            background-color: rgba(79, 70, 229, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .interactive-element .quiz-popup {
+            position: absolute;
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            width: 300px;
+            z-index: 100;
+            display: none;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .interactive-element:hover .quiz-popup {
+            display: block;
+            opacity: 1;
+            transform: translateX(-50%) translateY(5px);
+        }
+        
+        .interactive-element .quiz-popup h4 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+        
+        .interactive-element .quiz-popup .quiz-options {
+            margin-top: 0.5rem;
+        }
+        
+        .interactive-element .quiz-popup .quiz-option {
+            padding: 0.5rem;
+            margin: 0.25rem 0;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .interactive-element .quiz-popup .quiz-option:hover {
+            background-color: rgba(79, 70, 229, 0.1);
+        }
+        
+        .interactive-element .quiz-popup .quiz-option.correct {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+        
+        .interactive-element .quiz-popup .quiz-option.incorrect {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+        
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -2546,40 +2614,69 @@
                         Introduction to Group 1 Alkali Metals
                     </h3>
                     
-                    <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4 fade-in-stagger">
-                        <li>Group 1 elements: <span class="element-hover" onclick="showTermQuiz('lithium')">Lithium (Li)
-                            <span class="element-info">Atomic number: 3<br>Lightest metal element</span>
-                        </span>, <span class="element-hover" onclick="showTermQuiz('sodium')">Sodium (Na)
-                            <span class="element-info">Atomic number: 11<br>Reactive, silvery metal</span>
-                        </span>, <span class="element-hover" onclick="showTermQuiz('potassium')">Potassium (K)
-                            <span class="element-info">Atomic number: 19<br>Highly reactive, soft metal</span>
-                        </span>, Rubidium (Rb), Cesium (Cs), Francium (Fr)</li>
-                        <li>Known as <span class="keyword" onclick="showTermQuiz('alkali-metals')">alkali metals<span class="keyword-info">Metals that form alkaline solutions with water</span></span></li>
-                        <li>Outer shell: <span class="valence-electron" onclick="showTermQuiz('valence-electron')">1<span class="valence-info">Group 1 = 1 valence electron → very reactive</span></span> electron</li>
-                        <li>Form +1 ions by losing this electron</li>
-                        <li>Stored under oil to prevent reaction with air</li>
-                    </ul>
+                    <div class="mb-6 fade-in">
+                        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300">
+                            <h4 class="font-semibold text-indigo-800 mb-2">Key Concepts</h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>Group 1 elements: <span class="interactive-element font-semibold text-indigo-600" onclick="showElementQuiz('lithium')">Lithium (Li)</span>, <span class="interactive-element font-semibold text-indigo-600" onclick="showElementQuiz('sodium')">Sodium (Na)</span>, <span class="interactive-element font-semibold text-indigo-600" onclick="showElementQuiz('potassium')">Potassium (K)</span>, Rubidium (Rb), Cesium (Cs), Francium (Fr)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>Known as <span class="interactive-element font-semibold text-indigo-600" onclick="showTermQuiz('alkali-metals')">alkali metals</span></span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>Outer shell: <span class="interactive-element font-semibold text-indigo-600" onclick="showTermQuiz('valence-electron')">1 valence electron</span></span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>Form +1 ions by losing this electron</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>Stored under oil to prevent reaction with air</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                     
                     <!-- Key Properties with Tooltips -->
                     <div class="grid grid-cols-2 gap-4 mb-6">
-                        <div class="bg-gray-50 p-4 rounded-lg transform transition-all duration-300 hover:scale-105 fade-in">
-                            <h4 class="font-semibold text-gray-800 mb-2">Key Properties</h4>
+                        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 fade-in">
+                            <h4 class="font-semibold text-indigo-800 mb-3 flex items-center">
+                                <i class="fas fa-atom mr-2"></i> Key Properties
+                            </h4>
                             <ul class="space-y-2">
-                                <li><span class="keyword" onclick="showTermQuiz('soft')">soft<span class="keyword-info">Can be cut with a knife</span></span> metals</li>
-                                <li><span class="keyword" onclick="showTermQuiz('melting-point')">low melting points<span class="keyword-info">Decrease down the group</span></span></li>
-                                <li><span class="keyword" onclick="showTermQuiz('density')">low densities<span class="keyword-info">Li, Na, K float on water</span></span></li>
-                                <li><span class="keyword" onclick="showTermQuiz('reactivity')">reactive<span class="keyword-info">Increase down the group</span></span> with water and oxygen</li>
-                                <li>Characteristic <span class="keyword" onclick="showTermQuiz('flame-test')">flame test<span class="keyword-info">Li: red, Na: yellow, K: lilac</span></span> colors</li>
+                                <li><span class="interactive-element font-medium text-indigo-600" onclick="showTermQuiz('soft')">Soft metals</span></li>
+                                <li><span class="interactive-element font-medium text-indigo-600" onclick="showTermQuiz('melting-point')">Low melting points</span></li>
+                                <li><span class="interactive-element font-medium text-indigo-600" onclick="showTermQuiz('density')">Low densities</span></li>
+                                <li><span class="interactive-element font-medium text-indigo-600" onclick="showTermQuiz('reactivity')">Reactive with water and oxygen</span></li>
+                                <li><span class="interactive-element font-medium text-indigo-600" onclick="showTermQuiz('flame-test')">Characteristic flame test colors</span></li>
                             </ul>
                         </div>
-                        <div class="bg-gray-50 p-4 rounded-lg transform transition-all duration-300 hover:scale-105 fade-in">
-                            <h4 class="font-semibold text-gray-800 mb-2">Trends</h4>
+                        <div class="bg-gradient-to-br from-purple-50 to-indigo-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 fade-in">
+                            <h4 class="font-semibold text-indigo-800 mb-3 flex items-center">
+                                <i class="fas fa-chart-line mr-2"></i> Trends
+                            </h4>
                             <ul class="space-y-2">
-                                <li><span class="tooltip">Melting Point<span class="tooltiptext">Does melting point increase or decrease down the group?</span></span> <i class="fas fa-arrow-down text-red-500 transform transition-all duration-300 hover:scale-125"></i> down group</li>
-                                <li><span class="tooltip">Density<span class="tooltiptext">Does density increase or decrease down the group?</span></span> <i class="fas fa-arrow-up text-green-500 transform transition-all duration-300 hover:scale-125"></i> down group (K exception)</li>
-                                <li><span class="tooltip">Reactivity<span class="tooltiptext">Which element reacts fastest with water?</span></span> <i class="fas fa-arrow-up text-green-500 transform transition-all duration-300 hover:scale-125"></i> down group</li>
-                                <li>Atomic radius <i class="fas fa-arrow-up text-green-500 transform transition-all duration-300 hover:scale-125"></i> down group</li>
+                                <li><span class="interactive-element font-medium text-indigo-600" onclick="showTrendQuiz('melting-point')">Melting Point</span> <i class="fas fa-arrow-down text-red-500"></i> down group</li>
+                                <li><span class="interactive-element font-medium text-indigo-600" onclick="showTrendQuiz('density')">Density</span> <i class="fas fa-arrow-up text-green-500"></i> down group (K exception)</li>
+                                <li><span class="interactive-element font-medium text-indigo-600" onclick="showTrendQuiz('reactivity')">Reactivity</span> <i class="fas fa-arrow-up text-green-500"></i> down group</li>
+                                <li>Atomic radius <i class="fas fa-arrow-up text-green-500"></i> down group</li>
                             </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Interactive Element Quiz Popup -->
+                    <div id="elementQuizPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        <div class="bg-white rounded-lg p-6 max-w-md w-full shadow-xl">
+                            <h3 class="text-xl font-bold mb-4" id="elementQuizTitle">Element Quiz</h3>
+                            <p id="elementQuizQuestion" class="mb-4"></p>
+                            <div id="elementQuizOptions" class="space-y-2 mb-4"></div>
+                            <div id="elementQuizFeedback" class="mb-4 p-3 rounded-lg hidden"></div>
+                            <button onclick="closeElementQuiz()" class="btn btn-primary w-full">Close</button>
                         </div>
                     </div>
                     
@@ -2610,37 +2707,37 @@
                         <h4 class="font-semibold mb-2">Interactive Periodic Table</h4>
                         <div class="periodic-table">
                             <!-- Simplified periodic table with Group 1 highlighted -->
-                            <div class="element group1" data-element="H">
+                            <div class="element group1" data-element="H" onclick="showElementDetails('Hydrogen', 'H', 1, '1')">
                                 <span class="element-number">1</span>
                                 <span class="element-symbol">H</span>
                                 <span class="element-name">Hydrogen</span>
                             </div>
-                            <div class="element group1" data-element="Li">
+                            <div class="element group1" data-element="Li" onclick="showElementDetails('Lithium', 'Li', 3, '2,1')">
                                 <span class="element-number">3</span>
                                 <span class="element-symbol">Li</span>
                                 <span class="element-name">Lithium</span>
                             </div>
-                            <div class="element" data-element="Na">
+                            <div class="element" data-element="Na" onclick="showElementDetails('Sodium', 'Na', 11, '2,8,1')">
                                 <span class="element-number">11</span>
                                 <span class="element-symbol">Na</span>
                                 <span class="element-name">Sodium</span>
                             </div>
-                            <div class="element" data-element="K">
+                            <div class="element" data-element="K" onclick="showElementDetails('Potassium', 'K', 19, '2,8,8,1')">
                                 <span class="element-number">19</span>
                                 <span class="element-symbol">K</span>
                                 <span class="element-name">Potassium</span>
                             </div>
-                            <div class="element" data-element="Rb">
+                            <div class="element" data-element="Rb" onclick="showElementDetails('Rubidium', 'Rb', 37, '2,8,18,8,1')">
                                 <span class="element-number">37</span>
                                 <span class="element-symbol">Rb</span>
                                 <span class="element-name">Rubidium</span>
                             </div>
-                            <div class="element" data-element="Cs">
+                            <div class="element" data-element="Cs" onclick="showElementDetails('Cesium', 'Cs', 55, '2,8,18,18,8,1')">
                                 <span class="element-number">55</span>
                                 <span class="element-symbol">Cs</span>
                                 <span class="element-name">Cesium</span>
                             </div>
-                            <div class="element" data-element="Fr">
+                            <div class="element" data-element="Fr" onclick="showElementDetails('Francium', 'Fr', 87, '2,8,18,32,18,8,1')">
                                 <span class="element-number">87</span>
                                 <span class="element-symbol">Fr</span>
                                 <span class="element-name">Francium</span>
@@ -2648,43 +2745,92 @@
                         </div>
                     </div>
                     
+                    <!-- Element Details Modal -->
+                    <div id="elementDetailsModal" class="modal">
+                        <div class="modal-content">
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-2xl font-bold text-gray-800" id="elementDetailsName">Element Details</h2>
+                                <button onclick="closeElementDetails()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
+                                    <i class="fas fa-times text-xl"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                                        <h3 class="font-semibold text-gray-800 mb-2">Atomic Information</h3>
+                                        <p><strong>Symbol:</strong> <span id="elementDetailsSymbol"></span></p>
+                                        <p><strong>Atomic Number:</strong> <span id="elementDetailsNumber"></span></p>
+                                        <p><strong>Electron Configuration:</strong> <span id="elementDetailsConfig"></span></p>
+                                    </div>
+                                    
+                                    <div class="bg-gray-100 p-4 rounded-lg">
+                                        <h3 class="font-semibold text-gray-800 mb-2">Properties</h3>
+                                        <p><strong>Melting Point:</strong> <span id="elementDetailsMP"></span></p>
+                                        <p><strong>Density:</strong> <span id="elementDetailsDensity"></span></p>
+                                        <p><strong>Reactivity:</strong> <span id="elementDetailsReactivity"></span></p>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                                        <h3 class="font-semibold text-gray-800 mb-2">Uses</h3>
+                                        <p id="elementDetailsUses"></p>
+                                    </div>
+                                    
+                                    <div class="bg-gray-100 p-4 rounded-lg">
+                                        <h3 class="font-semibold text-gray-800 mb-2">Fun Fact</h3>
+                                        <p id="elementDetailsFact"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                                <h3 class="font-semibold text-blue-800 mb-2">Quick Quiz</h3>
+                                <p id="elementDetailsQuizQuestion"></p>
+                                <div id="elementDetailsQuizOptions" class="mt-2 space-y-2"></div>
+                                <div id="elementDetailsQuizFeedback" class="mt-2 p-3 rounded-lg hidden"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="element-grid fade-in-stagger">
-                        <div class="element-card">
+                        <div class="element-card" onclick="showElementDetails('Lithium', 'Li', 3, '2,1')">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Lithiumcut_cropped.jpg" alt="Lithium" class="element-image">
                             <h4 class="font-bold text-lg">Lithium (Li)</h4>
                             <p class="text-sm text-gray-600">Atomic: 3</p>
                             <p class="text-sm text-gray-600">Electron: 2,1</p>
                             <div class="text-xs text-gray-500 mt-2">Lightest metal, floats on water</div>
                         </div>
-                        <div class="element-card">
+                        <div class="element-card" onclick="showElementDetails('Sodium', 'Na', 11, '2,8,1')">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Na_%28Sodium%29.jpg" alt="Sodium" class="element-image">
                             <h4 class="font-bold text-lg">Sodium (Na)</h4>
                             <p class="text-sm text-gray-600">Atomic: 11</p>
                             <p class="text-sm text-gray-600">Electron: 2,8,1</p>
                             <div class="text-xs text-gray-500 mt-2">Yellow flame test, street lamps</div>
                         </div>
-                        <div class="element-card">
+                        <div class="element-card" onclick="showElementDetails('Potassium', 'K', 19, '2,8,8,1')">
                             <img src="https://cdn.britannica.com/77/131177-050-79292189/fragments-Potassium-metal.jpg" alt="Potassium" class="element-image">
                             <h4 class="font-bold text-lg">Potassium (K)</h4>
                             <p class="text-sm text-gray-600">Atomic: 19</p>
                             <p class="text-sm text-gray-600">Electron: 2,8,8,1</p>
                             <div class="text-xs text-gray-500 mt-2">Violet flame, essential for life</div>
                         </div>
-                        <div class="element-card">
+                        <div class="element-card" onclick="showElementDetails('Rubidium', 'Rb', 37, '2,8,18,8,1')">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Rb5.JPG" alt="Rubidium" class="element-image">
                             <h4 class="font-bold text-lg">Rubidium (Rb)</h4>
                             <p class="text-sm text-gray-600">Atomic: 37</p>
                             <p class="text-sm text-gray-600">Electron: 2,8,18,8,1</p>
                             <div class="text-xs text-gray-500 mt-2">Used in atomic clocks</div>
                         </div>
-                        <div class="element-card">
+                        <div class="element-card" onclick="showElementDetails('Cesium', 'Cs', 55, '2,8,18,18,8,1')">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Cesium.jpg" alt="Cesium" class="element-image">
                             <h4 class="font-bold text-lg">Cesium (Cs)</h4>
                             <p class="text-sm text-gray-600">Atomic: 55</p>
                             <p class="text-sm text-gray-600">Electron: 2,8,18,18,8,1</p>
                             <div class="text-xs text-gray-500 mt-2">Most reactive, photoelectric cells</div>
                         </div>
-                        <div class="element-card">
+                        <div class="element-card" onclick="showElementDetails('Francium', 'Fr', 87, '2,8,18,32,18,8,1')">
                             <img src="https://i0.wp.com/periodic-table.com/wp-content/uploads/2018/11/Francium.jpg?fit=238%2C212&ssl=1" alt="Francium" class="element-image">
                             <h4 class="font-bold text-lg">Francium (Fr)</h4>
                             <p class="text-sm text-gray-600">Atomic: 87</p>
@@ -2712,90 +2858,158 @@
                         <button class="tab" onclick="showTab('reactivity')">Reactivity</button>
                     </div>
                     <div id="melting-point" class="tab-content active">
-                        <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4 fade-in-stagger">
-                            <li>Melting point <strong>decreases</strong> down Group 1</li>
-                            <li>Due to increasing atomic size and weaker metallic bonding</li>
-                            <li>Li: 180.5°C → Cs: 28.4°C</li>
-                        </ul>
+                        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-4 fade-in">
+                            <h4 class="font-semibold text-indigo-800 mb-2">Key Points</h4>
+                            <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                                <li>Melting point <strong>decreases</strong> down Group 1</li>
+                                <li>Due to increasing atomic size and weaker metallic bonding</li>
+                                <li>Li: 180.5°C → Cs: 28.4°C</li>
+                            </ul>
+                        </div>
                         
-                        <table class="trend-table fade-in">
+                        <div class="trend-table fade-in">
                             <thead>
                                 <tr>
                                     <th>Element</th>
                                     <th>Melting Point (°C)</th>
+                                    <th>Trend Explanation</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr onclick="showTrendExplanation('melting-point', 'lithium')">
                                     <td>Lithium</td>
                                     <td>180.5</td>
+                                    <td>Strong metallic bonds due to small atomic size</td>
                                 </tr>
-                                <tr>
+                                <tr onclick="showTrendExplanation('melting-point', 'sodium')">
                                     <td>Sodium</td>
                                     <td>97.8</td>
+                                    <td>Weaker bonds than lithium due to larger size</td>
                                 </tr>
-                                <tr>
+                                <tr onclick="showTrendExplanation('melting-point', 'potassium')">
                                     <td>Potassium</td>
                                     <td>63.5</td>
+                                    <td>Even weaker metallic bonds</td>
                                 </tr>
-                                <tr>
+                                <tr onclick="showTrendExplanation('melting-point', 'rubidium')">
                                     <td>Rubidium</td>
                                     <td>39.3</td>
+                                    <td>Very weak metallic bonds</td>
                                 </tr>
-                                <tr>
+                                <tr onclick="showTrendExplanation('melting-point', 'cesium')">
                                     <td>Cesium</td>
                                     <td>28.4</td>
+                                    <td>Weakest metallic bonds in the group</td>
                                 </tr>
                             </tbody>
-                        </table>
+                        </div>
+                        
+                        <!-- Trend Explanation Modal -->
+                        <div id="trendExplanationModal" class="modal">
+                            <div class="modal-content">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h2 class="text-2xl font-bold text-gray-800" id="trendExplanationTitle">Trend Explanation</h2>
+                                    <button onclick="closeTrendExplanation()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
+                                        <i class="fas fa-times text-xl"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="mb-6">
+                                    <h3 class="text-lg font-semibold mb-2" id="trendExplanationHeading">Heading</h3>
+                                    <p id="trendExplanationContent" class="text-gray-700 mb-4"></p>
+                                    
+                                    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                                        <h4 class="font-semibold text-blue-800 mb-2">Quick Quiz</h4>
+                                        <p id="trendExplanationQuizQuestion"></p>
+                                        <div id="trendExplanationQuizOptions" class="mt-2 space-y-2"></div>
+                                        <div id="trendExplanationQuizFeedback" class="mt-2 p-3 rounded-lg hidden"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div id="density" class="tab-content">
-                        <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4 fade-in-stagger">
-                            <li>Density generally <strong>increases</strong> down Group 1</li>
-                            <li>Exception: Potassium (0.89 g/cm³) is less dense than Sodium (0.97 g/cm³)</li>
-                            <li>Li: 0.53 g/cm³ → Cs: 1.93 g/cm³</li>
-                        </ul>
+                        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-4 fade-in">
+                            <h4 class="font-semibold text-indigo-800 mb-2">Key Points</h4>
+                            <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                                <li>Density generally <strong>increases</strong> down Group 1</li>
+                                <li>Exception: Potassium (0.89 g/cm³) is less dense than Sodium (0.97 g/cm³)</li>
+                                <li>Li: 0.53 g/cm³ → Cs: 1.93 g/cm³</li>
+                            </ul>
+                        </div>
                         <table class="trend-table fade-in">
                             <thead>
                                 <tr>
                                     <th>Element</th>
                                     <th>Density (g/cm³)</th>
+                                    <th>Trend Explanation</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr onclick="showTrendExplanation('density', 'lithium')">
                                     <td>Lithium</td>
                                     <td>0.534</td>
+                                    <td>Lowest density, floats on water</td>
                                 </tr>
-                                <tr>
+                                <tr onclick="showTrendExplanation('density', 'sodium')">
                                     <td>Sodium</td>
                                     <td>0.968</td>
+                                    <td>Denser than lithium but still floats</td>
                                 </tr>
-                                <tr>
+                                <tr onclick="showTrendExplanation('density', 'potassium')">
                                     <td>Potassium</td>
                                     <td>0.89</td>
+                                    <td>Anomaly - less dense than sodium</td>
                                 </tr>
-                                <tr>
+                                <tr onclick="showTrendExplanation('density', 'rubidium')">
                                     <td>Rubidium</td>
                                     <td>1.532</td>
+                                    <td>Significantly denser, sinks in water</td>
                                 </tr>
-                                <tr>
+                                <tr onclick="showTrendExplanation('density', 'cesium')">
                                     <td>Cesium</td>
                                     <td>1.93</td>
+                                    <td>Densest in the group</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div id="reactivity" class="tab-content">
-                        <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4 fade-in-stagger">
-                            <li>Reactivity <strong>increases</strong> down Group 1</li>
-                            <li>Outer electron further from nucleus, easier to lose</li>
-                            <li>Reaction with water becomes more vigorous</li>
-                        </ul>
+                        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-4 fade-in">
+                            <h4 class="font-semibold text-indigo-800 mb-2">Key Points</h4>
+                            <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                                <li>Reactivity <strong>increases</strong> down Group 1</li>
+                                <li>Outer electron further from nucleus, easier to lose</li>
+                                <li>Reaction with water becomes more vigorous</li>
+                            </ul>
+                        </div>
                         
                         <div class="highlight-box fade-in">
                             <h4>Reactivity Series</h4>
                             <p>Most Reactive: Cesium > Rubidium > Potassium > Sodium > Lithium :Least Reactive</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4 mt-6 fade-in-stagger">
+                            <div class="bg-gradient-to-br from-red-50 to-orange-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                                <h4 class="font-semibold text-red-800 mb-2">Lithium Reaction</h4>
+                                <p class="text-sm text-gray-700">Fizzes steadily with water, moves slowly on surface</p>
+                                <button onclick="showReactionVideo('lithium')" class="btn btn-primary btn-sm mt-2">Watch Reaction</button>
+                            </div>
+                            <div class="bg-gradient-to-br from-orange-50 to-yellow-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                                <h4 class="font-semibold text-orange-800 mb-2">Sodium Reaction</h4>
+                                <p class="text-sm text-gray-700">Fizzes rapidly, melts into a ball, moves quickly</p>
+                                <button onclick="showReactionVideo('sodium')" class="btn btn-primary btn-sm mt-2">Watch Reaction</button>
+                            </div>
+                            <div class="bg-gradient-to-br from-yellow-50 to-green-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                                <h4 class="font-semibold text-yellow-800 mb-2">Potassium Reaction</h4>
+                                <p class="text-sm text-gray-700">Fizzes violently, ignites with lilac flame</p>
+                                <button onclick="showReactionVideo('potassium')" class="btn btn-primary btn-sm mt-2">Watch Reaction</button>
+                            </div>
+                            <div class="bg-gradient-to-br from-green-50 to-blue-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                                <h4 class="font-semibold text-green-800 mb-2">Cesium Reaction</h4>
+                                <p class="text-sm text-gray-700">Explodes on contact with water</p>
+                                <button onclick="showReactionVideo('cesium')" class="btn btn-primary btn-sm mt-2">Watch Reaction</button>
+                            </div>
                         </div>
                     </div>
                     
@@ -2817,11 +3031,14 @@
                         <button class="tab" onclick="showTab('oxygen')">With Oxygen</button>
                     </div>
                     <div id="water" class="tab-content active">
-                        <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4 fade-in-stagger">
-                            <li>All Group 1 metals react with water</li>
-                            <li>Products: Metal hydroxide + Hydrogen gas</li>
-                            <li>Reactivity increases down the group</li>
-                        </ul>
+                        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-4 fade-in">
+                            <h4 class="font-semibold text-indigo-800 mb-2">Key Points</h4>
+                            <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                                <li>All Group 1 metals react with water</li>
+                                <li>Products: Metal hydroxide + Hydrogen gas</li>
+                                <li>Reactivity increases down the group</li>
+                            </ul>
+                        </div>
                         <div class="equation-box fade-in">
                             <p class="text-gray-700 mb-2">General equation:</p>
                             <p class="equation">2M(s) + 2H₂O(l) → 2MOH(aq) + H₂(g)</p>
@@ -2835,24 +3052,93 @@
                                 <li><strong>Potassium:</strong> Fizzes violently, ignites with lilac flame</li>
                             </ul>
                         </div>
+                        
+                        <div class="grid grid-cols-3 gap-4 mt-6 fade-in-stagger">
+                            <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                                <h4 class="font-semibold text-blue-800 mb-2">Lithium + Water</h4>
+                                <p class="equation text-sm">2Li(s) + 2H₂O(l) → 2LiOH(aq) + H₂(g)</p>
+                                <button onclick="showReactionDetails('lithium-water')" class="btn btn-primary btn-sm mt-2">View Details</button>
+                            </div>
+                            <div class="bg-gradient-to-br from-purple-50 to-indigo-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                                <h4 class="font-semibold text-purple-800 mb-2">Sodium + Water</h4>
+                                <p class="equation text-sm">2Na(s) + 2H₂O(l) → 2NaOH(aq) + H₂(g)</p>
+                                <button onclick="showReactionDetails('sodium-water')" class="btn btn-primary btn-sm mt-2">View Details</button>
+                            </div>
+                            <div class="bg-gradient-to-br from-pink-50 to-purple-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                                <h4 class="font-semibold text-pink-800 mb-2">Potassium + Water</h4>
+                                <p class="equation text-sm">2K(s) + 2H₂O(l) → 2KOH(aq) + H₂(g)</p>
+                                <button onclick="showReactionDetails('potassium-water')" class="btn btn-primary btn-sm mt-2">View Details</button>
+                            </div>
+                        </div>
                     </div>
                     <div id="oxygen" class="tab-content">
-                        <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4 fade-in-stagger">
-                            <li>Group 1 metals react with oxygen when heated</li>
-                            <li>Form different types of oxides down the group</li>
-                        </ul>
+                        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-4 fade-in">
+                            <h4 class="font-semibold text-indigo-800 mb-2">Key Points</h4>
+                            <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                                <li>Group 1 metals react with oxygen when heated</li>
+                                <li>Form different types of oxides down the group</li>
+                            </ul>
+                        </div>
                         <div class="grid grid-cols-3 gap-4 fade-in-stagger">
-                            <div class="bg-blue-50 p-3 rounded-lg transform transition-all duration-300 hover:scale-105">
+                            <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
                                 <h5 class="font-semibold text-blue-800">Lithium</h5>
                                 <p class="text-sm text-blue-600">Forms Li₂O (oxide)</p>
+                                <p class="equation text-sm mt-2">4Li(s) + O₂(g) → 2Li₂O(s)</p>
+                                <button onclick="showReactionDetails('lithium-oxygen')" class="btn btn-primary btn-sm mt-2">View Details</button>
                             </div>
-                            <div class="bg-green-50 p-3 rounded-lg transform transition-all duration-300 hover:scale-105">
+                            <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
                                 <h5 class="font-semibold text-green-800">Sodium</h5>
                                 <p class="text-sm text-green-600">Forms Na₂O₂ (peroxide)</p>
+                                <p class="equation text-sm mt-2">2Na(s) + O₂(g) → Na₂O₂(s)</p>
+                                <button onclick="showReactionDetails('sodium-oxygen')" class="btn btn-primary btn-sm mt-2">View Details</button>
                             </div>
-                            <div class="bg-purple-50 p-3 rounded-lg transform transition-all duration-300 hover:scale-105">
+                            <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
                                 <h5 class="font-semibold text-purple-800">Potassium</h5>
                                 <p class="text-sm text-purple-600">Forms KO₂ (superoxide)</p>
+                                <p class="equation text-sm mt-2">K(s) + O₂(g) → KO₂(s)</p>
+                                <button onclick="showReactionDetails('potassium-oxygen')" class="btn btn-primary btn-sm mt-2">View Details</button>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-yellow-50 to-orange-50 p-4 rounded-lg border-l-4 border-orange-500 shadow-sm hover:shadow-md transition-shadow duration-300 mt-6 fade-in">
+                            <h4 class="font-semibold text-orange-800 mb-2">Trend in Oxide Formation</h4>
+                            <p class="text-gray-700">As we move down Group 1, the type of oxide formed changes from normal oxides (Li) to peroxides (Na) to superoxides (K, Rb, Cs). This is due to the increasing size of the metal ion, which can stabilize larger oxygen-containing anions.</p>
+                            <button onclick="showOxideTrendQuiz()" class="btn btn-primary btn-sm mt-2">Test Your Knowledge</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Reaction Details Modal -->
+                    <div id="reactionDetailsModal" class="modal">
+                        <div class="modal-content">
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-2xl font-bold text-gray-800" id="reactionDetailsTitle">Reaction Details</h2>
+                                <button onclick="closeReactionDetails()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
+                                    <i class="fas fa-times text-xl"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                                    <h3 class="font-semibold text-gray-800 mb-2">Chemical Equation</h3>
+                                    <p class="equation text-lg" id="reactionDetailsEquation"></p>
+                                </div>
+                                
+                                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                                    <h3 class="font-semibold text-gray-800 mb-2">Observations</h3>
+                                    <p id="reactionDetailsObservations"></p>
+                                </div>
+                                
+                                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                                    <h3 class="font-semibold text-gray-800 mb-2">Explanation</h3>
+                                    <p id="reactionDetailsExplanation"></p>
+                                </div>
+                                
+                                <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                                    <h4 class="font-semibold text-blue-800 mb-2">Quick Quiz</h4>
+                                    <p id="reactionDetailsQuizQuestion"></p>
+                                    <div id="reactionDetailsQuizOptions" class="mt-2 space-y-2"></div>
+                                    <div id="reactionDetailsQuizFeedback" class="mt-2 p-3 rounded-lg hidden"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -2870,13 +3156,80 @@
                         <i class="fas fa-graduation-cap mr-2 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                         Test Your Knowledge
                     </h3>
-                    <p class="text-gray-600 mb-6">
-                        Take this innovative quiz to test your understanding of Group 1 Alkali Metals.
-                    </p>
-                    <button onclick="startQuiz()" class="btn btn-primary w-full transform transition-all duration-300 hover:scale-105">
-                        <i class="fas fa-play mr-2"></i>
-                        Start Quiz
-                    </button>
+                    
+                    <div class="bg-gradient-to-r from-indigo-50 to-purple-50 p-6 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-6">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-info-circle text-indigo-600 text-2xl mr-3"></i>
+                            <div>
+                                <h4 class="font-semibold text-indigo-800">Quiz Instructions</h4>
+                                <p class="text-gray-700">This quiz contains 10 multiple-choice questions about Group 1 Alkali Metals. Take your time to answer each question carefully. You can navigate between questions using the Previous and Next buttons.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-3 gap-4 mt-4">
+                            <div class="bg-white p-3 rounded-lg shadow-sm">
+                                <div class="text-2xl font-bold text-indigo-600">10</div>
+                                <div class="text-sm text-gray-600">Questions</div>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg shadow-sm">
+                                <div class="text-2xl font-bold text-indigo-600">5 min</div>
+                                <div class="text-sm text-gray-600">Time Limit</div>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg shadow-sm">
+                                <div class="text-2xl font-bold text-indigo-600">80%</div>
+                                <div class="text-sm text-gray-600">Passing Score</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-6 mb-6">
+                        <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                            <h4 class="font-semibold text-green-800 mb-2 flex items-center">
+                                <i class="fas fa-trophy mr-2"></i> Rewards
+                            </h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start">
+                                    <i class="fas fa-star text-yellow-500 mt-1 mr-2"></i>
+                                    <span>Earn up to 20 XP points</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-medal text-yellow-500 mt-1 mr-2"></i>
+                                    <span>Unlock "Quiz Master" badge with 80%+ score</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-certificate text-yellow-500 mt-1 mr-2"></i>
+                                    <span>Get completion certificate</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                            <h4 class="font-semibold text-blue-800 mb-2 flex items-center">
+                                <i class="fas fa-lightbulb mr-2"></i> Tips
+                            </h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>Review all sections before attempting</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>Pay attention to trends down the group</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    <span>Remember the exceptions (like potassium's density)</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button onclick="startQuiz()" class="btn btn-primary transform transition-all duration-300 hover:scale-105">
+                            <i class="fas fa-play mr-2"></i>
+                            Start Quiz
+                        </button>
+                    </div>
                 </div>
             </section>
             <!-- Discussion Section -->
@@ -2894,15 +3247,15 @@
                     </div>
                     
                     <!-- Discussion Controls -->
-                    <div class="discussion-controls">
-                        <div class="search-box">
+                    <div class="flex flex-col md:flex-row gap-4 mb-6">
+                        <div class="search-box flex-1">
                             <i class="fas fa-search"></i>
                             <input type="text" id="discussionSearch" placeholder="Search discussions..." onkeyup="filterDiscussions()">
                         </div>
-                        <div class="filter-buttons">
-                            <button class="filter-btn active" onclick="sortDiscussions('newest')">Newest</button>
-                            <button class="filter-btn" onclick="sortDiscussions('oldest')">Oldest</button>
-                            <button class="filter-btn" onclick="sortDiscussions('popular')">Most Popular</button>
+                        <div class="flex gap-2">
+                            <button class="filter-btn active px-4 py-2 bg-indigo-600 text-white rounded-lg" onclick="sortDiscussions('newest')">Newest</button>
+                            <button class="filter-btn px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300" onclick="sortDiscussions('oldest')">Oldest</button>
+                            <button class="filter-btn px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300" onclick="sortDiscussions('popular')">Most Popular</button>
                         </div>
                     </div>
                     
@@ -3394,6 +3747,249 @@
                 options: ["Red", "Yellow", "Green", "Violet"],
                 correct: 0,
                 explanation: "Lithium produces a red flame in flame tests, while Sodium produces yellow and Potassium produces violet/lilac."
+            }
+        };
+        
+        // Trend quiz questions
+        const trendQuizQuestions = {
+            'melting-point': {
+                question: "Why does melting point decrease down Group 1?",
+                options: [
+                    "Atomic size increases, metallic bonds weaken",
+                    "Atomic size decreases, metallic bonds strengthen",
+                    "Electron configuration changes",
+                    "Nuclear charge increases"
+                ],
+                correct: 0,
+                explanation: "As we move down Group 1, atomic size increases due to additional electron shells. This increases the distance between positive nuclei and delocalized electrons, weakening the metallic bonds and lowering the melting point."
+            },
+            'density': {
+                question: "Why is potassium less dense than sodium?",
+                options: [
+                    "Potassium has fewer protons",
+                    "Potassium has a larger atomic radius",
+                    "Potassium has more electron shells",
+                    "Potassium has a different crystal structure"
+                ],
+                correct: 1,
+                explanation: "Potassium has a larger atomic radius than sodium, but the increase in size is proportionally greater than the increase in mass, resulting in a lower density. This is an exception to the general trend of increasing density down the group."
+            },
+            'reactivity': {
+                question: "Why does reactivity increase down Group 1?",
+                options: [
+                    "Nuclear charge increases",
+                    "Atomic radius increases, making it easier to lose the outer electron",
+                    "Electron shielding decreases",
+                    "Ionization energy increases"
+                ],
+                correct: 1,
+                explanation: "As we move down Group 1, the atomic radius increases due to additional electron shells. The outer electron is further from the nucleus and experiences more shielding from inner electrons, making it easier to lose and increasing reactivity."
+            }
+        };
+        
+        // Element details
+        const elementDetails = {
+            'Lithium': {
+                symbol: 'Li',
+                atomicNumber: 3,
+                electronConfig: '2,1',
+                meltingPoint: '180.5°C',
+                density: '0.534 g/cm³',
+                reactivity: 'Lowest in group',
+                uses: 'Batteries, mood stabilizers, alloys',
+                fact: 'Lithium is the lightest metal element and can float on water.',
+                quizQuestion: "What is the primary use of Lithium in modern technology?",
+                quizOptions: [
+                    "Street lighting",
+                    "Batteries for electric vehicles",
+                    "Atomic clocks",
+                    "Photoelectric cells"
+                ],
+                quizCorrect: 1,
+                quizExplanation: "Lithium is primarily used in rechargeable batteries for electric vehicles and portable electronics due to its high electrochemical potential and light weight."
+            },
+            'Sodium': {
+                symbol: 'Na',
+                atomicNumber: 11,
+                electronConfig: '2,8,1',
+                meltingPoint: '97.8°C',
+                density: '0.968 g/cm³',
+                reactivity: 'Moderate',
+                uses: 'Street lighting, salt production, chemicals',
+                fact: 'Sodium produces a bright yellow flame in flame tests.',
+                quizQuestion: "What compound of Sodium is essential for human health?",
+                quizOptions: [
+                    "Sodium hydroxide",
+                    "Sodium carbonate",
+                    "Sodium chloride",
+                    "Sodium bicarbonate"
+                ],
+                quizCorrect: 2,
+                quizExplanation: "Sodium chloride (table salt) is essential for human health, helping to maintain fluid balance and nerve function."
+            },
+            'Potassium': {
+                symbol: 'K',
+                atomicNumber: 19,
+                electronConfig: '2,8,8,1',
+                meltingPoint: '63.5°C',
+                density: '0.89 g/cm³',
+                reactivity: 'High',
+                uses: 'Fertilizers, soaps, explosives',
+                fact: 'Potassium is vital for plant growth and human health.',
+                quizQuestion: "Why is Potassium important for the human body?",
+                quizOptions: [
+                    "It strengthens bones",
+                    "It aids in muscle contraction and nerve function",
+                    "It helps in blood clotting",
+                    "It is a primary energy source"
+                ],
+                quizCorrect: 1,
+                quizExplanation: "Potassium is crucial for proper muscle contraction, nerve function, and maintaining fluid balance in the body."
+            },
+            'Rubidium': {
+                symbol: 'Rb',
+                atomicNumber: 37,
+                electronConfig: '2,8,18,8,1',
+                meltingPoint: '39.3°C',
+                density: '1.532 g/cm³',
+                reactivity: 'Very high',
+                uses: 'Atomic clocks, research, specialty glasses',
+                fact: 'Rubidium is used in atomic clocks for precise timekeeping.',
+                quizQuestion: "What is Rubidium primarily used for?",
+                quizOptions: [
+                    "Medical imaging",
+                    "Atomic clocks and research",
+                    "Water purification",
+                    "Food preservation"
+                ],
+                quizCorrect: 1,
+                quizExplanation: "Rubidium is primarily used in atomic clocks for precise timekeeping and in various research applications due to its unique properties."
+            },
+            'Cesium': {
+                symbol: 'Cs',
+                atomicNumber: 55,
+                electronConfig: '2,8,18,18,8,1',
+                meltingPoint: '28.4°C',
+                density: '1.93 g/cm³',
+                reactivity: 'Extremely high',
+                uses: 'Atomic clocks, photoelectric cells, drilling fluids',
+                fact: 'Cesium is the most reactive metal and can explode on contact with water.',
+                quizQuestion: "What property makes Cesium useful in photoelectric cells?",
+                quizOptions: [
+                    "Its low melting point",
+                    "Its ability to emit electrons when exposed to light",
+                    "Its high density",
+                    "Its radioactive properties"
+                ],
+                quizCorrect: 1,
+                quizExplanation: "Cesium is useful in photoelectric cells because it readily emits electrons when exposed to light, making it efficient for converting light energy into electrical energy."
+            },
+            'Francium': {
+                symbol: 'Fr',
+                atomicNumber: 87,
+                electronConfig: '2,8,18,32,18,8,1',
+                meltingPoint: '27°C',
+                density: '1.87 g/cm³',
+                reactivity: 'Highest',
+                uses: 'Research, potential medical applications',
+                fact: 'Francium is extremely rare and radioactive, with a half-life of only 22 minutes.',
+                quizQuestion: "Why is Francium rarely studied or used?",
+                quizOptions: [
+                    "It is too expensive to extract",
+                    "It has an extremely short half-life",
+                    "It is not reactive enough",
+                    "It is toxic to humans"
+                ],
+                quizCorrect: 1,
+                quizExplanation: "Francium has an extremely short half-life of only 22 minutes, making it difficult to study and virtually impossible to use in practical applications."
+            }
+        };
+        
+        // Reaction details
+        const reactionDetails = {
+            'lithium-water': {
+                equation: "2Li(s) + 2H₂O(l) → 2LiOH(aq) + H₂(g)",
+                observations: "Lithium fizzes steadily as it reacts with water. It moves slowly across the surface and does not melt.",
+                explanation: "Lithium reacts with water to produce lithium hydroxide and hydrogen gas. The reaction is relatively gentle compared to other Group 1 metals due to lithium's small atomic size and strong metallic bonding.",
+                quizQuestion: "What gas is produced when Lithium reacts with water?",
+                quizOptions: [
+                    "Oxygen",
+                    "Hydrogen",
+                    "Chlorine",
+                    "Nitrogen"
+                ],
+                quizCorrect: 1,
+                quizExplanation: "Lithium reacts with water to produce hydrogen gas, which can be observed as bubbles during the reaction."
+            },
+            'sodium-water': {
+                equation: "2Na(s) + 2H₂O(l) → 2NaOH(aq) + H₂(g)",
+                observations: "Sodium fizzes rapidly and melts into a ball. It moves quickly across the water surface.",
+                explanation: "Sodium reacts vigorously with water, producing sodium hydroxide and hydrogen gas. The heat of the reaction melts the sodium, and the hydrogen gas propels it across the water surface.",
+                quizQuestion: "Why does Sodium melt during its reaction with water?",
+                quizOptions: [
+                    "Water has a high boiling point",
+                    "The reaction is exothermic and produces enough heat to melt Sodium",
+                    "Sodium has a very low melting point",
+                    "The reaction produces steam which melts the Sodium"
+                ],
+                quizCorrect: 1,
+                quizExplanation: "The reaction between Sodium and water is highly exothermic, producing enough heat to melt the Sodium (melting point: 97.8°C)."
+            },
+            'potassium-water': {
+                equation: "2K(s) + 2H₂O(l) → 2KOH(aq) + H₂(g)",
+                observations: "Potassium fizzes violently, ignites with a lilac flame, and may explode.",
+                explanation: "Potassium reacts very violently with water, producing potassium hydroxide and hydrogen gas. The reaction is so exothermic that the hydrogen gas ignites, producing a characteristic lilac flame.",
+                quizQuestion: "What color flame does Potassium produce when it reacts with water?",
+                quizOptions: [
+                    "Yellow",
+                    "Red",
+                    "Lilac",
+                    "Green"
+                ],
+                quizCorrect: 2,
+                quizExplanation: "Potassium produces a characteristic lilac flame when it reacts with water due to the excitation of its electrons and subsequent emission of light at specific wavelengths."
+            },
+            'lithium-oxygen': {
+                equation: "4Li(s) + O₂(g) → 2Li₂O(s)",
+                observations: "Lithium burns with a red flame to form white lithium oxide.",
+                explanation: "Lithium is the only Group 1 metal that forms a normal oxide (Li₂O) when burned in oxygen. Other Group 1 metals form peroxides or superoxides.",
+                quizQuestion: "What type of oxide does Lithium form when burned in oxygen?",
+                quizOptions: [
+                    "Normal oxide (Li₂O)",
+                    "Peroxide (Li₂O₂)",
+                    "Superoxide (LiO₂)",
+                    "No oxide is formed"
+                ],
+                quizCorrect: 0,
+                quizExplanation: "Lithium forms a normal oxide (Li₂O) when burned in oxygen, which is unique among Group 1 metals. Other Group 1 metals form peroxides or superoxides."
+            },
+            'sodium-oxygen': {
+                equation: "2Na(s) + O₂(g) → Na₂O₂(s)",
+                observations: "Sodium burns with a yellow flame to form pale yellow sodium peroxide.",
+                explanation: "Sodium forms a peroxide (Na₂O₂) when burned in oxygen. This contains the peroxide ion (O₂²⁻) with an oxygen-oxygen single bond.",
+                quizQuestion: "What ion is present in Sodium peroxide?",
+                quizOptions: [
+                    "O²⁻",
+                    "O₂²⁻",
+                    "O₂⁻",
+                    "O₃²⁻"
+                ],
+                quizCorrect: 1,
+                quizExplanation: "Sodium peroxide (Na₂O₂) contains the peroxide ion (O₂²⁻), which consists of two oxygen atoms joined by a single bond with a charge of -2."
+            },
+            'potassium-oxygen': {
+                equation: "K(s) + O₂(g) → KO₂(s)",
+                observations: "Potassium burns with a lilac flame to form orange potassium superoxide.",
+                explanation: "Potassium forms a superoxide (KO₂) when burned in oxygen. This contains the superoxide ion (O₂⁻) with an unpaired electron.",
+                quizQuestion: "What ion is present in Potassium superoxide?",
+                quizOptions: [
+                    "O²⁻",
+                    "O₂²⁻",
+                    "O₂⁻",
+                    "O₃²⁻"
+                ],
+                quizCorrect: 2,
+                quizExplanation: "Potassium superoxide (KO₂) contains the superoxide ion (O₂⁻), which has an unpaired electron and is paramagnetic."
             }
         };
         
@@ -4185,6 +4781,451 @@
             });
         }
         
+        // Interactive element quiz functions
+        function showElementQuiz(element) {
+            const question = termQuizQuestions[element];
+            if (!question) return;
+            
+            const popup = document.getElementById('elementQuizPopup');
+            const title = document.getElementById('elementQuizTitle');
+            const questionText = document.getElementById('elementQuizQuestion');
+            const optionsContainer = document.getElementById('elementQuizOptions');
+            const feedback = document.getElementById('elementQuizFeedback');
+            
+            title.textContent = `${element.charAt(0).toUpperCase() + element.slice(1)} Quiz`;
+            questionText.textContent = question.question;
+            
+            optionsContainer.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'quiz-option';
+                optionDiv.textContent = option;
+                optionDiv.onclick = () => checkElementQuizAnswer(index, question.correct, question.explanation);
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            feedback.classList.add('hidden');
+            popup.classList.remove('hidden');
+        }
+        
+        function checkElementQuizAnswer(selectedIndex, correctIndex, explanation) {
+            const options = document.querySelectorAll('#elementQuizOptions .quiz-option');
+            const feedback = document.getElementById('elementQuizFeedback');
+            
+            options.forEach((option, index) => {
+                option.onclick = null; // Disable further clicks
+                if (index === correctIndex) {
+                    option.classList.add('correct');
+                } else if (index === selectedIndex) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            if (selectedIndex === correctIndex) {
+                feedback.className = 'mb-4 p-3 rounded-lg bg-green-100 text-green-800';
+                feedback.textContent = 'Correct! ' + explanation;
+                if (soundEnabled) correctSound.play();
+            } else {
+                feedback.className = 'mb-4 p-3 rounded-lg bg-red-100 text-red-800';
+                feedback.textContent = 'Incorrect. ' + explanation;
+                if (soundEnabled) incorrectSound.play();
+            }
+            
+            feedback.classList.remove('hidden');
+        }
+        
+        function closeElementQuiz() {
+            document.getElementById('elementQuizPopup').classList.add('hidden');
+        }
+        
+        // Term quiz functions
+        function showTermQuiz(term) {
+            const question = termQuizQuestions[term];
+            if (!question) return;
+            
+            document.getElementById('quizQuestionModal').classList.add('active');
+            document.getElementById('quizQuestionTitle').textContent = `Quick Quiz: ${term.replace('-', ' ')}`;
+            document.getElementById('quizQuestionText').textContent = question.question;
+            
+            const answersContainer = document.getElementById('quizQuestionAnswers');
+            answersContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const answerDiv = document.createElement('div');
+                answerDiv.className = 'quiz-option';
+                answerDiv.textContent = option;
+                answerDiv.onclick = () => selectTermQuizAnswer(index, question.correct, question.explanation);
+                answersContainer.appendChild(answerDiv);
+            });
+            
+            // Reset feedback
+            document.getElementById('quizQuestionFeedback').classList.add('hidden');
+        }
+        
+        function selectTermQuizAnswer(index, correctIndex, explanation) {
+            const answers = document.querySelectorAll('#quizQuestionAnswers .quiz-option');
+            const feedback = document.getElementById('quizQuestionFeedback');
+            
+            answers.forEach(answer => {
+                answer.style.pointerEvents = 'none';
+            });
+            
+            if (index === correctIndex) {
+                answers[index].classList.add('correct');
+                feedback.className = 'quiz-feedback correct';
+                feedback.textContent = 'Correct! ' + explanation;
+                
+                if (soundEnabled) correctSound.play();
+            } else {
+                answers[index].classList.add('incorrect');
+                feedback.className = 'quiz-feedback incorrect';
+                feedback.textContent = 'Incorrect. ' + explanation;
+                
+                if (soundEnabled) incorrectSound.play();
+            }
+            
+            feedback.classList.remove('hidden');
+        }
+        
+        function closeQuizQuestionModal() {
+            document.getElementById('quizQuestionModal').classList.remove('active');
+        }
+        
+        // Trend quiz functions
+        function showTrendQuiz(trend) {
+            const question = trendQuizQuestions[trend];
+            if (!question) return;
+            
+            document.getElementById('quizQuestionModal').classList.add('active');
+            document.getElementById('quizQuestionTitle').textContent = `Trend Quiz: ${trend.replace('-', ' ')}`;
+            document.getElementById('quizQuestionText').textContent = question.question;
+            
+            const answersContainer = document.getElementById('quizQuestionAnswers');
+            answersContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const answerDiv = document.createElement('div');
+                answerDiv.className = 'quiz-option';
+                answerDiv.textContent = option;
+                answerDiv.onclick = () => selectTrendQuizAnswer(index, question.correct, question.explanation);
+                answersContainer.appendChild(answerDiv);
+            });
+            
+            // Reset feedback
+            document.getElementById('quizQuestionFeedback').classList.add('hidden');
+        }
+        
+        function selectTrendQuizAnswer(index, correctIndex, explanation) {
+            const answers = document.querySelectorAll('#quizQuestionAnswers .quiz-option');
+            const feedback = document.getElementById('quizQuestionFeedback');
+            
+            answers.forEach(answer => {
+                answer.style.pointerEvents = 'none';
+            });
+            
+            if (index === correctIndex) {
+                answers[index].classList.add('correct');
+                feedback.className = 'quiz-feedback correct';
+                feedback.textContent = 'Correct! ' + explanation;
+                
+                if (soundEnabled) correctSound.play();
+            } else {
+                answers[index].classList.add('incorrect');
+                feedback.className = 'quiz-feedback incorrect';
+                feedback.textContent = 'Incorrect. ' + explanation;
+                
+                if (soundEnabled) incorrectSound.play();
+            }
+            
+            feedback.classList.remove('hidden');
+        }
+        
+        // Element details functions
+        function showElementDetails(name, symbol, atomicNumber, electronConfig) {
+            const details = elementDetails[name];
+            if (!details) return;
+            
+            document.getElementById('elementDetailsName').textContent = name;
+            document.getElementById('elementDetailsSymbol').textContent = symbol;
+            document.getElementById('elementDetailsNumber').textContent = atomicNumber;
+            document.getElementById('elementDetailsConfig').textContent = electronConfig;
+            document.getElementById('elementDetailsMP').textContent = details.meltingPoint;
+            document.getElementById('elementDetailsDensity').textContent = details.density;
+            document.getElementById('elementDetailsReactivity').textContent = details.reactivity;
+            document.getElementById('elementDetailsUses').textContent = details.uses;
+            document.getElementById('elementDetailsFact').textContent = details.fact;
+            
+            // Setup quiz
+            document.getElementById('elementDetailsQuizQuestion').textContent = details.quizQuestion;
+            const optionsContainer = document.getElementById('elementDetailsQuizOptions');
+            optionsContainer.innerHTML = '';
+            
+            details.quizOptions.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'quiz-option';
+                optionDiv.textContent = option;
+                optionDiv.onclick = () => checkElementDetailsQuizAnswer(index, details.quizCorrect, details.quizExplanation);
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            document.getElementById('elementDetailsQuizFeedback').classList.add('hidden');
+            document.getElementById('elementDetailsModal').classList.add('active');
+        }
+        
+        function checkElementDetailsQuizAnswer(selectedIndex, correctIndex, explanation) {
+            const options = document.querySelectorAll('#elementDetailsQuizOptions .quiz-option');
+            const feedback = document.getElementById('elementDetailsQuizFeedback');
+            
+            options.forEach((option, index) => {
+                option.onclick = null; // Disable further clicks
+                if (index === correctIndex) {
+                    option.classList.add('correct');
+                } else if (index === selectedIndex) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            if (selectedIndex === correctIndex) {
+                feedback.className = 'mt-2 p-3 rounded-lg bg-green-100 text-green-800';
+                feedback.textContent = 'Correct! ' + explanation;
+                if (soundEnabled) correctSound.play();
+            } else {
+                feedback.className = 'mt-2 p-3 rounded-lg bg-red-100 text-red-800';
+                feedback.textContent = 'Incorrect. ' + explanation;
+                if (soundEnabled) incorrectSound.play();
+            }
+            
+            feedback.classList.remove('hidden');
+        }
+        
+        function closeElementDetails() {
+            document.getElementById('elementDetailsModal').classList.remove('active');
+        }
+        
+        // Trend explanation functions
+        function showTrendExplanation(trend, element) {
+            let title, heading, content, quizQuestion, quizOptions, quizCorrect, quizExplanation;
+            
+            if (trend === 'melting-point') {
+                title = 'Melting Point Trend';
+                heading = `Melting Point of ${element.charAt(0).toUpperCase() + element.slice(1)}`;
+                
+                if (element === 'lithium') {
+                    content = 'Lithium has the highest melting point in Group 1 (180.5°C) due to its small atomic size and strong metallic bonding. The small size of lithium atoms means the positive nuclei are closer to the delocalized electrons, resulting in stronger metallic bonds that require more energy to break.';
+                } else if (element === 'sodium') {
+                    content = 'Sodium has a lower melting point (97.8°C) than lithium due to its larger atomic size. The increased atomic radius means the positive nuclei are further from the delocalized electrons, weakening the metallic bonds and requiring less energy to break them.';
+                } else if (element === 'potassium') {
+                    content = 'Potassium has an even lower melting point (63.5°C) due to its larger atomic size. The additional electron shell increases the atomic radius significantly, further weakening the metallic bonds between atoms.';
+                } else if (element === 'rubidium') {
+                    content = 'Rubidium has a very low melting point (39.3°C) due to its large atomic size. The increased distance between positive nuclei and delocalized electrons results in very weak metallic bonds.';
+                } else if (element === 'cesium') {
+                    content = 'Cesium has the lowest melting point in Group 1 (28.4°C) due to its largest atomic size. The significant distance between positive nuclei and delocalized electrons results in extremely weak metallic bonds that require very little energy to break.';
+                }
+                
+                quizQuestion = "Why does melting point decrease down Group 1?";
+                quizOptions = [
+                    "Atomic size increases, metallic bonds weaken",
+                    "Atomic size decreases, metallic bonds strengthen",
+                    "Electron configuration changes",
+                    "Nuclear charge increases"
+                ];
+                quizCorrect = 0;
+                quizExplanation = "As we move down Group 1, atomic size increases due to additional electron shells. This increases the distance between positive nuclei and delocalized electrons, weakening the metallic bonds and lowering the melting point.";
+            } else if (trend === 'density') {
+                title = 'Density Trend';
+                heading = `Density of ${element.charAt(0).toUpperCase() + element.slice(1)}`;
+                
+                if (element === 'lithium') {
+                    content = 'Lithium has the lowest density of all metals (0.534 g/cm³) and can float on water. Its low density is due to its small atomic mass combined with a relatively large atomic volume.';
+                } else if (element === 'sodium') {
+                    content = 'Sodium has a higher density (0.968 g/cm³) than lithium but still floats on water. The increase in atomic mass is proportionally greater than the increase in atomic volume compared to lithium.';
+                } else if (element === 'potassium') {
+                    content = 'Potassium has a lower density (0.89 g/cm³) than sodium, which is an exception to the general trend. The increase in atomic volume is proportionally greater than the increase in atomic mass compared to sodium.';
+                } else if (element === 'rubidium') {
+                    content = 'Rubidium has a higher density (1.532 g/cm³) than potassium. The increase in atomic mass is proportionally greater than the increase in atomic volume, following the general trend of increasing density down the group.';
+                } else if (element === 'cesium') {
+                    content = 'Cesium has the highest density in Group 1 (1.93 g/cm³). The significant increase in atomic mass compared to the increase in atomic volume results in the highest density in the group.';
+                }
+                
+                quizQuestion = "Why is potassium less dense than sodium?";
+                quizOptions = [
+                    "Potassium has fewer protons",
+                    "Potassium has a larger atomic radius",
+                    "Potassium has more electron shells",
+                    "Potassium has a different crystal structure"
+                ];
+                quizCorrect = 1;
+                quizExplanation = "Potassium has a larger atomic radius than sodium, but the increase in size is proportionally greater than the increase in mass, resulting in a lower density. This is an exception to the general trend of increasing density down the group.";
+            }
+            
+            document.getElementById('trendExplanationTitle').textContent = title;
+            document.getElementById('trendExplanationHeading').textContent = heading;
+            document.getElementById('trendExplanationContent').textContent = content;
+            document.getElementById('trendExplanationQuizQuestion').textContent = quizQuestion;
+            
+            const optionsContainer = document.getElementById('trendExplanationQuizOptions');
+            optionsContainer.innerHTML = '';
+            
+            quizOptions.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'quiz-option';
+                optionDiv.textContent = option;
+                optionDiv.onclick = () => checkTrendExplanationQuizAnswer(index, quizCorrect, quizExplanation);
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            document.getElementById('trendExplanationQuizFeedback').classList.add('hidden');
+            document.getElementById('trendExplanationModal').classList.add('active');
+        }
+        
+        function checkTrendExplanationQuizAnswer(selectedIndex, correctIndex, explanation) {
+            const options = document.querySelectorAll('#trendExplanationQuizOptions .quiz-option');
+            const feedback = document.getElementById('trendExplanationQuizFeedback');
+            
+            options.forEach((option, index) => {
+                option.onclick = null; // Disable further clicks
+                if (index === correctIndex) {
+                    option.classList.add('correct');
+                } else if (index === selectedIndex) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            if (selectedIndex === correctIndex) {
+                feedback.className = 'mt-2 p-3 rounded-lg bg-green-100 text-green-800';
+                feedback.textContent = 'Correct! ' + explanation;
+                if (soundEnabled) correctSound.play();
+            } else {
+                feedback.className = 'mt-2 p-3 rounded-lg bg-red-100 text-red-800';
+                feedback.textContent = 'Incorrect. ' + explanation;
+                if (soundEnabled) incorrectSound.play();
+            }
+            
+            feedback.classList.remove('hidden');
+        }
+        
+        function closeTrendExplanation() {
+            document.getElementById('trendExplanationModal').classList.remove('active');
+        }
+        
+        // Reaction details functions
+        function showReactionDetails(reaction) {
+            const details = reactionDetails[reaction];
+            if (!details) return;
+            
+            document.getElementById('reactionDetailsTitle').textContent = `${reaction.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}`;
+            document.getElementById('reactionDetailsEquation').textContent = details.equation;
+            document.getElementById('reactionDetailsObservations').textContent = details.observations;
+            document.getElementById('reactionDetailsExplanation').textContent = details.explanation;
+            
+            // Setup quiz
+            document.getElementById('reactionDetailsQuizQuestion').textContent = details.quizQuestion;
+            const optionsContainer = document.getElementById('reactionDetailsQuizOptions');
+            optionsContainer.innerHTML = '';
+            
+            details.quizOptions.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'quiz-option';
+                optionDiv.textContent = option;
+                optionDiv.onclick = () => checkReactionDetailsQuizAnswer(index, details.quizCorrect, details.quizExplanation);
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            document.getElementById('reactionDetailsQuizFeedback').classList.add('hidden');
+            document.getElementById('reactionDetailsModal').classList.add('active');
+        }
+        
+        function checkReactionDetailsQuizAnswer(selectedIndex, correctIndex, explanation) {
+            const options = document.querySelectorAll('#reactionDetailsQuizOptions .quiz-option');
+            const feedback = document.getElementById('reactionDetailsQuizFeedback');
+            
+            options.forEach((option, index) => {
+                option.onclick = null; // Disable further clicks
+                if (index === correctIndex) {
+                    option.classList.add('correct');
+                } else if (index === selectedIndex) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            if (selectedIndex === correctIndex) {
+                feedback.className = 'mt-2 p-3 rounded-lg bg-green-100 text-green-800';
+                feedback.textContent = 'Correct! ' + explanation;
+                if (soundEnabled) correctSound.play();
+            } else {
+                feedback.className = 'mt-2 p-3 rounded-lg bg-red-100 text-red-800';
+                feedback.textContent = 'Incorrect. ' + explanation;
+                if (soundEnabled) incorrectSound.play();
+            }
+            
+            feedback.classList.remove('hidden');
+        }
+        
+        function closeReactionDetails() {
+            document.getElementById('reactionDetailsModal').classList.remove('active');
+        }
+        
+        function showReactionVideo(element) {
+            showToast('info', 'Video Demo', `This would show a video of ${element} reacting with water. In a real implementation, this would open a modal with an embedded video.`);
+        }
+        
+        function showOxideTrendQuiz() {
+            const question = {
+                question: "Which type of oxide does Potassium form when burned in oxygen?",
+                options: [
+                    "Normal oxide (K₂O)",
+                    "Peroxide (K₂O₂)",
+                    "Superoxide (KO₂)",
+                    "No oxide is formed"
+                ],
+                correct: 2,
+                explanation: "Potassium forms a superoxide (KO₂) when burned in oxygen. This contains the superoxide ion (O₂⁻) with an unpaired electron."
+            };
+            
+            document.getElementById('quizQuestionModal').classList.add('active');
+            document.getElementById('quizQuestionTitle').textContent = 'Oxide Trend Quiz';
+            document.getElementById('quizQuestionText').textContent = question.question;
+            
+            const answersContainer = document.getElementById('quizQuestionAnswers');
+            answersContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const answerDiv = document.createElement('div');
+                answerDiv.className = 'quiz-option';
+                answerDiv.textContent = option;
+                answerDiv.onclick = () => selectOxideTrendQuizAnswer(index, question.correct, question.explanation);
+                answersContainer.appendChild(answerDiv);
+            });
+            
+            // Reset feedback
+            document.getElementById('quizQuestionFeedback').classList.add('hidden');
+        }
+        
+        function selectOxideTrendQuizAnswer(index, correctIndex, explanation) {
+            const answers = document.querySelectorAll('#quizQuestionAnswers .quiz-option');
+            const feedback = document.getElementById('quizQuestionFeedback');
+            
+            answers.forEach(answer => {
+                answer.style.pointerEvents = 'none';
+            });
+            
+            if (index === correctIndex) {
+                answers[index].classList.add('correct');
+                feedback.className = 'quiz-feedback correct';
+                feedback.textContent = 'Correct! ' + explanation;
+                
+                if (soundEnabled) correctSound.play();
+            } else {
+                answers[index].classList.add('incorrect');
+                feedback.className = 'quiz-feedback incorrect';
+                feedback.textContent = 'Incorrect. ' + explanation;
+                
+                if (soundEnabled) incorrectSound.play();
+            }
+            
+            feedback.classList.remove('hidden');
+        }
+        
         // Quiz Functions
         function startQuiz() {
             currentQuestion = 0;
@@ -4476,68 +5517,6 @@
             removeAntiCheatingMeasures();
         }
         
-        // Show term quiz modal
-        function showTermQuiz(term) {
-            const question = termQuizQuestions[term];
-            if (!question) return;
-            
-            document.getElementById('quizQuestionModal').classList.add('active');
-            document.getElementById('quizQuestionTitle').textContent = `Quick Quiz: ${term.replace('-', ' ')}`;
-            document.getElementById('quizQuestionText').textContent = question.question;
-            
-            const answersContainer = document.getElementById('quizQuestionAnswers');
-            answersContainer.innerHTML = '';
-            
-            question.options.forEach((option, index) => {
-                const answerDiv = document.createElement('div');
-                answerDiv.className = 'quiz-answer';
-                answerDiv.dataset.index = index;
-                answerDiv.textContent = option;
-                answerDiv.onclick = () => selectTermQuizAnswer(index, question.correct, question.explanation);
-                answersContainer.appendChild(answerDiv);
-            });
-            
-            // Reset feedback
-            document.getElementById('quizQuestionFeedback').classList.add('hidden');
-        }
-        
-        // Select term quiz answer
-        function selectTermQuizAnswer(index, correctIndex, explanation) {
-            const answers = document.querySelectorAll('.quiz-answer');
-            answers.forEach(answer => {
-                answer.classList.remove('correct', 'incorrect');
-            });
-            
-            const isCorrect = index === correctIndex;
-            const feedback = document.getElementById('quizQuestionFeedback');
-            
-            if (isCorrect) {
-                answers[index].classList.add('correct');
-                feedback.className = 'quiz-feedback correct';
-                feedback.textContent = 'Correct! ' + explanation;
-                
-                if (soundEnabled) correctSound.play();
-            } else {
-                answers[index].classList.add('incorrect');
-                feedback.className = 'quiz-feedback incorrect';
-                feedback.textContent = 'Incorrect. ' + explanation;
-                
-                if (soundEnabled) incorrectSound.play();
-            }
-            
-            feedback.classList.remove('hidden');
-            
-            // Disable further clicks
-            answers.forEach(answer => {
-                answer.style.pointerEvents = 'none';
-            });
-        }
-        
-        // Close term quiz modal
-        function closeQuizQuestionModal() {
-            document.getElementById('quizQuestionModal').classList.remove('active');
-        }
-        
         // Feedback System Functions
         function showFeedbackModal() {
             if (!currentUser) {
@@ -4809,9 +5788,11 @@
             
             // Update active button
             document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
+                btn.classList.remove('active', 'bg-indigo-600', 'text-white');
+                btn.classList.add('bg-gray-200', 'text-gray-700');
             });
-            event.target.classList.add('active');
+            event.target.classList.remove('bg-gray-200', 'text-gray-700');
+            event.target.classList.add('active', 'bg-indigo-600', 'text-white');
             
             // Re-sort and re-render
             sortDiscussionPosts();
