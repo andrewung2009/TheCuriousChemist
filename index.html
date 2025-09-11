@@ -288,6 +288,12 @@
         .nav-lock {
             margin-left: auto;
             color: #94a3b8;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-item.completed .nav-lock {
+            opacity: 0;
         }
         
         .nav-badge {
@@ -2498,21 +2504,25 @@
                         <i class="fas fa-th nav-icon"></i>
                         <span>Elements</span>
                         <i class="fas fa-lock nav-lock"></i>
+                        <i class="fas fa-check nav-check"></i>
                     </a>
                     <a href="#" class="nav-item locked" id="nav-properties" onclick="navigateToSection('properties')">
                         <i class="fas fa-chart-line nav-icon"></i>
                         <span>Properties</span>
                         <i class="fas fa-lock nav-lock"></i>
+                        <i class="fas fa-check nav-check"></i>
                     </a>
                     <a href="#" class="nav-item locked" id="nav-reactions" onclick="navigateToSection('reactions')">
                         <i class="fas fa-flask nav-icon"></i>
                         <span>Reactions</span>
                         <i class="fas fa-lock nav-lock"></i>
+                        <i class="fas fa-check nav-check"></i>
                     </a>
                     <a href="#" class="nav-item locked" id="nav-quiz" onclick="navigateToSection('quiz')">
                         <i class="fas fa-graduation-cap nav-icon"></i>
                         <span>Quiz</span>
                         <i class="fas fa-lock nav-lock"></i>
+                        <i class="fas fa-check nav-check"></i>
                     </a>
                 </div>
             </div>
