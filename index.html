@@ -302,11 +302,31 @@
             justify-content: center;
             gap: 0.5rem;
             font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .btn:hover::before {
+            opacity: 1;
         }
         
         .btn-primary {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
+            box-shadow: 0 4px 6px rgba(79, 70, 229, 0.3);
         }
         
         .btn-primary:hover {
@@ -317,6 +337,7 @@
         .btn-success {
             background: var(--success);
             color: white;
+            box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3);
         }
         
         .btn-success:hover {
@@ -326,6 +347,7 @@
         .btn-secondary {
             background: var(--gray-100);
             color: var(--gray-700);
+            box-shadow: 0 4px 6px rgba(107, 114, 128, 0.2);
         }
         
         body.dark-mode .btn-secondary {
@@ -344,6 +366,7 @@
         .btn-danger {
             background: var(--danger);
             color: white;
+            box-shadow: 0 4px 6px rgba(239, 68, 68, 0.3);
         }
         
         .btn-danger:hover {
@@ -612,6 +635,273 @@
         
         body.dark-mode .toast-description {
             color: #d1d5db;
+        }
+        
+        /* Tooltip styles */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 250px;
+            background-color: var(--gray-800);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -125px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.875rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--gray-800) transparent transparent transparent;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .tooltip-icon {
+            color: var(--primary);
+            font-size: 0.875rem;
+            margin-left: 0.25rem;
+            vertical-align: super;
+        }
+        
+        body.dark-mode .tooltip-icon {
+            color: #818cf8;
+        }
+        
+        /* Element hover effects */
+        .element-hover {
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .element-hover .element-info {
+            visibility: hidden;
+            background-color: var(--gray-800);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.875rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            white-space: nowrap;
+        }
+        
+        .element-hover .element-info::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--gray-800) transparent transparent transparent;
+        }
+        
+        .element-hover:hover .element-info {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        /* Periodic Table Styles */
+        .periodic-table {
+            display: grid;
+            grid-template-columns: repeat(18, 1fr);
+            gap: 0.25rem;
+            margin: 1.5rem 0;
+        }
+        
+        .element {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--gray-100);
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        body.dark-mode .element {
+            background: #4b5563;
+            color: #f3f4f6;
+        }
+        
+        .element:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.1);
+            z-index: 10;
+        }
+        
+        .element.group1 {
+            background: rgba(79, 70, 229, 0.2);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        body.dark-mode .element.group1 {
+            background: rgba(79, 70, 229, 0.3);
+            color: #818cf8;
+        }
+        
+        .element-symbol {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .element-number {
+            font-size: 0.625rem;
+            position: absolute;
+            top: 0.25rem;
+            left: 0.25rem;
+        }
+        
+        .element-name {
+            font-size: 0.5rem;
+            position: absolute;
+            bottom: 0.25rem;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+        
+        /* Keyword hover effects */
+        .keyword {
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        body.dark-mode .keyword {
+            color: #818cf8;
+        }
+        
+        .keyword .keyword-info {
+            visibility: hidden;
+            background-color: var(--gray-800);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.875rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 200px;
+        }
+        
+        .keyword .keyword-info::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--gray-800) transparent transparent transparent;
+        }
+        
+        .keyword:hover .keyword-info {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        /* Valence electron flash effect */
+        .valence-electron {
+            display: inline-block;
+            background: rgba(79, 70, 229, 0.1);
+            color: var(--primary);
+            font-weight: 600;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            margin: 0 0.25rem;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        body.dark-mode .valence-electron {
+            background: rgba(79, 70, 229, 0.2);
+            color: #818cf8;
+        }
+        
+        .valence-electron:hover {
+            background: rgba(79, 70, 229, 0.3);
+            box-shadow: 0 0 10px rgba(79, 70, 229, 0.5);
+        }
+        
+        .valence-electron .valence-info {
+            visibility: hidden;
+            background-color: var(--gray-800);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.875rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 250px;
+        }
+        
+        .valence-electron .valence-info::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--gray-800) transparent transparent transparent;
+        }
+        
+        .valence-electron:hover .valence-info {
+            visibility: visible;
+            opacity: 1;
         }
         
         /* Discussion Styles */
@@ -955,156 +1245,7 @@
         }
         
         /* Quiz Enhancement Styles */
-        /* Interactive Lab Simulation Styles */
-        .lab-container {
-            background: linear-gradient(to bottom, #e0f2fe, #f0f9ff);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            position: relative;
-            min-height: 300px;
-            border: 2px solid #bae6fd;
-            overflow: hidden;
-        }
-        
-        .lab-bench {
-            background: #9ca3af;
-            height: 80px;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            border-top: 3px solid #6b7280;
-        }
-        
-        .lab-equipment {
-            position: absolute;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-        
-        .lab-equipment:hover {
-            transform: translateY(-5px);
-        }
-        
-        .beaker {
-            width: 80px;
-            height: 100px;
-            background: rgba(255, 255, 255, 0.7);
-            border: 2px solid #9ca3af;
-            border-radius: 0 0 20px 20px;
-            bottom: 80px;
-            left: 50px;
-            overflow: hidden;
-        }
-        
-        .beaker-water {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 60%;
-            background: rgba(59, 130, 246, 0.3);
-            border-radius: 0 0 18px 18px;
-        }
-        
-        .metal-sample {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            position: absolute;
-            bottom: 180px;
-            left: 150px;
-            cursor: grab;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: white;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-        }
-        
-        .metal-sample.lithium {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-        }
-        
-        .metal-sample.sodium {
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-        }
-        
-        .metal-sample.potassium {
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-        }
-        
-        .reaction-bubble {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            animation: bubble 2s infinite ease-in-out;
-        }
-        
-        @keyframes bubble {
-            0% {
-                transform: translateY(0) scale(0.5);
-                opacity: 0.7;
-            }
-            100% {
-                transform: translateY(-100px) scale(1.2);
-                opacity: 0;
-            }
-        }
-        
-        .lab-controls {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        
-        .lab-instruction {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 0.75rem;
-            border-radius: 0.5rem;
-            margin-bottom: 1rem;
-            text-align: center;
-            font-weight: 500;
-        }
-        
-        .observation-panel {
-            background: white;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin-top: 1rem;
-            border: 1px solid #e5e7eb;
-        }
-        
-        body.dark-mode .observation-panel {
-            background: #4b5563;
-            border-color: #6b7280;
-        }
-        
-        .observation-title {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--gray-800);
-        }
-        
-        body.dark-mode .observation-title {
-            color: #f3f4f6;
-        }
-        
-        .observation-text {
-            color: var(--gray-600);
-            font-style: italic;
-        }
-        
-        body.dark-mode .observation-text {
-            color: #d1d5db;
-        }
-        
-        /* Chemical Equation Balancer Styles */
-        .equation-balancer {
+        .quiz-container {
             background: white;
             border-radius: 1rem;
             padding: 1.5rem;
@@ -1112,138 +1253,11 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
         
-        body.dark-mode .equation-balancer {
+        body.dark-mode .quiz-container {
             background: #374151;
         }
         
-        .equation-display {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin: 1.5rem 0;
-            padding: 1rem;
-            background: var(--gray-100);
-            border-radius: 0.5rem;
-            min-height: 80px;
-        }
-        
-        body.dark-mode .equation-display {
-            background: #4b5563;
-        }
-        
-        .equation-term {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-        
-        .coefficient {
-            width: 40px;
-            height: 40px;
-            border-radius: 0.5rem;
-            border: 2px solid var(--gray-300);
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: var(--gray-800);
-        }
-        
-        body.dark-mode .coefficient {
-            background: #4b5563;
-            border-color: #6b7280;
-            color: #f3f4f6;
-        }
-        
-        .coefficient.correct {
-            border-color: var(--success);
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--success);
-        }
-        
-        .chemical {
-            font-family: 'Courier New', monospace;
-            font-weight: 600;
-            font-size: 1.2rem;
-            color: var(--gray-800);
-        }
-        
-        body.dark-mode .chemical {
-            color: #f3f4f6;
-        }
-        
-        .plus-sign, .arrow {
-            font-size: 1.5rem;
-            color: var(--gray-600);
-            margin: 0 0.5rem;
-        }
-        
-        body.dark-mode .plus-sign, 
-        body.dark-mode .arrow {
-            color: #d1d5db;
-        }
-        
-        .coefficient-controls {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        
-        .coefficient-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: 1px solid var(--gray-300);
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        body.dark-mode .coefficient-btn {
-            background: #4b5563;
-            border-color: #6b7280;
-            color: #f3f4f6;
-        }
-        
-        .coefficient-btn:hover {
-            background: var(--gray-100);
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-        
-        body.dark-mode .coefficient-btn:hover {
-            background: #6b7280;
-            border-color: #818cf8;
-            color: #818cf8;
-        }
-        
-        .equation-status {
-            text-align: center;
-            margin-top: 1rem;
-            font-weight: 500;
-            padding: 0.5rem;
-            border-radius: 0.5rem;
-        }
-        
-        .equation-status.balanced {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--success);
-        }
-        
-        .equation-status.unbalanced {
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--danger);
-        }
-        
-        /* Enhanced Discussion and Study Group Styles */
+        /* Discussion and Study Group Styles */
         .discussion-controls {
             display: flex;
             justify-content: space-between;
@@ -1687,265 +1701,6 @@
             margin-bottom: 1rem;
         }
         
-        .valence-electron {
-            display: inline-block;
-            background: rgba(79, 70, 229, 0.1);
-            color: var(--primary);
-            font-weight: 600;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            margin: 0 0.25rem;
-            animation: pulse 2s infinite;
-        }
-        
-        body.dark-mode .valence-electron {
-            background: rgba(79, 70, 229, 0.2);
-            color: #818cf8;
-        }
-        
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4);
-            }
-            70% {
-                box-shadow: 0 0 0 10px rgba(79, 70, 229, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(79, 70, 229, 0);
-            }
-        }
-        
-        .term-gif {
-            position: relative;
-            display: inline-block;
-            cursor: pointer;
-        }
-        
-        .term-gif:hover .gif-container {
-            display: block;
-        }
-        
-        .gif-container {
-            display: none;
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: white;
-            border-radius: 0.5rem;
-            padding: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 100;
-            margin-bottom: 0.5rem;
-        }
-        
-        body.dark-mode .gif-container {
-            background: #374151;
-        }
-        
-        .gif-container img {
-            max-width: 200px;
-            border-radius: 0.25rem;
-        }
-        
-        .periodic-table {
-            display: grid;
-            grid-template-columns: repeat(18, 1fr);
-            gap: 0.25rem;
-            margin: 1.5rem 0;
-        }
-        
-        .element {
-            aspect-ratio: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: var(--gray-100);
-            border-radius: 0.25rem;
-            font-size: 0.75rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            position: relative;
-        }
-        
-        body.dark-mode .element {
-            background: #4b5563;
-            color: #f3f4f6;
-        }
-        
-        .element:hover {
-            background: var(--primary);
-            color: white;
-            transform: scale(1.1);
-            z-index: 10;
-        }
-        
-        .element.group1 {
-            background: rgba(79, 70, 229, 0.2);
-            color: var(--primary);
-            font-weight: 600;
-        }
-        
-        body.dark-mode .element.group1 {
-            background: rgba(79, 70, 229, 0.3);
-            color: #818cf8;
-        }
-        
-        .element-symbol {
-            font-weight: 600;
-            font-size: 1rem;
-        }
-        
-        .element-number {
-            font-size: 0.625rem;
-            position: absolute;
-            top: 0.25rem;
-            left: 0.25rem;
-        }
-        
-        .element-name {
-            font-size: 0.5rem;
-            position: absolute;
-            bottom: 0.25rem;
-            left: 0;
-            right: 0;
-            text-align: center;
-        }
-        
-        .mini-simulation {
-            background: var(--gray-100);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            text-align: center;
-        }
-        
-        body.dark-mode .mini-simulation {
-            background: #4b5563;
-        }
-        
-        .simulation-container {
-            height: 200px;
-            position: relative;
-            margin: 1rem 0;
-            background: white;
-            border-radius: 0.5rem;
-            overflow: hidden;
-        }
-        
-        body.dark-mode .simulation-container {
-            background: #374151;
-        }
-        
-        .case-study {
-            background: rgba(16, 185, 129, 0.1);
-            border-left: 4px solid var(--success);
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin: 1rem 0;
-        }
-        
-        body.dark-mode .case-study {
-            background: rgba(16, 185, 129, 0.2);
-        }
-        
-        .case-study h4 {
-            color: var(--success);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
-        .case-study p {
-            color: var(--gray-700);
-        }
-        
-        body.dark-mode .case-study p {
-            color: #d1d5db;
-        }
-        
-        .story-mode {
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-            color: white;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-        
-        .story-mode h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
-        .story-mode p {
-            margin-bottom: 1rem;
-        }
-        
-        .what-if-scenario {
-            background: rgba(239, 68, 68, 0.1);
-            border-left: 4px solid var(--danger);
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin: 1rem 0;
-        }
-        
-        body.dark-mode .what-if-scenario {
-            background: rgba(239, 68, 68, 0.2);
-        }
-        
-        .what-if-scenario h4 {
-            color: var(--danger);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
-        .what-if-scenario p {
-            color: var(--gray-700);
-        }
-        
-        body.dark-mode .what-if-scenario p {
-            color: #d1d5db;
-        }
-        
-        .fun-fact {
-            background: rgba(245, 158, 11, 0.1);
-            border-left: 4px solid var(--warning);
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin: 1rem 0;
-            display: none;
-        }
-        
-        body.dark-mode .fun-fact {
-            background: rgba(245, 158, 11, 0.2);
-        }
-        
-        .fun-fact.unlocked {
-            display: block;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .fun-fact h4 {
-            color: var(--warning);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
-        .fun-fact p {
-            color: var(--gray-700);
-        }
-        
-        body.dark-mode .fun-fact p {
-            color: #d1d5db;
-        }
-        
         .switch {
             position: relative;
             display: inline-block;
@@ -2233,19 +1988,42 @@
                         <i class="fas fa-info-circle mr-2 text-indigo-600"></i>
                         Introduction to Group 1 Alkali Metals
                     </h3>
-                    <p class="text-gray-700 mb-4">
-                        Group 1 elements, known as the <strong>alkali metals</strong>, include lithium (Li), sodium (Na), potassium (K), rubidium (Rb), cesium (Cs), and francium (Fr). They are <strong>relatively soft metals</strong> with <strong>low melting points</strong> and <strong>low densities</strong>.
-                    </p>
                     
-                    <!-- Valence Electrons Highlight -->
-                    <div class="highlight-box">
-                        <h4>Key Characteristics</h4>
-                        <ul class="list-disc pl-5 space-y-1">
-                            <li>One electron in their outer shell <span class="valence-electron">1</span></li>
-                            <li>Form +1 ions by losing this electron</li>
-                            <li>Highly reactive metals</li>
-                            <li>Stored under oil to prevent reaction with air</li>
-                        </ul>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4">
+                        <li>Group 1 elements: <span class="element-hover">Lithium (Li)
+                            <span class="element-info">Atomic number: 3<br>Lightest metal element</span>
+                        </span>, <span class="element-hover">Sodium (Na)
+                            <span class="element-info">Atomic number: 11<br>Reactive, silvery metal</span>
+                        </span>, <span class="element-hover">Potassium (K)
+                            <span class="element-info">Atomic number: 19<br>Highly reactive, soft metal</span>
+                        </span>, Rubidium (Rb), Cesium (Cs), Francium (Fr)</li>
+                        <li>Known as <span class="keyword">alkali metals<span class="keyword-info">Metals that form alkaline solutions with water</span></span></li>
+                        <li>Outer shell: <span class="valence-electron">1<span class="valence-info">Group 1 = 1 valence electron → very reactive</span></span> electron</li>
+                        <li>Form +1 ions by losing this electron</li>
+                        <li>Stored under oil to prevent reaction with air</li>
+                    </ul>
+                    
+                    <!-- Key Properties with Tooltips -->
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-gray-800 mb-2">Key Properties</h4>
+                            <ul class="space-y-2">
+                                <li><span class="keyword">Soft<span class="keyword-info">Can be cut with a knife</span></span> metals</li>
+                                <li><span class="keyword">Low melting points<span class="keyword-info">Decrease down the group</span></span></li>
+                                <li><span class="keyword">Low densities<span class="keyword-info">Li, Na, K float on water</span></span></li>
+                                <li><span class="keyword">Reactive<span class="keyword-info">Increase down the group</span></span> with water and oxygen</li>
+                                <li>Characteristic <span class="keyword">flame test<span class="keyword-info">Li: red, Na: yellow, K: lilac</span></span> colors</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-gray-800 mb-2">Trends</h4>
+                            <ul class="space-y-2">
+                                <li><span class="tooltip">Melting Point<span class="tooltiptext">Does melting point increase or decrease down the group?</span></span> <i class="fas fa-arrow-down text-red-500"></i> down group</li>
+                                <li><span class="tooltip">Density<span class="tooltiptext">Does density increase or decrease down the group?</span></span> <i class="fas fa-arrow-up text-green-500"></i> down group (K exception)</li>
+                                <li><span class="tooltip">Reactivity<span class="tooltiptext">Which element reacts fastest with water?</span></span> <i class="fas fa-arrow-up text-green-500"></i> down group</li>
+                                <li>Atomic radius <i class="fas fa-arrow-up text-green-500"></i> down group</li>
+                            </ul>
+                        </div>
                     </div>
                     
                     <!-- YouTube Video -->
@@ -2254,12 +2032,6 @@
                         <div class="aspect-w-16 aspect-h-9">
                             <iframe src="https://www.youtube.com/embed/6D6a1_L2sV8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-64 rounded-lg"></iframe>
                         </div>
-                    </div>
-                    
-                    <!-- Fun Fact (Locked) -->
-                    <div class="fun-fact" id="funFactOverview">
-                        <h4><i class="fas fa-lightbulb mr-1"></i> Fun Fact</h4>
-                        <p>The word "alkali" comes from the Arabic word "al-qali," meaning "ashes of the saltwort plant," from which sodium carbonate was first isolated.</p>
                     </div>
                     
                     <button class="btn btn-success w-full mt-4" onclick="completeSection('overview')">
@@ -2325,43 +2097,43 @@
                             <h4 class="font-bold text-lg">Lithium (Li)</h4>
                             <p class="text-sm text-gray-600">Atomic: 3</p>
                             <p class="text-sm text-gray-600">Electron: 2,1</p>
+                            <div class="text-xs text-gray-500 mt-2">Lightest metal, floats on water</div>
                         </div>
                         <div class="element-card">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Na_%28Sodium%29.jpg" alt="Sodium" class="element-image">
                             <h4 class="font-bold text-lg">Sodium (Na)</h4>
                             <p class="text-sm text-gray-600">Atomic: 11</p>
                             <p class="text-sm text-gray-600">Electron: 2,8,1</p>
+                            <div class="text-xs text-gray-500 mt-2">Yellow flame test, street lamps</div>
                         </div>
                         <div class="element-card">
                             <img src="https://cdn.britannica.com/77/131177-050-79292189/fragments-Potassium-metal.jpg" alt="Potassium" class="element-image">
                             <h4 class="font-bold text-lg">Potassium (K)</h4>
                             <p class="text-sm text-gray-600">Atomic: 19</p>
                             <p class="text-sm text-gray-600">Electron: 2,8,8,1</p>
+                            <div class="text-xs text-gray-500 mt-2">Violet flame, essential for life</div>
                         </div>
                         <div class="element-card">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Rb5.JPG" alt="Rubidium" class="element-image">
                             <h4 class="font-bold text-lg">Rubidium (Rb)</h4>
                             <p class="text-sm text-gray-600">Atomic: 37</p>
                             <p class="text-sm text-gray-600">Electron: 2,8,18,8,1</p>
+                            <div class="text-xs text-gray-500 mt-2">Used in atomic clocks</div>
                         </div>
                         <div class="element-card">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Cesium.jpg" alt="Cesium" class="element-image">
                             <h4 class="font-bold text-lg">Cesium (Cs)</h4>
                             <p class="text-sm text-gray-600">Atomic: 55</p>
                             <p class="text-sm text-gray-600">Electron: 2,8,18,18,8,1</p>
+                            <div class="text-xs text-gray-500 mt-2">Most reactive, photoelectric cells</div>
                         </div>
                         <div class="element-card">
                             <img src="https://i0.wp.com/periodic-table.com/wp-content/uploads/2018/11/Francium.jpg?fit=238%2C212&ssl=1" alt="Francium" class="element-image">
                             <h4 class="font-bold text-lg">Francium (Fr)</h4>
                             <p class="text-sm text-gray-600">Atomic: 87</p>
                             <p class="text-sm text-gray-600">Electron: 2,8,18,32,18,8,1</p>
+                            <div class="text-xs text-gray-500 mt-2">Radioactive, extremely rare</div>
                         </div>
-                    </div>
-                    
-                    <!-- Fun Fact (Locked) -->
-                    <div class="fun-fact" id="funFactElements">
-                        <h4><i class="fas fa-lightbulb mr-1"></i> Fun Fact</h4>
-                        <p>Lithium is the lightest metal element and is so light that it can float on water! However, it reacts immediately with water, producing hydrogen gas.</p>
                     </div>
                     
                     <button class="btn btn-success w-full mt-4" onclick="completeSection('elements')">
@@ -2383,29 +2155,11 @@
                         <button class="tab" onclick="showTab('reactivity')">Reactivity</button>
                     </div>
                     <div id="melting-point" class="tab-content active">
-                        <p class="text-gray-700 mb-4">
-                            The melting point <strong>decreases</strong> down Group 1 due to increasing atomic size and weaker metallic bonding.
-                        </p>
-                        
-                        <!-- Quiz about melting point trend -->
-                        <div class="mini-simulation">
-                            <h4>Quick Quiz</h4>
-                            <p>Did you realize the melting point decreases down the group?</p>
-                            <div class="simulation-container">
-                                <div class="flex items-center justify-center h-full">
-                                    <div class="text-center">
-                                        <p class="mb-4">Which element has the lowest melting point?</p>
-                                        <div class="flex justify-center gap-4">
-                                            <button class="btn btn-primary" onclick="checkMeltingPointAnswer('Li')">Lithium</button>
-                                            <button class="btn btn-primary" onclick="checkMeltingPointAnswer('Na')">Sodium</button>
-                                            <button class="btn btn-primary" onclick="checkMeltingPointAnswer('K')">Potassium</button>
-                                            <button class="btn btn-primary" onclick="checkMeltingPointAnswer('Cs')">Cesium</button>
-                                        </div>
-                                        <div id="meltingPointFeedback" class="mt-4"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4">
+                            <li>Melting point <strong>decreases</strong> down Group 1</li>
+                            <li>Due to increasing atomic size and weaker metallic bonding</li>
+                            <li>Li: 180.5°C → Cs: 28.4°C</li>
+                        </ul>
                         
                         <table class="trend-table">
                             <thead>
@@ -2439,9 +2193,11 @@
                         </table>
                     </div>
                     <div id="density" class="tab-content">
-                        <p class="text-gray-700 mb-4">
-                            The density generally <strong>increases</strong> down Group 1, with the exception of potassium which is less dense than sodium.
-                        </p>
+                        <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4">
+                            <li>Density generally <strong>increases</strong> down Group 1</li>
+                            <li>Exception: Potassium (0.89 g/cm³) is less dense than Sodium (0.97 g/cm³)</li>
+                            <li>Li: 0.53 g/cm³ → Cs: 1.93 g/cm³</li>
+                        </ul>
                         <table class="trend-table">
                             <thead>
                                 <tr>
@@ -2474,46 +2230,16 @@
                         </table>
                     </div>
                     <div id="reactivity" class="tab-content">
-                        <p class="text-gray-700 mb-4">
-                            Reactivity <strong>increases</strong> down Group 1 because the outer electron is further from the nucleus and easier to lose.
-                        </p>
-                        
-                        <!-- GIF Animation for Reactivity -->
-                        <div class="mini-simulation">
-                            <h4>Reactivity Demonstration</h4>
-                            <p>Hover over each element to see its reaction with water:</p>
-                            <div class="flex justify-center gap-4 mt-4">
-                                <div class="term-gif">
-                                    <span class="font-semibold">Lithium</span>
-                                    <div class="gif-container">
-                                        <img src="https://media.giphy.com/media/3o7TKsQ8U0jCKG5U5a/giphy.gif" alt="Lithium reaction">
-                                    </div>
-                                </div>
-                                <div class="term-gif">
-                                    <span class="font-semibold">Sodium</span>
-                                    <div class="gif-container">
-                                        <img src="https://media.giphy.com/media/3o7TKsQ8U0jCKG5U5a/giphy.gif" alt="Sodium reaction">
-                                    </div>
-                                </div>
-                                <div class="term-gif">
-                                    <span class="font-semibold">Potassium</span>
-                                    <div class="gif-container">
-                                        <img src="https://media.giphy.com/media/3o7TKsQ8U0jCKG5U5a/giphy.gif" alt="Potassium reaction">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4">
+                            <li>Reactivity <strong>increases</strong> down Group 1</li>
+                            <li>Outer electron further from nucleus, easier to lose</li>
+                            <li>Reaction with water becomes more vigorous</li>
+                        </ul>
                         
                         <div class="highlight-box">
                             <h4>Reactivity Series</h4>
                             <p>Most Reactive: Cesium > Rubidium > Potassium > Sodium > Lithium :Least Reactive</p>
                         </div>
-                    </div>
-                    
-                    <!-- Fun Fact (Locked) -->
-                    <div class="fun-fact" id="funFactProperties">
-                        <h4><i class="fas fa-lightbulb mr-1"></i> Fun Fact</h4>
-                        <p>Cesium is so reactive that it explodes on contact with water, and even reacts explosively with ice at temperatures as low as -116°C!</p>
                     </div>
                     
                     <button class="btn btn-success w-full mt-4" onclick="completeSection('properties')">
@@ -2534,33 +2260,14 @@
                         <button class="tab" onclick="showTab('oxygen')">With Oxygen</button>
                     </div>
                     <div id="water" class="tab-content active">
-                        <p class="text-gray-700 mb-4">
-                            All Group 1 metals react with water to produce hydrogen gas and metal hydroxides. Reactivity increases down the group.
-                        </p>
+                        <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4">
+                            <li>All Group 1 metals react with water</li>
+                            <li>Products: Metal hydroxide + Hydrogen gas</li>
+                            <li>Reactivity increases down the group</li>
+                        </ul>
                         <div class="equation-box">
                             <p class="text-gray-700 mb-2">General equation:</p>
                             <p class="equation">2M(s) + 2H₂O(l) → 2MOH(aq) + H₂(g)</p>
-                        </div>
-                        
-                        <!-- Mini Simulation -->
-                        <div class="mini-simulation">
-                            <h4>Reaction Simulation</h4>
-                            <p>Click on each metal to see its reaction with water:</p>
-                            <div class="simulation-container">
-                                <div class="lab-container">
-                                    <div class="beaker">
-                                        <div class="beaker-water"></div>
-                                    </div>
-                                    <div class="metal-sample lithium" onclick="simulateReaction('lithium')">Li</div>
-                                    <div class="metal-sample sodium" onclick="simulateReaction('sodium')">Na</div>
-                                    <div class="metal-sample potassium" onclick="simulateReaction('potassium')">K</div>
-                                    <div class="lab-bench"></div>
-                                    <div id="reactionBubbles"></div>
-                                </div>
-                            </div>
-                            <div id="reactionObservation" class="mt-4 p-3 bg-gray-100 rounded-lg text-center">
-                                Click on a metal to see its reaction
-                            </div>
                         </div>
                         
                         <div class="highlight-box">
@@ -2573,9 +2280,10 @@
                         </div>
                     </div>
                     <div id="oxygen" class="tab-content">
-                        <p class="text-gray-700 mb-4">
-                            Group 1 metals react with oxygen to form oxides, peroxides, or superoxides depending on the metal.
-                        </p>
+                        <ul class="list-disc pl-5 space-y-2 text-gray-700 mb-4">
+                            <li>Group 1 metals react with oxygen when heated</li>
+                            <li>Form different types of oxides down the group</li>
+                        </ul>
                         <div class="grid grid-cols-3 gap-4">
                             <div class="bg-blue-50 p-3 rounded-lg">
                                 <h5 class="font-semibold text-blue-800">Lithium</h5>
@@ -2590,24 +2298,6 @@
                                 <p class="text-sm text-purple-600">Forms KO₂ (superoxide)</p>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- Case Study -->
-                    <div class="case-study">
-                        <h4><i class="fas fa-briefcase mr-1"></i> Real-life Application: Fireworks</h4>
-                        <p>Group 1 metals are used in fireworks to produce different colors. Lithium compounds create red colors, sodium compounds create yellow colors, and potassium compounds create purple colors. The metals are heated to high temperatures, causing their electrons to become excited and emit light of specific wavelengths when they return to their ground state.</p>
-                    </div>
-                    
-                    <!-- What If Scenario -->
-                    <div class="what-if-scenario">
-                        <h4><i class="fas fa-question-circle mr-1"></i> What If: Potassium in Your Drinking Water?</h4>
-                        <p>If potassium was present in your drinking water in significant amounts, it would react violently with the water, producing hydrogen gas and potassium hydroxide. This would create an explosive hazard and make the water highly alkaline and toxic. Fortunately, potassium ions (K⁺) are stable and actually essential for human health, which is why we get potassium from foods like bananas.</p>
-                    </div>
-                    
-                    <!-- Fun Fact (Locked) -->
-                    <div class="fun-fact" id="funFactReactions">
-                        <h4><i class="fas fa-lightbulb mr-1"></i> Fun Fact</h4>
-                        <p>Sodium is so reactive with water that it's usually stored under oil to prevent it from reacting with moisture in the air. When added to water, it fizzes rapidly and can sometimes ignite the hydrogen gas it produces!</p>
                     </div>
                     
                     <button class="btn btn-success w-full mt-4" onclick="completeSection('reactions')">
@@ -3098,19 +2788,6 @@
                 explanation: "Reactivity increases down Group 1 because the outer electron is further from the nucleus and easier to lose."
             },
             
-            // Interactive Lab Simulation
-            {
-                type: 'lab-simulation',
-                question: "Simulate the reaction of alkali metals with water by clicking on the metals and observing their reactivity:",
-                metals: [
-                    { name: "Lithium", symbol: "Li", color: "lithium", reactivity: "low", observation: "Fizzes steadily" },
-                    { name: "Sodium", symbol: "Na", color: "sodium", reactivity: "medium", observation: "Fizzes rapidly, melts into a ball" },
-                    { name: "Potassium", symbol: "K", color: "potassium", reactivity: "high", observation: "Fizzes violently, ignites with lilac flame" }
-                ],
-                correct: ["potassium", "sodium", "lithium"], // Order of reactivity (most to least)
-                explanation: "Reactivity increases down Group 1: Potassium > Sodium > Lithium"
-            },
-            
             // Fill in the Blanks
             {
                 type: 'fillblank',
@@ -3158,14 +2835,27 @@
                 explanation: "The balanced equation is: 2Na + 2H₂O → 2NaOH + H₂"
             },
             
-            // Innovative: Reaction Simulator
+            // Multiple Choice with Images
             {
-                type: 'reaction',
-                question: "Simulate the reaction of potassium with water by dragging the correct products to the reaction arrow:",
-                reactants: ["K", "H₂O"],
-                products: ["KOH", "H₂", "O₂", "K₂O"],
-                correctProducts: ["KOH", "H₂"],
-                explanation: "Potassium reacts with water: 2K + 2H₂O → 2KOH + H₂"
+                type: 'mcq',
+                question: "Which flame test color is characteristic of sodium?",
+                options: ["Red", "Yellow", "Green", "Purple"],
+                correct: 1,
+                explanation: "Sodium produces a bright yellow flame in flame tests, which is why it's used in street lamps."
+            },
+            
+            // Scenario-based Question
+            {
+                type: 'mcq',
+                question: "A small piece of potassium is dropped into water. What would you observe?",
+                options: [
+                    "It fizzes steadily and moves slowly on the surface",
+                    "It fizzes rapidly, melts into a ball, and moves quickly",
+                    "It fizzes violently, ignites with a lilac flame, and may explode",
+                    "It sinks to the bottom without reacting"
+                ],
+                correct: 2,
+                explanation: "Potassium reacts violently with water, producing hydrogen gas that often ignites with a characteristic lilac flame."
             }
         ];
         
@@ -3717,12 +3407,6 @@
                     updateSectionCompletionStatus();
                     updateProgressTracker();
                     
-                    // Unlock fun fact for this section
-                    const funFactElement = document.getElementById(`funFact${sectionName.charAt(0).toUpperCase() + sectionName.slice(1)}`);
-                    if (funFactElement) {
-                        funFactElement.classList.add('unlocked');
-                    }
-                    
                     // Navigate to next section if available
                     const sectionOrder = ['overview', 'elements', 'properties', 'reactions', 'quiz'];
                     const currentIndex = sectionOrder.indexOf(sectionName);
@@ -3872,9 +3556,6 @@
                 case 'mcq':
                     loadMCQ(question, optionsContainer, answeredQuestion);
                     break;
-                case 'lab-simulation':
-                    loadLabSimulation(question, optionsContainer, answeredQuestion);
-                    break;
                 case 'fillblank':
                     loadFillBlank(question, optionsContainer, answeredQuestion);
                     break;
@@ -3886,9 +3567,6 @@
                     break;
                 case 'equation-balancer':
                     loadEquationBalancer(question, optionsContainer, answeredQuestion);
-                    break;
-                case 'reaction':
-                    loadReactionSimulator(question, optionsContainer, answeredQuestion);
                     break;
             }
             
@@ -3958,172 +3636,6 @@
                 }
                 container.appendChild(optionDiv);
             });
-        }
-        
-        // Interactive Lab Simulation Loader
-        function loadLabSimulation(question, container, answeredQuestion) {
-            container.innerHTML = `
-                <div class="lab-container">
-                    <div class="lab-instruction">Click on each metal to observe its reaction with water. Then, order the metals by reactivity (most reactive first).</div>
-                    
-                    <div class="beaker">
-                        <div class="beaker-water"></div>
-                    </div>
-                    
-                    ${question.metals.map((metal, index) => `
-                        <div class="metal-sample ${metal.color}" data-index="${index}" data-name="${metal.name}" data-reactivity="${metal.reactivity}" onclick="testMetalReactivity(${index})">
-                            ${metal.symbol}
-                        </div>
-                    `).join('')}
-                    
-                    <div class="lab-bench"></div>
-                    
-                    <div id="reactionBubbles"></div>
-                </div>
-                
-                <div class="observation-panel">
-                    <div class="observation-title">Observation:</div>
-                    <div class="observation-text" id="observationText">Click on a metal to see its reaction with water.</div>
-                </div>
-                
-                <div class="mt-4">
-                    <h4 class="font-semibold mb-2">Order the metals by reactivity (most reactive first):</h4>
-                    <div id="reactivityOrder" class="flex flex-wrap gap-2 mb-4">
-                        ${question.metals.map((metal, index) => `
-                            <div class="btn btn-secondary" id="metal-btn-${index}" data-index="${index}" onclick="addToReactivityOrder(${index})">
-                                ${metal.name}
-                            </div>
-                        `).join('')}
-                    </div>
-                    <div id="orderedMetals" class="flex flex-wrap gap-2 mb-4 min-h-[40px] p-2 bg-gray-100 rounded-lg">
-                        <!-- Ordered metals will appear here -->
-                    </div>
-                </div>
-                
-                <div class="lab-controls">
-                    <button onclick="resetLabSimulation()" class="btn btn-secondary">
-                        <i class="fas fa-redo mr-1"></i>
-                        Reset
-                    </button>
-                </div>
-            `;
-            
-            if (answeredQuestion) {
-                // Show the ordered metals
-                const orderedMetalsDiv = document.getElementById('orderedMetals');
-                orderedMetalsDiv.innerHTML = '';
-                
-                answeredQuestion.userOrder.forEach(metalIndex => {
-                    const metal = question.metals[metalIndex];
-                    const metalDiv = document.createElement('div');
-                    metalDiv.className = 'btn btn-primary';
-                    metalDiv.textContent = metal.name;
-                    orderedMetalsDiv.appendChild(metalDiv);
-                });
-                
-                // Hide the metal buttons
-                const metalButtons = document.querySelectorAll('#reactivityOrder .btn');
-                metalButtons.forEach(button => {
-                    button.style.display = 'none';
-                });
-            }
-        }
-        
-        // Test metal reactivity
-        function testMetalReactivity(metalIndex) {
-            const question = quizQuestions[currentQuestion];
-            const metal = question.metals[metalIndex];
-            
-            // Update observation text
-            document.getElementById('observationText').textContent = `${metal.name} reaction: ${metal.observation}`;
-            
-            // Create reaction bubbles based on reactivity
-            const reactionBubbles = document.getElementById('reactionBubbles');
-            reactionBubbles.innerHTML = '';
-            
-            const bubbleCount = metal.reactivity === 'high' ? 15 : metal.reactivity === 'medium' ? 8 : 4;
-            
-            for (let i = 0; i < bubbleCount; i++) {
-                setTimeout(() => {
-                    const bubble = document.createElement('div');
-                    bubble.className = 'reaction-bubble';
-                    
-                    // Random size and position
-                    const size = Math.random() * 20 + 10;
-                    bubble.style.width = `${size}px`;
-                    bubble.style.height = `${size}px`;
-                    bubble.style.left = `${Math.random() * 80 + 10}%`;
-                    bubble.style.bottom = '80px';
-                    bubble.style.animationDelay = `${Math.random() * 2}s`;
-                    
-                    reactionBubbles.appendChild(bubble);
-                    
-                    // Remove bubble after animation
-                    setTimeout(() => {
-                        if (bubble.parentNode) {
-                            bubble.parentNode.removeChild(bubble);
-                        }
-                    }, 2000);
-                }, i * 100);
-            }
-            
-            // Add to reactivity order
-            addToReactivityOrder(metalIndex);
-        }
-        
-        // Add metal to reactivity order
-        function addToReactivityOrder(metalIndex) {
-            const question = quizQuestions[currentQuestion];
-            const metal = question.metals[metalIndex];
-            
-            // Check if metal is already in the order
-            const orderedMetalsDiv = document.getElementById('orderedMetals');
-            const existingMetals = Array.from(orderedMetalsDiv.children);
-            
-            if (existingMetals.some(child => child.dataset.index == metalIndex)) {
-                return; // Metal already in order
-            }
-            
-            // Add metal to order
-            const metalDiv = document.createElement('div');
-            metalDiv.className = 'btn btn-primary';
-            metalDiv.textContent = metal.name;
-            metalDiv.dataset.index = metalIndex;
-            
-            orderedMetalsDiv.appendChild(metalDiv);
-            
-            // Hide the metal button
-            const metalButton = document.getElementById(`metal-btn-${metalIndex}`);
-            if (metalButton) {
-                metalButton.style.display = 'none';
-            }
-            
-            // Enable submit if all metals are ordered
-            if (orderedMetalsDiv.children.length === question.metals.length) {
-                document.getElementById('submitButton').disabled = false;
-            }
-        }
-        
-        // Reset lab simulation
-        function resetLabSimulation() {
-            const question = quizQuestions[currentQuestion];
-            
-            // Clear observation text
-            document.getElementById('observationText').textContent = 'Click on a metal to see its reaction with water.';
-            
-            // Clear reaction bubbles
-            document.getElementById('reactionBubbles').innerHTML = '';
-            
-            // Clear ordered metals
-            document.getElementById('orderedMetals').innerHTML = '';
-            
-            // Show all metal buttons
-            const metalButtons = document.querySelectorAll('#reactivityOrder .btn');
-            metalButtons.forEach(button => {
-                button.style.display = 'inline-flex';
-            });
-            
-            document.getElementById('submitButton').disabled = true;
         }
         
         // Fill in the Blanks Loader
@@ -4619,17 +4131,6 @@
                     };
                     break;
                     
-                case 'lab-simulation':
-                    const orderedMetalsDiv = document.getElementById('orderedMetals');
-                    const userOrder = Array.from(orderedMetalsDiv.children).map(child => parseInt(child.dataset.index));
-                    isCorrect = JSON.stringify(userOrder) === JSON.stringify(question.correct);
-                    answerData = {
-                        userOrder: userOrder,
-                        submitted: true,
-                        isCorrect: isCorrect
-                    };
-                    break;
-                    
                 case 'fillblank':
                     const answers = {};
                     question.blanks.forEach(blank => {
@@ -4679,17 +4180,6 @@
                     isCorrect = JSON.stringify(currentCoeffs) === JSON.stringify(question.correct);
                     answerData = {
                         coefficients: currentCoeffs,
-                        submitted: true,
-                        isCorrect: isCorrect
-                    };
-                    break;
-                    
-                case 'reaction':
-                    const products = document.querySelectorAll('#reactionProducts .bg-blue-200');
-                    const userProducts = Array.from(products).map(item => item.dataset.product);
-                    isCorrect = JSON.stringify(userProducts.sort()) === JSON.stringify(question.correctProducts.sort());
-                    answerData = {
-                        userProducts: userProducts,
                         submitted: true,
                         isCorrect: isCorrect
                     };
@@ -4841,7 +4331,6 @@
                 icon.classList.remove('fas', 'text-yellow-500');
                 icon.classList.add('far', 'text-gray-400');
             });
-
             if (rating === 1) {
                 const thumbsDown = document.querySelector('#feedbackModal .fa-thumbs-down');
                 thumbsDown.classList.remove('far', 'text-gray-400');
@@ -4857,12 +4346,10 @@
             event.preventDefault();
             const text = document.getElementById('feedbackText').value.trim();
             const rating = document.getElementById('feedbackRating').value;
-
             if (!text) {
                 showToast('error', 'Missing Feedback', 'Please enter your feedback.');
                 return;
             }
-
             // Save feedback to Firebase
             const feedbackRef = database.ref('feedback').push();
             feedbackRef.set({
@@ -4884,11 +4371,9 @@
         function exportToPDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-
             // Add title
             doc.setFontSize(20);
             doc.text('Group 1 Alkali Metals - Notes', 105, 15, { align: 'center' });
-
             // Add content from the current section
             const section = document.querySelector('.content-section:not([style*="display: none"])');
             if (section) {
@@ -4897,63 +4382,8 @@
                 const lines = doc.splitTextToSize(content, 180);
                 doc.text(lines, 15, 30);
             }
-
             doc.save('alkali-metals-notes.pdf');
             showToast('success', 'Export Successful', 'Your notes have been exported as PDF.');
-        }
-        
-        // Simulate reaction for properties section
-        function simulateReaction(metal) {
-            const observations = {
-                lithium: "Fizzes steadily with water",
-                sodium: "Fizzes rapidly, melts into a ball",
-                potassium: "Fizzes violently, ignites with lilac flame"
-            };
-            
-            document.getElementById('reactionObservation').textContent = observations[metal];
-            
-            // Create reaction bubbles
-            const reactionBubbles = document.getElementById('reactionBubbles');
-            reactionBubbles.innerHTML = '';
-            
-            const bubbleCount = metal === 'potassium' ? 15 : metal === 'sodium' ? 8 : 4;
-            
-            for (let i = 0; i < bubbleCount; i++) {
-                setTimeout(() => {
-                    const bubble = document.createElement('div');
-                    bubble.className = 'reaction-bubble';
-                    
-                    // Random size and position
-                    const size = Math.random() * 20 + 10;
-                    bubble.style.width = `${size}px`;
-                    bubble.style.height = `${size}px`;
-                    bubble.style.left = `${Math.random() * 80 + 10}%`;
-                    bubble.style.bottom = '80px';
-                    bubble.style.animationDelay = `${Math.random() * 2}s`;
-                    
-                    reactionBubbles.appendChild(bubble);
-                    
-                    // Remove bubble after animation
-                    setTimeout(() => {
-                        if (bubble.parentNode) {
-                            bubble.parentNode.removeChild(bubble);
-                        }
-                    }, 2000);
-                }, i * 100);
-            }
-        }
-        
-        // Check melting point answer
-        function checkMeltingPointAnswer(answer) {
-            const feedback = document.getElementById('meltingPointFeedback');
-            
-            if (answer === 'Cs') {
-                feedback.innerHTML = '<p class="text-green-600 font-semibold">Correct!</p><p>Cesium has the lowest melting point of all Group 1 metals at 28.4°C.</p>';
-                if (soundEnabled) correctSound.play();
-            } else {
-                feedback.innerHTML = '<p class="text-red-600 font-semibold">Incorrect.</p><p>The correct answer is Cesium (Cs) with a melting point of 28.4°C.</p>';
-                if (soundEnabled) incorrectSound.play();
-            }
         }
         
         // Discussion functions
@@ -6289,16 +5719,13 @@
         function loadLeaderboard() {
             const leaderboardContent = document.getElementById('leaderboardContent');
             leaderboardContent.innerHTML = '<div class="spinner"></div>';
-
             const usersRef = database.ref('users');
             usersRef.orderByChild('xp').limitToLast(10).on('value', (snapshot) => {
                 leaderboardContent.innerHTML = '';
-
                 if (!snapshot.exists()) {
                     leaderboardContent.innerHTML = '<p class="text-gray-500 text-center">No data available.</p>';
                     return;
                 }
-
                 const users = [];
                 snapshot.forEach((childSnapshot) => {
                     users.push({
@@ -6306,10 +5733,8 @@
                         ...childSnapshot.val()
                     });
                 });
-
                 // Sort by XP descending
                 users.sort((a, b) => (b.xp || 0) - (a.xp || 0));
-
                 const table = document.createElement('table');
                 table.className = 'trend-table';
                 table.innerHTML = `
@@ -6324,7 +5749,6 @@
                     </thead>
                     <tbody></tbody>
                 `;
-
                 const tbody = table.querySelector('tbody');
                 users.forEach((user, index) => {
                     const rank = index + 1;
@@ -6346,7 +5770,6 @@
                     `;
                     tbody.appendChild(row);
                 });
-
                 leaderboardContent.appendChild(table);
             });
         }
