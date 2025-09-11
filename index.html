@@ -7,17 +7,17 @@
     <meta name="description" content="Interactive learning platform for mastering Group 1 Alkali Metals in chemistry">
     
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com "></script>
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css ">
     <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js "></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js "></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js "></script>
     <!-- jsPDF for PDF export -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js "></script>
     <!-- Howler for sound effects -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js "></script>
     
     <style>
         :root {
@@ -2385,6 +2385,163 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        
+        /* Group chat styles */
+        .group-chat {
+            background: var(--gray-100);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            height: 300px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+        }
+        
+        body.dark-mode .group-chat {
+            background: #4b5563;
+        }
+        
+        .chat-message {
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+        }
+        
+        .chat-message.own {
+            background: rgba(79, 70, 229, 0.1);
+            align-self: flex-end;
+            margin-left: 2rem;
+        }
+        
+        body.dark-mode .chat-message.own {
+            background: rgba(79, 70, 229, 0.2);
+        }
+        
+        .chat-input {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .chat-input input {
+            flex: 1;
+        }
+        
+        /* Resource item styles */
+        .resource-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            background: var(--gray-100);
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        body.dark-mode .resource-item {
+            background: #4b5563;
+        }
+        
+        .resource-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary);
+            color: white;
+            border-radius: 0.5rem;
+            margin-right: 1rem;
+        }
+        
+        .resource-info {
+            flex: 1;
+        }
+        
+        .resource-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .resource-meta {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+        
+        body.dark-mode .resource-meta {
+            color: #d1d5db;
+        }
+        
+        .resource-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .resource-btn {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gray-200);
+            color: var(--gray-700);
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        body.dark-mode .resource-btn {
+            background: #6b7280;
+            color: #f3f4f6;
+        }
+        
+        .resource-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Group announcement styles */
+        .group-announcement {
+            background: var(--gray-100);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        body.dark-mode .group-announcement {
+            background: #4b5563;
+        }
+        
+        .group-announcement h5 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .group-announcement p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .group-announcement .text-xs {
+            color: var(--gray-500);
+        }
+        
+        body.dark-mode .group-announcement .text-xs {
+            color: #9ca3af;
+        }
+        
+        /* Post tag styles */
+        .post-tag {
+            display: inline-block;
+            background: var(--gray-200);
+            color: var(--gray-700);
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        body.dark-mode .post-tag {
+            background: #4b5563;
+            color: #d1d5db;
+        }
     </style>
 </head>
 <body>
@@ -2684,7 +2841,7 @@
                     <div class="mt-6 fade-in">
                         <h4 class="font-semibold mb-2">Learn More:</h4>
                         <div class="aspect-w-16 aspect-h-9">
-                            <iframe src="https://www.youtube.com/embed/6D6a1_L2sV8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-64 rounded-lg transform transition-all duration-300 hover:scale-105"></iframe>
+                            <iframe src="https://www.youtube.com/embed/6D6a1_L2sV8 " frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-64 rounded-lg transform transition-all duration-300 hover:scale-105"></iframe>
                         </div>
                     </div>
                     
@@ -2796,42 +2953,42 @@
                     
                     <div class="element-grid fade-in-stagger">
                         <div class="element-card" onclick="showElementDetails('Lithium', 'Li', 3, '2,1')">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Lithiumcut_cropped.jpg" alt="Lithium" class="element-image">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Lithiumcut_cropped.jpg " alt="Lithium" class="element-image">
                             <h4 class="font-bold text-lg">Lithium (Li)</h4>
                             <p class="text-sm text-gray-600">Atomic: 3</p>
                             <p class="text-sm text-gray-600">Electron: 2,1</p>
                             <div class="text-xs text-gray-500 mt-2">Lightest metal, floats on water</div>
                         </div>
                         <div class="element-card" onclick="showElementDetails('Sodium', 'Na', 11, '2,8,1')">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Na_%28Sodium%29.jpg" alt="Sodium" class="element-image">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Na_%28Sodium%29.jpg " alt="Sodium" class="element-image">
                             <h4 class="font-bold text-lg">Sodium (Na)</h4>
                             <p class="text-sm text-gray-600">Atomic: 11</p>
                             <p class="text-sm text-gray-600">Electron: 2,8,1</p>
                             <div class="text-xs text-gray-500 mt-2">Yellow flame test, street lamps</div>
                         </div>
                         <div class="element-card" onclick="showElementDetails('Potassium', 'K', 19, '2,8,8,1')">
-                            <img src="https://cdn.britannica.com/77/131177-050-79292189/fragments-Potassium-metal.jpg" alt="Potassium" class="element-image">
+                            <img src="https://cdn.britannica.com/77/131177-050-79292189/fragments-Potassium-metal.jpg " alt="Potassium" class="element-image">
                             <h4 class="font-bold text-lg">Potassium (K)</h4>
                             <p class="text-sm text-gray-600">Atomic: 19</p>
                             <p class="text-sm text-gray-600">Electron: 2,8,8,1</p>
                             <div class="text-xs text-gray-500 mt-2">Violet flame, essential for life</div>
                         </div>
                         <div class="element-card" onclick="showElementDetails('Rubidium', 'Rb', 37, '2,8,18,8,1')">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Rb5.JPG" alt="Rubidium" class="element-image">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Rb5.JPG " alt="Rubidium" class="element-image">
                             <h4 class="font-bold text-lg">Rubidium (Rb)</h4>
                             <p class="text-sm text-gray-600">Atomic: 37</p>
                             <p class="text-sm text-gray-600">Electron: 2,8,18,8,1</p>
                             <div class="text-xs text-gray-500 mt-2">Used in atomic clocks</div>
                         </div>
                         <div class="element-card" onclick="showElementDetails('Cesium', 'Cs', 55, '2,8,18,18,8,1')">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Cesium.jpg" alt="Cesium" class="element-image">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Cesium.jpg " alt="Cesium" class="element-image">
                             <h4 class="font-bold text-lg">Cesium (Cs)</h4>
                             <p class="text-sm text-gray-600">Atomic: 55</p>
                             <p class="text-sm text-gray-600">Electron: 2,8,18,18,8,1</p>
                             <div class="text-xs text-gray-500 mt-2">Most reactive, photoelectric cells</div>
                         </div>
                         <div class="element-card" onclick="showElementDetails('Francium', 'Fr', 87, '2,8,18,32,18,8,1')">
-                            <img src="https://i0.wp.com/periodic-table.com/wp-content/uploads/2018/11/Francium.jpg?fit=238%2C212&ssl=1" alt="Francium" class="element-image">
+                            <img src="https://i0.wp.com/periodic-table.com/wp-content/uploads/2018/11/Francium.jpg?fit=238%2C212&ssl=1 " alt="Francium" class="element-image">
                             <h4 class="font-bold text-lg">Francium (Fr)</h4>
                             <p class="text-sm text-gray-600">Atomic: 87</p>
                             <p class="text-sm text-gray-600">Electron: 2,8,18,32,18,8,1</p>
@@ -3657,7 +3814,7 @@
         const firebaseConfig = {
             apiKey: "AIzaSyBOp4x0lTFvmt2s3MQKBRYmZT9IJ2ZaRi8",
             authDomain: "group-1-alkali-metals.firebaseapp.com",
-            databaseURL: "https://group-1-alkali-metals-default-rtdb.firebaseio.com",
+            databaseURL: "https://group-1-alkali-metals-default-rtdb.firebaseio.com ",
             projectId: "group-1-alkali-metals",
             storageBucket: "group-1-alkali-metals.firebasestorage.app",
             messagingSenderId: "806417495419",
@@ -3995,19 +4152,19 @@
         
         // Sound effects
         const correctSound = new Howl({
-            src: ['https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3']
+            src: ['https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3 ']
         });
         
         const incorrectSound = new Howl({
-            src: ['https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3']
+            src: ['https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3 ']
         });
         
         const completeSound = new Howl({
-            src: ['https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3']
+            src: ['https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3 ']
         });
         
         const badgeSound = new Howl({
-            src: ['https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3']
+            src: ['https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3 ']
         });
         
         // All MCQ Quiz Questions
@@ -4186,6 +4343,23 @@
             });
             // Add fade-in class to content elements
             addFadeInClasses();
+            
+            // Trigger fade-in for visible elements immediately
+            triggerVisibleFadeIns();
+        }
+        
+        // Trigger fade-in for elements that are already visible
+        function triggerVisibleFadeIns() {
+            // For elements already in viewport, add the visible class after a short delay
+            setTimeout(() => {
+                document.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    // Check if element is in viewport
+                    if (rect.top < window.innerHeight && rect.bottom > 0) {
+                        el.classList.add('visible');
+                    }
+                });
+            }, 100);
         }
         
         // Add fade-in classes to relevant elements
@@ -4299,6 +4473,11 @@
             
             // Check for daily challenge
             checkDailyChallenge();
+            
+            // Trigger fade-in for visible elements after a short delay
+            setTimeout(() => {
+                triggerVisibleFadeIns();
+            }, 300);
         }
         
         // Update user XP display
@@ -4594,6 +4773,8 @@
                 // Reinitialize fade-in for the new section
                 setTimeout(() => {
                     initializeFadeInEffect();
+                    // Trigger fade-in for visible elements
+                    triggerVisibleFadeIns();
                 }, 100);
             }
             
@@ -6735,7 +6916,7 @@
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">URL</label>
-                            <input type="url" id="resourceUrl" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="https://example.com" required>
+                            <input type="url" id="resourceUrl" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="https://example.com " required>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
