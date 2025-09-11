@@ -254,6 +254,20 @@
             transform: scaleY(1);
         }
         
+        .nav-item.completed {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+        
+        body.dark-mode .nav-item.completed {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+        }
+        
+        .nav-item.completed::before {
+            background: #10b981;
+        }
+        
         .nav-icon {
             width: 1.25rem;
             margin-right: 0.75rem;
@@ -2385,6 +2399,28 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        
+        /* Section complete button styles */
+        .section-complete-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .section-complete-btn:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* Unmark complete button styles */
+        .btn-unmark {
+            background: #f59e0b;
+            color: white;
+            box-shadow: 0 4px 6px rgba(245, 158, 11, 0.3);
+        }
+        
+        .btn-unmark:hover {
+            background: #d97706;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -2688,10 +2724,12 @@
                         </div>
                     </div>
                     
-                    <button class="btn btn-success w-full mt-4 transform transition-all duration-300 hover:scale-105 fade-in" onclick="completeSection('overview')">
-                        <i class="fas fa-check mr-2"></i>
-                        Mark as Complete
-                    </button>
+                    <div class="flex justify-center mt-4">
+                        <button id="overview-complete-btn" class="btn btn-success section-complete-btn transform transition-all duration-300 hover:scale-105 fade-in" onclick="completeSection('overview')">
+                            <i class="fas fa-check mr-2"></i>
+                            Mark as Complete
+                        </button>
+                    </div>
                 </div>
             </section>
             <!-- Elements Section -->
@@ -2839,10 +2877,12 @@
                         </div>
                     </div>
                     
-                    <button class="btn btn-success w-full mt-4 transform transition-all duration-300 hover:scale-105 fade-in" onclick="completeSection('elements')">
-                        <i class="fas fa-check mr-2"></i>
-                        Mark as Complete
-                    </button>
+                    <div class="flex justify-center mt-4">
+                        <button id="elements-complete-btn" class="btn btn-success section-complete-btn transform transition-all duration-300 hover:scale-105 fade-in" onclick="completeSection('elements')">
+                            <i class="fas fa-check mr-2"></i>
+                            Mark as Complete
+                        </button>
+                    </div>
                 </div>
             </section>
             <!-- Properties Section -->
@@ -3013,10 +3053,12 @@
                         </div>
                     </div>
                     
-                    <button class="btn btn-success w-full mt-4 transform transition-all duration-300 hover:scale-105 fade-in" onclick="completeSection('properties')">
-                        <i class="fas fa-check mr-2"></i>
-                        Mark as Complete
-                    </button>
+                    <div class="flex justify-center mt-4">
+                        <button id="properties-complete-btn" class="btn btn-success section-complete-btn transform transition-all duration-300 hover:scale-105 fade-in" onclick="completeSection('properties')">
+                            <i class="fas fa-check mr-2"></i>
+                            Mark as Complete
+                        </button>
+                    </div>
                 </div>
             </section>
             <!-- Reactions Section -->
@@ -3143,10 +3185,12 @@
                         </div>
                     </div>
                     
-                    <button class="btn btn-success w-full mt-4 transform transition-all duration-300 hover:scale-105 fade-in" onclick="completeSection('reactions')">
-                        <i class="fas fa-check mr-2"></i>
-                        Mark as Complete
-                    </button>
+                    <div class="flex justify-center mt-4">
+                        <button id="reactions-complete-btn" class="btn btn-success section-complete-btn transform transition-all duration-300 hover:scale-105 fade-in" onclick="completeSection('reactions')">
+                            <i class="fas fa-check mr-2"></i>
+                            Mark as Complete
+                        </button>
+                    </div>
                 </div>
             </section>
             <!-- Quiz Section -->
@@ -3806,7 +3850,7 @@
                     "Photoelectric cells"
                 ],
                 quizCorrect: 1,
-                quizExplanation: "Lithium is primarily used in rechargeable batteries for electric vehicles and portable electronics due to its high electrochemical potential and light weight."
+                quizExplanation: "Lithium is primarily used in rechargeable batteries for electric vehicles due to its high electrochemical potential and light weight."
             },
             'Sodium': {
                 symbol: 'Na',
@@ -4643,7 +4687,8 @@
         
         function completeSection(sectionName) {
             if (completedSections.includes(sectionName)) {
-                showToast('info', 'Already Completed', 'This section is already marked as complete.');
+                // If already completed, unmark as complete
+                unmarkSectionComplete(sectionName);
                 return;
             }
             
@@ -4716,6 +4761,28 @@
             }
         }
         
+        function unmarkSectionComplete(sectionName) {
+            // Remove from completed sections
+            completedSections = completedSections.filter(section => section !== sectionName);
+            
+            // Update UI
+            updateSectionCompletionStatus();
+            updateProgressTracker();
+            
+            // Save to Firebase
+            if (currentUser && userData) {
+                const userRef = database.ref('users/' + currentUser.uid);
+                userRef.update({
+                    completedSections: completedSections
+                }).then(() => {
+                    showToast('info', 'Section Unmarked', `You've unmarked ${sectionName} as complete.`);
+                }).catch((error) => {
+                    console.error("Error updating progress:", error);
+                    showToast('error', 'Error', 'Failed to update your progress.');
+                });
+            }
+        }
+        
         function updateSectionCompletionStatus() {
             // Update nav items
             const navItems = document.querySelectorAll('.nav-item');
@@ -4724,6 +4791,8 @@
                 if (completedSections.includes(section)) {
                     item.classList.remove('locked');
                     item.classList.add('completed');
+                } else {
+                    item.classList.remove('completed');
                 }
             });
             
@@ -4750,6 +4819,28 @@
                     quizNavItem.classList.remove('locked');
                 }
             }
+            
+            // Update section buttons
+            updateSectionButtons();
+        }
+        
+        function updateSectionButtons() {
+            // Update each section's complete button
+            const sections = ['overview', 'elements', 'properties', 'reactions', 'quiz'];
+            sections.forEach(section => {
+                const button = document.getElementById(`${section}-complete-btn`);
+                if (button) {
+                    if (completedSections.includes(section)) {
+                        button.innerHTML = '<i class="fas fa-times mr-2"></i>Unmark as Complete';
+                        button.classList.remove('btn-success');
+                        button.classList.add('btn-unmark');
+                    } else {
+                        button.innerHTML = '<i class="fas fa-check mr-2"></i>Mark as Complete';
+                        button.classList.remove('btn-unmark');
+                        button.classList.add('btn-success');
+                    }
+                }
+            });
         }
         
         function updateProgressTracker() {
@@ -5015,7 +5106,7 @@
                 } else if (element === 'sodium') {
                     content = 'Sodium has a lower melting point (97.8°C) than lithium due to its larger atomic size. The increased atomic radius means the positive nuclei are further from the delocalized electrons, weakening the metallic bonds and requiring less energy to break them.';
                 } else if (element === 'potassium') {
-                    content = 'Potassium has an even lower melting point (63.5°C) due to its larger atomic size. The additional electron shell increases the atomic radius significantly, further weakening the metallic bonds between atoms.';
+                    content = 'Potassium has an even lower melting point (63.5°C) due to its larger atomic size. The additional electron shell increases the atomic radius significantly, further weakening the metallic bonds.';
                 } else if (element === 'rubidium') {
                     content = 'Rubidium has a very low melting point (39.3°C) due to its large atomic size. The increased distance between positive nuclei and delocalized electrons results in very weak metallic bonds.';
                 } else if (element === 'cesium') {
