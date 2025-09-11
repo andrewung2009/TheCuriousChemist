@@ -1684,360 +1684,6 @@
         }
         
         /* Enhanced Quiz Enhancement Styles */
-        .quiz-container {
-            background: white;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        body.dark-mode .quiz-container {
-            background: #374151;
-        }
-        
-        .quiz-container:hover {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            transform: translateY(-3px);
-        }
-        
-        /* Enhanced Discussion and Study Group Styles */
-        .discussion-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        
-        .search-box {
-            position: relative;
-            flex: 1;
-            min-width: 250px;
-        }
-        
-        .search-box input {
-            width: 100%;
-            padding: 0.75rem 1rem 0.75rem 2.5rem;
-            border: 1px solid var(--gray-300);
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
-            transition: all 0.3s ease;
-        }
-        
-        body.dark-mode .search-box input {
-            background: #4b5563;
-            border-color: #6b7280;
-            color: #f3f4f6;
-        }
-        
-        .search-box input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-            transform: translateY(-2px);
-        }
-        
-        body.dark-mode .search-box input:focus {
-            border-color: #818cf8;
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
-        }
-        
-        .search-box i {
-            position: absolute;
-            left: 0.75rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--gray-400);
-            transition: color 0.3s ease;
-        }
-        
-        body.dark-mode .search-box i {
-            color: #9ca3af;
-        }
-        
-        .search-box:hover i {
-            color: var(--primary);
-        }
-        
-        body.dark-mode .search-box:hover i {
-            color: #818cf8;
-        }
-        
-        .filter-buttons {
-            display: flex;
-            gap: 0.5rem;
-        }
-        
-        .filter-btn {
-            padding: 0.5rem 1rem;
-            border: 1px solid var(--gray-300);
-            border-radius: 0.25rem;
-            background: white;
-            color: var(--gray-700);
-            font-size: 0.875rem;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        body.dark-mode .filter-btn {
-            background: #4b5563;
-            border-color: #6b7280;
-            color: #f3f4f6;
-        }
-        
-        .filter-btn:hover {
-            background: var(--gray-100);
-            transform: translateY(-2px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        body.dark-mode .filter-btn:hover {
-            background: #6b7280;
-        }
-        
-        .filter-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-            transform: translateY(-2px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        .post-tag {
-            display: inline-block;
-            background: var(--gray-100);
-            color: var(--gray-700);
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            font-size: 0.75rem;
-            margin-right: 0.5rem;
-            transition: all 0.3s ease;
-        }
-        
-        body.dark-mode .post-tag {
-            background: #4b5563;
-            color: #f3f4f6;
-        }
-        
-        .post-tag:hover {
-            background: var(--gray-200);
-            transform: scale(1.05);
-        }
-        
-        body.dark-mode .post-tag:hover {
-            background: #6b7280;
-        }
-        
-        .group-chat {
-            background: var(--gray-50);
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin-top: 1rem;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-        
-        body.dark-mode .group-chat {
-            background: #4b5563;
-        }
-        
-        .chat-message {
-            margin-bottom: 0.75rem;
-            padding: 0.5rem;
-            border-radius: 0.5rem;
-            background: white;
-            transition: all 0.3s ease;
-        }
-        
-        body.dark-mode .chat-message {
-            background: #374151;
-            color: #f3f4f6;
-        }
-        
-        .chat-message:hover {
-            transform: translateX(5px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        .chat-message.own {
-            background: var(--primary);
-            color: white;
-            margin-left: 2rem;
-        }
-        
-        .chat-input {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 0.75rem;
-        }
-        
-        .chat-input input {
-            flex: 1;
-            padding: 0.5rem;
-            border: 1px solid var(--gray-300);
-            border-radius: 0.25rem;
-            font-size: 0.875rem;
-            transition: all 0.3s ease;
-        }
-        
-        body.dark-mode .chat-input input {
-            background: #4b5563;
-            border-color: #6b7280;
-            color: #f3f4f6;
-        }
-        
-        .chat-input input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-        }
-        
-        body.dark-mode .chat-input input:focus {
-            border-color: #818cf8;
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
-        }
-        
-        .group-announcement {
-            background: rgba(79, 70, 229, 0.1);
-            border-left: 3px solid var(--primary);
-            padding: 0.75rem;
-            border-radius: 0.25rem;
-            margin-bottom: 0.75rem;
-            transition: all 0.3s ease;
-        }
-        
-        body.dark-mode .group-announcement {
-            background: rgba(79, 70, 229, 0.2);
-        }
-        
-        .group-announcement:hover {
-            transform: translateX(5px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        .group-announcement h5 {
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-            color: var(--primary);
-        }
-        
-        body.dark-mode .group-announcement h5 {
-            color: #818cf8;
-        }
-        
-        .group-announcement p {
-            font-size: 0.875rem;
-            color: var(--gray-700);
-        }
-        
-        body.dark-mode .group-announcement p {
-            color: #d1d5db;
-        }
-        
-        .resource-item {
-            display: flex;
-            align-items: center;
-            padding: 0.5rem;
-            border: 1px solid var(--gray-200);
-            border-radius: 0.25rem;
-            margin-bottom: 0.5rem;
-            background: white;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        body.dark-mode .resource-item {
-            background: #4b5563;
-            border-color: #6b7280;
-            color: #f3f4f6;
-        }
-        
-        .resource-item:hover {
-            border-color: var(--primary);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transform: translateY(-3px);
-        }
-        
-        body.dark-mode .resource-item:hover {
-            border-color: #818cf8;
-        }
-        
-        .resource-icon {
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--gray-100);
-            border-radius: 0.25rem;
-            margin-right: 0.75rem;
-            color: var(--primary);
-            transition: all 0.3s ease;
-        }
-        
-        body.dark-mode .resource-icon {
-            background: #6b7280;
-            color: #818cf8;
-        }
-        
-        .resource-item:hover .resource-icon {
-            transform: scale(1.1);
-            background: var(--primary);
-            color: white;
-        }
-        
-        body.dark-mode .resource-item:hover .resource-icon {
-            background: #818cf8;
-        }
-        
-        .resource-info {
-            flex: 1;
-        }
-        
-        .resource-name {
-            font-weight: 500;
-            font-size: 0.875rem;
-            color: var(--gray-800);
-        }
-        
-        body.dark-mode .resource-name {
-            color: #f3f4f6;
-        }
-        
-        .resource-meta {
-            font-size: 0.75rem;
-            color: var(--gray-500);
-        }
-        
-        .resource-actions {
-            display: flex;
-            gap: 0.25rem;
-        }
-        
-        .resource-btn {
-            padding: 0.25rem 0.5rem;
-            background: transparent;
-            border: none;
-            color: var(--gray-500);
-            cursor: pointer;
-            border-radius: 0.25rem;
-            transition: all 0.3s ease;
-        }
-        
-        .resource-btn:hover {
-            background: var(--gray-100);
-            color: var(--primary);
-            transform: scale(1.1);
-        }
-        
-        body.dark-mode .resource-btn:hover {
-            background: #6b7280;
-            color: #818cf8;
-        }
-        
-        /* Enhanced New Feature Styles */
         .feedback-system {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 1rem;
@@ -2349,197 +1995,6 @@
         
         .slider.round:before {
             border-radius: 50%;
-        }
-        
-        /* Equation Balancer Styles */
-        .equation-balancer {
-            margin-top: 1rem;
-        }
-        
-        .equation-display {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-        
-        .equation-term {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .coefficient {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--primary);
-            min-width: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .coefficient.correct {
-            color: var(--success);
-        }
-        
-        .chemical {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--gray-800);
-        }
-        
-        body.dark-mode .chemical {
-            color: #f3f4f6;
-        }
-        
-        .plus-sign {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--gray-600);
-        }
-        
-        .coefficient-controls {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .coefficient-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: var(--gray-200);
-            border: none;
-            color: var(--gray-700);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .coefficient-btn:hover {
-            background: var(--primary);
-            color: white;
-            transform: scale(1.1);
-        }
-        
-        .equation-status {
-            text-align: center;
-            padding: 0.75rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .equation-status.balanced {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--success);
-            border: 1px solid var(--success);
-        }
-        
-        .equation-status.unbalanced {
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--danger);
-            border: 1px solid var(--danger);
-        }
-        
-        /* Matching Styles */
-        .match-item {
-            cursor: pointer;
-            user-select: none;
-            transition: all 0.3s ease;
-        }
-        
-        .match-item:hover {
-            background: rgba(79, 70, 229, 0.1);
-            transform: translateY(-2px);
-        }
-        
-        .match-item.selected {
-            background: rgba(79, 70, 229, 0.2);
-            border: 2px solid var(--primary);
-        }
-        
-        .match-item.matched {
-            background: rgba(16, 185, 129, 0.1);
-            border: 2px solid var(--success);
-        }
-        
-        /* Quiz Question Modal */
-        .quiz-question-modal .modal-content {
-            max-width: 700px;
-        }
-        
-        .quiz-question {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            color: var(--gray-800);
-        }
-        
-        body.dark-mode .quiz-question {
-            color: #f3f4f6;
-        }
-        
-        .quiz-answer {
-            padding: 1rem;
-            border: 2px solid var(--gray-200);
-            border-radius: 0.5rem;
-            margin-bottom: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        body.dark-mode .quiz-answer {
-            border-color: #4b5563;
-            color: #f3f4f6;
-        }
-        
-        .quiz-answer:hover {
-            border-color: var(--primary);
-            background: rgba(79, 70, 229, 0.1);
-            transform: translateY(-3px);
-        }
-        
-        body.dark-mode .quiz-answer:hover {
-            border-color: #818cf8;
-            background: rgba(79, 70, 229, 0.2);
-        }
-        
-        .quiz-answer.correct {
-            border-color: var(--success);
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--success);
-        }
-        
-        .quiz-answer.incorrect {
-            border-color: var(--danger);
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--danger);
-        }
-        
-        .quiz-feedback {
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin-top: 1rem;
-            font-size: 0.9rem;
-        }
-        
-        .quiz-feedback.correct {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--success);
-            border-left: 4px solid var(--success);
-        }
-        
-        .quiz-feedback.incorrect {
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--danger);
-            border-left: 4px solid var(--danger);
         }
         
         /* Fade-in effect for content */
@@ -3450,11 +2905,11 @@
             </div>
             <div id="quizProgress" class="mb-4">
                 <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm text-gray-600">Question <span id="currentQuestion">1</span> of <span id="totalQuestions">8</span></span>
+                    <span class="text-sm text-gray-600">Question <span id="currentQuestion">1</span> of <span id="totalQuestions">10</span></span>
                     <span class="text-sm text-gray-600">Score: <span id="currentScore">0</span></span>
                 </div>
                 <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill" style="width: 12.5%"></div>
+                    <div class="progress-fill" id="progressFill" style="width: 10%"></div>
                 </div>
             </div>
             <div id="quizContent">
@@ -3482,7 +2937,7 @@
             <div id="quizResults" class="hidden text-center">
                 <i class="fas fa-trophy text-5xl text-yellow-500 mb-4"></i>
                 <h3 class="text-2xl font-bold mb-3">Quiz Complete!</h3>
-                <div class="text-4xl font-bold text-indigo-600 mb-3" id="finalScore">0/8</div>
+                <div class="text-4xl font-bold text-indigo-600 mb-3" id="finalScore">0/10</div>
                 <p class="text-gray-600 mb-6" id="scoreMessage">Great job!</p>
                 <button onclick="closeQuiz()" class="btn btn-primary transform transition-all duration-300 hover:scale-105">
                     <i class="fas fa-check"></i>
@@ -3694,92 +3149,67 @@
             src: ['https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3']
         });
         
-        // Enhanced Quiz Questions with Multiple Types
+        // All MCQ Quiz Questions
         quizQuestions = [
-            // MCQ Questions
             {
-                type: 'mcq',
                 question: "What is the electron configuration of the outer shell of all Group 1 elements?",
                 options: ["1 electron", "2 electrons", "8 electrons", "Variable number of electrons"],
                 correct: 0,
                 explanation: "All Group 1 elements have one electron in their outer shell, which they readily lose to form +1 ions."
             },
             {
-                type: 'mcq',
                 question: "Which of the following statements about the reactivity of Group 1 metals is correct?",
                 options: ["Reactivity decreases down the group", "Reactivity increases down the group", "Reactivity stays the same down the group", "Reactivity is highest for lithium"],
                 correct: 1,
                 explanation: "Reactivity increases down Group 1 because the outer electron is further from the nucleus and easier to lose."
             },
-            
-            // Fill in the Blanks
             {
-                type: 'fillblank',
-                question: "When Group 1 metals react with water, they produce [blank1] gas and metal [blank2].",
-                blanks: [
-                    { id: 'blank1', answer: 'hydrogen', options: ['hydrogen', 'oxygen', 'nitrogen', 'carbon dioxide'] },
-                    { id: 'blank2', answer: 'hydroxides', options: ['hydroxides', 'oxides', 'peroxides', 'carbonates'] }
-                ],
+                question: "When Group 1 metals react with water, what products are formed?",
+                options: ["Metal oxide and hydrogen", "Metal hydroxide and hydrogen", "Metal oxide and oxygen", "Metal hydroxide and oxygen"],
+                correct: 1,
                 explanation: "The general equation is: 2M(s) + 2H₂O(l) → 2MOH(aq) + H₂(g)"
             },
-            
-            // Matching Question
             {
-                type: 'matching',
-                question: "Match each element to the oxide it forms when burned in oxygen:",
-                leftItems: ["Lithium", "Sodium", "Potassium"],
-                rightItems: ["Li₂O (oxide)", "Na₂O₂ (peroxide)", "KO₂ (superoxide)"],
-                correct: [0, 1, 2], // Index mapping
-                explanation: "Lithium forms normal oxide, sodium forms peroxide, and potassium forms superoxide."
+                question: "Which Group 1 metal forms a normal oxide when burned in oxygen?",
+                options: ["Lithium", "Sodium", "Potassium", "Rubidium"],
+                correct: 0,
+                explanation: "Lithium forms Li₂O (oxide), while sodium forms Na₂O₂ (peroxide) and potassium forms KO₂ (superoxide)."
             },
-            
-            // True/False with Explanation
             {
-                type: 'truefalse',
-                question: "The melting point of Group 1 metals increases as you go down the group.",
-                correct: false,
-                explanation: "False. The melting point decreases down Group 1 due to increasing atomic size and weaker metallic bonding."
-            },
-            
-            // Chemical Equation Balancer
-            {
-                type: 'equation-balancer',
-                question: "Balance the following chemical equation for the reaction of sodium with water:",
-                equation: {
-                    left: [
-                        { symbol: "Na", coefficient: 1 },
-                        { symbol: "H₂O", coefficient: 1 }
-                    ],
-                    right: [
-                        { symbol: "NaOH", coefficient: 1 },
-                        { symbol: "H₂", coefficient: 1 }
-                    ]
-                },
-                correct: [2, 2, 2, 1], // Correct coefficients for Na, H₂O, NaOH, H₂
-                explanation: "The balanced equation is: 2Na + 2H₂O → 2NaOH + H₂"
-            },
-            
-            // Multiple Choice with Images
-            {
-                type: 'mcq',
-                question: "Which flame test color is characteristic of sodium?",
+                question: "What color flame does sodium produce in a flame test?",
                 options: ["Red", "Yellow", "Green", "Purple"],
                 correct: 1,
                 explanation: "Sodium produces a bright yellow flame in flame tests, which is why it's used in street lamps and fireworks."
             },
-            
-            // Scenario-based Question
             {
-                type: 'mcq',
-                question: "A small piece of potassium is dropped into water. What would you observe?",
-                options: [
-                    "It fizzes steadily and moves slowly on the surface",
-                    "It fizzes rapidly, melts into a ball, and moves quickly",
-                    "It fizzes violently, ignites with a lilac flame, and may explode",
-                    "It sinks to the bottom without reacting"
-                ],
+                question: "Which statement about the melting point of Group 1 metals is correct?",
+                options: ["Melting point increases down the group", "Melting point decreases down the group", "Melting point is highest for cesium", "Melting point is constant across the group"],
+                correct: 1,
+                explanation: "The melting point decreases down Group 1 due to increasing atomic size and weaker metallic bonding."
+            },
+            {
+                question: "Which Group 1 metal has the lowest density?",
+                options: ["Lithium", "Sodium", "Potassium", "Cesium"],
+                correct: 0,
+                explanation: "Lithium has the lowest density of all metals and is so light that it can float on water!"
+            },
+            {
+                question: "What happens when a small piece of potassium is dropped into water?",
+                options: ["It fizzes steadily and moves slowly on the surface", "It fizzes rapidly, melts into a ball, and moves quickly", "It fizzes violently, ignites with a lilac flame, and may explode", "It sinks to the bottom without reacting"],
                 correct: 2,
                 explanation: "Potassium reacts violently with water, producing hydrogen gas that often ignites with a characteristic lilac flame."
+            },
+            {
+                question: "Which Group 1 metal is used in batteries for electric vehicles?",
+                options: ["Lithium", "Sodium", "Potassium", "Rubidium"],
+                correct: 0,
+                explanation: "Lithium is used in rechargeable batteries for electric vehicles due to its high electrochemical potential and light weight."
+            },
+            {
+                question: "Which Group 1 metal is used in atomic clocks?",
+                options: ["Lithium", "Sodium", "Potassium", "Cesium"],
+                correct: 3,
+                explanation: "Cesium is used in atomic clocks because it has a very precise and stable frequency when excited, making it perfect for timekeeping."
             }
         ];
         
@@ -4488,7 +3918,7 @@
             });
         }
         
-        // Enhanced Quiz Functions
+        // Quiz Functions
         function startQuiz() {
             currentQuestion = 0;
             score = 0;
@@ -4561,23 +3991,42 @@
             // Check if this question has been answered already
             const answeredQuestion = quizAnswers[currentQuestion];
             
-            switch(question.type) {
-                case 'mcq':
-                    loadMCQ(question, optionsContainer, answeredQuestion);
-                    break;
-                case 'fillblank':
-                    loadFillBlank(question, optionsContainer, answeredQuestion);
-                    break;
-                case 'matching':
-                    loadMatching(question, optionsContainer, answeredQuestion);
-                    break;
-                case 'truefalse':
-                    loadTrueFalse(question, optionsContainer, answeredQuestion);
-                    break;
-                case 'equation-balancer':
-                    loadEquationBalancer(question, optionsContainer, answeredQuestion);
-                    break;
-            }
+            // Load MCQ options
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'quiz-option';
+                if (answeredQuestion) {
+                    optionDiv.classList.add('disabled');
+                    if (answeredQuestion.selected === index) {
+                        optionDiv.classList.add(answeredQuestion.isCorrect ? 'correct' : 'incorrect');
+                    }
+                }
+                optionDiv.dataset.index = index;
+                
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = 'quiz-option';
+                input.id = `option-${index}`;
+                input.value = index;
+                if (answeredQuestion && answeredQuestion.selected === index) {
+                    input.checked = true;
+                }
+                if (answeredQuestion) {
+                    input.disabled = true;
+                }
+                
+                const label = document.createElement('label');
+                label.htmlFor = `option-${index}`;
+                label.textContent = option;
+                
+                optionDiv.appendChild(input);
+                optionDiv.appendChild(label);
+                
+                if (!answeredQuestion) {
+                    optionDiv.onclick = () => selectOption(index);
+                }
+                optionsContainer.appendChild(optionDiv);
+            });
             
             // Show/hide navigation buttons
             document.getElementById('prevButton').classList.toggle('hidden', currentQuestion === 0);
@@ -4615,498 +4064,6 @@
             }, 100);
         }
         
-        // MCQ Loader
-        function loadMCQ(question, container, answeredQuestion) {
-            question.options.forEach((option, index) => {
-                const optionDiv = document.createElement('div');
-                optionDiv.className = 'quiz-option';
-                if (answeredQuestion) {
-                    optionDiv.classList.add('disabled');
-                    if (answeredQuestion.selected === index) {
-                        optionDiv.classList.add(answeredQuestion.isCorrect ? 'correct' : 'incorrect');
-                    }
-                }
-                optionDiv.dataset.index = index;
-                
-                const input = document.createElement('input');
-                input.type = 'radio';
-                input.name = 'quiz-option';
-                input.id = `option-${index}`;
-                input.value = index;
-                if (answeredQuestion && answeredQuestion.selected === index) {
-                    input.checked = true;
-                }
-                if (answeredQuestion) {
-                    input.disabled = true;
-                }
-                
-                const label = document.createElement('label');
-                label.htmlFor = `option-${index}`;
-                label.textContent = option;
-                
-                optionDiv.appendChild(input);
-                optionDiv.appendChild(label);
-                
-                if (!answeredQuestion) {
-                    optionDiv.onclick = () => selectOption(index);
-                }
-                container.appendChild(optionDiv);
-            });
-        }
-        
-        // Fill in the Blanks Loader
-        function loadFillBlank(question, container, answeredQuestion) {
-            let html = '<div class="space-y-4">';
-            
-            question.blanks.forEach(blank => {
-                html += `
-                    <div class="mb-3">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">${blank.id.replace('blank', 'Blank ')}:</label>
-                        <select id="${blank.id}" class="form-input w-full" ${answeredQuestion ? 'disabled' : ''}>
-                            <option value="">Select an answer</option>
-                            ${blank.options.map(option => `
-                                <option value="${option}" ${answeredQuestion && answeredQuestion.answers[blank.id] === option ? 'selected' : ''}>${option}</option>
-                            `).join('')}
-                        </select>
-                    </div>
-                `;
-            });
-            
-            html += '</div>';
-            container.innerHTML = html;
-            
-            // Enable submit when all blanks are filled
-            if (!answeredQuestion) {
-                question.blanks.forEach(blank => {
-                    document.getElementById(blank.id).addEventListener('change', () => {
-                        const allFilled = question.blanks.every(b => document.getElementById(b.id).value);
-                        document.getElementById('submitButton').disabled = !allFilled;
-                    });
-                });
-            }
-        }
-        
-        // Matching Loader with Enhanced Functionality
-        function loadMatching(question, container, answeredQuestion) {
-            container.innerHTML = `
-                <div class="grid grid-cols-2 gap-6">
-                    <div>
-                        <h4 class="font-semibold mb-3">Elements</h4>
-                        <div class="space-y-2">
-                            ${question.leftItems.map((item, index) => `
-                                <div class="match-item bg-gray-100 p-3 rounded-lg" data-left="${index}">
-                                    ${item}
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold mb-3">Oxides</h4>
-                        <div class="space-y-2">
-                            ${question.rightItems.map((item, index) => `
-                                <div class="match-item bg-gray-100 p-3 rounded-lg" data-right="${index}">
-                                    ${item}
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-4 text-center">
-                    <button onclick="checkMatching()" class="btn btn-primary">Check Matches</button>
-                    <button onclick="clearMatches()" class="btn btn-secondary ml-2">Clear All</button>
-                </div>
-            `;
-            
-            if (answeredQuestion) {
-                // Show the matched items
-                const leftItems = document.querySelectorAll('[data-left]');
-                const rightItems = document.querySelectorAll('[data-right]');
-                
-                leftItems.forEach((item, index) => {
-                    const matchIndex = answeredQuestion.matches[index];
-                    if (matchIndex !== undefined) {
-                        item.classList.add('matched', 'bg-green-100');
-                        const rightItem = rightItems[matchIndex];
-                        rightItem.classList.add('matched', 'bg-green-100');
-                    }
-                });
-                
-                // Disable interaction
-                leftItems.forEach(item => {
-                    item.style.pointerEvents = 'none';
-                });
-                rightItems.forEach(item => {
-                    item.style.pointerEvents = 'none';
-                });
-                
-                // Hide buttons
-                container.querySelector('.mt-4').style.display = 'none';
-            } else {
-                setupMatching(question);
-            }
-        }
-        
-        // Enhanced Matching Setup
-        function setupMatching(question) {
-            const leftItems = document.querySelectorAll('[data-left]');
-            const rightItems = document.querySelectorAll('[data-right]');
-            let selectedLeft = null;
-            let selectedRight = null;
-            let matches = {};
-            
-            leftItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    if (item.classList.contains('matched')) {
-                        // If already matched, unmatch it
-                        const rightIndex = matches[item.dataset.left];
-                        const rightItem = document.querySelector(`[data-right="${rightIndex}"]`);
-                        item.classList.remove('matched', 'bg-green-100');
-                        rightItem.classList.remove('matched', 'bg-green-100');
-                        delete matches[item.dataset.left];
-                        return;
-                    }
-                    
-                    if (selectedLeft) {
-                        selectedLeft.classList.remove('selected');
-                    }
-                    selectedLeft = item;
-                    item.classList.add('selected');
-                    
-                    if (selectedRight) {
-                        matches[selectedLeft.dataset.left] = selectedRight.dataset.right;
-                        selectedLeft.classList.remove('selected');
-                        selectedLeft.classList.add('matched', 'bg-green-100');
-                        selectedRight.classList.remove('selected');
-                        selectedRight.classList.add('matched', 'bg-green-100');
-                        selectedLeft = null;
-                        selectedRight = null;
-                        
-                        // Check if all matches are made
-                        if (Object.keys(matches).length === question.leftItems.length) {
-                            document.getElementById('submitButton').disabled = false;
-                        }
-                    }
-                });
-            });
-            
-            rightItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    if (item.classList.contains('matched')) {
-                        // If already matched, unmatch it
-                        const leftIndex = Object.keys(matches).find(key => matches[key] === item.dataset.right);
-                        const leftItem = document.querySelector(`[data-left="${leftIndex}"]`);
-                        leftItem.classList.remove('matched', 'bg-green-100');
-                        item.classList.remove('matched', 'bg-green-100');
-                        delete matches[leftIndex];
-                        return;
-                    }
-                    
-                    if (selectedRight) {
-                        selectedRight.classList.remove('selected');
-                    }
-                    selectedRight = item;
-                    item.classList.add('selected');
-                    
-                    if (selectedLeft) {
-                        matches[selectedLeft.dataset.left] = selectedRight.dataset.right;
-                        selectedLeft.classList.remove('selected');
-                        selectedLeft.classList.add('matched', 'bg-green-100');
-                        selectedRight.classList.remove('selected');
-                        selectedRight.classList.add('matched', 'bg-green-100');
-                        selectedLeft = null;
-                        selectedRight = null;
-                        
-                        // Check if all matches are made
-                        if (Object.keys(matches).length === question.leftItems.length) {
-                            document.getElementById('submitButton').disabled = false;
-                        }
-                    }
-                });
-            });
-            
-            window.checkMatching = () => {
-                // This will be used in submitAnswer
-            };
-            
-            window.clearMatches = () => {
-                matches = {};
-                leftItems.forEach(item => {
-                    item.classList.remove('matched', 'bg-green-100', 'selected');
-                });
-                rightItems.forEach(item => {
-                    item.classList.remove('matched', 'bg-green-100', 'selected');
-                });
-                document.getElementById('submitButton').disabled = true;
-            };
-        }
-        
-        // True/False Loader
-        function loadTrueFalse(question, container, answeredQuestion) {
-            container.innerHTML = `
-                <div class="flex justify-center gap-6">
-                    <div class="quiz-option text-center ${answeredQuestion && answeredQuestion.selected === true ? 'correct' : ''}" ${answeredQuestion ? 'disabled' : ''}>
-                        <input type="radio" name="tf-option" id="tf-true" value="true" ${answeredQuestion && answeredQuestion.selected === true ? 'checked' : ''} ${answeredQuestion ? 'disabled' : ''}>
-                        <label for="tf-true" class="block mt-2">True</label>
-                    </div>
-                    <div class="quiz-option text-center ${answeredQuestion && answeredQuestion.selected === false ? 'incorrect' : ''}" ${answeredQuestion ? 'disabled' : ''}>
-                        <input type="radio" name="tf-option" id="tf-false" value="false" ${answeredQuestion && answeredQuestion.selected === false ? 'checked' : ''} ${answeredQuestion ? 'disabled' : ''}>
-                        <label for="tf-false" class="block mt-2">False</label>
-                    </div>
-                </div>
-            `;
-            
-            if (!answeredQuestion) {
-                document.getElementById('tf-true').parentElement.onclick = () => selectTrueFalse(true);
-                document.getElementById('tf-false').parentElement.onclick = () => selectTrueFalse(false);
-            }
-        }
-        
-        // Chemical Equation Balancer Loader
-        function loadEquationBalancer(question, container, answeredQuestion) {
-            const equation = question.equation;
-            
-            container.innerHTML = `
-                <div class="equation-balancer">
-                    <div class="equation-display">
-                        ${equation.left.map((term, index) => `
-                            <div class="equation-term">
-                                <div class="coefficient" id="coeff-left-${index}" data-term="left-${index}">
-                                    ${answeredQuestion ? answeredQuestion.coefficients[index] : term.coefficient}
-                                </div>
-                                <div class="chemical">${term.symbol}</div>
-                            </div>
-                        `).join('')}
-                        
-                        <div class="plus-sign">+</div>
-                        
-                        ${equation.right.map((term, index) => `
-                            <div class="equation-term">
-                                <div class="coefficient" id="coeff-right-${index}" data-term="right-${index}">
-                                    ${answeredQuestion ? answeredQuestion.coefficients[equation.left.length + index] : term.coefficient}
-                                </div>
-                                <div class="chemical">${term.symbol}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-                    
-                    <div class="coefficient-controls">
-                        ${equation.left.map((term, index) => `
-                            <div class="flex items-center gap-2">
-                                <span class="font-medium">${term.symbol}:</span>
-                                <button class="coefficient-btn" onclick="changeCoefficient('left-${index}', -1)">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <span id="value-left-${index}" class="font-semibold w-8 text-center">
-                                    ${answeredQuestion ? answeredQuestion.coefficients[index] : term.coefficient}
-                                </span>
-                                <button class="coefficient-btn" onclick="changeCoefficient('left-${index}', 1)">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </div>
-                        `).join('')}
-                        
-                        ${equation.right.map((term, index) => `
-                            <div class="flex items-center gap-2">
-                                <span class="font-medium">${term.symbol}:</span>
-                                <button class="coefficient-btn" onclick="changeCoefficient('right-${index}', -1)">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <span id="value-right-${index}" class="font-semibold w-8 text-center">
-                                    ${answeredQuestion ? answeredQuestion.coefficients[equation.left.length + index] : term.coefficient}
-                                </span>
-                                <button class="coefficient-btn" onclick="changeCoefficient('right-${index}', 1)">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </div>
-                        `).join('')}
-                    </div>
-                    
-                    <div id="equationStatus" class="equation-status unbalanced">
-                        Equation not balanced
-                    </div>
-                    
-                    <div class="text-center mt-4">
-                        <button onclick="checkEquationBalance()" class="btn btn-primary">
-                            Check Balance
-                        </button>
-                        <button onclick="resetEquation()" class="btn btn-secondary ml-2">
-                            Reset
-                        </button>
-                    </div>
-                </div>
-            `;
-            
-            if (answeredQuestion) {
-                // Show the correct coefficients
-                equation.left.forEach((term, index) => {
-                    const coeff = document.getElementById(`coeff-left-${index}`);
-                    const value = document.getElementById(`value-left-${index}`);
-                    const correctCoeff = question.correct[index];
-                    
-                    coeff.textContent = correctCoeff;
-                    value.textContent = correctCoeff;
-                    
-                    if (correctCoeff === answeredQuestion.coefficients[index]) {
-                        coeff.classList.add('correct');
-                    }
-                });
-                
-                equation.right.forEach((term, index) => {
-                    const coeff = document.getElementById(`coeff-right-${index}`);
-                    const value = document.getElementById(`value-right-${index}`);
-                    const correctCoeff = question.correct[equation.left.length + index];
-                    
-                    coeff.textContent = correctCoeff;
-                    value.textContent = correctCoeff;
-                    
-                    if (correctCoeff === answeredQuestion.coefficients[equation.left.length + index]) {
-                        coeff.classList.add('correct');
-                    }
-                });
-                
-                // Show equation status
-                const status = document.getElementById('equationStatus');
-                if (answeredQuestion.isCorrect) {
-                    status.className = 'equation-status balanced';
-                    status.textContent = 'Equation balanced correctly!';
-                } else {
-                    status.className = 'equation-status unbalanced';
-                    status.textContent = 'Equation not balanced correctly';
-                }
-                
-                // Disable controls
-                const buttons = container.querySelectorAll('.coefficient-btn');
-                buttons.forEach(button => {
-                    button.disabled = true;
-                });
-                
-                // Hide action buttons
-                container.querySelector('.text-center').style.display = 'none';
-            } else {
-                // Initialize equation state
-                window.equationState = {
-                    left: equation.left.map(term => term.coefficient),
-                    right: equation.right.map(term => term.coefficient)
-                };
-                
-                // Enable submit button when equation is balanced
-                window.equationBalanced = false;
-            }
-        }
-        
-        // Change coefficient value
-        function changeCoefficient(termId, change) {
-            const isLeft = termId.startsWith('left-');
-            const index = parseInt(termId.split('-')[1]);
-            const side = isLeft ? 'left' : 'right';
-            
-            // Update value
-            window.equationState[side][index] = Math.max(1, window.equationState[side][index] + change);
-            
-            // Update display
-            const coeffElement = document.getElementById(`coeff-${termId}`);
-            const valueElement = document.getElementById(`value-${termId}`);
-            const newValue = window.equationState[side][index];
-            
-            coeffElement.textContent = newValue;
-            valueElement.textContent = newValue;
-            
-            // Reset equation status
-            const status = document.getElementById('equationStatus');
-            status.className = 'equation-status unbalanced';
-            status.textContent = 'Equation not balanced';
-            
-            window.equationBalanced = false;
-            document.getElementById('submitButton').disabled = true;
-        }
-        
-        // Check if equation is balanced
-        function checkEquationBalance() {
-            const question = quizQuestions[currentQuestion];
-            const equation = question.equation;
-            
-            // Get current coefficients
-            const currentCoeffs = [
-                ...window.equationState.left,
-                ...window.equationState.right
-            ];
-            
-            // Check if equation is balanced
-            const isBalanced = JSON.stringify(currentCoeffs) === JSON.stringify(question.correct);
-            
-            // Update equation status
-            const status = document.getElementById('equationStatus');
-            if (isBalanced) {
-                status.className = 'equation-status balanced';
-                status.textContent = 'Equation balanced correctly!';
-                window.equationBalanced = true;
-                document.getElementById('submitButton').disabled = false;
-            } else {
-                status.className = 'equation-status unbalanced';
-                status.textContent = 'Equation not balanced';
-                window.equationBalanced = false;
-                document.getElementById('submitButton').disabled = true;
-            }
-        }
-        
-        // Reset equation
-        function resetEquation() {
-            const question = quizQuestions[currentQuestion];
-            const equation = question.equation;
-            
-            // Reset equation state
-            window.equationState = {
-                left: equation.left.map(term => term.coefficient),
-                right: equation.right.map(term => term.coefficient)
-            };
-            
-            // Reset display
-            equation.left.forEach((term, index) => {
-                const coeffElement = document.getElementById(`coeff-left-${index}`);
-                const valueElement = document.getElementById(`value-left-${index}`);
-                const newValue = term.coefficient;
-                
-                coeffElement.textContent = newValue;
-                valueElement.textContent = newValue;
-                coeffElement.classList.remove('correct');
-            });
-            
-            equation.right.forEach((term, index) => {
-                const coeffElement = document.getElementById(`coeff-right-${index}`);
-                const valueElement = document.getElementById(`value-right-${index}`);
-                const newValue = term.coefficient;
-                
-                coeffElement.textContent = newValue;
-                valueElement.textContent = newValue;
-                coeffElement.classList.remove('correct');
-            });
-            
-            // Reset equation status
-            const status = document.getElementById('equationStatus');
-            status.className = 'equation-status unbalanced';
-            status.textContent = 'Equation not balanced';
-            
-            window.equationBalanced = false;
-            document.getElementById('submitButton').disabled = true;
-        }
-        
-        // True/False Selection
-        function selectTrueFalse(value) {
-            const options = document.querySelectorAll('.quiz-option');
-            options.forEach(option => {
-                option.classList.remove('selected');
-                const input = option.querySelector('input');
-                input.checked = false;
-            });
-            
-            const selectedOption = value ? document.getElementById('tf-true').parentElement : document.getElementById('tf-false').parentElement;
-            selectedOption.classList.add('selected');
-            selectedOption.querySelector('input').checked = true;
-            
-            selectedOption = value;
-            document.getElementById('submitButton').disabled = false;
-        }
-        
         function selectOption(index) {
             if (answerSubmitted) return;
             
@@ -5124,85 +4081,18 @@
             document.getElementById('submitButton').disabled = false;
         }
         
-        // Enhanced Submit Answer Function
         function submitAnswer() {
             if (answerSubmitted) return;
             
             const question = quizQuestions[currentQuestion];
-            let isCorrect = false;
+            const isCorrect = selectedOption === question.correct;
             const feedback = document.getElementById('feedback');
-            let answerData = {
+            
+            quizAnswers[currentQuestion] = {
                 selected: selectedOption,
                 submitted: true,
-                isCorrect: false
+                isCorrect: isCorrect
             };
-            
-            switch(question.type) {
-                case 'mcq':
-                    isCorrect = selectedOption === question.correct;
-                    answerData = {
-                        selected: selectedOption,
-                        submitted: true,
-                        isCorrect: isCorrect
-                    };
-                    break;
-                    
-                case 'fillblank':
-                    const answers = {};
-                    question.blanks.forEach(blank => {
-                        answers[blank.id] = document.getElementById(blank.id).value;
-                    });
-                    isCorrect = question.blanks.every(blank => 
-                        document.getElementById(blank.id).value === blank.answer
-                    );
-                    answerData = {
-                        answers: answers,
-                        submitted: true,
-                        isCorrect: isCorrect
-                    };
-                    break;
-                    
-                case 'matching':
-                    const leftMatches = document.querySelectorAll('[data-left].matched');
-                    const matches = {};
-                    leftMatches.forEach(item => {
-                        const rightItem = document.querySelector(`[data-right].matched`);
-                        if (rightItem) {
-                            matches[item.dataset.left] = rightItem.dataset.right;
-                        }
-                    });
-                    isCorrect = leftMatches.length === question.leftItems.length;
-                    answerData = {
-                        matches: matches,
-                        submitted: true,
-                        isCorrect: isCorrect
-                    };
-                    break;
-                    
-                case 'truefalse':
-                    isCorrect = selectedOption === question.correct;
-                    answerData = {
-                        selected: selectedOption,
-                        submitted: true,
-                        isCorrect: isCorrect
-                    };
-                    break;
-                    
-                case 'equation-balancer':
-                    const currentCoeffs = [
-                        ...window.equationState.left,
-                        ...window.equationState.right
-                    ];
-                    isCorrect = JSON.stringify(currentCoeffs) === JSON.stringify(question.correct);
-                    answerData = {
-                        coefficients: currentCoeffs,
-                        submitted: true,
-                        isCorrect: isCorrect
-                    };
-                    break;
-            }
-            
-            quizAnswers[currentQuestion] = answerData;
             
             if (isCorrect) {
                 feedback.className = 'mb-4 p-3 rounded-lg bg-green-100 text-green-800 text-sm';
