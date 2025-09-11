@@ -52,14 +52,17 @@
             color: #f3f4f6;
         }
         
+        /* Enhanced content card with more apparent hover */
         .content-card {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 1rem;
             padding: 1.5rem;
             margin-bottom: 1.5rem;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border-left: 5px solid var(--primary);
+            position: relative;
+            overflow: hidden;
         }
         
         body.dark-mode .content-card {
@@ -67,11 +70,30 @@
             color: #f3f4f6;
         }
         
-        .content-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+            transform-origin: left;
         }
         
+        .content-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(79, 70, 229, 0.25);
+            border-left-color: var(--secondary);
+        }
+        
+        .content-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        /* Enhanced sidebar with more apparent hover */
         .sidebar {
             position: fixed;
             top: 0;
@@ -96,23 +118,43 @@
             padding: 0.75rem 1.5rem;
             color: var(--gray-600);
             text-decoration: none;
-            transition: all 0.15s ease;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border-left: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
         }
         
         body.dark-mode .nav-item {
             color: #d1d5db;
         }
         
-        .nav-item:hover {
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: rgba(79, 70, 229, 0.1);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        
+        body.dark-mode .nav-item::before {
+            background: rgba(79, 70, 229, 0.2);
+        }
+        
+        .nav-item:hover {
             color: var(--primary);
             border-left-color: var(--primary);
         }
         
         body.dark-mode .nav-item:hover {
-            background: rgba(79, 70, 229, 0.2);
             color: #818cf8;
+        }
+        
+        .nav-item:hover::before {
+            transform: translateX(0);
         }
         
         .nav-item.active {
@@ -132,12 +174,21 @@
             cursor: not-allowed;
         }
         
+        .nav-item.locked::after {
+            content: '\f023';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            margin-left: auto;
+            font-size: 0.875rem;
+        }
+        
         .main-content {
             margin-left: 260px;
             padding: 1.5rem;
             min-height: 100vh;
         }
         
+        /* Enhanced element grid with more apparent hover */
         .element-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -151,9 +202,10 @@
             padding: 1.5rem;
             text-align: center;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
         
         body.dark-mode .element-card {
@@ -169,11 +221,18 @@
             right: 0;
             height: 5px;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+            transform-origin: left;
         }
         
         .element-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.2);
+        }
+        
+        .element-card:hover::before {
+            transform: scaleX(1);
         }
         
         .element-image {
@@ -183,8 +242,15 @@
             margin: 0 auto 1rem;
             object-fit: cover;
             border: 3px solid var(--gray-200);
+            transition: all 0.3s ease;
         }
         
+        .element-card:hover .element-image {
+            border-color: var(--primary);
+            transform: scale(1.1);
+        }
+        
+        /* Enhanced tabs with more apparent hover */
         .tabs {
             display: flex;
             border-bottom: 2px solid var(--gray-200);
@@ -219,7 +285,16 @@
             height: 2px;
             background: var(--primary);
             transform: scaleX(0);
-            transition: transform 0.3s ease;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .tab:hover {
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        body.dark-mode .tab:hover {
+            color: #818cf8;
         }
         
         .tab.active {
@@ -236,12 +311,19 @@
         
         .tab-content {
             display: none;
+            animation: fadeIn 0.5s ease;
         }
         
         .tab-content.active {
             display: block;
         }
         
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Enhanced trend table with more apparent hover */
         .trend-table {
             width: 100%;
             border-collapse: collapse;
@@ -286,16 +368,27 @@
             background: #4b5563;
         }
         
-        .trend-table tr:hover {
-            background: rgba(79, 70, 229, 0.1);
+        .trend-table tr {
+            transition: all 0.3s ease;
         }
         
+        .trend-table tr:hover {
+            background: rgba(79, 70, 229, 0.1);
+            transform: scale(1.01);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.dark-mode .trend-table tr:hover {
+            background: rgba(79, 70, 229, 0.2);
+        }
+        
+        /* Enhanced buttons with more apparent hover */
         .btn {
             padding: 0.75rem 1.5rem;
             border-radius: 0.5rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: none;
             display: inline-flex;
             align-items: center;
@@ -317,10 +410,12 @@
             border-radius: 0.5rem;
             opacity: 0;
             transition: opacity 0.3s ease;
+            transform: translateY(100%);
         }
         
         .btn:hover::before {
             opacity: 1;
+            transform: translateY(0);
         }
         
         .btn-primary {
@@ -330,8 +425,9 @@
         }
         
         .btn-primary:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
         }
         
         .btn-success {
@@ -342,6 +438,8 @@
         
         .btn-success:hover {
             background: #059669;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
         
         .btn-secondary {
@@ -357,6 +455,7 @@
         
         .btn-secondary:hover {
             background: var(--gray-200);
+            transform: translateY(-3px);
         }
         
         body.dark-mode .btn-secondary:hover {
@@ -371,6 +470,8 @@
         
         .btn-danger:hover {
             background: #dc2626;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
         
         .btn-sm {
@@ -378,22 +479,41 @@
             font-size: 0.875rem;
         }
         
+        /* Enhanced highlight box with more apparent hover */
         .highlight-box {
             background: rgba(79, 70, 229, 0.1);
             border-left: 4px solid var(--primary);
             padding: 1rem;
             border-radius: 0.5rem;
             margin: 1rem 0;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
         }
         
         body.dark-mode .highlight-box {
             background: rgba(79, 70, 229, 0.2);
         }
         
+        .highlight-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(139, 92, 246, 0.1));
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+        }
+        
         .highlight-box:hover {
-            transform: translateX(5px);
+            transform: translateX(8px);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .highlight-box:hover::before {
+            transform: translateX(0);
         }
         
         .highlight-box h4 {
@@ -414,6 +534,7 @@
             color: #d1d5db;
         }
         
+        /* Enhanced equation box with more apparent hover */
         .equation-box {
             background: var(--gray-100);
             border: 1px solid var(--gray-200);
@@ -421,7 +542,9 @@
             padding: 1rem;
             margin: 1rem 0;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
         }
         
         body.dark-mode .equation-box {
@@ -429,9 +552,35 @@
             border-color: #6b7280;
         }
         
+        .equation-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(79, 70, 229, 0.1);
+            transform: scale(0);
+            transition: transform 0.4s ease;
+            border-radius: 0.5rem;
+        }
+        
+        body.dark-mode .equation-box::before {
+            background: rgba(79, 70, 229, 0.2);
+        }
+        
         .equation-box:hover {
-            transform: scale(1.02);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+        
+        body.dark-mode .equation-box:hover {
+            border-color: #818cf8;
+        }
+        
+        .equation-box:hover::before {
+            transform: scale(1);
         }
         
         .equation-box .equation {
@@ -440,19 +589,23 @@
             font-weight: 600;
             color: var(--gray-800);
             margin: 0.5rem 0;
+            position: relative;
+            z-index: 1;
         }
         
         body.dark-mode .equation-box .equation {
             color: #f3f4f6;
         }
         
+        /* Enhanced progress bar */
         .progress-bar {
             width: 100%;
-            height: 8px;
+            height: 12px;
             background: var(--gray-200);
-            border-radius: 0.25rem;
+            border-radius: 0.5rem;
             overflow: hidden;
             margin: 1rem 0;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
         }
         
         body.dark-mode .progress-bar {
@@ -462,9 +615,33 @@
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
-            transition: width 0.3s ease;
+            transition: width 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
         }
         
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0),
+                rgba(255, 255, 255, 0.3),
+                rgba(255, 255, 255, 0)
+            );
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* Enhanced modal */
         .modal {
             display: none;
             position: fixed;
@@ -472,15 +649,17 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.7);
             z-index: 1000;
             align-items: center;
             justify-content: center;
             padding: 1rem;
+            backdrop-filter: blur(4px);
         }
         
         .modal.active {
             display: flex;
+            animation: fadeIn 0.3s ease;
         }
         
         .modal-content {
@@ -492,6 +671,12 @@
             max-height: 90vh;
             overflow-y: auto;
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
         
         body.dark-mode .modal-content {
@@ -503,16 +688,19 @@
             max-width: 800px;
         }
         
+        /* Enhanced quiz option with more apparent hover */
         .quiz-option {
             padding: 1rem;
             border: 2px solid var(--gray-200);
             border-radius: 0.5rem;
             margin: 0.75rem 0;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             background: white;
             display: flex;
             align-items: center;
+            position: relative;
+            overflow: hidden;
         }
         
         body.dark-mode .quiz-option {
@@ -521,19 +709,42 @@
             color: #f3f4f6;
         }
         
+        .quiz-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(79, 70, 229, 0.1);
+            transform: scale(0);
+            transition: transform 0.3s ease;
+            border-radius: 0.5rem;
+        }
+        
+        body.dark-mode .quiz-option::before {
+            background: rgba(79, 70, 229, 0.2);
+        }
+        
         .quiz-option:hover {
             border-color: var(--primary);
-            background: rgba(79, 70, 229, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
         body.dark-mode .quiz-option:hover {
-            background: rgba(79, 70, 229, 0.2);
             border-color: #818cf8;
+        }
+        
+        .quiz-option:hover::before {
+            transform: scale(1);
         }
         
         .quiz-option.selected {
             border-color: var(--primary);
             background: rgba(79, 70, 229, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
         body.dark-mode .quiz-option.selected {
@@ -544,11 +755,25 @@
         .quiz-option.correct {
             border-color: var(--success);
             background: rgba(16, 185, 129, 0.1);
+            animation: pulse 0.5s ease;
         }
         
         .quiz-option.incorrect {
             border-color: var(--danger);
             background: rgba(239, 68, 68, 0.1);
+            animation: shake 0.5s ease;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
         }
         
         .quiz-option.disabled {
@@ -565,6 +790,7 @@
             flex: 1;
         }
         
+        /* Enhanced toast notification */
         .toast {
             position: fixed;
             bottom: 20px;
@@ -577,7 +803,7 @@
             display: flex;
             align-items: center;
             transform: translateX(400px);
-            transition: transform 0.3s ease;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             max-width: 400px;
         }
         
@@ -637,7 +863,7 @@
             color: #d1d5db;
         }
         
-        /* Tooltip styles */
+        /* Enhanced tooltip styles */
         .tooltip {
             position: relative;
             display: inline-block;
@@ -658,9 +884,10 @@
             left: 50%;
             margin-left: -125px;
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             font-size: 0.875rem;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transform: translateY(10px);
         }
         
         .tooltip .tooltiptext::after {
@@ -677,6 +904,7 @@
         .tooltip:hover .tooltiptext {
             visibility: visible;
             opacity: 1;
+            transform: translateY(0);
         }
         
         .tooltip-icon {
@@ -684,17 +912,41 @@
             font-size: 0.875rem;
             margin-left: 0.25rem;
             vertical-align: super;
+            animation: bounce 2s infinite;
         }
         
         body.dark-mode .tooltip-icon {
             color: #818cf8;
         }
         
-        /* Element hover effects */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+        
+        /* Enhanced element hover effects */
         .element-hover {
             display: inline-block;
             position: relative;
             cursor: pointer;
+            font-weight: 600;
+            color: var(--primary);
+            padding: 2px 4px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        body.dark-mode .element-hover {
+            color: #818cf8;
+        }
+        
+        .element-hover:hover {
+            background: rgba(79, 70, 229, 0.1);
+            transform: scale(1.05);
+        }
+        
+        body.dark-mode .element-hover:hover {
+            background: rgba(79, 70, 229, 0.2);
         }
         
         .element-hover .element-info {
@@ -708,9 +960,9 @@
             z-index: 1;
             bottom: 125%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translateX(-50%) translateY(10px);
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             font-size: 0.875rem;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             white-space: nowrap;
@@ -730,9 +982,10 @@
         .element-hover:hover .element-info {
             visibility: visible;
             opacity: 1;
+            transform: translateX(-50%) translateY(0);
         }
         
-        /* Periodic Table Styles */
+        /* Enhanced Periodic Table Styles */
         .periodic-table {
             display: grid;
             grid-template-columns: repeat(18, 1fr);
@@ -750,8 +1003,9 @@
             border-radius: 0.25rem;
             font-size: 0.75rem;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
+            overflow: hidden;
         }
         
         body.dark-mode .element {
@@ -759,11 +1013,33 @@
             color: #f3f4f6;
         }
         
+        .element::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
+        }
+        
         .element:hover {
-            background: var(--primary);
-            color: white;
-            transform: scale(1.1);
+            transform: scale(1.15);
             z-index: 10;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .element:hover::before {
+            opacity: 0.2;
+        }
+        
+        .element:hover > * {
+            position: relative;
+            z-index: 1;
+            color: white;
         }
         
         .element.group1 {
@@ -798,17 +1074,29 @@
             text-align: center;
         }
         
-        /* Keyword hover effects */
+        /* Enhanced keyword hover effects */
         .keyword {
             display: inline-block;
             position: relative;
             cursor: pointer;
             color: var(--primary);
             font-weight: 600;
+            padding: 2px 4px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
         }
         
         body.dark-mode .keyword {
             color: #818cf8;
+        }
+        
+        .keyword:hover {
+            background: rgba(79, 70, 229, 0.1);
+            transform: scale(1.05);
+        }
+        
+        body.dark-mode .keyword:hover {
+            background: rgba(79, 70, 229, 0.2);
         }
         
         .keyword .keyword-info {
@@ -822,9 +1110,9 @@
             z-index: 1;
             bottom: 125%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translateX(-50%) translateY(10px);
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             font-size: 0.875rem;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             width: 200px;
@@ -844,9 +1132,10 @@
         .keyword:hover .keyword-info {
             visibility: visible;
             opacity: 1;
+            transform: translateX(-50%) translateY(0);
         }
         
-        /* Valence electron flash effect */
+        /* Enhanced valence electron flash effect */
         .valence-electron {
             display: inline-block;
             background: rgba(79, 70, 229, 0.1);
@@ -857,6 +1146,7 @@
             margin: 0 0.25rem;
             cursor: pointer;
             position: relative;
+            transition: all 0.3s ease;
         }
         
         body.dark-mode .valence-electron {
@@ -866,7 +1156,8 @@
         
         .valence-electron:hover {
             background: rgba(79, 70, 229, 0.3);
-            box-shadow: 0 0 10px rgba(79, 70, 229, 0.5);
+            box-shadow: 0 0 15px rgba(79, 70, 229, 0.5);
+            transform: scale(1.1);
         }
         
         .valence-electron .valence-info {
@@ -880,9 +1171,9 @@
             z-index: 1;
             bottom: 125%;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translateX(-50%) translateY(10px);
             opacity: 0;
-            transition: opacity 0.3s;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             font-size: 0.875rem;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             width: 250px;
@@ -902,16 +1193,19 @@
         .valence-electron:hover .valence-info {
             visibility: visible;
             opacity: 1;
+            transform: translateX(-50%) translateY(0);
         }
         
-        /* Discussion Styles */
+        /* Enhanced Discussion Styles */
         .discussion-post {
             background: white;
             border-radius: 0.75rem;
             padding: 1.25rem;
             margin-bottom: 1rem;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
         }
         
         body.dark-mode .discussion-post {
@@ -919,8 +1213,26 @@
             color: #f3f4f6;
         }
         
+        .discussion-post::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            transform-origin: left;
+        }
+        
         .discussion-post:hover {
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .discussion-post:hover::before {
+            transform: scaleX(1);
         }
         
         .post-header {
@@ -940,6 +1252,11 @@
             color: white;
             font-weight: 600;
             margin-right: 0.75rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .discussion-post:hover .post-avatar {
+            transform: scale(1.1);
         }
         
         .post-meta {
@@ -998,16 +1315,21 @@
             gap: 0.5rem;
             color: var(--gray-500);
             cursor: pointer;
-            transition: color 0.2s ease;
+            transition: all 0.3s ease;
             font-size: 0.875rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
         }
         
         .post-action:hover {
             color: var(--primary);
+            background: rgba(79, 70, 229, 0.1);
+            transform: translateY(-2px);
         }
         
         body.dark-mode .post-action:hover {
             color: #818cf8;
+            background: rgba(79, 70, 229, 0.2);
         }
         
         .post-action.voted {
@@ -1033,11 +1355,17 @@
             border-radius: 0.5rem;
             padding: 0.75rem;
             margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
         }
         
         body.dark-mode .comment {
             background: #4b5563;
             color: #f3f4f6;
+        }
+        
+        .comment:hover {
+            transform: translateX(5px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         
         .comment-header {
@@ -1086,15 +1414,16 @@
             color: #d1d5db;
         }
         
-        /* Study Group Styles */
+        /* Enhanced Study Group Styles */
         .study-group-card {
             background: white;
             border-radius: 0.75rem;
             padding: 1.25rem;
             margin-bottom: 1rem;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
+            overflow: hidden;
         }
         
         body.dark-mode .study-group-card {
@@ -1102,8 +1431,26 @@
             color: #f3f4f6;
         }
         
+        .study-group-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            transform-origin: left;
+        }
+        
         .study-group-card:hover {
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .study-group-card:hover::before {
+            transform: scaleX(1);
         }
         
         .group-header {
@@ -1131,6 +1478,12 @@
             border-radius: 9999px;
             font-size: 0.75rem;
             margin-top: 0.25rem;
+            transition: all 0.3s ease;
+        }
+        
+        .group-topic:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         
         .group-description {
@@ -1168,6 +1521,12 @@
             font-weight: 600;
             font-size: 0.75rem;
             border: 2px solid white;
+            transition: all 0.3s ease;
+        }
+        
+        .member-avatar:hover {
+            transform: scale(1.1);
+            z-index: 1;
         }
         
         .group-stats {
@@ -1190,6 +1549,12 @@
             font-size: 3rem;
             color: var(--gray-300);
             margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
         
         .empty-state-title {
@@ -1219,7 +1584,7 @@
             border: 1px solid var(--gray-300);
             border-radius: 0.5rem;
             font-size: 1rem;
-            transition: border-color 0.2s ease;
+            transition: all 0.3s ease;
         }
         
         body.dark-mode .form-input {
@@ -1232,6 +1597,7 @@
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+            transform: translateY(-2px);
         }
         
         body.dark-mode .form-input:focus {
@@ -1244,20 +1610,26 @@
             min-height: 100px;
         }
         
-        /* Quiz Enhancement Styles */
+        /* Enhanced Quiz Enhancement Styles */
         .quiz-container {
             background: white;
             border-radius: 1rem;
             padding: 1.5rem;
             margin-bottom: 1rem;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
         
         body.dark-mode .quiz-container {
             background: #374151;
         }
         
-        /* Discussion and Study Group Styles */
+        .quiz-container:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        /* Enhanced Discussion and Study Group Styles */
         .discussion-controls {
             display: flex;
             justify-content: space-between;
@@ -1279,6 +1651,7 @@
             border: 1px solid var(--gray-300);
             border-radius: 0.5rem;
             font-size: 0.875rem;
+            transition: all 0.3s ease;
         }
         
         body.dark-mode .search-box input {
@@ -1287,16 +1660,37 @@
             color: #f3f4f6;
         }
         
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        body.dark-mode .search-box input:focus {
+            border-color: #818cf8;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+        
         .search-box i {
             position: absolute;
             left: 0.75rem;
             top: 50%;
             transform: translateY(-50%);
             color: var(--gray-400);
+            transition: color 0.3s ease;
         }
         
         body.dark-mode .search-box i {
             color: #9ca3af;
+        }
+        
+        .search-box:hover i {
+            color: var(--primary);
+        }
+        
+        body.dark-mode .search-box:hover i {
+            color: #818cf8;
         }
         
         .filter-buttons {
@@ -1312,7 +1706,7 @@
             color: var(--gray-700);
             font-size: 0.875rem;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         body.dark-mode .filter-btn {
@@ -1323,6 +1717,8 @@
         
         .filter-btn:hover {
             background: var(--gray-100);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         
         body.dark-mode .filter-btn:hover {
@@ -1333,6 +1729,8 @@
             background: var(--primary);
             color: white;
             border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         
         .post-tag {
@@ -1343,6 +1741,7 @@
             border-radius: 0.25rem;
             font-size: 0.75rem;
             margin-right: 0.5rem;
+            transition: all 0.3s ease;
         }
         
         body.dark-mode .post-tag {
@@ -1352,6 +1751,7 @@
         
         .post-tag:hover {
             background: var(--gray-200);
+            transform: scale(1.05);
         }
         
         body.dark-mode .post-tag:hover {
@@ -1376,11 +1776,17 @@
             padding: 0.5rem;
             border-radius: 0.5rem;
             background: white;
+            transition: all 0.3s ease;
         }
         
         body.dark-mode .chat-message {
             background: #374151;
             color: #f3f4f6;
+        }
+        
+        .chat-message:hover {
+            transform: translateX(5px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         
         .chat-message.own {
@@ -1401,6 +1807,7 @@
             border: 1px solid var(--gray-300);
             border-radius: 0.25rem;
             font-size: 0.875rem;
+            transition: all 0.3s ease;
         }
         
         body.dark-mode .chat-input input {
@@ -1409,16 +1816,33 @@
             color: #f3f4f6;
         }
         
+        .chat-input input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+        
+        body.dark-mode .chat-input input:focus {
+            border-color: #818cf8;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+        
         .group-announcement {
             background: rgba(79, 70, 229, 0.1);
             border-left: 3px solid var(--primary);
             padding: 0.75rem;
             border-radius: 0.25rem;
             margin-bottom: 0.75rem;
+            transition: all 0.3s ease;
         }
         
         body.dark-mode .group-announcement {
             background: rgba(79, 70, 229, 0.2);
+        }
+        
+        .group-announcement:hover {
+            transform: translateX(5px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         
         .group-announcement h5 {
@@ -1448,7 +1872,7 @@
             border-radius: 0.25rem;
             margin-bottom: 0.5rem;
             background: white;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         body.dark-mode .resource-item {
@@ -1460,6 +1884,7 @@
         .resource-item:hover {
             border-color: var(--primary);
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
         }
         
         body.dark-mode .resource-item:hover {
@@ -1476,11 +1901,22 @@
             border-radius: 0.25rem;
             margin-right: 0.75rem;
             color: var(--primary);
+            transition: all 0.3s ease;
         }
         
         body.dark-mode .resource-icon {
             background: #6b7280;
             color: #818cf8;
+        }
+        
+        .resource-item:hover .resource-icon {
+            transform: scale(1.1);
+            background: var(--primary);
+            color: white;
+        }
+        
+        body.dark-mode .resource-item:hover .resource-icon {
+            background: #818cf8;
         }
         
         .resource-info {
@@ -1514,12 +1950,13 @@
             color: var(--gray-500);
             cursor: pointer;
             border-radius: 0.25rem;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
         }
         
         .resource-btn:hover {
             background: var(--gray-100);
             color: var(--primary);
+            transform: scale(1.1);
         }
         
         body.dark-mode .resource-btn:hover {
@@ -1527,14 +1964,16 @@
             color: #818cf8;
         }
         
-        /* New Feature Styles */
+        /* Enhanced New Feature Styles */
         .feedback-system {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 1rem;
             padding: 1.5rem;
             margin-bottom: 1.5rem;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
         }
         
         body.dark-mode .feedback-system {
@@ -1542,9 +1981,25 @@
             color: #f3f4f6;
         }
         
+        .feedback-system::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.05), rgba(139, 92, 246, 0.05));
+            transform: scale(0);
+            transition: transform 0.4s ease;
+        }
+        
         .feedback-system:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feedback-system:hover::before {
+            transform: scale(1);
         }
         
         .reaction-buttons {
@@ -1562,8 +2017,10 @@
             background: var(--gray-100);
             color: var(--gray-700);
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: none;
+            position: relative;
+            overflow: hidden;
         }
         
         body.dark-mode .reaction-btn {
@@ -1571,17 +2028,41 @@
             color: #f3f4f6;
         }
         
+        .reaction-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(79, 70, 229, 0.1);
+            transform: scale(0);
+            transition: transform 0.3s ease;
+            border-radius: 0.5rem;
+        }
+        
+        body.dark-mode .reaction-btn::before {
+            background: rgba(79, 70, 229, 0.2);
+        }
+        
         .reaction-btn:hover {
             background: var(--gray-200);
+            transform: translateY(-3px);
         }
         
         body.dark-mode .reaction-btn:hover {
             background: #6b7280;
         }
         
+        .reaction-btn:hover::before {
+            transform: scale(1);
+        }
+        
         .reaction-btn.active {
             background: var(--primary);
             color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
         .xp-display {
@@ -1594,6 +2075,12 @@
             border-radius: 9999px;
             font-weight: 600;
             font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+        
+        .xp-display:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
         .badge {
@@ -1607,6 +2094,12 @@
             font-size: 0.75rem;
             font-weight: 600;
             margin-right: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
         .leaderboard-entry {
@@ -1614,10 +2107,20 @@
             align-items: center;
             padding: 1rem;
             border-bottom: 1px solid var(--gray-200);
+            transition: all 0.3s ease;
         }
         
         body.dark-mode .leaderboard-entry {
             border-bottom-color: #4b5563;
+        }
+        
+        .leaderboard-entry:hover {
+            background: rgba(79, 70, 229, 0.05);
+            transform: translateX(5px);
+        }
+        
+        body.dark-mode .leaderboard-entry:hover {
+            background: rgba(79, 70, 229, 0.1);
         }
         
         .leaderboard-rank {
@@ -1630,11 +2133,16 @@
             border-radius: 50%;
             font-weight: 600;
             margin-right: 1rem;
+            transition: all 0.3s ease;
         }
         
         body.dark-mode .leaderboard-rank {
             background: #4b5563;
             color: #f3f4f6;
+        }
+        
+        .leaderboard-entry:hover .leaderboard-rank {
+            transform: scale(1.1);
         }
         
         .leaderboard-rank.first {
@@ -1683,12 +2191,30 @@
             padding: 1.5rem;
             margin-bottom: 1.5rem;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .daily-challenge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
         }
         
         .daily-challenge:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .daily-challenge:hover::before {
+            transform: translateX(0);
         }
         
         .daily-challenge h3 {
@@ -1778,30 +2304,46 @@
                 min-width: auto;
             }
         }
+        
+        /* Loading spinner */
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
     <!-- Landing Page -->
     <div id="landingPage" class="min-h-screen flex items-center justify-center p-6">
-        <div class="bg-white rounded-2xl p-8 max-w-2xl w-full text-center shadow-2xl">
-            <div class="text-6xl mb-6 text-indigo-600">
+        <div class="bg-white rounded-2xl p-8 max-w-2xl w-full text-center shadow-2xl transform transition-all duration-500 hover:scale-105">
+            <div class="text-6xl mb-6 text-indigo-600 animate-pulse">
                 <i class="fas fa-atom"></i>
             </div>
             <h1 class="text-4xl font-bold text-gray-800 mb-4">Group 1 Alkali Metals</h1>
             <p class="text-lg text-gray-600 mb-8">Master IGCSE Chemistry through Interactive Learning</p>
             
             <div class="grid grid-cols-3 gap-6 mb-8">
-                <div class="bg-blue-50 p-6 rounded-xl">
+                <div class="bg-blue-50 p-6 rounded-xl transform transition-all duration-300 hover:scale-110 hover:shadow-lg">
                     <i class="fas fa-book-open text-3xl text-blue-600 mb-3"></i>
                     <h3 class="font-semibold">Learn</h3>
                     <p class="text-sm text-gray-600">Interactive content</p>
                 </div>
-                <div class="bg-green-50 p-6 rounded-xl">
+                <div class="bg-green-50 p-6 rounded-xl transform transition-all duration-300 hover:scale-110 hover:shadow-lg">
                     <i class="fas fa-chart-line text-3xl text-green-600 mb-3"></i>
                     <h3 class="font-semibold">Track</h3>
                     <p class="text-sm text-gray-600">Progress monitoring</p>
                 </div>
-                <div class="bg-purple-50 p-6 rounded-xl">
+                <div class="bg-purple-50 p-6 rounded-xl transform transition-all duration-300 hover:scale-110 hover:shadow-lg">
                     <i class="fas fa-graduation-cap text-3xl text-purple-600 mb-3"></i>
                     <h3 class="font-semibold">Test</h3>
                     <p class="text-sm text-gray-600">Innovative quiz</p>
@@ -1809,11 +2351,11 @@
             </div>
             
             <div class="space-y-4">
-                <button onclick="showLoginModal()" class="btn btn-primary w-full">
+                <button onclick="showLoginModal()" class="btn btn-primary w-full transform transition-all duration-300 hover:scale-105">
                     <i class="fas fa-sign-in-alt mr-2"></i>
                     Sign In to Begin
                 </button>
-                <button onclick="signInWithGoogle()" class="btn btn-secondary w-full">
+                <button onclick="signInWithGoogle()" class="btn btn-secondary w-full transform transition-all duration-300 hover:scale-105">
                     <i class="fab fa-google mr-2"></i>
                     Continue with Google
                 </button>
@@ -1826,7 +2368,7 @@
         <nav class="sidebar" id="sidebar">
             <div class="p-6 border-b border-gray-200">
                 <div class="flex items-center">
-                    <i class="fas fa-atom text-indigo-600 text-2xl mr-3"></i>
+                    <i class="fas fa-atom text-indigo-600 text-2xl mr-3 transform transition-all duration-300 hover:rotate-180"></i>
                     <h1 class="text-xl font-bold text-gray-800">Group 1 Alkali Metals</h1>
                 </div>
                 <p class="text-sm text-gray-600 mt-1">IGCSE Chemistry</p>
@@ -1836,49 +2378,49 @@
             <div class="px-4 py-3 border-t border-gray-200">
                 <div class="relative">
                     <input type="text" id="searchInput" placeholder="Search content..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400 transform transition-all duration-300 hover:scale-110"></i>
                 </div>
             </div>
             
             <div class="py-4">
                 <a href="#" class="nav-item active" id="nav-overview" onclick="navigateToSection('overview')">
-                    <i class="fas fa-home mr-3"></i>
+                    <i class="fas fa-home mr-3 transform transition-all duration-300 hover:scale-110"></i>
                     <span>Overview</span>
                 </a>
                 <a href="#" class="nav-item locked" id="nav-elements" onclick="navigateToSection('elements')">
-                    <i class="fas fa-th mr-3"></i>
+                    <i class="fas fa-th mr-3 transform transition-all duration-300 hover:scale-110"></i>
                     <span>Elements</span>
                 </a>
                 <a href="#" class="nav-item locked" id="nav-properties" onclick="navigateToSection('properties')">
-                    <i class="fas fa-chart-line mr-3"></i>
+                    <i class="fas fa-chart-line mr-3 transform transition-all duration-300 hover:scale-110"></i>
                     <span>Properties</span>
                 </a>
                 <a href="#" class="nav-item locked" id="nav-reactions" onclick="navigateToSection('reactions')">
-                    <i class="fas fa-flask mr-3"></i>
+                    <i class="fas fa-flask mr-3 transform transition-all duration-300 hover:scale-110"></i>
                     <span>Reactions</span>
                 </a>
                 <a href="#" class="nav-item locked" id="nav-quiz" onclick="navigateToSection('quiz')">
-                    <i class="fas fa-graduation-cap mr-3"></i>
+                    <i class="fas fa-graduation-cap mr-3 transform transition-all duration-300 hover:scale-110"></i>
                     <span>Quiz</span>
                 </a>
                 <a href="#" class="nav-item" id="nav-discussion" onclick="navigateToSection('discussion')">
-                    <i class="fas fa-comments mr-3"></i>
+                    <i class="fas fa-comments mr-3 transform transition-all duration-300 hover:scale-110"></i>
                     <span>Discussion</span>
                 </a>
                 <a href="#" class="nav-item" id="nav-study-groups" onclick="navigateToSection('study-groups')">
-                    <i class="fas fa-users mr-3"></i>
+                    <i class="fas fa-users mr-3 transform transition-all duration-300 hover:scale-110"></i>
                     <span>Study Groups</span>
                 </a>
                 <a href="#" class="nav-item" id="nav-leaderboard" onclick="navigateToSection('leaderboard')">
-                    <i class="fas fa-trophy mr-3"></i>
+                    <i class="fas fa-trophy mr-3 transform transition-all duration-300 hover:scale-110"></i>
                     <span>Leaderboard</span>
                 </a>
                 <a href="#" class="nav-item" onclick="showFeedbackModal()">
-                    <i class="fas fa-comment-dots mr-3"></i>
+                    <i class="fas fa-comment-dots mr-3 transform transition-all duration-300 hover:scale-110"></i>
                     <span>Feedback</span>
                 </a>
                 <a href="#" class="nav-item" onclick="exportToPDF()">
-                    <i class="fas fa-file-pdf mr-3"></i>
+                    <i class="fas fa-file-pdf mr-3 transform transition-all duration-300 hover:scale-110"></i>
                     <span>Export Notes</span>
                 </a>
             </div>
@@ -1931,7 +2473,7 @@
                     <span class="text-sm text-gray-600">Signed in as:</span>
                     <span class="text-sm font-medium text-gray-800" id="userName">User</span>
                 </div>
-                <button onclick="signOut()" class="btn btn-secondary w-full text-sm">
+                <button onclick="signOut()" class="btn btn-secondary w-full text-sm transform transition-all duration-300 hover:scale-105">
                     <i class="fas fa-sign-out-alt mr-1"></i>
                     Logout
                 </button>
@@ -1943,7 +2485,7 @@
             <div id="dailyChallenge" class="daily-challenge" style="display: none;">
                 <h3><i class="fas fa-calendar-day mr-2"></i> Daily Challenge</h3>
                 <p id="dailyChallengeQuestion">Loading daily challenge...</p>
-                <button onclick="showDailyChallengeModal()" class="btn btn-secondary">
+                <button onclick="showDailyChallengeModal()" class="btn btn-secondary transform transition-all duration-300 hover:scale-105">
                     <i class="fas fa-play mr-2"></i>
                     Take Challenge
                 </button>
@@ -1959,23 +2501,23 @@
                     <div class="progress-fill" id="overallProgressFill" style="width: 0%"></div>
                 </div>
                 <div class="grid grid-cols-4 gap-4 mt-4">
-                    <div class="text-center p-3 bg-gray-100 rounded-lg" id="progress-overview">
-                        <i class="fas fa-home text-gray-600 mb-2"></i>
+                    <div class="text-center p-3 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105" id="progress-overview">
+                        <i class="fas fa-home text-gray-600 mb-2 transform transition-all duration-300 hover:scale-110"></i>
                         <div class="text-sm font-medium text-gray-700">Overview</div>
                         <div class="text-xs text-gray-500 mt-1">Not Started</div>
                     </div>
-                    <div class="text-center p-3 bg-gray-100 rounded-lg" id="progress-elements">
-                        <i class="fas fa-th text-gray-600 mb-2"></i>
+                    <div class="text-center p-3 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105" id="progress-elements">
+                        <i class="fas fa-th text-gray-600 mb-2 transform transition-all duration-300 hover:scale-110"></i>
                         <div class="text-sm font-medium text-gray-700">Elements</div>
                         <div class="text-xs text-gray-500 mt-1">Locked</div>
                     </div>
-                    <div class="text-center p-3 bg-gray-100 rounded-lg" id="progress-properties">
-                        <i class="fas fa-chart-line text-gray-600 mb-2"></i>
+                    <div class="text-center p-3 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105" id="progress-properties">
+                        <i class="fas fa-chart-line text-gray-600 mb-2 transform transition-all duration-300 hover:scale-110"></i>
                         <div class="text-sm font-medium text-gray-700">Properties</div>
                         <div class="text-xs text-gray-500 mt-1">Locked</div>
                     </div>
-                    <div class="text-center p-3 bg-gray-100 rounded-lg" id="progress-quiz">
-                        <i class="fas fa-graduation-cap text-gray-600 mb-2"></i>
+                    <div class="text-center p-3 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105" id="progress-quiz">
+                        <i class="fas fa-graduation-cap text-gray-600 mb-2 transform transition-all duration-300 hover:scale-110"></i>
                         <div class="text-sm font-medium text-gray-700">Quiz</div>
                         <div class="text-xs text-gray-500 mt-1">Locked</div>
                     </div>
@@ -1985,7 +2527,7 @@
             <section id="overview-section" class="content-section">
                 <div class="content-card">
                     <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                        <i class="fas fa-info-circle mr-2 text-indigo-600"></i>
+                        <i class="fas fa-info-circle mr-2 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                         Introduction to Group 1 Alkali Metals
                     </h3>
                     
@@ -2005,7 +2547,7 @@
                     
                     <!-- Key Properties with Tooltips -->
                     <div class="grid grid-cols-2 gap-4 mb-6">
-                        <div class="bg-gray-50 p-4 rounded-lg">
+                        <div class="bg-gray-50 p-4 rounded-lg transform transition-all duration-300 hover:scale-105">
                             <h4 class="font-semibold text-gray-800 mb-2">Key Properties</h4>
                             <ul class="space-y-2">
                                 <li><span class="keyword">Soft<span class="keyword-info">Can be cut with a knife</span></span> metals</li>
@@ -2015,13 +2557,13 @@
                                 <li>Characteristic <span class="keyword">flame test<span class="keyword-info">Li: red, Na: yellow, K: lilac</span></span> colors</li>
                             </ul>
                         </div>
-                        <div class="bg-gray-50 p-4 rounded-lg">
+                        <div class="bg-gray-50 p-4 rounded-lg transform transition-all duration-300 hover:scale-105">
                             <h4 class="font-semibold text-gray-800 mb-2">Trends</h4>
                             <ul class="space-y-2">
-                                <li><span class="tooltip">Melting Point<span class="tooltiptext">Does melting point increase or decrease down the group?</span></span> <i class="fas fa-arrow-down text-red-500"></i> down group</li>
-                                <li><span class="tooltip">Density<span class="tooltiptext">Does density increase or decrease down the group?</span></span> <i class="fas fa-arrow-up text-green-500"></i> down group (K exception)</li>
-                                <li><span class="tooltip">Reactivity<span class="tooltiptext">Which element reacts fastest with water?</span></span> <i class="fas fa-arrow-up text-green-500"></i> down group</li>
-                                <li>Atomic radius <i class="fas fa-arrow-up text-green-500"></i> down group</li>
+                                <li><span class="tooltip">Melting Point<span class="tooltiptext">Does melting point increase or decrease down the group?</span></span> <i class="fas fa-arrow-down text-red-500 transform transition-all duration-300 hover:scale-125"></i> down group</li>
+                                <li><span class="tooltip">Density<span class="tooltiptext">Does density increase or decrease down the group?</span></span> <i class="fas fa-arrow-up text-green-500 transform transition-all duration-300 hover:scale-125"></i> down group (K exception)</li>
+                                <li><span class="tooltip">Reactivity<span class="tooltiptext">Which element reacts fastest with water?</span></span> <i class="fas fa-arrow-up text-green-500 transform transition-all duration-300 hover:scale-125"></i> down group</li>
+                                <li>Atomic radius <i class="fas fa-arrow-up text-green-500 transform transition-all duration-300 hover:scale-125"></i> down group</li>
                             </ul>
                         </div>
                     </div>
@@ -2030,11 +2572,11 @@
                     <div class="mt-6">
                         <h4 class="font-semibold mb-2">Learn More:</h4>
                         <div class="aspect-w-16 aspect-h-9">
-                            <iframe src="https://www.youtube.com/embed/6D6a1_L2sV8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-64 rounded-lg"></iframe>
+                            <iframe src="https://www.youtube.com/embed/6D6a1_L2sV8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-64 rounded-lg transform transition-all duration-300 hover:scale-105"></iframe>
                         </div>
                     </div>
                     
-                    <button class="btn btn-success w-full mt-4" onclick="completeSection('overview')">
+                    <button class="btn btn-success w-full mt-4 transform transition-all duration-300 hover:scale-105" onclick="completeSection('overview')">
                         <i class="fas fa-check mr-2"></i>
                         Mark as Complete
                     </button>
@@ -2044,7 +2586,7 @@
             <section id="elements-section" class="content-section" style="display: none;">
                 <div class="content-card">
                     <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                        <i class="fas fa-th mr-2 text-indigo-600"></i>
+                        <i class="fas fa-th mr-2 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                         Group 1 Elements
                     </h3>
                     
@@ -2136,7 +2678,7 @@
                         </div>
                     </div>
                     
-                    <button class="btn btn-success w-full mt-4" onclick="completeSection('elements')">
+                    <button class="btn btn-success w-full mt-4 transform transition-all duration-300 hover:scale-105" onclick="completeSection('elements')">
                         <i class="fas fa-check mr-2"></i>
                         Mark as Complete
                     </button>
@@ -2146,7 +2688,7 @@
             <section id="properties-section" class="content-section" style="display: none;">
                 <div class="content-card">
                     <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                        <i class="fas fa-chart-line mr-2 text-indigo-600"></i>
+                        <i class="fas fa-chart-line mr-2 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                         Trends in Group 1
                     </h3>
                     <div class="tabs">
@@ -2242,7 +2784,7 @@
                         </div>
                     </div>
                     
-                    <button class="btn btn-success w-full mt-4" onclick="completeSection('properties')">
+                    <button class="btn btn-success w-full mt-4 transform transition-all duration-300 hover:scale-105" onclick="completeSection('properties')">
                         <i class="fas fa-check mr-2"></i>
                         Mark as Complete
                     </button>
@@ -2252,7 +2794,7 @@
             <section id="reactions-section" class="content-section" style="display: none;">
                 <div class="content-card">
                     <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                        <i class="fas fa-flask mr-2 text-indigo-600"></i>
+                        <i class="fas fa-flask mr-2 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                         Reactions of Group 1 Metals
                     </h3>
                     <div class="tabs">
@@ -2285,22 +2827,22 @@
                             <li>Form different types of oxides down the group</li>
                         </ul>
                         <div class="grid grid-cols-3 gap-4">
-                            <div class="bg-blue-50 p-3 rounded-lg">
+                            <div class="bg-blue-50 p-3 rounded-lg transform transition-all duration-300 hover:scale-105">
                                 <h5 class="font-semibold text-blue-800">Lithium</h5>
                                 <p class="text-sm text-blue-600">Forms Li₂O (oxide)</p>
                             </div>
-                            <div class="bg-green-50 p-3 rounded-lg">
+                            <div class="bg-green-50 p-3 rounded-lg transform transition-all duration-300 hover:scale-105">
                                 <h5 class="font-semibold text-green-800">Sodium</h5>
                                 <p class="text-sm text-green-600">Forms Na₂O₂ (peroxide)</p>
                             </div>
-                            <div class="bg-purple-50 p-3 rounded-lg">
+                            <div class="bg-purple-50 p-3 rounded-lg transform transition-all duration-300 hover:scale-105">
                                 <h5 class="font-semibold text-purple-800">Potassium</h5>
                                 <p class="text-sm text-purple-600">Forms KO₂ (superoxide)</p>
                             </div>
                         </div>
                     </div>
                     
-                    <button class="btn btn-success w-full mt-4" onclick="completeSection('reactions')">
+                    <button class="btn btn-success w-full mt-4 transform transition-all duration-300 hover:scale-105" onclick="completeSection('reactions')">
                         <i class="fas fa-check mr-2"></i>
                         Mark as Complete
                     </button>
@@ -2310,13 +2852,13 @@
             <section id="quiz-section" class="content-section" style="display: none;">
                 <div class="content-card">
                     <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                        <i class="fas fa-graduation-cap mr-2 text-indigo-600"></i>
+                        <i class="fas fa-graduation-cap mr-2 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                         Test Your Knowledge
                     </h3>
                     <p class="text-gray-600 mb-6">
                         Take this innovative quiz to test your understanding of Group 1 Alkali Metals.
                     </p>
-                    <button onclick="startQuiz()" class="btn btn-primary w-full">
+                    <button onclick="startQuiz()" class="btn btn-primary w-full transform transition-all duration-300 hover:scale-105">
                         <i class="fas fa-play mr-2"></i>
                         Start Quiz
                     </button>
@@ -2327,10 +2869,10 @@
                 <div class="content-card">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-xl font-bold text-gray-800 flex items-center">
-                            <i class="fas fa-comments mr-2 text-indigo-600"></i>
+                            <i class="fas fa-comments mr-2 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                             Discussion Forum
                         </h3>
-                        <button onclick="showCreatePostModal()" class="btn btn-primary">
+                        <button onclick="showCreatePostModal()" class="btn btn-primary transform transition-all duration-300 hover:scale-105">
                             <i class="fas fa-plus mr-2"></i>
                             New Post
                         </button>
@@ -2365,10 +2907,10 @@
                 <div class="content-card">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-xl font-bold text-gray-800 flex items-center">
-                            <i class="fas fa-users mr-2 text-indigo-600"></i>
+                            <i class="fas fa-users mr-2 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                             Study Groups
                         </h3>
-                        <button onclick="showCreateGroupModal()" class="btn btn-primary">
+                        <button onclick="showCreateGroupModal()" class="btn btn-primary transform transition-all duration-300 hover:scale-105">
                             <i class="fas fa-plus mr-2"></i>
                             Create Group
                         </button>
@@ -2389,7 +2931,7 @@
             <section id="leaderboard-section" class="content-section" style="display: none;">
                 <div class="content-card">
                     <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                        <i class="fas fa-trophy mr-2 text-indigo-600"></i>
+                        <i class="fas fa-trophy mr-2 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                         Leaderboard
                     </h3>
                     <div id="leaderboardContent">
@@ -2404,13 +2946,13 @@
         <div class="modal-content">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-bold text-gray-800">Welcome to Chemistry Mastery</h2>
-                <button onclick="closeLoginModal()" class="text-gray-500 hover:text-gray-700">
+                <button onclick="closeLoginModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
             
             <div class="mb-6">
-                <button onclick="signInWithGoogle()" class="btn btn-primary w-full">
+                <button onclick="signInWithGoogle()" class="btn btn-primary w-full transform transition-all duration-300 hover:scale-105">
                     <i class="fab fa-google mr-2"></i>
                     Sign in with Google
                 </button>
@@ -2423,13 +2965,13 @@
             <form id="loginForm" class="mt-6 space-y-4" onsubmit="handleEmailLogin(event)">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                    <input type="email" id="loginEmail" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="your@email.com" required>
+                    <input type="email" id="loginEmail" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                    <input type="password" id="loginPassword" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="••••••••" required>
+                    <input type="password" id="loginPassword" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                 </div>
-                <button type="submit" class="btn btn-primary w-full">
+                <button type="submit" class="btn btn-primary w-full transform transition-all duration-300 hover:scale-105">
                     <i class="fas fa-sign-in-alt mr-2"></i>
                     Sign In
                 </button>
@@ -2445,7 +2987,7 @@
         <div class="modal-content">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-bold text-gray-800">Create Account</h2>
-                <button onclick="closeSignupModal()" class="text-gray-500 hover:text-gray-700">
+                <button onclick="closeSignupModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
@@ -2453,21 +2995,21 @@
             <form id="signupForm" class="space-y-4" onsubmit="handleSignup(event)">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                    <input type="text" id="signupName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="John Doe" required>
+                    <input type="text" id="signupName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                    <input type="email" id="signupEmail" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="your@email.com" required>
+                    <input type="email" id="signupEmail" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                    <input type="password" id="signupPassword" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="••••••••" required>
+                    <input type="password" id="signupPassword" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
-                    <input type="password" id="signupConfirmPassword" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="••••••••" required>
+                    <input type="password" id="signupConfirmPassword" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                 </div>
-                <button type="submit" class="btn btn-primary w-full">
+                <button type="submit" class="btn btn-primary w-full transform transition-all duration-300 hover:scale-105">
                     <i class="fas fa-user-plus mr-2"></i>
                     Create Account
                 </button>
@@ -2483,7 +3025,7 @@
         <div class="modal-content">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-bold text-gray-800">Create New Post</h2>
-                <button onclick="closeCreatePostModal()" class="text-gray-500 hover:text-gray-700">
+                <button onclick="closeCreatePostModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
@@ -2501,7 +3043,7 @@
                     <label class="block text-sm font-medium text-gray-700 mb-1">Tags (comma separated)</label>
                     <input type="text" id="postTags" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., melting-point, reactivity, questions">
                 </div>
-                <button type="submit" class="btn btn-primary w-full">
+                <button type="submit" class="btn btn-primary w-full transform transition-all duration-300 hover:scale-105">
                     <i class="fas fa-paper-plane mr-2"></i>
                     Post
                 </button>
@@ -2513,7 +3055,7 @@
         <div class="modal-content">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-bold text-gray-800">Edit Post</h2>
-                <button onclick="closeEditPostModal()" class="text-gray-500 hover:text-gray-700">
+                <button onclick="closeEditPostModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
@@ -2532,7 +3074,7 @@
                     <label class="block text-sm font-medium text-gray-700 mb-1">Tags (comma separated)</label>
                     <input type="text" id="editPostTags" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., melting-point, reactivity, questions">
                 </div>
-                <button type="submit" class="btn btn-primary w-full">
+                <button type="submit" class="btn btn-primary w-full transform transition-all duration-300 hover:scale-105">
                     <i class="fas fa-save mr-2"></i>
                     Save Changes
                 </button>
@@ -2544,7 +3086,7 @@
         <div class="modal-content">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-bold text-gray-800">Create Study Group</h2>
-                <button onclick="closeCreateGroupModal()" class="text-gray-500 hover:text-gray-700">
+                <button onclick="closeCreateGroupModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
@@ -2580,7 +3122,7 @@
                         <option value="20">20 members</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary w-full">
+                <button type="submit" class="btn btn-primary w-full transform transition-all duration-300 hover:scale-105">
                     <i class="fas fa-plus mr-2"></i>
                     Create Group
                 </button>
@@ -2592,7 +3134,7 @@
         <div class="modal-content">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-bold text-gray-800" id="groupDetailsTitle">Study Group Details</h2>
-                <button onclick="closeGroupDetailsModal()" class="text-gray-500 hover:text-gray-700">
+                <button onclick="closeGroupDetailsModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
@@ -2607,7 +3149,7 @@
         <div class="modal-content">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-bold text-gray-800">Group 1 Quiz</h2>
-                <button onclick="closeQuiz()" class="text-gray-500 hover:text-gray-700">
+                <button onclick="closeQuiz()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
@@ -2647,7 +3189,7 @@
                 <h3 class="text-2xl font-bold mb-3">Quiz Complete!</h3>
                 <div class="text-4xl font-bold text-indigo-600 mb-3" id="finalScore">0/8</div>
                 <p class="text-gray-600 mb-6" id="scoreMessage">Great job!</p>
-                <button onclick="closeQuiz()" class="btn btn-primary">
+                <button onclick="closeQuiz()" class="btn btn-primary transform transition-all duration-300 hover:scale-105">
                     <i class="fas fa-check"></i>
                     Finish
                 </button>
@@ -2659,7 +3201,7 @@
         <div class="modal-content">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-bold text-gray-800">Send Feedback</h2>
-                <button onclick="closeFeedbackModal()" class="text-gray-500 hover:text-gray-700">
+                <button onclick="closeFeedbackModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
@@ -2683,7 +3225,7 @@
                     </div>
                     <input type="hidden" id="feedbackRating" value="0">
                 </div>
-                <button type="submit" class="btn btn-primary w-full">
+                <button type="submit" class="btn btn-primary w-full transform transition-all duration-300 hover:scale-105">
                     <i class="fas fa-paper-plane mr-2"></i>
                     Send Feedback
                 </button>
@@ -2695,7 +3237,7 @@
         <div class="modal-content">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-bold text-gray-800">Daily Challenge</h2>
-                <button onclick="closeDailyChallengeModal()" class="text-gray-500 hover:text-gray-700">
+                <button onclick="closeDailyChallengeModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
@@ -2708,10 +3250,10 @@
             <div id="dailyChallengeFeedback" class="hidden mb-4 p-3 rounded-lg text-sm"></div>
             
             <div class="flex justify-between items-center">
-                <button onclick="closeDailyChallengeModal()" class="btn btn-secondary">
+                <button onclick="closeDailyChallengeModal()" class="btn btn-secondary transform transition-all duration-300 hover:scale-105">
                     Skip
                 </button>
-                <button id="dailyChallengeSubmitBtn" class="btn btn-primary" onclick="submitDailyChallenge()">
+                <button id="dailyChallengeSubmitBtn" class="btn btn-primary transform transition-all duration-300 hover:scale-105" onclick="submitDailyChallenge()">
                     Submit Answer
                 </button>
             </div>
@@ -2841,7 +3383,7 @@
                 question: "Which flame test color is characteristic of sodium?",
                 options: ["Red", "Yellow", "Green", "Purple"],
                 correct: 1,
-                explanation: "Sodium produces a bright yellow flame in flame tests, which is why it's used in street lamps."
+                explanation: "Sodium produces a bright yellow flame in flame tests, which is why it's used in street lamps and fireworks."
             },
             
             // Scenario-based Question
