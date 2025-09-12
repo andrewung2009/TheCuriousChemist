@@ -770,7 +770,6 @@
          100% { transform: translateX(100%); }
          }
          /* Enhanced modal */
-         /* Enhanced modal styles */
          .modal {
          display: none;
          position: fixed;
@@ -784,7 +783,7 @@
          justify-content: center;
          padding: 1rem;
          backdrop-filter: blur(4px);
-         overflow: auto; /* Allow scrolling if content is too tall */
+         overflow: auto;
          }
          .modal.active {
          display: flex;
@@ -800,129 +799,22 @@
          overflow-y: auto;
          box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
          animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-         margin: auto; /* Center the modal */
-         position: relative; /* For proper positioning */
+         margin: auto;
+         position: relative;
          }
          body.dark-mode .modal-content {
          background: #374151;
          color: #f3f4f6;
          }
-         /* Group details specific styles */
-         .group-details-container {
-         max-width: 100%;
-         box-sizing: border-box;
+         @keyframes slideUp {
+         from { 
+         opacity: 0;
+         transform: translateY(50px) scale(0.95);
          }
-         .group-announcement {
-         background: white;
-         border-radius: 0.5rem;
-         padding: 1rem;
-         margin-bottom: 1rem;
-         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-         border-left: 4px solid var(--primary);
+         to { 
+         opacity: 1;
+         transform: translateY(0) scale(1);
          }
-         body.dark-mode .group-announcement {
-         background: #4b5563;
-         border-left-color: #818cf8;
-         }
-         .resource-item {
-         background: white;
-         border-radius: 0.5rem;
-         padding: 1rem;
-         margin-bottom: 1rem;
-         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-         display: flex;
-         align-items: flex-start;
-         border-left: 4px solid var(--secondary);
-         }
-         body.dark-mode .resource-item {
-         background: #4b5563;
-         border-left-color: #818cf8;
-         }
-         .resource-icon {
-         margin-right: 1rem;
-         color: var(--primary);
-         font-size: 1.25rem;
-         }
-         .resource-info {
-         flex: 1;
-         }
-         .resource-name {
-         font-weight: 600;
-         margin-bottom: 0.25rem;
-         }
-         .resource-meta {
-         font-size: 0.875rem;
-         color: var(--gray-500);
-         }
-         body.dark-mode .resource-meta {
-         color: #9ca3af;
-         }
-         .resource-description {
-         margin-top: 0.5rem;
-         color: var(--gray-700);
-         }
-         body.dark-mode .resource-description {
-         color: #d1d5db;
-         }
-         .resource-actions {
-         display: flex;
-         gap: 0.5rem;
-         }
-         .resource-btn {
-         background: none;
-         border: none;
-         color: var(--gray-500);
-         cursor: pointer;
-         padding: 0.25rem;
-         border-radius: 0.25rem;
-         transition: all 0.2s ease;
-         }
-         .resource-btn:hover {
-         background: var(--gray-100);
-         color: var(--gray-700);
-         }
-         body.dark-mode .resource-btn:hover {
-         background: #4b5563;
-         color: #f3f4f6;
-         }
-         .group-chat-container {
-         background: white;
-         border-radius: 0.5rem;
-         padding: 1rem;
-         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-         border-left: 4px solid var(--success);
-         }
-         body.dark-mode .group-chat-container {
-         background: #4b5563;
-         border-left-color: #34d399;
-         }
-         .group-chat {
-         height: 300px;
-         overflow-y: auto;
-         margin-bottom: 1rem;
-         padding: 0.5rem;
-         background: var(--gray-50);
-         border-radius: 0.25rem;
-         }
-         body.dark-mode .group-chat {
-         background: #374151;
-         }
-         .chat-message {
-         margin-bottom: 0.75rem;
-         padding: 0.5rem;
-         border-radius: 0.5rem;
-         }
-         .chat-message.own {
-         background: var(--primary);
-         color: white;
-         margin-left: 2rem;
-         }
-         .chat-input {
-         display: flex;
-         gap: 0.5rem;
-         }
-         .chat-input input {
-         flex: 1;
          }
          /* Enhanced quiz option with more apparent hover */
          .quiz-option {
@@ -1018,54 +910,6 @@
          body.dark-mode .quiz-option:hover label {
          color: #818cf8;
          }
-         /* Enhanced quiz modal */
-         .quiz-modal {
-         backdrop-filter: blur(8px);
-         }
-         .quiz-modal .modal-content {
-         animation: modalSlideIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-         }
-         @keyframes modalSlideIn {
-         from { 
-         opacity: 0;
-         transform: translateY(50px) scale(0.95);
-         }
-         to { 
-         opacity: 1;
-         transform: translateY(0) scale(1);
-         }
-         }
-         #questionText {
-         animation: fadeInUp 0.7s ease-out;
-         }
-         @keyframes fadeInUp {
-         from {
-         opacity: 0;
-         transform: translateY(20px);
-         }
-         to {
-         opacity: 1;
-         transform: translateY(0);
-         }
-         }
-         #optionsContainer .quiz-option {
-         animation: fadeInScale 0.5s ease-out forwards;
-         opacity: 0;
-         }
-         @keyframes fadeInScale {
-         from {
-         opacity: 0;
-         transform: scale(0.9);
-         }
-         to {
-         opacity: 1;
-         transform: scale(1);
-         }
-         }
-         #optionsContainer .quiz-option:nth-child(1) { animation-delay: 0.1s; }
-         #optionsContainer .quiz-option:nth-child(2) { animation-delay: 0.2s; }
-         #optionsContainer .quiz-option:nth-child(3) { animation-delay: 0.3s; }
-         #optionsContainer .quiz-option:nth-child(4) { animation-delay: 0.4s; }
          /* Enhanced toast notification */
          .toast {
          position: fixed;
@@ -2081,7 +1925,6 @@
          opacity: 1;
          transform: translateY(0);
          }
-        
          .interactive-element {
          position: relative;
          cursor: pointer;
@@ -2192,15 +2035,14 @@
          transform: translateY(-3px);
          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
          }
-
          /* Immediately show all fade-in elements */
          .fade-in, 
          .fade-in-stagger > *,
          .fade-in.visible,
          .fade-in-stagger.visible > * {
-           opacity: 1 !important;
-           transform: none !important;
-           transition: none !important;
+         opacity: 1 !important;
+         transform: none !important;
+         transition: none !important;
          }
       </style>
    </head>
@@ -2490,7 +2332,7 @@
                   <div class="mt-6 fade-in">
                      <h4 class="font-semibold mb-2">Learn More:</h4>
                      <div class="aspect-w-16 aspect-h-9">
-                        <iframe src="https://www.youtube.com/embed/6D6a1_L2sV8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-64 rounded-lg transform transition-all duration-300 hover:scale-105"></iframe>
+                        <iframe src="https://www.youtube.com/embed/6D6a1_L2s3V8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-64 rounded-lg transform transition-all duration-300 hover:scale-105"></iframe>
                      </div>
                   </div>
                   <div class="flex justify-center mt-4">
@@ -3387,10 +3229,12 @@
              appId: "1:806417495419:web:5b80607e8a23e96da4f9de",
              measurementId: "G-S76E52MQ37"
          };
+         
          // Initialize Firebase
          firebase.initializeApp(firebaseConfig);
          const auth = firebase.auth();
          const database = firebase.database();
+         
          // Global variables
          let currentUser = null;
          let userData = null;
@@ -3401,7 +3245,7 @@
          let score = 0;
          let selectedOption = null;
          let answerSubmitted = false;
-         let quizAnswers = []; // To store answers for each question
+         let quizAnswers = [];
          let discussionPosts = [];
          let studyGroups = [];
          let currentSort = 'newest';
@@ -3545,10 +3389,10 @@
                      "Sodium hydroxide",
                      "Sodium carbonate",
                      "Sodium chloride",
-                     "Sodium bicvarbonate"
+                     "Sodium bicarbonate"
                  ],
                  quizCorrect: 2,
-                 quizExplanation: "Sodium chloride (table salt) is essential for human health, helping to maintain fluid balance and nerve function."
+                 explanation: "Sodium chloride (table salt) is essential for human health, helping to maintain fluid balance and nerve function."
              },
              'Potassium': {
                  symbol: 'K',
@@ -3567,7 +3411,7 @@
                      "It is a primary energy source"
                  ],
                  quizCorrect: 1,
-                 quizExplanation: "Potassium is crucial for proper muscle contraction, nerve function, and maintaining fluid balance in the body."
+                 explanation: "Potassium is crucial for proper muscle contraction, nerve function, and maintaining fluid balance in the body."
              },
              'Rubidium': {
                  symbol: 'Rb',
@@ -3586,7 +3430,7 @@
                      "Food preservation"
                  ],
                  quizCorrect: 1,
-                 quizExplanation: "Rubidium is primarily used in atomic clocks for precise timekeeping and in various research applications due to its unique properties."
+                 explanation: "Rubidium is primarily used in atomic clocks for precise timekeeping and in various research applications due to its unique properties."
              },
              'Cesium': {
                  symbol: 'Cs',
@@ -3605,7 +3449,7 @@
                      "Its radioactive properties"
                  ],
                  quizCorrect: 1,
-                 quizExplanation: "Cesium is useful in photoelectric cells because it readily emits electrons when exposed to light, making it efficient for converting light energy into electrical energy."
+                 explanation: "Cesium is useful in photoelectric cells because it readily emits electrons when exposed to light, making it efficient for converting light energy into electrical energy."
              },
              'Francium': {
                  symbol: 'Fr',
@@ -3624,7 +3468,7 @@
                      "It is toxic to humans"
                  ],
                  quizCorrect: 1,
-                 quizExplanation: "Francium has an extremely short half-life of only 22 minutes, making it difficult to study and virtually impossible to use in practical applications."
+                 explanation: "Francium has an extremely short half-life of only 22 minutes, making it difficult to study and virtually impossible to use in practical applications."
              }
          };
          
@@ -3642,7 +3486,7 @@
                      "Nitrogen"
                  ],
                  quizCorrect: 1,
-                 quizExplanation: "Lithium reacts with water to produce hydrogen gas, which can be observed as bubbles during the reaction."
+                 explanation: "Lithium reacts with water to produce hydrogen gas, which can be observed as bubbles during the reaction."
              },
              'sodium-water': {
                  equation: "2Na(s) + 2H₂O(l) → 2NaOH(aq) + H₂(g)",
@@ -3656,7 +3500,7 @@
                      "The reaction produces steam which melts the Sodium"
                  ],
                  quizCorrect: 1,
-                 quizExplanation: "The reaction between Sodium and water is highly exothermic, producing enough heat to melt the Sodium (melting point: 97.8°C)."
+                 explanation: "The reaction between Sodium and water is highly exothermic, producing enough heat to melt the Sodium (melting point: 97.8°C)."
              },
              'potassium-water': {
                  equation: "2K(s) + 2H₂O(l) → 2KOH(aq) + H₂(g)",
@@ -3670,7 +3514,7 @@
                      "Green"
                  ],
                  quizCorrect: 2,
-                 quizExplanation: "Potassium produces a characteristic lilac flame when it reacts with water due to the excitation of its electrons and subsequent emission of light at specific wavelengths."
+                 explanation: "Potassium produces a characteristic lilac flame when it reacts with water due to the excitation of its electrons and subsequent emission of light at specific wavelengths."
              },
              'lithium-oxygen': {
                  equation: "4Li(s) + O₂(g) → 2Li₂O(s)",
@@ -3684,7 +3528,7 @@
                      "No oxide is formed"
                  ],
                  quizCorrect: 0,
-                 quizExplanation: "Lithium forms a normal oxide (Li₂O) when burned in oxygen, which is unique among Group 1 metals. Other Group 1 metals form peroxides or superoxides."
+                 explanation: "Lithium forms a normal oxide (Li₂O) when burned in oxygen, which is unique among Group 1 metals. Other Group 1 metals form peroxides or superoxides."
              },
              'sodium-oxygen': {
                  equation: "2Na(s) + O₂(g) → Na₂O₂(s)",
@@ -3698,7 +3542,7 @@
                      "O₃²⁻"
                  ],
                  quizCorrect: 1,
-                 quizExplanation: "Sodium peroxide (Na₂O₂) contains the peroxide ion (O₂²⁻), which consists of two oxygen atoms joined by a single bond with a charge of -2."
+                 explanation: "Sodium peroxide (Na₂O₂) contains the peroxide ion (O₂²⁻), which consists of two oxygen atoms joined by a single bond with a charge of -2."
              },
              'potassium-oxygen': {
                  equation: "K(s) + O₂(g) → KO₂(s)",
@@ -3712,26 +3556,9 @@
                      "O₃²⁻"
                  ],
                  quizCorrect: 2,
-                 quizExplanation: "Potassium superoxide (KO₂) contains the superoxide ion (O₂⁻), which has an unpaired electron and is paramagnetic."
+                 explanation: "Potassium superoxide (KO₂) contains the superoxide ion (O₂⁻), which has an unpaired electron and is paramagnetic."
              }
          };
-         
-         // Sound effects
-         const correctSound = new Howl({
-             src: ['https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3']
-         });
-         
-         const incorrectSound = new Howl({
-             src: ['https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3']
-         });
-         
-         const completeSound = new Howl({
-             src: ['https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3']
-         });
-         
-         const badgeSound = new Howl({
-             src: ['https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3']
-         });
          
          // All MCQ Quiz Questions
          quizQuestions = [
@@ -3831,6 +3658,23 @@
              }
          ];
          
+         // Sound effects
+         const correctSound = new Howl({
+             src: ['https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3']
+         });
+         
+         const incorrectSound = new Howl({
+             src: ['https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3']
+         });
+         
+         const completeSound = new Howl({
+             src: ['https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3']
+         });
+         
+         const badgeSound = new Howl({
+             src: ['https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3']
+         });
+         
          // Initialize app
          function initApp() {
              // Check authentication state
@@ -3883,225 +3727,38 @@
                      showToast('info', 'Element Info', `You clicked on ${elementName}`);
                  });
              });
-             
-             // Initialize fade-in effect on scroll
-            
          }
          
-         // Initialize fade-in effect on scroll
-         // Initialize fade-in effect on scroll
-        
-         
-         // Add fade-in class to content elements
-
-            
-         
-         // Trigger fade-in for elements already in view
-        
-         }
-         
-         // Trigger fade-in for elements already visible
-         function triggerVisibleFadeIns() {
-         // Small delay to ensure DOM is fully rendered
-         setTimeout(() => {
-         document.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
-            const rect = el.getBoundingClientRect();
-            const isVisible = (
-                rect.top >= 0 &&
-                rect.left >= 0 &&
-                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-            );
-            
-            if (isVisible) {
-                el.classList.add('visible');
-            }
-         });
-         }, 100);
-         }
-         
-         // Add fade-in classes to relevant element
-         
-         // Paragraphs in content sections
-         document.querySelectorAll('.content-section p').forEach(p => {
-         if (!p.classList.contains('fade-in')) {
-            p.classList.add('fade-in');
-         }
-         });
-         
-         // Lists
-         document.querySelectorAll('.content-section ul, .content-section ol').forEach(list => {
-         if (!list.classList.contains('fade-in-stagger')) {
-            list.classList.add('fade-in-stagger');
-         }
-         });
-         
-         // Headings
-         document.querySelectorAll('.content-section h2, .content-section h3, .content-section h4').forEach(heading => {
-         if (!heading.classList.contains('fade-in')) {
-            heading.classList.add('fade-in');
-         }
-         });
-         
-         // Highlight boxes and equation boxes
-         document.querySelectorAll('.highlight-box, .equation-box').forEach(box => {
-         if (!box.classList.contains('fade-in')) {
-            box.classList.add('fade-in');
-         }
-         });
-         
-         // Element cards
-         document.querySelectorAll('.element-card').forEach(card => {
-         if (!card.classList.contains('fade-in')) {
-            card.classList.add('fade-in');
-         }
-         });
-         
-         // Tables
-         document.querySelectorAll('.trend-table').forEach(table => {
-         if (!table.classList.contains('fade-in')) {
-            table.classList.add('fade-in');
-         }
-         });
-         
-         // Tabs
-         document.querySelectorAll('.tab').forEach(tab => {
-         if (!tab.classList.contains('fade-in')) {
-            tab.classList.add('fade-in');
-         }
-         });
-         
-         // Discussion posts and study groups
-         document.querySelectorAll('.discussion-post, .study-group-card').forEach(post => {
-         if (!post.classList.contains('fade-in')) {
-            post.classList.add('fade-in');
-         }
-         });
-         
-         // Progress tracker elements
-         document.querySelectorAll('.progress-bar, .progress-fill').forEach(el => {
-         if (!el.classList.contains('fade-in')) {
-            el.classList.add('fade-in');
-         }
-         });
-         
-         // Buttons
-         document.querySelectorAll('.btn').forEach(btn => {
-         if (!btn.classList.contains('fade-in')) {
-            btn.classList.add('fade-in');
-         }
-         });
-         
-         // Grid elements
-         document.querySelectorAll('.grid > div').forEach(el => {
-         if (!el.classList.contains('fade-in')) {
-            el.classList.add('fade-in');
-         }
-         });
-         
-         // Interactive elements
-         document.querySelectorAll('.interactive-element, .keyword, .valence-electron').forEach(el => {
-         if (!el.classList.contains('fade-in')) {
-            el.classList.add('fade-in');
-         }
-         });
-         
-         // Specific elements in overview section
-         const overviewSection = document.getElementById('overview-section');
-         if (overviewSection) {
-         overviewSection.querySelectorAll('.bg-gradient-to-r, .mb-6, .grid, .flex').forEach(el => {
-            if (!el.classList.contains('fade-in') && !el.classList.contains('fade-in-stagger')) {
-                if (el.querySelector('ul') || el.querySelector('ol')) {
-                    el.classList.add('fade-in-stagger');
-                } else {
-                    el.classList.add('fade-in');
-                }
-            }
-         });
-         }
-         }
-         
-         // Navigation functions
-         function navigateToSection(sectionName) {
-         // Check if section is locked
-         const navItem = document.getElementById(`nav-${sectionName}`);
-         if (navItem && navItem.classList.contains('locked')) {
-         showToast('info', 'Section Locked', 'Please complete previous sections first.');
-         return;
-         }
-         
-         // Hide all sections
-         const sections = document.querySelectorAll('.content-section');
-         sections.forEach(section => {
-         section.style.display = 'none';
-         });
-         
-         // Show selected section
-         const sectionElement = document.getElementById(`${sectionName}-section`);
-         if (sectionElement) {
-         sectionElement.style.display = 'block';
-         
-         // Reset fade-in classes for elements in the new section
-         sectionElement.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
-            el.classList.remove('visible');
-         });
-         
-         // Reinitialize fade-in for the new section
-         setTimeout(() => {
-            // Add fade-in classes if they don't exist
-           
-            
-            // Manually trigger fade-in for elements already in view
-            triggerVisibleFadeIns();
-         }, 50);
-         }
-         
-         // Update active nav item
-         const navItems = document.querySelectorAll('.nav-item');
-         navItems.forEach(item => {
-         item.classList.remove('active');
-         });
-         
-         if (navItem) {
-         navItem.classList.add('active');
-         }
-         
-         currentSection = sectionName;
-         
-         // Load leaderboard if that section is selected
-         if (sectionName === 'leaderboard') {
-         loadLeaderboard();
-         }
+         // Show landing page
+         function showLandingPage() {
+             document.getElementById('landingPage').style.display = 'flex';
+             document.getElementById('mainApp').style.display = 'none';
          }
          
          // Show main app
          function showMainApp() {
-         document.getElementById('landingPage').style.display = 'none';
-         document.getElementById('mainApp').style.display = 'block';
-         
-         // Update user info
-         document.getElementById('userName').textContent = userData.displayName || 'User';
-         document.getElementById('userEmail').textContent = currentUser.email || 'user@example.com';
-         
-         // Update XP and badges
-         updateUserXP();
-         updateUserBadges();
-         
-         // Update progress
-         updateProgressTracker();
-         updateSectionCompletionStatus();
-         
-         // Load discussion posts and study groups
-         loadDiscussionPosts();
-         loadStudyGroups();
-         loadLeaderboard();
-         
-         // Check for daily challenge
-         checkDailyChallenge();
-         
-         // Initialize fade-in effect after a short delay
-         setTimeout(() => {
-         }, 100);
+             document.getElementById('landingPage').style.display = 'none';
+             document.getElementById('mainApp').style.display = 'block';
+             
+             // Update user info
+             document.getElementById('userName').textContent = userData.displayName || 'User';
+             document.getElementById('userEmail').textContent = currentUser.email || 'user@example.com';
+             
+             // Update XP and badges
+             updateUserXP();
+             updateUserBadges();
+             
+             // Update progress
+             updateProgressTracker();
+             updateSectionCompletionStatus();
+             
+             // Load discussion posts and study groups
+             loadDiscussionPosts();
+             loadStudyGroups();
+             loadLeaderboard();
+             
+             // Check for daily challenge
+             checkDailyChallenge();
          }
          
          // Load user data from Firebase
@@ -4135,38 +3792,6 @@
                  console.error("Error loading user data:", error);
                  showToast('error', 'Error', 'Failed to load your data.');
              });
-         }
-         
-         // Show landing page
-         function showLandingPage() {
-             document.getElementById('landingPage').style.display = 'flex';
-             document.getElementById('mainApp').style.display = 'none';
-         }
-         
-         // Show main app
-         function showMainApp() {
-             document.getElementById('landingPage').style.display = 'none';
-             document.getElementById('mainApp').style.display = 'block';
-             
-             // Update user info
-             document.getElementById('userName').textContent = userData.displayName || 'User';
-             document.getElementById('userEmail').textContent = currentUser.email || 'user@example.com';
-             
-             // Update XP and badges
-             updateUserXP();
-             updateUserBadges();
-             
-             // Update progress
-             updateProgressTracker();
-             updateSectionCompletionStatus();
-             
-             // Load discussion posts and study groups
-             loadDiscussionPosts();
-             loadStudyGroups();
-             loadLeaderboard();
-             
-             // Check for daily challenge
-             checkDailyChallenge();
          }
          
          // Update user XP display
@@ -4442,96 +4067,67 @@
          
          // Navigation functions
          function navigateToSection(sectionName) {
-         // Check if section is locked
-         const navItem = document.getElementById(`nav-${sectionName}`);
-         if (navItem && navItem.classList.contains('locked')) {
-         showToast('info', 'Section Locked', 'Please complete previous sections first.');
-         return;
-         }
-         
-         // Hide all sections
-         const sections = document.querySelectorAll('.content-section');
-         sections.forEach(section => {
-         section.style.display = 'none';
-         });
-         
-         // Show selected section
-         const sectionElement = document.getElementById(`${sectionName}-section`);
-         if (sectionElement) {
-         sectionElement.style.display = 'block';
-         
-         // Reset fade-in classes for elements in the new section
-         sectionElement.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
-            el.classList.remove('visible');
-         });
-         
-         // Reinitialize fade-in for the new section with a delay
-         setTimeout(() => {
-            // Add fade-in classes if they don't exist
-         
-            
-            // Manually trigger fade-in for elements already in view
-            sectionElement.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
-                const rect = el.getBoundingClientRect();
-                const isVisible = (
-                    rect.top >= 0 &&
-                    rect.left >= 0 &&
-                    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-                );
-                
-                if (isVisible) {
-                    el.classList.add('visible');
-                }
-            });
-         }, 50);
-         }
-         
-         // Update active nav item
-         const navItems = document.querySelectorAll('.nav-item');
-         navItems.forEach(item => {
-         item.classList.remove('active');
-         });
-         
-         if (navItem) {
-         navItem.classList.add('active');
-         }
-         
-         currentSection = sectionName;
-         
-         // Load leaderboard if that section is selected
-         if (sectionName === 'leaderboard') {
-         loadLeaderboard();
-         }
+             // Check if section is locked
+             const navItem = document.getElementById(`nav-${sectionName}`);
+             if (navItem && navItem.classList.contains('locked')) {
+                 showToast('info', 'Section Locked', 'Please complete previous sections first.');
+                 return;
+             }
+             
+             // Hide all sections
+             const sections = document.querySelectorAll('.content-section');
+             sections.forEach(section => {
+                 section.style.display = 'none';
+             });
+             
+             // Show selected section
+             const sectionElement = document.getElementById(`${sectionName}-section`);
+             if (sectionElement) {
+                 sectionElement.style.display = 'block';
+             }
+             
+             // Update active nav item
+             const navItems = document.querySelectorAll('.nav-item');
+             navItems.forEach(item => {
+                 item.classList.remove('active');
+             });
+             
+             if (navItem) {
+                 navItem.classList.add('active');
+             }
+             
+             currentSection = sectionName;
+             
+             // Load leaderboard if that section is selected
+             if (sectionName === 'leaderboard') {
+                 loadLeaderboard();
+             }
          }
          
          function showTab(tabName) {
-         // Hide all tab contents
-         const tabContents = document.querySelectorAll('.tab-content');
-         tabContents.forEach(content => {
-         content.classList.remove('active');
-         });
-         
-         // Remove active class from all tabs
-         const tabs = document.querySelectorAll('.tab');
-         tabs.forEach(tab => {
-         tab.classList.remove('active');
-         });
-         
-         // Show selected tab content
-         const tabContent = document.getElementById(tabName);
-         if (tabContent) {
-         tabContent.classList.add('active');
-         
-         // Reset and trigger fade-in for this tab content
-        
-         }
-         
-         // Add active class to clicked tab
-         const activeTab = document.querySelector(`[onclick="showTab('${tabName}')"]`);
-         if (activeTab) {
-         activeTab.classList.add('active');
-         }
+             // Hide all tab contents
+             const tabContents = document.querySelectorAll('.tab-content');
+             tabContents.forEach(content => {
+                 content.classList.remove('active');
+             });
+             
+             // Remove active class from all tabs
+             const tabs = document.querySelectorAll('.tab');
+             tabs.forEach(tab => {
+                 tab.classList.remove('active');
+             });
+             
+             // Show selected tab content
+             const tabContent = document.getElementById(tabName);
+             if (tabContent) {
+                 tabContent.classList.add('active');
+             }
+             
+             // Add active class to clicked tab
+             const activeTab = document.querySelector(`[onclick="showTab('${tabName}')"]`);
+             if (activeTab) {
+                 activeTab.classList.add('active');
+             }
          }
          
          function completeSection(sectionName) {
@@ -5859,20 +5455,6 @@
              // Load comments for this post
              loadPostComments(post.id);
              
-             // Observe the element for fade-in
-             setTimeout(() => {
-                 const fadeObserver = new IntersectionObserver((entries) => {
-                     entries.forEach(entry => {
-                         if (entry.isIntersecting) {
-                             entry.target.classList.add('visible');
-                             fadeObserver.unobserve(entry.target);
-                         }
-                     });
-                 }, { threshold: 0.1 });
-                 
-                 fadeObserver.observe(postDiv);
-             }, 10);
-             
              return postDiv;
          }
          
@@ -6017,95 +5599,95 @@
          }
          
          function toggleComments(postId) {
-         const commentsSection = document.getElementById(`comments-${postId}`);
-         if (commentsSection.style.display === 'none') {
-         commentsSection.style.display = 'block';
-         // Focus on comment input
-         const commentInput = document.getElementById(`comment-input-${postId}`);
-         if (commentInput) {
-             commentInput.focus();
-         }
-         
-         // Ensure comments are loaded and visible
-         loadPostComments(postId);
-         } else {
-         commentsSection.style.display = 'none';
-         }
+             const commentsSection = document.getElementById(`comments-${postId}`);
+             if (commentsSection.style.display === 'none') {
+                 commentsSection.style.display = 'block';
+                 // Focus on comment input
+                 const commentInput = document.getElementById(`comment-input-${postId}`);
+                 if (commentInput) {
+                     commentInput.focus();
+                 }
+                 
+                 // Ensure comments are loaded and visible
+                 loadPostComments(postId);
+             } else {
+                 commentsSection.style.display = 'none';
+             }
          }
          
          function loadPostComments(postId) {
-         const commentsContainer = document.getElementById(`comments-list-${postId}`);
-         if (!commentsContainer) return;
-         
-         // Show loading indicator
-         commentsContainer.innerHTML = '<div class="text-center py-2"><div class="spinner"></div></div>';
-         
-         const commentsRef = database.ref('postComments').orderByChild('postId').equalTo(postId);
-         commentsRef.on('value', (snapshot) => {
-         commentsContainer.innerHTML = '';
-         
-         if (!snapshot.exists()) {
-             commentsContainer.innerHTML = '<p class="text-gray-500 text-center py-2">No comments yet. Be the first to comment!</p>';
-             return;
-         }
-         
-         const commentsArray = [];
-         snapshot.forEach((childSnapshot) => {
-             commentsArray.push({
-                 id: childSnapshot.key,
-                 ...childSnapshot.val()
+             const commentsContainer = document.getElementById(`comments-list-${postId}`);
+             if (!commentsContainer) return;
+             
+             // Show loading indicator
+             commentsContainer.innerHTML = '<div class="text-center py-2"><div class="spinner"></div></div>';
+             
+             const commentsRef = database.ref('postComments').orderByChild('postId').equalTo(postId);
+             commentsRef.on('value', (snapshot) => {
+                 commentsContainer.innerHTML = '';
+                 
+                 if (!snapshot.exists()) {
+                     commentsContainer.innerHTML = '<p class="text-gray-500 text-center py-2">No comments yet. Be the first to comment!</p>';
+                     return;
+                 }
+                 
+                 const commentsArray = [];
+                 snapshot.forEach((childSnapshot) => {
+                     commentsArray.push({
+                         id: childSnapshot.key,
+                         ...childSnapshot.val()
+                     });
+                 });
+                 
+                 // Sort by creation date (oldest first)
+                 commentsArray.sort((a, b) => {
+                     return new Date(a.createdAt) - new Date(b.createdAt);
+                 });
+                 
+                 if (commentsArray.length === 0) {
+                     commentsContainer.innerHTML = '<p class="text-gray-500 text-center py-2">No comments yet. Be the first to comment!</p>';
+                     return;
+                 }
+                 
+                 commentsArray.forEach(comment => {
+                     const commentElement = createCommentElement(comment);
+                     commentsContainer.appendChild(commentElement);
+                 });
              });
-         });
-         
-         // Sort by creation date (oldest first)
-         commentsArray.sort((a, b) => {
-             return new Date(a.createdAt) - new Date(b.createdAt);
-         });
-         
-         if (commentsArray.length === 0) {
-             commentsContainer.innerHTML = '<p class="text-gray-500 text-center py-2">No comments yet. Be the first to comment!</p>';
-             return;
-         }
-         
-         commentsArray.forEach(comment => {
-             const commentElement = createCommentElement(comment);
-             commentsContainer.appendChild(commentElement);
-         });
-         });
          }
          
          function createCommentElement(comment) {
-         const commentDiv = document.createElement('div');
-         commentDiv.className = 'comment mb-3 p-3 bg-white rounded-lg shadow-sm';
-         
-         const date = new Date(comment.createdAt);
-         const formattedDate = date.toLocaleDateString();
-         const formattedTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-         const isAuthor = currentUser && comment.authorId === currentUser.uid;
-         
-         commentDiv.innerHTML = `
-         <div class="flex items-start space-x-3">
-             <div class="comment-avatar flex-shrink-0 w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center">
-                 <span class="text-indigo-800 font-medium">${comment.authorName ? comment.authorName.charAt(0).toUpperCase() : 'A'}</span>
-             </div>
-             <div class="flex-1">
-                 <div class="flex items-center justify-between">
-                     <div class="comment-author font-semibold text-gray-800">${comment.authorName || 'Anonymous'}</div>
-                     <div class="comment-time text-xs text-gray-500">${formattedDate} at ${formattedTime}</div>
-                 </div>
-                 <div class="comment-content mt-1 text-gray-700">${comment.content}</div>
-                 ${isAuthor ? `
-                     <div class="mt-2">
-                         <button onclick="deleteComment('${comment.id}', '${comment.postId}')" class="text-red-500 text-sm hover:text-red-700 flex items-center">
-                             <i class="fas fa-trash mr-1"></i>Delete
-                         </button>
+             const commentDiv = document.createElement('div');
+             commentDiv.className = 'comment mb-3 p-3 bg-white rounded-lg shadow-sm';
+             
+             const date = new Date(comment.createdAt);
+             const formattedDate = date.toLocaleDateString();
+             const formattedTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+             const isAuthor = currentUser && comment.authorId === currentUser.uid;
+             
+             commentDiv.innerHTML = `
+                 <div class="flex items-start space-x-3">
+                     <div class="comment-avatar flex-shrink-0 w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center">
+                         <span class="text-indigo-800 font-medium">${comment.authorName ? comment.authorName.charAt(0).toUpperCase() : 'A'}</span>
                      </div>
-                 ` : ''}
-             </div>
-         </div>
-         `;
-         
-         return commentDiv;
+                     <div class="flex-1">
+                         <div class="flex items-center justify-between">
+                             <div class="comment-author font-semibold text-gray-800">${comment.authorName || 'Anonymous'}</div>
+                             <div class="comment-time text-xs text-gray-500">${formattedDate} at ${formattedTime}</div>
+                         </div>
+                         <div class="comment-content mt-1 text-gray-700">${comment.content}</div>
+                         ${isAuthor ? `
+                             <div class="mt-2">
+                                 <button onclick="deleteComment('${comment.id}', '${comment.postId}')" class="text-red-500 text-sm hover:text-red-700 flex items-center">
+                                     <i class="fas fa-trash mr-1"></i>Delete
+                                 </button>
+                             </div>
+                         ` : ''}
+                     </div>
+                 </div>
+             `;
+             
+             return commentDiv;
          }
          
          function addComment(event, postId) {
@@ -6335,212 +5917,198 @@
                  </div>
              `;
              
-             // Observe the element for fade-in
-             setTimeout(() => {
-                 const fadeObserver = new IntersectionObserver((entries) => {
-                     entries.forEach(entry => {
-                         if (entry.isIntersecting) {
-                             entry.target.classList.add('visible');
-                             fadeObserver.unobserve(entry.target);
-                         }
-                     });
-                 }, { threshold: 0.1 });
-                 
-                 fadeObserver.observe(groupDiv);
-             }, 10);
-             
              return groupDiv;
          }
          
          function showGroupDetails(groupId) {
-         if (!currentUser) {
-         showToast('error', 'Sign in required', 'Please sign in to view group details.');
-         showLoginModal();
-         return;
-         }
-         
-         const group = studyGroups.find(g => g.id === groupId);
-         if (!group) return;
-         
-         const isMember = currentUser && group.members && group.members.includes(currentUser.uid);
-         
-         // Format topic for display
-         const topicLabels = {
-         'melting-point': 'Melting Point Trends',
-         'density': 'Density Trends',
-         'reactivity': 'Reactivity Series',
-         'reactions': 'Chemical Reactions',
-         'electron-configuration': 'Electron Configuration',
-         'experiments': 'Laboratory Experiments',
-         'exam-prep': 'Exam Preparation'
-         };
-         
-         document.getElementById('groupDetailsTitle').textContent = group.name;
-         
-         let content = `
-         <div class="group-details-container">
-            <div class="flex justify-between items-start mb-6">
-                <div>
-                    <h3 class="text-2xl font-bold text-gray-800">${group.name}</h3>
-                    <span class="group-topic inline-block mt-1">${topicLabels[group.topic] || group.topic}</span>
-                </div>
-                <button onclick="closeGroupDetailsModal()" class="text-gray-500 hover:text-gray-700 p-2 rounded-full hover:bg-gray-100 transition-colors">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
-            </div>
-            
-            <p class="text-gray-700 mb-6">${group.description}</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div class="bg-gray-50 p-5 rounded-lg shadow-sm">
-                    <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
-                        <i class="fas fa-info-circle mr-2 text-indigo-600"></i>
-                        Group Info
-                    </h4>
-                    <p class="text-sm text-gray-600 mb-2">
-                        <i class="fas fa-calendar-alt mr-2"></i>
-                        Created: ${new Date(group.createdAt).toLocaleDateString()}
-                    </p>
-                    <p class="text-sm text-gray-600 mb-2">
-                        <i class="fas fa-users mr-2"></i>
-                        Members: ${group.memberCount || 0}/${group.maxMembers || 10}
-                    </p>
-                    <p class="text-sm text-gray-600">
-                        <i class="fas fa-user-cog mr-2"></i>
-                        Creator: ${group.creatorName}
-                    </p>
-                </div>
-                <div class="bg-gray-50 p-5 rounded-lg shadow-sm">
-                    <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
-                        <i class="fas fa-chart-line mr-2 text-indigo-600"></i>
-                        Activity
-                    </h4>
-                    <p class="text-sm text-gray-600 mb-2">
-                        <i class="fas fa-clock mr-2"></i>
-                        Last active: ${new Date(group.lastActivity).toLocaleDateString()}
-                    </p>
-                    <p class="text-sm text-gray-600 mb-2">
-                        <i class="fas fa-bullhorn mr-2"></i>
-                        Announcements: ${group.announcements ? group.announcements.length : 0}
-                    </p>
-                    <p class="text-sm text-gray-600">
-                        <i class="fas fa-folder-open mr-2"></i>
-                        Resources: ${group.resources ? group.resources.length : 0}
-                    </p>
-                </div>
-            </div>
-            
-            ${isMember ? `
-                <div class="mb-8">
-                    <div class="flex justify-between items-center mb-4">
-                        <h4 class="font-semibold text-gray-800 flex items-center">
-                            <i class="fas fa-bullhorn mr-2 text-indigo-600"></i>
-                            Group Announcements
-                        </h4>
-                        ${group.creatorId === currentUser.uid ? `
-                            <button onclick="showAddAnnouncementModal('${group.id}')" class="btn btn-primary btn-sm">
-                                <i class="fas fa-plus mr-1"></i>
-                                Add Announcement
-                            </button>
-                        ` : ''}
-                    </div>
-                    <div id="groupAnnouncements">
-                        ${(group.announcements || []).map(announcement => `
-                            <div class="group-announcement">
-                                <h5 class="font-semibold text-gray-800 mb-2">${announcement.title}</h5>
-                                <p class="text-gray-600 mb-2">${announcement.content}</p>
-                                <p class="text-xs text-gray-500">
-                                    <i class="fas fa-calendar-alt mr-1"></i>
-                                    ${new Date(announcement.createdAt).toLocaleDateString()}
-                                </p>
-                            </div>
-                        `).join('') || '<p class="text-gray-500 italic">No announcements yet.</p>'}
-                    </div>
-                </div>
-                
-                <div class="mb-8">
-                    <div class="flex justify-between items-center mb-4">
-                        <h4 class="font-semibold text-gray-800 flex items-center">
-                            <i class="fas fa-folder-open mr-2 text-indigo-600"></i>
-                            Group Resources
-                        </h4>
-                        ${isMember ? `
-                            <button onclick="showAddResourceModal('${group.id}')" class="btn btn-primary btn-sm">
-                                <i class="fas fa-plus mr-1"></i>
-                                Add Resource
-                            </button>
-                        ` : ''}
-                    </div>
-                    <div id="groupResources">
-                        ${(group.resources || []).map(resource => `
-                            <div class="resource-item">
-                                <div class="resource-icon">
-                                    <i class="fas fa-file-alt"></i>
-                                </div>
-                                <div class="resource-info">
-                                    <div class="resource-name">${resource.name}</div>
-                                    <div class="resource-meta">
-                                        <i class="fas fa-user mr-1"></i>
-                                        ${resource.addedBy} • 
-                                        <i class="fas fa-calendar-alt mr-1"></i>
-                                        ${new Date(resource.createdAt).toLocaleDateString()}
-                                    </div>
-                                    ${resource.description ? `<div class="resource-description">${resource.description}</div>` : ''}
-                                </div>
-                                <div class="resource-actions">
-                                    <button class="resource-btn" onclick="downloadResource('${resource.url}')" title="Download">
-                                        <i class="fas fa-download"></i>
-                                    </button>
-                                    ${group.creatorId === currentUser.uid ? `
-                                        <button class="resource-btn text-red-500" onclick="removeResource('${group.id}', '${resource.id}')" title="Remove">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    ` : ''}
-                                </div>
-                            </div>
-                        `).join('') || '<p class="text-gray-500 italic">No resources shared yet.</p>'}
-                    </div>
-                </div>
-                
-                <div class="mb-6">
-                    <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
-                        <i class="fas fa-comments mr-2 text-indigo-600"></i>
-                        Group Chat
-                    </h4>
-                    <div class="group-chat-container">
-                        <div class="group-chat" id="groupChat-${group.id}">
-                            <!-- Chat messages will be loaded here -->
-                        </div>
-                        <div class="chat-input">
-                            <input type="text" id="chatInput-${group.id}" class="form-input flex-1" placeholder="Type a message..." onkeypress="if(event.key === 'Enter') sendChatMessage(event, '${group.id}')">
-                            <button onclick="sendChatMessage(event, '${group.id}')" class="btn btn-primary">Send</button>
-                        </div>
-                    </div>
-                </div>
-            ` : `
-                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4 rounded-lg">
-                    <div class="flex">
-                        <div class="flex-shrink-0">
-                            <i class="fas fa-exclamation-triangle text-yellow-400"></i>
-                        </div>
-                        <div class="ml-3">
-                            <p class="text-sm text-yellow-700">
-                                Join this study group to access announcements, resources, and group chat.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            `}
-         </div>
-         `;
-         
-         document.getElementById('groupDetailsContent').innerHTML = content;
-         document.getElementById('groupDetailsModal').classList.add('active');
-         
-         // Load chat messages if member
-         if (isMember) {
-         loadGroupChat(group.id);
-         }
+             if (!currentUser) {
+                 showToast('error', 'Sign in required', 'Please sign in to view group details.');
+                 showLoginModal();
+                 return;
+             }
+             
+             const group = studyGroups.find(g => g.id === groupId);
+             if (!group) return;
+             
+             const isMember = currentUser && group.members && group.members.includes(currentUser.uid);
+             
+             // Format topic for display
+             const topicLabels = {
+                 'melting-point': 'Melting Point Trends',
+                 'density': 'Density Trends',
+                 'reactivity': 'Reactivity Series',
+                 'reactions': 'Chemical Reactions',
+                 'electron-configuration': 'Electron Configuration',
+                 'experiments': 'Laboratory Experiments',
+                 'exam-prep': 'Exam Preparation'
+             };
+             
+             document.getElementById('groupDetailsTitle').textContent = group.name;
+             
+             let content = `
+                 <div class="group-details-container">
+                     <div class="flex justify-between items-start mb-6">
+                         <div>
+                             <h3 class="text-2xl font-bold text-gray-800">${group.name}</h3>
+                             <span class="group-topic inline-block mt-1">${topicLabels[group.topic] || group.topic}</span>
+                         </div>
+                         <button onclick="closeGroupDetailsModal()" class="text-gray-500 hover:text-gray-700 p-2 rounded-full hover:bg-gray-100 transition-colors">
+                             <i class="fas fa-times text-xl"></i>
+                         </button>
+                     </div>
+                     
+                     <p class="text-gray-700 mb-6">${group.description}</p>
+                     
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                         <div class="bg-gray-50 p-5 rounded-lg shadow-sm">
+                             <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
+                                 <i class="fas fa-info-circle mr-2 text-indigo-600"></i>
+                                 Group Info
+                             </h4>
+                             <p class="text-sm text-gray-600 mb-2">
+                                 <i class="fas fa-calendar-alt mr-2"></i>
+                                 Created: ${new Date(group.createdAt).toLocaleDateString()}
+                             </p>
+                             <p class="text-sm text-gray-600 mb-2">
+                                 <i class="fas fa-users mr-2"></i>
+                                 Members: ${group.memberCount || 0}/${group.maxMembers || 10}
+                             </p>
+                             <p class="text-sm text-gray-600">
+                                 <i class="fas fa-user-cog mr-2"></i>
+                                 Creator: ${group.creatorName}
+                             </p>
+                         </div>
+                         <div class="bg-gray-50 p-5 rounded-lg shadow-sm">
+                             <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
+                                 <i class="fas fa-chart-line mr-2 text-indigo-600"></i>
+                                 Activity
+                             </h4>
+                             <p class="text-sm text-gray-600 mb-2">
+                                 <i class="fas fa-clock mr-2"></i>
+                                 Last active: ${new Date(group.lastActivity).toLocaleDateString()}
+                             </p>
+                             <p class="text-sm text-gray-600 mb-2">
+                                 <i class="fas fa-bullhorn mr-2"></i>
+                                 Announcements: ${group.announcements ? group.announcements.length : 0}
+                             </p>
+                             <p class="text-sm text-gray-600">
+                                 <i class="fas fa-folder-open mr-2"></i>
+                                 Resources: ${group.resources ? group.resources.length : 0}
+                             </p>
+                         </div>
+                     </div>
+                     
+                     ${isMember ? `
+                         <div class="mb-8">
+                             <div class="flex justify-between items-center mb-4">
+                                 <h4 class="font-semibold text-gray-800 flex items-center">
+                                     <i class="fas fa-bullhorn mr-2 text-indigo-600"></i>
+                                     Group Announcements
+                                 </h4>
+                                 ${group.creatorId === currentUser.uid ? `
+                                     <button onclick="showAddAnnouncementModal('${group.id}')" class="btn btn-primary btn-sm">
+                                         <i class="fas fa-plus mr-1"></i>
+                                         Add Announcement
+                                     </button>
+                                 ` : ''}
+                             </div>
+                             <div id="groupAnnouncements">
+                                 ${(group.announcements || []).map(announcement => `
+                                     <div class="group-announcement">
+                                         <h5 class="font-semibold text-gray-800 mb-2">${announcement.title}</h5>
+                                         <p class="text-gray-600 mb-2">${announcement.content}</p>
+                                         <p class="text-xs text-gray-500">
+                                             <i class="fas fa-calendar-alt mr-1"></i>
+                                             ${new Date(announcement.createdAt).toLocaleDateString()}
+                                         </p>
+                                     </div>
+                                 `).join('') || '<p class="text-gray-500 italic">No announcements yet.</p>'}
+                             </div>
+                         </div>
+                         
+                         <div class="mb-8">
+                             <div class="flex justify-between items-center mb-4">
+                                 <h4 class="font-semibold text-gray-800 flex items-center">
+                                     <i class="fas fa-folder-open mr-2 text-indigo-600"></i>
+                                     Group Resources
+                                 </h4>
+                                 ${isMember ? `
+                                     <button onclick="showAddResourceModal('${group.id}')" class="btn btn-primary btn-sm">
+                                         <i class="fas fa-plus mr-1"></i>
+                                         Add Resource
+                                     </button>
+                                 ` : ''}
+                             </div>
+                             <div id="groupResources">
+                                 ${(group.resources || []).map(resource => `
+                                     <div class="resource-item">
+                                         <div class="resource-icon">
+                                             <i class="fas fa-file-alt"></i>
+                                         </div>
+                                         <div class="resource-info">
+                                             <div class="resource-name">${resource.name}</div>
+                                             <div class="resource-meta">
+                                                 <i class="fas fa-user mr-1"></i>
+                                                 ${resource.addedBy} • 
+                                                 <i class="fas fa-calendar-alt mr-1"></i>
+                                                 ${new Date(resource.createdAt).toLocaleDateString()}
+                                             </div>
+                                             ${resource.description ? `<div class="resource-description">${resource.description}</div>` : ''}
+                                         </div>
+                                         <div class="resource-actions">
+                                             <button class="resource-btn" onclick="downloadResource('${resource.url}')" title="Download">
+                                                 <i class="fas fa-download"></i>
+                                             </button>
+                                             ${group.creatorId === currentUser.uid ? `
+                                                 <button class="resource-btn text-red-500" onclick="removeResource('${group.id}', '${resource.id}')" title="Remove">
+                                                     <i class="fas fa-trash"></i>
+                                                 </button>
+                                             ` : ''}
+                                         </div>
+                                     </div>
+                                 `).join('') || '<p class="text-gray-500 italic">No resources shared yet.</p>'}
+                             </div>
+                         </div>
+                         
+                         <div class="mb-6">
+                             <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
+                                 <i class="fas fa-comments mr-2 text-indigo-600"></i>
+                                 Group Chat
+                             </h4>
+                             <div class="group-chat-container">
+                                 <div class="group-chat" id="groupChat-${group.id}">
+                                     <!-- Chat messages will be loaded here -->
+                                 </div>
+                                 <div class="chat-input">
+                                     <input type="text" id="chatInput-${group.id}" class="form-input flex-1" placeholder="Type a message..." onkeypress="if(event.key === 'Enter') sendChatMessage(event, '${group.id}')">
+                                     <button onclick="sendChatMessage(event, '${group.id}')" class="btn btn-primary">Send</button>
+                                 </div>
+                             </div>
+                         </div>
+                     ` : `
+                         <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4 rounded-lg">
+                             <div class="flex">
+                                 <div class="flex-shrink-0">
+                                     <i class="fas fa-exclamation-triangle text-yellow-400"></i>
+                                 </div>
+                                 <div class="ml-3">
+                                     <p class="text-sm text-yellow-700">
+                                         Join this study group to access announcements, resources, and group chat.
+                                     </p>
+                                 </div>
+                             </div>
+                         </div>
+                     `}
+                 </div>
+             `;
+             
+             document.getElementById('groupDetailsContent').innerHTML = content;
+             document.getElementById('groupDetailsModal').classList.add('active');
+             
+             // Load chat messages if member
+             if (isMember) {
+                 loadGroupChat(group.id);
+             }
          }
          
          function closeGroupDetailsModal() {
@@ -6576,619 +6144,618 @@
                  const members = [...(group.members || []), currentUser.uid];
                  const updates = {};
                  updates['/members'] = members;
-                 updates['/memberCount'] = members.length;
-                 updates['/lastActivity'] = firebase.database.ServerValue.TIMESTAMP;
-                 
-                 groupRef.update(updates).then(() => {
-                     showToast('success', 'Joined Group', 'You have successfully joined the study group.');
-                     
-                     // Add welcome message to chat
-                     const chatRef = database.ref('groupChat').push();
-                     chatRef.set({
-                         groupId: groupId,
-                         authorId: 'system',
-                         authorName: 'System',
-                         content: `${userData.displayName} has joined the group.`,
-                         createdAt: firebase.database.ServerValue.TIMESTAMP
-                     });
-                 }).catch((error) => {
-                     console.error("Error joining study group:", error);
-                     showToast('error', 'Error', 'Failed to join study group.');
-                 });
-             }).catch((error) => {
-                 console.error("Error getting study group:", error);
-                 showToast('error', 'Error', 'Failed to join study group.');
-             });
-         }
-         
-         function leaveStudyGroup(groupId) {
-             if (!currentUser) {
-                 showToast('error', 'Sign in required', 'Please sign in to leave study groups.');
-                 showLoginModal();
-                 return;
+         updates['/memberCount'] = members.length;
+                  updates['/lastActivity'] = firebase.database.ServerValue.TIMESTAMP;
+                  
+                  groupRef.update(updates).then(() => {
+                      showToast('success', 'Joined Group', 'You have successfully joined the study group.');
+                      
+                      // Add welcome message to chat
+                      const chatRef = database.ref('groupChat').push();
+                      chatRef.set({
+                          groupId: groupId,
+                          authorId: 'system',
+                          authorName: 'System',
+                          content: `${userData.displayName} has joined the group.`,
+                          createdAt: firebase.database.ServerValue.TIMESTAMP
+                      });
+                  }).catch((error) => {
+                      console.error("Error joining study group:", error);
+                      showToast('error', 'Error', 'Failed to join study group.');
+                  });
+              }).catch((error) => {
+                  console.error("Error getting study group:", error);
+                  showToast('error', 'Error', 'Failed to join study group.');
+              });
+          }
+          
+          function leaveStudyGroup(groupId) {
+              if (!currentUser) {
+                  showToast('error', 'Sign in required', 'Please sign in to leave study groups.');
+                  showLoginModal();
+                  return;
+              }
+              
+              const groupRef = database.ref('studyGroups/' + groupId);
+              groupRef.once('value').then((snapshot) => {
+                  const group = snapshot.val();
+                  
+                  // Filter out current user
+                  const updatedMembers = (group.members || []).filter(member => member !== currentUser.uid);
+                  
+                  const updates = {};
+                  updates['/members'] = updatedMembers;
+                  updates['/memberCount'] = updatedMembers.length;
+                  updates['/lastActivity'] = firebase.database.ServerValue.TIMESTAMP;
+                  
+                  groupRef.update(updates).then(() => {
+                      showToast('success', 'Left Group', 'You have successfully left the study group.');
+                      
+                      // Add goodbye message to chat
+                      const chatRef = database.ref('groupChat').push();
+                      chatRef.set({
+                          groupId: groupId,
+                          authorId: 'system',
+                          authorName: 'System',
+                          content: `${userData.displayName} has left the group.`,
+                          createdAt: firebase.database.ServerValue.TIMESTAMP
+                      });
+                  }).catch((error) => {
+                      console.error("Error leaving study group:", error);
+                      showToast('error', 'Error', 'Failed to leave study group.');
+                  });
+              }).catch((error) => {
+                  console.error("Error getting study group:", error);
+                  showToast('error', 'Error', 'Failed to leave study group.');
+              });
+          }
+          
+          // Add Announcement Modal
+          function showAddAnnouncementModal(groupId) {
+              if (!currentUser) {
+                  showToast('error', 'Sign in required', 'Please sign in to add announcements.');
+                  showLoginModal();
+                  return;
+              }
+              
+              const modal = document.createElement('div');
+              modal.className = 'modal';
+              modal.innerHTML = `
+                  <div class="modal-content">
+                      <div class="flex justify-between items-center mb-6">
+                          <h2 class="text-2xl font-bold text-gray-800">Add Announcement</h2>
+                          <button onclick="this.closest('.modal').classList.remove('active')" class="text-gray-500 hover:text-gray-700">
+                              <i class="fas fa-times text-xl"></i>
+                          </button>
+                      </div>
+                      
+                      <form onsubmit="addAnnouncement(event, '${groupId}')" class="space-y-4">
+                          <div>
+                              <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                              <input type="text" id="announcementTitle" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Announcement title" required>
+                          </div>
+                          <div>
+                              <label class="block text-sm font-medium text-gray-700 mb-1">Content</label>
+                              <textarea id="announcementContent" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 form-textarea" placeholder="Announcement content" required></textarea>
+                          </div>
+                          <button type="submit" class="btn btn-primary w-full">
+                              <i class="fas fa-bullhorn mr-2"></i>
+                              Post Announcement
+                          </button>
+                      </form>
+                  </div>
+              `;
+              
+              document.body.appendChild(modal);
+              modal.classList.add('active');
+          }
+          
+          function addAnnouncement(event, groupId) {
+              event.preventDefault();
+              
+              const title = document.getElementById('announcementTitle').value.trim();
+              const content = document.getElementById('announcementContent').value.trim();
+              
+              if (!title || !content) {
+                  showToast('error', 'Missing Fields', 'Please fill in all fields.');
+                  return;
+              }
+              
+              const groupRef = database.ref('studyGroups/' + groupId);
+              groupRef.once('value').then((snapshot) => {
+                  const group = snapshot.val();
+                  
+                  if (!group) {
+                      showToast('error', 'Error', 'Study group not found.');
+                      return;
+                  }
+                  
+                  if (group.creatorId !== currentUser.uid) {
+                      showToast('error', 'Permission Denied', 'Only the group creator can add announcements.');
+                      return;
+                  }
+                  
+                  const announcements = group.announcements || [];
+                  const newAnnouncement = {
+                      id: Date.now().toString(),
+                      title: title,
+                      content: content,
+                      createdBy: currentUser.uid,
+                      createdAt: firebase.database.ServerValue.TIMESTAMP
+                  };
+                  
+                  announcements.push(newAnnouncement);
+                  
+                  groupRef.update({
+                      announcements: announcements,
+                      lastActivity: firebase.database.ServerValue.TIMESTAMP
+                  }).then(() => {
+                      showToast('success', 'Announcement Added', 'Your announcement has been posted successfully.');
+                      
+                      // Close modal
+                      event.target.closest('.modal').classList.remove('active');
+                      
+                      // Add announcement message to chat
+                      const chatRef = database.ref('groupChat').push();
+                      chatRef.set({
+                          groupId: groupId,
+                          authorId: 'system',
+                          authorName: 'System',
+                          content: `New announcement: ${title}`,
+                          createdAt: firebase.database.ServerValue.TIMESTAMP
+                      });
+                      
+                      // Refresh group details
+                      showGroupDetails(groupId);
+                  }).catch((error) => {
+                      console.error("Error adding announcement:", error);
+                      showToast('error', 'Error', 'Failed to add announcement.');
+                  });
+              }).catch((error) => {
+                  console.error("Error getting study group:", error);
+                  showToast('error', 'Error', 'Failed to add announcement.');
+              });
+          }
+          
+          // Add Resource Modal
+          function showAddResourceModal(groupId) {
+              if (!currentUser) {
+                  showToast('error', 'Sign in required', 'Please sign in to add resources.');
+                  showLoginModal();
+                  return;
+              }
+              
+              const modal = document.createElement('div');
+              modal.className = 'modal';
+              modal.innerHTML = `
+                  <div class="modal-content">
+                      <div class="flex justify-between items-center mb-6">
+                          <h2 class="text-2xl font-bold text-gray-800">Add Resource</h2>
+                          <button onclick="this.closest('.modal').classList.remove('active')" class="text-gray-500 hover:text-gray-700">
+                              <i class="fas fa-times text-xl"></i>
+                          </button>
+                      </div>
+                      
+                      <form onsubmit="addResource(event, '${groupId}')" class="space-y-4">
+                          <div>
+                              <label class="block text-sm font-medium text-gray-700 mb-1">Resource Name</label>
+                              <input type="text" id="resourceName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Resource name" required>
+                          </div>
+                          <div>
+                              <label class="block text-sm font-medium text-gray-700 mb-1">URL</label>
+                              <input type="url" id="resourceUrl" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="https://example.com" required>
+                          </div>
+                          <div>
+                              <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                              <textarea id="resourceDescription" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 form-textarea" placeholder="Brief description of the resource"></textarea>
+                          </div>
+                          <button type="submit" class="btn btn-primary w-full">
+                              <i class="fas fa-plus mr-2"></i>
+                              Add Resource
+                          </button>
+                      </form>
+                  </div>
+              `;
+              
+              document.body.appendChild(modal);
+              modal.classList.add('active');
+          }
+          
+          function addResource(event, groupId) {
+              event.preventDefault();
+              
+              const name = document.getElementById('resourceName').value.trim();
+              const url = document.getElementById('resourceUrl').value.trim();
+              const description = document.getElementById('resourceDescription').value.trim();
+              
+              if (!name || !url) {
+                  showToast('error', 'Missing Fields', 'Please fill in all required fields.');
+                  return;
+              }
+              
+              const groupRef = database.ref('studyGroups/' + groupId);
+              groupRef.once('value').then((snapshot) => {
+                  const group = snapshot.val();
+                  
+                  if (!group) {
+                      showToast('error', 'Error', 'Study group not found.');
+                      return;
+                  }
+                  
+                  if (!group.members || !group.members.includes(currentUser.uid)) {
+                      showToast('error', 'Permission Denied', 'Only group members can add resources.');
+                      return;
+                  }
+                  
+                  const resources = group.resources || [];
+                  const newResource = {
+                      id: Date.now().toString(),
+                      name: name,
+                      url: url,
+                      description: description,
+                      addedBy: userData.displayName,
+                      addedById: currentUser.uid,
+                      createdAt: firebase.database.ServerValue.TIMESTAMP
+                  };
+                  
+                  resources.push(newResource);
+                  
+                  groupRef.update({
+                      resources: resources,
+                      lastActivity: firebase.database.ServerValue.TIMESTAMP
+                  }).then(() => {
+                      showToast('success', 'Resource Added', 'Your resource has been shared successfully.');
+                      
+                      // Close modal
+                      event.target.closest('.modal').classList.remove('active');
+                      
+                      // Add resource message to chat
+                      const chatRef = database.ref('groupChat').push();
+                      chatRef.set({
+                          groupId: groupId,
+                          authorId: 'system',
+                          authorName: 'System',
+                          content: `${userData.displayName} shared a new resource: ${name}`,
+                          createdAt: firebase.database.ServerValue.TIMESTAMP
+                      });
+                      
+                      // Refresh group details
+                      showGroupDetails(groupId);
+                  }).catch((error) => {
+                      console.error("Error adding resource:", error);
+                      showToast('error', 'Error', 'Failed to add resource.');
+                  });
+              }).catch((error) => {
+                  console.error("Error getting study group:", error);
+                  showToast('error', 'Error', 'Failed to add resource.');
+              });
+          }
+          
+          function removeResource(groupId, resourceId) {
+              if (!confirm('Are you sure you want to remove this resource?')) {
+                  return;
+              }
+              
+              const groupRef = database.ref('studyGroups/' + groupId);
+              groupRef.once('value').then((snapshot) => {
+                  const group = snapshot.val();
+                  
+                  if (!group) {
+                      showToast('error', 'Error', 'Study group not found.');
+                      return;
+                  }
+                  
+                  if (group.creatorId !== currentUser.uid) {
+                      showToast('error', 'Permission Denied', 'Only the group creator can remove resources.');
+                      return;
+                  }
+                  
+                  const resources = (group.resources || []).filter(r => r.id !== resourceId);
+                  
+                  groupRef.update({
+                      resources: resources,
+                      lastActivity: firebase.database.ServerValue.TIMESTAMP
+                  }).then(() => {
+                      showToast('success', 'Resource Removed', 'The resource has been removed successfully.');
+                      
+                      // Refresh group details
+                      showGroupDetails(groupId);
+                  }).catch((error) => {
+                      console.error("Error removing resource:", error);
+                      showToast('error', 'Error', 'Failed to remove resource.');
+                  });
+              }).catch((error) => {
+                  console.error("Error getting study group:", error);
+                  showToast('error', 'Error', 'Failed to remove resource.');
+              });
+          }
+          
+          function downloadResource(url) {
+              window.open(url, '_blank');
+          }
+          
+          // Group Chat Functions
+          function loadGroupChat(groupId) {
+              const chatContainer = document.getElementById(`groupChat-${groupId}`);
+              if (!chatContainer) return;
+              
+              const chatRef = database.ref('groupChat').orderByChild('groupId').equalTo(groupId);
+              chatRef.on('value', (snapshot) => {
+                  chatContainer.innerHTML = '';
+                  
+                  if (!snapshot.exists()) {
+                      chatContainer.innerHTML = '<p class="text-gray-500 text-center">No messages yet. Start the conversation!</p>';
+                      return;
+                  }
+                  
+                  const messages = [];
+                  snapshot.forEach((childSnapshot) => {
+                      messages.push({
+                          id: childSnapshot.key,
+                          ...childSnapshot.val()
+                      });
+                  });
+                  
+                  // Sort by creation date (oldest first)
+                  messages.sort((a, b) => {
+                      return new Date(a.createdAt) - new Date(b.createdAt);
+                  });
+                  
+                  messages.forEach(message => {
+                      const messageDiv = document.createElement('div');
+                      messageDiv.className = 'chat-message';
+                      
+                      if (message.authorId === currentUser.uid) {
+                          messageDiv.classList.add('own');
+                      }
+                      
+                      const date = new Date(message.createdAt);
+                      const formattedTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                      
+                      messageDiv.innerHTML = `
+                          <div class="font-semibold text-sm">${message.authorName}</div>
+                          <div class="text-sm">${message.content}</div>
+                          <div class="text-xs text-gray-500">${formattedTime}</div>
+                      `;
+                      
+                      chatContainer.appendChild(messageDiv);
+                  });
+                  
+                  // Scroll to bottom
+                  chatContainer.scrollTop = chatContainer.scrollHeight;
+              });
+          }
+          
+          function sendChatMessage(event, groupId) {
+              if (event.key === 'Enter' || event.type === 'click') {
+                  event.preventDefault();
+                  
+                  if (!currentUser) {
+                      showToast('error', 'Sign in required', 'Please sign in to send messages.');
+                      showLoginModal();
+                      return;
+                  }
+                  
+                  const input = document.getElementById(`chatInput-${groupId}`);
+                  const content = input.value.trim();
+                  
+                  if (!content) {
+                      return;
+                  }
+                  
+                  const chatRef = database.ref('groupChat').push();
+                  const newMessage = {
+                      groupId: groupId,
+                      authorId: currentUser.uid,
+                      authorName: userData.displayName,
+                      content: content,
+                      createdAt: firebase.database.ServerValue.TIMESTAMP
+                  };
+                  
+                  chatRef.set(newMessage).then(() => {
+                      input.value = '';
+                      
+                      // Update group activity
+                      const groupRef = database.ref('studyGroups/' + groupId);
+                      groupRef.update({
+                          lastActivity: firebase.database.ServerValue.TIMESTAMP
+                      });
+                  }).catch((error) => {
+                      console.error("Error sending chat message:", error);
+                      showToast('error', 'Error', 'Failed to send message.');
+                  });
+              }
+          }
+          
+          // Leaderboard functions
+          function loadLeaderboard() {
+              const leaderboardContent = document.getElementById('leaderboardContent');
+              leaderboardContent.innerHTML = '<div class="spinner"></div>';
+              const usersRef = database.ref('users');
+              usersRef.orderByChild('xp').limitToLast(10).on('value', (snapshot) => {
+                  leaderboardContent.innerHTML = '';
+                  if (!snapshot.exists()) {
+                      leaderboardContent.innerHTML = '<p class="text-gray-500 text-center">No data available.</p>';
+                      return;
+                  }
+                  const users = [];
+                  snapshot.forEach((childSnapshot) => {
+                      users.push({
+                          id: childSnapshot.key,
+                          ...childSnapshot.val()
+                      });
+                  });
+                  // Sort by XP descending
+                  users.sort((a, b) => (b.xp || 0) - (a.xp || 0));
+                  const table = document.createElement('table');
+                  table.className = 'trend-table fade-in';
+                  table.innerHTML = `
+                      <thead>
+                          <tr>
+                              <th>Rank</th>
+                              <th>User</th>
+                              <th>XP</th>
+                              <th>Sections Completed</th>
+                              <th>Badges</th>
+                          </tr>
+                      </thead>
+                      <tbody></tbody>
+                  `;
+                  const tbody = table.querySelector('tbody');
+                  users.forEach((user, index) => {
+                      const rank = index + 1;
+                      const row = document.createElement('tr');
+                      
+                      let rankClass = '';
+                      if (rank === 1) rankClass = 'first';
+                      else if (rank === 2) rankClass = 'second';
+                      else if (rank === 3) rankClass = 'third';
+                      
+                      row.innerHTML = `
+                          <td>
+                              <div class="leaderboard-rank ${rankClass}">${rank}</div>
+                          </td>
+                          <td>${user.displayName || 'Anonymous'}</td>
+                          <td>${user.xp || 0}</td>
+                          <td>${user.completedSections ? user.completedSections.length : 0}</td>
+                          <td>${user.badges ? user.badges.length : 0}</td>
+                      `;
+                      tbody.appendChild(row);
+                  });
+                  leaderboardContent.appendChild(table);
+              });
+          }
+          
+          // Toast notification function
+          function showToast(type, title, message) {
+              const toastContainer = document.getElementById('toastContainer');
+              
+              const toast = document.createElement('div');
+              toast.className = `toast ${type}`;
+              
+              let icon = 'fa-info-circle';
+              if (type === 'success') icon = 'fa-check-circle';
+              else if (type === 'error') icon = 'fa-exclamation-circle';
+              
+              toast.innerHTML = `
+                  <div class="toast-icon">
+                      <i class="fas ${icon}"></i>
+                  </div>
+                  <div class="toast-message">
+                      <div class="toast-title">${title}</div>
+                      <div class="toast-description">${message}</div>
+                  </div>
+              `;
+              
+              toastContainer.appendChild(toast);
+              
+              // Show toast
+              setTimeout(() => {
+                  toast.classList.add('show');
+              }, 100);
+              
+              // Hide toast after 3 seconds
+              setTimeout(() => {
+                  toast.classList.remove('show');
+                  setTimeout(() => {
+                      toast.remove();
+                  }, 300);
+              }, 3000);
+          }
+          
+          // Add this helper function to reset and trigger fade-in animations
+          
+          // Add fade-in classes if they don't exist
+          
+          
+          // Manually trigger fade-in for elements already in view
+          container.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
+             const rect = el.getBoundingClientRect();
+             const isVisible = (
+                 rect.top >= 0 &&
+                 rect.left >= 0 &&
+                 rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                 rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+             );
+             
+             if (isVisible) {
+                 el.classList.add('visible');
              }
-             
-             const groupRef = database.ref('studyGroups/' + groupId);
-             groupRef.once('value').then((snapshot) => {
-                 const group = snapshot.val();
-                 
-                 // Filter out current user
-                 const updatedMembers = (group.members || []).filter(member => member !== currentUser.uid);
-                 
-                 const updates = {};
-                 updates['/members'] = updatedMembers;
-                 updates['/memberCount'] = updatedMembers.length;
-                 updates['/lastActivity'] = firebase.database.ServerValue.TIMESTAMP;
-                 
-                 groupRef.update(updates).then(() => {
-                     showToast('success', 'Left Group', 'You have successfully left the study group.');
-                     
-                     // Add goodbye message to chat
-                     const chatRef = database.ref('groupChat').push();
-                     chatRef.set({
-                         groupId: groupId,
-                         authorId: 'system',
-                         authorName: 'System',
-                         content: `${userData.displayName} has left the group.`,
-                         createdAt: firebase.database.ServerValue.TIMESTAMP
-                     });
-                 }).catch((error) => {
-                     console.error("Error leaving study group:", error);
-                     showToast('error', 'Error', 'Failed to leave study group.');
-                 });
-             }).catch((error) => {
-                 console.error("Error getting study group:", error);
-                 showToast('error', 'Error', 'Failed to leave study group.');
-             });
-         }
+          });
+          }, 50);
+          }
+          
+          // Update the showTab function to use the helper
+          function showTab(tabName) {
+          // Hide all tab contents
+          const tabContents = document.querySelectorAll('.tab-content');
+          tabContents.forEach(content => {
+          content.classList.remove('active');
+          });
+          
+          // Remove active class from all tabs
+          const tabs = document.querySelectorAll('.tab');
+          tabs.forEach(tab => {
+          tab.classList.remove('active');
+          });
+          
+          // Show selected tab content
+          const tabContent = document.getElementById(tabName);
+          if (tabContent) {
+          tabContent.classList.add('active');
+          
+          // Reset and trigger fade-in for this tab content
          
-         // Add Announcement Modal
-         function showAddAnnouncementModal(groupId) {
-             if (!currentUser) {
-                 showToast('error', 'Sign in required', 'Please sign in to add announcements.');
-                 showLoginModal();
-                 return;
-             }
-             
-             const modal = document.createElement('div');
-             modal.className = 'modal';
-             modal.innerHTML = `
-                 <div class="modal-content">
-                     <div class="flex justify-between items-center mb-6">
-                         <h2 class="text-2xl font-bold text-gray-800">Add Announcement</h2>
-                         <button onclick="this.closest('.modal').classList.remove('active')" class="text-gray-500 hover:text-gray-700">
-                             <i class="fas fa-times text-xl"></i>
-                         </button>
-                     </div>
-                     
-                     <form onsubmit="addAnnouncement(event, '${groupId}')" class="space-y-4">
-                         <div>
-                             <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
-                             <input type="text" id="announcementTitle" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Announcement title" required>
-                         </div>
-                         <div>
-                             <label class="block text-sm font-medium text-gray-700 mb-1">Content</label>
-                             <textarea id="announcementContent" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 form-textarea" placeholder="Announcement content" required></textarea>
-                         </div>
-                         <button type="submit" class="btn btn-primary w-full">
-                             <i class="fas fa-bullhorn mr-2"></i>
-                             Post Announcement
-                         </button>
-                     </form>
-                 </div>
-             `;
-             
-             document.body.appendChild(modal);
-             modal.classList.add('active');
-         }
+          // Add active class to clicked tab
+          const activeTab = document.querySelector(`[onclick="showTab('${tabName}')"]`);
+          if (activeTab) {
+          activeTab.classList.add('active');
+          }
+          }
+          
+          // Update navigateToSection to use the helper function
+          function navigateToSection(sectionName) {
+          // Check if section is locked
+          const navItem = document.getElementById(`nav-${sectionName}`);
+          if (navItem && navItem.classList.contains('locked')) {
+          showToast('info', 'Section Locked', 'Please complete previous sections first.');
+          return;
+          }
+          
+          // Hide all sections
+          const sections = document.querySelectorAll('.content-section');
+          sections.forEach(section => {
+          section.style.display = 'none';
+          });
+          
+          // Show selected section
+          const sectionElement = document.getElementById(`${sectionName}-section`);
+          if (sectionElement) {
+          sectionElement.style.display = 'block';
+          
+          // Reset and trigger fade-in for this section
          
-         function addAnnouncement(event, groupId) {
-             event.preventDefault();
-             
-             const title = document.getElementById('announcementTitle').value.trim();
-             const content = document.getElementById('announcementContent').value.trim();
-             
-             if (!title || !content) {
-                 showToast('error', 'Missing Fields', 'Please fill in all fields.');
-                 return;
-             }
-             
-             const groupRef = database.ref('studyGroups/' + groupId);
-             groupRef.once('value').then((snapshot) => {
-                 const group = snapshot.val();
-                 
-                 if (!group) {
-                     showToast('error', 'Error', 'Study group not found.');
-                     return;
-                 }
-                 
-                 if (group.creatorId !== currentUser.uid) {
-                     showToast('error', 'Permission Denied', 'Only the group creator can add announcements.');
-                     return;
-                 }
-                 
-                 const announcements = group.announcements || [];
-                 const newAnnouncement = {
-                     id: Date.now().toString(),
-                     title: title,
-                     content: content,
-                     createdBy: currentUser.uid,
-                     createdAt: firebase.database.ServerValue.TIMESTAMP
-                 };
-                 
-                 announcements.push(newAnnouncement);
-                 
-                 groupRef.update({
-                     announcements: announcements,
-                     lastActivity: firebase.database.ServerValue.TIMESTAMP
-                 }).then(() => {
-                     showToast('success', 'Announcement Added', 'Your announcement has been posted successfully.');
-                     
-                     // Close modal
-                     event.target.closest('.modal').classList.remove('active');
-                     
-                     // Add announcement message to chat
-                     const chatRef = database.ref('groupChat').push();
-                     chatRef.set({
-                         groupId: groupId,
-                         authorId: 'system',
-                         authorName: 'System',
-                         content: `New announcement: ${title}`,
-                         createdAt: firebase.database.ServerValue.TIMESTAMP
-                     });
-                     
-                     // Refresh group details
-                     showGroupDetails(groupId);
-                 }).catch((error) => {
-                     console.error("Error adding announcement:", error);
-                     showToast('error', 'Error', 'Failed to add announcement.');
-                 });
-             }).catch((error) => {
-                 console.error("Error getting study group:", error);
-                 showToast('error', 'Error', 'Failed to add announcement.');
-             });
-         }
-         
-         // Add Resource Modal
-         function showAddResourceModal(groupId) {
-             if (!currentUser) {
-                 showToast('error', 'Sign in required', 'Please sign in to add resources.');
-                 showLoginModal();
-                 return;
-             }
-             
-             const modal = document.createElement('div');
-             modal.className = 'modal';
-             modal.innerHTML = `
-                 <div class="modal-content">
-                     <div class="flex justify-between items-center mb-6">
-                         <h2 class="text-2xl font-bold text-gray-800">Add Resource</h2>
-                         <button onclick="this.closest('.modal').classList.remove('active')" class="text-gray-500 hover:text-gray-700">
-                             <i class="fas fa-times text-xl"></i>
-                         </button>
-                     </div>
-                     
-                     <form onsubmit="addResource(event, '${groupId}')" class="space-y-4">
-                         <div>
-                             <label class="block text-sm font-medium text-gray-700 mb-1">Resource Name</label>
-                             <input type="text" id="resourceName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Resource name" required>
-                         </div>
-                         <div>
-                             <label class="block text-sm font-medium text-gray-700 mb-1">URL</label>
-                             <input type="url" id="resourceUrl" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="https://example.com" required>
-                         </div>
-                         <div>
-                             <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                             <textarea id="resourceDescription" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 form-textarea" placeholder="Brief description of the resource"></textarea>
-                         </div>
-                         <button type="submit" class="btn btn-primary w-full">
-                             <i class="fas fa-plus mr-2"></i>
-                             Add Resource
-                         </button>
-                     </form>
-                 </div>
-             `;
-             
-             document.body.appendChild(modal);
-             modal.classList.add('active');
-         }
-         
-         function addResource(event, groupId) {
-             event.preventDefault();
-             
-             const name = document.getElementById('resourceName').value.trim();
-             const url = document.getElementById('resourceUrl').value.trim();
-             const description = document.getElementById('resourceDescription').value.trim();
-             
-             if (!name || !url) {
-                 showToast('error', 'Missing Fields', 'Please fill in all required fields.');
-                 return;
-             }
-             
-             const groupRef = database.ref('studyGroups/' + groupId);
-             groupRef.once('value').then((snapshot) => {
-                 const group = snapshot.val();
-                 
-                 if (!group) {
-                     showToast('error', 'Error', 'Study group not found.');
-                     return;
-                 }
-                 
-                 if (!group.members || !group.members.includes(currentUser.uid)) {
-                     showToast('error', 'Permission Denied', 'Only group members can add resources.');
-                     return;
-                 }
-                 
-                 const resources = group.resources || [];
-                 const newResource = {
-                     id: Date.now().toString(),
-                     name: name,
-                     url: url,
-                     description: description,
-                     addedBy: userData.displayName,
-                     addedById: currentUser.uid,
-                     createdAt: firebase.database.ServerValue.TIMESTAMP
-                 };
-                 
-                 resources.push(newResource);
-                 
-                 groupRef.update({
-                     resources: resources,
-                     lastActivity: firebase.database.ServerValue.TIMESTAMP
-                 }).then(() => {
-                     showToast('success', 'Resource Added', 'Your resource has been shared successfully.');
-                     
-                     // Close modal
-                     event.target.closest('.modal').classList.remove('active');
-                     
-                     // Add resource message to chat
-                     const chatRef = database.ref('groupChat').push();
-                     chatRef.set({
-                         groupId: groupId,
-                         authorId: 'system',
-                         authorName: 'System',
-                         content: `${userData.displayName} shared a new resource: ${name}`,
-                         createdAt: firebase.database.ServerValue.TIMESTAMP
-                     });
-                     
-                     // Refresh group details
-                     showGroupDetails(groupId);
-                 }).catch((error) => {
-                     console.error("Error adding resource:", error);
-                     showToast('error', 'Error', 'Failed to add resource.');
-                 });
-             }).catch((error) => {
-                 console.error("Error getting study group:", error);
-                 showToast('error', 'Error', 'Failed to add resource.');
-             });
-         }
-         
-         function removeResource(groupId, resourceId) {
-             if (!confirm('Are you sure you want to remove this resource?')) {
-                 return;
-             }
-             
-             const groupRef = database.ref('studyGroups/' + groupId);
-             groupRef.once('value').then((snapshot) => {
-                 const group = snapshot.val();
-                 
-                 if (!group) {
-                     showToast('error', 'Error', 'Study group not found.');
-                     return;
-                 }
-                 
-                 if (group.creatorId !== currentUser.uid) {
-                     showToast('error', 'Permission Denied', 'Only the group creator can remove resources.');
-                     return;
-                 }
-                 
-                 const resources = (group.resources || []).filter(r => r.id !== resourceId);
-                 
-                 groupRef.update({
-                     resources: resources,
-                     lastActivity: firebase.database.ServerValue.TIMESTAMP
-                 }).then(() => {
-                     showToast('success', 'Resource Removed', 'The resource has been removed successfully.');
-                     
-                     // Refresh group details
-                     showGroupDetails(groupId);
-                 }).catch((error) => {
-                     console.error("Error removing resource:", error);
-                     showToast('error', 'Error', 'Failed to remove resource.');
-                 });
-             }).catch((error) => {
-                 console.error("Error getting study group:", error);
-                 showToast('error', 'Error', 'Failed to remove resource.');
-             });
-         }
-         
-         function downloadResource(url) {
-             window.open(url, '_blank');
-         }
-         
-         // Group Chat Functions
-         function loadGroupChat(groupId) {
-             const chatContainer = document.getElementById(`groupChat-${groupId}`);
-             if (!chatContainer) return;
-             
-             const chatRef = database.ref('groupChat').orderByChild('groupId').equalTo(groupId);
-             chatRef.on('value', (snapshot) => {
-                 chatContainer.innerHTML = '';
-                 
-                 if (!snapshot.exists()) {
-                     chatContainer.innerHTML = '<p class="text-gray-500 text-center">No messages yet. Start the conversation!</p>';
-                     return;
-                 }
-                 
-                 const messages = [];
-                 snapshot.forEach((childSnapshot) => {
-                     messages.push({
-                         id: childSnapshot.key,
-                         ...childSnapshot.val()
-                     });
-                 });
-                 
-                 // Sort by creation date (oldest first)
-                 messages.sort((a, b) => {
-                     return new Date(a.createdAt) - new Date(b.createdAt);
-                 });
-                 
-                 messages.forEach(message => {
-                     const messageDiv = document.createElement('div');
-                     messageDiv.className = 'chat-message';
-                     
-                     if (message.authorId === currentUser.uid) {
-                         messageDiv.classList.add('own');
-                     }
-                     
-                     const date = new Date(message.createdAt);
-                     const formattedTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                     
-                     messageDiv.innerHTML = `
-                         <div class="font-semibold text-sm">${message.authorName}</div>
-                         <div class="text-sm">${message.content}</div>
-                         <div class="text-xs text-gray-500">${formattedTime}</div>
-                     `;
-                     
-                     chatContainer.appendChild(messageDiv);
-                 });
-                 
-                 // Scroll to bottom
-                 chatContainer.scrollTop = chatContainer.scrollHeight;
-             });
-         }
-         
-         function sendChatMessage(event, groupId) {
-             if (event.key === 'Enter' || event.type === 'click') {
-                 event.preventDefault();
-                 
-                 if (!currentUser) {
-                     showToast('error', 'Sign in required', 'Please sign in to send messages.');
-                     showLoginModal();
-                     return;
-                 }
-                 
-                 const input = document.getElementById(`chatInput-${groupId}`);
-                 const content = input.value.trim();
-                 
-                 if (!content) {
-                     return;
-                 }
-                 
-                 const chatRef = database.ref('groupChat').push();
-                 const newMessage = {
-                     groupId: groupId,
-                     authorId: currentUser.uid,
-                     authorName: userData.displayName,
-                     content: content,
-                     createdAt: firebase.database.ServerValue.TIMESTAMP
-                 };
-                 
-                 chatRef.set(newMessage).then(() => {
-                     input.value = '';
-                     
-                     // Update group activity
-                     const groupRef = database.ref('studyGroups/' + groupId);
-                     groupRef.update({
-                         lastActivity: firebase.database.ServerValue.TIMESTAMP
-                     });
-                 }).catch((error) => {
-                     console.error("Error sending chat message:", error);
-                     showToast('error', 'Error', 'Failed to send message.');
-                 });
-             }
-         }
-         
-         // Leaderboard functions
-         function loadLeaderboard() {
-             const leaderboardContent = document.getElementById('leaderboardContent');
-             leaderboardContent.innerHTML = '<div class="spinner"></div>';
-             const usersRef = database.ref('users');
-             usersRef.orderByChild('xp').limitToLast(10).on('value', (snapshot) => {
-                 leaderboardContent.innerHTML = '';
-                 if (!snapshot.exists()) {
-                     leaderboardContent.innerHTML = '<p class="text-gray-500 text-center">No data available.</p>';
-                     return;
-                 }
-                 const users = [];
-                 snapshot.forEach((childSnapshot) => {
-                     users.push({
-                         id: childSnapshot.key,
-                         ...childSnapshot.val()
-                     });
-                 });
-                 // Sort by XP descending
-                 users.sort((a, b) => (b.xp || 0) - (a.xp || 0));
-                 const table = document.createElement('table');
-                 table.className = 'trend-table fade-in';
-                 table.innerHTML = `
-                     <thead>
-                         <tr>
-                             <th>Rank</th>
-                             <th>User</th>
-                             <th>XP</th>
-                             <th>Sections Completed</th>
-                             <th>Badges</th>
-                         </tr>
-                     </thead>
-                     <tbody></tbody>
-                 `;
-                 const tbody = table.querySelector('tbody');
-                 users.forEach((user, index) => {
-                     const rank = index + 1;
-                     const row = document.createElement('tr');
-                     
-                     let rankClass = '';
-                     if (rank === 1) rankClass = 'first';
-                     else if (rank === 2) rankClass = 'second';
-                     else if (rank === 3) rankClass = 'third';
-                     
-                     row.innerHTML = `
-                         <td>
-                             <div class="leaderboard-rank ${rankClass}">${rank}</div>
-                         </td>
-                         <td>${user.displayName || 'Anonymous'}</td>
-                         <td>${user.xp || 0}</td>
-                         <td>${user.completedSections ? user.completedSections.length : 0}</td>
-                         <td>${user.badges ? user.badges.length : 0}</td>
-                     `;
-                     tbody.appendChild(row);
-                 });
-                 leaderboardContent.appendChild(table);
-             });
-         }
-         
-         // Toast notification function
-         function showToast(type, title, message) {
-             const toastContainer = document.getElementById('toastContainer');
-             
-             const toast = document.createElement('div');
-             toast.className = `toast ${type}`;
-             
-             let icon = 'fa-info-circle';
-             if (type === 'success') icon = 'fa-check-circle';
-             else if (type === 'error') icon = 'fa-exclamation-circle';
-             
-             toast.innerHTML = `
-                 <div class="toast-icon">
-                     <i class="fas ${icon}"></i>
-                 </div>
-                 <div class="toast-message">
-                     <div class="toast-title">${title}</div>
-                     <div class="toast-description">${message}</div>
-                 </div>
-             `;
-             
-             toastContainer.appendChild(toast);
-             
-             // Show toast
-             setTimeout(() => {
-                 toast.classList.add('show');
-             }, 100);
-             
-             // Hide toast after 3 seconds
-             setTimeout(() => {
-                 toast.classList.remove('show');
-                 setTimeout(() => {
-                     toast.remove();
-                 }, 300);
-             }, 3000);
-         }
-         
-         // Add this helper function to reset and trigger fade-in animations
-         
-         // Add fade-in classes if they don't exist
-         
-         
-         // Manually trigger fade-in for elements already in view
-         container.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
-            const rect = el.getBoundingClientRect();
-            const isVisible = (
-                rect.top >= 0 &&
-                rect.left >= 0 &&
-                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-            );
-            
-            if (isVisible) {
-                el.classList.add('visible');
-            }
-         });
-         }, 50);
-         }
-         
-         // Update the showTab function to use the helper
-         function showTab(tabName) {
-         // Hide all tab contents
-         const tabContents = document.querySelectorAll('.tab-content');
-         tabContents.forEach(content => {
-         content.classList.remove('active');
-         });
-         
-         // Remove active class from all tabs
-         const tabs = document.querySelectorAll('.tab');
-         tabs.forEach(tab => {
-         tab.classList.remove('active');
-         });
-         
-         // Show selected tab content
-         const tabContent = document.getElementById(tabName);
-         if (tabContent) {
-         tabContent.classList.add('active');
-         
-         // Reset and trigger fade-in for this tab content
-        
-         // Add active class to clicked tab
-         const activeTab = document.querySelector(`[onclick="showTab('${tabName}')"]`);
-         if (activeTab) {
-         activeTab.classList.add('active');
-         }
-         }
-         
-         // Update navigateToSection to use the helper function
-         function navigateToSection(sectionName) {
-         // Check if section is locked
-         const navItem = document.getElementById(`nav-${sectionName}`);
-         if (navItem && navItem.classList.contains('locked')) {
-         showToast('info', 'Section Locked', 'Please complete previous sections first.');
-         return;
-         }
-         
-         // Hide all sections
-         const sections = document.querySelectorAll('.content-section');
-         sections.forEach(section => {
-         section.style.display = 'none';
-         });
-         
-         // Show selected section
-         const sectionElement = document.getElementById(`${sectionName}-section`);
-         if (sectionElement) {
-         sectionElement.style.display = 'block';
-         
-         // Reset and trigger fade-in for this section
-        
-         
-         // Update active nav item
-         const navItems = document.querySelectorAll('.nav-item');
-         navItems.forEach(item => {
-         item.classList.remove('active');
-         });
-         
-         if (navItem) {
-         navItem.classList.add('active');
-         }
-         
-         currentSection = sectionName;
-         
-         // Load leaderboard if that section is selected
-         if (sectionName === 'leaderboard') {
-         loadLeaderboard();
-         }
-         }
-         
-         // Initialize the app when DOM is ready
-         document.addEventListener('DOMContentLoaded', initApp);
+          
+          // Update active nav item
+          const navItems = document.querySelectorAll('.nav-item');
+          navItems.forEach(item => {
+          item.classList.remove('active');
+          });
+          
+          if (navItem) {
+          navItem.classList.add('active');
+          }
+          
+          currentSection = sectionName;
+          
+          // Load leaderboard if that section is selected
+          if (sectionName === 'leaderboard') {
+          loadLeaderboard();
+          }
+          }
+          
+          // Initialize the app when DOM is ready
+          document.addEventListener('DOMContentLoaded', initApp);
       </script>
    </body>
 </html>
-
