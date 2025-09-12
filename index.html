@@ -2081,12 +2081,7 @@
          opacity: 1;
          transform: translateY(0);
          }
-         .fade-in-stagger.visible > *:nth-child(1) { transition-delay: 0.1s; }
-         .fade-in-stagger.visible > *:nth-child(2) { transition-delay: 0.2s; }
-         .fade-in-stagger.visible > *:nth-child(3) { transition-delay: 0.3s; }
-         .fade-in-stagger.visible > *:nth-child(4) { transition-delay: 0.4s; }
-         .fade-in-stagger.visible > *:nth-child(5) { transition-delay: 0.5s; }
-         /* Enhanced interactive elements */
+        
          .interactive-element {
          position: relative;
          cursor: pointer;
@@ -2196,6 +2191,16 @@
          background: #d97706;
          transform: translateY(-3px);
          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+         }
+
+         /* Immediately show all fade-in elements */
+         .fade-in, 
+         .fade-in-stagger > *,
+         .fade-in.visible,
+         .fade-in-stagger.visible > * {
+           opacity: 1 !important;
+           transform: none !important;
+           transition: none !important;
          }
       </style>
    </head>
@@ -3540,7 +3545,7 @@
                      "Sodium hydroxide",
                      "Sodium carbonate",
                      "Sodium chloride",
-                     "Sodium bicarbonate"
+                     "Sodium bicvarbonate"
                  ],
                  quizCorrect: 2,
                  quizExplanation: "Sodium chloride (table salt) is essential for human health, helping to maintain fluid balance and nerve function."
@@ -3880,36 +3885,19 @@
              });
              
              // Initialize fade-in effect on scroll
-             initializeFadeInEffect();
+            
          }
          
          // Initialize fade-in effect on scroll
          // Initialize fade-in effect on scroll
-         function initializeFadeInEffect() {
-         // Set up Intersection Observer for fade-in effect
-         const fadeOptions = {
-         root: null,
-         rootMargin: '0px',
-         threshold: 0.1
-         };
-         const fadeObserver = new IntersectionObserver((entries) => {
-         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-         });
-         }, fadeOptions);
-         
-         // Observe all elements with fade-in class
-         document.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
-         fadeObserver.observe(el);
-         });
+        
          
          // Add fade-in class to content elements
-         addFadeInClasses();
+
+            
          
          // Trigger fade-in for elements already in view
-         triggerVisibleFadeIns();
+        
          }
          
          // Trigger fade-in for elements already visible
@@ -3932,14 +3920,7 @@
          }, 100);
          }
          
-         // Add fade-in classes to relevant elements
-         function addFadeInClasses() {
-         // Content cards
-         document.querySelectorAll('.content-card').forEach(card => {
-         if (!card.classList.contains('fade-in')) {
-            card.classList.add('fade-in');
-         }
-         });
+         // Add fade-in classes to relevant element
          
          // Paragraphs in content sections
          document.querySelectorAll('.content-section p').forEach(p => {
@@ -4068,7 +4049,7 @@
          // Reinitialize fade-in for the new section
          setTimeout(() => {
             // Add fade-in classes if they don't exist
-            addFadeInClasses();
+           
             
             // Manually trigger fade-in for elements already in view
             triggerVisibleFadeIns();
@@ -4120,7 +4101,6 @@
          
          // Initialize fade-in effect after a short delay
          setTimeout(() => {
-         initializeFadeInEffect();
          }, 100);
          }
          
@@ -4488,7 +4468,7 @@
          // Reinitialize fade-in for the new section with a delay
          setTimeout(() => {
             // Add fade-in classes if they don't exist
-            addFadeInClasses();
+         
             
             // Manually trigger fade-in for elements already in view
             sectionElement.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
@@ -4544,7 +4524,7 @@
          tabContent.classList.add('active');
          
          // Reset and trigger fade-in for this tab content
-         resetAndTriggerFadeIn(tabContent);
+        
          }
          
          // Add active class to clicked tab
@@ -7116,16 +7096,9 @@
          }
          
          // Add this helper function to reset and trigger fade-in animations
-         function resetAndTriggerFadeIn(container) {
-         // Reset fade-in classes for elements in this container
-         container.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
-         el.classList.remove('visible');
-         });
          
-         // Reinitialize fade-in for this container after a short delay
-         setTimeout(() => {
          // Add fade-in classes if they don't exist
-         addFadeInClasses();
+         
          
          // Manually trigger fade-in for elements already in view
          container.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
@@ -7164,9 +7137,7 @@
          tabContent.classList.add('active');
          
          // Reset and trigger fade-in for this tab content
-         resetAndTriggerFadeIn(tabContent);
-         }
-         
+        
          // Add active class to clicked tab
          const activeTab = document.querySelector(`[onclick="showTab('${tabName}')"]`);
          if (activeTab) {
@@ -7195,8 +7166,7 @@
          sectionElement.style.display = 'block';
          
          // Reset and trigger fade-in for this section
-         resetAndTriggerFadeIn(sectionElement);
-         }
+        
          
          // Update active nav item
          const navItems = document.querySelectorAll('.nav-item');
@@ -7221,3 +7191,4 @@
       </script>
    </body>
 </html>
+
