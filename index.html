@@ -3885,7 +3885,6 @@
          
          // Initialize fade-in effect on scroll
          // Initialize fade-in effect on scroll
-         // Replace the existing initializeFadeInEffect function with this improved version
          function initializeFadeInEffect() {
          // Set up Intersection Observer for fade-in effect
          const fadeOptions = {
@@ -3893,7 +3892,6 @@
          rootMargin: '0px',
          threshold: 0.1
          };
-         
          const fadeObserver = new IntersectionObserver((entries) => {
          entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -3902,57 +3900,39 @@
          });
          }, fadeOptions);
          
-         // Function to observe all elements with fade-in classes
-         const observeFadeElements = () => {
+         // Observe all elements with fade-in class
          document.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
-            // Only observe if not already being observed
-            if (!el.classList.contains('fade-observed')) {
-                fadeObserver.observe(el);
-                el.classList.add('fade-observed');
-            }
-         });
-         };
-         
-         // Initial observation
-         observeFadeElements();
-         
-         // Set up a MutationObserver to watch for dynamically added elements
-         const mutationObserver = new MutationObserver((mutations) => {
-         mutations.forEach((mutation) => {
-            if (mutation.addedNodes && mutation.addedNodes.length > 0) {
-                // Check if any added nodes contain fade-in elements
-                const hasFadeElements = Array.from(mutation.addedNodes).some(node => {
-                    return node.nodeType === 1 && (
-                        node.classList.contains('fade-in') || 
-                        node.classList.contains('fade-in-stagger') ||
-                        node.querySelector('.fade-in, .fade-in-stagger')
-                    );
-                });
-                
-                if (hasFadeElements) {
-                    observeFadeElements();
-                }
-            }
-         });
+         fadeObserver.observe(el);
          });
          
-         // Start observing the entire document for added nodes
-         mutationObserver.observe(document.body, {
-         childList: true,
-         subtree: true
-         });
+         // Add fade-in class to content elements
+         addFadeInClasses();
          
-         // Also observe on window resize in case elements become visible
-         let resizeTimeout;
-         window.addEventListener('resize', () => {
-         clearTimeout(resizeTimeout);
-         resizeTimeout = setTimeout(() => {
-            observeFadeElements();
-         }, 250);
-         });
+         // Trigger fade-in for elements already in view
+         triggerVisibleFadeIns();
          }
          
-         // Replace the existing addFadeInClasses function with this improved version
+         // Trigger fade-in for elements already visible
+         function triggerVisibleFadeIns() {
+         // Small delay to ensure DOM is fully rendered
+         setTimeout(() => {
+         document.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
+            const rect = el.getBoundingClientRect();
+            const isVisible = (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+            
+            if (isVisible) {
+                el.classList.add('visible');
+            }
+         });
+         }, 100);
+         }
+         
+         // Add fade-in classes to relevant elements
          function addFadeInClasses() {
          // Content cards
          document.querySelectorAll('.content-card').forEach(card => {
@@ -4058,195 +4038,6 @@
             }
          });
          }
-         }
-         
-         // Replace the existing resetAndTriggerFadeIn function with this improved version
-         function resetAndTriggerFadeIn(container) {
-         // Remove visible class and fade-observed class from all elements in this container
-         container.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
-         el.classList.remove('visible', 'fade-observed');
-         });
-         
-         // Force reflow to restart animations
-         void container.offsetWidth;
-         
-         // Add fade-in classes if they don't exist
-         addFadeInClasses();
-         
-         // Manually trigger fade-in for elements already in view
-         setTimeout(() => {
-         container.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
-            const rect = el.getBoundingClientRect();
-            const isVisible = (
-                rect.top >= 0 &&
-                rect.left >= 0 &&
-                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-            );
-            
-            if (isVisible) {
-                el.classList.add('visible');
-            }
-         });
-         }, 50);
-         }
-         
-         // Update the showTab function to use the improved helper
-         function showTab(tabName) {
-         // Hide all tab contents
-         const tabContents = document.querySelectorAll('.tab-content');
-         tabContents.forEach(content => {
-         content.classList.remove('active');
-         });
-         
-         // Remove active class from all tabs
-         const tabs = document.querySelectorAll('.tab');
-         tabs.forEach(tab => {
-         tab.classList.remove('active');
-         });
-         
-         // Show selected tab content
-         const tabContent = document.getElementById(tabName);
-         if (tabContent) {
-         tabContent.classList.add('active');
-         
-         // Reset and trigger fade-in for this tab content
-         resetAndTriggerFadeIn(tabContent);
-         }
-         
-         // Add active class to clicked tab
-         const activeTab = document.querySelector(`[onclick="showTab('${tabName}')"]`);
-         if (activeTab) {
-         activeTab.classList.add('active');
-         }
-         }
-         
-         // Update the navigateToSection function to use the improved helper
-         function navigateToSection(sectionName) {
-         // Check if section is locked
-         const navItem = document.getElementById(`nav-${sectionName}`);
-         if (navItem && navItem.classList.contains('locked')) {
-         showToast('info', 'Section Locked', 'Please complete previous sections first.');
-         return;
-         }
-         
-         // Hide all sections
-         const sections = document.querySelectorAll('.content-section');
-         sections.forEach(section => {
-         section.style.display = 'none';
-         });
-         
-         // Show selected section
-         const sectionElement = document.getElementById(`${sectionName}-section`);
-         if (sectionElement) {
-         sectionElement.style.display = 'block';
-         
-         // Reset and trigger fade-in for this section
-         resetAndTriggerFadeIn(sectionElement);
-         }
-         
-         // Update active nav item
-         const navItems = document.querySelectorAll('.nav-item');
-         navItems.forEach(item => {
-         item.classList.remove('active');
-         });
-         
-         if (navItem) {
-         navItem.classList.add('active');
-         }
-         
-         currentSection = sectionName;
-         
-         // Load leaderboard if that section is selected
-         if (sectionName === 'leaderboard') {
-         loadLeaderboard();
-         }
-         }
-         
-         // Also update the initApp function to ensure proper initialization
-         function initApp() {
-         // Check authentication state
-         auth.onAuthStateChanged((user) => {
-         if (user) {
-            currentUser = user;
-            loadUserData();
-         } else {
-            showLandingPage();
-         }
-         });
-         
-         // Check for saved dark mode preference
-         if (localStorage.getItem('darkMode') === 'true') {
-         document.body.classList.add('dark-mode');
-         document.getElementById('darkModeToggle').checked = true;
-         }
-         
-         // Check for saved sound preference
-         if (localStorage.getItem('soundEnabled') === 'false') {
-         soundEnabled = false;
-         document.getElementById('soundToggle').checked = false;
-         }
-         
-         // Initialize search functionality
-         document.getElementById('searchInput').addEventListener('input', function(e) {
-         const searchTerm = e.target.value.toLowerCase();
-         // We'll search through the content of the current section
-         if (searchTerm === '') {
-            // Show all content
-            document.querySelectorAll('.content-card').forEach(card => {
-                card.style.display = 'block';
-            });
-         } else {
-            document.querySelectorAll('.content-card').forEach(card => {
-                const text = card.textContent.toLowerCase();
-                if (text.includes(searchTerm)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-         }
-         });
-         
-         // Initialize periodic table interactions
-         document.querySelectorAll('.element').forEach(element => {
-         element.addEventListener('click', function() {
-            const elementName = this.querySelector('.element-name').textContent;
-            showToast('info', 'Element Info', `You clicked on ${elementName}`);
-         });
-         });
-         
-         // Initialize fade-in effect after a short delay
-         setTimeout(() => {
-         // Add fade-in classes first
-         addFadeInClasses();
-         
-         // Then initialize the fade-in effect
-         initializeFadeInEffect();
-         
-         // Trigger fade-in for elements already in view
-         triggerVisibleFadeIns();
-         }, 100);
-         }
-         
-         // Update the triggerVisibleFadeIns function to work with the new system
-         function triggerVisibleFadeIns() {
-         // Small delay to ensure DOM is fully rendered
-         setTimeout(() => {
-         document.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
-            const rect = el.getBoundingClientRect();
-            const isVisible = (
-                rect.top >= 0 &&
-                rect.left >= 0 &&
-                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-            );
-            
-            if (isVisible) {
-                el.classList.add('visible');
-            }
-         });
-         }, 100);
          }
          
          // Navigation functions
