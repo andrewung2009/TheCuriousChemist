@@ -770,6 +770,7 @@
          100% { transform: translateX(100%); }
          }
          /* Enhanced modal */
+         /* Enhanced modal styles */
          .modal {
          display: none;
          position: fixed;
@@ -783,6 +784,7 @@
          justify-content: center;
          padding: 1rem;
          backdrop-filter: blur(4px);
+         overflow: auto; /* Allow scrolling if content is too tall */
          }
          .modal.active {
          display: flex;
@@ -792,23 +794,135 @@
          background: white;
          border-radius: 1rem;
          padding: 2rem;
-         max-width: 600px;
+         max-width: 800px;
          width: 100%;
          max-height: 90vh;
          overflow-y: auto;
          box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
          animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-         }
-         @keyframes slideUp {
-         from { transform: translateY(50px); opacity: 0; }
-         to { transform: translateY(0); opacity: 1; }
+         margin: auto; /* Center the modal */
+         position: relative; /* For proper positioning */
          }
          body.dark-mode .modal-content {
          background: #374151;
          color: #f3f4f6;
          }
-         .modal-lg {
-         max-width: 800px;
+         /* Group details specific styles */
+         .group-details-container {
+         max-width: 100%;
+         box-sizing: border-box;
+         }
+         .group-announcement {
+         background: white;
+         border-radius: 0.5rem;
+         padding: 1rem;
+         margin-bottom: 1rem;
+         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+         border-left: 4px solid var(--primary);
+         }
+         body.dark-mode .group-announcement {
+         background: #4b5563;
+         border-left-color: #818cf8;
+         }
+         .resource-item {
+         background: white;
+         border-radius: 0.5rem;
+         padding: 1rem;
+         margin-bottom: 1rem;
+         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+         display: flex;
+         align-items: flex-start;
+         border-left: 4px solid var(--secondary);
+         }
+         body.dark-mode .resource-item {
+         background: #4b5563;
+         border-left-color: #818cf8;
+         }
+         .resource-icon {
+         margin-right: 1rem;
+         color: var(--primary);
+         font-size: 1.25rem;
+         }
+         .resource-info {
+         flex: 1;
+         }
+         .resource-name {
+         font-weight: 600;
+         margin-bottom: 0.25rem;
+         }
+         .resource-meta {
+         font-size: 0.875rem;
+         color: var(--gray-500);
+         }
+         body.dark-mode .resource-meta {
+         color: #9ca3af;
+         }
+         .resource-description {
+         margin-top: 0.5rem;
+         color: var(--gray-700);
+         }
+         body.dark-mode .resource-description {
+         color: #d1d5db;
+         }
+         .resource-actions {
+         display: flex;
+         gap: 0.5rem;
+         }
+         .resource-btn {
+         background: none;
+         border: none;
+         color: var(--gray-500);
+         cursor: pointer;
+         padding: 0.25rem;
+         border-radius: 0.25rem;
+         transition: all 0.2s ease;
+         }
+         .resource-btn:hover {
+         background: var(--gray-100);
+         color: var(--gray-700);
+         }
+         body.dark-mode .resource-btn:hover {
+         background: #4b5563;
+         color: #f3f4f6;
+         }
+         .group-chat-container {
+         background: white;
+         border-radius: 0.5rem;
+         padding: 1rem;
+         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+         border-left: 4px solid var(--success);
+         }
+         body.dark-mode .group-chat-container {
+         background: #4b5563;
+         border-left-color: #34d399;
+         }
+         .group-chat {
+         height: 300px;
+         overflow-y: auto;
+         margin-bottom: 1rem;
+         padding: 0.5rem;
+         background: var(--gray-50);
+         border-radius: 0.25rem;
+         }
+         body.dark-mode .group-chat {
+         background: #374151;
+         }
+         .chat-message {
+         margin-bottom: 0.75rem;
+         padding: 0.5rem;
+         border-radius: 0.5rem;
+         }
+         .chat-message.own {
+         background: var(--primary);
+         color: white;
+         margin-left: 2rem;
+         }
+         .chat-input {
+         display: flex;
+         gap: 0.5rem;
+         }
+         .chat-input input {
+         flex: 1;
          }
          /* Enhanced quiz option with more apparent hover */
          .quiz-option {
@@ -6064,137 +6178,194 @@
          }
          
          function showGroupDetails(groupId) {
-             if (!currentUser) {
-                 showToast('error', 'Sign in required', 'Please sign in to view group details.');
-                 showLoginModal();
-                 return;
-             }
-             
-             const group = studyGroups.find(g => g.id === groupId);
-             if (!group) return;
-             
-             const isMember = currentUser && group.members && group.members.includes(currentUser.uid);
-             
-             // Format topic for display
-             const topicLabels = {
-                 'melting-point': 'Melting Point Trends',
-                 'density': 'Density Trends',
-                 'reactivity': 'Reactivity Series',
-                 'reactions': 'Chemical Reactions',
-                 'electron-configuration': 'Electron Configuration',
-                 'experiments': 'Laboratory Experiments',
-                 'exam-prep': 'Exam Preparation'
-             };
-             
-             document.getElementById('groupDetailsTitle').textContent = group.name;
-             
-             let content = `
-                 <div class="mb-6">
-                     <div class="flex justify-between items-start mb-4">
-                         <div>
-                             <h3 class="text-xl font-bold">${group.name}</h3>
-                             <span class="group-topic">${topicLabels[group.topic] || group.topic}</span>
-                         </div>
-                         <button onclick="closeGroupDetailsModal()" class="text-gray-500 hover:text-gray-700">
-                             <i class="fas fa-times text-xl"></i>
-                         </button>
-                     </div>
-                     
-                     <p class="text-gray-700 mb-4">${group.description}</p>
-                     
-                     <div class="grid grid-cols-2 gap-4 mb-6">
-                         <div class="bg-gray-50 p-4 rounded-lg">
-                             <h4 class="font-semibold text-gray-800 mb-2">Group Info</h4>
-                             <p class="text-sm text-gray-600">Created: ${new Date(group.createdAt).toLocaleDateString()}</p>
-                             <p class="text-sm text-gray-600">Members: ${group.memberCount || 0}/${group.maxMembers || 10}</p>
-                             <p class="text-sm text-gray-600">Creator: ${group.creatorName}</p>
-                         </div>
-                         <div class="bg-gray-50 p-4 rounded-lg">
-                             <h4 class="font-semibold text-gray-800 mb-2">Activity</h4>
-                             <p class="text-sm text-gray-600">Last active: ${new Date(group.lastActivity).toLocaleDateString()}</p>
-                             <p class="text-sm text-gray-600">Announcements: ${group.announcements ? group.announcements.length : 0}</p>
-                             <p class="text-sm text-gray-600">Resources: ${group.resources ? group.resources.length : 0}</p>
-                         </div>
-                     </div>
-                     
-                     ${isMember ? `
-                         <div class="mb-6">
-                             <h4 class="font-semibold text-gray-800 mb-3">Group Announcements</h4>
-                             <div id="groupAnnouncements">
-                                 ${(group.announcements || []).map(announcement => `
-                                     <div class="group-announcement">
-                                         <h5>${announcement.title}</h5>
-                                         <p>${announcement.content}</p>
-                                         <p class="text-xs text-gray-500">${new Date(announcement.createdAt).toLocaleDateString()}</p>
-                                     </div>
-                                 `).join('') || '<p class="text-gray-500">No announcements yet.</p>'}
-                             </div>
-                             ${group.creatorId === currentUser.uid ? `
-                                 <button onclick="showAddAnnouncementModal('${group.id}')" class="btn btn-primary btn-sm mt-2">
-                                     <i class="fas fa-plus mr-1"></i>
-                                     Add Announcement
-                                 </button>
-                             ` : ''}
-                         </div>
-                         
-                         <div class="mb-6">
-                             <h4 class="font-semibold text-gray-800 mb-3">Group Resources</h4>
-                             <div id="groupResources">
-                                 ${(group.resources || []).map(resource => `
-                                     <div class="resource-item">
-                                         <div class="resource-icon">
-                                             <i class="fas fa-file-alt"></i>
-                                         </div>
-                                         <div class="resource-info">
-                                             <div class="resource-name">${resource.name}</div>
-                                             <div class="resource-meta">Added by ${resource.addedBy} • ${new Date(resource.createdAt).toLocaleDateString()}</div>
-                                         </div>
-                                         <div class="resource-actions">
-                                             <button class="resource-btn" onclick="downloadResource('${resource.url}')">
-                                                 <i class="fas fa-download"></i>
-                                             </button>
-                                             ${group.creatorId === currentUser.uid ? `
-                                                 <button class="resource-btn" onclick="removeResource('${group.id}', '${resource.id}')">
-                                                     <i class="fas fa-trash"></i>
-                                                 </button>
-                                             ` : ''}
-                                         </div>
-                                     </div>
-                                 `).join('') || '<p class="text-gray-500">No resources shared yet.</p>'}
-                             </div>
-                             ${isMember ? `
-                                 <button onclick="showAddResourceModal('${group.id}')" class="btn btn-primary btn-sm mt-2">
-                                     <i class="fas fa-plus mr-1"></i>
-                                     Add Resource
-                                 </button>
-                             ` : ''}
-                         </div>
-                         
-                         <div class="mb-6">
-                             <h4 class="font-semibold text-gray-800 mb-3">Group Chat</h4>
-                             <div class="group-chat" id="groupChat-${group.id}">
-                                 <!-- Chat messages will be loaded here -->
-                             </div>
-                             <div class="chat-input">
-                                 <input type="text" id="chatInput-${group.id}" placeholder="Type a message..." onkeypress="if(event.key === 'Enter') sendChatMessage(event, '${group.id}')">
-                                 <button onclick="sendChatMessage(event, '${group.id}')" class="btn btn-primary btn-sm">Send</button>
-                             </div>
-                         </div>
-                     ` : `
-                         <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
-                             <p class="text-yellow-700">Join this study group to access announcements, resources, and group chat.</p>
-                         </div>
-                     `}
-                 </div>
-             `;
-             
-             document.getElementById('groupDetailsContent').innerHTML = content;
-             document.getElementById('groupDetailsModal').classList.add('active');
-             
-             // Load chat messages if member
-             if (isMember) {
-                 loadGroupChat(group.id);
-             }
+         if (!currentUser) {
+         showToast('error', 'Sign in required', 'Please sign in to view group details.');
+         showLoginModal();
+         return;
+         }
+         
+         const group = studyGroups.find(g => g.id === groupId);
+         if (!group) return;
+         
+         const isMember = currentUser && group.members && group.members.includes(currentUser.uid);
+         
+         // Format topic for display
+         const topicLabels = {
+         'melting-point': 'Melting Point Trends',
+         'density': 'Density Trends',
+         'reactivity': 'Reactivity Series',
+         'reactions': 'Chemical Reactions',
+         'electron-configuration': 'Electron Configuration',
+         'experiments': 'Laboratory Experiments',
+         'exam-prep': 'Exam Preparation'
+         };
+         
+         document.getElementById('groupDetailsTitle').textContent = group.name;
+         
+         let content = `
+         <div class="group-details-container">
+            <div class="flex justify-between items-start mb-6">
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-800">${group.name}</h3>
+                    <span class="group-topic inline-block mt-1">${topicLabels[group.topic] || group.topic}</span>
+                </div>
+                <button onclick="closeGroupDetailsModal()" class="text-gray-500 hover:text-gray-700 p-2 rounded-full hover:bg-gray-100 transition-colors">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <p class="text-gray-700 mb-6">${group.description}</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-gray-50 p-5 rounded-lg shadow-sm">
+                    <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
+                        <i class="fas fa-info-circle mr-2 text-indigo-600"></i>
+                        Group Info
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-2">
+                        <i class="fas fa-calendar-alt mr-2"></i>
+                        Created: ${new Date(group.createdAt).toLocaleDateString()}
+                    </p>
+                    <p class="text-sm text-gray-600 mb-2">
+                        <i class="fas fa-users mr-2"></i>
+                        Members: ${group.memberCount || 0}/${group.maxMembers || 10}
+                    </p>
+                    <p class="text-sm text-gray-600">
+                        <i class="fas fa-user-cog mr-2"></i>
+                        Creator: ${group.creatorName}
+                    </p>
+                </div>
+                <div class="bg-gray-50 p-5 rounded-lg shadow-sm">
+                    <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
+                        <i class="fas fa-chart-line mr-2 text-indigo-600"></i>
+                        Activity
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-2">
+                        <i class="fas fa-clock mr-2"></i>
+                        Last active: ${new Date(group.lastActivity).toLocaleDateString()}
+                    </p>
+                    <p class="text-sm text-gray-600 mb-2">
+                        <i class="fas fa-bullhorn mr-2"></i>
+                        Announcements: ${group.announcements ? group.announcements.length : 0}
+                    </p>
+                    <p class="text-sm text-gray-600">
+                        <i class="fas fa-folder-open mr-2"></i>
+                        Resources: ${group.resources ? group.resources.length : 0}
+                    </p>
+                </div>
+            </div>
+            
+            ${isMember ? `
+                <div class="mb-8">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="font-semibold text-gray-800 flex items-center">
+                            <i class="fas fa-bullhorn mr-2 text-indigo-600"></i>
+                            Group Announcements
+                        </h4>
+                        ${group.creatorId === currentUser.uid ? `
+                            <button onclick="showAddAnnouncementModal('${group.id}')" class="btn btn-primary btn-sm">
+                                <i class="fas fa-plus mr-1"></i>
+                                Add Announcement
+                            </button>
+                        ` : ''}
+                    </div>
+                    <div id="groupAnnouncements">
+                        ${(group.announcements || []).map(announcement => `
+                            <div class="group-announcement">
+                                <h5 class="font-semibold text-gray-800 mb-2">${announcement.title}</h5>
+                                <p class="text-gray-600 mb-2">${announcement.content}</p>
+                                <p class="text-xs text-gray-500">
+                                    <i class="fas fa-calendar-alt mr-1"></i>
+                                    ${new Date(announcement.createdAt).toLocaleDateString()}
+                                </p>
+                            </div>
+                        `).join('') || '<p class="text-gray-500 italic">No announcements yet.</p>'}
+                    </div>
+                </div>
+                
+                <div class="mb-8">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="font-semibold text-gray-800 flex items-center">
+                            <i class="fas fa-folder-open mr-2 text-indigo-600"></i>
+                            Group Resources
+                        </h4>
+                        ${isMember ? `
+                            <button onclick="showAddResourceModal('${group.id}')" class="btn btn-primary btn-sm">
+                                <i class="fas fa-plus mr-1"></i>
+                                Add Resource
+                            </button>
+                        ` : ''}
+                    </div>
+                    <div id="groupResources">
+                        ${(group.resources || []).map(resource => `
+                            <div class="resource-item">
+                                <div class="resource-icon">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <div class="resource-info">
+                                    <div class="resource-name">${resource.name}</div>
+                                    <div class="resource-meta">
+                                        <i class="fas fa-user mr-1"></i>
+                                        ${resource.addedBy} • 
+                                        <i class="fas fa-calendar-alt mr-1"></i>
+                                        ${new Date(resource.createdAt).toLocaleDateString()}
+                                    </div>
+                                    ${resource.description ? `<div class="resource-description">${resource.description}</div>` : ''}
+                                </div>
+                                <div class="resource-actions">
+                                    <button class="resource-btn" onclick="downloadResource('${resource.url}')" title="Download">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                    ${group.creatorId === currentUser.uid ? `
+                                        <button class="resource-btn text-red-500" onclick="removeResource('${group.id}', '${resource.id}')" title="Remove">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        `).join('') || '<p class="text-gray-500 italic">No resources shared yet.</p>'}
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-comments mr-2 text-indigo-600"></i>
+                        Group Chat
+                    </h4>
+                    <div class="group-chat-container">
+                        <div class="group-chat" id="groupChat-${group.id}">
+                            <!-- Chat messages will be loaded here -->
+                        </div>
+                        <div class="chat-input">
+                            <input type="text" id="chatInput-${group.id}" class="form-input flex-1" placeholder="Type a message..." onkeypress="if(event.key === 'Enter') sendChatMessage(event, '${group.id}')">
+                            <button onclick="sendChatMessage(event, '${group.id}')" class="btn btn-primary">Send</button>
+                        </div>
+                    </div>
+                </div>
+            ` : `
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4 rounded-lg">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-exclamation-triangle text-yellow-400"></i>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm text-yellow-700">
+                                Join this study group to access announcements, resources, and group chat.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            `}
+         </div>
+         `;
+         
+         document.getElementById('groupDetailsContent').innerHTML = content;
+         document.getElementById('groupDetailsModal').classList.add('active');
+         
+         // Load chat messages if member
+         if (isMember) {
+         loadGroupChat(group.id);
+         }
          }
          
          function closeGroupDetailsModal() {
