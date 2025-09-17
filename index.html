@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -7013,63 +7014,125 @@
          }
          
          // Leaderboard functions
-         function loadLeaderboard() {
-             const leaderboardContent = document.getElementById('leaderboardContent');
-             leaderboardContent.innerHTML = '<div class="spinner"></div>';
-             const usersRef = database.ref('users');
-             usersRef.orderByChild('xp').limitToLast(10).on('value', (snapshot) => {
-                 leaderboardContent.innerHTML = '';
-                 if (!snapshot.exists()) {
-                     leaderboardContent.innerHTML = '<p class="text-gray-500 text-center">No data available.</p>';
-                     return;
-                 }
-                 const users = [];
-                 snapshot.forEach((childSnapshot) => {
-                     users.push({
-                         id: childSnapshot.key,
-                         ...childSnapshot.val()
-                     });
-                 });
-                 // Sort by XP descending
-                 users.sort((a, b) => (b.xp || 0) - (a.xp || 0));
-                 const table = document.createElement('table');
-                 table.className = 'trend-table fade-in';
-                 table.innerHTML = `
-                     <thead>
-                         <tr>
-                             <th>Rank</th>
-                             <th>User</th>
-                             <th>XP</th>
-                             <th>Sections Completed</th>
-                             <th>Badges</th>
-                         </tr>
-                     </thead>
-                     <tbody></tbody>
-                 `;
-                 const tbody = table.querySelector('tbody');
-                 users.forEach((user, index) => {
-                     const rank = index + 1;
-                     const row = document.createElement('tr');
-                     
-                     let rankClass = '';
-                     if (rank === 1) rankClass = 'first';
-                     else if (rank === 2) rankClass = 'second';
-                     else if (rank === 3) rankClass = 'third';
-                     
-                     row.innerHTML = `
-                         <td>
-                             <div class="leaderboard-rank ${rankClass}">${rank}</div>
-                         </td>
-                         <td>${user.displayName || 'Anonymous'}</td>
-                         <td>${user.xp || 0}</td>
-                         <td>${user.completedSections ? user.completedSections.length : 0}</td>
-                         <td>${user.badges ? user.badges.length : 0}</td>
-                     `;
-                     tbody.appendChild(row);
-                 });
-                 leaderboardContent.appendChild(table);
-             });
-         }
+         // Leaderboard functions
+function loadLeaderboard() {
+    const leaderboardContent = document.getElementById('leaderboardContent');
+    leaderboardContent.innerHTML = '<div class="spinner"></div>';
+    
+    const usersRef = database.ref('users');
+    usersRef.orderByChild('xp').limitToLast(10).on('value', (snapshot) => {
+        leaderboardContent.innerHTML = '';
+        
+        if (!snapshot.exists()) {
+            leaderboardContent.innerHTML = '<p class="text-gray-500 text-center">No data available.</p>';
+            return;
+        }
+        
+        const users = [];
+        snapshot.forEach((childSnapshot) => {
+            users.push({
+                id: childSnapshot.key,
+                ...childSnapshot.val()
+            });
+        });
+        
+        // Sort by XP descending
+        users.sort((a, b) => (b.xp || 0) - (a.xp || 0));
+        
+        // Create table with fade-in class
+        const table = document.createElement('table');
+        table.className = 'trend-table fade-in';
+        
+        // Create table header
+        const thead = document.createElement('thead');
+        thead.innerHTML = `
+            <tr>
+                <th>Rank</th>
+                <th>User</th>
+                <th>XP</th>
+                <th>Sections Completed</th>
+                <th>Badges</th>
+            </tr>
+        `;
+        table.appendChild(thead);
+        
+        // Create table body
+        const tbody = document.createElement('tbody');
+        tbody.className = 'fade-in-stagger';
+        
+        users.forEach((user, index) => {
+            const rank = index + 1;
+            const row = document.createElement('tr');
+            row.className = 'leaderboard-entry fade-in';
+            
+            let rankClass = '';
+            if (rank === 1) rankClass = 'first';
+            else if (rank === 2) rankClass = 'second';
+            else if (rank === 3) rankClass = 'third';
+            
+            row.innerHTML = `
+                <td>
+                    <div class="leaderboard-rank ${rankClass}">${rank}</div>
+                </td>
+                <td>${user.displayName || 'Anonymous'}</td>
+                <td>${user.xp || 0}</td>
+                <td>${user.completedSections ? user.completedSections.length : 0}</td>
+                <td>${user.badges ? user.badges.length : 0}</td>
+            `;
+            
+            tbody.appendChild(row);
+        });
+        
+        table.appendChild(tbody);
+        leaderboardContent.appendChild(table);
+        
+        // Apply fade-in effect after a short delay
+        setTimeout(() => {
+            // Add fade-in classes if they don't exist
+            if (!table.classList.contains('fade-in')) {
+                table.classList.add('fade-in');
+            }
+            
+            if (!tbody.classList.contains('fade-in-stagger')) {
+                tbody.classList.add('fade-in-stagger');
+            }
+            
+            // Manually trigger fade-in for elements already in view
+            const rect = table.getBoundingClientRect();
+            const isVisible = (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+            
+            if (isVisible) {
+                table.classList.add('visible');
+                tbody.classList.add('visible');
+                
+                // Trigger fade-in for each row with staggered delay
+                const rows = tbody.querySelectorAll('tr');
+                rows.forEach((row, index) => {
+                    setTimeout(() => {
+                        row.classList.add('visible');
+                    }, index * 100); // 100ms delay between each row
+                });
+            }
+            
+            // Reconnect the observer to observe new elements
+            if (fadeObserver) {
+                fadeObserver.observe(table);
+                fadeObserver.observe(tbody);
+                
+                // Observe each row
+                const rows = tbody.querySelectorAll('tr');
+                rows.forEach(row => {
+                    fadeObserver.observe(row);
+                });
+            }
+        }, 50);
+    });
+}
          
          // Toast notification function
          function showToast(type, title, message) {
