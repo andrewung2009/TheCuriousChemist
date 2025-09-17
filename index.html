@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -6215,6 +6216,12 @@
     const groupsContainer = document.getElementById('studyGroupsList');
     groupsContainer.innerHTML = '<div class="spinner"></div>';
     
+    // Make spinner visible immediately
+    setTimeout(() => {
+        const spinner = groupsContainer.querySelector('.spinner');
+        if (spinner) spinner.style.display = 'block';
+    }, 10);
+    
     const groupsRef = database.ref('studyGroups');
     groupsRef.on('value', (snapshot) => {
         groupsContainer.innerHTML = '';
@@ -6228,11 +6235,11 @@
                     <h3 class="empty-state-title">No Study Groups Yet</h3>
                     <p class="empty-state-description">Create your first study group to collaborate with peers.</p>
                 </div>`;
-            // Make empty state visible immediately
+            // Force visibility
             setTimeout(() => {
-                groupsContainer.querySelectorAll('.empty-state-icon, .empty-state-title, .empty-state-description').forEach(el => {
-                    el.classList.add('visible');
-                });
+                groupsContainer.style.display = 'block';
+                groupsContainer.style.visibility = 'visible';
+                groupsContainer.style.opacity = '1';
             }, 50);
             return;
         }
@@ -6245,23 +6252,47 @@
             });
         });
         
+        // Create a document fragment to improve performance
+        const fragment = document.createDocumentFragment();
+        
         studyGroups.forEach(group => {
             const groupElement = createStudyGroupElement(group);
-            groupsContainer.appendChild(groupElement);
+            fragment.appendChild(groupElement);
         });
         
-        // Force visibility for all elements after a short delay
+        // Append all elements at once
+        groupsContainer.appendChild(fragment);
+        
+        // Force visibility of the container and all its children
         setTimeout(() => {
-            groupsContainer.querySelectorAll('.study-group-card, .empty-state-icon, .empty-state-title, .empty-state-description').forEach(el => {
-                el.classList.add('visible');
+            groupsContainer.style.display = 'block';
+            groupsContainer.style.visibility = 'visible';
+            groupsContainer.style.opacity = '1';
+            
+            // Make all child elements visible
+            Array.from(groupsContainer.children).forEach(child => {
+                child.style.display = 'block';
+                child.style.visibility = 'visible';
+                child.style.opacity = '1';
+                
+                // If it's a study group card, make its children visible too
+                if (child.classList.contains('study-group-card')) {
+                    Array.from(child.children).forEach(grandChild => {
+                        grandChild.style.display = 'block';
+                        grandChild.style.visibility = 'visible';
+                        grandChild.style.opacity = '1';
+                    });
+                }
             });
-        }, 150);
+        }, 100);
     }, (error) => {
         console.error("Error loading study groups:", error);
         groupsContainer.innerHTML = '<p class="text-gray-500 text-center">Error loading study groups.</p>';
-        // Make error message visible immediately
+        // Force error message visibility
         setTimeout(() => {
-            groupsContainer.querySelector('p').classList.add('visible');
+            groupsContainer.style.display = 'block';
+            groupsContainer.style.visibility = 'visible';
+            groupsContainer.style.opacity = '1';
         }, 50);
     });
 }
