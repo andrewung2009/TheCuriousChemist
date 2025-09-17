@@ -6262,6 +6262,10 @@ setTimeout(() => {
          function createStudyGroupElement(group) {
              const groupDiv = document.createElement('div');
              groupDiv.className = 'study-group-card fade-in';
+            // Force immediate visibility for fade-in elements
+            setTimeout(() => {
+                groupDiv.classList.add('visible');
+            }, 100);
              
              const isMember = currentUser && group.members && group.members.includes(currentUser.uid);
              const memberCount = group.members ? group.members.length : 0;
@@ -7172,3 +7176,4 @@ setTimeout(() => {
       </script>
    </body>
 </html>
+
