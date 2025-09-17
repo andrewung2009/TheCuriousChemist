@@ -4060,18 +4060,6 @@
                  showToast('info', 'Section Locked', 'Please complete previous sections first.');
                  return;
              }
-            // Show selected section
-            const sectionElement = document.getElementById(`${sectionName}-section`);
-            if (sectionElement) {
-                sectionElement.style.display = 'block';
-                
-                // Force visibility for fade-in elements in this section
-                setTimeout(() => {
-                    sectionElement.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
-                        el.classList.add('visible');
-                    });
-                }, 100);
-            }
              
              // Hide all sections
              const sections = document.querySelectorAll('.content-section');
@@ -6224,57 +6212,59 @@
          }
          
          function loadStudyGroups() {
-             const groupsContainer = document.getElementById('studyGroupsList');
-             groupsContainer.innerHTML = '<div class="spinner"></div>';
-             
-             const groupsRef = database.ref('studyGroups');
-             groupsRef.on('value', (snapshot) => {
-                 groupsContainer.innerHTML = '';
-                 
-                 if (!snapshot.exists()) {
-                     groupsContainer.innerHTML = `
-                         <div class="empty-state">
-                             <div class="empty-state-icon">
-                                 <i class="fas fa-users"></i>
-                             </div>
-                             <h3 class="empty-state-title">No Study Groups Yet</h3>
-                             <p class="empty-state-description">Create your first study group to collaborate with peers.</p>
-                         </div>`;
-                     return;
-                 }
-                 
-                 studyGroups = [];
-                 snapshot.forEach((childSnapshot) => {
-                     studyGroups.push({
-                         id: childSnapshot.key,
-                         ...childSnapshot.val()
-                     });
-                 });
-                 
-                 studyGroups.forEach(group => {
-                     const groupElement = createStudyGroupElement(group);
-                     groupsContainer.appendChild(groupElement);
-                 });
-                 // Force fade-in animation for study groups
-                  setTimeout(() => {
-                      document.querySelectorAll('.study-group-card').forEach(card => {
-                          card.classList.add('visible');
-                      });
-                  }, 150);
-                 // Apply fade-in to new groups
-                 // Trigger fade-in for new groups
-setTimeout(() => {
-    if (fadeObserver) {
-        groupsContainer.querySelectorAll('.study-group-card').forEach(group => {
-            fadeObserver.observe(group);
+    const groupsContainer = document.getElementById('studyGroupsList');
+    groupsContainer.innerHTML = '<div class="spinner"></div>';
+    
+    const groupsRef = database.ref('studyGroups');
+    groupsRef.on('value', (snapshot) => {
+        groupsContainer.innerHTML = '';
+        
+        if (!snapshot.exists()) {
+            groupsContainer.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="empty-state-title">No Study Groups Yet</h3>
+                    <p class="empty-state-description">Create your first study group to collaborate with peers.</p>
+                </div>`;
+            // Make empty state visible immediately
+            setTimeout(() => {
+                groupsContainer.querySelectorAll('.empty-state-icon, .empty-state-title, .empty-state-description').forEach(el => {
+                    el.classList.add('visible');
+                });
+            }, 50);
+            return;
+        }
+        
+        studyGroups = [];
+        snapshot.forEach((childSnapshot) => {
+            studyGroups.push({
+                id: childSnapshot.key,
+                ...childSnapshot.val()
+            });
         });
-    }
-}, 100);
-             }, (error) => {
-                 console.error("Error loading study groups:", error);
-                 groupsContainer.innerHTML = '<p class="text-gray-500 text-center">Error loading study groups.</p>';
-             });
-         }
+        
+        studyGroups.forEach(group => {
+            const groupElement = createStudyGroupElement(group);
+            groupsContainer.appendChild(groupElement);
+        });
+        
+        // Force visibility for all elements after a short delay
+        setTimeout(() => {
+            groupsContainer.querySelectorAll('.study-group-card, .empty-state-icon, .empty-state-title, .empty-state-description').forEach(el => {
+                el.classList.add('visible');
+            });
+        }, 150);
+    }, (error) => {
+        console.error("Error loading study groups:", error);
+        groupsContainer.innerHTML = '<p class="text-gray-500 text-center">Error loading study groups.</p>';
+        // Make error message visible immediately
+        setTimeout(() => {
+            groupsContainer.querySelector('p').classList.add('visible');
+        }, 50);
+    });
+}
          
          function createStudyGroupElement(group) {
              const groupDiv = document.createElement('div');
@@ -7193,6 +7183,4 @@ setTimeout(() => {
       </script>
    </body>
 </html>
-
-
 
