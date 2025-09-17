@@ -51,8 +51,8 @@
          .content-card {
          background: rgba(255, 255, 255, 0.95);
          border-radius: 1rem;
-         padding: 1.5rem;
-         margin-bottom: 1.5rem;
+         padding: 2rem;
+         margin-bottom: 2rem;
          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
          border-left: 5px solid var(--primary);
@@ -382,15 +382,15 @@
          }
          .main-content {
          margin-left: 280px;
-         padding: 1.5rem;
+         padding: 2rem;
          min-height: 100vh;
          }
          /* Enhanced element grid with more apparent hover */
          .element-grid {
          display: grid;
          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-         gap: 1.5rem;
-         margin: 1.5rem 0;
+         gap: 2rem;
+         margin: 2rem 0;
          }
          .element-card {
          background: white;
@@ -443,7 +443,7 @@
          .tabs {
          display: flex;
          border-bottom: 2px solid var(--gray-200);
-         margin-bottom: 1.5rem;
+         margin-bottom: 2rem;
          }
          body.dark-mode .tabs {
          border-bottom-color: #4b5563;
@@ -457,6 +457,7 @@
          color: var(--gray-500);
          transition: all 0.3s ease;
          position: relative;
+         margin-right: 1rem;
          }
          body.dark-mode .tab {
          color: #9ca3af;
@@ -503,7 +504,7 @@
          .trend-table {
          width: 100%;
          border-collapse: collapse;
-         margin: 1.5rem 0;
+         margin: 2rem 0;
          background: white;
          border-radius: 0.5rem;
          overflow: hidden;
@@ -516,12 +517,12 @@
          .trend-table th {
          background: var(--primary);
          color: white;
-         padding: 0.75rem;
+         padding: 1rem;
          text-align: left;
          font-weight: 600;
          }
          .trend-table td {
-         padding: 0.75rem;
+         padding: 1rem;
          border-bottom: 1px solid var(--gray-200);
          }
          body.dark-mode .trend-table td {
@@ -562,6 +563,7 @@
          font-family: 'Inter', sans-serif;
          position: relative;
          overflow: hidden;
+         margin: 0.5rem 0;
          }
          .btn::before {
          content: '';
@@ -634,9 +636,9 @@
          .highlight-box {
          background: rgba(79, 70, 229, 0.1);
          border-left: 4px solid var(--primary);
-         padding: 1rem;
+         padding: 1.5rem;
          border-radius: 0.5rem;
-         margin: 1rem 0;
+         margin: 1.5rem 0;
          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
          position: relative;
          overflow: hidden;
@@ -665,13 +667,14 @@
          .highlight-box h4 {
          color: var(--primary);
          font-weight: 600;
-         margin-bottom: 0.5rem;
+         margin-bottom: 0.75rem;
          }
          body.dark-mode .highlight-box h4 {
          color: #818cf8;
          }
          .highlight-box p {
          color: var(--gray-700);
+         line-height: 1.6;
          }
          body.dark-mode .highlight-box p {
          color: #d1d5db;
@@ -681,8 +684,8 @@
          background: var(--gray-100);
          border: 1px solid var(--gray-200);
          border-radius: 0.5rem;
-         padding: 1rem;
-         margin: 1rem 0;
+         padding: 1.5rem;
+         margin: 1.5rem 0;
          text-align: center;
          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
          position: relative;
@@ -723,7 +726,7 @@
          font-size: 1.1rem;
          font-weight: 600;
          color: var(--gray-800);
-         margin: 0.5rem 0;
+         margin: 0.75rem 0;
          position: relative;
          z-index: 1;
          }
@@ -737,7 +740,7 @@
          background: var(--gray-200);
          border-radius: 0.5rem;
          overflow: hidden;
-         margin: 1rem 0;
+         margin: 1.5rem 0;
          box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
          }
          body.dark-mode .progress-bar {
@@ -815,8 +818,8 @@
          .group-announcement {
          background: white;
          border-radius: 0.5rem;
-         padding: 1rem;
-         margin-bottom: 1rem;
+         padding: 1.5rem;
+         margin-bottom: 1.5rem;
          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
          border-left: 4px solid var(--primary);
          }
@@ -827,8 +830,8 @@
          .resource-item {
          background: white;
          border-radius: 0.5rem;
-         padding: 1rem;
-         margin-bottom: 1rem;
+         padding: 1.5rem;
+         margin-bottom: 1.5rem;
          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
          display: flex;
          align-items: flex-start;
@@ -848,7 +851,7 @@
          }
          .resource-name {
          font-weight: 600;
-         margin-bottom: 0.25rem;
+         margin-bottom: 0.5rem;
          }
          .resource-meta {
          font-size: 0.875rem;
@@ -858,7 +861,7 @@
          color: #9ca3af;
          }
          .resource-description {
-         margin-top: 0.5rem;
+         margin-top: 0.75rem;
          color: var(--gray-700);
          }
          body.dark-mode .resource-description {
@@ -866,14 +869,14 @@
          }
          .resource-actions {
          display: flex;
-         gap: 0.5rem;
+         gap: 0.75rem;
          }
          .resource-btn {
          background: none;
          border: none;
          color: var(--gray-500);
          cursor: pointer;
-         padding: 0.25rem;
+         padding: 0.5rem;
          border-radius: 0.25rem;
          transition: all 0.2s ease;
          }
@@ -888,7 +891,7 @@
          .group-chat-container {
          background: white;
          border-radius: 0.5rem;
-         padding: 1rem;
+         padding: 1.5rem;
          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
          border-left: 4px solid var(--success);
          }
@@ -899,8 +902,8 @@
          .group-chat {
          height: 300px;
          overflow-y: auto;
-         margin-bottom: 1rem;
-         padding: 0.5rem;
+         margin-bottom: 1.5rem;
+         padding: 1rem;
          background: var(--gray-50);
          border-radius: 0.25rem;
          }
@@ -908,8 +911,8 @@
          background: #374151;
          }
          .chat-message {
-         margin-bottom: 0.75rem;
-         padding: 0.5rem;
+         margin-bottom: 1rem;
+         padding: 0.75rem;
          border-radius: 0.5rem;
          }
          .chat-message.own {
@@ -919,17 +922,17 @@
          }
          .chat-input {
          display: flex;
-         gap: 0.5rem;
+         gap: 0.75rem;
          }
          .chat-input input {
          flex: 1;
          }
          /* Enhanced quiz option with more apparent hover */
          .quiz-option {
-         padding: 1rem;
+         padding: 1.25rem;
          border: 2px solid var(--gray-200);
          border-radius: 0.5rem;
-         margin: 0.75rem 0;
+         margin: 1rem 0;
          cursor: pointer;
          transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
          background: white;
@@ -1000,7 +1003,7 @@
          opacity: 0.7;
          }
          .quiz-option input {
-         margin-right: 1rem;
+         margin-right: 1.25rem;
          position: relative;
          z-index: 1;
          }
@@ -1072,7 +1075,7 @@
          bottom: 20px;
          right: 20px;
          background: white;
-         padding: 16px;
+         padding: 20px;
          border-radius: 8px;
          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
          z-index: 2000;
@@ -1099,7 +1102,7 @@
          border-left: 4px solid var(--primary);
          }
          .toast-icon {
-         margin-right: 12px;
+         margin-right: 16px;
          font-size: 1.25rem;
          }
          .toast.success .toast-icon {
@@ -1116,7 +1119,7 @@
          }
          .toast-title {
          font-weight: 600;
-         margin-bottom: 4px;
+         margin-bottom: 6px;
          }
          .toast-description {
          font-size: 0.875rem;
@@ -1138,7 +1141,7 @@
          color: #fff;
          text-align: center;
          border-radius: 6px;
-         padding: 8px;
+         padding: 12px;
          position: absolute;
          z-index: 1;
          bottom: 125%;
@@ -1188,11 +1191,12 @@
          cursor: pointer;
          font-weight: 600;
          color: var(--primary);
-         padding: 2px 4px;
+         padding: 4px 6px;
          border-radius: 4px;
          transition: all 0.3s ease;
          text-decoration: underline dotted;
          text-underline-offset: 2px;
+         margin: 0 2px;
          }
          body.dark-mode .element-hover {
          color: #818cf8;
@@ -1241,8 +1245,8 @@
          .periodic-table {
          display: grid;
          grid-template-columns: repeat(18, 1fr);
-         gap: 0.25rem;
-         margin: 1.5rem 0;
+         gap: 0.5rem;
+         margin: 2rem 0;
          }
          .element {
          aspect-ratio: 1;
@@ -1321,11 +1325,12 @@
          cursor: pointer;
          color: var(--primary);
          font-weight: 600;
-         padding: 2px 4px;
+         padding: 4px 6px;
          border-radius: 4px;
          transition: all 0.3s ease;
          text-decoration: underline dotted;
          text-underline-offset: 2px;
+         margin: 0 2px;
          }
          body.dark-mode .keyword {
          color: #818cf8;
@@ -1376,9 +1381,9 @@
          background: rgba(79, 70, 229, 0.1);
          color: var(--primary);
          font-weight: 600;
-         padding: 0.25rem 0.5rem;
+         padding: 0.5rem 0.75rem;
          border-radius: 0.25rem;
-         margin: 0 0.25rem;
+         margin: 0 0.5rem;
          cursor: pointer;
          position: relative;
          transition: all 0.3s ease;
@@ -1431,8 +1436,8 @@
          .discussion-post {
          background: white;
          border-radius: 0.75rem;
-         padding: 1.25rem;
-         margin-bottom: 1rem;
+         padding: 1.5rem;
+         margin-bottom: 1.5rem;
          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
          transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
          position: relative;
@@ -1464,11 +1469,11 @@
          .post-header {
          display: flex;
          align-items: center;
-         margin-bottom: 0.75rem;
+         margin-bottom: 1rem;
          }
          .post-avatar {
-         width: 40px;
-         height: 40px;
+         width: 48px;
+         height: 48px;
          border-radius: 50%;
          background: linear-gradient(135deg, var(--primary), var(--secondary));
          display: flex;
@@ -1476,7 +1481,7 @@
          justify-content: center;
          color: white;
          font-weight: 600;
-         margin-right: 0.75rem;
+         margin-right: 1rem;
          transition: transform 0.3s ease;
          }
          .discussion-post:hover .post-avatar {
@@ -1497,26 +1502,26 @@
          color: var(--gray-500);
          }
          .post-title {
-         font-size: 1.125rem;
+         font-size: 1.25rem;
          font-weight: 600;
          color: var(--gray-900);
-         margin-bottom: 0.5rem;
+         margin-bottom: 0.75rem;
          }
          body.dark-mode .post-title {
          color: #f3f4f6;
          }
          .post-content {
          color: var(--gray-700);
-         line-height: 1.5;
-         margin-bottom: 0.75rem;
+         line-height: 1.6;
+         margin-bottom: 1rem;
          }
          body.dark-mode .post-content {
          color: #d1d5db;
          }
          .post-actions {
          display: flex;
-         gap: 1rem;
-         padding-top: 0.75rem;
+         gap: 1.25rem;
+         padding-top: 1rem;
          border-top: 1px solid var(--gray-200);
          }
          body.dark-mode .post-actions {
@@ -1530,7 +1535,7 @@
          cursor: pointer;
          transition: all 0.3s ease;
          font-size: 0.875rem;
-         padding: 0.25rem 0.5rem;
+         padding: 0.5rem;
          border-radius: 0.25rem;
          }
          .post-action:hover {
@@ -1549,8 +1554,8 @@
          color: #818cf8;
          }
          .comments-section {
-         margin-top: 1rem;
-         padding-left: 1rem;
+         margin-top: 1.5rem;
+         padding-left: 1.5rem;
          border-left: 3px solid var(--gray-200);
          }
          body.dark-mode .comments-section {
@@ -1560,8 +1565,8 @@
          .comment {
          background: white;
          border-radius: 0.5rem;
-         padding: 0.75rem;
-         margin-bottom: 0.5rem;
+         padding: 1rem;
+         margin-bottom: 0.75rem;
          transition: all 0.3s ease;
          border: 1px solid #e5e7eb;
          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -1578,11 +1583,11 @@
          .comment-header {
          display: flex;
          align-items: center;
-         margin-bottom: 0.5rem;
+         margin-bottom: 0.75rem;
          }
          .comment-avatar {
-         width: 32px;
-         height: 32px;
+         width: 36px;
+         height: 36px;
          border-radius: 50%;
          background: linear-gradient(135deg, var(--primary), var(--secondary));
          display: flex;
@@ -1591,7 +1596,7 @@
          color: white;
          font-size: 0.875rem;
          font-weight: 600;
-         margin-right: 0.75rem;
+         margin-right: 1rem;
          flex-shrink: 0;
          }
          .comment-author {
@@ -1617,8 +1622,8 @@
          color: #d1d5db;
          }
          .comments-section {
-         margin-top: 1rem;
-         padding: 1rem;
+         margin-top: 1.5rem;
+         padding: 1.5rem;
          border-left: 3px solid var(--gray-200);
          background: var(--gray-50);
          border-radius: 0.5rem;
@@ -1631,8 +1636,8 @@
          .study-group-card {
          background: white;
          border-radius: 0.75rem;
-         padding: 1.25rem;
-         margin-bottom: 1rem;
+         padding: 1.5rem;
+         margin-bottom: 1.5rem;
          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
          transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
          position: relative;
@@ -1665,10 +1670,10 @@
          display: flex;
          justify-content: space-between;
          align-items: start;
-         margin-bottom: 0.75rem;
+         margin-bottom: 1rem;
          }
          .group-title {
-         font-size: 1.125rem;
+         font-size: 1.25rem;
          font-weight: 600;
          color: var(--gray-900);
          }
@@ -1682,7 +1687,7 @@
          padding: 0.25rem 0.75rem;
          border-radius: 9999px;
          font-size: 0.75rem;
-         margin-top: 0.25rem;
+         margin-top: 0.5rem;
          transition: all 0.3s ease;
          }
          .group-topic:hover {
@@ -1691,8 +1696,8 @@
          }
          .group-description {
          color: var(--gray-700);
-         line-height: 1.5;
-         margin-bottom: 0.75rem;
+         line-height: 1.6;
+         margin-bottom: 1rem;
          }
          body.dark-mode .group-description {
          color: #d1d5db;
@@ -1701,7 +1706,7 @@
          display: flex;
          justify-content: space-between;
          align-items: center;
-         margin-bottom: 0.75rem;
+         margin-bottom: 1rem;
          }
          .group-members {
          display: flex;
@@ -1709,8 +1714,8 @@
          gap: 0.5rem;
          }
          .member-avatar {
-         width: 32px;
-         height: 32px;
+         width: 36px;
+         height: 36px;
          border-radius: 50%;
          background: linear-gradient(135deg, var(--primary), var(--secondary));
          display: flex;
@@ -1732,7 +1737,7 @@
          }
          .group-actions {
          display: flex;
-         gap: 0.5rem;
+         gap: 0.75rem;
          }
          .empty-state {
          text-align: center;
@@ -1750,25 +1755,25 @@
          50% { transform: translateY(-10px); }
          }
          .empty-state-title {
-         font-size: 1.25rem;
+         font-size: 1.5rem;
          font-weight: 600;
-         margin-bottom: 0.5rem;
+         margin-bottom: 0.75rem;
          }
          .form-group {
-         margin-bottom: 1rem;
+         margin-bottom: 1.5rem;
          }
          .form-label {
          display: block;
          font-weight: 500;
          color: var(--gray-700);
-         margin-bottom: 0.5rem;
+         margin-bottom: 0.75rem;
          }
          body.dark-mode .form-label {
          color: #f3f4f6;
          }
          .form-input {
          width: 100%;
-         padding: 0.75rem;
+         padding: 0.875rem;
          border: 1px solid var(--gray-300);
          border-radius: 0.5rem;
          font-size: 1rem;
@@ -1791,14 +1796,14 @@
          }
          .form-textarea {
          resize: vertical;
-         min-height: 100px;
+         min-height: 120px;
          }
          /* Enhanced Quiz Enhancement Styles */
          .feedback-system {
          background: rgba(255, 255, 255, 0.95);
          border-radius: 1rem;
-         padding: 1.5rem;
-         margin-bottom: 1.5rem;
+         padding: 2rem;
+         margin-bottom: 2rem;
          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
          position: relative;
@@ -1828,14 +1833,14 @@
          }
          .reaction-buttons {
          display: flex;
-         gap: 1rem;
-         margin-top: 1rem;
+         gap: 1.25rem;
+         margin-top: 1.25rem;
          }
          .reaction-btn {
          display: flex;
          align-items: center;
-         gap: 0.5rem;
-         padding: 0.5rem 1rem;
+         gap: 0.75rem;
+         padding: 0.75rem 1.25rem;
          border-radius: 0.5rem;
          background: var(--gray-100);
          color: var(--gray-700);
@@ -1883,10 +1888,10 @@
          .xp-display {
          display: flex;
          align-items: center;
-         gap: 0.5rem;
+         gap: 0.75rem;
          background: linear-gradient(135deg, #f59e0b, #d97706);
          color: white;
-         padding: 0.5rem 1rem;
+         padding: 0.75rem 1.25rem;
          border-radius: 9999px;
          font-weight: 600;
          font-size: 0.875rem;
@@ -1899,14 +1904,14 @@
          .badge {
          display: inline-flex;
          align-items: center;
-         gap: 0.25rem;
+         gap: 0.375rem;
          background: linear-gradient(135deg, #8b5cf6, #7c3aed);
          color: white;
-         padding: 0.25rem 0.75rem;
+         padding: 0.375rem 0.875rem;
          border-radius: 9999px;
          font-size: 0.75rem;
          font-weight: 600;
-         margin-right: 0.5rem;
+         margin-right: 0.75rem;
          transition: all 0.3s ease;
          }
          .badge:hover {
@@ -1916,7 +1921,7 @@
          .leaderboard-entry {
          display: flex;
          align-items: center;
-         padding: 1rem;
+         padding: 1.25rem;
          border-bottom: 1px solid var(--gray-200);
          transition: all 0.3s ease;
          }
@@ -1931,15 +1936,15 @@
          background: rgba(79, 70, 229, 0.1);
          }
          .leaderboard-rank {
-         width: 30px;
-         height: 30px;
+         width: 36px;
+         height: 36px;
          display: flex;
          align-items: center;
          justify-content: center;
          background: var(--gray-100);
          border-radius: 50%;
          font-weight: 600;
-         margin-right: 1rem;
+         margin-right: 1.25rem;
          transition: all 0.3s ease;
          }
          body.dark-mode .leaderboard-rank {
@@ -1973,7 +1978,7 @@
          }
          .leaderboard-stats {
          display: flex;
-         gap: 1rem;
+         gap: 1.25rem;
          font-size: 0.875rem;
          color: var(--gray-600);
          }
@@ -1984,8 +1989,8 @@
          background: linear-gradient(135deg, #10b981, #059669);
          color: white;
          border-radius: 1rem;
-         padding: 1.5rem;
-         margin-bottom: 1.5rem;
+         padding: 2rem;
+         margin-bottom: 2rem;
          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
          position: relative;
@@ -2010,12 +2015,12 @@
          transform: translateX(0);
          }
          .daily-challenge h3 {
-         font-size: 1.25rem;
+         font-size: 1.5rem;
          font-weight: 600;
-         margin-bottom: 0.5rem;
+         margin-bottom: 0.75rem;
          }
          .daily-challenge p {
-         margin-bottom: 1rem;
+         margin-bottom: 1.25rem;
          }
          .switch {
          position: relative;
@@ -2092,8 +2097,9 @@
          cursor: pointer;
          transition: all 0.3s ease;
          border-radius: 0.25rem;
-         padding: 0.25rem 0.5rem;
+         padding: 0.375rem 0.5rem;
          display: inline-block;
+         margin: 0 0.25rem;
          }
          .interactive-element:hover {
          background-color: rgba(79, 70, 229, 0.1);
@@ -2124,11 +2130,11 @@
          color: var(--primary);
          }
          .interactive-element .quiz-popup .quiz-options {
-         margin-top: 0.5rem;
+         margin-top: 0.75rem;
          }
          .interactive-element .quiz-popup .quiz-option {
          padding: 0.5rem;
-         margin: 0.25rem 0;
+         margin: 0.375rem 0;
          border-radius: 0.25rem;
          cursor: pointer;
          transition: all 0.2s ease;
@@ -2208,7 +2214,7 @@
             </div>
             <h1 class="text-4xl font-bold text-gray-800 mb-4">Group 1 Alkali Metals</h1>
             <p class="text-lg text-gray-600 mb-8">Master Chemistry through Interactive Learning</p>
-            <div class="grid grid-cols-3 gap-6 mb-8">
+            <div class="grid grid-cols-3 gap-8 mb-8">
                <div class="bg-blue-50 p-6 rounded-xl transform transition-all duration-300 hover:scale-110 hover:shadow-lg">
                   <i class="fas fa-book-open text-3xl text-blue-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
                   <h3 class="font-semibold">Learn</h3>
@@ -2225,7 +2231,7 @@
                   <p class="text-sm text-gray-600">Innovative quiz</p>
                </div>
             </div>
-            <div class="space-y-4">
+            <div class="space-y-6">
                <button onclick="showLoginModal()" class="btn btn-primary w-full transform transition-all duration-300 hover:scale-105">
                <i class="fas fa-sign-in-alt mr-2"></i>
                Sign In to Begin
@@ -2381,31 +2387,31 @@
             </div>
             <!-- Progress Tracker -->
             <div class="content-card fade-in">
-               <div class="flex justify-between items-center mb-4">
-                  <h3 class="text-lg font-bold text-gray-800">Your Progress</h3>
-                  <div class="text-lg font-bold text-indigo-600" id="progressPercentage">0%</div>
+               <div class="flex justify-between items-center mb-6">
+                  <h3 class="text-xl font-bold text-gray-800">Your Progress</h3>
+                  <div class="text-xl font-bold text-indigo-600" id="progressPercentage">0%</div>
                </div>
                <div class="progress-bar">
                   <div class="progress-fill" id="overallProgressFill" style="width: 0%"></div>
                </div>
-               <div class="grid grid-cols-4 gap-4 mt-4">
-                  <div class="text-center p-3 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105 fade-in" id="progress-overview">
-                     <i class="fas fa-home text-gray-600 mb-2 transform transition-all duration-300 hover:scale-110"></i>
+               <div class="grid grid-cols-4 gap-6 mt-6">
+                  <div class="text-center p-4 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105 fade-in" id="progress-overview">
+                     <i class="fas fa-home text-gray-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
                      <div class="text-sm font-medium text-gray-700">Overview</div>
                      <div class="text-xs text-gray-500 mt-1">Not Started</div>
                   </div>
-                  <div class="text-center p-3 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105 fade-in" id="progress-elements">
-                     <i class="fas fa-th text-gray-600 mb-2 transform transition-all duration-300 hover:scale-110"></i>
+                  <div class="text-center p-4 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105 fade-in" id="progress-elements">
+                     <i class="fas fa-th text-gray-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
                      <div class="text-sm font-medium text-gray-700">Elements</div>
                      <div class="text-xs text-gray-500 mt-1">Locked</div>
                   </div>
-                  <div class="text-center p-3 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105 fade-in" id="progress-properties">
-                     <i class="fas fa-chart-line text-gray-600 mb-2 transform transition-all duration-300 hover:scale-110"></i>
+                  <div class="text-center p-4 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105 fade-in" id="progress-properties">
+                     <i class="fas fa-chart-line text-gray-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
                      <div class="text-sm font-medium text-gray-700">Properties</div>
                      <div class="text-xs text-gray-500 mt-1">Locked</div>
                   </div>
-                  <div class="text-center p-3 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105 fade-in" id="progress-quiz">
-                     <i class="fas fa-graduation-cap text-gray-600 mb-2 transform transition-all duration-300 hover:scale-110"></i>
+                  <div class="text-center p-4 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105 fade-in" id="progress-quiz">
+                     <i class="fas fa-graduation-cap text-gray-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
                      <div class="text-sm font-medium text-gray-700">Quiz</div>
                      <div class="text-xs text-gray-500 mt-1">Locked</div>
                   </div>
@@ -2414,44 +2420,44 @@
             <!-- Overview Section -->
             <section id="overview-section" class="content-section">
                <div class="content-card fade-in">
-                  <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                     <i class="fas fa-info-circle mr-2 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
+                  <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                     <i class="fas fa-info-circle mr-3 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                      Introduction to Group 1 Alkali Metals
                   </h3>
-                  <div class="mb-6 fade-in">
-                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300">
-                        <h4 class="font-semibold text-indigo-800 mb-2">Key Concepts</h4>
-                        <ul class="space-y-2 text-gray-700 fade-in-stagger">
+                  <div class="mb-8 fade-in">
+                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <h4 class="font-semibold text-indigo-800 mb-3">Key Concepts</h4>
+                        <ul class="space-y-3 text-gray-700 fade-in-stagger">
                            <li class="flex items-start">
-                              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
                               <span>Group 1 elements: <span class="interactive-element font-semibold text-indigo-600" onclick="showElementQuiz('lithium')">Lithium (Li)</span>, <span class="interactive-element font-semibold text-indigo-600" onclick="showElementQuiz('sodium')">Sodium (Na)</span>, <span class="interactive-element font-semibold text-indigo-600" onclick="showElementQuiz('potassium')">Potassium (K)</span>, Rubidium (Rb), Cesium (Cs), Francium (Fr)</span>
                            </li>
                            <li class="flex items-start">
-                              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
                               <span>Known as <span class="interactive-element font-semibold text-indigo-600" onclick="showTermQuiz('alkali-metals')">alkali metals</span></span>
                            </li>
                            <li class="flex items-start">
-                              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
                               <span>Outer shell: <span class="interactive-element font-semibold text-indigo-600" onclick="showTermQuiz('valence-electron')">1 valence electron</span></span>
                            </li>
                            <li class="flex items-start">
-                              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
                               <span>Form +1 ions by losing this electron</span>
                            </li>
                            <li class="flex items-start">
-                              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
                               <span>Stored under oil to prevent reaction with air</span>
                            </li>
                         </ul>
                      </div>
                   </div>
                   <!-- Key Properties with Tooltips -->
-                  <div class="grid grid-cols-2 gap-4 mb-6">
-                     <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 fade-in">
-                        <h4 class="font-semibold text-indigo-800 mb-3 flex items-center">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                     <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 fade-in">
+                        <h4 class="font-semibold text-indigo-800 mb-4 flex items-center">
                            <i class="fas fa-atom mr-2"></i> Key Properties
                         </h4>
-                        <ul class="space-y-2 fade-in-stagger">
+                        <ul class="space-y-3 fade-in-stagger">
                            <li><span class="interactive-element font-medium text-indigo-600" onclick="showTermQuiz('soft')">Soft metals</span></li>
                            <li><span class="interactive-element font-medium text-indigo-600" onclick="showTermQuiz('melting-point')">Low melting points</span></li>
                            <li><span class="interactive-element font-medium text-indigo-600" onclick="showTermQuiz('density')">Low densities</span></li>
@@ -2459,11 +2465,11 @@
                            <li><span class="interactive-element font-medium text-indigo-600" onclick="showTermQuiz('flame-test')">Characteristic flame test colors</span></li>
                         </ul>
                      </div>
-                     <div class="bg-gradient-to-br from-purple-50 to-indigo-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 fade-in">
-                        <h4 class="font-semibold text-indigo-800 mb-3 flex items-center">
+                     <div class="bg-gradient-to-br from-purple-50 to-indigo-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 fade-in">
+                        <h4 class="font-semibold text-indigo-800 mb-4 flex items-center">
                            <i class="fas fa-chart-line mr-2"></i> Trends
                         </h4>
-                        <ul class="space-y-2 fade-in-stagger">
+                        <ul class="space-y-3 fade-in-stagger">
                            <li><span class="interactive-element font-medium text-indigo-600" onclick="showTrendQuiz('melting-point')">Melting Point</span> <i class="fas fa-arrow-down text-red-500"></i> down group</li>
                            <li><span class="interactive-element font-medium text-indigo-600" onclick="showTrendQuiz('density')">Density</span> <i class="fas fa-arrow-up text-green-500"></i> down group (K exception)</li>
                            <li><span class="interactive-element font-medium text-indigo-600" onclick="showTrendQuiz('reactivity')">Reactivity</span> <i class="fas fa-arrow-up text-green-500"></i> down group</li>
@@ -2482,13 +2488,13 @@
                      </div>
                   </div>
                   <!-- YouTube Video -->
-                  <div class="mt-6 fade-in">
-                     <h4 class="font-semibold mb-2">Learn More:</h4>
+                  <div class="mt-8 fade-in">
+                     <h4 class="font-semibold mb-3">Learn More:</h4>
                      <div class="aspect-w-16 aspect-h-9">
                         <iframe src="https://www.youtube.com/embed/TGZs93DzMDY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-64 rounded-lg transform transition-all duration-300 hover:scale-105"></iframe>
                      </div>
                   </div>
-                  <div class="flex justify-center mt-4">
+                  <div class="flex justify-center mt-6">
                      <button id="overview-complete-btn" class="btn btn-success section-complete-btn transform transition-all duration-300 hover:scale-105 fade-in" onclick="completeSection('overview')">
                      <i class="fas fa-check mr-2"></i>
                      Mark as Complete
@@ -2499,13 +2505,13 @@
             <!-- Elements Section -->
             <section id="elements-section" class="content-section" style="display: none;">
                <div class="content-card fade-in">
-                  <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                     <i class="fas fa-th mr-2 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
+                  <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                     <i class="fas fa-th mr-3 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                      Group 1 Elements
                   </h3>
                   <!-- Interactive Periodic Table -->
-                  <div class="mb-6 fade-in">
-                     <h4 class="font-semibold mb-2">Interactive Periodic Table</h4>
+                  <div class="mb-8 fade-in">
+                     <h4 class="font-semibold mb-3">Interactive Periodic Table</h4>
                      <div class="periodic-table">
                         <!-- Simplified periodic table with Group 1 highlighted -->
                         <div class="element group1" data-element="Li" onclick="showElementDetails('Lithium', 'Li', 3, '2,1')">
@@ -2549,37 +2555,37 @@
                            <i class="fas fa-times text-xl"></i>
                            </button>
                         </div>
-                        <div class="grid grid-cols-2 gap-6 mb-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                            <div>
-                              <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                                 <h3 class="font-semibold text-gray-800 mb-2">Atomic Information</h3>
+                              <div class="bg-gray-100 p-5 rounded-lg mb-5">
+                                 <h3 class="font-semibold text-gray-800 mb-3">Atomic Information</h3>
                                  <p><strong>Symbol:</strong> <span id="elementDetailsSymbol"></span></p>
                                  <p><strong>Atomic Number:</strong> <span id="elementDetailsNumber"></span></p>
                                  <p><strong>Electron Configuration:</strong> <span id="elementDetailsConfig"></span></p>
                               </div>
-                              <div class="bg-gray-100 p-4 rounded-lg">
-                                 <h3 class="font-semibold text-gray-800 mb-2">Properties</h3>
+                              <div class="bg-gray-100 p-5 rounded-lg">
+                                 <h3 class="font-semibold text-gray-800 mb-3">Properties</h3>
                                  <p><strong>Melting Point:</strong> <span id="elementDetailsMP"></span></p>
                                  <p><strong>Density:</strong> <span id="elementDetailsDensity"></span></p>
                                  <p><strong>Reactivity:</strong> <span id="elementDetailsReactivity"></span></p>
                               </div>
                            </div>
                            <div>
-                              <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                                 <h3 class="font-semibold text-gray-800 mb-2">Uses</h3>
+                              <div class="bg-gray-100 p-5 rounded-lg mb-5">
+                                 <h3 class="font-semibold text-gray-800 mb-3">Uses</h3>
                                  <p id="elementDetailsUses"></p>
                               </div>
-                              <div class="bg-gray-100 p-4 rounded-lg">
-                                 <h3 class="font-semibold text-gray-800 mb-2">Fun Fact</h3>
+                              <div class="bg-gray-100 p-5 rounded-lg">
+                                 <h3 class="font-semibold text-gray-800 mb-3">Fun Fact</h3>
                                  <p id="elementDetailsFact"></p>
                               </div>
                            </div>
                         </div>
-                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-                           <h3 class="font-semibold text-blue-800 mb-2">Quick Quiz</h3>
+                        <div class="bg-blue-50 p-5 rounded-lg border-l-4 border-blue-500">
+                           <h3 class="font-semibold text-blue-800 mb-3">Quick Quiz</h3>
                            <p id="elementDetailsQuizQuestion"></p>
-                           <div id="elementDetailsQuizOptions" class="mt-2 space-y-2"></div>
-                           <div id="elementDetailsQuizFeedback" class="mt-2 p-3 rounded-lg hidden"></div>
+                           <div id="elementDetailsQuizOptions" class="mt-3 space-y-2"></div>
+                           <div id="elementDetailsQuizFeedback" class="mt-3 p-3 rounded-lg hidden"></div>
                         </div>
                      </div>
                   </div>
@@ -2627,7 +2633,7 @@
                         <div class="text-xs text-gray-500 mt-2">Radioactive, extremely rare</div>
                      </div>
                   </div>
-                  <div class="flex justify-center mt-4">
+                  <div class="flex justify-center mt-6">
                      <button id="elements-complete-btn" class="btn btn-success section-complete-btn transform transition-all duration-300 hover:scale-105 fade-in" onclick="completeSection('elements')">
                      <i class="fas fa-check mr-2"></i>
                      Mark as Complete
@@ -2638,8 +2644,8 @@
             <!-- Properties Section -->
             <section id="properties-section" class="content-section" style="display: none;">
                <div class="content-card fade-in">
-                  <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                     <i class="fas fa-chart-line mr-2 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
+                  <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                     <i class="fas fa-chart-line mr-3 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                      Trends in Group 1
                   </h3>
                   <div class="tabs">
@@ -2648,9 +2654,9 @@
                      <button class="tab" onclick="showTab('reactivity')">Reactivity</button>
                   </div>
                   <div id="melting-point" class="tab-content active">
-                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-4 fade-in">
-                        <h4 class="font-semibold text-indigo-800 mb-2">Key Points</h4>
-                        <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-6 fade-in">
+                        <h4 class="font-semibold text-indigo-800 mb-3">Key Points</h4>
+                        <ul class="list-disc pl-6 space-y-2 text-gray-700">
                            <li>Melting point <strong>decreases</strong> down Group 1</li>
                            <li>Due to increasing atomic size and weaker metallic bonding</li>
                            <li>Li: 180.5°C → Cs: 28.4°C</li>
@@ -2666,22 +2672,22 @@
                               </button>
                            </div>
                            <div class="mb-6">
-                              <h3 class="text-lg font-semibold mb-2" id="trendExplanationHeading">Heading</h3>
-                              <p id="trendExplanationContent" class="text-gray-700 mb-4"></p>
-                              <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-                                 <h4 class="font-semibold text-blue-800 mb-2">Quick Quiz</h4>
+                              <h3 class="text-lg font-semibold mb-3" id="trendExplanationHeading">Heading</h3>
+                              <p id="trendExplanationContent" class="text-gray-700 mb-5"></p>
+                              <div class="bg-blue-50 p-5 rounded-lg border-l-4 border-blue-500">
+                                 <h4 class="font-semibold text-blue-800 mb-3">Quick Quiz</h4>
                                  <p id="trendExplanationQuizQuestion"></p>
-                                 <div id="trendExplanationQuizOptions" class="mt-2 space-y-2"></div>
-                                 <div id="trendExplanationQuizFeedback" class="mt-2 p-3 rounded-lg hidden"></div>
+                                 <div id="trendExplanationQuizOptions" class="mt-3 space-y-2"></div>
+                                 <div id="trendExplanationQuizFeedback" class="mt-3 p-3 rounded-lg hidden"></div>
                               </div>
                            </div>
                         </div>
                      </div>
                   </div>
                   <div id="density" class="tab-content">
-                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-4 fade-in">
-                        <h4 class="font-semibold text-indigo-800 mb-2">Key Points</h4>
-                        <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-6 fade-in">
+                        <h4 class="font-semibold text-indigo-800 mb-3">Key Points</h4>
+                        <ul class="list-disc pl-6 space-y-2 text-gray-700">
                            <li>Density generally <strong>increases</strong> down Group 1</li>
                            <li>Exception: Potassium (0.89 g/cm³) is less dense than Sodium (0.97 g/cm³)</li>
                            <li>Li: 0.53 g/cm³ → Cs: 1.93 g/cm³</li>
@@ -2725,9 +2731,9 @@
                      </table>
                   </div>
                   <div id="reactivity" class="tab-content">
-                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-4 fade-in">
-                        <h4 class="font-semibold text-indigo-800 mb-2">Key Points</h4>
-                        <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-6 fade-in">
+                        <h4 class="font-semibold text-indigo-800 mb-3">Key Points</h4>
+                        <ul class="list-disc pl-6 space-y-2 text-gray-700">
                            <li>Reactivity <strong>increases</strong> down Group 1</li>
                            <li>Outer electron further from nucleus, easier to lose</li>
                            <li>Reaction with water becomes more vigorous</li>
@@ -2737,30 +2743,30 @@
                         <h4>Reactivity Series</h4>
                         <p>Most Reactive: Cesium > Rubidium > Potassium > Sodium > Lithium :Least Reactive</p>
                      </div>
-                     <div class="grid grid-cols-2 gap-4 mt-6 fade-in-stagger">
-                        <div class="bg-gradient-to-br from-red-50 to-orange-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
-                           <h4 class="font-semibold text-red-800 mb-2">Lithium Reaction</h4>
-                           <p class="text-sm text-gray-700">Fizzes steadily with water, moves slowly on surface</p>
-                           <button onclick="showReactionVideo('lithium')" class="btn btn-primary btn-sm mt-2">Watch Reaction</button>
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 fade-in-stagger">
+                        <div class="bg-gradient-to-br from-red-50 to-orange-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                           <h4 class="font-semibold text-red-800 mb-3">Lithium Reaction</h4>
+                           <p class="text-gray-700">Fizzes steadily with water, moves slowly on surface</p>
+                           <button onclick="showReactionVideo('lithium')" class="btn btn-primary btn-sm mt-3">Watch Reaction</button>
                         </div>
-                        <div class="bg-gradient-to-br from-orange-50 to-yellow-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
-                           <h4 class="font-semibold text-orange-800 mb-2">Sodium Reaction</h4>
-                           <p class="text-sm text-gray-700">Fizzes rapidly, melts into a ball, moves quickly</p>
-                           <button onclick="showReactionVideo('sodium')" class="btn btn-primary btn-sm mt-2">Watch Reaction</button>
+                        <div class="bg-gradient-to-br from-orange-50 to-yellow-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                           <h4 class="font-semibold text-orange-800 mb-3">Sodium Reaction</h4>
+                           <p class="text-gray-700">Fizzes rapidly, melts into a ball, moves quickly</p>
+                           <button onclick="showReactionVideo('sodium')" class="btn btn-primary btn-sm mt-3">Watch Reaction</button>
                         </div>
-                        <div class="bg-gradient-to-br from-yellow-50 to-green-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
-                           <h4 class="font-semibold text-yellow-800 mb-2">Potassium Reaction</h4>
-                           <p class="text-sm text-gray-700">Fizzes violently, ignites with lilac flame</p>
-                           <button onclick="showReactionVideo('potassium')" class="btn btn-primary btn-sm mt-2">Watch Reaction</button>
+                        <div class="bg-gradient-to-br from-yellow-50 to-green-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                           <h4 class="font-semibold text-yellow-800 mb-3">Potassium Reaction</h4>
+                           <p class="text-gray-700">Fizzes violently, ignites with lilac flame</p>
+                           <button onclick="showReactionVideo('potassium')" class="btn btn-primary btn-sm mt-3">Watch Reaction</button>
                         </div>
-                        <div class="bg-gradient-to-br from-green-50 to-blue-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
-                           <h4 class="font-semibold text-green-800 mb-2">Cesium Reaction</h4>
-                           <p class="text-sm text-gray-700">Explodes on contact with water</p>
-                           <button onclick="showReactionVideo('cesium')" class="btn btn-primary btn-sm mt-2">Watch Reaction</button>
+                        <div class="bg-gradient-to-br from-green-50 to-blue-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                           <h4 class="font-semibold text-green-800 mb-3">Cesium Reaction</h4>
+                           <p class="text-gray-700">Explodes on contact with water</p>
+                           <button onclick="showReactionVideo('cesium')" class="btn btn-primary btn-sm mt-3">Watch Reaction</button>
                         </div>
                      </div>
                   </div>
-                  <div class="flex justify-center mt-4">
+                  <div class="flex justify-center mt-6">
                      <button id="properties-complete-btn" class="btn btn-success section-complete-btn transform transition-all duration-300 hover:scale-105 fade-in" onclick="completeSection('properties')">
                      <i class="fas fa-check mr-2"></i>
                      Mark as Complete
@@ -2771,8 +2777,8 @@
             <!-- Reactions Section -->
             <section id="reactions-section" class="content-section" style="display: none;">
                <div class="content-card fade-in">
-                  <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                     <i class="fas fa-flask mr-2 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
+                  <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                     <i class="fas fa-flask mr-3 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                      Reactions of Group 1 Metals
                   </h3>
                   <div class="tabs">
@@ -2780,76 +2786,76 @@
                      <button class="tab" onclick="showTab('oxygen')">With Oxygen</button>
                   </div>
                   <div id="water" class="tab-content active">
-                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-4 fade-in">
-                        <h4 class="font-semibold text-indigo-800 mb-2">Key Points</h4>
-                        <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-6 fade-in">
+                        <h4 class="font-semibold text-indigo-800 mb-3">Key Points</h4>
+                        <ul class="list-disc pl-6 space-y-2 text-gray-700">
                            <li>All Group 1 metals react with water</li>
                            <li>Products: Metal hydroxide + Hydrogen gas</li>
                            <li>Reactivity increases down the group</li>
                         </ul>
                      </div>
                      <div class="equation-box fade-in">
-                        <p class="text-gray-700 mb-2">General equation:</p>
+                        <p class="text-gray-700 mb-3">General equation:</p>
                         <p class="equation">2M(s) + 2H₂O(l) → 2MOH(aq) + H₂(g)</p>
                      </div>
                      <div class="highlight-box fade-in">
                         <h4>Observations</h4>
-                        <ul class="list-disc pl-5 space-y-1">
+                        <ul class="list-disc pl-6 space-y-1">
                            <li><strong>Lithium:</strong> Fizzes steadily</li>
                            <li><strong>Sodium:</strong> Fizzes rapidly, melts into a ball</li>
                            <li><strong>Potassium:</strong> Fizzes violently, ignites with lilac flame</li>
                         </ul>
                      </div>
-                     <div class="grid grid-cols-3 gap-4 mt-6 fade-in-stagger">
-                        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
-                           <h4 class="font-semibold text-blue-800 mb-2">Lithium + Water</h4>
+                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 fade-in-stagger">
+                        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                           <h4 class="font-semibold text-blue-800 mb-3">Lithium + Water</h4>
                            <p class="equation text-sm">2Li(s) + 2H₂O(l) → 2LiOH(aq) + H₂(g)</p>
-                           <button onclick="showReactionDetails('lithium-water')" class="btn btn-primary btn-sm mt-2">View Details</button>
+                           <button onclick="showReactionDetails('lithium-water')" class="btn btn-primary btn-sm mt-3">View Details</button>
                         </div>
-                        <div class="bg-gradient-to-br from-purple-50 to-indigo-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
-                           <h4 class="font-semibold text-purple-800 mb-2">Sodium + Water</h4>
+                        <div class="bg-gradient-to-br from-purple-50 to-indigo-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                           <h4 class="font-semibold text-purple-800 mb-3">Sodium + Water</h4>
                            <p class="equation text-sm">2Na(s) + 2H₂O(l) → 2NaOH(aq) + H₂(g)</p>
-                           <button onclick="showReactionDetails('sodium-water')" class="btn btn-primary btn-sm mt-2">View Details</button>
+                           <button onclick="showReactionDetails('sodium-water')" class="btn btn-primary btn-sm mt-3">View Details</button>
                         </div>
-                        <div class="bg-gradient-to-br from-pink-50 to-purple-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
-                           <h4 class="font-semibold text-pink-800 mb-2">Potassium + Water</h4>
+                        <div class="bg-gradient-to-br from-pink-50 to-purple-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                           <h4 class="font-semibold text-pink-800 mb-3">Potassium + Water</h4>
                            <p class="equation text-sm">2K(s) + 2H₂O(l) → 2KOH(aq) + H₂(g)</p>
-                           <button onclick="showReactionDetails('potassium-water')" class="btn btn-primary btn-sm mt-2">View Details</button>
+                           <button onclick="showReactionDetails('potassium-water')" class="btn btn-primary btn-sm mt-3">View Details</button>
                         </div>
                      </div>
                   </div>
                   <div id="oxygen" class="tab-content">
-                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-4 fade-in">
-                        <h4 class="font-semibold text-indigo-800 mb-2">Key Points</h4>
-                        <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-6 fade-in">
+                        <h4 class="font-semibold text-indigo-800 mb-3">Key Points</h4>
+                        <ul class="list-disc pl-6 space-y-2 text-gray-700">
                            <li>Group 1 metals react with oxygen when heated</li>
                            <li>Form different types of oxides down the group</li>
                         </ul>
                      </div>
-                     <div class="grid grid-cols-3 gap-4 fade-in-stagger">
-                        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 fade-in-stagger">
+                        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
                            <h5 class="font-semibold text-blue-800">Lithium</h5>
-                           <p class="text-sm text-blue-600">Forms Li₂O (oxide)</p>
-                           <p class="equation text-sm mt-2">4Li(s) + O₂(g) → 2Li₂O(s)</p>
-                           <button onclick="showReactionDetails('lithium-oxygen')" class="btn btn-primary btn-sm mt-2">View Details</button>
+                           <p class="text-blue-600">Forms Li₂O (oxide)</p>
+                           <p class="equation text-sm mt-3">4Li(s) + O₂(g) → 2Li₂O(s)</p>
+                           <button onclick="showReactionDetails('lithium-oxygen')" class="btn btn-primary btn-sm mt-3">View Details</button>
                         </div>
-                        <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
                            <h5 class="font-semibold text-green-800">Sodium</h5>
-                           <p class="text-sm text-green-600">Forms Na₂O₂ (peroxide)</p>
-                           <p class="equation text-sm mt-2">2Na(s) + O₂(g) → Na₂O₂(s)</p>
-                           <button onclick="showReactionDetails('sodium-oxygen')" class="btn btn-primary btn-sm mt-2">View Details</button>
+                           <p class="text-green-600">Forms Na₂O₂ (peroxide)</p>
+                           <p class="equation text-sm mt-3">2Na(s) + O₂(g) → Na₂O₂(s)</p>
+                           <button onclick="showReactionDetails('sodium-oxygen')" class="btn btn-primary btn-sm mt-3">View Details</button>
                         </div>
-                        <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
                            <h5 class="font-semibold text-purple-800">Potassium</h5>
-                           <p class="text-sm text-purple-600">Forms KO₂ (superoxide)</p>
-                           <p class="equation text-sm mt-2">K(s) + O₂(g) → KO₂(s)</p>
-                           <button onclick="showReactionDetails('potassium-oxygen')" class="btn btn-primary btn-sm mt-2">View Details</button>
+                           <p class="text-purple-600">Forms KO₂ (superoxide)</p>
+                           <p class="equation text-sm mt-3">K(s) + O₂(g) → KO₂(s)</p>
+                           <button onclick="showReactionDetails('potassium-oxygen')" class="btn btn-primary btn-sm mt-3">View Details</button>
                         </div>
                      </div>
-                     <div class="bg-gradient-to-r from-yellow-50 to-orange-50 p-4 rounded-lg border-l-4 border-orange-500 shadow-sm hover:shadow-md transition-shadow duration-300 mt-6 fade-in">
-                        <h4 class="font-semibold text-orange-800 mb-2">Trend in Oxide Formation</h4>
+                     <div class="bg-gradient-to-r from-yellow-50 to-orange-50 p-6 rounded-lg border-l-4 border-orange-500 shadow-sm hover:shadow-md transition-shadow duration-300 mt-8 fade-in">
+                        <h4 class="font-semibold text-orange-800 mb-3">Trend in Oxide Formation</h4>
                         <p class="text-gray-700">As we move down Group 1, the type of oxide formed changes from normal oxides (Li) to peroxides (Na) to superoxides (K, Rb, Cs). This is due to the increasing size of the metal ion, which can stabilize larger oxygen-containing anions.</p>
-                        <button onclick="showOxideTrendQuiz()" class="btn btn-primary btn-sm mt-2">Test Your Knowledge</button>
+                        <button onclick="showOxideTrendQuiz()" class="btn btn-primary btn-sm mt-3">Test Your Knowledge</button>
                      </div>
                   </div>
                   <!-- Reaction Details Modal -->
@@ -2862,28 +2868,28 @@
                            </button>
                         </div>
                         <div class="mb-6">
-                           <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                              <h3 class="font-semibold text-gray-800 mb-2">Chemical Equation</h3>
+                           <div class="bg-gray-100 p-5 rounded-lg mb-5">
+                              <h3 class="font-semibold text-gray-800 mb-3">Chemical Equation</h3>
                               <p class="equation text-lg" id="reactionDetailsEquation"></p>
                            </div>
-                           <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                              <h3 class="font-semibold text-gray-800 mb-2">Observations</h3>
+                           <div class="bg-gray-100 p-5 rounded-lg mb-5">
+                              <h3 class="font-semibold text-gray-800 mb-3">Observations</h3>
                               <p id="reactionDetailsObservations"></p>
                            </div>
-                           <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                              <h3 class="font-semibold text-gray-800 mb-2">Explanation</h3>
+                           <div class="bg-gray-100 p-5 rounded-lg mb-5">
+                              <h3 class="font-semibold text-gray-800 mb-3">Explanation</h3>
                               <p id="reactionDetailsExplanation"></p>
                            </div>
-                           <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-                              <h4 class="font-semibold text-blue-800 mb-2">Quick Quiz</h4>
+                           <div class="bg-blue-50 p-5 rounded-lg border-l-4 border-blue-500">
+                              <h4 class="font-semibold text-blue-800 mb-3">Quick Quiz</h4>
                               <p id="reactionDetailsQuizQuestion"></p>
-                              <div id="reactionDetailsQuizOptions" class="mt-2 space-y-2"></div>
-                              <div id="reactionDetailsQuizFeedback" class="mt-2 p-3 rounded-lg hidden"></div>
+                              <div id="reactionDetailsQuizOptions" class="mt-3 space-y-2"></div>
+                              <div id="reactionDetailsQuizFeedback" class="mt-3 p-3 rounded-lg hidden"></div>
                            </div>
                         </div>
                      </div>
                   </div>
-                  <div class="flex justify-center mt-4">
+                  <div class="flex justify-center mt-6">
                      <button id="reactions-complete-btn" class="btn btn-success section-complete-btn transform transition-all duration-300 hover:scale-105 fade-in" onclick="completeSection('reactions')">
                      <i class="fas fa-check mr-2"></i>
                      Mark as Complete
@@ -2894,68 +2900,68 @@
             <!-- Quiz Section -->
             <section id="quiz-section" class="content-section" style="display: none;">
                <div class="content-card fade-in">
-                  <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                     <i class="fas fa-graduation-cap mr-2 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
+                  <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                     <i class="fas fa-graduation-cap mr-3 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                      Test Your Knowledge
                   </h3>
-                  <div class="bg-gradient-to-r from-indigo-50 to-purple-50 p-6 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-6">
-                     <div class="flex items-center mb-4">
-                        <i class="fas fa-info-circle text-indigo-600 text-2xl mr-3"></i>
+                  <div class="bg-gradient-to-r from-indigo-50 to-purple-50 p-8 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-8">
+                     <div class="flex items-center mb-6">
+                        <i class="fas fa-info-circle text-indigo-600 text-3xl mr-4"></i>
                         <div>
                            <h4 class="font-semibold text-indigo-800">Quiz Instructions</h4>
                            <p class="text-gray-700">This quiz contains 10 multiple-choice questions about Group 1 Alkali Metals. Take your time to answer each question carefully. You can navigate between questions using the Previous and Next buttons.</p>
                         </div>
                      </div>
-                     <div class="grid grid-cols-3 gap-4 mt-4">
-                        <div class="bg-white p-3 rounded-lg shadow-sm">
-                           <div class="text-2xl font-bold text-indigo-600">10</div>
+                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                        <div class="bg-white p-5 rounded-lg shadow-sm">
+                           <div class="text-3xl font-bold text-indigo-600">10</div>
                            <div class="text-sm text-gray-600">Questions</div>
                         </div>
-                        <div class="bg-white p-3 rounded-lg shadow-sm">
-                           <div class="text-2xl font-bold text-indigo-600">5 min</div>
+                        <div class="bg-white p-5 rounded-lg shadow-sm">
+                           <div class="text-3xl font-bold text-indigo-600">5 min</div>
                            <div class="text-sm text-gray-600">Time Limit</div>
                         </div>
-                        <div class="bg-white p-3 rounded-lg shadow-sm">
-                           <div class="text-2xl font-bold text-indigo-600">80%</div>
+                        <div class="bg-white p-5 rounded-lg shadow-sm">
+                           <div class="text-3xl font-bold text-indigo-600">80%</div>
                            <div class="text-sm text-gray-600">Passing Score</div>
                         </div>
                      </div>
                   </div>
-                  <div class="grid grid-cols-2 gap-6 mb-6">
-                     <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
-                        <h4 class="font-semibold text-green-800 mb-2 flex items-center">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                     <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <h4 class="font-semibold text-green-800 mb-3 flex items-center">
                            <i class="fas fa-trophy mr-2"></i> Rewards
                         </h4>
-                        <ul class="space-y-2 text-gray-700">
+                        <ul class="space-y-3 text-gray-700">
                            <li class="flex items-start">
-                              <i class="fas fa-star text-yellow-500 mt-1 mr-2"></i>
+                              <i class="fas fa-star text-yellow-500 mt-1 mr-3"></i>
                               <span>Earn up to 20 XP points</span>
                            </li>
                            <li class="flex items-start">
-                              <i class="fas fa-medal text-yellow-500 mt-1 mr-2"></i>
+                              <i class="fas fa-medal text-yellow-500 mt-1 mr-3"></i>
                               <span>Unlock "Quiz Master" badge with 80%+ score</span>
                            </li>
                            <li class="flex items-start">
-                              <i class="fas fa-certificate text-yellow-500 mt-1 mr-2"></i>
+                              <i class="fas fa-certificate text-yellow-500 mt-1 mr-3"></i>
                               <span>Get completion certificate</span>
                            </li>
                         </ul>
                      </div>
-                     <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
-                        <h4 class="font-semibold text-blue-800 mb-2 flex items-center">
+                     <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <h4 class="font-semibold text-blue-800 mb-3 flex items-center">
                            <i class="fas fa-lightbulb mr-2"></i> Tips
                         </h4>
-                        <ul class="space-y-2 text-gray-700">
+                        <ul class="space-y-3 text-gray-700">
                            <li class="flex items-start">
-                              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
                               <span>Review all sections before attempting</span>
                            </li>
                            <li class="flex items-start">
-                              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
                               <span>Pay attention to trends down the group</span>
                            </li>
                            <li class="flex items-start">
-                              <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
                               <span>Remember the exceptions (like potassium's density)</span>
                            </li>
                         </ul>
@@ -2972,9 +2978,9 @@
             <!-- Discussion Section -->
             <section id="discussion-section" class="content-section" style="display: none;">
                <div class="content-card fade-in">
-                  <div class="flex justify-between items-center mb-6">
-                     <h3 class="text-xl font-bold text-gray-800 flex items-center">
-                        <i class="fas fa-comments mr-2 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
+                  <div class="flex justify-between items-center mb-8">
+                     <h3 class="text-2xl font-bold text-gray-800 flex items-center">
+                        <i class="fas fa-comments mr-3 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                         Discussion Forum
                      </h3>
                      <button onclick="showCreatePostModal()" class="btn btn-primary transform transition-all duration-300 hover:scale-105">
@@ -2983,15 +2989,15 @@
                      </button>
                   </div>
                   <!-- Discussion Controls -->
-                  <div class="flex flex-col md:flex-row gap-4 mb-6">
+                  <div class="flex flex-col md:flex-row gap-4 mb-8">
                      <div class="search-box flex-1">
                         <i class="fas fa-search"></i>
                         <input type="text" id="discussionSearch" placeholder="Search discussions..." onkeyup="filterDiscussions()">
                      </div>
-                     <div class="flex gap-2">
-                        <button class="filter-btn active px-4 py-2 bg-indigo-600 text-white rounded-lg" onclick="sortDiscussions('newest')">Newest</button>
-                        <button class="filter-btn px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300" onclick="sortDiscussions('oldest')">Oldest</button>
-                        <button class="filter-btn px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300" onclick="sortDiscussions('popular')">Most Popular</button>
+                     <div class="flex gap-3">
+                        <button class="filter-btn active px-5 py-2 bg-indigo-600 text-white rounded-lg" onclick="sortDiscussions('newest')">Newest</button>
+                        <button class="filter-btn px-5 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300" onclick="sortDiscussions('oldest')">Oldest</button>
+                        <button class="filter-btn px-5 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300" onclick="sortDiscussions('popular')">Most Popular</button>
                      </div>
                   </div>
                   <div id="discussionPosts">
@@ -3008,9 +3014,9 @@
             <!-- Study Groups Section -->
             <section id="study-groups-section" class="content-section" style="display: none;">
                <div class="content-card fade-in">
-                  <div class="flex justify-between items-center mb-6">
-                     <h3 class="text-xl font-bold text-gray-800 flex items-center">
-                        <i class="fas fa-users mr-2 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
+                  <div class="flex justify-between items-center mb-8">
+                     <h3 class="text-2xl font-bold text-gray-800 flex items-center">
+                        <i class="fas fa-users mr-3 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                         Study Groups
                      </h3>
                      <button onclick="showCreateGroupModal()" class="btn btn-primary transform transition-all duration-300 hover:scale-105">
@@ -3032,8 +3038,8 @@
             <!-- Leaderboard Section -->
             <section id="leaderboard-section" class="content-section" style="display: none;">
                <div class="content-card fade-in">
-                  <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                     <i class="fas fa-trophy mr-2 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
+                  <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                     <i class="fas fa-trophy mr-3 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                      Leaderboard
                   </h3>
                   <div id="leaderboardContent">
@@ -3046,13 +3052,13 @@
       <!-- Login Modal -->
       <div id="loginModal" class="modal">
          <div class="modal-content">
-            <div class="flex justify-between items-center mb-6">
+            <div class="flex justify-between items-center mb-8">
                <h2 class="text-2xl font-bold text-gray-800">Welcome to Chemistry Mastery</h2>
                <button onclick="closeLoginModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
                <i class="fas fa-times text-xl"></i>
                </button>
             </div>
-            <div class="mb-6">
+            <div class="mb-8">
                <button onclick="signInWithGoogle()" class="btn btn-primary w-full transform transition-all duration-300 hover:scale-105">
                <i class="fab fa-google mr-2"></i>
                Sign in with Google
@@ -3061,21 +3067,21 @@
             <div class="text-center text-gray-600">
                <p>Or continue with email</p>
             </div>
-            <form id="loginForm" class="mt-6 space-y-4" onsubmit="handleEmailLogin(event)">
+            <form id="loginForm" class="mt-8 space-y-5" onsubmit="handleEmailLogin(event)">
                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                  <input type="email" id="loginEmail" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                  <input type="email" id="loginEmail" class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                </div>
                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                  <input type="password" id="loginPassword" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                  <input type="password" id="loginPassword" class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                </div>
                <button type="submit" class="btn btn-primary w-full transform transition-all duration-300 hover:scale-105">
                <i class="fas fa-sign-in-alt mr-2"></i>
                Sign In
                </button>
             </form>
-            <div class="mt-6 text-center">
+            <div class="mt-8 text-center">
                <p class="text-sm text-gray-600">Don't have an account? <a href="#" onclick="showSignup()" class="text-indigo-600 hover:text-indigo-800">Sign up</a></p>
             </div>
          </div>
@@ -3083,35 +3089,35 @@
       <!-- Signup Modal -->
       <div id="signupModal" class="modal">
          <div class="modal-content">
-            <div class="flex justify-between items-center mb-6">
+            <div class="flex justify-between items-center mb-8">
                <h2 class="text-2xl font-bold text-gray-800">Create Account</h2>
                <button onclick="closeSignupModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
                <i class="fas fa-times text-xl"></i>
                </button>
             </div>
-            <form id="signupForm" class="space-y-4" onsubmit="handleSignup(event)">
+            <form id="signupForm" class="space-y-5" onsubmit="handleSignup(event)">
                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                  <input type="text" id="signupName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                  <input type="text" id="signupName" class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                </div>
                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                  <input type="email" id="signupEmail" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                  <input type="email" id="signupEmail" class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                </div>
                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                  <input type="password" id="signupPassword" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                  <input type="password" id="signupPassword" class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                </div>
                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
-                  <input type="password" id="signupConfirmPassword" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
+                  <input type="password" id="signupConfirmPassword" class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                </div>
                <button type="submit" class="btn btn-primary w-full transform transition-all duration-300 hover:scale-105">
                <i class="fas fa-user-plus mr-2"></i>
                Create Account
                </button>
             </form>
-            <div class="mt-6 text-center">
+            <div class="mt-8 text-center">
                <p class="text-sm text-gray-600">Already have an account? <a href="#" onclick="showLogin()" class="text-indigo-600 hover:text-indigo-800">Sign in</a></p>
             </div>
          </div>
@@ -3119,24 +3125,24 @@
       <!-- Create Post Modal -->
       <div id="createPostModal" class="modal">
          <div class="modal-content">
-            <div class="flex justify-between items-center mb-6">
+            <div class="flex justify-between items-center mb-8">
                <h2 class="text-2xl font-bold text-gray-800">Create New Post</h2>
                <button onclick="closeCreatePostModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
                <i class="fas fa-times text-xl"></i>
                </button>
             </div>
-            <form id="createPostForm" class="space-y-4" onsubmit="handleCreatePost(event)">
+            <form id="createPostForm" class="space-y-5" onsubmit="handleCreatePost(event)">
                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
-                  <input type="text" id="postTitle" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter post title" required>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                  <input type="text" id="postTitle" class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter post title" required>
                </div>
                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Content</label>
-                  <textarea id="postContent" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 form-textarea" placeholder="What would you like to discuss?" required></textarea>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Content</label>
+                  <textarea id="postContent" class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 form-textarea" placeholder="What would you like to discuss?" required></textarea>
                </div>
                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Tags (comma separated)</label>
-                  <input type="text" id="postTags" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., melting-point, reactivity, questions">
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Tags (comma separated)</label>
+                  <input type="text" id="postTags" class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., melting-point, reactivity, questions">
                </div>
                <button type="submit" class="btn btn-primary w-full transform transition-all duration-300 hover:scale-105">
                <i class="fas fa-paper-plane mr-2"></i>
@@ -3148,25 +3154,25 @@
       <!-- Edit Post Modal -->
       <div id="editPostModal" class="modal">
          <div class="modal-content">
-            <div class="flex justify-between items-center mb-6">
+            <div class="flex justify-between items-center mb-8">
                <h2 class="text-2xl font-bold text-gray-800">Edit Post</h2>
                <button onclick="closeEditPostModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
                <i class="fas fa-times text-xl"></i>
                </button>
             </div>
-            <form id="editPostForm" class="space-y-4" onsubmit="handleEditPost(event)">
+            <form id="editPostForm" class="space-y-5" onsubmit="handleEditPost(event)">
                <input type="hidden" id="editPostId">
                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
-                  <input type="text" id="editPostTitle" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter post title" required>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                  <input type="text" id="editPostTitle" class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter post title" required>
                </div>
                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Content</label>
-                  <textarea id="editPostContent" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 form-textarea" placeholder="What would you like to discuss?" required></textarea>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Content</label>
+                  <textarea id="editPostContent" class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 form-textarea" placeholder="What would you like to discuss?" required></textarea>
                </div>
                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Tags (comma separated)</label>
-                  <input type="text" id="editPostTags" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., melting-point, reactivity, questions">
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Tags (comma separated)</label>
+                  <input type="text" id="editPostTags" class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., melting-point, reactivity, questions">
                </div>
                <button type="submit" class="btn btn-primary w-full transform transition-all duration-300 hover:scale-105">
                <i class="fas fa-save mr-2"></i>
@@ -3178,20 +3184,20 @@
       <!-- Create Study Group Modal -->
       <div id="createGroupModal" class="modal">
          <div class="modal-content">
-            <div class="flex justify-between items-center mb-6">
+            <div class="flex justify-between items-center mb-8">
                <h2 class="text-2xl font-bold text-gray-800">Create Study Group</h2>
                <button onclick="closeCreateGroupModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
                <i class="fas fa-times text-xl"></i>
                </button>
             </div>
-            <form id="createGroupForm" class="space-y-4" onsubmit="handleCreateGroup(event)">
+            <form id="createGroupForm" class="space-y-5" onsubmit="handleCreateGroup(event)">
                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Group Name</label>
-                  <input type="text" id="groupName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter group name" required>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Group Name</label>
+                  <input type="text" id="groupName" class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter group name" required>
                </div>
                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Topic</label>
-                  <select id="groupTopic" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Topic</label>
+                  <select id="groupTopic" class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
                      <option value="">Select a topic</option>
                      <option value="melting-point">Melting Point Trends</option>
                      <option value="density">Density Trends</option>
@@ -3203,12 +3209,12 @@
                   </select>
                </div>
                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                  <textarea id="groupDescription" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 form-textarea" placeholder="Describe what this group will focus on" required></textarea>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                  <textarea id="groupDescription" class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 form-textarea" placeholder="Describe what this group will focus on" required></textarea>
                </div>
                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Max Members</label>
-                  <select id="groupMaxMembers" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Max Members</label>
+                  <select id="groupMaxMembers" class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required>
                      <option value="5">5 members</option>
                      <option value="10">10 members</option>
                      <option value="15">15 members</option>
@@ -3225,7 +3231,7 @@
       <!-- Study Group Details Modal -->
       <div id="groupDetailsModal" class="modal modal-lg">
          <div class="modal-content">
-            <div class="flex justify-between items-center mb-6">
+            <div class="flex justify-between items-center mb-8">
                <h2 class="text-2xl font-bold text-gray-800" id="groupDetailsTitle">Study Group Details</h2>
                <button onclick="closeGroupDetailsModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
                <i class="fas fa-times text-xl"></i>
@@ -3239,14 +3245,14 @@
       <!-- Quiz Modal -->
       <div id="quizModal" class="modal quiz-modal">
          <div class="modal-content">
-            <div class="flex justify-between items-center mb-4">
+            <div class="flex justify-between items-center mb-6">
                <h2 class="text-xl font-bold text-gray-800">Group 1 Quiz</h2>
                <button onclick="closeQuiz()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
                <i class="fas fa-times text-xl"></i>
                </button>
             </div>
-            <div id="quizProgress" class="mb-4">
-               <div class="flex justify-between items-center mb-2">
+            <div id="quizProgress" class="mb-6">
+               <div class="flex justify-between items-center mb-3">
                   <span class="text-sm text-gray-600">Question <span id="currentQuestion">1</span> of <span id="totalQuestions">10</span></span>
                   <span class="text-sm text-gray-600">Score: <span id="currentScore">0</span></span>
                </div>
@@ -3255,17 +3261,17 @@
                </div>
             </div>
             <div id="quizContent">
-               <div class="mb-6">
-                  <h3 class="text-lg font-semibold mb-4" id="questionText">Loading question...</h3>
+               <div class="mb-8">
+                  <h3 class="text-lg font-semibold mb-5" id="questionText">Loading question...</h3>
                   <div id="optionsContainer"></div>
                </div>
-               <div id="feedback" class="hidden mb-4 p-3 rounded-lg text-sm"></div>
+               <div id="feedback" class="hidden mb-5 p-4 rounded-lg text-sm"></div>
                <div class="flex justify-between items-center">
                   <button id="prevButton" class="btn btn-secondary hidden" onclick="previousQuestion()">
                   <i class="fas fa-arrow-left"></i>
                   Previous
                   </button>
-                  <div class="flex gap-2">
+                  <div class="flex gap-3">
                      <button id="submitButton" class="btn btn-primary" onclick="submitAnswer()">
                      Submit Answer
                      </button>
@@ -3277,10 +3283,10 @@
                </div>
             </div>
             <div id="quizResults" class="hidden text-center">
-               <i class="fas fa-trophy text-5xl text-yellow-500 mb-4"></i>
-               <h3 class="text-2xl font-bold mb-3">Quiz Complete!</h3>
-               <div class="text-4xl font-bold text-indigo-600 mb-3" id="finalScore">0/10</div>
-               <p class="text-gray-600 mb-6" id="scoreMessage">Great job!</p>
+               <i class="fas fa-trophy text-5xl text-yellow-500 mb-6"></i>
+               <h3 class="text-2xl font-bold mb-4">Quiz Complete!</h3>
+               <div class="text-4xl font-bold text-indigo-600 mb-4" id="finalScore">0/10</div>
+               <p class="text-gray-600 mb-8" id="scoreMessage">Great job!</p>
                <button onclick="closeQuiz()" class="btn btn-primary transform transition-all duration-300 hover:scale-105">
                <i class="fas fa-check"></i>
                Finish
@@ -3291,19 +3297,19 @@
       <!-- Feedback Modal -->
       <div id="feedbackModal" class="modal">
          <div class="modal-content">
-            <div class="flex justify-between items-center mb-6">
+            <div class="flex justify-between items-center mb-8">
                <h2 class="text-2xl font-bold text-gray-800">Send Feedback</h2>
                <button onclick="closeFeedbackModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
                <i class="fas fa-times text-xl"></i>
                </button>
             </div>
-            <form id="feedbackForm" class="space-y-4" onsubmit="handleFeedback(event)">
+            <form id="feedbackForm" class="space-y-5" onsubmit="handleFeedback(event)">
                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Your Feedback</label>
-                  <textarea id="feedbackText" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 form-textarea" placeholder="What do you think about this app?" required></textarea>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Your Feedback</label>
+                  <textarea id="feedbackText" class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 form-textarea" placeholder="What do you think about this app?" required></textarea>
                </div>
                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Rate your experience</label>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Rate your experience</label>
                   <div class="reaction-buttons">
                      <button type="button" class="reaction-btn" id="thumbsDownBtn" onclick="setFeedbackRating(1)">
                      <i class="fas fa-thumbs-down"></i>
@@ -3326,17 +3332,17 @@
       <!-- Daily Challenge Modal -->
       <div id="dailyChallengeModal" class="modal">
          <div class="modal-content">
-            <div class="flex justify-between items-center mb-6">
+            <div class="flex justify-between items-center mb-8">
                <h2 class="text-2xl font-bold text-gray-800">Daily Challenge</h2>
                <button onclick="closeDailyChallengeModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
                <i class="fas fa-times text-xl"></i>
                </button>
             </div>
-            <div class="mb-4">
-               <h3 class="text-lg font-semibold mb-2" id="dailyChallengeQuestionText">Loading daily challenge...</h3>
+            <div class="mb-6">
+               <h3 class="text-lg font-semibold mb-4" id="dailyChallengeQuestionText">Loading daily challenge...</h3>
                <div id="dailyChallengeOptions"></div>
             </div>
-            <div id="dailyChallengeFeedback" class="hidden mb-4 p-3 rounded-lg text-sm"></div>
+            <div id="dailyChallengeFeedback" class="hidden mb-5 p-4 rounded-lg text-sm"></div>
             <div class="flex justify-between items-center">
                <button onclick="closeDailyChallengeModal()" class="btn btn-secondary transform transition-all duration-300 hover:scale-105">
                Skip
@@ -3350,19 +3356,19 @@
       <!-- Quiz Question Modal -->
       <div id="quizQuestionModal" class="modal quiz-question-modal">
          <div class="modal-content">
-            <div class="flex justify-between items-center mb-6">
+            <div class="flex justify-between items-center mb-8">
                <h2 class="text-2xl font-bold text-gray-800" id="quizQuestionTitle">Quick Quiz</h2>
                <button onclick="closeQuizQuestionModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
                <i class="fas fa-times text-xl"></i>
                </button>
             </div>
-            <div class="mb-6">
+            <div class="mb-8">
                <div class="quiz-question" id="quizQuestionText">Loading question...</div>
                <div id="quizQuestionAnswers"></div>
                <div id="quizQuestionFeedback" class="quiz-feedback hidden"></div>
             </div>
             <div class="flex justify-end">
-               <button onclick="closeQuizQuestionModal()" class="btn btn-secondary mr-2 transform transition-all duration-300 hover:scale-105">
+               <button onclick="closeQuizQuestionModal()" class="btn btn-secondary mr-3 transform transition-all duration-300 hover:scale-105">
                Close
                </button>
             </div>
@@ -4305,7 +4311,7 @@
              
              const feedback = document.getElementById('dailyChallengeFeedback');
              if (isCorrect) {
-                 feedback.className = 'mb-4 p-3 rounded-lg bg-green-100 text-green-800 text-sm';
+                 feedback.className = 'mb-5 p-4 rounded-lg bg-green-100 text-green-800 text-sm';
                  feedback.textContent = 'Correct! ' + dailyChallenge.explanation;
                  
                  // Award XP
@@ -4321,7 +4327,7 @@
                      showToast('success', 'Daily Challenge Complete!', 'You earned 5 XP!');
                  });
              } else {
-                 feedback.className = 'mb-4 p-3 rounded-lg bg-red-100 text-red-800 text-sm';
+                 feedback.className = 'mb-5 p-4 rounded-lg bg-red-100 text-red-800 text-sm';
                  feedback.textContent = 'Incorrect. ' + dailyChallenge.explanation;
                  
                  if (soundEnabled) incorrectSound.play();
@@ -4735,11 +4741,11 @@
              });
              
              if (selectedIndex === correctIndex) {
-                 feedback.className = 'mb-4 p-3 rounded-lg bg-green-100 text-green-800';
+                 feedback.className = 'mb-5 p-4 rounded-lg bg-green-100 text-green-800';
                  feedback.textContent = 'Correct! ' + explanation;
                  if (soundEnabled) correctSound.play();
              } else {
-                 feedback.className = 'mb-4 p-3 rounded-lg bg-red-100 text-red-800';
+                 feedback.className = 'mb-5 p-4 rounded-lg bg-red-100 text-red-800';
                  feedback.textContent = 'Incorrect. ' + explanation;
                  if (soundEnabled) incorrectSound.play();
              }
@@ -4899,11 +4905,11 @@
              });
              
              if (selectedIndex === correctIndex) {
-                 feedback.className = 'mt-2 p-3 rounded-lg bg-green-100 text-green-800';
+                 feedback.className = 'mt-3 p-4 rounded-lg bg-green-100 text-green-800';
                  feedback.textContent = 'Correct! ' + explanation;
                  if (soundEnabled) correctSound.play();
              } else {
-                 feedback.className = 'mt-2 p-3 rounded-lg bg-red-100 text-red-800';
+                 feedback.className = 'mt-3 p-4 rounded-lg bg-red-100 text-red-800';
                  feedback.textContent = 'Incorrect. ' + explanation;
                  if (soundEnabled) incorrectSound.play();
              }
@@ -5005,11 +5011,11 @@
              });
              
              if (selectedIndex === correctIndex) {
-                 feedback.className = 'mt-2 p-3 rounded-lg bg-green-100 text-green-800';
+                 feedback.className = 'mt-3 p-4 rounded-lg bg-green-100 text-green-800';
                  feedback.textContent = 'Correct! ' + explanation;
                  if (soundEnabled) correctSound.play();
              } else {
-                 feedback.className = 'mt-2 p-3 rounded-lg bg-red-100 text-red-800';
+                 feedback.className = 'mt-3 p-4 rounded-lg bg-red-100 text-red-800';
                  feedback.textContent = 'Incorrect. ' + explanation;
                  if (soundEnabled) incorrectSound.play();
              }
@@ -5062,11 +5068,11 @@
              });
              
              if (selectedIndex === correctIndex) {
-                 feedback.className = 'mt-2 p-3 rounded-lg bg-green-100 text-green-800';
+                 feedback.className = 'mt-3 p-4 rounded-lg bg-green-100 text-green-800';
                  feedback.textContent = 'Correct! ' + explanation;
                  if (soundEnabled) correctSound.play();
              } else {
-                 feedback.className = 'mt-2 p-3 rounded-lg bg-red-100 text-red-800';
+                 feedback.className = 'mt-3 p-4 rounded-lg bg-red-100 text-red-800';
                  feedback.textContent = 'Incorrect. ' + explanation;
                  if (soundEnabled) incorrectSound.play();
              }
@@ -5260,10 +5266,10 @@
                  // Show feedback for answered question
                  const feedback = document.getElementById('feedback');
                  if (answeredQuestion.isCorrect) {
-                     feedback.className = 'mb-4 p-3 rounded-lg bg-green-100 text-green-800 text-sm';
+                     feedback.className = 'mb-5 p-4 rounded-lg bg-green-100 text-green-800 text-sm';
                      feedback.textContent = 'Correct! ' + question.explanation;
                  } else {
-                     feedback.className = 'mb-4 p-3 rounded-lg bg-red-100 text-red-800 text-sm';
+                     feedback.className = 'mb-5 p-4 rounded-lg bg-red-100 text-red-800 text-sm';
                      feedback.textContent = 'Incorrect. ' + question.explanation;
                  }
                  feedback.classList.remove('hidden');
@@ -5330,13 +5336,13 @@
              });
              
              if (isCorrect) {
-                 feedback.className = 'mb-4 p-3 rounded-lg bg-green-100 text-green-800 text-sm';
+                 feedback.className = 'mb-5 p-4 rounded-lg bg-green-100 text-green-800 text-sm';
                  feedback.textContent = 'Correct! ' + question.explanation;
                  score++;
                  
                  if (soundEnabled) correctSound.play();
              } else {
-                 feedback.className = 'mb-4 p-3 rounded-lg bg-red-100 text-red-800 text-sm';
+                 feedback.className = 'mb-5 p-4 rounded-lg bg-red-100 text-red-800 text-sm';
                  feedback.textContent = 'Incorrect. ' + question.explanation;
                  
                  if (soundEnabled) incorrectSound.play();
@@ -5795,7 +5801,7 @@
                  <h3 class="post-title">${post.title}</h3>
                  <div class="post-content">${post.content}</div>
                  ${post.tags && post.tags.length > 0 ? `
-                     <div class="mt-2">
+                     <div class="mt-3">
                          ${post.tags.map(tag => `<span class="post-tag">#${tag}</span>`).join('')}
                      </div>
                  ` : ''}
@@ -5828,8 +5834,8 @@
                      ` : ''}
                  </div>
                  <div id="comments-${post.id}" class="comments-section" style="display: none;">
-                     <div class="mb-3">
-                         <form onsubmit="addComment(event, '${post.id}')" class="flex gap-2">
+                     <div class="mb-4">
+                         <form onsubmit="addComment(event, '${post.id}')" class="flex gap-3">
                              <input type="text" id="comment-input-${post.id}" class="form-input flex-1" placeholder="Add a comment...">
                              <button type="submit" class="btn btn-primary">Comment</button>
                          </form>
@@ -6006,14 +6012,14 @@
              if (!commentsContainer) return;
              
              // Show loading indicator
-             commentsContainer.innerHTML = '<div class="text-center py-2"><div class="spinner"></div></div>';
+             commentsContainer.innerHTML = '<div class="text-center py-3"><div class="spinner"></div></div>';
              
              const commentsRef = database.ref('postComments').orderByChild('postId').equalTo(postId);
              commentsRef.on('value', (snapshot) => {
                  commentsContainer.innerHTML = '';
                  
                  if (!snapshot.exists()) {
-                     commentsContainer.innerHTML = '<p class="text-gray-500 text-center py-2">No comments yet. Be the first to comment!</p>';
+                     commentsContainer.innerHTML = '<p class="text-gray-500 text-center py-3">No comments yet. Be the first to comment!</p>';
                      return;
                  }
                  
@@ -6031,7 +6037,7 @@
                  });
                  
                  if (commentsArray.length === 0) {
-                     commentsContainer.innerHTML = '<p class="text-gray-500 text-center py-2">No comments yet. Be the first to comment!</p>';
+                     commentsContainer.innerHTML = '<p class="text-gray-500 text-center py-3">No comments yet. Be the first to comment!</p>';
                      return;
                  }
                  
@@ -6044,7 +6050,7 @@
          
          function createCommentElement(comment) {
              const commentDiv = document.createElement('div');
-             commentDiv.className = 'comment mb-3 p-3 bg-white rounded-lg shadow-sm';
+             commentDiv.className = 'comment mb-4 p-4 bg-white rounded-lg shadow-sm';
              
              const date = new Date(comment.createdAt);
              const formattedDate = date.toLocaleDateString();
@@ -6052,8 +6058,8 @@
              const isAuthor = currentUser && comment.authorId === currentUser.uid;
              
              commentDiv.innerHTML = `
-                 <div class="flex items-start space-x-3">
-                     <div class="comment-avatar flex-shrink-0 w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center">
+                 <div class="flex items-start space-x-4">
+                     <div class="comment-avatar flex-shrink-0 w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center">
                          <span class="text-indigo-800 font-medium">${comment.authorName ? comment.authorName.charAt(0).toUpperCase() : 'A'}</span>
                      </div>
                      <div class="flex-1">
@@ -6061,11 +6067,11 @@
                              <div class="comment-author font-semibold text-gray-800">${comment.authorName || 'Anonymous'}</div>
                              <div class="comment-time text-xs text-gray-500">${formattedDate} at ${formattedTime}</div>
                          </div>
-                         <div class="comment-content mt-1 text-gray-700">${comment.content}</div>
+                         <div class="comment-content mt-2 text-gray-700">${comment.content}</div>
                          ${isAuthor ? `
-                             <div class="mt-2">
+                             <div class="mt-3">
                                  <button onclick="deleteComment('${comment.id}', '${comment.postId}')" class="text-red-500 text-sm hover:text-red-700 flex items-center">
-                                     <i class="fas fa-trash mr-1"></i>Delete
+                                     <i class="fas fa-trash mr-2"></i>Delete
                                  </button>
                              </div>
                          ` : ''}
@@ -6239,13 +6245,14 @@
                  });
                  
                  // Apply fade-in to new groups
-                 setTimeout(() => {
-                     if (fadeObserver) {
-                         groupsContainer.querySelectorAll('.study-group-card').forEach(group => {
-                             fadeObserver.observe(group);
-                         });
-                     }
-                 }, 100);
+                 // Trigger fade-in for new groups
+setTimeout(() => {
+    if (fadeObserver) {
+        groupsContainer.querySelectorAll('.study-group-card').forEach(group => {
+            fadeObserver.observe(group);
+        });
+    }
+}, 100);
              }, (error) => {
                  console.error("Error loading study groups:", error);
                  groupsContainer.innerHTML = '<p class="text-gray-500 text-center">Error loading study groups.</p>';
@@ -6293,7 +6300,7 @@
                                  `<div class="member-avatar">+${(memberCount || 0) - 5}</div>` : ''
                              }
                          </div>
-                         <span class="ml-2 text-sm">${memberCount}/${maxMembers} members</span>
+                         <span class="ml-3 text-sm">${memberCount}/${maxMembers} members</span>
                      </div>
                      <div class="group-stats">
                          Created on ${formattedDate}
@@ -6301,7 +6308,7 @@
                  </div>
                  <div class="group-actions">
                      <button onclick="showGroupDetails('${group.id}')" class="btn btn-primary btn-sm">
-                         <i class="fas fa-eye mr-1"></i>
+                         <i class="fas fa-eye mr-2"></i>
                          View Details
                      </button>
                      <button onclick="${isMember ? 'leaveStudyGroup' : 'joinStudyGroup'}('${group.id}')"
@@ -6342,52 +6349,52 @@
              
              let content = `
                  <div class="group-details-container">
-                    <div class="flex justify-between items-start mb-6">
+                    <div class="flex justify-between items-start mb-8">
                         <div>
                             <h3 class="text-2xl font-bold text-gray-800">${group.name}</h3>
-                            <span class="group-topic inline-block mt-1">${topicLabels[group.topic] || group.topic}</span>
+                            <span class="group-topic inline-block mt-2">${topicLabels[group.topic] || group.topic}</span>
                         </div>
-                        <button onclick="closeGroupDetailsModal()" class="text-gray-500 hover:text-gray-700 p-2 rounded-full hover:bg-gray-100 transition-colors">
+                        <button onclick="closeGroupDetailsModal()" class="text-gray-500 hover:text-gray-700 p-3 rounded-full hover:bg-gray-100 transition-colors">
                             <i class="fas fa-times text-xl"></i>
                         </button>
                     </div>
                     
-                    <p class="text-gray-700 mb-6">${group.description}</p>
+                    <p class="text-gray-700 mb-8">${group.description}</p>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                        <div class="bg-gray-50 p-5 rounded-lg shadow-sm">
-                            <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
-                                <i class="fas fa-info-circle mr-2 text-indigo-600"></i>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                        <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+                            <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
+                                <i class="fas fa-info-circle mr-3 text-indigo-600"></i>
                                 Group Info
                             </h4>
-                            <p class="text-sm text-gray-600 mb-2">
-                                <i class="fas fa-calendar-alt mr-2"></i>
+                            <p class="text-sm text-gray-600 mb-3">
+                                <i class="fas fa-calendar-alt mr-3"></i>
                                 Created: ${new Date(group.createdAt).toLocaleDateString()}
                             </p>
-                            <p class="text-sm text-gray-600 mb-2">
-                                <i class="fas fa-users mr-2"></i>
+                            <p class="text-sm text-gray-600 mb-3">
+                                <i class="fas fa-users mr-3"></i>
                                 Members: ${group.memberCount || 0}/${group.maxMembers || 10}
                             </p>
                             <p class="text-sm text-gray-600">
-                                <i class="fas fa-user-cog mr-2"></i>
+                                <i class="fas fa-user-cog mr-3"></i>
                                 Creator: ${group.creatorName}
                             </p>
                         </div>
-                        <div class="bg-gray-50 p-5 rounded-lg shadow-sm">
-                            <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
-                                <i class="fas fa-chart-line mr-2 text-indigo-600"></i>
+                        <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+                            <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
+                                <i class="fas fa-chart-line mr-3 text-indigo-600"></i>
                                 Activity
                             </h4>
-                            <p class="text-sm text-gray-600 mb-2">
-                                <i class="fas fa-clock mr-2"></i>
+                            <p class="text-sm text-gray-600 mb-3">
+                                <i class="fas fa-clock mr-3"></i>
                                 Last active: ${new Date(group.lastActivity).toLocaleDateString()}
                             </p>
-                            <p class="text-sm text-gray-600 mb-2">
-                                <i class="fas fa-bullhorn mr-2"></i>
+                            <p class="text-sm text-gray-600 mb-3">
+                                <i class="fas fa-bullhorn mr-3"></i>
                                 Announcements: ${group.announcements ? group.announcements.length : 0}
                             </p>
                             <p class="text-sm text-gray-600">
-                                <i class="fas fa-folder-open mr-2"></i>
+                                <i class="fas fa-folder-open mr-3"></i>
                                 Resources: ${group.resources ? group.resources.length : 0}
                             </p>
                         </div>
@@ -6395,14 +6402,14 @@
                     
                     ${isMember ? `
                         <div class="mb-8">
-                            <div class="flex justify-between items-center mb-4">
+                            <div class="flex justify-between items-center mb-5">
                                 <h4 class="font-semibold text-gray-800 flex items-center">
-                                    <i class="fas fa-bullhorn mr-2 text-indigo-600"></i>
+                                    <i class="fas fa-bullhorn mr-3 text-indigo-600"></i>
                                     Group Announcements
                                 </h4>
                                 ${group.creatorId === currentUser.uid ? `
                                     <button onclick="showAddAnnouncementModal('${group.id}')" class="btn btn-primary btn-sm">
-                                        <i class="fas fa-plus mr-1"></i>
+                                        <i class="fas fa-plus mr-2"></i>
                                         Add Announcement
                                     </button>
                                 ` : ''}
@@ -6410,10 +6417,10 @@
                             <div id="groupAnnouncements">
                                 ${(group.announcements || []).map(announcement => `
                                     <div class="group-announcement">
-                                        <h5 class="font-semibold text-gray-800 mb-2">${announcement.title}</h5>
-                                        <p class="text-gray-600 mb-2">${announcement.content}</p>
+                                        <h5 class="font-semibold text-gray-800 mb-3">${announcement.title}</h5>
+                                        <p class="text-gray-600 mb-3">${announcement.content}</p>
                                         <p class="text-xs text-gray-500">
-                                            <i class="fas fa-calendar-alt mr-1"></i>
+                                            <i class="fas fa-calendar-alt mr-2"></i>
                                             ${new Date(announcement.createdAt).toLocaleDateString()}
                                         </p>
                                     </div>
@@ -6422,14 +6429,14 @@
                         </div>
                         
                         <div class="mb-8">
-                            <div class="flex justify-between items-center mb-4">
+                            <div class="flex justify-between items-center mb-5">
                                 <h4 class="font-semibold text-gray-800 flex items-center">
-                                    <i class="fas fa-folder-open mr-2 text-indigo-600"></i>
+                                    <i class="fas fa-folder-open mr-3 text-indigo-600"></i>
                                     Group Resources
                                 </h4>
                                 ${isMember ? `
                                     <button onclick="showAddResourceModal('${group.id}')" class="btn btn-primary btn-sm">
-                                        <i class="fas fa-plus mr-1"></i>
+                                        <i class="fas fa-plus mr-2"></i>
                                         Add Resource
                                     </button>
                                 ` : ''}
@@ -6443,9 +6450,9 @@
                                         <div class="resource-info">
                                             <div class="resource-name">${resource.name}</div>
                                             <div class="resource-meta">
-                                                <i class="fas fa-user mr-1"></i>
+                                                <i class="fas fa-user mr-2"></i>
                                                 ${resource.addedBy} • 
-                                                <i class="fas fa-calendar-alt mr-1"></i>
+                                                <i class="fas fa-calendar-alt mr-2"></i>
                                                 ${new Date(resource.createdAt).toLocaleDateString()}
                                             </div>
                                             ${resource.description ? `<div class="resource-description">${resource.description}</div>` : ''}
@@ -6460,22 +6467,23 @@
                                         </button>
                                     ` : ''}
                                 </div>
+                                    </div>
+                                `).join('') || '<p class="text-gray-500 italic">No resources shared yet.</p>'}
                             </div>
-                        `).join('') || '<p class="text-gray-500 italic">No resources shared yet.</p>'}
-                    </div>
-                </div>
-                
-                <div class="mb-6">
-                    <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
-                        <i class="fas fa-comments mr-2 text-indigo-600"></i>
-                        Group Chat
-                    </h4>
-                    <div class="group-chat-container">
-                        <div class="group-chat" id="groupChat-${group.id}">
-                            <!-- Chat messages will be loaded here -->
                         </div>
-                        <div class="chat-input">
-                            <input type="text" id="chatInput-${group.id}" class="form-input flex-1" placeholder="Type a message..." onkeypress="if(event.key === 'Enter') sendChatMessage(event, '${group.id}')">
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h4 class="font-semibold text-gray-800 mb-5 flex items-center">
+                            <i class="fas fa-comments mr-3 text-indigo-600"></i>
+                            Group Chat
+                        </h4>
+                        <div class="group-chat-container">
+                            <div class="group-chat" id="groupChat-${group.id}">
+                                <!-- Chat messages will be loaded here -->
+                            </div>
+                            <div class="chat-input">
+                                <input type="text" id="chatInput-${group.id}" class="form-input flex-1" placeholder="Type a message..." onkeypress="if(event.key === 'Enter') sendChatMessage(event, '${group.id}')">
                             <button onclick="sendChatMessage(event, '${group.id}')" class="btn btn-primary">Send</button>
                         </div>
                     </div>
@@ -7164,4 +7172,3 @@
       </script>
    </body>
 </html>
-
