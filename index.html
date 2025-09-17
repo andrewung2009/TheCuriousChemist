@@ -4060,6 +4060,18 @@
                  showToast('info', 'Section Locked', 'Please complete previous sections first.');
                  return;
              }
+            // Show selected section
+            const sectionElement = document.getElementById(`${sectionName}-section`);
+            if (sectionElement) {
+                sectionElement.style.display = 'block';
+                
+                // Force visibility for fade-in elements in this section
+                setTimeout(() => {
+                    sectionElement.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
+                        el.classList.add('visible');
+                    });
+                }, 100);
+            }
              
              // Hide all sections
              const sections = document.querySelectorAll('.content-section');
@@ -7181,5 +7193,6 @@ setTimeout(() => {
       </script>
    </body>
 </html>
+
 
 
