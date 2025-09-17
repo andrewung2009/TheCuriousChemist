@@ -6243,7 +6243,12 @@
                      const groupElement = createStudyGroupElement(group);
                      groupsContainer.appendChild(groupElement);
                  });
-                 
+                 // Force fade-in animation for study groups
+                  setTimeout(() => {
+                      document.querySelectorAll('.study-group-card').forEach(card => {
+                          card.classList.add('visible');
+                      });
+                  }, 150);
                  // Apply fade-in to new groups
                  // Trigger fade-in for new groups
 setTimeout(() => {
@@ -7176,4 +7181,5 @@ setTimeout(() => {
       </script>
    </body>
 </html>
+
 
