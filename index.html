@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -493,14 +491,9 @@
          }
          .tab-content {
          display: none;
-         animation: fadeIn 0.5s ease;
          }
          .tab-content.active {
          display: block;
-         }
-         @keyframes fadeIn {
-         from { opacity: 0; transform: translateY(10px); }
-         to { opacity: 1; transform: translateY(0); }
          }
          /* Enhanced trend table with more apparent hover */
          .trend-table {
@@ -793,7 +786,6 @@
          }
          .modal.active {
          display: flex;
-         animation: fadeIn 0.3s ease;
          }
          .modal-content {
          background: white;
@@ -804,7 +796,6 @@
          max-height: 90vh;
          overflow-y: auto;
          box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-         animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
          margin: auto; /* Center the modal */
          position: relative; /* For proper positioning */
          }
@@ -1027,50 +1018,6 @@
          .quiz-modal {
          backdrop-filter: blur(8px);
          }
-         .quiz-modal .modal-content {
-         animation: modalSlideIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-         }
-         @keyframes modalSlideIn {
-         from { 
-         opacity: 0;
-         transform: translateY(50px) scale(0.95);
-         }
-         to { 
-         opacity: 1;
-         transform: translateY(0) scale(1);
-         }
-         }
-         #questionText {
-         animation: fadeInUp 0.7s ease-out;
-         }
-         @keyframes fadeInUp {
-         from {
-         opacity: 0;
-         transform: translateY(20px);
-         }
-         to {
-         opacity: 1;
-         transform: translateY(0);
-         }
-         }
-         #optionsContainer .quiz-option {
-         animation: fadeInScale 0.5s ease-out forwards;
-         opacity: 0;
-         }
-         @keyframes fadeInScale {
-         from {
-         opacity: 0;
-         transform: scale(0.9);
-         }
-         to {
-         opacity: 1;
-         transform: scale(1);
-         }
-         }
-         #optionsContainer .quiz-option:nth-child(1) { animation-delay: 0.1s; }
-         #optionsContainer .quiz-option:nth-child(2) { animation-delay: 0.2s; }
-         #optionsContainer .quiz-option:nth-child(3) { animation-delay: 0.3s; }
-         #optionsContainer .quiz-option:nth-child(4) { animation-delay: 0.4s; }
          /* Enhanced toast notification */
          .toast {
          position: fixed;
@@ -1677,7 +1624,7 @@
          .group-title {
          font-size: 1.25rem;
          font-weight: 600;
-         color: var(--gray-900);
+         color: var(--gray-800);
          }
          body.dark-mode .group-title {
          color: #f3f4f6;
@@ -1920,73 +1867,108 @@
          transform: scale(1.05);
          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
          }
-         .leaderboard-entry {
-         display: flex;
-         align-items: center;
-         padding: 1.25rem;
-         border-bottom: 1px solid var(--gray-200);
-         transition: all 0.3s ease;
-         }
-         body.dark-mode .leaderboard-entry {
-         border-bottom-color: #4b5563;
-         }
-         .leaderboard-entry:hover {
-         background: rgba(79, 70, 229, 0.05);
-         transform: translateX(5px);
-         }
-         body.dark-mode .leaderboard-entry:hover {
-         background: rgba(79, 70, 229, 0.1);
-         }
-         .leaderboard-rank {
-         width: 36px;
-         height: 36px;
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         background: var(--gray-100);
-         border-radius: 50%;
-         font-weight: 600;
-         margin-right: 1.25rem;
-         transition: all 0.3s ease;
-         }
-         body.dark-mode .leaderboard-rank {
-         background: #4b5563;
-         color: #f3f4f6;
-         }
-         .leaderboard-entry:hover .leaderboard-rank {
-         transform: scale(1.1);
-         }
-         .leaderboard-rank.first {
-         background: linear-gradient(135deg, #f59e0b, #d97706);
-         color: white;
-         }
-         .leaderboard-rank.second {
-         background: linear-gradient(135deg, #9ca3af, #6b7280);
-         color: white;
-         }
-         .leaderboard-rank.third {
-         background: linear-gradient(135deg, #cd7c2f, #92400e);
-         color: white;
-         }
-         .leaderboard-info {
-         flex: 1;
-         }
-         .leaderboard-name {
-         font-weight: 600;
-         color: var(--gray-800);
-         }
-         body.dark-mode .leaderboard-name {
-         color: #f3f4f6;
-         }
-         .leaderboard-stats {
-         display: flex;
-         gap: 1.25rem;
-         font-size: 0.875rem;
-         color: var(--gray-600);
-         }
-         body.dark-mode .leaderboard-stats {
-         color: #d1d5db;
-         }
+         /* Replace the existing leaderboard styles with these simpler ones */
+
+.leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    background: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .leaderboard-table {
+    background: #374151;
+    color: #f3f4f6;
+}
+
+.leaderboard-table th {
+    background: var(--primary);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    font-weight: 600;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.leaderboard-table th:last-child {
+    border-right: none;
+}
+
+.leaderboard-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--gray-200);
+    text-align: center;
+    border-right: 1px solid var(--gray-200);
+}
+
+.leaderboard-table td:last-child {
+    border-right: none;
+}
+
+body.dark-mode .leaderboard-table td {
+    border-bottom-color: #4b5563;
+    border-right-color: #4b5563;
+}
+
+.leaderboard-table tr:last-child td {
+    border-bottom: none;
+}
+
+.leaderboard-table tr:nth-child(even) {
+    background: var(--gray-100);
+}
+
+body.dark-mode .leaderboard-table tr:nth-child(even) {
+    background: #4b5563;
+}
+
+.leaderboard-table tr:hover {
+    background: rgba(79, 70, 229, 0.1);
+}
+
+body.dark-mode .leaderboard-table tr:hover {
+    background: rgba(79, 70, 229, 0.2);
+}
+
+.leaderboard-rank {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gray-100);
+    border-radius: 50%;
+    font-weight: 600;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .leaderboard-rank {
+    background: #4b5563;
+    color: #f3f4f6;
+}
+
+.leaderboard-rank.first {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+}
+
+.leaderboard-rank.second {
+    background: linear-gradient(135deg, #9ca3af, #6b7280);
+    color: white;
+}
+
+.leaderboard-rank.third {
+    background: linear-gradient(135deg, #cd7c2f, #92400e);
+    color: white;
+}
+
+.leaderboard-entry:hover .leaderboard-rank {
+    transform: scale(1.1);
+}
          .daily-challenge {
          background: linear-gradient(135deg, #10b981, #059669);
          color: white;
@@ -2055,6 +2037,7 @@
          background-color: white;
          transition: .4s;
          }
+         
          input:checked + .slider {
          background-color: var(--primary);
          }
@@ -2067,32 +2050,6 @@
          .slider.round:before {
          border-radius: 50%;
          }
-         /* Fade-in effect for content */
-         .fade-in {
-         opacity: 0;
-         transform: translateY(30px);
-         transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-         will-change: opacity, transform;
-         }
-         .fade-in.visible {
-         opacity: 1;
-         transform: translateY(0);
-         }
-         /* Staggered animation for lists */
-         .fade-in-stagger > * {
-         opacity: 0;
-         transform: translateY(20px);
-         transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-         }
-         .fade-in-stagger.visible > * {
-         opacity: 1;
-         transform: translateY(0);
-         }
-         .fade-in-stagger.visible > *:nth-child(1) { transition-delay: 0.1s; }
-         .fade-in-stagger.visible > *:nth-child(2) { transition-delay: 0.2s; }
-         .fade-in-stagger.visible > *:nth-child(3) { transition-delay: 0.3s; }
-         .fade-in-stagger.visible > *:nth-child(4) { transition-delay: 0.4s; }
-         .fade-in-stagger.visible > *:nth-child(5) { transition-delay: 0.5s; }
          /* Enhanced interactive elements */
          .interactive-element {
          position: relative;
@@ -2379,7 +2336,7 @@
          <!-- Main Content -->
          <main class="main-content">
             <!-- Daily Challenge -->
-            <div id="dailyChallenge" class="daily-challenge fade-in" style="display: none;">
+            <div id="dailyChallenge" class="daily-challenge" style="display: none;">
                <h3><i class="fas fa-calendar-day mr-2"></i> Daily Challenge</h3>
                <p id="dailyChallengeQuestion">Loading daily challenge...</p>
                <button onclick="showDailyChallengeModal()" class="btn btn-secondary transform transition-all duration-300 hover:scale-105">
@@ -2388,7 +2345,7 @@
                </button>
             </div>
             <!-- Progress Tracker -->
-            <div class="content-card fade-in">
+            <div class="content-card">
                <div class="flex justify-between items-center mb-6">
                   <h3 class="text-xl font-bold text-gray-800">Your Progress</h3>
                   <div class="text-xl font-bold text-indigo-600" id="progressPercentage">0%</div>
@@ -2397,22 +2354,22 @@
                   <div class="progress-fill" id="overallProgressFill" style="width: 0%"></div>
                </div>
                <div class="grid grid-cols-4 gap-6 mt-6">
-                  <div class="text-center p-4 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105 fade-in" id="progress-overview">
+                  <div class="text-center p-4 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105" id="progress-overview">
                      <i class="fas fa-home text-gray-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
                      <div class="text-sm font-medium text-gray-700">Overview</div>
                      <div class="text-xs text-gray-500 mt-1">Not Started</div>
                   </div>
-                  <div class="text-center p-4 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105 fade-in" id="progress-elements">
+                  <div class="text-center p-4 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105" id="progress-elements">
                      <i class="fas fa-th text-gray-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
                      <div class="text-sm font-medium text-gray-700">Elements</div>
                      <div class="text-xs text-gray-500 mt-1">Locked</div>
                   </div>
-                  <div class="text-center p-4 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105 fade-in" id="progress-properties">
+                  <div class="text-center p-4 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105" id="progress-properties">
                      <i class="fas fa-chart-line text-gray-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
                      <div class="text-sm font-medium text-gray-700">Properties</div>
                      <div class="text-xs text-gray-500 mt-1">Locked</div>
                   </div>
-                  <div class="text-center p-4 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105 fade-in" id="progress-quiz">
+                  <div class="text-center p-4 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105" id="progress-quiz">
                      <i class="fas fa-graduation-cap text-gray-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
                      <div class="text-sm font-medium text-gray-700">Quiz</div>
                      <div class="text-xs text-gray-500 mt-1">Locked</div>
@@ -2421,15 +2378,15 @@
             </div>
             <!-- Overview Section -->
             <section id="overview-section" class="content-section">
-               <div class="content-card fade-in">
+               <div class="content-card">
                   <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
                      <i class="fas fa-info-circle mr-3 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                      Introduction to Group 1 Alkali Metals
                   </h3>
-                  <div class="mb-8 fade-in">
+                  <div class="mb-8">
                      <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300">
                         <h4 class="font-semibold text-indigo-800 mb-3">Key Concepts</h4>
-                        <ul class="space-y-3 text-gray-700 fade-in-stagger">
+                        <ul class="space-y-3 text-gray-700">
                            <li class="flex items-start">
                               <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
                               <span>Group 1 elements: <span class="interactive-element font-semibold text-indigo-600" onclick="showElementQuiz('lithium')">Lithium (Li)</span>, <span class="interactive-element font-semibold text-indigo-600" onclick="showElementQuiz('sodium')">Sodium (Na)</span>, <span class="interactive-element font-semibold text-indigo-600" onclick="showElementQuiz('potassium')">Potassium (K)</span>, Rubidium (Rb), Cesium (Cs), Francium (Fr)</span>
@@ -2455,11 +2412,11 @@
                   </div>
                   <!-- Key Properties with Tooltips -->
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                     <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 fade-in">
+                     <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
                         <h4 class="font-semibold text-indigo-800 mb-4 flex items-center">
                            <i class="fas fa-atom mr-2"></i> Key Properties
                         </h4>
-                        <ul class="space-y-3 fade-in-stagger">
+                        <ul class="space-y-3 text-gray-700">
                            <li><span class="interactive-element font-medium text-indigo-600" onclick="showTermQuiz('soft')">Soft metals</span></li>
                            <li><span class="interactive-element font-medium text-indigo-600" onclick="showTermQuiz('melting-point')">Low melting points</span></li>
                            <li><span class="interactive-element font-medium text-indigo-600" onclick="showTermQuiz('density')">Low densities</span></li>
@@ -2467,11 +2424,11 @@
                            <li><span class="interactive-element font-medium text-indigo-600" onclick="showTermQuiz('flame-test')">Characteristic flame test colors</span></li>
                         </ul>
                      </div>
-                     <div class="bg-gradient-to-br from-purple-50 to-indigo-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 fade-in">
+                     <div class="bg-gradient-to-br from-purple-50 to-indigo-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
                         <h4 class="font-semibold text-indigo-800 mb-4 flex items-center">
                            <i class="fas fa-chart-line mr-2"></i> Trends
                         </h4>
-                        <ul class="space-y-3 fade-in-stagger">
+                        <ul class="space-y-3 text-gray-700">
                            <li><span class="interactive-element font-medium text-indigo-600" onclick="showTrendQuiz('melting-point')">Melting Point</span> <i class="fas fa-arrow-down text-red-500"></i> down group</li>
                            <li><span class="interactive-element font-medium text-indigo-600" onclick="showTrendQuiz('density')">Density</span> <i class="fas fa-arrow-up text-green-500"></i> down group (K exception)</li>
                            <li><span class="interactive-element font-medium text-indigo-600" onclick="showTrendQuiz('reactivity')">Reactivity</span> <i class="fas fa-arrow-up text-green-500"></i> down group</li>
@@ -2490,14 +2447,14 @@
                      </div>
                   </div>
                   <!-- YouTube Video -->
-                  <div class="mt-8 fade-in">
+                  <div class="mt-8">
                      <h4 class="font-semibold mb-3">Learn More:</h4>
                      <div class="aspect-w-16 aspect-h-9">
                         <iframe src="https://www.youtube.com/embed/TGZs93DzMDY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-64 rounded-lg transform transition-all duration-300 hover:scale-105"></iframe>
                      </div>
                   </div>
                   <div class="flex justify-center mt-6">
-                     <button id="overview-complete-btn" class="btn btn-success section-complete-btn transform transition-all duration-300 hover:scale-105 fade-in" onclick="completeSection('overview')">
+                     <button id="overview-complete-btn" class="btn btn-success section-complete-btn transform transition-all duration-300 hover:scale-105" onclick="completeSection('overview')">
                      <i class="fas fa-check mr-2"></i>
                      Mark as Complete
                      </button>
@@ -2506,13 +2463,13 @@
             </section>
             <!-- Elements Section -->
             <section id="elements-section" class="content-section" style="display: none;">
-               <div class="content-card fade-in">
+               <div class="content-card">
                   <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
                      <i class="fas fa-th mr-3 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                      Group 1 Elements
                   </h3>
                   <!-- Interactive Periodic Table -->
-                  <div class="mb-8 fade-in">
+                  <div class="mb-8">
                      <h4 class="font-semibold mb-3">Interactive Periodic Table</h4>
                      <div class="periodic-table">
                         <!-- Simplified periodic table with Group 1 highlighted -->
@@ -2591,7 +2548,7 @@
                         </div>
                      </div>
                   </div>
-                  <div class="element-grid fade-in-stagger">
+                  <div class="element-grid">
                      <div class="element-card" onclick="showElementDetails('Lithium', 'Li', 3, '2,1')">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Lithiumcut_cropped.jpg" alt="Lithium" class="element-image">
                         <h4 class="font-bold text-lg">Lithium (Li)</h4>
@@ -2636,7 +2593,7 @@
                      </div>
                   </div>
                   <div class="flex justify-center mt-6">
-                     <button id="elements-complete-btn" class="btn btn-success section-complete-btn transform transition-all duration-300 hover:scale-105 fade-in" onclick="completeSection('elements')">
+                     <button id="elements-complete-btn" class="btn btn-success section-complete-btn transform transition-all duration-300 hover:scale-105" onclick="completeSection('elements')">
                      <i class="fas fa-check mr-2"></i>
                      Mark as Complete
                      </button>
@@ -2645,7 +2602,7 @@
             </section>
             <!-- Properties Section -->
             <section id="properties-section" class="content-section" style="display: none;">
-               <div class="content-card fade-in">
+               <div class="content-card">
                   <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
                      <i class="fas fa-chart-line mr-3 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                      Trends in Group 1
@@ -2656,7 +2613,7 @@
                      <button class="tab" onclick="showTab('reactivity')">Reactivity</button>
                   </div>
                   <div id="melting-point" class="tab-content active">
-                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-6 fade-in">
+                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-6">
                         <h4 class="font-semibold text-indigo-800 mb-3">Key Points</h4>
                         <ul class="list-disc pl-6 space-y-2 text-gray-700">
                            <li>Melting point <strong>decreases</strong> down Group 1</li>
@@ -2687,7 +2644,7 @@
                      </div>
                   </div>
                   <div id="density" class="tab-content">
-                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-6 fade-in">
+                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-6">
                         <h4 class="font-semibold text-indigo-800 mb-3">Key Points</h4>
                         <ul class="list-disc pl-6 space-y-2 text-gray-700">
                            <li>Density generally <strong>increases</strong> down Group 1</li>
@@ -2695,7 +2652,7 @@
                            <li>Li: 0.53 g/cm³ → Cs: 1.93 g/cm³</li>
                         </ul>
                      </div>
-                     <table class="trend-table fade-in">
+                     <table class="trend-table">
                         <thead>
                            <tr>
                               <th>Element</th>
@@ -2733,7 +2690,7 @@
                      </table>
                   </div>
                   <div id="reactivity" class="tab-content">
-                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-6 fade-in">
+                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-6">
                         <h4 class="font-semibold text-indigo-800 mb-3">Key Points</h4>
                         <ul class="list-disc pl-6 space-y-2 text-gray-700">
                            <li>Reactivity <strong>increases</strong> down Group 1</li>
@@ -2741,11 +2698,11 @@
                            <li>Reaction with water becomes more vigorous</li>
                         </ul>
                      </div>
-                     <div class="highlight-box fade-in">
+                     <div class="highlight-box">
                         <h4>Reactivity Series</h4>
                         <p>Most Reactive: Cesium > Rubidium > Potassium > Sodium > Lithium :Least Reactive</p>
                      </div>
-                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 fade-in-stagger">
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
                         <div class="bg-gradient-to-br from-red-50 to-orange-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
                            <h4 class="font-semibold text-red-800 mb-3">Lithium Reaction</h4>
                            <p class="text-gray-700">Fizzes steadily with water, moves slowly on surface</p>
@@ -2769,7 +2726,7 @@
                      </div>
                   </div>
                   <div class="flex justify-center mt-6">
-                     <button id="properties-complete-btn" class="btn btn-success section-complete-btn transform transition-all duration-300 hover:scale-105 fade-in" onclick="completeSection('properties')">
+                     <button id="properties-complete-btn" class="btn btn-success section-complete-btn transform transition-all duration-300 hover:scale-105" onclick="completeSection('properties')">
                      <i class="fas fa-check mr-2"></i>
                      Mark as Complete
                      </button>
@@ -2778,7 +2735,7 @@
             </section>
             <!-- Reactions Section -->
             <section id="reactions-section" class="content-section" style="display: none;">
-               <div class="content-card fade-in">
+               <div class="content-card">
                   <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
                      <i class="fas fa-flask mr-3 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                      Reactions of Group 1 Metals
@@ -2788,7 +2745,7 @@
                      <button class="tab" onclick="showTab('oxygen')">With Oxygen</button>
                   </div>
                   <div id="water" class="tab-content active">
-                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-6 fade-in">
+                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-6">
                         <h4 class="font-semibold text-indigo-800 mb-3">Key Points</h4>
                         <ul class="list-disc pl-6 space-y-2 text-gray-700">
                            <li>All Group 1 metals react with water</li>
@@ -2796,11 +2753,11 @@
                            <li>Reactivity increases down the group</li>
                         </ul>
                      </div>
-                     <div class="equation-box fade-in">
+                     <div class="equation-box">
                         <p class="text-gray-700 mb-3">General equation:</p>
                         <p class="equation">2M(s) + 2H₂O(l) → 2MOH(aq) + H₂(g)</p>
                      </div>
-                     <div class="highlight-box fade-in">
+                     <div class="highlight-box">
                         <h4>Observations</h4>
                         <ul class="list-disc pl-6 space-y-1">
                            <li><strong>Lithium:</strong> Fizzes steadily</li>
@@ -2808,7 +2765,7 @@
                            <li><strong>Potassium:</strong> Fizzes violently, ignites with lilac flame</li>
                         </ul>
                      </div>
-                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 fade-in-stagger">
+                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
                         <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
                            <h4 class="font-semibold text-blue-800 mb-3">Lithium + Water</h4>
                            <p class="equation text-sm">2Li(s) + 2H₂O(l) → 2LiOH(aq) + H₂(g)</p>
@@ -2827,14 +2784,14 @@
                      </div>
                   </div>
                   <div id="oxygen" class="tab-content">
-                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-6 fade-in">
+                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-6">
                         <h4 class="font-semibold text-indigo-800 mb-3">Key Points</h4>
                         <ul class="list-disc pl-6 space-y-2 text-gray-700">
                            <li>Group 1 metals react with oxygen when heated</li>
                            <li>Form different types of oxides down the group</li>
                         </ul>
                      </div>
-                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 fade-in-stagger">
+                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
                            <h5 class="font-semibold text-blue-800">Lithium</h5>
                            <p class="text-blue-600">Forms Li₂O (oxide)</p>
@@ -2854,7 +2811,7 @@
                            <button onclick="showReactionDetails('potassium-oxygen')" class="btn btn-primary btn-sm mt-3">View Details</button>
                         </div>
                      </div>
-                     <div class="bg-gradient-to-r from-yellow-50 to-orange-50 p-6 rounded-lg border-l-4 border-orange-500 shadow-sm hover:shadow-md transition-shadow duration-300 mt-8 fade-in">
+                     <div class="bg-gradient-to-r from-yellow-50 to-orange-50 p-6 rounded-lg border-l-4 border-orange-500 shadow-sm hover:shadow-md transition-shadow duration-300 mt-8">
                         <h4 class="font-semibold text-orange-800 mb-3">Trend in Oxide Formation</h4>
                         <p class="text-gray-700">As we move down Group 1, the type of oxide formed changes from normal oxides (Li) to peroxides (Na) to superoxides (K, Rb, Cs). This is due to the increasing size of the metal ion, which can stabilize larger oxygen-containing anions.</p>
                         <button onclick="showOxideTrendQuiz()" class="btn btn-primary btn-sm mt-3">Test Your Knowledge</button>
@@ -2892,7 +2849,7 @@
                      </div>
                   </div>
                   <div class="flex justify-center mt-6">
-                     <button id="reactions-complete-btn" class="btn btn-success section-complete-btn transform transition-all duration-300 hover:scale-105 fade-in" onclick="completeSection('reactions')">
+                     <button id="reactions-complete-btn" class="btn btn-success section-complete-btn transform transition-all duration-300 hover:scale-105" onclick="completeSection('reactions')">
                      <i class="fas fa-check mr-2"></i>
                      Mark as Complete
                      </button>
@@ -2901,7 +2858,7 @@
             </section>
             <!-- Quiz Section -->
             <section id="quiz-section" class="content-section" style="display: none;">
-               <div class="content-card fade-in">
+               <div class="content-card">
                   <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
                      <i class="fas fa-graduation-cap mr-3 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                      Test Your Knowledge
@@ -2979,7 +2936,7 @@
             </section>
             <!-- Discussion Section -->
             <section id="discussion-section" class="content-section" style="display: none;">
-               <div class="content-card fade-in">
+               <div class="content-card">
                   <div class="flex justify-between items-center mb-8">
                      <h3 class="text-2xl font-bold text-gray-800 flex items-center">
                         <i class="fas fa-comments mr-3 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
@@ -3015,7 +2972,7 @@
             </section>
             <!-- Study Groups Section -->
             <section id="study-groups-section" class="content-section" style="display: none;">
-               <div class="content-card fade-in">
+               <div class="content-card">
                   <div class="flex justify-between items-center mb-8">
                      <h3 class="text-2xl font-bold text-gray-800 flex items-center">
                         <i class="fas fa-users mr-3 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
@@ -3039,7 +2996,7 @@
             </section>
             <!-- Leaderboard Section -->
             <section id="leaderboard-section" class="content-section" style="display: none;">
-               <div class="content-card fade-in">
+               <div class="content-card">
                   <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
                      <i class="fas fa-trophy mr-3 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
                      Leaderboard
@@ -3411,7 +3368,6 @@
          let soundEnabled = true;
          let dailyChallenge = null;
          let dailyChallengeAnswered = false;
-         let fadeObserver = null; // Store the observer globally
          
          // Quiz questions for terms
          const termQuizQuestions = {
@@ -3887,171 +3843,6 @@
                      showToast('info', 'Element Info', `You clicked on ${elementName}`);
                  });
              });
-             
-             // Initialize fade-in effect on scroll
-             initializeFadeInEffect();
-         }
-         
-         // Initialize fade-in effect on scroll
-         function initializeFadeInEffect() {
-             // Disconnect existing observer if it exists
-             if (fadeObserver) {
-                 fadeObserver.disconnect();
-             }
-             
-             // Set up Intersection Observer for fade-in effect
-             const fadeOptions = {
-                 root: null,
-                 rootMargin: '0px',
-                 threshold: 0.1
-             };
-             
-             fadeObserver = new IntersectionObserver((entries) => {
-                 entries.forEach(entry => {
-                     if (entry.isIntersecting) {
-                         entry.target.classList.add('visible');
-                     }
-                 });
-             }, fadeOptions);
-             
-             // Add fade-in classes to relevant elements
-             addFadeInClasses();
-             
-             // Observe all elements with fade-in class
-             document.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
-                 fadeObserver.observe(el);
-             });
-             
-             // Trigger fade-in for elements already in view
-             triggerVisibleFadeIns();
-         }
-         
-         // Trigger fade-in for elements already visible
-         function triggerVisibleFadeIns() {
-             // Small delay to ensure DOM is fully rendered
-             setTimeout(() => {
-                 document.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
-                     const rect = el.getBoundingClientRect();
-                     const isVisible = (
-                         rect.top >= 0 &&
-                         rect.left >= 0 &&
-                         rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                         rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-                     );
-                     
-                     if (isVisible) {
-                         el.classList.add('visible');
-                     }
-                 });
-             }, 100);
-         }
-         
-         // Add fade-in classes to relevant elements
-         function addFadeInClasses() {
-             // Content cards
-             document.querySelectorAll('.content-card').forEach(card => {
-                 if (!card.classList.contains('fade-in')) {
-                     card.classList.add('fade-in');
-                 }
-             });
-             
-             // Paragraphs in content sections
-             document.querySelectorAll('.content-section p').forEach(p => {
-                 if (!p.classList.contains('fade-in')) {
-                     p.classList.add('fade-in');
-                 }
-             });
-             
-             // Lists
-             document.querySelectorAll('.content-section ul, .content-section ol').forEach(list => {
-                 if (!list.classList.contains('fade-in-stagger')) {
-                     list.classList.add('fade-in-stagger');
-                 }
-             });
-             
-             // Headings
-             document.querySelectorAll('.content-section h2, .content-section h3, .content-section h4').forEach(heading => {
-                 if (!heading.classList.contains('fade-in')) {
-                     heading.classList.add('fade-in');
-                 }
-             });
-             
-             // Highlight boxes and equation boxes
-             document.querySelectorAll('.highlight-box, .equation-box').forEach(box => {
-                 if (!box.classList.contains('fade-in')) {
-                     box.classList.add('fade-in');
-                 }
-             });
-             
-             // Element cards
-             document.querySelectorAll('.element-card').forEach(card => {
-                 if (!card.classList.contains('fade-in')) {
-                     card.classList.add('fade-in');
-                 }
-             });
-             
-             // Tables
-             document.querySelectorAll('.trend-table').forEach(table => {
-                 if (!table.classList.contains('fade-in')) {
-                     table.classList.add('fade-in');
-                 }
-             });
-             
-             // Tabs
-             document.querySelectorAll('.tab').forEach(tab => {
-                 if (!tab.classList.contains('fade-in')) {
-                     tab.classList.add('fade-in');
-                 }
-             });
-             
-             // Discussion posts and study groups
-             document.querySelectorAll('.discussion-post, .study-group-card').forEach(post => {
-                 if (!post.classList.contains('fade-in')) {
-                     post.classList.add('fade-in');
-                 }
-             });
-             
-             // Progress tracker elements
-             document.querySelectorAll('.progress-bar, .progress-fill').forEach(el => {
-                 if (!el.classList.contains('fade-in')) {
-                     el.classList.add('fade-in');
-                 }
-             });
-             
-             // Buttons
-             document.querySelectorAll('.btn').forEach(btn => {
-                 if (!btn.classList.contains('fade-in')) {
-                     btn.classList.add('fade-in');
-                 }
-             });
-             
-             // Grid elements
-             document.querySelectorAll('.grid > div').forEach(el => {
-                 if (!el.classList.contains('fade-in')) {
-                     el.classList.add('fade-in');
-                 }
-             });
-             
-             // Interactive elements
-             document.querySelectorAll('.interactive-element, .keyword, .valence-electron').forEach(el => {
-                 if (!el.classList.contains('fade-in')) {
-                     el.classList.add('fade-in');
-                 }
-             });
-             
-             // Specific elements in overview section
-             const overviewSection = document.getElementById('overview-section');
-             if (overviewSection) {
-                 overviewSection.querySelectorAll('.bg-gradient-to-r, .mb-6, .grid, .flex').forEach(el => {
-                     if (!el.classList.contains('fade-in') && !el.classList.contains('fade-in-stagger')) {
-                         if (el.querySelector('ul') || el.querySelector('ol')) {
-                             el.classList.add('fade-in-stagger');
-                         } else {
-                             el.classList.add('fade-in');
-                         }
-                     }
-                 });
-             }
          }
          
          // Navigation functions
@@ -4073,27 +3864,6 @@
              const sectionElement = document.getElementById(`${sectionName}-section`);
              if (sectionElement) {
                  sectionElement.style.display = 'block';
-                 
-                 // Reset fade-in classes for elements in the new section
-                 sectionElement.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
-                     el.classList.remove('visible');
-                 });
-                 
-                 // Reinitialize fade-in for the new section
-                 setTimeout(() => {
-                     // Add fade-in classes if they don't exist
-                     addFadeInClasses();
-                     
-                     // Manually trigger fade-in for elements already in view
-                     triggerVisibleFadeIns();
-                     
-                     // Reconnect the observer to observe new elements
-                     if (fadeObserver) {
-                         sectionElement.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
-                             fadeObserver.observe(el);
-                         });
-                     }
-                 }, 50);
              }
              
              // Update active nav item
@@ -4138,11 +3908,6 @@
              
              // Check for daily challenge
              checkDailyChallenge();
-             
-             // Initialize fade-in effect after a short delay
-             setTimeout(() => {
-                 initializeFadeInEffect();
-             }, 100);
          }
          
          // Load user data from Firebase
@@ -4473,39 +4238,6 @@
              const tabContent = document.getElementById(tabName);
              if (tabContent) {
                  tabContent.classList.add('active');
-                 
-                 // Reset fade-in classes for elements in this tab content
-                 tabContent.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
-                     el.classList.remove('visible');
-                 });
-                 
-                 // Reinitialize fade-in for this tab content with a delay
-                 setTimeout(() => {
-                     // Add fade-in classes if they don't exist
-                     addFadeInClasses();
-                     
-                     // Manually trigger fade-in for elements already in view
-                     tabContent.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
-                         const rect = el.getBoundingClientRect();
-                         const isVisible = (
-                             rect.top >= 0 &&
-                             rect.left >= 0 &&
-                             rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                             rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-                         );
-                         
-                         if (isVisible) {
-                             el.classList.add('visible');
-                         }
-                     });
-                     
-                     // Reconnect the observer to observe new elements
-                     if (fadeObserver) {
-                         tabContent.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
-                             fadeObserver.observe(el);
-                         });
-                     }
-                 }, 50);
              }
              
              // Add active class to clicked tab
@@ -5087,67 +4819,67 @@
          }
          
          function showReactionVideo(element) {
-    // Create a modal to show the video
-    const modal = document.createElement('div');
-    modal.className = 'modal';
-    modal.style.zIndex = '1001'; // Ensure it's on top
-    
-    // Define video URLs for each element (replace with actual video URLs)
-    const videoUrls = {
-        'lithium': 'https://www.youtube.com/embed/vRKK6pliejs',
-        'sodium': 'https://www.youtube.com/embed/ODf_sPexS2Q',
-        'potassium': 'https://www.youtube.com/embed/Jy1DC6Euqj4',
-        'cesium': 'https://www.youtube.com/embed/YbwtND63tfo'
-    };
-    
-    // Get the video URL for the selected element
-    const videoUrl = videoUrls[element] || 'https://www.youtube.com/embed/TGZs93DzMDY'; // Default video
-    
-    // Set modal content
-    modal.innerHTML = `
-        <div class="modal-content" style="max-width: 900px;">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold text-gray-800 capitalize">${element} Reaction with Water</h2>
-                <button onclick="this.closest('.modal').classList.remove('active')" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
-            </div>
-            
-            <div class="aspect-w-16 aspect-h-9 mb-6">
-                <iframe src="${videoUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-96 rounded-lg"></iframe>
-            </div>
-            
-            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
-                <h3 class="font-semibold text-blue-800 mb-3">Observations</h3>
-                <p class="text-gray-700" id="reactionVideoObservations">Loading observations...</p>
-            </div>
-            
-            <div class="flex justify-end mt-6">
-                <button onclick="this.closest('.modal').classList.remove('active')" class="btn btn-secondary transform transition-all duration-300 hover:scale-105">
-                    Close
-                </button>
-            </div>
-        </div>
-    `;
-    
-    // Add modal to the body
-    document.body.appendChild(modal);
-    
-    // Show modal
-    setTimeout(() => {
-        modal.classList.add('active');
-    }, 10);
-    
-    // Set observations based on element
-    const observations = {
-        'lithium': 'Lithium fizzes steadily as it reacts with water. It moves slowly across the surface and does not melt.',
-        'sodium': 'Sodium fizzes rapidly and melts into a ball. It moves quickly across the water surface.',
-        'potassium': 'Potassium fizzes violently, ignites with a lilac flame, and may explode.',
-        'cesium': 'Cesium reacts explosively with water, producing a lot of heat and hydrogen gas.'
-    };
-    
-    document.getElementById('reactionVideoObservations').textContent = observations[element] || 'Observations not available.';
-}
+             // Create a modal to show the video
+             const modal = document.createElement('div');
+             modal.className = 'modal';
+             modal.style.zIndex = '1001'; // Ensure it's on top
+             
+             // Define video URLs for each element (replace with actual video URLs)
+             const videoUrls = {
+                 'lithium': 'https://www.youtube.com/embed/vRKK6pliejs',
+                 'sodium': 'https://www.youtube.com/embed/ODf_sPexS2Q',
+                 'potassium': 'https://www.youtube.com/embed/Jy1DC6Euqj4',
+                 'cesium': 'https://www.youtube.com/embed/YbwtND63tfo'
+             };
+             
+             // Get the video URL for the selected element
+             const videoUrl = videoUrls[element] || 'https://www.youtube.com/embed/TGZs93DzMDY'; // Default video
+             
+             // Set modal content
+             modal.innerHTML = `
+                 <div class="modal-content" style="max-width: 900px;">
+                     <div class="flex justify-between items-center mb-6">
+                         <h2 class="text-2xl font-bold text-gray-800 capitalize">${element} Reaction with Water</h2>
+                         <button onclick="this.closest('.modal').classList.remove('active')" class="text-gray-500 hover:text-gray-700 p-3 rounded-full hover:bg-gray-100 transition-colors">
+                             <i class="fas fa-times text-xl"></i>
+                         </button>
+                     </div>
+                     
+                     <div class="aspect-w-16 aspect-h-9 mb-6">
+                         <iframe src="${videoUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-96 rounded-lg"></iframe>
+                     </div>
+                     
+                     <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+                         <h3 class="font-semibold text-blue-800 mb-3">Observations</h3>
+                         <p class="text-gray-700" id="reactionVideoObservations">Loading observations...</p>
+                     </div>
+                     
+                     <div class="flex justify-end mt-6">
+                         <button onclick="this.closest('.modal').classList.remove('active')" class="btn btn-secondary transform transition-all duration-300 hover:scale-105">
+                             Close
+                         </button>
+                     </div>
+                 </div>
+             `;
+             
+             // Add modal to the body
+             document.body.appendChild(modal);
+             
+             // Show modal
+             setTimeout(() => {
+                 modal.classList.add('active');
+             }, 10);
+             
+             // Set observations based on element
+             const observations = {
+                 'lithium': 'Lithium fizzes steadily as it reacts with water. It moves slowly across the surface and does not melt.',
+                 'sodium': 'Sodium fizzes rapidly and melts into a ball. It moves quickly across the water surface.',
+                 'potassium': 'Potassium fizzes violently, ignites with a lilac flame, and may explode.',
+                 'cesium': 'Cesium reacts explosively with water, producing a lot of heat and hydrogen gas.'
+             };
+             
+             document.getElementById('reactionVideoObservations').textContent = observations[element] || 'Observations not available.';
+         }
          
          function showOxideTrendQuiz() {
              const question = {
@@ -5266,13 +4998,6 @@
              const question = quizQuestions[currentQuestion];
              document.getElementById('questionText').textContent = question.question;
              
-             // Reset animation for question text
-             const questionText = document.getElementById('questionText');
-             questionText.style.animation = 'none';
-             setTimeout(() => {
-                 questionText.style.animation = 'fadeInUp 0.7s ease-out';
-             }, 10);
-             
              const optionsContainer = document.getElementById('optionsContainer');
              optionsContainer.innerHTML = '';
              
@@ -5343,13 +5068,6 @@
              
              selectedOption = answeredQuestion ? answeredQuestion.selected : null;
              answerSubmitted = !!answeredQuestion;
-             
-             // Apply fade-in to options
-             setTimeout(() => {
-                 document.querySelectorAll('#optionsContainer .quiz-option').forEach(option => {
-                     option.style.animation = 'fadeInScale 0.5s ease-out forwards';
-                 });
-             }, 100);
          }
          
          function selectOption(index) {
@@ -5577,22 +5295,22 @@
          
          // Export to PDF
          function exportToPDF() {
-    // Define the filename of your pre-existing PDF
-    const pdfFileName = "Alkali Metals.pdf";
-    
-    // Create a temporary link element to trigger download
-    const link = document.createElement('a');
-    link.href = pdfFileName;  // Just the filename, no path
-    link.download = pdfFileName;
-    
-    // Append to body, click, and remove
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    // Show success notification with filename
-    showToast('success', 'Export Successful', `Downloading: ${pdfFileName}`);
-}
+             // Define the filename of your pre-existing PDF
+             const pdfFileName = "Alkali Metals.pdf";
+             
+             // Create a temporary link element to trigger download
+             const link = document.createElement('a');
+             link.href = pdfFileName;  // Just the filename, no path
+             link.download = pdfFileName;
+             
+             // Append to body, click, and remove
+             document.body.appendChild(link);
+             link.click();
+             document.body.removeChild(link);
+             
+             // Show success notification with filename
+             showToast('success', 'Export Successful', `Downloading: ${pdfFileName}`);
+         }
          
          // Discussion functions
          function showCreatePostModal() {
@@ -5750,15 +5468,6 @@
                      const postElement = createDiscussionPostElement(post);
                      postsContainer.appendChild(postElement);
                  });
-                 
-                 // Apply fade-in to new posts
-                 setTimeout(() => {
-                     if (fadeObserver) {
-                         postsContainer.querySelectorAll('.discussion-post').forEach(post => {
-                             fadeObserver.observe(post);
-                         });
-                     }
-                 }, 100);
              }, (error) => {
                  console.error("Error loading discussion posts:", error);
                  postsContainer.innerHTML = '<p class="text-gray-500 text-center">Error loading posts.</p>';
@@ -5842,7 +5551,7 @@
          
          function createDiscussionPostElement(post) {
              const postDiv = document.createElement('div');
-             postDiv.className = 'discussion-post fade-in';
+             postDiv.className = 'discussion-post';
              
              const date = new Date(post.createdAt);
              const formattedDate = date.toLocaleDateString();
@@ -6274,97 +5983,93 @@
          }
          
          function loadStudyGroups() {
-    const groupsContainer = document.getElementById('studyGroupsList');
-    groupsContainer.innerHTML = '<div class="spinner"></div>';
-    
-    // Make spinner visible immediately
-    setTimeout(() => {
-        const spinner = groupsContainer.querySelector('.spinner');
-        if (spinner) spinner.style.display = 'block';
-    }, 10);
-    
-    const groupsRef = database.ref('studyGroups');
-    groupsRef.on('value', (snapshot) => {
-        groupsContainer.innerHTML = '';
-        
-        if (!snapshot.exists()) {
-            groupsContainer.innerHTML = `
-                <div class="empty-state">
-                    <div class="empty-state-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3 class="empty-state-title">No Study Groups Yet</h3>
-                    <p class="empty-state-description">Create your first study group to collaborate with peers.</p>
-                </div>`;
-            // Force visibility
-            setTimeout(() => {
-                groupsContainer.style.display = 'block';
-                groupsContainer.style.visibility = 'visible';
-                groupsContainer.style.opacity = '1';
-            }, 50);
-            return;
-        }
-        
-        studyGroups = [];
-        snapshot.forEach((childSnapshot) => {
-            studyGroups.push({
-                id: childSnapshot.key,
-                ...childSnapshot.val()
-            });
-        });
-        
-        // Create a document fragment to improve performance
-        const fragment = document.createDocumentFragment();
-        
-        studyGroups.forEach(group => {
-            const groupElement = createStudyGroupElement(group);
-            fragment.appendChild(groupElement);
-        });
-        
-        // Append all elements at once
-        groupsContainer.appendChild(fragment);
-        
-        // Force visibility of the container and all its children
-        setTimeout(() => {
-            groupsContainer.style.display = 'block';
-            groupsContainer.style.visibility = 'visible';
-            groupsContainer.style.opacity = '1';
-            
-            // Make all child elements visible
-            Array.from(groupsContainer.children).forEach(child => {
-                child.style.display = 'block';
-                child.style.visibility = 'visible';
-                child.style.opacity = '1';
-                
-                // If it's a study group card, make its children visible too
-                if (child.classList.contains('study-group-card')) {
-                    Array.from(child.children).forEach(grandChild => {
-                        grandChild.style.display = 'block';
-                        grandChild.style.visibility = 'visible';
-                        grandChild.style.opacity = '1';
-                    });
-                }
-            });
-        }, 100);
-    }, (error) => {
-        console.error("Error loading study groups:", error);
-        groupsContainer.innerHTML = '<p class="text-gray-500 text-center">Error loading study groups.</p>';
-        // Force error message visibility
-        setTimeout(() => {
-            groupsContainer.style.display = 'block';
-            groupsContainer.style.visibility = 'visible';
-            groupsContainer.style.opacity = '1';
-        }, 50);
-    });
-}
+             const groupsContainer = document.getElementById('studyGroupsList');
+             groupsContainer.innerHTML = '<div class="spinner"></div>';
+             
+             // Make spinner visible immediately
+             setTimeout(() => {
+                 const spinner = groupsContainer.querySelector('.spinner');
+                 if (spinner) spinner.style.display = 'block';
+             }, 10);
+             
+             const groupsRef = database.ref('studyGroups');
+             groupsRef.on('value', (snapshot) => {
+                 groupsContainer.innerHTML = '';
+                 
+                 if (!snapshot.exists()) {
+                     groupsContainer.innerHTML = `
+                         <div class="empty-state">
+                             <div class="empty-state-icon">
+                                 <i class="fas fa-users"></i>
+                             </div>
+                             <h3 class="empty-state-title">No Study Groups Yet</h3>
+                             <p class="empty-state-description">Create your first study group to collaborate with peers.</p>
+                         </div>`;
+                     // Force visibility
+                     setTimeout(() => {
+                         groupsContainer.style.display = 'block';
+                         groupsContainer.style.visibility = 'visible';
+                         groupsContainer.style.opacity = '1';
+                     }, 50);
+                     return;
+                 }
+                 
+                 studyGroups = [];
+                 snapshot.forEach((childSnapshot) => {
+                     studyGroups.push({
+                         id: childSnapshot.key,
+                         ...childSnapshot.val()
+                     });
+                 });
+                 
+                 // Create a document fragment to improve performance
+                 const fragment = document.createDocumentFragment();
+                 
+                 studyGroups.forEach(group => {
+                     const groupElement = createStudyGroupElement(group);
+                     fragment.appendChild(groupElement);
+                 });
+                 
+                 // Append all elements at once
+                 groupsContainer.appendChild(fragment);
+                 
+                 // Force visibility of the container and all its children
+                 setTimeout(() => {
+                     groupsContainer.style.display = 'block';
+                     groupsContainer.style.visibility = 'visible';
+                     groupsContainer.style.opacity = '1';
+                     
+                     // Make all child elements visible
+                     Array.from(groupsContainer.children).forEach(child => {
+                         child.style.display = 'block';
+                         child.style.visibility = 'visible';
+                         child.style.opacity = '1';
+                         
+                         // If it's a study group card, make its children visible too
+                         if (child.classList.contains('study-group-card')) {
+                             Array.from(child.children).forEach(grandChild => {
+                                 grandChild.style.display = 'block';
+                                 grandChild.style.visibility = 'visible';
+                                 grandChild.style.opacity = '1';
+                             });
+                         }
+                     });
+                 }, 100);
+             }, (error) => {
+                 console.error("Error loading study groups:", error);
+                 groupsContainer.innerHTML = '<p class="text-gray-500 text-center">Error loading study groups.</p>';
+                 // Force error message visibility
+                 setTimeout(() => {
+                     groupsContainer.style.display = 'block';
+                     groupsContainer.style.visibility = 'visible';
+                     groupsContainer.style.opacity = '1';
+                 }, 50);
+             });
+         }
          
          function createStudyGroupElement(group) {
              const groupDiv = document.createElement('div');
-             groupDiv.className = 'study-group-card fade-in';
-            // Force immediate visibility for fade-in elements
-            setTimeout(() => {
-                groupDiv.classList.add('visible');
-            }, 100);
+             groupDiv.className = 'study-group-card';
              
              const isMember = currentUser && group.members && group.members.includes(currentUser.uid);
              const memberCount = group.members ? group.members.length : 0;
@@ -6577,6 +6282,8 @@
                     </div>
                     
                     <div class="mb-8">
+                        <h4 class="font-semibold text-gray-800 mb-5 flex items-center">
+                            <div class="mb-8">
                         <h4 class="font-semibold text-gray-800 mb-5 flex items-center">
                             <i class="fas fa-comments mr-3 text-indigo-600"></i>
                             Group Chat
@@ -7075,6 +6782,7 @@
          
          // Leaderboard functions
          // Leaderboard functions
+// Leaderboard functions
 function loadLeaderboard() {
     const leaderboardContent = document.getElementById('leaderboardContent');
     leaderboardContent.innerHTML = '<div class="spinner"></div>';
@@ -7099,31 +6807,29 @@ function loadLeaderboard() {
         // Sort by XP descending
         users.sort((a, b) => (b.xp || 0) - (a.xp || 0));
         
-        // Create table with fade-in class
+        // Create table
         const table = document.createElement('table');
-        table.className = 'trend-table fade-in';
+        table.className = 'leaderboard-table';
         
         // Create table header
         const thead = document.createElement('thead');
         thead.innerHTML = `
             <tr>
-                <th>Rank</th>
-                <th>User</th>
-                <th>XP</th>
-                <th>Sections Completed</th>
-                <th>Badges</th>
+                <th style="width: 15%">Rank</th>
+                <th style="width: 35%">User</th>
+                <th style="width: 20%">XP</th>
+                <th style="width: 15%">Sections</th>
+                <th style="width: 15%">Badges</th>
             </tr>
         `;
         table.appendChild(thead);
         
         // Create table body
         const tbody = document.createElement('tbody');
-        tbody.className = 'fade-in-stagger';
         
         users.forEach((user, index) => {
             const rank = index + 1;
             const row = document.createElement('tr');
-            row.className = 'leaderboard-entry fade-in';
             
             let rankClass = '';
             if (rank === 1) rankClass = 'first';
@@ -7145,52 +6851,6 @@ function loadLeaderboard() {
         
         table.appendChild(tbody);
         leaderboardContent.appendChild(table);
-        
-        // Apply fade-in effect after a short delay
-        setTimeout(() => {
-            // Add fade-in classes if they don't exist
-            if (!table.classList.contains('fade-in')) {
-                table.classList.add('fade-in');
-            }
-            
-            if (!tbody.classList.contains('fade-in-stagger')) {
-                tbody.classList.add('fade-in-stagger');
-            }
-            
-            // Manually trigger fade-in for elements already in view
-            const rect = table.getBoundingClientRect();
-            const isVisible = (
-                rect.top >= 0 &&
-                rect.left >= 0 &&
-                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-            );
-            
-            if (isVisible) {
-                table.classList.add('visible');
-                tbody.classList.add('visible');
-                
-                // Trigger fade-in for each row with staggered delay
-                const rows = tbody.querySelectorAll('tr');
-                rows.forEach((row, index) => {
-                    setTimeout(() => {
-                        row.classList.add('visible');
-                    }, index * 100); // 100ms delay between each row
-                });
-            }
-            
-            // Reconnect the observer to observe new elements
-            if (fadeObserver) {
-                fadeObserver.observe(table);
-                fadeObserver.observe(tbody);
-                
-                // Observe each row
-                const rows = tbody.querySelectorAll('tr');
-                rows.forEach(row => {
-                    fadeObserver.observe(row);
-                });
-            }
-        }, 50);
     });
 }
          
