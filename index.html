@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -5576,22 +5577,22 @@
          
          // Export to PDF
          function exportToPDF() {
-             const { jsPDF } = window.jspdf;
-             const doc = new jsPDF();
-             // Add title
-             doc.setFontSize(20);
-             doc.text('Group 1 Alkali Metals - Notes', 105, 15, { align: 'center' });
-             // Add content from the current section
-             const section = document.querySelector('.content-section:not([style*="display: none"])');
-             if (section) {
-                 const content = section.textContent;
-                 doc.setFontSize(12);
-                 const lines = doc.splitTextToSize(content, 180);
-                 doc.text(lines, 15, 30);
-             }
-             doc.save('alkali-metals-notes.pdf');
-             showToast('success', 'Export Successful', 'Your notes have been exported as PDF.');
-         }
+    // Define the filename of your pre-existing PDF
+    const pdfFileName = "Alkali Metals.pdf";
+    
+    // Create a temporary link element to trigger download
+    const link = document.createElement('a');
+    link.href = pdfFileName;  // Just the filename, no path
+    link.download = pdfFileName;
+    
+    // Append to body, click, and remove
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Show success notification with filename
+    showToast('success', 'Export Successful', `Downloading: ${pdfFileName}`);
+}
          
          // Discussion functions
          function showCreatePostModal() {
@@ -5718,6 +5719,7 @@
              postsContainer.innerHTML = '<div class="spinner"></div>';
              
              const postsRef = database.ref('discussionPosts');
+
              postsRef.orderByChild('createdAt').on('value', (snapshot) => {
                  postsContainer.innerHTML = '';
                  
