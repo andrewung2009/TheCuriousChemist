@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -6994,6 +6995,374 @@ function loadLeaderboard() {
          
          // Initialize the app when DOM is ready
          document.addEventListener('DOMContentLoaded', initApp);
+         
+         // Add these functions to track and update notification badges
+
+// Function to set badge count for navigation items
+function setBadgeCount(navItemId, count) {
+    const navItem = document.getElementById(navItemId);
+    if (!navItem) return;
+
+    let badge = navItem.querySelector('.nav-badge');
+    if (count === 0) {
+        if (badge) {
+            badge.remove();
+        }
+    } else {
+        if (!badge) {
+            badge = document.createElement('span');
+            badge.className = 'nav-badge';
+            navItem.appendChild(badge);
+        }
+        badge.textContent = count;
+    }
+}
+
+// Function to update Discussion badge
+function updateDiscussionBadge() {
+    // If user is currently in discussion section, don't show badge
+    if (currentSection === 'discussion') {
+        setBadgeCount('nav-discussion', 0);
+        return;
+    }
+
+    if (!userData || !userData.lastViewedDiscussion) {
+        // Initialize lastViewedDiscussion if not exists
+        if (currentUser) {
+            const userRef = database.ref('users/' + currentUser.uid);
+            userRef.update({
+                lastViewedDiscussion: firebase.database.ServerValue.TIMESTAMP
+            });
+            userData.lastViewedDiscussion = Date.now();
+        }
+        setBadgeCount('nav-discussion', 0);
+        return;
+    }
+
+    const lastViewed = userData.lastViewedDiscussion;
+    let count = 0;
+
+    if (discussionPosts) {
+        discussionPosts.forEach(post => {
+            if (post.createdAt > lastViewed) {
+                count++;
+            }
+        });
+    }
+
+    setBadgeCount('nav-discussion', count);
+}
+
+// Function to update Study Groups badge
+function updateStudyGroupsBadge() {
+    if (currentSection === 'study-groups') {
+        setBadgeCount('nav-study-groups', 0);
+        return;
+    }
+
+    if (!userData || !userData.lastViewedStudyGroups) {
+        if (currentUser) {
+            const userRef = database.ref('users/' + currentUser.uid);
+            userRef.update({
+                lastViewedStudyGroups: firebase.database.ServerValue.TIMESTAMP
+            });
+            userData.lastViewedStudyGroups = Date.now();
+        }
+        setBadgeCount('nav-study-groups', 0);
+        return;
+    }
+
+    const lastViewed = userData.lastViewedStudyGroups;
+    let count = 0;
+
+    if (studyGroups) {
+        studyGroups.forEach(group => {
+            if (group.createdAt > lastViewed) {
+                count++;
+            }
+        });
+    }
+
+    setBadgeCount('nav-study-groups', count);
+}
+
+// Update loadUserData function to set up real-time listener for user data
+function loadUserData() {
+    const userRef = database.ref('users/' + currentUser.uid);
+    
+    // Initial load
+    userRef.once('value').then((snapshot) => {
+        if (snapshot.exists()) {
+            userData = snapshot.val();
+            completedSections = userData.completedSections || [];
+            showMainApp();
+        } else {
+            // Create new user profile
+            const newUser = {
+                uid: currentUser.uid,
+                email: currentUser.email,
+                displayName: currentUser.displayName || 'User',
+                completedSections: [],
+                savedPosts: [],
+                xp: 0,
+                badges: [],
+                lastViewedDiscussion: null,
+                lastViewedStudyGroups: null,
+                createdAt: firebase.database.ServerValue.TIMESTAMP
+            };
+            
+            userRef.set(newUser).then(() => {
+                userData = newUser;
+                completedSections = [];
+                showMainApp();
+            });
+        }
+
+        // Set up real-time listener for user data changes
+        userRef.on('value', (snapshot) => {
+            if (snapshot.exists()) {
+                const updatedUserData = snapshot.val();
+                userData = updatedUserData;
+                completedSections = userData.completedSections || [];
+                
+                // Update badges when user data changes
+                updateDiscussionBadge();
+                updateStudyGroupsBadge();
+            }
+        });
+    });
+}
+
+// Update navigateToSection function to track when user views sections
+function navigateToSection(sectionName) {
+    // Check if section is locked
+    const navItem = document.getElementById(`nav-${sectionName}`);
+    if (navItem && navItem.classList.contains('locked')) {
+        showToast('info', 'Section Locked', 'Please complete previous sections first.');
+        return;
+    }
+    
+    // Hide all sections
+    const sections = document.querySelectorAll('.content-section');
+    sections.forEach(section => {
+        section.style.display = 'none';
+    });
+    
+    // Show selected section
+    const sectionElement = document.getElementById(`${sectionName}-section`);
+    if (sectionElement) {
+        sectionElement.style.display = 'block';
+    }
+    
+    // Update active nav item
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    if (navItem) {
+        navItem.classList.add('active');
+    }
+    
+    // Track when user views Discussion or Study Groups
+    if (sectionName === 'discussion' && currentUser) {
+        const userRef = database.ref('users/' + currentUser.uid);
+        userRef.update({
+            lastViewedDiscussion: firebase.database.ServerValue.TIMESTAMP
+        });
+        userData.lastViewedDiscussion = Date.now();
+        updateDiscussionBadge(); // This will set badge to 0
+    }
+    
+    if (sectionName === 'study-groups' && currentUser) {
+        const userRef = database.ref('users/' + currentUser.uid);
+        userRef.update({
+            lastViewedStudyGroups: firebase.database.ServerValue.TIMESTAMP
+        });
+        userData.lastViewedStudyGroups = Date.now();
+        updateStudyGroupsBadge(); // This will set badge to 0
+    }
+    
+    currentSection = sectionName;
+    
+    // Load leaderboard if that section is selected
+    if (sectionName === 'leaderboard') {
+        loadLeaderboard();
+    }
+}
+
+// Update loadDiscussionPosts to call updateDiscussionBadge
+function loadDiscussionPosts() {
+    const postsContainer = document.getElementById('discussionPosts');
+    postsContainer.innerHTML = '<div class="spinner"></div>';
+    
+    const postsRef = database.ref('discussionPosts');
+    postsRef.orderByChild('createdAt').on('value', (snapshot) => {
+        postsContainer.innerHTML = '';
+        
+        if (!snapshot.exists()) {
+            postsContainer.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="empty-state-title">No Posts Yet</h3>
+                    <p class="empty-state-description">Be the first to start a discussion about Group 1 Alkali Metals.</p>
+                </div>`;
+            updateDiscussionBadge(); // Update badge even when empty
+            return;
+        }
+        
+        discussionPosts = [];
+        snapshot.forEach((childSnapshot) => {
+            discussionPosts.push({
+                id: childSnapshot.key,
+                ...childSnapshot.val()
+            });
+        });
+        
+        // Sort based on current sort option
+        sortDiscussionPosts();
+        
+        discussionPosts.forEach(post => {
+            const postElement = createDiscussionPostElement(post);
+            postsContainer.appendChild(postElement);
+        });
+        
+        // Update badge after loading posts
+        updateDiscussionBadge();
+    }, (error) => {
+        console.error("Error loading discussion posts:", error);
+        postsContainer.innerHTML = '<p class="text-gray-500 text-center">Error loading posts.</p>';
+    });
+}
+
+// Update loadStudyGroups to call updateStudyGroupsBadge
+function loadStudyGroups() {
+    const groupsContainer = document.getElementById('studyGroupsList');
+    groupsContainer.innerHTML = '<div class="spinner"></div>';
+    
+    const groupsRef = database.ref('studyGroups');
+    groupsRef.on('value', (snapshot) => {
+        groupsContainer.innerHTML = '';
+        
+        if (!snapshot.exists()) {
+            groupsContainer.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="empty-state-title">No Study Groups Yet</h3>
+                    <p class="empty-state-description">Create your first study group to collaborate with peers.</p>
+                </div>`;
+            updateStudyGroupsBadge(); // Update badge even when empty
+            return;
+        }
+        
+        studyGroups = [];
+        snapshot.forEach((childSnapshot) => {
+            studyGroups.push({
+                id: childSnapshot.key,
+                ...childSnapshot.val()
+            });
+        });
+        
+        // Create a document fragment to improve performance
+        const fragment = document.createDocumentFragment();
+        
+        studyGroups.forEach(group => {
+            const groupElement = createStudyGroupElement(group);
+            fragment.appendChild(groupElement);
+        });
+        
+        // Append all elements at once
+        groupsContainer.appendChild(fragment);
+        
+        // Update badge after loading groups
+        updateStudyGroupsBadge();
+    }, (error) => {
+        console.error("Error loading study groups:", error);
+        groupsContainer.innerHTML = '<p class="text-gray-500 text-center">Error loading study groups.</p>';
+    });
+}
+
+// Update handleCreatePost to call updateDiscussionBadge
+function handleCreatePost(event) {
+    event.preventDefault();
+    
+    const title = document.getElementById('postTitle').value.trim();
+    const content = document.getElementById('postContent').value.trim();
+    const tags = document.getElementById('postTags').value.trim();
+    
+    if (!title || !content) {
+        showToast('error', 'Missing Fields', 'Please fill in all required fields.');
+        return;
+    }
+    
+    const postsRef = database.ref('discussionPosts').push();
+    const newPost = {
+        authorId: currentUser.uid,
+        authorName: userData.displayName,
+        title: title,
+        content: content,
+        tags: tags ? tags.split(',').map(tag => tag.trim()) : [],
+        upvotes: 0,
+        downvotes: 0,
+        votes: {},
+        comments: 0,
+        saved: 0,
+        createdAt: firebase.database.ServerValue.TIMESTAMP
+    };
+    
+    postsRef.set(newPost).then(() => {
+        showToast('success', 'Post Created!', 'Your post has been published successfully.');
+        closeCreatePostModal();
+        // Badge will be updated by the real-time listener in loadDiscussionPosts
+    }).catch((error) => {
+        console.error("Error creating post:", error);
+        showToast('error', 'Error', 'Failed to create post.');
+    });
+}
+
+// Update handleCreateGroup to call updateStudyGroupsBadge
+function handleCreateGroup(event) {
+    event.preventDefault();
+    
+    const name = document.getElementById('groupName').value.trim();
+    const topic = document.getElementById('groupTopic').value;
+    const description = document.getElementById('groupDescription').value.trim();
+    const maxMembers = parseInt(document.getElementById('groupMaxMembers').value);
+    
+    if (!name || !topic || !description) {
+        showToast('error', 'Missing Fields', 'Please fill in all fields.');
+        return;
+    }
+    
+    const groupsRef = database.ref('studyGroups').push();
+    const newGroup = {
+        name: name,
+        topic: topic,
+        description: description,
+        maxMembers: maxMembers,
+        creatorId: currentUser.uid,
+        creatorName: userData.displayName,
+        members: [currentUser.uid],
+        memberCount: 1,
+        announcements: [],
+        resources: [],
+        createdAt: firebase.database.ServerValue.TIMESTAMP,
+        lastActivity: firebase.database.ServerValue.TIMESTAMP
+    };
+    
+    groupsRef.set(newGroup).then(() => {
+        showToast('success', 'Group Created!', 'Your study group has been created successfully.');
+        closeCreateGroupModal();
+        // Badge will be updated by the real-time listener in loadStudyGroups
+    }).catch((error) => {
+        console.error("Error creating study group:", error);
+        showToast('error', 'Error', 'Failed to create study group.');
+    });
+}
       </script>
    </body>
 </html>
