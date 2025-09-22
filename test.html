@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Chemistry Learning Platform</title>
+      <meta name="description" content="Interactive learning platform for mastering chemistry">
+      <!-- Tailwind CSS -->
+      <script src="https://cdn.tailwindcss.com"></script>
+      <!-- Font Awesome -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+      <style>
+         :root {
+         --primary: #4f46e5;
+         --primary-dark: #4338ca;
+         --secondary: #8b5cf6;
+         --success: #10b981;
+         --warning: #f59e0b;
+         --danger: #ef4444;
+         --gray-100: #f3f4f6;
+         --gray-200: #e5e7eb;
+         --gray-300: #d1d5db;
+         --gray-400: #9ca3af;
+         --gray-500: #6b7280;
+         --gray-600: #4b5563;
+         --gray-700: #374151;
+         --gray-800: #1f2937;
+         --gray-900: #111827;
+         }
+         body {
+         font-family: 'Inter', sans-serif;
+         background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+         min-height: 100vh;
+         color: var(--gray-900);
+         overflow-x: hidden;
+         transition: background 0.3s ease;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         }
+         body.dark-mode {
+         background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+         color: #f3f4f6;
+         }
+         .content-card {
+         background: rgba(255, 255, 255, 0.95);
+         border-radius: 1rem;
+         padding: 3rem;
+         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+         border-left: 5px solid var(--primary);
+         position: relative;
+         overflow: hidden;
+         max-width: 600px;
+         width: 90%;
+         text-align: center;
+         }
+         body.dark-mode .content-card {
+         background: rgba(31, 41, 55, 0.95);
+         color: #f3f4f6;
+         }
+         .content-card::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         right: 0;
+         height: 5px;
+         background: linear-gradient(90deg, var(--primary), var(--secondary));
+         transform: scaleX(0);
+         transition: transform 0.4s ease;
+         transform-origin: left;
+         }
+         .content-card:hover {
+         transform: translateY(-8px);
+         box-shadow: 0 20px 40px rgba(79, 70, 229, 0.25);
+         border-left-color: var(--secondary);
+         }
+         .content-card:hover::before {
+         transform: scaleX(1);
+         }
+         .btn {
+         padding: 0.75rem 1.5rem;
+         border-radius: 0.5rem;
+         font-weight: 600;
+         cursor: pointer;
+         transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+         border: none;
+         display: inline-flex;
+         align-items: center;
+         justify-content: center;
+         gap: 0.5rem;
+         font-family: 'Inter', sans-serif;
+         position: relative;
+         overflow: hidden;
+         margin: 0.5rem 0;
+         text-decoration: none;
+         }
+         .btn::before {
+         content: '';
+         position: absolute;
+         top: 0;
+         left: 0;
+         right: 0;
+         bottom: 0;
+         background: rgba(255, 255, 255, 0.2);
+         border-radius: 0.5rem;
+         opacity: 0;
+         transition: opacity 0.3s ease;
+         transform: translateY(100%);
+         }
+         .btn:hover::before {
+         opacity: 1;
+         transform: translateY(0);
+         }
+         .btn-primary {
+         background: linear-gradient(135deg, var(--primary), var(--secondary));
+         color: white;
+         box-shadow: 0 4px 6px rgba(79, 70, 229, 0.3);
+         font-size: 1.2rem;
+         padding: 1rem 2rem;
+         margin-top: 2rem;
+         }
+         .btn-primary:hover {
+         transform: translateY(-3px);
+         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+         background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+         }
+         .logo {
+         font-size: 3rem;
+         color: var(--primary);
+         margin-bottom: 1rem;
+         }
+         body.dark-mode .logo {
+         color: #818cf8;
+         }
+         h1 {
+         font-size: 2.5rem;
+         font-weight: 700;
+         margin-bottom: 1rem;
+         color: var(--gray-900);
+         }
+         body.dark-mode h1 {
+         color: #f1f5f9;
+         }
+         .subtitle {
+         font-size: 1.2rem;
+         color: var(--gray-600);
+         margin-bottom: 2rem;
+         }
+         body.dark-mode .subtitle {
+         color: #d1d5db;
+         }
+         .feature-list {
+         display: flex;
+         flex-wrap: wrap;
+         justify-content: center;
+         gap: 1.5rem;
+         margin: 2rem 0;
+         }
+         .feature-item {
+         display: flex;
+         align-items: center;
+         gap: 0.5rem;
+         color: var(--gray-700);
+         }
+         body.dark-mode .feature-item {
+         color: #cbd5e1;
+         }
+         .feature-icon {
+         color: var(--primary);
+         }
+         body.dark-mode .feature-icon {
+         color: #818cf8;
+         }
+         .dark-mode-toggle {
+         position: fixed;
+         top: 20px;
+         right: 20px;
+         background: rgba(255, 255, 255, 0.2);
+         border: none;
+         border-radius: 50%;
+         width: 50px;
+         height: 50px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         cursor: pointer;
+         transition: all 0.3s ease;
+         z-index: 100;
+         }
+         body.dark-mode .dark-mode-toggle {
+         background: rgba(0, 0, 0, 0.2);
+         }
+         .dark-mode-toggle:hover {
+         transform: scale(1.1);
+         }
+         .dark-mode-toggle i {
+         font-size: 1.5rem;
+         color: var(--gray-800);
+         }
+         body.dark-mode .dark-mode-toggle i {
+         color: #f3f4f6;
+         }
+      </style>
+   </head>
+   <body>
+      <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+         <i class="fas fa-moon" id="theme-icon"></i>
+      </button>
+      
+      <div class="content-card">
+         <div class="logo">
+            <i class="fas fa-flask"></i>
+         </div>
+         <h1>Chemistry Learning Platform</h1>
+         <p class="subtitle">Master the fascinating world of chemistry through interactive learning</p>
+         
+         <div class="feature-list">
+            <div class="feature-item">
+               <i class="fas fa-atom feature-icon"></i>
+               <span>Interactive Elements</span>
+            </div>
+            <div class="feature-item">
+               <i class="fas fa-vial feature-icon"></i>
+               <span>Virtual Experiments</span>
+            </div>
+            <div class="feature-item">
+               <i class="fas fa-chart-line feature-icon"></i>
+               <span>Progress Tracking</span>
+            </div>
+            <div class="feature-item">
+               <i class="fas fa-users feature-icon"></i>
+               <span>Study Groups</span>
+            </div>
+         </div>
+         
+         <a href="index.html" class="btn btn-primary">
+            <i class="fas fa-arrow-right"></i>
+            Enter Learning Platform
+         </a>
+      </div>
+
+      <script>
+         function toggleDarkMode() {
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+               themeIcon.classList.remove('fa-moon');
+               themeIcon.classList.add('fa-sun');
+               localStorage.setItem('theme', 'dark');
+            } else {
+               themeIcon.classList.remove('fa-sun');
+               themeIcon.classList.add('fa-moon');
+               localStorage.setItem('theme', 'light');
+            }
+         }
+         
+         // Check for saved theme preference
+         document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            const themeIcon = document.getElementById('theme-icon');
+            
+            if (savedTheme === 'dark') {
+               document.body.classList.add('dark-mode');
+               themeIcon.classList.remove('fa-moon');
+               themeIcon.classList.add('fa-sun');
+            }
+         });
+      </script>
+   </body>
+</html>
