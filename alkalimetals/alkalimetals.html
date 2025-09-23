@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -2164,6 +2162,80 @@ body.dark-mode .leaderboard-rank {
          transform: translateY(-3px);
          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
          }
+         /* Feedback button styles */
+         .feedback-button {
+         position: fixed;
+         bottom: 20px;
+         right: 20px;
+         width: 60px;
+         height: 60px;
+         border-radius: 50%;
+         background: var(--primary);
+         color: white;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+         cursor: pointer;
+         transition: all 0.3s ease;
+         z-index: 999;
+         }
+         .feedback-button:hover {
+         transform: scale(1.1);
+         box-shadow: 0 6px 16px rgba(79, 70, 229, 0.5);
+         }
+         .feedback-button i {
+         font-size: 24px;
+         }
+         /* Magic link styles */
+         .magic-link-form {
+         margin-top: 1rem;
+         }
+         .magic-link-input {
+         width: 100%;
+         padding: 0.75rem;
+         border: 1px solid var(--gray-300);
+         border-radius: 0.5rem;
+         margin-bottom: 1rem;
+         font-size: 1rem;
+         }
+         .magic-link-input:focus {
+         outline: none;
+         border-color: var(--primary);
+         box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+         }
+         .magic-link-button {
+         width: 100%;
+         padding: 0.75rem;
+         background: var(--primary);
+         color: white;
+         border: none;
+         border-radius: 0.5rem;
+         font-weight: 600;
+         cursor: pointer;
+         transition: all 0.3s ease;
+         }
+         .magic-link-button:hover {
+         background: var(--primary-dark);
+         transform: translateY(-2px);
+         }
+         .magic-link-message {
+         margin-top: 1rem;
+         padding: 0.75rem;
+         border-radius: 0.5rem;
+         font-size: 0.875rem;
+         text-align: center;
+         }
+         .magic-link-message.success {
+         background: rgba(16, 185, 129, 0.1);
+         color: var(--success);
+         border: 1px solid rgba(16, 185, 129, 0.3);
+         }
+         .magic-link-message.error {
+         background: rgba(239, 68, 68, 0.1);
+         color: var(--danger);
+         border: 1px solid rgba(239, 68, 68, 0.3);
+         }
       </style>
    </head>
    <body>
@@ -2197,9 +2269,9 @@ body.dark-mode .leaderboard-rank {
                <i class="fas fa-sign-in-alt mr-2"></i>
                Sign In to Begin
                </button>
-               <button onclick="signInWithGoogle()" class="btn btn-secondary w-full transform transition-all duration-300 hover:scale-105">
-               <i class="fab fa-google mr-2"></i>
-               Continue with Google
+               <button onclick="signInWithMagicLink()" class="btn btn-secondary w-full transform transition-all duration-300 hover:scale-105">
+               <i class="fas fa-magic mr-2"></i>
+               Continue with Magic Link
                </button>
             </div>
          </div>
@@ -2415,7 +2487,7 @@ body.dark-mode .leaderboard-rank {
                   <!-- Key Properties with Tooltips -->
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                      <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
-                        <h4 class="font-semibold text-indigo-800 mb-4 flex items-center">
+                        <h4 class="font-semibold text-indigo-800 mb-3 flex items-center">
                            <i class="fas fa-atom mr-2"></i> Key Properties
                         </h4>
                         <ul class="space-y-3 text-gray-700">
@@ -2427,7 +2499,7 @@ body.dark-mode .leaderboard-rank {
                         </ul>
                      </div>
                      <div class="bg-gradient-to-br from-purple-50 to-indigo-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
-                        <h4 class="font-semibold text-indigo-800 mb-4 flex items-center">
+                        <h4 class="font-semibold text-indigo-800 mb-3 flex items-center">
                            <i class="fas fa-chart-line mr-2"></i> Trends
                         </h4>
                         <ul class="space-y-3 text-gray-700">
@@ -3009,6 +3081,11 @@ body.dark-mode .leaderboard-rank {
                </div>
             </section>
          </main>
+         
+         <!-- Feedback Button -->
+         <button class="feedback-button" onclick="showFeedbackModal()" title="Leave Feedback">
+            <i class="fas fa-comment-alt"></i>
+         </button>
       </div>
       <!-- Login Modal -->
       <div id="loginModal" class="modal">
@@ -3020,9 +3097,9 @@ body.dark-mode .leaderboard-rank {
                </button>
             </div>
             <div class="mb-8">
-               <button onclick="signInWithGoogle()" class="btn btn-primary w-full transform transition-all duration-300 hover:scale-105">
-               <i class="fab fa-google mr-2"></i>
-               Sign in with Google
+               <button onclick="signInWithMagicLink()" class="btn btn-primary w-full transform transition-all duration-300 hover:scale-105">
+               <i class="fas fa-magic mr-2"></i>
+               Continue with Magic Link
                </button>
             </div>
             <div class="text-center text-gray-600">
@@ -3045,6 +3122,25 @@ body.dark-mode .leaderboard-rank {
             <div class="mt-8 text-center">
                <p class="text-sm text-gray-600">Don't have an account? <a href="#" onclick="showSignup()" class="text-indigo-600 hover:text-indigo-800">Sign up</a></p>
             </div>
+         </div>
+      </div>
+      <!-- Magic Link Modal -->
+      <div id="magicLinkModal" class="modal">
+         <div class="modal-content">
+            <div class="flex justify-between items-center mb-8">
+               <h2 class="text-2xl font-bold text-gray-800">Magic Link Sign In</h2>
+               <button onclick="closeMagicLinkModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
+               <i class="fas fa-times text-xl"></i>
+               </button>
+            </div>
+            <p class="text-gray-600 mb-6">Enter your email address and we'll send you a magic link to sign in instantly.</p>
+            <form id="magicLinkForm" class="magic-link-form" onsubmit="sendMagicLink(event)">
+               <div>
+                  <input type="email" id="magicLinkEmail" class="magic-link-input" placeholder="Enter your email" required>
+               </div>
+               <button type="submit" class="magic-link-button">Send Magic Link</button>
+            </form>
+            <div id="magicLinkMessage" class="magic-link-message" style="display: none;"></div>
          </div>
       </div>
       <!-- Signup Modal -->
@@ -4151,17 +4247,75 @@ body.dark-mode .leaderboard-rank {
              document.getElementById('signupModal').classList.remove('active');
          }
          
-         function signInWithGoogle() {
-             const provider = new firebase.auth.GoogleAuthProvider();
-             auth.signInWithPopup(provider)
-                 .then((result) => {
-                     showToast('success', 'Welcome!', 'You have been successfully signed in.');
-                     closeLoginModal();
+         // Magic Link functions
+         function signInWithMagicLink() {
+             showMagicLinkModal();
+         }
+         
+         function showMagicLinkModal() {
+             document.getElementById('magicLinkModal').classList.add('active');
+         }
+         
+         function closeMagicLinkModal() {
+             document.getElementById('magicLinkModal').classList.remove('active');
+             document.getElementById('magicLinkForm').reset();
+             document.getElementById('magicLinkMessage').style.display = 'none';
+         }
+         
+         function sendMagicLink(event) {
+             event.preventDefault();
+             
+             const email = document.getElementById('magicLinkEmail').value.trim();
+             const messageDiv = document.getElementById('magicLinkMessage');
+             
+             if (!email) {
+                 showMagicLinkMessage('Please enter your email address.', 'error');
+                 return;
+             }
+             
+             const actionCodeSettings = {
+                 url: window.location.origin,
+                 handleCodeInApp: true
+             };
+             
+             auth.sendSignInLinkToEmail(email, actionCodeSettings)
+                 .then(() => {
+                     showMagicLinkMessage('Magic link sent! Check your email to sign in.', 'success');
+                     document.getElementById('magicLinkForm').reset();
                  })
                  .catch((error) => {
-                     console.error("Google sign in error:", error);
-                     showToast('error', 'Sign in failed', error.message);
+                     showMagicLinkMessage('Error sending magic link: ' + error.message, 'error');
                  });
+         }
+         
+         function showMagicLinkMessage(message, type) {
+             const messageDiv = document.getElementById('magicLinkMessage');
+             messageDiv.textContent = message;
+             messageDiv.className = 'magic-link-message ' + type;
+             messageDiv.style.display = 'block';
+         }
+         
+         // Check for magic link in URL
+         function checkForMagicLink() {
+             if (auth.isSignInWithEmailLink(window.location.href)) {
+                 let email = window.localStorage.getItem('emailForSignIn');
+                 if (!email) {
+                     email = window.prompt('Please provide your email for confirmation');
+                 }
+                 
+                 if (email) {
+                     auth.signInWithEmailLink(email, window.location.href)
+                         .then((result) => {
+                             window.localStorage.removeItem('emailForSignIn');
+                             currentUser = result.user;
+                             loadUserData();
+                             showToast('success', 'Welcome back!', 'You have been successfully signed in.');
+                         })
+                         .catch((error) => {
+                             showToast('error', 'Sign in failed', error.message);
+                         });
+                 }
+             }
          }
          
          function handleEmailLogin(event) {
@@ -6177,1193 +6331,493 @@ body.dark-mode .leaderboard-rank {
                                 <i class="fas fa-info-circle mr-3 text-indigo-600"></i>
                                 Group Info
                             </h4>
-                            <p class="text-sm text-gray-600 mb-3">
-                                <i class="fas fa-calendar-alt mr-3"></i>
-                                Created: ${new Date(group.createdAt).toLocaleDateString()}
-                            </p>
-                            <p class="text-sm text-gray-600 mb-3">
-                                <i class="fas fa-users mr-3"></i>
-                                Members: ${group.memberCount || 0}/${group.maxMembers || 10}
-                            </p>
-                            <p class="text-sm text-gray-600">
-                                <i class="fas fa-user-cog mr-3"></i>
-                                Creator: ${group.creatorName}
-                            </p>
+                                                        <p><strong>Created by:</strong> ${group.creatorName || 'Unknown'}</p>
+                            <p><strong>Created on:</strong> ${new Date(group.createdAt).toLocaleDateString()}</p>
+                            <p><strong>Members:</strong> ${group.members ? group.members.length : 0}/${group.maxMembers || 10}</p>
                         </div>
                         <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
                             <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
-                                <i class="fas fa-chart-line mr-3 text-indigo-600"></i>
-                                Activity
+                                <i class="fas fa-users mr-3 text-indigo-600"></i>
+                                Members
                             </h4>
-                            <p class="text-sm text-gray-600 mb-3">
-                                <i class="fas fa-clock mr-3"></i>
-                                Last active: ${new Date(group.lastActivity).toLocaleDateString()}
-                            </p>
-                            <p class="text-sm text-gray-600 mb-3">
-                                <i class="fas fa-bullhorn mr-3"></i>
-                                Announcements: ${group.announcements ? group.announcements.length : 0}
-                            </p>
-                            <p class="text-sm text-gray-600">
-                                <i class="fas fa-folder-open mr-3"></i>
-                                Resources: ${group.resources ? group.resources.length : 0}
-                            </p>
+                            <div class="space-y-3">
+                                ${(group.members || []).map(memberId => {
+                                    // In a real app, we would fetch user details from the database
+                                    return `<div class="flex items-center">
+                                        <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center mr-3">
+                                            <span class="text-indigo-800 font-medium text-sm">${memberId.charAt(0).toUpperCase()}</span>
+                                        </div>
+                                        <span>${memberId}</span>
+                                    </div>`;
+                                }).join('')}
+                            </div>
                         </div>
                     </div>
                     
-                    ${isMember ? `
-                        <div class="mb-8">
-                            <div class="flex justify-between items-center mb-5">
-                                <h4 class="font-semibold text-gray-800 flex items-center">
-                                    <i class="fas fa-bullhorn mr-3 text-indigo-600"></i>
-                                    Group Announcements
-                                </h4>
-                                ${group.creatorId === currentUser.uid ? `
-                                    <button onclick="showAddAnnouncementModal('${group.id}')" class="btn btn-primary btn-sm">
-                                        <i class="fas fa-plus mr-2"></i>
-                                        Add Announcement
-                                    </button>
-                                ` : ''}
-                            </div>
-                            <div id="groupAnnouncements">
-                                ${(group.announcements || []).map(announcement => `
-                                    <div class="group-announcement">
-                                        <h5 class="font-semibold text-gray-800 mb-3">${announcement.title}</h5>
-                                        <p class="text-gray-600 mb-3">${announcement.content}</p>
-                                        <p class="text-xs text-gray-500">
-                                            <i class="fas fa-calendar-alt mr-2"></i>
-                                            ${new Date(announcement.createdAt).toLocaleDateString()}
-                                        </p>
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-sm mb-8">
+                        <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-bullhorn mr-3 text-indigo-600"></i>
+                            Announcements
+                        </h4>
+                        <div id="groupAnnouncements">
+                            ${(group.announcements || []).length > 0 ? 
+                                group.announcements.map(announcement => `
+                                    <div class="group-announcement mb-4">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h5 class="font-semibold">${announcement.title}</h5>
+                                            <span class="text-sm text-gray-500">${new Date(announcement.createdAt).toLocaleDateString()}</span>
+                                        </div>
+                                        <p>${announcement.content}</p>
                                     </div>
-                                `).join('') || '<p class="text-gray-500 italic">No announcements yet.</p>'}
-                            </div>
+                                `).join('') :
+                                '<p class="text-gray-500">No announcements yet.</p>'
+                            }
                         </div>
-                        
-                        <div class="mb-8">
-                            <div class="flex justify-between items-center mb-5">
-                                <h4 class="font-semibold text-gray-800 flex items-center">
-                                    <i class="fas fa-folder-open mr-3 text-indigo-600"></i>
-                                    Group Resources
-                                </h4>
-                                ${isMember ? `
-                                    <button onclick="showAddResourceModal('${group.id}')" class="btn btn-primary btn-sm">
-                                        <i class="fas fa-plus mr-2"></i>
-                                        Add Resource
-                                    </button>
-                                ` : ''}
-                            </div>
-                            <div id="groupResources">
-                                ${(group.resources || []).map(resource => `
-                                    <div class="resource-item">
+                        ${isMember ? `
+                            <button onclick="showAddAnnouncement('${groupId}')" class="btn btn-primary btn-sm mt-4">
+                                <i class="fas fa-plus mr-2"></i>
+                                Add Announcement
+                            </button>
+                        ` : ''}
+                    </div>
+                    
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+                        <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-folder-open mr-3 text-indigo-600"></i>
+                            Resources
+                        </h4>
+                        <div id="groupResources">
+                            ${(group.resources || []).length > 0 ? 
+                                group.resources.map(resource => `
+                                    <div class="resource-item mb-4">
                                         <div class="resource-icon">
                                             <i class="fas fa-file-alt"></i>
                                         </div>
                                         <div class="resource-info">
                                             <div class="resource-name">${resource.name}</div>
-                                            <div class="resource-meta">
-                                                <i class="fas fa-user mr-2"></i>
-                                                ${resource.addedBy} • 
-                                                <i class="fas fa-calendar-alt mr-2"></i>
-                                                ${new Date(resource.createdAt).toLocaleDateString()}
-                                            </div>
-                                            ${resource.description ? `<div class="resource-description">${resource.description}</div>` : ''}
+                                            <div class="resource-meta">Added by ${resource.addedBy} on ${new Date(resource.addedAt).toLocaleDateString()}</div>
+                                            <div class="resource-description">${resource.description}</div>
                                         </div>
                                         <div class="resource-actions">
-                                            <button class="resource-btn" onclick="downloadResource('${resource.url}')" title="Download">
-                                            <i class="fas fa-download"></i>
-                                    </button>
-                                    ${group.creatorId === currentUser.uid ? `
-                                        <button class="resource-btn text-red-500" onclick="removeResource('${group.id}', '${resource.id}')" title="Remove">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    ` : ''}
-                                </div>
+                                            <button onclick="downloadResource('${resource.url}')" class="resource-btn">
+                                                <i class="fas fa-download"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                `).join('') || '<p class="text-gray-500 italic">No resources shared yet.</p>'}
-                            </div>
+                                `).join('') :
+                                '<p class="text-gray-500">No resources yet.</p>'
+                            }
                         </div>
+                        ${isMember ? `
+                            <button onclick="showAddResource('${groupId}')" class="btn btn-primary btn-sm mt-4">
+                                <i class="fas fa-plus mr-2"></i>
+                                Add Resource
+                            </button>
+                        ` : ''}
                     </div>
                     
-                    <div class="mb-8">
-                        <h4 class="font-semibold text-gray-800 mb-5 flex items-center">
-                            <div class="mb-8">
-                        <h4 class="font-semibold text-gray-800 mb-5 flex items-center">
-                            <i class="fas fa-comments mr-3 text-indigo-600"></i>
-                            Group Chat
-                        </h4>
-                        <div class="group-chat-container">
-                            <div class="group-chat" id="groupChat-${group.id}">
-                                <!-- Chat messages will be loaded here -->
-                            </div>
-                            <div class="chat-input">
-                                <input type="text" id="chatInput-${group.id}" class="form-input flex-1" placeholder="Type a message..." onkeypress="if(event.key === 'Enter') sendChatMessage(event, '${group.id}')">
-                            <button onclick="sendChatMessage(event, '${group.id}')" class="btn btn-primary">Send</button>
-                        </div>
+                    <div class="flex justify-end mt-8">
+                        <button onclick="closeGroupDetailsModal()" class="btn btn-secondary mr-3">
+                            Close
+                        </button>
+                        ${isMember ? `
+                            <button onclick="leaveStudyGroup('${groupId}')" class="btn btn-danger">
+                                Leave Group
+                            </button>
+                        ` : `
+                            <button onclick="joinStudyGroup('${groupId}')" class="btn btn-primary">
+                                Join Group
+                            </button>
+                        `}
                     </div>
                 </div>
-            ` : `
-                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4 rounded-lg">
-                    <div class="flex">
-                        <div class="flex-shrink-0">
-                            <i class="fas fa-exclamation-triangle text-yellow-400"></i>
-                        </div>
-                        <div class="ml-3">
-                            <p class="text-sm text-yellow-700">
-                                Join this study group to access announcements, resources, and group chat.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            `}
-         </div>
-         `;
-         
-         document.getElementById('groupDetailsContent').innerHTML = content;
-         document.getElementById('groupDetailsModal').classList.add('active');
-         
-         // Load chat messages if member
-         if (isMember) {
-         loadGroupChat(group.id);
-         }
-         }
-         
-         function closeGroupDetailsModal() {
-             document.getElementById('groupDetailsModal').classList.remove('active');
-         }
-         
-         function joinStudyGroup(groupId) {
-             if (!currentUser) {
-                 showToast('error', 'Sign in required', 'Please sign in to join study groups.');
-                 showLoginModal();
-                 return;
-             }
-             
-             const groupRef = database.ref('studyGroups/' + groupId);
-             groupRef.once('value').then((snapshot) => {
-                 const group = snapshot.val();
-                 
-                 if (!group) {
-                     showToast('error', 'Error', 'Study group not found.');
-                     return;
-                 }
-                 
-                 if (group.members && group.members.includes(currentUser.uid)) {
-                     showToast('info', 'Already Member', 'You are already a member of this group.');
-                     return;
-                 }
-                 
-                 if ((group.memberCount || 0) >= (group.maxMembers || 10)) {
-                     showToast('error', 'Group Full', 'This study group is already full.');
-                     return;
-                 }
-                 
-                 const members = [...(group.members || []), currentUser.uid];
-                 const updates = {};
-                 updates['/members'] = members;
-                 updates['/memberCount'] = members.length;
-                 updates['/lastActivity'] = firebase.database.ServerValue.TIMESTAMP;
-                 
-                 groupRef.update(updates).then(() => {
-                     showToast('success', 'Joined Group', 'You have successfully joined the study group.');
-                     
-                     // Add welcome message to chat
-                     const chatRef = database.ref('groupChat').push();
-                     chatRef.set({
-                         groupId: groupId,
-                         authorId: 'system',
-                         authorName: 'System',
-                         content: `${userData.displayName} has joined the group.`,
-                         createdAt: firebase.database.ServerValue.TIMESTAMP
-                     });
-                 }).catch((error) => {
-                     console.error("Error joining study group:", error);
-                     showToast('error', 'Error', 'Failed to join study group.');
-                 });
-             }).catch((error) => {
-                 console.error("Error getting study group:", error);
-                 showToast('error', 'Error', 'Failed to join study group.');
-             });
-         }
-         
-         function leaveStudyGroup(groupId) {
-             if (!currentUser) {
-                 showToast('error', 'Sign in required', 'Please sign in to leave study groups.');
-                 showLoginModal();
-                 return;
-             }
-             
-             const groupRef = database.ref('studyGroups/' + groupId);
-             groupRef.once('value').then((snapshot) => {
-                 const group = snapshot.val();
-                 
-                 // Filter out current user
-                 const updatedMembers = (group.members || []).filter(member => member !== currentUser.uid);
-                 
-                 const updates = {};
-                 updates['/members'] = updatedMembers;
-                 updates['/memberCount'] = updatedMembers.length;
-                 updates['/lastActivity'] = firebase.database.ServerValue.TIMESTAMP;
-                 
-                 groupRef.update(updates).then(() => {
-                     showToast('success', 'Left Group', 'You have successfully left the study group.');
-                     
-                     // Add goodbye message to chat
-                     const chatRef = database.ref('groupChat').push();
-                     chatRef.set({
-                         groupId: groupId,
-                         authorId: 'system',
-                         authorName: 'System',
-                         content: `${userData.displayName} has left the group.`,
-                         createdAt: firebase.database.ServerValue.TIMESTAMP
-                     });
-                 }).catch((error) => {
-                     console.error("Error leaving study group:", error);
-                     showToast('error', 'Error', 'Failed to leave study group.');
-                 });
-             }).catch((error) => {
-                 console.error("Error getting study group:", error);
-                 showToast('error', 'Error', 'Failed to leave study group.');
-             });
-         }
-         
-         // Add Announcement Modal
-         function showAddAnnouncementModal(groupId) {
-             if (!currentUser) {
-                 showToast('error', 'Sign in required', 'Please sign in to add announcements.');
-                 showLoginModal();
-                 return;
-             }
-             
-             const modal = document.createElement('div');
-             modal.className = 'modal';
-             modal.innerHTML = `
-                 <div class="modal-content">
-                     <div class="flex justify-between items-center mb-6">
-                         <h2 class="text-2xl font-bold text-gray-800">Add Announcement</h2>
-                         <button onclick="this.closest('.modal').classList.remove('active')" class="text-gray-500 hover:text-gray-700">
-                             <i class="fas fa-times text-xl"></i>
-                         </button>
-                     </div>
-                     
-                     <form onsubmit="addAnnouncement(event, '${groupId}')" class="space-y-4">
-                         <div>
-                             <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
-                             <input type="text" id="announcementTitle" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Announcement title" required>
-                         </div>
-                         <div>
-                             <label class="block text-sm font-medium text-gray-700 mb-1">Content</label>
-                             <textarea id="announcementContent" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 form-textarea" placeholder="Announcement content" required></textarea>
-                         </div>
-                         <button type="submit" class="btn btn-primary w-full">
-                             <i class="fas fa-bullhorn mr-2"></i>
-                             Post Announcement
-                         </button>
-                     </form>
-                 </div>
-             `;
-             
-             document.body.appendChild(modal);
-             modal.classList.add('active');
-         }
-         
-         function addAnnouncement(event, groupId) {
-             event.preventDefault();
-             
-             const title = document.getElementById('announcementTitle').value.trim();
-             const content = document.getElementById('announcementContent').value.trim();
-             
-             if (!title || !content) {
-                 showToast('error', 'Missing Fields', 'Please fill in all fields.');
-                 return;
-             }
-             
-             const groupRef = database.ref('studyGroups/' + groupId);
-             groupRef.once('value').then((snapshot) => {
-                 const group = snapshot.val();
-                 
-                 if (!group) {
-                     showToast('error', 'Error', 'Study group not found.');
-                     return;
-                 }
-                 
-                 if (group.creatorId !== currentUser.uid) {
-                     showToast('error', 'Permission Denied', 'Only the group creator can add announcements.');
-                     return;
-                 }
-                 
-                 const announcements = group.announcements || [];
-                 const newAnnouncement = {
-                     id: Date.now().toString(),
-                     title: title,
-                     content: content,
-                     createdBy: currentUser.uid,
-                     createdAt: firebase.database.ServerValue.TIMESTAMP
-                 };
-                 
-                 announcements.push(newAnnouncement);
-                 
-                 groupRef.update({
-                     announcements: announcements,
-                     lastActivity: firebase.database.ServerValue.TIMESTAMP
-                 }).then(() => {
-                     showToast('success', 'Announcement Added', 'Your announcement has been posted successfully.');
-                     
-                     // Close modal
-                     event.target.closest('.modal').classList.remove('active');
-                     
-                     // Add announcement message to chat
-                     const chatRef = database.ref('groupChat').push();
-                     chatRef.set({
-                         groupId: groupId,
-                         authorId: 'system',
-                         authorName: 'System',
-                         content: `New announcement: ${title}`,
-                         createdAt: firebase.database.ServerValue.TIMESTAMP
-                     });
-                     
-                     // Refresh group details
-                     showGroupDetails(groupId);
-                 }).catch((error) => {
-                     console.error("Error adding announcement:", error);
-                     showToast('error', 'Error', 'Failed to add announcement.');
-                 });
-             }).catch((error) => {
-                 console.error("Error getting study group:", error);
-                 showToast('error', 'Error', 'Failed to add announcement.');
-             });
-         }
-         
-         // Add Resource Modal
-         function showAddResourceModal(groupId) {
-             if (!currentUser) {
-                 showToast('error', 'Sign in required', 'Please sign in to add resources.');
-                 showLoginModal();
-                 return;
-             }
-             
-             const modal = document.createElement('div');
-             modal.className = 'modal';
-             modal.innerHTML = `
-                 <div class="modal-content">
-                     <div class="flex justify-between items-center mb-6">
-                         <h2 class="text-2xl font-bold text-gray-800">Add Resource</h2>
-                         <button onclick="this.closest('.modal').classList.remove('active')" class="text-gray-500 hover:text-gray-700">
-                             <i class="fas fa-times text-xl"></i>
-                         </button>
-                     </div>
-                     
-                     <form onsubmit="addResource(event, '${groupId}')" class="space-y-4">
-                         <div>
-                             <label class="block text-sm font-medium text-gray-700 mb-1">Resource Name</label>
-                             <input type="text" id="resourceName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Resource name" required>
-                         </div>
-                         <div>
-                             <label class="block text-sm font-medium text-gray-700 mb-1">URL</label>
-                             <input type="url" id="resourceUrl" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="https://example.com" required>
-                         </div>
-                         <div>
-                             <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                             <textarea id="resourceDescription" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 form-textarea" placeholder="Brief description of the resource"></textarea>
-                         </div>
-                         <button type="submit" class="btn btn-primary w-full">
-                             <i class="fas fa-plus mr-2"></i>
-                             Add Resource
-                         </button>
-                     </form>
-                 </div>
-             `;
-             
-             document.body.appendChild(modal);
-             modal.classList.add('active');
-         }
-         
-         function addResource(event, groupId) {
-             event.preventDefault();
-             
-             const name = document.getElementById('resourceName').value.trim();
-             const url = document.getElementById('resourceUrl').value.trim();
-             const description = document.getElementById('resourceDescription').value.trim();
-             
-             if (!name || !url) {
-                 showToast('error', 'Missing Fields', 'Please fill in all required fields.');
-                 return;
-             }
-             
-             const groupRef = database.ref('studyGroups/' + groupId);
-             groupRef.once('value').then((snapshot) => {
-                 const group = snapshot.val();
-                 
-                 if (!group) {
-                     showToast('error', 'Error', 'Study group not found.');
-                     return;
-                 }
-                 
-                 if (!group.members || !group.members.includes(currentUser.uid)) {
-                     showToast('error', 'Permission Denied', 'Only group members can add resources.');
-                     return;
-                 }
-                 
-                 const resources = group.resources || [];
-                 const newResource = {
-                     id: Date.now().toString(),
-                     name: name,
-                     url: url,
-                     description: description,
-                     addedBy: userData.displayName,
-                     addedById: currentUser.uid,
-                     createdAt: firebase.database.ServerValue.TIMESTAMP
-                 };
-                 
-                 resources.push(newResource);
-                 
-                 groupRef.update({
-                     resources: resources,
-                     lastActivity: firebase.database.ServerValue.TIMESTAMP
-                 }).then(() => {
-                     showToast('success', 'Resource Added', 'Your resource has been shared successfully.');
-                     
-                     // Close modal
-                     event.target.closest('.modal').classList.remove('active');
-                     
-                     // Add resource message to chat
-                     const chatRef = database.ref('groupChat').push();
-                     chatRef.set({
-                         groupId: groupId,
-                         authorId: 'system',
-                         authorName: 'System',
-                         content: `${userData.displayName} shared a new resource: ${name}`,
-                         createdAt: firebase.database.ServerValue.TIMESTAMP
-                     });
-                     
-                     // Refresh group details
-                     showGroupDetails(groupId);
-                 }).catch((error) => {
-                     console.error("Error adding resource:", error);
-                     showToast('error', 'Error', 'Failed to add resource.');
-                 });
-             }).catch((error) => {
-                 console.error("Error getting study group:", error);
-                 showToast('error', 'Error', 'Failed to add resource.');
-             });
-         }
-         
-         function removeResource(groupId, resourceId) {
-             if (!confirm('Are you sure you want to remove this resource?')) {
-                 return;
-             }
-             
-             const groupRef = database.ref('studyGroups/' + groupId);
-             groupRef.once('value').then((snapshot) => {
-                 const group = snapshot.val();
-                 
-                 if (!group) {
-                     showToast('error', 'Error', 'Study group not found.');
-                     return;
-                 }
-                 
-                 if (group.creatorId !== currentUser.uid) {
-                     showToast('error', 'Permission Denied', 'Only the group creator can remove resources.');
-                     return;
-                 }
-                 
-                 const resources = (group.resources || []).filter(r => r.id !== resourceId);
-                 
-                 groupRef.update({
-                     resources: resources,
-                     lastActivity: firebase.database.ServerValue.TIMESTAMP
-                 }).then(() => {
-                     showToast('success', 'Resource Removed', 'The resource has been removed successfully.');
-                     
-                     // Refresh group details
-                     showGroupDetails(groupId);
-                 }).catch((error) => {
-                     console.error("Error removing resource:", error);
-                     showToast('error', 'Error', 'Failed to remove resource.');
-                 });
-             }).catch((error) => {
-                 console.error("Error getting study group:", error);
-                 showToast('error', 'Error', 'Failed to remove resource.');
-             });
-         }
-         
-         function downloadResource(url) {
-             window.open(url, '_blank');
-         }
-         
-         // Group Chat Functions
-         function loadGroupChat(groupId) {
-             const chatContainer = document.getElementById(`groupChat-${groupId}`);
-             if (!chatContainer) return;
-             
-             const chatRef = database.ref('groupChat').orderByChild('groupId').equalTo(groupId);
-             chatRef.on('value', (snapshot) => {
-                 chatContainer.innerHTML = '';
-                 
-                 if (!snapshot.exists()) {
-                     chatContainer.innerHTML = '<p class="text-gray-500 text-center">No messages yet. Start the conversation!</p>';
-                     return;
-                 }
-                 
-                 const messages = [];
-                 snapshot.forEach((childSnapshot) => {
-                     messages.push({
-                         id: childSnapshot.key,
-                         ...childSnapshot.val()
-                     });
-                 });
-                 
-                 // Sort by creation date (oldest first)
-                 messages.sort((a, b) => {
-                     return new Date(a.createdAt) - new Date(b.createdAt);
-                 });
-                 
-                 messages.forEach(message => {
-                     const messageDiv = document.createElement('div');
-                     messageDiv.className = 'chat-message';
-                     
-                     if (message.authorId === currentUser.uid) {
-                         messageDiv.classList.add('own');
-                     }
-                     
-                     const date = new Date(message.createdAt);
-                     const formattedTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                     
-                     messageDiv.innerHTML = `
-                         <div class="font-semibold text-sm">${message.authorName}</div>
-                         <div class="text-sm">${message.content}</div>
-                         <div class="text-xs text-gray-500">${formattedTime}</div>
-                     `;
-                     
-                     chatContainer.appendChild(messageDiv);
-                 });
-                 
-                 // Scroll to bottom
-                 chatContainer.scrollTop = chatContainer.scrollHeight;
-             });
-         }
-         
-         function sendChatMessage(event, groupId) {
-             if (event.key === 'Enter' || event.type === 'click') {
-                 event.preventDefault();
-                 
-                 if (!currentUser) {
-                     showToast('error', 'Sign in required', 'Please sign in to send messages.');
-                     showLoginModal();
-                     return;
-                 }
-                 
-                 const input = document.getElementById(`chatInput-${groupId}`);
-                 const content = input.value.trim();
-                 
-                 if (!content) {
-                     return;
-                 }
-                 
-                 const chatRef = database.ref('groupChat').push();
-                 const newMessage = {
-                     groupId: groupId,
-                     authorId: currentUser.uid,
-                     authorName: userData.displayName,
-                     content: content,
-                     createdAt: firebase.database.ServerValue.TIMESTAMP
-                 };
-                 
-                 chatRef.set(newMessage).then(() => {
-                     input.value = '';
-                     
-                     // Update group activity
-                     const groupRef = database.ref('studyGroups/' + groupId);
-                     groupRef.update({
-                         lastActivity: firebase.database.ServerValue.TIMESTAMP
-                     });
-                 }).catch((error) => {
-                     console.error("Error sending chat message:", error);
-                     showToast('error', 'Error', 'Failed to send message.');
-                 });
-             }
-         }
-         
-         // Leaderboard functions
-         // Leaderboard functions
-// Leaderboard functions
-function loadLeaderboard() {
-    const leaderboardContent = document.getElementById('leaderboardContent');
-    leaderboardContent.innerHTML = '<div class="spinner"></div>';
-    
-    const usersRef = database.ref('users');
-    usersRef.orderByChild('xp').limitToLast(10).on('value', (snapshot) => {
-        leaderboardContent.innerHTML = '';
-        
-        if (!snapshot.exists()) {
-            leaderboardContent.innerHTML = '<p class="text-gray-500 text-center">No data available.</p>';
-            return;
-        }
-        
-        const users = [];
-        snapshot.forEach((childSnapshot) => {
-            users.push({
-                id: childSnapshot.key,
-                ...childSnapshot.val()
-            });
-        });
-        
-        // Sort by XP descending
-        users.sort((a, b) => (b.xp || 0) - (a.xp || 0));
-        
-        // Create table
-        const table = document.createElement('table');
-        table.className = 'leaderboard-table';
-        
-        // Create table header
-        const thead = document.createElement('thead');
-        thead.innerHTML = `
-            <tr>
-                <th style="width: 15%">Rank</th>
-                <th style="width: 35%">User</th>
-                <th style="width: 20%">XP</th>
-                <th style="width: 15%">Sections</th>
-                <th style="width: 15%">Badges</th>
-            </tr>
-        `;
-        table.appendChild(thead);
-        
-        // Create table body
-        const tbody = document.createElement('tbody');
-        
-        users.forEach((user, index) => {
-            const rank = index + 1;
-            const row = document.createElement('tr');
-            
-            let rankClass = '';
-            if (rank === 1) rankClass = 'first';
-            else if (rank === 2) rankClass = 'second';
-            else if (rank === 3) rankClass = 'third';
-            
-            row.innerHTML = `
-                <td>
-                    <div class="leaderboard-rank ${rankClass}">${rank}</div>
-                </td>
-                <td>${user.displayName || 'Anonymous'}</td>
-                <td>${user.xp || 0}</td>
-                <td>${user.completedSections ? user.completedSections.length : 0}</td>
-                <td>${user.badges ? user.badges.length : 0}</td>
             `;
             
-            tbody.appendChild(row);
-        });
+            document.getElementById('groupDetailsContent').innerHTML = content;
+            document.getElementById('groupDetailsModal').classList.add('active');
+        }
         
-        table.appendChild(tbody);
-        leaderboardContent.appendChild(table);
-    });
-}
-         
-         // Toast notification function
-         function showToast(type, title, message) {
-             const toastContainer = document.getElementById('toastContainer');
-             
-             const toast = document.createElement('div');
-             toast.className = `toast ${type}`;
-             
-             let icon = 'fa-info-circle';
-             if (type === 'success') icon = 'fa-check-circle';
-             else if (type === 'error') icon = 'fa-exclamation-circle';
-             
-             toast.innerHTML = `
-                 <div class="toast-icon">
-                     <i class="fas ${icon}"></i>
-                 </div>
-                 <div class="toast-message">
-                     <div class="toast-title">${title}</div>
-                     <div class="toast-description">${message}</div>
-                 </div>
-             `;
-             
-             toastContainer.appendChild(toast);
-             
-             // Show toast
-             setTimeout(() => {
-                 toast.classList.add('show');
-             }, 100);
-             
-             // Hide toast after 3 seconds
-             setTimeout(() => {
-                 toast.classList.remove('show');
-                 setTimeout(() => {
-                     toast.remove();
-                 }, 300);
-             }, 3000);
-         }
-         
-         // Add this helper function to reset and trigger fade-in animations
-         function resetAndTriggerFadeIn(container) {
-         // Reset fade-in classes for elements in this container
-         container.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
-         el.classList.remove('visible');
-         });
-         
-         // Reinitialize fade-in for this container after a short delay
-         setTimeout(() => {
-         // Add fade-in classes if they don't exist
-         addFadeInClasses();
-         
-         // Manually trigger fade-in for elements already in view
-         container.querySelectorAll('.fade-in, .fade-in-stagger').forEach(el => {
-            const rect = el.getBoundingClientRect();
-            const isVisible = (
-                rect.top >= 0 &&
-                rect.left >= 0 &&
-                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-            );
+        function closeGroupDetailsModal() {
+            document.getElementById('groupDetailsModal').classList.remove('active');
+        }
+        
+        function joinStudyGroup(groupId) {
+            if (!currentUser) {
+                showToast('error', 'Sign in required', 'Please sign in to join study groups.');
+                showLoginModal();
+                return;
+            }
             
-            if (isVisible) {
-                el.classList.add('visible');
-            }
-         });
-         }, 50);
-         }
-         
-         // Update the showTab function to use the helper
-         function showTab(tabName) {
-         // Hide all tab contents
-         const tabContents = document.querySelectorAll('.tab-content');
-         tabContents.forEach(content => {
-         content.classList.remove('active');
-         });
-         
-         // Remove active class from all tabs
-         const tabs = document.querySelectorAll('.tab');
-         tabs.forEach(tab => {
-         tab.classList.remove('active');
-         });
-         
-         // Show selected tab content
-         const tabContent = document.getElementById(tabName);
-         if (tabContent) {
-         tabContent.classList.add('active');
-         
-         // Reset and trigger fade-in for this tab content
-         resetAndTriggerFadeIn(tabContent);
-         }
-         
-         // Add active class to clicked tab
-         const activeTab = document.querySelector(`[onclick="showTab('${tabName}')"]`);
-         if (activeTab) {
-         activeTab.classList.add('active');
-         }
-         }
-         
-         // Update navigateToSection to use the helper function
-         function navigateToSection(sectionName) {
-         // Check if section is locked
-         const navItem = document.getElementById(`nav-${sectionName}`);
-         if (navItem && navItem.classList.contains('locked')) {
-         showToast('info', 'Section Locked', 'Please complete previous sections first.');
-         return;
-         }
-         
-         // Hide all sections
-         const sections = document.querySelectorAll('.content-section');
-         sections.forEach(section => {
-         section.style.display = 'none';
-         });
-         
-         // Show selected section
-         const sectionElement = document.getElementById(`${sectionName}-section`);
-         if (sectionElement) {
-         sectionElement.style.display = 'block';
-         
-         // Reset and trigger fade-in for this section
-         resetAndTriggerFadeIn(sectionElement);
-         }
-         
-         // Update active nav item
-         const navItems = document.querySelectorAll('.nav-item');
-         navItems.forEach(item => {
-         item.classList.remove('active');
-         });
-         
-         if (navItem) {
-         navItem.classList.add('active');
-         }
-         
-         currentSection = sectionName;
-         
-         // Load leaderboard if that section is selected
-         if (sectionName === 'leaderboard') {
-         loadLeaderboard();
-         }
-         }
-         
-         // Initialize the app when DOM is ready
-         document.addEventListener('DOMContentLoaded', initApp);
-         
-         // Add these functions to track and update notification badges
-
-// Function to set badge count for navigation items
-function setBadgeCount(navItemId, count) {
-    const navItem = document.getElementById(navItemId);
-    if (!navItem) return;
-
-    let badge = navItem.querySelector('.nav-badge');
-    if (count === 0) {
-        if (badge) {
-            badge.remove();
-        }
-    } else {
-        if (!badge) {
-            badge = document.createElement('span');
-            badge.className = 'nav-badge';
-            navItem.appendChild(badge);
-        }
-        badge.textContent = count;
-    }
-}
-
-// Function to update Discussion badge
-function updateDiscussionBadge() {
-    // If user is currently in discussion section, don't show badge
-    if (currentSection === 'discussion') {
-        setBadgeCount('nav-discussion', 0);
-        return;
-    }
-
-    if (!userData || !userData.lastViewedDiscussion) {
-        // Initialize lastViewedDiscussion if not exists
-        if (currentUser) {
-            const userRef = database.ref('users/' + currentUser.uid);
-            userRef.update({
-                lastViewedDiscussion: firebase.database.ServerValue.TIMESTAMP
-            });
-            userData.lastViewedDiscussion = Date.now();
-        }
-        setBadgeCount('nav-discussion', 0);
-        return;
-    }
-
-    const lastViewed = userData.lastViewedDiscussion;
-    let count = 0;
-
-    if (discussionPosts) {
-        discussionPosts.forEach(post => {
-            if (post.createdAt > lastViewed) {
-                count++;
-            }
-        });
-    }
-
-    setBadgeCount('nav-discussion', count);
-}
-
-// Function to update Study Groups badge
-function updateStudyGroupsBadge() {
-    if (currentSection === 'study-groups') {
-        setBadgeCount('nav-study-groups', 0);
-        return;
-    }
-
-    if (!userData || !userData.lastViewedStudyGroups) {
-        if (currentUser) {
-            const userRef = database.ref('users/' + currentUser.uid);
-            userRef.update({
-                lastViewedStudyGroups: firebase.database.ServerValue.TIMESTAMP
-            });
-            userData.lastViewedStudyGroups = Date.now();
-        }
-        setBadgeCount('nav-study-groups', 0);
-        return;
-    }
-
-    const lastViewed = userData.lastViewedStudyGroups;
-    let count = 0;
-
-    if (studyGroups) {
-        studyGroups.forEach(group => {
-            if (group.createdAt > lastViewed) {
-                count++;
-            }
-        });
-    }
-
-    setBadgeCount('nav-study-groups', count);
-}
-
-// Update loadUserData function to set up real-time listener for user data
-function loadUserData() {
-    const userRef = database.ref('users/' + currentUser.uid);
-    
-    // Initial load
-    userRef.once('value').then((snapshot) => {
-        if (snapshot.exists()) {
-            userData = snapshot.val();
-            completedSections = userData.completedSections || [];
-            showMainApp();
-        } else {
-            // Create new user profile
-            const newUser = {
-                uid: currentUser.uid,
-                email: currentUser.email,
-                displayName: currentUser.displayName || 'User',
-                completedSections: [],
-                savedPosts: [],
-                xp: 0,
-                badges: [],
-                lastViewedDiscussion: null,
-                lastViewedStudyGroups: null,
-                createdAt: firebase.database.ServerValue.TIMESTAMP
-            };
-            
-            userRef.set(newUser).then(() => {
-                userData = newUser;
-                completedSections = [];
-                showMainApp();
-            });
-        }
-
-        // Set up real-time listener for user data changes
-        userRef.on('value', (snapshot) => {
-            if (snapshot.exists()) {
-                const updatedUserData = snapshot.val();
-                userData = updatedUserData;
-                completedSections = userData.completedSections || [];
+            const groupRef = database.ref('studyGroups/' + groupId);
+            groupRef.once('value').then((snapshot) => {
+                const group = snapshot.val();
                 
-                // Update badges when user data changes
-                updateDiscussionBadge();
-                updateStudyGroupsBadge();
+                if (!group) {
+                    showToast('error', 'Error', 'Study group not found.');
+                    return;
+                }
+                
+                const members = group.members || [];
+                const maxMembers = group.maxMembers || 10;
+                
+                if (members.includes(currentUser.uid)) {
+                    showToast('info', 'Already a Member', 'You are already a member of this study group.');
+                    return;
+                }
+                
+                if (members.length >= maxMembers) {
+                    showToast('error', 'Group Full', 'This study group is already full.');
+                    return;
+                }
+                
+                // Add user to group
+                members.push(currentUser.uid);
+                
+                const updates = {
+                    members: members,
+                    memberCount: members.length,
+                    lastActivity: firebase.database.ServerValue.TIMESTAMP
+                };
+                
+                groupRef.update(updates).then(() => {
+                    showToast('success', 'Joined Group', 'You have successfully joined the study group.');
+                    
+                    // Add notification for group creator
+                    if (group.creatorId && group.creatorId !== currentUser.uid) {
+                        const notificationRef = database.ref('notifications').push();
+                        notificationRef.set({
+                            userId: group.creatorId,
+                            type: 'group_join',
+                            message: `${userData.displayName} joined your study group "${group.name}"`,
+                            groupId: groupId,
+                            timestamp: firebase.database.ServerValue.TIMESTAMP,
+                            read: false
+                        });
+                    }
+                }).catch((error) => {
+                    console.error("Error joining study group:", error);
+                    showToast('error', 'Error', 'Failed to join study group.');
+                });
+            }).catch((error) => {
+                console.error("Error getting study group:", error);
+                showToast('error', 'Error', 'Failed to join study group.');
+            });
+        }
+        
+        function leaveStudyGroup(groupId) {
+            if (!currentUser) {
+                showToast('error', 'Sign in required', 'Please sign in to leave study groups.');
+                showLoginModal();
+                return;
             }
-        });
-    });
-}
-
-// Update navigateToSection function to track when user views sections
-function navigateToSection(sectionName) {
-    // Check if section is locked
-    const navItem = document.getElementById(`nav-${sectionName}`);
-    if (navItem && navItem.classList.contains('locked')) {
-        showToast('info', 'Section Locked', 'Please complete previous sections first.');
-        return;
-    }
-    
-    // Hide all sections
-    const sections = document.querySelectorAll('.content-section');
-    sections.forEach(section => {
-        section.style.display = 'none';
-    });
-    
-    // Show selected section
-    const sectionElement = document.getElementById(`${sectionName}-section`);
-    if (sectionElement) {
-        sectionElement.style.display = 'block';
-    }
-    
-    // Update active nav item
-    const navItems = document.querySelectorAll('.nav-item');
-    navItems.forEach(item => {
-        item.classList.remove('active');
-    });
-    
-    if (navItem) {
-        navItem.classList.add('active');
-    }
-    
-    // Track when user views Discussion or Study Groups
-    if (sectionName === 'discussion' && currentUser) {
-        const userRef = database.ref('users/' + currentUser.uid);
-        userRef.update({
-            lastViewedDiscussion: firebase.database.ServerValue.TIMESTAMP
-        });
-        userData.lastViewedDiscussion = Date.now();
-        updateDiscussionBadge(); // This will set badge to 0
-    }
-    
-    if (sectionName === 'study-groups' && currentUser) {
-        const userRef = database.ref('users/' + currentUser.uid);
-        userRef.update({
-            lastViewedStudyGroups: firebase.database.ServerValue.TIMESTAMP
-        });
-        userData.lastViewedStudyGroups = Date.now();
-        updateStudyGroupsBadge(); // This will set badge to 0
-    }
-    
-    currentSection = sectionName;
-    
-    // Load leaderboard if that section is selected
-    if (sectionName === 'leaderboard') {
-        loadLeaderboard();
-    }
-}
-
-// Update loadDiscussionPosts to call updateDiscussionBadge
-function loadDiscussionPosts() {
-    const postsContainer = document.getElementById('discussionPosts');
-    postsContainer.innerHTML = '<div class="spinner"></div>';
-    
-    const postsRef = database.ref('discussionPosts');
-    postsRef.orderByChild('createdAt').on('value', (snapshot) => {
-        postsContainer.innerHTML = '';
-        
-        if (!snapshot.exists()) {
-            postsContainer.innerHTML = `
-                <div class="empty-state">
-                    <div class="empty-state-icon">
-                        <i class="fas fa-comments"></i>
-                    </div>
-                    <h3 class="empty-state-title">No Posts Yet</h3>
-                    <p class="empty-state-description">Be the first to start a discussion about Group 1 Alkali Metals.</p>
-                </div>`;
-            updateDiscussionBadge(); // Update badge even when empty
-            return;
+            
+            if (!confirm('Are you sure you want to leave this study group?')) {
+                return;
+            }
+            
+            const groupRef = database.ref('studyGroups/' + groupId);
+            groupRef.once('value').then((snapshot) => {
+                const group = snapshot.val();
+                
+                if (!group) {
+                    showToast('error', 'Error', 'Study group not found.');
+                    return;
+                }
+                
+                const members = group.members || [];
+                
+                if (!members.includes(currentUser.uid)) {
+                    showToast('info', 'Not a Member', 'You are not a member of this study group.');
+                    return;
+                }
+                
+                // Remove user from group
+                const updatedMembers = members.filter(member => member !== currentUser.uid);
+                
+                const updates = {
+                    members: updatedMembers,
+                    memberCount: updatedMembers.length,
+                    lastActivity: firebase.database.ServerValue.TIMESTAMP
+                };
+                
+                groupRef.update(updates).then(() => {
+                    showToast('success', 'Left Group', 'You have successfully left the study group.');
+                    
+                    // If the user was the creator and there are no members left, delete the group
+                    if (group.creatorId === currentUser.uid && updatedMembers.length === 0) {
+                        groupRef.remove().then(() => {
+                            showToast('info', 'Group Deleted', 'The study group has been deleted as it had no members.');
+                        }).catch((error) => {
+                            console.error("Error deleting study group:", error);
+                        });
+                    }
+                    
+                    // Add notification for group creator if they're not the one leaving
+                    if (group.creatorId && group.creatorId !== currentUser.uid) {
+                        const notificationRef = database.ref('notifications').push();
+                        notificationRef.set({
+                            userId: group.creatorId,
+                            type: 'group_leave',
+                            message: `${userData.displayName} left your study group "${group.name}"`,
+                            groupId: groupId,
+                            timestamp: firebase.database.ServerValue.TIMESTAMP,
+                            read: false
+                        });
+                    }
+                }).catch((error) => {
+                    console.error("Error leaving study group:", error);
+                    showToast('error', 'Error', 'Failed to leave study group.');
+                });
+            }).catch((error) => {
+                console.error("Error getting study group:", error);
+                showToast('error', 'Error', 'Failed to leave study group.');
+            });
         }
         
-        discussionPosts = [];
-        snapshot.forEach((childSnapshot) => {
-            discussionPosts.push({
-                id: childSnapshot.key,
-                ...childSnapshot.val()
+        function showAddAnnouncement(groupId) {
+            // This would open a modal to add an announcement
+            // For simplicity, we'll just show a prompt
+            const title = prompt('Announcement Title:');
+            if (!title) return;
+            
+            const content = prompt('Announcement Content:');
+            if (!content) return;
+            
+            const groupRef = database.ref('studyGroups/' + groupId);
+            groupRef.once('value').then((snapshot) => {
+                const group = snapshot.val();
+                
+                if (!group) {
+                    showToast('error', 'Error', 'Study group not found.');
+                    return;
+                }
+                
+                const announcements = group.announcements || [];
+                announcements.push({
+                    title: title,
+                    content: content,
+                    addedBy: userData.displayName,
+                    createdAt: firebase.database.ServerValue.TIMESTAMP
+                });
+                
+                groupRef.update({
+                    announcements: announcements,
+                    lastActivity: firebase.database.ServerValue.TIMESTAMP
+                }).then(() => {
+                    showToast('success', 'Announcement Added', 'Your announcement has been added to the group.');
+                    
+                    // Refresh group details
+                    showGroupDetails(groupId);
+                    
+                    // Notify group members
+                    (group.members || []).forEach(memberId => {
+                        if (memberId !== currentUser.uid) {
+                            const notificationRef = database.ref('notifications').push();
+                            notificationRef.set({
+                                userId: memberId,
+                                type: 'group_announcement',
+                                message: `New announcement in "${group.name}": ${title}`,
+                                groupId: groupId,
+                                timestamp: firebase.database.ServerValue.TIMESTAMP,
+                                read: false
+                            });
+                        }
+                    });
+                }).catch((error) => {
+                    console.error("Error adding announcement:", error);
+                    showToast('error', 'Error', 'Failed to add announcement.');
+                });
+            }).catch((error) => {
+                console.error("Error getting study group:", error);
+                showToast('error', 'Error', 'Failed to add announcement.');
             });
-        });
-        
-        // Sort based on current sort option
-        sortDiscussionPosts();
-        
-        discussionPosts.forEach(post => {
-            const postElement = createDiscussionPostElement(post);
-            postsContainer.appendChild(postElement);
-        });
-        
-        // Update badge after loading posts
-        updateDiscussionBadge();
-    }, (error) => {
-        console.error("Error loading discussion posts:", error);
-        postsContainer.innerHTML = '<p class="text-gray-500 text-center">Error loading posts.</p>';
-    });
-}
-
-// Update loadStudyGroups to call updateStudyGroupsBadge
-function loadStudyGroups() {
-    const groupsContainer = document.getElementById('studyGroupsList');
-    groupsContainer.innerHTML = '<div class="spinner"></div>';
-    
-    const groupsRef = database.ref('studyGroups');
-    groupsRef.on('value', (snapshot) => {
-        groupsContainer.innerHTML = '';
-        
-        if (!snapshot.exists()) {
-            groupsContainer.innerHTML = `
-                <div class="empty-state">
-                    <div class="empty-state-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3 class="empty-state-title">No Study Groups Yet</h3>
-                    <p class="empty-state-description">Create your first study group to collaborate with peers.</p>
-                </div>`;
-            updateStudyGroupsBadge(); // Update badge even when empty
-            return;
         }
         
-        studyGroups = [];
-        snapshot.forEach((childSnapshot) => {
-            studyGroups.push({
-                id: childSnapshot.key,
-                ...childSnapshot.val()
+        function showAddResource(groupId) {
+            // This would open a modal to add a resource
+            // For simplicity, we'll just show prompts
+            const name = prompt('Resource Name:');
+            if (!name) return;
+            
+            const description = prompt('Resource Description:');
+            if (!description) return;
+            
+            const url = prompt('Resource URL:');
+            if (!url) return;
+            
+            const groupRef = database.ref('studyGroups/' + groupId);
+            groupRef.once('value').then((snapshot) => {
+                const group = snapshot.val();
+                
+                if (!group) {
+                    showToast('error', 'Error', 'Study group not found.');
+                    return;
+                }
+                
+                const resources = group.resources || [];
+                resources.push({
+                    name: name,
+                    description: description,
+                    url: url,
+                    addedBy: userData.displayName,
+                    addedAt: firebase.database.ServerValue.TIMESTAMP
+                });
+                
+                groupRef.update({
+                    resources: resources,
+                    lastActivity: firebase.database.ServerValue.TIMESTAMP
+                }).then(() => {
+                    showToast('success', 'Resource Added', 'Your resource has been added to the group.');
+                    
+                    // Refresh group details
+                    showGroupDetails(groupId);
+                    
+                    // Notify group members
+                    (group.members || []).forEach(memberId => {
+                        if (memberId !== currentUser.uid) {
+                            const notificationRef = database.ref('notifications').push();
+                            notificationRef.set({
+                                userId: memberId,
+                                type: 'group_resource',
+                                message: `New resource added to "${group.name}": ${name}`,
+                                groupId: groupId,
+                                timestamp: firebase.database.ServerValue.TIMESTAMP,
+                                read: false
+                            });
+                        }
+                    });
+                }).catch((error) => {
+                    console.error("Error adding resource:", error);
+                    showToast('error', 'Error', 'Failed to add resource.');
+                });
+            }).catch((error) => {
+                console.error("Error getting study group:", error);
+                showToast('error', 'Error', 'Failed to add resource.');
             });
-        });
+        }
         
-        // Create a document fragment to improve performance
-        const fragment = document.createDocumentFragment();
+        function downloadResource(url) {
+            // In a real app, this would handle file downloads
+            window.open(url, '_blank');
+        }
         
-        studyGroups.forEach(group => {
-            const groupElement = createStudyGroupElement(group);
-            fragment.appendChild(groupElement);
-        });
+        // Leaderboard functions
+        function loadLeaderboard() {
+            const leaderboardContent = document.getElementById('leaderboardContent');
+            leaderboardContent.innerHTML = '<div class="spinner"></div>';
+            
+            const usersRef = database.ref('users');
+            usersRef.orderByChild('xp').limitToLast(10).on('value', (snapshot) => {
+                leaderboardContent.innerHTML = '';
+                
+                if (!snapshot.exists()) {
+                    leaderboardContent.innerHTML = '<p class="text-gray-500 text-center">No users found.</p>';
+                    return;
+                }
+                
+                const users = [];
+                snapshot.forEach((childSnapshot) => {
+                    users.push({
+                        id: childSnapshot.key,
+                        ...childSnapshot.val()
+                    });
+                });
+                
+                // Sort by XP (descending)
+                users.sort((a, b) => (b.xp || 0) - (a.xp || 0));
+                
+                // Create leaderboard table
+                const table = document.createElement('table');
+                table.className = 'leaderboard-table';
+                
+                // Create table header
+                const thead = document.createElement('thead');
+                thead.innerHTML = `
+                    <tr>
+                        <th>Rank</th>
+                        <th>User</th>
+                        <th>XP</th>
+                        <th>Badges</th>
+                    </tr>
+                `;
+                table.appendChild(thead);
+                
+                // Create table body
+                const tbody = document.createElement('tbody');
+                users.forEach((user, index) => {
+                    const row = document.createElement('tr');
+                    row.className = 'leaderboard-entry';
+                    
+                    // Determine rank class for special styling
+                    let rankClass = '';
+                    if (index === 0) rankClass = 'first';
+                    else if (index === 1) rankClass = 'second';
+                    else if (index === 2) rankClass = 'third';
+                    
+                    row.innerHTML = `
+                        <td>
+                            <div class="leaderboard-rank ${rankClass}">${index + 1}</div>
+                        </td>
+                        <td>${user.displayName || 'Anonymous'}</td>
+                        <td>${user.xp || 0}</td>
+                        <td>${(user.badges || []).length}</td>
+                    `;
+                    
+                    tbody.appendChild(row);
+                });
+                table.appendChild(tbody);
+                
+                leaderboardContent.appendChild(table);
+            }, (error) => {
+                console.error("Error loading leaderboard:", error);
+                leaderboardContent.innerHTML = '<p class="text-gray-500 text-center">Error loading leaderboard.</p>';
+            });
+        }
         
-        // Append all elements at once
-        groupsContainer.appendChild(fragment);
+        // Toast notification function
+        function showToast(type, title, message) {
+            const toastContainer = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            let icon = '';
+            if (type === 'success') {
+                icon = '<i class="fas fa-check-circle toast-icon"></i>';
+            } else if (type === 'error') {
+                icon = '<i class="fas fa-exclamation-circle toast-icon"></i>';
+            } else if (type === 'info') {
+                icon = '<i class="fas fa-info-circle toast-icon"></i>';
+            }
+            
+            toast.innerHTML = `
+                ${icon}
+                <div class="toast-message">
+                    <div class="toast-title">${title}</div>
+                    <div class="toast-description">${message}</div>
+                </div>
+            `;
+            
+            toastContainer.appendChild(toast);
+            
+            // Show toast
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 10);
+            
+            // Hide toast after 4 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    toastContainer.removeChild(toast);
+                }, 400);
+            }, 4000);
+        }
         
-        // Update badge after loading groups
-        updateStudyGroupsBadge();
-    }, (error) => {
-        console.error("Error loading study groups:", error);
-        groupsContainer.innerHTML = '<p class="text-gray-500 text-center">Error loading study groups.</p>';
-    });
-}
-
-// Update handleCreatePost to call updateDiscussionBadge
-function handleCreatePost(event) {
-    event.preventDefault();
-    
-    const title = document.getElementById('postTitle').value.trim();
-    const content = document.getElementById('postContent').value.trim();
-    const tags = document.getElementById('postTags').value.trim();
-    
-    if (!title || !content) {
-        showToast('error', 'Missing Fields', 'Please fill in all required fields.');
-        return;
-    }
-    
-    const postsRef = database.ref('discussionPosts').push();
-    const newPost = {
-        authorId: currentUser.uid,
-        authorName: userData.displayName,
-        title: title,
-        content: content,
-        tags: tags ? tags.split(',').map(tag => tag.trim()) : [],
-        upvotes: 0,
-        downvotes: 0,
-        votes: {},
-        comments: 0,
-        saved: 0,
-        createdAt: firebase.database.ServerValue.TIMESTAMP
-    };
-    
-    postsRef.set(newPost).then(() => {
-        showToast('success', 'Post Created!', 'Your post has been published successfully.');
-        closeCreatePostModal();
-        // Badge will be updated by the real-time listener in loadDiscussionPosts
-    }).catch((error) => {
-        console.error("Error creating post:", error);
-        showToast('error', 'Error', 'Failed to create post.');
-    });
-}
-
-// Update handleCreateGroup to call updateStudyGroupsBadge
-function handleCreateGroup(event) {
-    event.preventDefault();
-    
-    const name = document.getElementById('groupName').value.trim();
-    const topic = document.getElementById('groupTopic').value;
-    const description = document.getElementById('groupDescription').value.trim();
-    const maxMembers = parseInt(document.getElementById('groupMaxMembers').value);
-    
-    if (!name || !topic || !description) {
-        showToast('error', 'Missing Fields', 'Please fill in all fields.');
-        return;
-    }
-    
-    const groupsRef = database.ref('studyGroups').push();
-    const newGroup = {
-        name: name,
-        topic: topic,
-        description: description,
-        maxMembers: maxMembers,
-        creatorId: currentUser.uid,
-        creatorName: userData.displayName,
-        members: [currentUser.uid],
-        memberCount: 1,
-        announcements: [],
-        resources: [],
-        createdAt: firebase.database.ServerValue.TIMESTAMP,
-        lastActivity: firebase.database.ServerValue.TIMESTAMP
-    };
-    
-    groupsRef.set(newGroup).then(() => {
-        showToast('success', 'Group Created!', 'Your study group has been created successfully.');
-        closeCreateGroupModal();
-        // Badge will be updated by the real-time listener in loadStudyGroups
-    }).catch((error) => {
-        console.error("Error creating study group:", error);
-        showToast('error', 'Error', 'Failed to create study group.');
-    });
-}
+        // Initialize the app when the page loads
+        window.onload = function() {
+            initApp();
+            checkForMagicLink();
+        };
       </script>
    </body>
 </html>
