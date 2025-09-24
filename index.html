@@ -855,8 +855,8 @@
                      Subscribe to our newsletter for updates
                   </p>
                   <div class="mt-2 flex">
-                     <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-lg text-gray-800 w-full">
-                     <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-r-lg">
+                     <input type="email" id="newsletter-email" placeholder="Your email" class="px-4 py-2 rounded-l-lg text-gray-800 w-full">
+                     <button id="newsletter-btn" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-r-lg">
                       <i class="fas fa-paper-plane"></i>
                      </button>
                   </div>
@@ -972,6 +972,10 @@
          const googleLoginBtn = document.getElementById('google-login-btn');
          const googleSignupBtn = document.getElementById('google-signup-btn');
          const notification = document.getElementById('notification');
+         
+         // Newsletter elements
+         const newsletterEmail = document.getElementById('newsletter-email');
+         const newsletterBtn = document.getElementById('newsletter-btn');
 
          // Show notification
          function showNotification(message, type) {
@@ -1107,6 +1111,46 @@
                .catch((error) => {
                   showNotification(error.message, 'error');
                });
+         });
+
+         // Newsletter subscription
+         newsletterBtn.addEventListener('click', () => {
+            const email = newsletterEmail.value.trim();
+            
+            if (!email) {
+               showNotification('Please enter your email address', 'error');
+               return;
+            }
+            
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+               showNotification('Please enter a valid email address', 'error');
+               return;
+            }
+            
+            // Save email to Firebase
+            const newsletterRef = database.ref('newsletter');
+            const newSubscriberRef = newsletterRef.push();
+            
+            newSubscriberRef.set({
+               email: email,
+               timestamp: firebase.database.ServerValue.TIMESTAMP
+            })
+            .then(() => {
+               showNotification('Successfully subscribed to newsletter!', 'success');
+               newsletterEmail.value = '';
+            })
+            .catch((error) => {
+               showNotification('Failed to subscribe: ' + error.message, 'error');
+            });
+         });
+
+         // Allow submission with Enter key
+         newsletterEmail.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+               newsletterBtn.click();
+            }
          });
 
          // Smooth scrolling for navigation links
