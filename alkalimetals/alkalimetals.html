@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -4263,30 +4264,37 @@ body.dark-mode .leaderboard-rank {
          }
          
          function sendMagicLink(event) {
-             event.preventDefault();
-             
-             const email = document.getElementById('magicLinkEmail').value.trim();
-             const messageDiv = document.getElementById('magicLinkMessage');
-             
-             if (!email) {
-                 showMagicLinkMessage('Please enter your email address.', 'error');
-                 return;
-             }
-             
-             const actionCodeSettings = {
-                 url: window.location.origin,
-                 handleCodeInApp: true
-             };
-             
-             auth.sendSignInLinkToEmail(email, actionCodeSettings)
-                 .then(() => {
-                     showMagicLinkMessage('Magic link sent! Check your email to sign in.', 'success');
-                     document.getElementById('magicLinkForm').reset();
-                 })
-                 .catch((error) => {
-                     showMagicLinkMessage('Error sending magic link: ' + error.message, 'error');
-                 });
-         }
+    event.preventDefault();
+    
+    const email = document.getElementById('magicLinkEmail').value.trim();
+    const messageDiv = document.getElementById('magicLinkMessage');
+    
+    if (!email) {
+        showMagicLinkMessage('Please enter your email address.', 'error');
+        return;
+    }
+    
+    // Use your GitHub Pages URL as the redirect URL
+    const redirectUrl = 'https://andrewung2009.github.io/group1periodictable/alkalimetals/alkalimetals.html';
+    
+    const actionCodeSettings = {
+        url: redirectUrl,
+        handleCodeInApp: true,
+        // Remove dynamic link domain since it's deprecated
+    };
+    
+    auth.sendSignInLinkToEmail(email, actionCodeSettings)
+        .then(() => {
+            // Save the email locally for verification
+            window.localStorage.setItem('emailForSignIn', email);
+            showMagicLinkMessage('Magic link sent! Check your email (including spam folder) to sign in.', 'success');
+            document.getElementById('magicLinkForm').reset();
+        })
+        .catch((error) => {
+            console.error("Error sending magic link:", error);
+            showMagicLinkMessage('Error sending magic link: ' + error.message, 'error');
+        });
+}
          
          function showMagicLinkMessage(message, type) {
              const messageDiv = document.getElementById('magicLinkMessage');
@@ -4297,26 +4305,221 @@ body.dark-mode .leaderboard-rank {
          
          // Check for magic link in URL
          function checkForMagicLink() {
-             if (auth.isSignInWithEmailLink(window.location.href)) {
-                 let email = window.localStorage.getItem('emailForSignIn');
-                 if (!email) {
-                     email = window.prompt('Please provide your email for confirmation');
-                 }
-                 
-                 if (email) {
-                     auth.signInWithEmailLink(email, window.location.href)
-                         .then((result) => {
-                             window.localStorage.removeItem('emailForSignIn');
-                             currentUser = result.user;
-                             loadUserData();
-                             showToast('success', 'Welcome back!', 'You have been successfully signed in.');
-                         })
-                         .catch((error) => {
-                             showToast('error', 'Sign in failed', error.message);
-                         });
-                 }
-             }
-         }
+    // Check if we're on the magic link verification page
+    if (auth.isSignInWithEmailLink(window.location.href)) {
+        let email = window.localStorage.getItem('emailForSignIn');
+        if (!email) {
+            email = window.prompt('Please provide your email for confirmation');
+        }
+        
+        if (email) {
+            // Show loading state
+            showToast('info', 'Signing in', 'Please wait while we verify your magic link...');
+            
+            auth.signInWithEmailLink(email, window.location.href)
+                .then((result) => {
+                    // Clear the stored email
+                    window.localStorage.removeItem('emailForSignIn');
+                    
+                    // Clean up the URL by removing Firebase auth parameters
+                    const url = new URL(window.location.href);
+                    // Remove Firebase auth parameters
+                    ['apiKey', 'oobCode', 'mode', 'continueUrl', 'lang'].forEach(param => {
+                        url.searchParams.delete(param);
+                    });
+                    
+                    // Update the URL without reloading the page
+                    window.history.replaceState({}, document.title, url.toString());
+                    
+                    currentUser = result.user;
+                    loadUserData();
+                    showToast('success', 'Welcome back!', 'You have been successfully signed in.');
+                })
+                .catch((error) => {
+                    console.error("Email link sign-in error:", error);
+                    showToast('error', 'Sign in failed', error.message);
+                });
+        }
+    }
+}
+function configureEmailSettings() {
+    // Set language for email templates
+    firebase.auth().languageCode = 'en';
+    
+    // Configure email template settings (this is done in Firebase Console)
+    // But we can set some preferences here
+    const settings = {
+        // Use a more friendly sender name
+        displayName: 'Chemistry Mastery Team'
+    };
+    
+    // This would be configured in Firebase Console, not in code
+    console.log('Email settings configured:', settings);
+}
+
+// Call this when initializing Firebase
+configureEmailSettings();
+function cleanUrlAfterAuth() {
+    const url = new URL(window.location.href);
+    const paramsToRemove = ['apiKey', 'oobCode', 'mode', 'continueUrl', 'lang'];
+    let paramsRemoved = false;
+    
+    paramsToRemove.forEach(param => {
+        if (url.searchParams.has(param)) {
+            url.searchParams.delete(param);
+            paramsRemoved = true;
+        }
+    });
+    
+    if (paramsRemoved) {
+        window.history.replaceState({}, document.title, url.toString());
+    }
+}
+
+// Call this after successful authentication
+// cleanUrlAfterAuth();
+// Updated sendMagicLink with better error handling
+function sendMagicLink(event) {
+    event.preventDefault();
+    
+    const email = document.getElementById('magicLinkEmail').value.trim();
+    const messageDiv = document.getElementById('magicLinkMessage');
+    
+    if (!email) {
+        showMagicLinkMessage('Please enter your email address.', 'error');
+        return;
+    }
+    
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        showMagicLinkMessage('Please enter a valid email address.', 'error');
+        return;
+    }
+    
+    // Use your GitHub Pages URL as the redirect URL
+    const redirectUrl = 'https://andrewung2009.github.io/group1periodictable/alkalimetals/alkalimetals.html';
+    
+    const actionCodeSettings = {
+        url: redirectUrl,
+        handleCodeInApp: true,
+        // Add iOS settings if you have an iOS app
+        iOS: {
+            bundleId: 'com.example.ios'
+        },
+        // Add Android settings if you have an Android app
+        android: {
+            packageName: 'com.example.android',
+            installApp: true,
+            minimumVersion: '12'
+        }
+    };
+    
+    // Show loading state
+    showMagicLinkMessage('Sending magic link...', 'info');
+    
+    auth.sendSignInLinkToEmail(email, actionCodeSettings)
+        .then(() => {
+            // Save the email locally for verification
+            window.localStorage.setItem('emailForSignIn', email);
+            showMagicLinkMessage('Magic link sent! Check your email (including spam folder) to sign in.', 'success');
+            document.getElementById('magicLinkForm').reset();
+        })
+        .catch((error) => {
+            console.error("Error sending magic link:", error);
+            let errorMessage = 'Error sending magic link.';
+            
+            switch (error.code) {
+                case 'auth/invalid-email':
+                    errorMessage = 'Please enter a valid email address.';
+                    break;
+                case 'auth/user-not-found':
+                    errorMessage = 'No account found with this email address.';
+                    break;
+                case 'auth/too-many-requests':
+                    errorMessage = 'Too many requests. Please try again later.';
+                    break;
+                default:
+                    errorMessage += ' ' + error.message;
+            }
+            
+            showMagicLinkMessage(errorMessage, 'error');
+        });
+}
+
+// Updated checkForMagicLink with better error handling
+function checkForMagicLink() {
+    // Check if we're on the magic link verification page
+    if (auth.isSignInWithEmailLink(window.location.href)) {
+        let email = window.localStorage.getItem('emailForSignIn');
+        if (!email) {
+            email = window.prompt('Please provide your email for confirmation');
+            if (!email) {
+                showToast('error', 'Email Required', 'Please provide your email to sign in.');
+                return;
+            }
+        }
+        
+        // Show loading state
+        showToast('info', 'Signing in', 'Please wait while we verify your magic link...');
+        
+        auth.signInWithEmailLink(email, window.location.href)
+            .then((result) => {
+                // Clear the stored email
+                window.localStorage.removeItem('emailForSignIn');
+                
+                // Clean up the URL
+                cleanUrlAfterAuth();
+                
+                currentUser = result.user;
+                loadUserData();
+                showToast('success', 'Welcome back!', 'You have been successfully signed in.');
+            })
+            .catch((error) => {
+                console.error("Email link sign-in error:", error);
+                let errorMessage = 'Sign in failed.';
+                
+                switch (error.code) {
+                    case 'auth/invalid-email':
+                        errorMessage = 'Invalid email address.';
+                        break;
+                    case 'auth/user-disabled':
+                        errorMessage = 'This account has been disabled.';
+                        break;
+                    case 'auth/expired-action-code':
+                        errorMessage = 'The magic link has expired. Please request a new one.';
+                        break;
+                    case 'auth/invalid-action-code':
+                        errorMessage = 'The magic link is invalid. Please request a new one.';
+                        break;
+                    default:
+                        errorMessage += ' ' + error.message;
+                }
+                
+                showToast('error', 'Sign in failed', errorMessage);
+                
+                // Clean up the URL even on error
+                cleanUrlAfterAuth();
+            });
+    }
+}
+
+function cleanUrlAfterAuth() {
+    const url = new URL(window.location.href);
+    const paramsToRemove = ['apiKey', 'oobCode', 'mode', 'continueUrl', 'lang'];
+    let paramsRemoved = false;
+    
+    paramsToRemove.forEach(param => {
+        if (url.searchParams.has(param)) {
+            url.searchParams.delete(param);
+            paramsRemoved = true;
+        }
+    });
+    
+    if (paramsRemoved) {
+        window.history.replaceState({}, document.title, url.toString());
+    }
+}
          
          function handleEmailLogin(event) {
              event.preventDefault();
