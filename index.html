@@ -90,6 +90,11 @@
          background-color: var(--primary);
          color: white;
          }
+         .btn-disabled {
+         background-color: #475569;
+         color: #94a3b8;
+         cursor: not-allowed;
+         }
          .topic-card {
          transition: all 0.3s ease;
          border-radius: 0.75rem;
@@ -97,6 +102,7 @@
          height: 100%;
          background: #1e293b;
          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+         position: relative;
          }
          .topic-card:hover {
          transform: translateY(-5px);
@@ -122,6 +128,14 @@
          .resource-item:hover {
          border-left-color: var(--primary);
          transform: translateX(5px);
+         }
+         .resource-item.disabled {
+         color: #64748b;
+         cursor: not-allowed;
+         }
+         .resource-item.disabled:hover {
+         border-left-color: transparent;
+         transform: none;
          }
          .nav-link {
          position: relative;
@@ -310,6 +324,44 @@
          .notification.error {
          background-color: var(--danger);
          }
+         .coming-soon-badge {
+         position: absolute;
+         top: 10px;
+         right: 10px;
+         background-color: var(--accent);
+         color: white;
+         font-size: 0.75rem;
+         font-weight: 600;
+         padding: 0.25rem 0.5rem;
+         border-radius: 0.25rem;
+         text-transform: uppercase;
+         letter-spacing: 0.05em;
+         }
+         .available-badge {
+         position: absolute;
+         top: 10px;
+         right: 10px;
+         background-color: var(--success);
+         color: white;
+         font-size: 0.75rem;
+         font-weight: 600;
+         padding: 0.25rem 0.5rem;
+         border-radius: 0.25rem;
+         text-transform: uppercase;
+         letter-spacing: 0.05em;
+         }
+         .status-ribbon {
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         padding: 0.5rem;
+         background-color: rgba(16, 185, 129, 0.2);
+         color: #10b981;
+         text-align: center;
+         font-size: 0.875rem;
+         font-weight: 600;
+         }
       </style>
    </head>
    <body>
@@ -443,12 +495,19 @@
             <div class="text-center mb-16">
                <h2 class="text-3xl font-bold mb-4">Explore Chemistry Topics</h2>
                <p class="text-gray-400 max-w-2xl mx-auto">Comprehensive learning materials organized by topic</p>
+               <div class="mt-4 bg-blue-900/30 inline-block px-4 py-2 rounded-lg">
+                  <p class="text-blue-300"><i class="fas fa-info-circle mr-2"></i> Currently available: Group 1: Alkali Metals. More topics coming soon!</p>
+               </div>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-               <!-- Topic Card 1 -->
+               <!-- Topic Card 1 - Available -->
                <div class="topic-card">
-                  <div class="p-6">
+                  <div class="available-badge">Available</div>
+                  <div class="status-ribbon">
+                     <i class="fas fa-check-circle mr-2"></i>Currently Available: Group 1 Only
+                  </div>
+                  <div class="p-6 pt-12">
                      <div class="topic-icon">
                         <i class="fas fa-table"></i>
                      </div>
@@ -461,27 +520,31 @@
                               <span>Group 1: Alkali Metals</span>
                            </div>
                         </a>
-                        <a href="#" class="resource-item block py-2">
+                        <div class="resource-item disabled block py-2">
                            <div class="flex items-center">
-                              <i class="fas fa-chevron-right text-blue-400 mr-2"></i>
-                              <span>Group 2: Alkaline Earth Metals</span>
+                              <i class="fas fa-lock text-gray-500 mr-2"></i>
+                              <span>Group 2: Alkaline Earth Metals (Not Available)</span>
                            </div>
-                        </a>
-                        <a href="#" class="resource-item block py-2">
+                        </div>
+                        <div class="resource-item disabled block py-2">
                            <div class="flex items-center">
-                              <i class="fas fa-chevron-right text-blue-400 mr-2"></i>
-                              <span>Transition Metals</span>
+                              <i class="fas fa-lock text-gray-500 mr-2"></i>
+                              <span>Transition Metals (Not Available)</span>
                            </div>
-                        </a>
+                        </div>
                      </div>
-                     <a href="#" class="btn btn-primary mt-6 w-full justify-center">
-                        View All Topics
+                     <div class="mt-4 p-3 bg-slate-700/50 rounded-lg text-sm">
+                        <p class="text-gray-300"><i class="fas fa-info-circle text-blue-400 mr-2"></i>Only Group 1: Alkali Metals is currently available. Other groups will be released in future updates.</p>
+                     </div>
+                     <a href="https://andrewung2009.github.io/TheCuriousChemist/alkalimetals/alkalimetals.html" class="btn btn-primary mt-6 w-full justify-center">
+                        Start Learning
                      </a>
                   </div>
                </div>
                
-               <!-- Topic Card 2 -->
+               <!-- Topic Card 2 - Coming Soon -->
                <div class="topic-card">
+                  <div class="coming-soon-badge">Coming Soon</div>
                   <div class="p-6">
                      <div class="topic-icon">
                         <i class="fas fa-link"></i>
@@ -489,33 +552,34 @@
                      <h3 class="text-xl font-semibold mb-2">Chemical Bonding</h3>
                      <p class="text-gray-400 mb-4">Understand how atoms combine to form molecules</p>
                      <div class="space-y-3">
-                        <a href="#" class="resource-item block py-2">
+                        <div class="resource-item disabled block py-2">
                            <div class="flex items-center">
-                              <i class="fas fa-chevron-right text-blue-400 mr-2"></i>
+                              <i class="fas fa-lock text-gray-500 mr-2"></i>
                               <span>Ionic Bonding</span>
                            </div>
-                        </a>
-                        <a href="#" class="resource-item block py-2">
+                        </div>
+                        <div class="resource-item disabled block py-2">
                            <div class="flex items-center">
-                              <i class="fas fa-chevron-right text-blue-400 mr-2"></i>
+                              <i class="fas fa-lock text-gray-500 mr-2"></i>
                               <span>Covalent Bonding</span>
                            </div>
-                        </a>
-                        <a href="#" class="resource-item block py-2">
+                        </div>
+                        <div class="resource-item disabled block py-2">
                            <div class="flex items-center">
-                              <i class="fas fa-chevron-right text-blue-400 mr-2"></i>
+                              <i class="fas fa-lock text-gray-500 mr-2"></i>
                               <span>Metallic Bonding</span>
                            </div>
-                        </a>
+                        </div>
                      </div>
-                     <a href="#" class="btn btn-primary mt-6 w-full justify-center">
-                        View All Topics
-                     </a>
+                     <button class="btn btn-disabled mt-6 w-full justify-center" disabled>
+                      Coming Soon
+                     </button>
                   </div>
                </div>
                
-               <!-- Topic Card 3 -->
+               <!-- Topic Card 3 - Coming Soon -->
                <div class="topic-card">
+                  <div class="coming-soon-badge">Coming Soon</div>
                   <div class="p-6">
                      <div class="topic-icon">
                         <i class="fas fa-flask"></i>
@@ -523,33 +587,34 @@
                      <h3 class="text-xl font-semibold mb-2">Chemical Reactions</h3>
                      <p class="text-gray-400 mb-4">Learn about different types of chemical reactions</p>
                      <div class="space-y-3">
-                        <a href="#" class="resource-item block py-2">
+                        <div class="resource-item disabled block py-2">
                            <div class="flex items-center">
-                              <i class="fas fa-chevron-right text-blue-400 mr-2"></i>
+                              <i class="fas fa-lock text-gray-500 mr-2"></i>
                               <span>Synthesis Reactions</span>
                            </div>
-                        </a>
-                        <a href="#" class="resource-item block py-2">
+                        </div>
+                        <div class="resource-item disabled block py-2">
                            <div class="flex items-center">
-                              <i class="fas fa-chevron-right text-blue-400 mr-2"></i>
+                              <i class="fas fa-lock text-gray-500 mr-2"></i>
                               <span>Decomposition Reactions</span>
                            </div>
-                        </a>
-                        <a href="#" class="resource-item block py-2">
+                        </div>
+                        <div class="resource-item disabled block py-2">
                            <div class="flex items-center">
-                              <i class="fas fa-chevron-right text-blue-400 mr-2"></i>
+                              <i class="fas fa-lock text-gray-500 mr-2"></i>
                               <span>Redox Reactions</span>
                            </div>
-                        </a>
+                        </div>
                      </div>
-                     <a href="#" class="btn btn-primary mt-6 w-full justify-center">
-                        View All Topics
-                     </a>
+                     <button class="btn btn-disabled mt-6 w-full justify-center" disabled>
+                      Coming Soon
+                     </button>
                   </div>
                </div>
                
-               <!-- Topic Card 4 -->
+               <!-- Topic Card 4 - Coming Soon -->
                <div class="topic-card">
+                  <div class="coming-soon-badge">Coming Soon</div>
                   <div class="p-6">
                      <div class="topic-icon">
                         <i class="fas fa-atom"></i>
@@ -557,33 +622,34 @@
                      <h3 class="text-xl font-semibold mb-2">Atomic Structure</h3>
                      <p class="text-gray-400 mb-4">Explore the building blocks of matter</p>
                      <div class="space-y-3">
-                        <a href="#" class="resource-item block py-2">
+                        <div class="resource-item disabled block py-2">
                            <div class="flex items-center">
-                              <i class="fas fa-chevron-right text-blue-400 mr-2"></i>
+                              <i class="fas fa-lock text-gray-500 mr-2"></i>
                               <span>Subatomic Particles</span>
                            </div>
-                        </a>
-                        <a href="#" class="resource-item block py-2">
+                        </div>
+                        <div class="resource-item disabled block py-2">
                            <div class="flex items-center">
-                              <i class="fas fa-chevron-right text-blue-400 mr-2"></i>
+                              <i class="fas fa-lock text-gray-500 mr-2"></i>
                               <span>Electron Configuration</span>
                            </div>
-                        </a>
-                        <a href="#" class="resource-item block py-2">
+                        </div>
+                        <div class="resource-item disabled block py-2">
                            <div class="flex items-center">
-                              <i class="fas fa-chevron-right text-blue-400 mr-2"></i>
+                              <i class="fas fa-lock text-gray-500 mr-2"></i>
                               <span>Atomic Models</span>
                            </div>
-                        </a>
+                        </div>
                      </div>
-                     <a href="#" class="btn btn-primary mt-6 w-full justify-center">
-                        View All Topics
-                     </a>
+                     <button class="btn btn-disabled mt-6 w-full justify-center" disabled>
+                      Coming Soon
+                     </button>
                   </div>
                </div>
                
-               <!-- Topic Card 5 -->
+               <!-- Topic Card 5 - Coming Soon -->
                <div class="topic-card">
+                  <div class="coming-soon-badge">Coming Soon</div>
                   <div class="p-6">
                      <div class="topic-icon">
                         <i class="fas fa-tint"></i>
@@ -591,33 +657,34 @@
                      <h3 class="text-xl font-semibold mb-2">States of Matter</h3>
                      <p class="text-gray-400 mb-4">Understand solids, liquids, and gases</p>
                      <div class="space-y-3">
-                        <a href="#" class="resource-item block py-2">
+                        <div class="resource-item disabled block py-2">
                            <div class="flex items-center">
-                              <i class="fas fa-chevron-right text-blue-400 mr-2"></i>
+                              <i class="fas fa-lock text-gray-500 mr-2"></i>
                               <span>Properties of Solids</span>
                            </div>
-                        </a>
-                        <a href="#" class="resource-item block py-2">
+                        </div>
+                        <div class="resource-item disabled block py-2">
                            <div class="flex items-center">
-                              <i class="fas fa-chevron-right text-blue-400 mr-2"></i>
+                              <i class="fas fa-lock text-gray-500 mr-2"></i>
                               <span>Properties of Liquids</span>
                            </div>
-                        </a>
-                        <a href="#" class="resource-item block py-2">
+                        </div>
+                        <div class="resource-item disabled block py-2">
                            <div class="flex items-center">
-                              <i class="fas fa-chevron-right text-blue-400 mr-2"></i>
+                              <i class="fas fa-lock text-gray-500 mr-2"></i>
                               <span>Properties of Gases</span>
                            </div>
-                        </a>
+                        </div>
                      </div>
-                     <a href="#" class="btn btn-primary mt-6 w-full justify-center">
-                        View All Topics
-                     </a>
+                     <button class="btn btn-disabled mt-6 w-full justify-center" disabled>
+                      Coming Soon
+                     </button>
                   </div>
                </div>
                
-               <!-- Topic Card 6 -->
+               <!-- Topic Card 6 - Coming Soon -->
                <div class="topic-card">
+                  <div class="coming-soon-badge">Coming Soon</div>
                   <div class="p-6">
                      <div class="topic-icon">
                         <i class="fas fa-balance-scale"></i>
@@ -625,28 +692,28 @@
                      <h3 class="text-xl font-semibold mb-2">Acids and Bases</h3>
                      <p class="text-gray-400 mb-4">Explore the properties of acids and bases</p>
                      <div class="space-y-3">
-                        <a href="#" class="resource-item block py-2">
+                        <div class="resource-item disabled block py-2">
                            <div class="flex items-center">
-                              <i class="fas fa-chevron-right text-blue-400 mr-2"></i>
+                              <i class="fas fa-lock text-gray-500 mr-2"></i>
                               <span>Properties of Acids</span>
                            </div>
-                        </a>
-                        <a href="#" class="resource-item block py-2">
+                        </div>
+                        <div class="resource-item disabled block py-2">
                            <div class="flex items-center">
-                              <i class="fas fa-chevron-right text-blue-400 mr-2"></i>
+                              <i class="fas fa-lock text-gray-500 mr-2"></i>
                               <span>Properties of Bases</span>
                            </div>
-                        </a>
-                        <a href="#" class="resource-item block py-2">
+                        </div>
+                        <div class="resource-item disabled block py-2">
                            <div class="flex items-center">
-                              <i class="fas fa-chevron-right text-blue-400 mr-2"></i>
+                              <i class="fas fa-lock text-gray-500 mr-2"></i>
                               <span>pH Scale</span>
                            </div>
-                        </a>
+                        </div>
                      </div>
-                     <a href="#" class="btn btn-primary mt-6 w-full justify-center">
-                        View All Topics
-                     </a>
+                     <button class="btn btn-disabled mt-6 w-full justify-center" disabled>
+                      Coming Soon
+                     </button>
                   </div>
                </div>
             </div>
@@ -736,7 +803,6 @@
             </div>
          </div>
       </section>
-
 
       <!-- Footer -->
       <footer class="py-12 px-6 bg-slate-950 text-white">
