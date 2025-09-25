@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -5179,67 +5180,82 @@ function cleanUrlAfterAuth() {
          }
          
          function showReactionVideo(element) {
-             // Create a modal to show the video
-             const modal = document.createElement('div');
-             modal.className = 'modal';
-             modal.style.zIndex = '1001'; // Ensure it's on top
-             
-             // Define video URLs for each element (replace with actual video URLs)
-             const videoUrls = {
-                 'lithium': 'https://www.youtube.com/embed/vRKK6pliejs',
-                 'sodium': 'https://www.youtube.com/embed/ODf_sPexS2Q',
-                 'potassium': 'https://www.youtube.com/embed/Jy1DC6Euqj4',
-                 'cesium': 'https://www.youtube.com/embed/YbwtND63tfo'
-             };
-             
-             // Get the video URL for the selected element
-             const videoUrl = videoUrls[element] || 'https://www.youtube.com/embed/TGZs93DzMDY'; // Default video
-             
-             // Set modal content
-             modal.innerHTML = `
-                 <div class="modal-content" style="max-width: 900px;">
-                     <div class="flex justify-between items-center mb-6">
-                         <h2 class="text-2xl font-bold text-gray-800 capitalize">${element} Reaction with Water</h2>
-                         <button onclick="this.closest('.modal').classList.remove('active')" class="text-gray-500 hover:text-gray-700 p-3 rounded-full hover:bg-gray-100 transition-colors">
-                             <i class="fas fa-times text-xl"></i>
-                         </button>
-                     </div>
-                     
-                     <div class="aspect-w-16 aspect-h-9 mb-6">
-                         <iframe src="${videoUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-96 rounded-lg"></iframe>
-                     </div>
-                     
-                     <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
-                         <h3 class="font-semibold text-blue-800 mb-3">Observations</h3>
-                         <p class="text-gray-700" id="reactionVideoObservations">Loading observations...</p>
-                     </div>
-                     
-                     <div class="flex justify-end mt-6">
-                         <button onclick="this.closest('.modal').classList.remove('active')" class="btn btn-secondary transform transition-all duration-300 hover:scale-105">
-                             Close
-                         </button>
-                     </div>
-                 </div>
-             `;
-             
-             // Add modal to the body
-             document.body.appendChild(modal);
-             
-             // Show modal
-             setTimeout(() => {
-                 modal.classList.add('active');
-             }, 10);
-             
-             // Set observations based on element
-             const observations = {
-                 'lithium': 'Lithium fizzes steadily as it reacts with water. It moves slowly across the surface and does not melt.',
-                 'sodium': 'Sodium fizzes rapidly and melts into a ball. It moves quickly across the water surface.',
-                 'potassium': 'Potassium fizzes violently, ignites with a lilac flame, and may explode.',
-                 'cesium': 'Cesium reacts explosively with water, producing a lot of heat and hydrogen gas.'
-             };
-             
-             document.getElementById('reactionVideoObservations').textContent = observations[element] || 'Observations not available.';
-         }
+    // Create a modal to show the video
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.style.zIndex = '1001'; // Ensure it's on top
+    
+    // Define video URLs for each element (replace with actual video URLs)
+    const videoUrls = {
+        'lithium': 'https://www.youtube.com/embed/vRKK6pliejs',
+        'sodium': 'https://www.youtube.com/embed/ODf_sPexS2Q',
+        'potassium': 'https://www.youtube.com/embed/Jy1DC6Euqj4',
+        'cesium': 'https://www.youtube.com/embed/YbwtND63tfo'
+    };
+    
+    // Get the video URL for the selected element
+    const videoUrl = videoUrls[element] || 'https://www.youtube.com/embed/TGZs93DzMDY'; // Default video
+    
+    // Set modal content
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 900px;">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 capitalize">${element} Reaction with Water</h2>
+                <button class="close-video-modal text-gray-500 hover:text-gray-700 p-3 rounded-full hover:bg-gray-100 transition-colors">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div class="aspect-w-16 aspect-h-9 mb-6">
+                <iframe id="video-iframe" src="${videoUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-96 rounded-lg"></iframe>
+            </div>
+            
+            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+                <h3 class="font-semibold text-blue-800 mb-3">Observations</h3>
+                <p class="text-gray-700" id="reactionVideoObservations">Loading observations...</p>
+            </div>
+            
+            <div class="flex justify-end mt-6">
+                <button class="close-video-modal btn btn-secondary transform transition-all duration-300 hover:scale-105">
+                    Close
+                </button>
+            </div>
+        </div>
+    `;
+    
+    // Add modal to the body
+    document.body.appendChild(modal);
+    
+    // Show modal
+    setTimeout(() => {
+        modal.classList.add('active');
+    }, 10);
+    
+    // Set observations based on element
+    const observations = {
+        'lithium': 'Lithium fizzes steadily as it reacts with water. It moves slowly across the surface and does not melt.',
+        'sodium': 'Sodium fizzes rapidly and melts into a ball. It moves quickly across the water surface.',
+        'potassium': 'Potassium fizzes violently, ignites with a lilac flame, and may explode.',
+        'cesium': 'Cesium reacts explosively with water, producing a lot of heat and hydrogen gas.'
+    };
+    
+    document.getElementById('reactionVideoObservations').textContent = observations[element] || 'Observations not available.';
+    
+    // Add event listeners to close buttons
+    const closeButtons = modal.querySelectorAll('.close-video-modal');
+    closeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Stop the video by clearing the iframe src
+            const iframe = document.getElementById('video-iframe');
+            if (iframe) {
+                iframe.src = '';
+            }
+            
+            // Remove the modal from the DOM
+            modal.remove();
+        });
+    });
+}
          
          function showOxideTrendQuiz() {
              const question = {
