@@ -42,6 +42,9 @@
          color: #e2e8f0;
          overflow-x: hidden;
          }
+         body.modal-open {
+            overflow: hidden;
+         }
          .font-display {
          font-family: 'Playfair Display', serif;
          }
@@ -201,7 +204,7 @@
          .modal {
          display: none;
          position: fixed;
-         z-index: 1000;
+         z-index: 9999;
          left: 0;
          top: 0;
          width: 100%;
@@ -218,6 +221,7 @@
          max-width: 500px;
          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
          position: relative;
+         z-index: 10000;
          }
          .close {
          position: absolute;
@@ -227,6 +231,7 @@
          font-size: 1.5rem;
          font-weight: bold;
          cursor: pointer;
+         z-index: 10001;
          }
          .close:hover {
          color: white;
@@ -310,7 +315,7 @@
          border-radius: 0.5rem;
          color: white;
          font-weight: 500;
-         z-index: 1100;
+         z-index: 10002;
          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
          transform: translateX(150%);
          transition: transform 0.3s ease;
@@ -349,18 +354,26 @@
          border-radius: 0.25rem;
          text-transform: uppercase;
          letter-spacing: 0.05em;
+         z-index: 10;
          }
-         .status-ribbon {
-         position: absolute;
-         top: 0;
-         left: 0;
-         width: 100%;
-         padding: 0.5rem;
-         background-color: rgba(16, 185, 129, 0.2);
-         color: #10b981;
-         text-align: center;
-         font-size: 0.875rem;
-         font-weight: 600;
+         .topic-header {
+            position: relative;
+            padding: 1rem;
+            background: rgba(16, 185, 129, 0.1);
+            border-bottom: 1px solid rgba(16, 185, 129, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+         }
+         .topic-status {
+            display: flex;
+            align-items: center;
+            color: #10b981;
+            font-size: 0.875rem;
+            font-weight: 600;
+         }
+         .topic-status i {
+            margin-right: 0.5rem;
          }
       </style>
    </head>
@@ -504,10 +517,13 @@
                <!-- Topic Card 1 - Available -->
                <div class="topic-card">
                   <div class="available-badge">Available</div>
-                  <div class="status-ribbon">
-                     <i class="fas fa-check-circle mr-2"></i>Currently Available: Group 1 Only
+                  <div class="topic-header">
+                     <div class="topic-status">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Currently Available: Group 1 Only</span>
+                     </div>
                   </div>
-                  <div class="p-6 pt-12">
+                  <div class="p-6">
                      <div class="topic-icon">
                         <i class="fas fa-table"></i>
                      </div>
@@ -1004,16 +1020,19 @@
          // Open modal
          loginBtn.addEventListener('click', () => {
             loginModal.style.display = 'block';
+            document.body.classList.add('modal-open');
          });
 
          // Close modal
          closeModal.addEventListener('click', () => {
             loginModal.style.display = 'none';
+            document.body.classList.remove('modal-open');
          });
 
          window.addEventListener('click', (e) => {
             if (e.target === loginModal) {
                loginModal.style.display = 'none';
+               document.body.classList.remove('modal-open');
             }
          });
 
@@ -1044,6 +1063,7 @@
                   // Signed in
                   showNotification('Login successful!', 'success');
                   loginModal.style.display = 'none';
+                  document.body.classList.remove('modal-open');
                   loginForm.reset();
                })
                .catch((error) => {
@@ -1075,6 +1095,7 @@
                .then(() => {
                   showNotification('Account created successfully!', 'success');
                   loginModal.style.display = 'none';
+                  document.body.classList.remove('modal-open');
                   signupForm.reset();
                })
                .catch((error) => {
@@ -1090,6 +1111,7 @@
                .then((result) => {
                   showNotification('Login successful!', 'success');
                   loginModal.style.display = 'none';
+                  document.body.classList.remove('modal-open');
                })
                .catch((error) => {
                   showNotification(error.message, 'error');
