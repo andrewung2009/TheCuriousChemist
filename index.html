@@ -375,6 +375,103 @@
          .topic-status i {
             margin-right: 0.5rem;
          }
+         
+         /* Newsletter FAB Styles */
+         #newsletter-fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+         }
+         
+         #newsletter-toggle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            border: none;
+            box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            animation: pulse 2s infinite;
+            transition: transform 0.3s ease;
+        }
+        
+        #newsletter-toggle:hover {
+            transform: scale(1.1);
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(59, 130, 246, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+            }
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            animation: blink 1.5s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        /* Newsletter Modal Styles */
+        #newsletter-modal .modal-content {
+            max-width: 450px;
+            text-align: center;
+        }
+        
+        #newsletter-modal h2 {
+            color: #f1f5f9;
+            margin-bottom: 10px;
+        }
+        
+        #newsletter-modal p {
+            color: #cbd5e1;
+            margin-bottom: 20px;
+        }
+        
+        #newsletter-modal .form-group {
+            text-align: left;
+        }
+        
+        #newsletter-modal .form-group label {
+            color: #e2e8f0;
+        }
+        
+        #newsletter-modal .btn-primary {
+            margin-top: 10px;
+        }
+        
+        #newsletter-modal .privacy-text {
+            font-size: 0.875rem;
+            color: #94a3b8;
+            margin-top: 15px;
+        }
       </style>
    </head>
    <body>
@@ -951,6 +1048,49 @@
          </div>
       </div>
 
+      <!-- Newsletter Modal -->
+      <div id="newsletter-modal" class="modal">
+         <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="text-center mb-6">
+               <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 mb-4">
+                  <i class="fas fa-envelope text-blue-600 text-2xl"></i>
+               </div>
+               <h2 class="text-2xl font-bold mb-2">Stay Updated!</h2>
+               <p class="text-gray-400">Subscribe to our newsletter for the latest chemistry resources and updates</p>
+            </div>
+            
+            <form id="newsletter-form-modal">
+               <div class="form-group">
+                  <label for="newsletter-email-modal">Email Address</label>
+                  <input type="email" id="newsletter-email-modal" class="form-control" placeholder="Enter your email address" required>
+               </div>
+               <div class="form-group">
+                  <label>
+                     <input type="checkbox" id="newsletter-terms" class="mr-2" required>
+                     I agree to receive newsletter emails
+                  </label>
+               </div>
+               <button type="submit" class="btn btn-primary w-full">
+                  <i class="fas fa-paper-plane mr-2"></i>
+                  Subscribe Now
+               </button>
+            </form>
+            
+            <div class="mt-6 text-center text-sm text-gray-500 privacy-text">
+               <p>We respect your privacy. Unsubscribe at any time.</p>
+            </div>
+         </div>
+      </div>
+
+      <!-- Newsletter FAB -->
+      <div id="newsletter-fab">
+         <button id="newsletter-toggle">
+            <i class="fas fa-envelope"></i>
+            <span class="notification-badge">!</span>
+         </button>
+      </div>
+
       <!-- Notification -->
       <div id="notification" class="notification"></div>
 
@@ -989,6 +1129,14 @@
          // Newsletter elements
          const newsletterEmail = document.getElementById('newsletter-email');
          const newsletterBtn = document.getElementById('newsletter-btn');
+         
+         // Newsletter FAB elements
+         const newsletterFab = document.getElementById('newsletter-fab');
+         const newsletterToggle = document.getElementById('newsletter-toggle');
+         const newsletterModal = document.getElementById('newsletter-modal');
+         const newsletterFormModal = document.getElementById('newsletter-form-modal');
+         const newsletterEmailModal = document.getElementById('newsletter-email-modal');
+         const newsletterCloseBtn = newsletterModal.querySelector('.close');
 
          // Show notification
          function showNotification(message, type) {
@@ -1132,7 +1280,7 @@
                });
          });
 
-         // Newsletter subscription
+         // Newsletter subscription (footer form)
          newsletterBtn.addEventListener('click', () => {
             const email = newsletterEmail.value.trim();
             
@@ -1170,6 +1318,63 @@
             if (e.key === 'Enter') {
                newsletterBtn.click();
             }
+         });
+
+         // Newsletter FAB functionality
+         newsletterToggle.addEventListener('click', () => {
+            newsletterModal.style.display = 'block';
+            document.body.classList.add('modal-open');
+         });
+         
+         // Close newsletter modal
+         newsletterCloseBtn.addEventListener('click', () => {
+            newsletterModal.style.display = 'none';
+            document.body.classList.remove('modal-open');
+         });
+         
+         // Close modal when clicking outside
+         window.addEventListener('click', (e) => {
+            if (e.target === newsletterModal) {
+               newsletterModal.style.display = 'none';
+               document.body.classList.remove('modal-open');
+            }
+         });
+         
+         // Handle newsletter form submission from modal
+         newsletterFormModal.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const email = newsletterEmailModal.value.trim();
+            
+            if (!email) {
+               showNotification('Please enter your email address', 'error');
+               return;
+            }
+            
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+               showNotification('Please enter a valid email address', 'error');
+               return;
+            }
+            
+            // Save email to Firebase
+            const newsletterRef = database.ref('newsletter');
+            const newSubscriberRef = newsletterRef.push();
+            
+            newSubscriberRef.set({
+               email: email,
+               timestamp: firebase.database.ServerValue.TIMESTAMP
+            })
+            .then(() => {
+               showNotification('Successfully subscribed to newsletter!', 'success');
+               newsletterEmailModal.value = '';
+               newsletterModal.style.display = 'none';
+               document.body.classList.remove('modal-open');
+            })
+            .catch((error) => {
+               showNotification('Failed to subscribe: ' + error.message, 'error');
+            });
          });
 
          // Smooth scrolling for navigation links
