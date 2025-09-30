@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -1871,107 +1869,89 @@
          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
          }
          /* Replace the existing leaderboard styles with these simpler ones */
-
-.leaderboard-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 2rem 0;
-    background: white;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-body.dark-mode .leaderboard-table {
-    background: #374151;
-    color: #f3f4f6;
-}
-
-.leaderboard-table th {
-    background: var(--primary);
-    color: white;
-    padding: 1rem;
-    text-align: center;
-    font-weight: 600;
-    border-right: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.leaderboard-table th:last-child {
-    border-right: none;
-}
-
-.leaderboard-table td {
-    padding: 1rem;
-    border-bottom: 1px solid var(--gray-200);
-    text-align: center;
-    border-right: 1px solid var(--gray-200);
-}
-
-.leaderboard-table td:last-child {
-    border-right: none;
-}
-
-body.dark-mode .leaderboard-table td {
-    border-bottom-color: #4b5563;
-    border-right-color: #4b5563;
-}
-
-.leaderboard-table tr:last-child td {
-    border-bottom: none;
-}
-
-.leaderboard-table tr:nth-child(even) {
-    background: var(--gray-100);
-}
-
-body.dark-mode .leaderboard-table tr:nth-child(even) {
-    background: #4b5563;
-}
-
-.leaderboard-table tr:hover {
-    background: rgba(79, 70, 229, 0.1);
-}
-
-body.dark-mode .leaderboard-table tr:hover {
-    background: rgba(79, 70, 229, 0.2);
-}
-
-.leaderboard-rank {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--gray-100);
-    border-radius: 50%;
-    font-weight: 600;
-    margin: 0 auto;
-    transition: all 0.3s ease;
-}
-
-body.dark-mode .leaderboard-rank {
-    background: #4b5563;
-    color: #f3f4f6;
-}
-
-.leaderboard-rank.first {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-    color: white;
-}
-
-.leaderboard-rank.second {
-    background: linear-gradient(135deg, #9ca3af, #6b7280);
-    color: white;
-}
-
-.leaderboard-rank.third {
-    background: linear-gradient(135deg, #cd7c2f, #92400e);
-    color: white;
-}
-
-.leaderboard-entry:hover .leaderboard-rank {
-    transform: scale(1.1);
-}
+         .leaderboard-table {
+         width: 100%;
+         border-collapse: collapse;
+         margin: 2rem 0;
+         background: white;
+         border-radius: 0.5rem;
+         overflow: hidden;
+         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+         }
+         body.dark-mode .leaderboard-table {
+         background: #374151;
+         color: #f3f4f6;
+         }
+         .leaderboard-table th {
+         background: var(--primary);
+         color: white;
+         padding: 1rem;
+         text-align: center;
+         font-weight: 600;
+         border-right: 1px solid rgba(255, 255, 255, 0.2);
+         }
+         .leaderboard-table th:last-child {
+         border-right: none;
+         }
+         .leaderboard-table td {
+         padding: 1rem;
+         border-bottom: 1px solid var(--gray-200);
+         text-align: center;
+         border-right: 1px solid var(--gray-200);
+         }
+         .leaderboard-table td:last-child {
+         border-right: none;
+         }
+         body.dark-mode .leaderboard-table td {
+         border-bottom-color: #4b5563;
+         border-right-color: #4b5563;
+         }
+         .leaderboard-table tr:last-child td {
+         border-bottom: none;
+         }
+         .leaderboard-table tr:nth-child(even) {
+         background: var(--gray-100);
+         }
+         body.dark-mode .leaderboard-table tr:nth-child(even) {
+         background: #4b5563;
+         }
+         .leaderboard-table tr:hover {
+         background: rgba(79, 70, 229, 0.1);
+         }
+         body.dark-mode .leaderboard-table tr:hover {
+         background: rgba(79, 70, 229, 0.2);
+         }
+         .leaderboard-rank {
+         width: 50px;
+         height: 50px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         background: var(--gray-100);
+         border-radius: 50%;
+         font-weight: 600;
+         margin: 0 auto;
+         transition: all 0.3s ease;
+         }
+         body.dark-mode .leaderboard-rank {
+         background: #4b5563;
+         color: #f3f4f6;
+         }
+         .leaderboard-rank.first {
+         background: linear-gradient(135deg, #f59e0b, #d97706);
+         color: white;
+         }
+         .leaderboard-rank.second {
+         background: linear-gradient(135deg, #9ca3af, #6b7280);
+         color: white;
+         }
+         .leaderboard-rank.third {
+         background: linear-gradient(135deg, #cd7c2f, #92400e);
+         color: white;
+         }
+         .leaderboard-entry:hover .leaderboard-rank {
+         transform: scale(1.1);
+         }
          .daily-challenge {
          background: linear-gradient(135deg, #10b981, #059669);
          color: white;
@@ -2040,7 +2020,6 @@ body.dark-mode .leaderboard-rank {
          background-color: white;
          transition: .4s;
          }
-         
          input:checked + .slider {
          background-color: var(--primary);
          }
@@ -2238,6 +2217,184 @@ body.dark-mode .leaderboard-rank {
          background: rgba(239, 68, 68, 0.1);
          color: var(--danger);
          border: 1px solid rgba(239, 68, 68, 0.3);
+         }
+         /* Add these media queries at the end of the existing CSS */
+         /* Mobile devices (up to 767px) */
+         @media (max-width: 767px) {
+         /* Adjust sidebar for mobile */
+         .sidebar {
+         width: 100%;
+         transform: translateX(-100%);
+         }
+         .sidebar.active {
+         transform: translateX(0);
+         box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+         }
+         /* Adjust main content for mobile */
+         .main-content {
+         margin-left: 0;
+         padding: 1rem;
+         }
+         /* Adjust element grid */
+         .element-grid {
+         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+         gap: 1rem;
+         }
+         /* Adjust periodic table */
+         .periodic-table {
+         grid-template-columns: repeat(9, 1fr);
+         gap: 0.25rem;
+         }
+         .element {
+         font-size: 0.6rem;
+         }
+         .element-name {
+         display: none;
+         }
+         /* Adjust modal */
+         .modal-content {
+         padding: 1rem;
+         margin: 1rem;
+         max-height: 95vh;
+         }
+         /* Adjust tabs */
+         .tabs {
+         overflow-x: auto;
+         white-space: nowrap;
+         -webkit-overflow-scrolling: touch;
+         }
+         .tab {
+         padding: 0.5rem 1rem;
+         font-size: 0.875rem;
+         }
+         /* Adjust progress tracker */
+         .grid-cols-4 {
+         grid-template-columns: repeat(2, 1fr);
+         }
+         /* Adjust quiz options */
+         .quiz-option {
+         padding: 1rem;
+         margin: 0.5rem 0;
+         }
+         /* Adjust buttons */
+         .btn {
+         padding: 0.5rem 1rem;
+         font-size: 0.875rem;
+         }
+         /* Adjust discussion posts */
+         .discussion-post {
+         padding: 1rem;
+         }
+         .post-header {
+         margin-bottom: 0.5rem;
+         }
+         .post-title {
+         font-size: 1.1rem;
+         }
+         /* Adjust study groups */
+         .study-group-card {
+         padding: 1rem;
+         }
+         .group-title {
+         font-size: 1.1rem;
+         }
+         /* Adjust leaderboard table */
+         .leaderboard-table {
+         font-size: 0.875rem;
+         }
+         .leaderboard-table th,
+         .leaderboard-table td {
+         padding: 0.5rem;
+         }
+         /* Adjust feedback button */
+         .feedback-button {
+         width: 50px;
+         height: 50px;
+         bottom: 15px;
+         right: 15px;
+         }
+         .feedback-button i {
+         font-size: 20px;
+         }
+         /* Adjust toast notifications */
+         .toast {
+         width: 90%;
+         right: 5%;
+         left: 5%;
+         }
+         }
+         /* Tablet devices (768px to 1023px) */
+         @media (min-width: 768px) and (max-width: 1023px) {
+         /* Adjust sidebar */
+         .sidebar {
+         width: 240px;
+         }
+         /* Adjust main content */
+         .main-content {
+         margin-left: 240px;
+         padding: 1.5rem;
+         }
+         /* Adjust element grid */
+         .element-grid {
+         grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+         }
+         /* Adjust periodic table */
+         .periodic-table {
+         grid-template-columns: repeat(12, 1fr);
+         }
+         /* Adjust modal */
+         .modal-content {
+         padding: 1.5rem;
+         margin: 2rem auto;
+         }
+         /* Adjust progress tracker */
+         .grid-cols-4 {
+         grid-template-columns: repeat(2, 1fr);
+         }
+         /* Adjust discussion posts */
+         .discussion-post {
+         padding: 1.25rem;
+         }
+         /* Adjust study groups */
+         .study-group-card {
+         padding: 1.25rem;
+         }
+         }
+         /* Large screens (1024px and up) */
+         @media (min-width: 1024px) {
+         /* Adjust progress tracker */
+         .grid-cols-4 {
+         grid-template-columns: repeat(4, 1fr);
+         }
+         }
+         /* Add this to your existing CSS */
+         .mobile-menu-btn {
+         display: none;
+         position: fixed;
+         top: 1rem;
+         left: 1rem;
+         z-index: 101;
+         background: var(--primary);
+         color: white;
+         border: none;
+         border-radius: 0.5rem;
+         width: 3rem;
+         height: 3rem;
+         font-size: 1.25rem;
+         cursor: pointer;
+         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+         transition: all 0.3s ease;
+         }
+         .mobile-menu-btn:hover {
+         background: var(--primary-dark);
+         transform: scale(1.05);
+         }
+         @media (max-width: 767px) {
+         .mobile-menu-btn {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         }
          }
       </style>
    </head>
@@ -3084,10 +3241,9 @@ body.dark-mode .leaderboard-rank {
                </div>
             </section>
          </main>
-         
          <!-- Feedback Button -->
          <button class="feedback-button" onclick="showFeedbackModal()" title="Leave Feedback">
-            <i class="fas fa-comment-alt"></i>
+         <i class="fas fa-comment-alt"></i>
          </button>
       </div>
       <!-- Login Modal -->
@@ -4266,37 +4422,37 @@ body.dark-mode .leaderboard-rank {
          }
          
          function sendMagicLink(event) {
-    event.preventDefault();
-    
-    const email = document.getElementById('magicLinkEmail').value.trim();
-    const messageDiv = document.getElementById('magicLinkMessage');
-    
-    if (!email) {
-        showMagicLinkMessage('Please enter your email address.', 'error');
-        return;
-    }
-    
-    // Use your GitHub Pages URL as the redirect URL
-    const redirectUrl = 'https://andrewung2009.github.io/TheCuriousChemist/alkalimetals/alkalimetals.html';
-    
-    const actionCodeSettings = {
-        url: redirectUrl,
-        handleCodeInApp: true,
-        // Remove dynamic link domain since it's deprecated
-    };
-    
-    auth.sendSignInLinkToEmail(email, actionCodeSettings)
-        .then(() => {
+         event.preventDefault();
+         
+         const email = document.getElementById('magicLinkEmail').value.trim();
+         const messageDiv = document.getElementById('magicLinkMessage');
+         
+         if (!email) {
+         showMagicLinkMessage('Please enter your email address.', 'error');
+         return;
+         }
+         
+         // Use your GitHub Pages URL as the redirect URL
+         const redirectUrl = 'https://andrewung2009.github.io/TheCuriousChemist/alkalimetals/alkalimetals.html';
+         
+         const actionCodeSettings = {
+         url: redirectUrl,
+         handleCodeInApp: true,
+         // Remove dynamic link domain since it's deprecated
+         };
+         
+         auth.sendSignInLinkToEmail(email, actionCodeSettings)
+         .then(() => {
             // Save the email locally for verification
             window.localStorage.setItem('emailForSignIn', email);
             showMagicLinkMessage('Magic link sent! Check your email (including spam folder) to sign in.', 'success');
             document.getElementById('magicLinkForm').reset();
-        })
-        .catch((error) => {
+         })
+         .catch((error) => {
             console.error("Error sending magic link:", error);
             showMagicLinkMessage('Error sending magic link: ' + error.message, 'error');
-        });
-}
+         });
+         }
          
          function showMagicLinkMessage(message, type) {
              const messageDiv = document.getElementById('magicLinkMessage');
@@ -4307,14 +4463,14 @@ body.dark-mode .leaderboard-rank {
          
          // Check for magic link in URL
          function checkForMagicLink() {
-    // Check if we're on the magic link verification page
-    if (auth.isSignInWithEmailLink(window.location.href)) {
-        let email = window.localStorage.getItem('emailForSignIn');
-        if (!email) {
+         // Check if we're on the magic link verification page
+         if (auth.isSignInWithEmailLink(window.location.href)) {
+         let email = window.localStorage.getItem('emailForSignIn');
+         if (!email) {
             email = window.prompt('Please provide your email for confirmation');
-        }
-        
-        if (email) {
+         }
+         
+         if (email) {
             // Show loading state
             showToast('info', 'Signing in', 'Please wait while we verify your magic link...');
             
@@ -4341,93 +4497,93 @@ body.dark-mode .leaderboard-rank {
                     console.error("Email link sign-in error:", error);
                     showToast('error', 'Sign in failed', error.message);
                 });
-        }
-    }
-}
-function configureEmailSettings() {
-    // Set language for email templates
-    firebase.auth().languageCode = 'en';
-    
-    // Configure email template settings (this is done in Firebase Console)
-    // But we can set some preferences here
-    const settings = {
-        // Use a more friendly sender name
-        displayName: 'Chemistry Mastery Team'
-    };
-    
-    // This would be configured in Firebase Console, not in code
-    console.log('Email settings configured:', settings);
-}
-
-// Call this when initializing Firebase
-configureEmailSettings();
-function cleanUrlAfterAuth() {
-    const url = new URL(window.location.href);
-    const paramsToRemove = ['apiKey', 'oobCode', 'mode', 'continueUrl', 'lang'];
-    let paramsRemoved = false;
-    
-    paramsToRemove.forEach(param => {
-        if (url.searchParams.has(param)) {
+         }
+         }
+         }
+         function configureEmailSettings() {
+         // Set language for email templates
+         firebase.auth().languageCode = 'en';
+         
+         // Configure email template settings (this is done in Firebase Console)
+         // But we can set some preferences here
+         const settings = {
+         // Use a more friendly sender name
+         displayName: 'Chemistry Mastery Team'
+         };
+         
+         // This would be configured in Firebase Console, not in code
+         console.log('Email settings configured:', settings);
+         }
+         
+         // Call this when initializing Firebase
+         configureEmailSettings();
+         function cleanUrlAfterAuth() {
+         const url = new URL(window.location.href);
+         const paramsToRemove = ['apiKey', 'oobCode', 'mode', 'continueUrl', 'lang'];
+         let paramsRemoved = false;
+         
+         paramsToRemove.forEach(param => {
+         if (url.searchParams.has(param)) {
             url.searchParams.delete(param);
             paramsRemoved = true;
-        }
-    });
-    
-    if (paramsRemoved) {
-        window.history.replaceState({}, document.title, url.toString());
-    }
-}
-
-// Call this after successful authentication
-// cleanUrlAfterAuth();
-// Updated sendMagicLink with better error handling
-function sendMagicLink(event) {
-    event.preventDefault();
-    
-    const email = document.getElementById('magicLinkEmail').value.trim();
-    const messageDiv = document.getElementById('magicLinkMessage');
-    
-    if (!email) {
-        showMagicLinkMessage('Please enter your email address.', 'error');
-        return;
-    }
-    
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        showMagicLinkMessage('Please enter a valid email address.', 'error');
-        return;
-    }
-    
-    // Use your GitHub Pages URL as the redirect URL
-    const redirectUrl = 'https://andrewung2009.github.io/TheCuriousChemist/alkalimetals/alkalimetals.html';
-    
-    const actionCodeSettings = {
-        url: redirectUrl,
-        handleCodeInApp: true,
-        // Add iOS settings if you have an iOS app
-        iOS: {
+         }
+         });
+         
+         if (paramsRemoved) {
+         window.history.replaceState({}, document.title, url.toString());
+         }
+         }
+         
+         // Call this after successful authentication
+         // cleanUrlAfterAuth();
+         // Updated sendMagicLink with better error handling
+         function sendMagicLink(event) {
+         event.preventDefault();
+         
+         const email = document.getElementById('magicLinkEmail').value.trim();
+         const messageDiv = document.getElementById('magicLinkMessage');
+         
+         if (!email) {
+         showMagicLinkMessage('Please enter your email address.', 'error');
+         return;
+         }
+         
+         // Validate email format
+         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+         if (!emailRegex.test(email)) {
+         showMagicLinkMessage('Please enter a valid email address.', 'error');
+         return;
+         }
+         
+         // Use your GitHub Pages URL as the redirect URL
+         const redirectUrl = 'https://andrewung2009.github.io/TheCuriousChemist/alkalimetals/alkalimetals.html';
+         
+         const actionCodeSettings = {
+         url: redirectUrl,
+         handleCodeInApp: true,
+         // Add iOS settings if you have an iOS app
+         iOS: {
             bundleId: 'com.example.ios'
-        },
-        // Add Android settings if you have an Android app
-        android: {
+         },
+         // Add Android settings if you have an Android app
+         android: {
             packageName: 'com.example.android',
             installApp: true,
             minimumVersion: '12'
-        }
-    };
-    
-    // Show loading state
-    showMagicLinkMessage('Sending magic link...', 'info');
-    
-    auth.sendSignInLinkToEmail(email, actionCodeSettings)
-        .then(() => {
+         }
+         };
+         
+         // Show loading state
+         showMagicLinkMessage('Sending magic link...', 'info');
+         
+         auth.sendSignInLinkToEmail(email, actionCodeSettings)
+         .then(() => {
             // Save the email locally for verification
             window.localStorage.setItem('emailForSignIn', email);
             showMagicLinkMessage('Magic link sent! Check your email (including spam folder) to sign in.', 'success');
             document.getElementById('magicLinkForm').reset();
-        })
-        .catch((error) => {
+         })
+         .catch((error) => {
             console.error("Error sending magic link:", error);
             let errorMessage = 'Error sending magic link.';
             
@@ -4446,26 +4602,26 @@ function sendMagicLink(event) {
             }
             
             showMagicLinkMessage(errorMessage, 'error');
-        });
-}
-
-// Updated checkForMagicLink with better error handling
-function checkForMagicLink() {
-    // Check if we're on the magic link verification page
-    if (auth.isSignInWithEmailLink(window.location.href)) {
-        let email = window.localStorage.getItem('emailForSignIn');
-        if (!email) {
+         });
+         }
+         
+         // Updated checkForMagicLink with better error handling
+         function checkForMagicLink() {
+         // Check if we're on the magic link verification page
+         if (auth.isSignInWithEmailLink(window.location.href)) {
+         let email = window.localStorage.getItem('emailForSignIn');
+         if (!email) {
             email = window.prompt('Please provide your email for confirmation');
             if (!email) {
                 showToast('error', 'Email Required', 'Please provide your email to sign in.');
                 return;
             }
-        }
-        
-        // Show loading state
-        showToast('info', 'Signing in', 'Please wait while we verify your magic link...');
-        
-        auth.signInWithEmailLink(email, window.location.href)
+         }
+         
+         // Show loading state
+         showToast('info', 'Signing in', 'Please wait while we verify your magic link...');
+         
+         auth.signInWithEmailLink(email, window.location.href)
             .then((result) => {
                 // Clear the stored email
                 window.localStorage.removeItem('emailForSignIn');
@@ -4503,25 +4659,25 @@ function checkForMagicLink() {
                 // Clean up the URL even on error
                 cleanUrlAfterAuth();
             });
-    }
-}
-
-function cleanUrlAfterAuth() {
-    const url = new URL(window.location.href);
-    const paramsToRemove = ['apiKey', 'oobCode', 'mode', 'continueUrl', 'lang'];
-    let paramsRemoved = false;
-    
-    paramsToRemove.forEach(param => {
-        if (url.searchParams.has(param)) {
+         }
+         }
+         
+         function cleanUrlAfterAuth() {
+         const url = new URL(window.location.href);
+         const paramsToRemove = ['apiKey', 'oobCode', 'mode', 'continueUrl', 'lang'];
+         let paramsRemoved = false;
+         
+         paramsToRemove.forEach(param => {
+         if (url.searchParams.has(param)) {
             url.searchParams.delete(param);
             paramsRemoved = true;
-        }
-    });
-    
-    if (paramsRemoved) {
-        window.history.replaceState({}, document.title, url.toString());
-    }
-}
+         }
+         });
+         
+         if (paramsRemoved) {
+         window.history.replaceState({}, document.title, url.toString());
+         }
+         }
          
          function handleEmailLogin(event) {
              event.preventDefault();
@@ -5180,25 +5336,25 @@ function cleanUrlAfterAuth() {
          }
          
          function showReactionVideo(element) {
-    // Create a modal to show the video
-    const modal = document.createElement('div');
-    modal.className = 'modal';
-    modal.style.zIndex = '1001'; // Ensure it's on top
-    
-    // Define video URLs for each element (replace with actual video URLs)
-    const videoUrls = {
-        'lithium': 'https://www.youtube.com/embed/vRKK6pliejs',
-        'sodium': 'https://www.youtube.com/embed/ODf_sPexS2Q',
-        'potassium': 'https://www.youtube.com/embed/Jy1DC6Euqj4',
-        'cesium': 'https://www.youtube.com/embed/YbwtND63tfo'
-    };
-    
-    // Get the video URL for the selected element
-    const videoUrl = videoUrls[element] || 'https://www.youtube.com/embed/TGZs93DzMDY'; // Default video
-    
-    // Set modal content
-    modal.innerHTML = `
-        <div class="modal-content" style="max-width: 900px;">
+         // Create a modal to show the video
+         const modal = document.createElement('div');
+         modal.className = 'modal';
+         modal.style.zIndex = '1001'; // Ensure it's on top
+         
+         // Define video URLs for each element (replace with actual video URLs)
+         const videoUrls = {
+         'lithium': 'https://www.youtube.com/embed/vRKK6pliejs',
+         'sodium': 'https://www.youtube.com/embed/ODf_sPexS2Q',
+         'potassium': 'https://www.youtube.com/embed/Jy1DC6Euqj4',
+         'cesium': 'https://www.youtube.com/embed/YbwtND63tfo'
+         };
+         
+         // Get the video URL for the selected element
+         const videoUrl = videoUrls[element] || 'https://www.youtube.com/embed/TGZs93DzMDY'; // Default video
+         
+         // Set modal content
+         modal.innerHTML = `
+         <div class="modal-content" style="max-width: 900px;">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-bold text-gray-800 capitalize">${element} Reaction with Water</h2>
                 <button class="close-video-modal text-gray-500 hover:text-gray-700 p-3 rounded-full hover:bg-gray-100 transition-colors">
@@ -5220,31 +5376,31 @@ function cleanUrlAfterAuth() {
                     Close
                 </button>
             </div>
-        </div>
-    `;
-    
-    // Add modal to the body
-    document.body.appendChild(modal);
-    
-    // Show modal
-    setTimeout(() => {
-        modal.classList.add('active');
-    }, 10);
-    
-    // Set observations based on element
-    const observations = {
-        'lithium': 'Lithium fizzes steadily as it reacts with water. It moves slowly across the surface and does not melt.',
-        'sodium': 'Sodium fizzes rapidly and melts into a ball. It moves quickly across the water surface.',
-        'potassium': 'Potassium fizzes violently, ignites with a lilac flame, and may explode.',
-        'cesium': 'Cesium reacts explosively with water, producing a lot of heat and hydrogen gas.'
-    };
-    
-    document.getElementById('reactionVideoObservations').textContent = observations[element] || 'Observations not available.';
-    
-    // Add event listeners to close buttons
-    const closeButtons = modal.querySelectorAll('.close-video-modal');
-    closeButtons.forEach(button => {
-        button.addEventListener('click', function() {
+         </div>
+         `;
+         
+         // Add modal to the body
+         document.body.appendChild(modal);
+         
+         // Show modal
+         setTimeout(() => {
+         modal.classList.add('active');
+         }, 10);
+         
+         // Set observations based on element
+         const observations = {
+         'lithium': 'Lithium fizzes steadily as it reacts with water. It moves slowly across the surface and does not melt.',
+         'sodium': 'Sodium fizzes rapidly and melts into a ball. It moves quickly across the water surface.',
+         'potassium': 'Potassium fizzes violently, ignites with a lilac flame, and may explode.',
+         'cesium': 'Cesium reacts explosively with water, producing a lot of heat and hydrogen gas.'
+         };
+         
+         document.getElementById('reactionVideoObservations').textContent = observations[element] || 'Observations not available.';
+         
+         // Add event listeners to close buttons
+         const closeButtons = modal.querySelectorAll('.close-video-modal');
+         closeButtons.forEach(button => {
+         button.addEventListener('click', function() {
             // Stop the video by clearing the iframe src
             const iframe = document.getElementById('video-iframe');
             if (iframe) {
@@ -5253,9 +5409,9 @@ function cleanUrlAfterAuth() {
             
             // Remove the modal from the DOM
             modal.remove();
-        });
-    });
-}
+         });
+         });
+         }
          
          function showOxideTrendQuiz() {
              const question = {
@@ -5813,7 +5969,7 @@ function cleanUrlAfterAuth() {
              postsContainer.innerHTML = '<div class="spinner"></div>';
              
              const postsRef = database.ref('discussionPosts');
-
+         
              postsRef.orderByChild('createdAt').on('value', (snapshot) => {
                  postsContainer.innerHTML = '';
                  
@@ -6655,13 +6811,13 @@ function cleanUrlAfterAuth() {
             
             document.getElementById('groupDetailsContent').innerHTML = content;
             document.getElementById('groupDetailsModal').classList.add('active');
-        }
-        
-        function closeGroupDetailsModal() {
+         }
+         
+         function closeGroupDetailsModal() {
             document.getElementById('groupDetailsModal').classList.remove('active');
-        }
-        
-        function joinStudyGroup(groupId) {
+         }
+         
+         function joinStudyGroup(groupId) {
             if (!currentUser) {
                 showToast('error', 'Sign in required', 'Please sign in to join study groups.');
                 showLoginModal();
@@ -6722,9 +6878,9 @@ function cleanUrlAfterAuth() {
                 console.error("Error getting study group:", error);
                 showToast('error', 'Error', 'Failed to join study group.');
             });
-        }
-        
-        function leaveStudyGroup(groupId) {
+         }
+         
+         function leaveStudyGroup(groupId) {
             if (!currentUser) {
                 showToast('error', 'Sign in required', 'Please sign in to leave study groups.');
                 showLoginModal();
@@ -6792,9 +6948,9 @@ function cleanUrlAfterAuth() {
                 console.error("Error getting study group:", error);
                 showToast('error', 'Error', 'Failed to leave study group.');
             });
-        }
-        
-        function showAddAnnouncement(groupId) {
+         }
+         
+         function showAddAnnouncement(groupId) {
             // This would open a modal to add an announcement
             // For simplicity, we'll just show a prompt
             const title = prompt('Announcement Title:');
@@ -6851,9 +7007,9 @@ function cleanUrlAfterAuth() {
                 console.error("Error getting study group:", error);
                 showToast('error', 'Error', 'Failed to add announcement.');
             });
-        }
-        
-        function showAddResource(groupId) {
+         }
+         
+         function showAddResource(groupId) {
             // This would open a modal to add a resource
             // For simplicity, we'll just show prompts
             const name = prompt('Resource Name:');
@@ -6914,15 +7070,15 @@ function cleanUrlAfterAuth() {
                 console.error("Error getting study group:", error);
                 showToast('error', 'Error', 'Failed to add resource.');
             });
-        }
-        
-        function downloadResource(url) {
+         }
+         
+         function downloadResource(url) {
             // In a real app, this would handle file downloads
             window.open(url, '_blank');
-        }
-        
-        // Leaderboard functions
-        function loadLeaderboard() {
+         }
+         
+         // Leaderboard functions
+         function loadLeaderboard() {
             const leaderboardContent = document.getElementById('leaderboardContent');
             leaderboardContent.innerHTML = '<div class="spinner"></div>';
             
@@ -6992,10 +7148,10 @@ function cleanUrlAfterAuth() {
                 console.error("Error loading leaderboard:", error);
                 leaderboardContent.innerHTML = '<p class="text-gray-500 text-center">Error loading leaderboard.</p>';
             });
-        }
-        
-        // Toast notification function
-        function showToast(type, title, message) {
+         }
+         
+         // Toast notification function
+         function showToast(type, title, message) {
             const toastContainer = document.getElementById('toastContainer');
             const toast = document.createElement('div');
             toast.className = `toast ${type}`;
@@ -7031,13 +7187,31 @@ function cleanUrlAfterAuth() {
                     toastContainer.removeChild(toast);
                 }, 400);
             }, 4000);
-        }
-        
-        // Initialize the app when the page loads
-        window.onload = function() {
+         }
+         
+         // Initialize the app when the page loads
+         window.onload = function() {
             initApp();
             checkForMagicLink();
-        };
+         };
+         // Add this function to your existing JavaScript
+         function toggleSidebar() {
+         const sidebar = document.getElementById('sidebar');
+         sidebar.classList.toggle('active');
+         }
+         
+         // Add this to your window.onload function
+         window.onload = function() {
+         initApp();
+         checkForMagicLink();
+         
+         // Add mobile menu toggle
+         const mobileMenuBtn = document.createElement('button');
+         mobileMenuBtn.className = 'mobile-menu-btn';
+         mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+         mobileMenuBtn.onclick = toggleSidebar;
+         document.querySelector('.main-content').prepend(mobileMenuBtn);
+         };
       </script>
    </body>
 </html>
