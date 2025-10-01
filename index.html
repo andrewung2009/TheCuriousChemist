@@ -93,6 +93,14 @@
          background-color: var(--primary);
          color: white;
          }
+         .btn-danger {
+         background-color: var(--danger);
+         color: white;
+         }
+         .btn-danger:hover {
+         background-color: #dc2626;
+         transform: translateY(-2px);
+         }
          .btn-disabled {
          background-color: #475569;
          color: #94a3b8;
@@ -329,6 +337,9 @@
          .notification.error {
          background-color: var(--danger);
          }
+         .notification.warning {
+         background-color: var(--accent);
+         }
          .coming-soon-badge {
          position: absolute;
          top: 10px;
@@ -454,10 +465,22 @@
          #newsletter-modal .btn-primary {
          margin-top: 10px;
          }
+         #newsletter-modal .btn-danger {
+         margin-top: 10px;
+         }
          #newsletter-modal .privacy-text {
          font-size: 0.875rem;
          color: #94a3b8;
          margin-top: 15px;
+         }
+         #newsletter-modal .subscribed-info {
+         background-color: rgba(16, 185, 129, 0.1);
+         border: 1px solid rgba(16, 185, 129, 0.3);
+         border-radius: 0.5rem;
+         padding: 1rem;
+         margin-bottom: 1rem;
+         color: #10b981;
+         font-weight: 500;
          }
          /* Mobile Responsive Styles */
          @media (max-width: 768px) {
@@ -919,7 +942,6 @@
          </div>
       </section>
       <!-- Resources Section -->
-      <!-- Resources Section -->
       <section id="resources" class="py-12 md:py-16 px-4 md:px-6 bg-slate-900">
          <div class="max-w-6xl mx-auto">
             <div class="text-center mb-12 md:mb-16">
@@ -1152,6 +1174,15 @@
                <h2 class="text-2xl font-bold mb-2">Stay Updated!</h2>
                <p class="text-gray-400">Subscribe to our newsletter for the latest chemistry resources and updates</p>
             </div>
+            
+            <!-- Email status will be shown here -->
+            <div id="email-status" class="hidden">
+               <div class="subscribed-info">
+                  <i class="fas fa-check-circle mr-2"></i>
+                  <span id="status-message"></span>
+               </div>
+            </div>
+            
             <form id="newsletter-form-modal">
                <div class="form-group">
                   <label for="newsletter-email-modal">Email Address</label>
@@ -1163,7 +1194,7 @@
                   I agree to receive newsletter emails
                   </label>
                </div>
-               <button type="submit" class="btn btn-primary w-full">
+               <button type="submit" id="newsletter-submit-btn" class="btn btn-primary w-full">
                <i class="fas fa-paper-plane mr-2"></i>
                Subscribe Now
                </button>
@@ -1225,6 +1256,9 @@
          const newsletterFormModal = document.getElementById('newsletter-form-modal');
          const newsletterEmailModal = document.getElementById('newsletter-email-modal');
          const newsletterCloseBtn = newsletterModal.querySelector('.close');
+         const emailStatus = document.getElementById('email-status');
+         const statusMessage = document.getElementById('status-message');
+         const newsletterSubmitBtn = document.getElementById('newsletter-submit-btn');
          
          // Mobile menu elements
          const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
@@ -1372,6 +1406,14 @@
                });
          });
          
+         // Check if email is already subscribed
+         function checkEmailSubscription(email) {
+            return database.ref('newsletter').orderByChild('email').equalTo(email).once('value')
+               .then(snapshot => {
+                  return snapshot.exists();
+               });
+         }
+         
          // Newsletter subscription (footer form)
          newsletterBtn.addEventListener('click', () => {
             const email = newsletterEmail.value.trim();
@@ -1388,21 +1430,29 @@
                return;
             }
             
-            // Save email to Firebase
-            const newsletterRef = database.ref('newsletter');
-            const newSubscriberRef = newsletterRef.push();
-            
-            newSubscriberRef.set({
-               email: email,
-               timestamp: firebase.database.ServerValue.TIMESTAMP
-            })
-            .then(() => {
-               showNotification('Successfully subscribed to newsletter!', 'success');
-               newsletterEmail.value = '';
-            })
-            .catch((error) => {
-               showNotification('Failed to subscribe: ' + error.message, 'error');
-            });
+            // Check if email is already subscribed
+            checkEmailSubscription(email)
+               .then(isSubscribed => {
+                  if (isSubscribed) {
+                     showNotification('This email is already subscribed. Use the newsletter button to manage your subscription.', 'warning');
+                  } else {
+                     // Save email to Firebase
+                     const newsletterRef = database.ref('newsletter');
+                     const newSubscriberRef = newsletterRef.push();
+                     
+                     newSubscriberRef.set({
+                        email: email,
+                        timestamp: firebase.database.ServerValue.TIMESTAMP
+                     })
+                     .then(() => {
+                        showNotification('Successfully subscribed to newsletter!', 'success');
+                        newsletterEmail.value = '';
+                     })
+                     .catch((error) => {
+                        showNotification('Failed to subscribe: ' + error.message, 'error');
+                     });
+                  }
+               });
          });
          
          // Allow submission with Enter key
@@ -1416,6 +1466,12 @@
          newsletterToggle.addEventListener('click', () => {
             newsletterModal.style.display = 'block';
             document.body.classList.add('modal-open');
+            // Reset form when opening
+            newsletterEmailModal.value = '';
+            emailStatus.classList.add('hidden');
+            newsletterSubmitBtn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i>Subscribe Now';
+            newsletterSubmitBtn.className = 'btn btn-primary w-full';
+            document.getElementById('newsletter-terms').checked = false;
          });
          
          // Close newsletter modal
@@ -1450,24 +1506,68 @@
                return;
             }
             
-            // Save email to Firebase
-            const newsletterRef = database.ref('newsletter');
-            const newSubscriberRef = newsletterRef.push();
-            
-            newSubscriberRef.set({
-               email: email,
-               timestamp: firebase.database.ServerValue.TIMESTAMP
-            })
-            .then(() => {
-               showNotification('Successfully subscribed to newsletter!', 'success');
-               newsletterEmailModal.value = '';
-               newsletterModal.style.display = 'none';
-               document.body.classList.remove('modal-open');
-            })
-            .catch((error) => {
-               showNotification('Failed to subscribe: ' + error.message, 'error');
-            });
+            // Check if email is already subscribed
+            checkEmailSubscription(email)
+               .then(isSubscribed => {
+                  if (isSubscribed) {
+                     // Show unsubscribe option
+                     emailStatus.classList.remove('hidden');
+                     statusMessage.textContent = `You are already subscribed with ${email}`;
+                     newsletterSubmitBtn.innerHTML = '<i class="fas fa-times mr-2"></i>Unsubscribe';
+                     newsletterSubmitBtn.className = 'btn btn-danger w-full';
+                     
+                     // Set up unsubscribe functionality
+                     newsletterSubmitBtn.onclick = function() {
+                        unsubscribeEmail(email);
+                     };
+                  } else {
+                     // Save email to Firebase
+                     const newsletterRef = database.ref('newsletter');
+                     const newSubscriberRef = newsletterRef.push();
+                     
+                     newSubscriberRef.set({
+                        email: email,
+                        timestamp: firebase.database.ServerValue.TIMESTAMP
+                     })
+                     .then(() => {
+                        showNotification('Successfully subscribed to newsletter!', 'success');
+                        newsletterEmailModal.value = '';
+                        newsletterModal.style.display = 'none';
+                        document.body.classList.remove('modal-open');
+                     })
+                     .catch((error) => {
+                        showNotification('Failed to subscribe: ' + error.message, 'error');
+                     });
+                  }
+               });
          });
+         
+         // Unsubscribe email function
+         function unsubscribeEmail(email) {
+            database.ref('newsletter').orderByChild('email').equalTo(email).once('value')
+               .then(snapshot => {
+                  if (snapshot.exists()) {
+                     // Get the key of the record to delete
+                     const updates = {};
+                     snapshot.forEach(childSnapshot => {
+                        updates[childSnapshot.key] = null;
+                     });
+                     
+                     // Remove the record
+                     return database.ref('newsletter').update(updates);
+                  } else {
+                     throw new Error('Email not found in subscription list');
+                  }
+               })
+               .then(() => {
+                  showNotification('Successfully unsubscribed from newsletter!', 'success');
+                  newsletterModal.style.display = 'none';
+                  document.body.classList.remove('modal-open');
+               })
+               .catch((error) => {
+                  showNotification('Failed to unsubscribe: ' + error.message, 'error');
+               });
+         }
          
          // Smooth scrolling for navigation links
          document.querySelectorAll('a[href^="#"]').forEach(anchor => {
