@@ -43,7 +43,7 @@
          overflow-x: hidden;
          }
          body.modal-open {
-            overflow: hidden;
+         overflow: hidden;
          }
          .font-display {
          font-family: 'Playfair Display', serif;
@@ -357,248 +357,212 @@
          z-index: 10;
          }
          .topic-header {
-            position: relative;
-            padding: 1rem;
-            background: rgba(16, 185, 129, 0.1);
-            border-bottom: 1px solid rgba(16, 185, 129, 0.3);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+         position: relative;
+         padding: 1rem;
+         background: rgba(16, 185, 129, 0.1);
+         border-bottom: 1px solid rgba(16, 185, 129, 0.3);
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
          }
          .topic-status {
-            display: flex;
-            align-items: center;
-            color: #10b981;
-            font-size: 0.875rem;
-            font-weight: 600;
+         display: flex;
+         align-items: center;
+         color: #10b981;
+         font-size: 0.875rem;
+         font-weight: 600;
          }
          .topic-status i {
-            margin-right: 0.5rem;
+         margin-right: 0.5rem;
          }
-         
          /* Newsletter FAB Styles */
          #newsletter-fab {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
+         position: fixed;
+         bottom: 20px;
+         right: 20px;
+         z-index: 1000;
          }
-         
          #newsletter-toggle {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            color: white;
-            border: none;
-            box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            animation: pulse 2s infinite;
-            transition: transform 0.3s ease;
-        }
-        
-        #newsletter-toggle:hover {
-            transform: scale(1.1);
-        }
-        
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 15px rgba(59, 130, 246, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
-            }
-        }
-        
-        .notification-badge {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background-color: #ef4444;
-            color: white;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: bold;
-            animation: blink 1.5s infinite;
-        }
-        
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-        
-        /* Newsletter Modal Styles */
-        #newsletter-modal .modal-content {
-            max-width: 450px;
-            text-align: center;
-        }
-        
-        #newsletter-modal h2 {
-            color: #f1f5f9;
-            margin-bottom: 10px;
-        }
-        
-        #newsletter-modal p {
-            color: #cbd5e1;
-            margin-bottom: 20px;
-        }
-        
-        #newsletter-modal .form-group {
-            text-align: left;
-        }
-        
-        #newsletter-modal .form-group label {
-            color: #e2e8f0;
-        }
-        
-        #newsletter-modal .btn-primary {
-            margin-top: 10px;
-        }
-        
-        #newsletter-modal .privacy-text {
-            font-size: 0.875rem;
-            color: #94a3b8;
-            margin-top: 15px;
-        }
-        
+         width: 60px;
+         height: 60px;
+         border-radius: 50%;
+         background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+         color: white;
+         border: none;
+         box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+         cursor: pointer;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         font-size: 24px;
+         animation: pulse 2s infinite;
+         transition: transform 0.3s ease;
+         }
+         #newsletter-toggle:hover {
+         transform: scale(1.1);
+         }
+         @keyframes pulse {
+         0% {
+         box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+         }
+         70% {
+         box-shadow: 0 0 0 15px rgba(59, 130, 246, 0);
+         }
+         100% {
+         box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+         }
+         }
+         .notification-badge {
+         position: absolute;
+         top: -8px;
+         right: -8px;
+         background-color: #ef4444;
+         color: white;
+         border-radius: 50%;
+         width: 24px;
+         height: 24px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         font-size: 14px;
+         font-weight: bold;
+         animation: blink 1.5s infinite;
+         }
+         @keyframes blink {
+         0%, 100% { opacity: 1; }
+         50% { opacity: 0.3; }
+         }
+         /* Newsletter Modal Styles */
+         #newsletter-modal .modal-content {
+         max-width: 450px;
+         text-align: center;
+         }
+         #newsletter-modal h2 {
+         color: #f1f5f9;
+         margin-bottom: 10px;
+         }
+         #newsletter-modal p {
+         color: #cbd5e1;
+         margin-bottom: 20px;
+         }
+         #newsletter-modal .form-group {
+         text-align: left;
+         }
+         #newsletter-modal .form-group label {
+         color: #e2e8f0;
+         }
+         #newsletter-modal .btn-primary {
+         margin-top: 10px;
+         }
+         #newsletter-modal .privacy-text {
+         font-size: 0.875rem;
+         color: #94a3b8;
+         margin-top: 15px;
+         }
          /* Mobile Responsive Styles */
          @media (max-width: 768px) {
-            .floating-shape {
-               display: none;
-            }
-            
-            .modal-content {
-               margin: 10% auto;
-               padding: 1.5rem;
-               width: 95%;
-            }
-            
-            .hero-gradient {
-               padding: 3rem 1rem;
-            }
-            
-            .hero-gradient h1 {
-               font-size: 2rem;
-               line-height: 1.2;
-            }
-            
-            .hero-gradient p {
-               font-size: 1rem;
-            }
-            
-            .btn {
-               padding: 0.6rem 1.2rem;
-               font-size: 0.9rem;
-            }
-            
-            .content-card {
-               padding: 1rem;
-            }
-            
-            .feature-icon {
-               font-size: 1.5rem;
-            }
-            
-            .topic-card {
-               margin-bottom: 1rem;
-            }
-            
-            .topic-icon {
-               width: 50px;
-               height: 50px;
-               font-size: 1.25rem;
-            }
-            
-            .nav-link {
-               font-size: 0.9rem;
-            }
-            
-            .notification {
-               right: 10px;
-               left: 10px;
-               transform: translateY(-150%);
-            }
-            
-            .notification.show {
-               transform: translateY(0);
-            }
-            
-            #newsletter-fab {
-               bottom: 15px;
-               right: 15px;
-            }
-            
-            #newsletter-toggle {
-               width: 50px;
-               height: 50px;
-               font-size: 20px;
-            }
-            
-            .notification-badge {
-               width: 20px;
-               height: 20px;
-               font-size: 12px;
-            }
-            
-            /* Mobile menu styles */
-            .mobile-menu-btn {
-               display: block;
-               background: none;
-               border: none;
-               color: white;
-               font-size: 1.5rem;
-               cursor: pointer;
-            }
-            
-            .mobile-nav {
-               display: none;
-               position: absolute;
-               top: 100%;
-               left: 0;
-               width: 100%;
-               background: rgba(15, 23, 42, 0.95);
-               backdrop-filter: blur(10px);
-               padding: 1rem;
-               box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            }
-            
-            .mobile-nav.active {
-               display: block;
-            }
-            
-            .mobile-nav a {
-               display: block;
-               padding: 0.75rem 0;
-               color: #e2e8f0;
-               font-weight: 500;
-               border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            }
-            
-            .mobile-nav a:last-child {
-               border-bottom: none;
-            }
+         .floating-shape {
+         display: none;
          }
-         
+         .modal-content {
+         margin: 10% auto;
+         padding: 1.5rem;
+         width: 95%;
+         }
+         .hero-gradient {
+         padding: 3rem 1rem;
+         }
+         .hero-gradient h1 {
+         font-size: 2rem;
+         line-height: 1.2;
+         }
+         .hero-gradient p {
+         font-size: 1rem;
+         }
+         .btn {
+         padding: 0.6rem 1.2rem;
+         font-size: 0.9rem;
+         }
+         .content-card {
+         padding: 1rem;
+         }
+         .feature-icon {
+         font-size: 1.5rem;
+         }
+         .topic-card {
+         margin-bottom: 1rem;
+         }
+         .topic-icon {
+         width: 50px;
+         height: 50px;
+         font-size: 1.25rem;
+         }
+         .nav-link {
+         font-size: 0.9rem;
+         }
+         .notification {
+         right: 10px;
+         left: 10px;
+         transform: translateY(-150%);
+         }
+         .notification.show {
+         transform: translateY(0);
+         }
+         #newsletter-fab {
+         bottom: 15px;
+         right: 15px;
+         }
+         #newsletter-toggle {
+         width: 50px;
+         height: 50px;
+         font-size: 20px;
+         }
+         .notification-badge {
+         width: 20px;
+         height: 20px;
+         font-size: 12px;
+         }
+         /* Mobile menu styles */
+         .mobile-menu-btn {
+         display: block;
+         background: none;
+         border: none;
+         color: white;
+         font-size: 1.5rem;
+         cursor: pointer;
+         }
+         .mobile-nav {
+         display: none;
+         position: absolute;
+         top: 100%;
+         left: 0;
+         width: 100%;
+         background: rgba(15, 23, 42, 0.95);
+         backdrop-filter: blur(10px);
+         padding: 1rem;
+         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+         }
+         .mobile-nav.active {
+         display: block;
+         }
+         .mobile-nav a {
+         display: block;
+         padding: 0.75rem 0;
+         color: #e2e8f0;
+         font-weight: 500;
+         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+         }
+         .mobile-nav a:last-child {
+         border-bottom: none;
+         }
+         }
          @media (min-width: 769px) {
-            .mobile-menu-btn {
-               display: none;
-            }
-            
-            .mobile-nav {
-               display: none !important;
-            }
+         .mobile-menu-btn {
+         display: none;
+         }
+         .mobile-nav {
+         display: none !important;
+         }
          }
       </style>
    </head>
@@ -607,7 +571,6 @@
       <div class="floating-shape bg-blue-500 w-64 h-64 top-10 left-10 float-animation" style="animation-delay: 0s;"></div>
       <div class="floating-shape bg-purple-500 w-48 h-48 bottom-20 right-20 float-animation" style="animation-delay: 2s;"></div>
       <div class="floating-shape bg-indigo-500 w-32 h-32 top-1/2 right-1/4 float-animation" style="animation-delay: 4s;"></div>
-
       <!-- Header -->
       <header class="py-4 px-6 flex justify-between items-center relative z-10 bg-slate-900/80 backdrop-blur-sm shadow-sm">
          <div class="flex items-center space-x-3">
@@ -616,7 +579,6 @@
             </div>
             <span class="text-xl font-bold text-white">TheCuriousChemist</span>
          </div>
-         
          <!-- Desktop Navigation -->
          <nav class="hidden md:flex space-x-8">
             <a href="#home" class="nav-link text-gray-300 hover:text-blue-400">Home</a>
@@ -624,12 +586,10 @@
             <a href="#resources" class="nav-link text-gray-300 hover:text-blue-400">Resources</a>
             <a href="#about" class="nav-link text-gray-300 hover:text-blue-400">About</a>
          </nav>
-         
          <!-- Mobile Menu Button -->
          <button class="mobile-menu-btn md:hidden">
-            <i class="fas fa-bars"></i>
+         <i class="fas fa-bars"></i>
          </button>
-         
          <!-- Mobile Navigation -->
          <div class="mobile-nav">
             <a href="#home" class="nav-link text-gray-300 hover:text-blue-400">Home</a>
@@ -637,22 +597,20 @@
             <a href="#resources" class="nav-link text-gray-300 hover:text-blue-400">Resources</a>
             <a href="#about" class="nav-link text-gray-300 hover:text-blue-400">About</a>
          </div>
-         
          <div class="flex items-center space-x-4">
             <div id="user-info" class="hidden items-center space-x-3">
                <span id="user-name" class="text-gray-300"></span>
                <button id="logout-btn" class="btn btn-outline">
-                  <i class="fas fa-sign-out-alt mr-2"></i>
-                  Logout
+               <i class="fas fa-sign-out-alt mr-2"></i>
+               Logout
                </button>
             </div>
             <button id="login-btn" class="btn btn-primary">
-               <i class="fas fa-sign-in-alt mr-2"></i>
-               Login
+            <i class="fas fa-sign-in-alt mr-2"></i>
+            Login
             </button>
          </div>
       </header>
-
       <!-- Hero Section -->
       <section id="home" class="hero-gradient py-12 md:py-20 px-4 md:px-6 relative overflow-hidden">
          <div class="max-w-6xl mx-auto">
@@ -664,19 +622,17 @@
                   <p class="text-base md:text-lg mb-8 max-w-lg mx-auto md:mx-0 text-gray-300">
                      Explore the fundamental principles of chemistry through interactive lessons, engaging visuals, and comprehensive study materials designed for high school students.
                   </p>
-                  
                   <div class="flex flex-wrap justify-center md:justify-start gap-4">
                      <a href="https://andrewung2009.github.io/TheCuriousChemist/alkalimetals/alkalimetals.html" class="btn btn-primary">
-                        <i class="fas fa-play-circle mr-2"></i>
-                        Start Learning
+                     <i class="fas fa-play-circle mr-2"></i>
+                     Start Learning
                      </a>
                      <a href="#topics" class="btn btn-outline">
-                        <i class="fas fa-book mr-2"></i>
-                        Explore Topics
+                     <i class="fas fa-book mr-2"></i>
+                     Explore Topics
                      </a>
                   </div>
                </div>
-               
                <div class="md:w-1/2 flex justify-center">
                   <div class="relative">
                      <div class="w-56 h-56 md:w-72 md:h-72 bg-slate-800 rounded-2xl shadow-xl flex items-center justify-center border border-slate-700">
@@ -696,7 +652,6 @@
             </div>
          </div>
       </section>
-
       <!-- Features Section -->
       <section class="py-12 md:py-16 px-4 md:px-6 bg-slate-900">
          <div class="max-w-6xl mx-auto">
@@ -704,7 +659,6 @@
                <h2 class="text-2xl md:text-3xl font-bold mb-4">Why Choose Our Platform</h2>
                <p class="text-gray-400 max-w-2xl mx-auto">We provide the tools and resources you need to excel in chemistry</p>
             </div>
-            
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
                <div class="content-card p-4 md:p-6 text-center">
                   <div class="feature-icon">
@@ -713,7 +667,6 @@
                   <h3 class="text-lg md:text-xl font-semibold mb-2">Interactive Elements</h3>
                   <p class="text-gray-400 text-sm md:text-base">Engage with dynamic periodic tables and molecular models</p>
                </div>
-               
                <div class="content-card p-4 md:p-6 text-center">
                   <div class="feature-icon">
                      <i class="fas fa-vial"></i>
@@ -721,7 +674,6 @@
                   <h3 class="text-lg md:text-xl font-semibold mb-2">Virtual Experiments</h3>
                   <p class="text-gray-400 text-sm md:text-base">Conduct safe experiments in our virtual lab environment</p>
                </div>
-               
                <div class="content-card p-4 md:p-6 text-center">
                   <div class="feature-icon">
                      <i class="fas fa-chart-line"></i>
@@ -729,7 +681,6 @@
                   <h3 class="text-lg md:text-xl font-semibold mb-2">Progress Tracking</h3>
                   <p class="text-gray-400 text-sm md:text-base">Monitor your learning journey with detailed analytics</p>
                </div>
-               
                <div class="content-card p-4 md:p-6 text-center">
                   <div class="feature-icon">
                      <i class="fas fa-users"></i>
@@ -740,7 +691,6 @@
             </div>
          </div>
       </section>
-
       <!-- Topics Section -->
       <section id="topics" class="py-12 md:py-16 px-4 md:px-6 bg-slate-800">
          <div class="max-w-6xl mx-auto">
@@ -751,7 +701,6 @@
                   <p class="text-blue-300 text-sm md:text-base"><i class="fas fa-info-circle mr-2"></i> Currently available: Group 1: Alkali Metals. More topics coming soon!</p>
                </div>
             </div>
-            
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                <!-- Topic Card 1 - Available -->
                <div class="topic-card">
@@ -792,11 +741,10 @@
                         <p class="text-gray-300"><i class="fas fa-info-circle text-blue-400 mr-2"></i>Only Group 1: Alkali Metals is currently available. Other groups will be released in future updates.</p>
                      </div>
                      <a href="https://andrewung2009.github.io/TheCuriousChemist/alkalimetals/alkalimetals.html" class="btn btn-primary mt-6 w-full justify-center">
-                        Start Learning
+                     Start Learning
                      </a>
                   </div>
                </div>
-               
                <!-- Topic Card 2 - Coming Soon -->
                <div class="topic-card">
                   <div class="coming-soon-badge">Coming Soon</div>
@@ -827,11 +775,10 @@
                         </div>
                      </div>
                      <button class="btn btn-disabled mt-6 w-full justify-center" disabled>
-                      Coming Soon
+                     Coming Soon
                      </button>
                   </div>
                </div>
-               
                <!-- Topic Card 3 - Coming Soon -->
                <div class="topic-card">
                   <div class="coming-soon-badge">Coming Soon</div>
@@ -862,11 +809,10 @@
                         </div>
                      </div>
                      <button class="btn btn-disabled mt-6 w-full justify-center" disabled>
-                      Coming Soon
+                     Coming Soon
                      </button>
                   </div>
                </div>
-               
                <!-- Topic Card 4 - Coming Soon -->
                <div class="topic-card">
                   <div class="coming-soon-badge">Coming Soon</div>
@@ -897,11 +843,10 @@
                         </div>
                      </div>
                      <button class="btn btn-disabled mt-6 w-full justify-center" disabled>
-                      Coming Soon
+                     Coming Soon
                      </button>
                   </div>
                </div>
-               
                <!-- Topic Card 5 - Coming Soon -->
                <div class="topic-card">
                   <div class="coming-soon-badge">Coming Soon</div>
@@ -932,11 +877,10 @@
                         </div>
                      </div>
                      <button class="btn btn-disabled mt-6 w-full justify-center" disabled>
-                      Coming Soon
+                     Coming Soon
                      </button>
                   </div>
                </div>
-               
                <!-- Topic Card 6 - Coming Soon -->
                <div class="topic-card">
                   <div class="coming-soon-badge">Coming Soon</div>
@@ -967,98 +911,118 @@
                         </div>
                      </div>
                      <button class="btn btn-disabled mt-6 w-full justify-center" disabled>
-                      Coming Soon
+                     Coming Soon
                      </button>
                   </div>
                </div>
             </div>
          </div>
       </section>
-
+      <!-- Resources Section -->
       <!-- Resources Section -->
       <section id="resources" class="py-12 md:py-16 px-4 md:px-6 bg-slate-900">
          <div class="max-w-6xl mx-auto">
             <div class="text-center mb-12 md:mb-16">
                <h2 class="text-2xl md:text-3xl font-bold mb-4">Learning Resources</h2>
                <p class="text-gray-400 max-w-2xl mx-auto">Supplement your learning with our curated resources</p>
+               <div class="mt-4 bg-blue-900/30 inline-block px-4 py-2 rounded-lg">
+                  <p class="text-blue-300 text-sm md:text-base"><i class="fas fa-info-circle mr-2"></i> All resources are coming soon. Check back for updates!</p>
+               </div>
             </div>
-            
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-               <div class="content-card p-4 md:p-6">
-                  <div class="flex items-center mb-4">
-                     <div class="bg-blue-900 p-3 rounded-lg mr-4">
-                        <i class="fas fa-book text-blue-400 text-xl"></i>
+               <!-- Study Guides Card -->
+               <div class="topic-card">
+                  <div class="coming-soon-badge">Coming Soon</div>
+                  <div class="p-4 md:p-6">
+                     <div class="flex items-center mb-4">
+                        <div class="bg-blue-900 p-3 rounded-lg mr-4">
+                           <i class="fas fa-book text-blue-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-semibold">Study Guides</h3>
                      </div>
-                     <h3 class="text-lg md:text-xl font-semibold">Study Guides</h3>
+                     <p class="text-gray-400 mb-4 text-sm md:text-base">Comprehensive guides covering all key topics</p>
+                     <ul class="space-y-2">
+                        <li class="flex items-center">
+                           <i class="fas fa-lock text-gray-500 mr-2"></i>
+                           <span class="text-gray-500 text-sm md:text-base">Atomic Structure Guide</span>
+                        </li>
+                        <li class="flex items-center">
+                           <i class="fas fa-lock text-gray-500 mr-2"></i>
+                           <span class="text-gray-500 text-sm md:text-base">Chemical Bonding Notes</span>
+                        </li>
+                        <li class="flex items-center">
+                           <i class="fas fa-lock text-gray-500 mr-2"></i>
+                           <span class="text-gray-500 text-sm md:text-base">Reaction Types Summary</span>
+                        </li>
+                     </ul>
+                     <button class="btn btn-disabled mt-6 w-full justify-center" disabled>
+                     Coming Soon
+                     </button>
                   </div>
-                  <p class="text-gray-400 mb-4 text-sm md:text-base">Comprehensive guides covering all key topics</p>
-                  <ul class="space-y-2">
-                     <li class="flex items-center">
-                        <i class="fas fa-file-pdf text-red-400 mr-2"></i>
-                        <a href="#" class="text-blue-400 hover:underline text-sm md:text-base">Atomic Structure Guide</a>
-                     </li>
-                     <li class="flex items-center">
-                        <i class="fas fa-file-pdf text-red-400 mr-2"></i>
-                        <a href="#" class="text-blue-400 hover:underline text-sm md:text-base">Chemical Bonding Notes</a>
-                     </li>
-                     <li class="flex items-center">
-                        <i class="fas fa-file-pdf text-red-400 mr-2"></i>
-                        <a href="#" class="text-blue-400 hover:underline text-sm md:text-base">Reaction Types Summary</a>
-                     </li>
-                  </ul>
                </div>
-               
-               <div class="content-card p-4 md:p-6">
-                  <div class="flex items-center mb-4">
-                     <div class="bg-blue-900 p-3 rounded-lg mr-4">
-                        <i class="fas fa-video text-blue-400 text-xl"></i>
+               <!-- Video Lessons Card -->
+               <div class="topic-card">
+                  <div class="coming-soon-badge">Coming Soon</div>
+                  <div class="p-4 md:p-6">
+                     <div class="flex items-center mb-4">
+                        <div class="bg-blue-900 p-3 rounded-lg mr-4">
+                           <i class="fas fa-video text-blue-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-semibold">Video Lessons</h3>
                      </div>
-                     <h3 class="text-lg md:text-xl font-semibold">Video Lessons</h3>
+                     <p class="text-gray-400 mb-4 text-sm md:text-base">Watch expert-led video lessons on complex topics</p>
+                     <ul class="space-y-2">
+                        <li class="flex items-center">
+                           <i class="fas fa-lock text-gray-500 mr-2"></i>
+                           <span class="text-gray-500 text-sm md:text-base">Introduction to Atomic Structure</span>
+                        </li>
+                        <li class="flex items-center">
+                           <i class="fas fa-lock text-gray-500 mr-2"></i>
+                           <span class="text-gray-500 text-sm md:text-base">Chemical Equilibrium Explained</span>
+                        </li>
+                        <li class="flex items-center">
+                           <i class="fas fa-lock text-gray-500 mr-2"></i>
+                           <span class="text-gray-500 text-sm md:text-base">Organic Reaction Mechanisms</span>
+                        </li>
+                     </ul>
+                     <button class="btn btn-disabled mt-6 w-full justify-center" disabled>
+                     Coming Soon
+                     </button>
                   </div>
-                  <p class="text-gray-400 mb-4 text-sm md:text-base">Watch expert-led video lessons on complex topics</p>
-                  <ul class="space-y-2">
-                     <li class="flex items-center">
-                        <i class="fas fa-play-circle text-red-400 mr-2"></i>
-                        <a href="#" class="text-blue-400 hover:underline text-sm md:text-base">Introduction to Atomic Structure</a>
-                     </li>
-                     <li class="flex items-center">
-                        <i class="fas fa-play-circle text-red-400 mr-2"></i>
-                        <a href="#" class="text-blue-400 hover:underline text-sm md:text-base">Chemical Equilibrium Explained</a>
-                     </li>
-                     <li class="flex items-center">
-                        <i class="fas fa-play-circle text-red-400 mr-2"></i>
-                        <a href="#" class="text-blue-400 hover:underline text-sm md:text-base">Organic Reaction Mechanisms</a>
-                     </li>
-                  </ul>
                </div>
-               
-               <div class="content-card p-4 md:p-6">
-                  <div class="flex items-center mb-4">
-                     <div class="bg-blue-900 p-3 rounded-lg mr-4">
-                        <i class="fas fa-flask text-blue-400 text-xl"></i>
+               <!-- Virtual Lab Card -->
+               <div class="topic-card">
+                  <div class="coming-soon-badge">Coming Soon</div>
+                  <div class="p-4 md:p-6">
+                     <div class="flex items-center mb-4">
+                        <div class="bg-blue-900 p-3 rounded-lg mr-4">
+                           <i class="fas fa-flask text-blue-400 text-xl"></i>
+                        </div>
+                        <h3 class="text-lg md:text-xl font-semibold">Virtual Lab</h3>
                      </div>
-                     <h3 class="text-lg md:text-xl font-semibold">Virtual Lab</h3>
+                     <p class="text-gray-400 mb-4 text-sm md:text-base">Practice experiments in our safe virtual environment</p>
+                     <ul class="space-y-2">
+                        <li class="flex items-center">
+                           <i class="fas fa-lock text-gray-500 mr-2"></i>
+                           <span class="text-gray-500 text-sm md:text-base">Acid-Base Titrations</span>
+                        </li>
+                        <li class="flex items-center">
+                           <i class="fas fa-lock text-gray-500 mr-2"></i>
+                           <span class="text-gray-500 text-sm md:text-base">Electrochemistry Experiments</span>
+                        </li>
+                        <li class="flex items-center">
+                           <i class="fas fa-lock text-gray-500 mr-2"></i>
+                           <span class="text-gray-500 text-sm md:text-base">Organic Synthesis Lab</span>
+                        </li>
+                     </ul>
+                     <button class="btn btn-disabled mt-6 w-full justify-center" disabled>
+                     Coming Soon
+                     </button>
                   </div>
-                  <p class="text-gray-400 mb-4 text-sm md:text-base">Practice experiments in our safe virtual environment</p>
-                  <ul class="space-y-2">
-                     <li class="flex items-center">
-                        <i class="fas fa-vial text-green-400 mr-2"></i>
-                        <a href="#" class="text-blue-400 hover:underline text-sm md:text-base">Acid-Base Titrations</a>
-                     </li>
-                     <li class="flex items-center">
-                        <i class="fas fa-vial text-green-400 mr-2"></i>
-                        <a href="#" class="text-blue-400 hover:underline text-sm md:text-base">Electrochemistry Experiments</a>
-                     </li>
-                     <li class="flex items-center">
-                        <i class="fas fa-vial text-green-400 mr-2"></i>
-                        <a href="#" class="text-blue-400 hover:underline text-sm md:text-base">Organic Synthesis Lab</a>
-                     </li>
-                  </ul>
                </div>
             </div>
          </div>
       </section>
-
       <!-- Footer -->
       <footer class="py-8 md:py-12 px-4 md:px-6 bg-slate-950 text-white">
          <div class="max-w-6xl mx-auto">
@@ -1074,7 +1038,6 @@
                      TheCuriousChemist - Making chemistry accessible and engaging for high school students worldwide.
                   </p>
                </div>
-               
                <div>
                   <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
                   <ul class="space-y-2">
@@ -1084,7 +1047,6 @@
                      <li><a href="#about" class="text-gray-400 hover:text-white text-sm md:text-base">About</a></li>
                   </ul>
                </div>
-               
                <div>
                   <h3 class="text-lg font-semibold mb-4">Topics</h3>
                   <ul class="space-y-2">
@@ -1094,7 +1056,6 @@
                      <li><a href="#" class="text-gray-400 hover:text-white text-sm md:text-base">Acids and Bases</a></li>
                   </ul>
                </div>
-               
                <div>
                   <h3 class="text-lg font-semibold mb-4">Connect With Us</h3>
                   <div class="flex space-x-4 mb-4">
@@ -1109,29 +1070,25 @@
                   <div class="mt-2 flex">
                      <input type="email" id="newsletter-email" placeholder="Your email" class="px-4 py-2 rounded-l-lg text-gray-800 w-full text-sm md:text-base">
                      <button id="newsletter-btn" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-r-lg">
-                      <i class="fas fa-paper-plane"></i>
+                     <i class="fas fa-paper-plane"></i>
                      </button>
                   </div>
                </div>
             </div>
-            
             <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
                <p class="text-sm md:text-base">&copy; 2023 TheCuriousChemist. All rights reserved.</p>
             </div>
          </div>
       </footer>
-
       <!-- Login Modal -->
       <div id="login-modal" class="modal">
          <div class="modal-content">
             <span class="close">&times;</span>
             <h2 class="text-2xl font-bold mb-6 text-center">Welcome to TheCuriousChemist</h2>
-            
             <div class="tab-buttons">
                <button class="tab-button active" data-tab="login">Login</button>
                <button class="tab-button" data-tab="signup">Sign Up</button>
             </div>
-            
             <!-- Login Form -->
             <div id="login-tab" class="tab-content active">
                <form id="login-form">
@@ -1145,17 +1102,14 @@
                   </div>
                   <button type="submit" class="btn btn-primary w-full">Login</button>
                </form>
-               
                <div class="divider">
                   <span>OR</span>
                </div>
-               
                <button id="google-login-btn" class="btn btn-outline w-full">
-                  <i class="fab fa-google mr-2"></i>
-                  Continue with Google
+               <i class="fab fa-google mr-2"></i>
+               Continue with Google
                </button>
             </div>
-            
             <!-- Signup Form -->
             <div id="signup-tab" class="tab-content">
                <form id="signup-form">
@@ -1177,19 +1131,16 @@
                   </div>
                   <button type="submit" class="btn btn-primary w-full">Sign Up</button>
                </form>
-               
                <div class="divider">
                   <span>OR</span>
                </div>
-               
                <button id="google-signup-btn" class="btn btn-outline w-full">
-                  <i class="fab fa-google mr-2"></i>
-                  Continue with Google
+               <i class="fab fa-google mr-2"></i>
+               Continue with Google
                </button>
             </div>
          </div>
       </div>
-
       <!-- Newsletter Modal -->
       <div id="newsletter-modal" class="modal">
          <div class="modal-content">
@@ -1201,7 +1152,6 @@
                <h2 class="text-2xl font-bold mb-2">Stay Updated!</h2>
                <p class="text-gray-400">Subscribe to our newsletter for the latest chemistry resources and updates</p>
             </div>
-            
             <form id="newsletter-form-modal">
                <div class="form-group">
                   <label for="newsletter-email-modal">Email Address</label>
@@ -1209,33 +1159,29 @@
                </div>
                <div class="form-group">
                   <label>
-                     <input type="checkbox" id="newsletter-terms" class="mr-2" required>
-                     I agree to receive newsletter emails
+                  <input type="checkbox" id="newsletter-terms" class="mr-2" required>
+                  I agree to receive newsletter emails
                   </label>
                </div>
                <button type="submit" class="btn btn-primary w-full">
-                  <i class="fas fa-paper-plane mr-2"></i>
-                  Subscribe Now
+               <i class="fas fa-paper-plane mr-2"></i>
+               Subscribe Now
                </button>
             </form>
-            
             <div class="mt-6 text-center text-sm text-gray-500 privacy-text">
                <p>We respect your privacy. Unsubscribe at any time.</p>
             </div>
          </div>
       </div>
-
       <!-- Newsletter FAB -->
       <div id="newsletter-fab">
          <button id="newsletter-toggle">
-            <i class="fas fa-envelope"></i>
-            <span class="notification-badge">!</span>
+         <i class="fas fa-envelope"></i>
+         <span class="notification-badge">!</span>
          </button>
       </div>
-
       <!-- Notification -->
       <div id="notification" class="notification"></div>
-
       <script>
          // Firebase configuration
          const firebaseConfig = {
@@ -1252,7 +1198,7 @@
          firebase.initializeApp(firebaseConfig);
          const auth = firebase.auth();
          const database = firebase.database();
-
+         
          // DOM elements
          const loginBtn = document.getElementById('login-btn');
          const logoutBtn = document.getElementById('logout-btn');
@@ -1283,7 +1229,7 @@
          // Mobile menu elements
          const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
          const mobileNav = document.querySelector('.mobile-nav');
-
+         
          // Show notification
          function showNotification(message, type) {
             notification.textContent = message;
@@ -1293,7 +1239,7 @@
                notification.classList.remove('show');
             }, 3000);
          }
-
+         
          // Check auth state
          auth.onAuthStateChanged(user => {
             if (user) {
@@ -1310,26 +1256,26 @@
                loginBtn.style.display = 'inline-flex';
             }
          });
-
+         
          // Open modal
          loginBtn.addEventListener('click', () => {
             loginModal.style.display = 'block';
             document.body.classList.add('modal-open');
          });
-
+         
          // Close modal
          closeModal.addEventListener('click', () => {
             loginModal.style.display = 'none';
             document.body.classList.remove('modal-open');
          });
-
+         
          window.addEventListener('click', (e) => {
             if (e.target === loginModal) {
                loginModal.style.display = 'none';
                document.body.classList.remove('modal-open');
             }
          });
-
+         
          // Tab switching
          tabButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -1344,7 +1290,7 @@
                document.getElementById(`${tabId}-tab`).classList.add('active');
             });
          });
-
+         
          // Login form submission
          loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -1364,7 +1310,7 @@
                   showNotification(error.message, 'error');
                });
          });
-
+         
          // Signup form submission
          signupForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -1396,7 +1342,7 @@
                   showNotification(error.message, 'error');
                });
          });
-
+         
          // Google sign in
          const googleProvider = new firebase.auth.GoogleAuthProvider();
          
@@ -1414,7 +1360,7 @@
          
          googleLoginBtn.addEventListener('click', signInWithGoogle);
          googleSignupBtn.addEventListener('click', signInWithGoogle);
-
+         
          // Logout
          logoutBtn.addEventListener('click', () => {
             auth.signOut()
@@ -1425,7 +1371,7 @@
                   showNotification(error.message, 'error');
                });
          });
-
+         
          // Newsletter subscription (footer form)
          newsletterBtn.addEventListener('click', () => {
             const email = newsletterEmail.value.trim();
@@ -1458,14 +1404,14 @@
                showNotification('Failed to subscribe: ' + error.message, 'error');
             });
          });
-
+         
          // Allow submission with Enter key
          newsletterEmail.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                newsletterBtn.click();
             }
          });
-
+         
          // Newsletter FAB functionality
          newsletterToggle.addEventListener('click', () => {
             newsletterModal.style.display = 'block';
@@ -1522,7 +1468,7 @@
                showNotification('Failed to subscribe: ' + error.message, 'error');
             });
          });
-
+         
          // Smooth scrolling for navigation links
          document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
