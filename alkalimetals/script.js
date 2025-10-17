@@ -1,882 +1,886 @@
+// Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyBOp4x0lTFvmt2s3MQKBRYmZT9IJ2ZaRi8",
+    authDomain: "group-1-alkali-metals.firebaseapp.com",
+    databaseURL: "https://group-1-alkali-metals-default-rtdb.firebaseio.com",
+    projectId: "group-1-alkali-metals",
+    storageBucket: "group-1-alkali-metals.firebasestorage.app",
+    messagingSenderId: "806417495419",
+    appId: "1:806417495419:web:5b80607e8a23e96da4f9de",
+    measurementId: "G-S76E52MQ37"
+};
 
-         // Firebase configuration
-         const firebaseConfig = {
-             apiKey: "AIzaSyBOp4x0lTFvmt2s3MQKBRYmZT9IJ2ZaRi8",
-             authDomain: "group-1-alkali-metals.firebaseapp.com",
-             databaseURL: "https://group-1-alkali-metals-default-rtdb.firebaseio.com",
-             projectId: "group-1-alkali-metals",
-             storageBucket: "group-1-alkali-metals.firebasestorage.app",
-             messagingSenderId: "806417495419",
-             appId: "1:806417495419:web:5b80607e8a23e96da4f9de",
-             measurementId: "G-S76E52MQ37"
-         };
-         // Initialize Firebase
-         firebase.initializeApp(firebaseConfig);
-         const auth = firebase.auth();
-         const database = firebase.database();
-         // Global variables
-         let currentUser = null;
-         let userData = null;
-         let currentSection = 'overview';
-         let completedSections = [];
-         let quizQuestions = [];
-         let currentQuestion = 0;
-         let score = 0;
-         let selectedOption = null;
-         let answerSubmitted = false;
-         let quizAnswers = []; // To store answers for each question
-         let discussionPosts = [];
-         let studyGroups = [];
-         let currentSort = 'newest';
-         let soundEnabled = true;
-         let dailyChallenge = null;
-         let dailyChallengeAnswered = false;
-         
-         // Quiz questions for terms
-         const termQuizQuestions = {
-             'lithium': {
-                 question: "What is the atomic number of Lithium?",
-                 options: ["1", "2", "3", "4"],
-                 correct: 2,
-                 explanation: "Lithium has an atomic number of 3, meaning it has 3 protons in its nucleus."
-             },
-             'sodium': {
-                 question: "What color flame does Sodium produce in a flame test?",
-                 options: ["Red", "Yellow", "Green", "Blue"],
-                 correct: 1,
-                 explanation: "Sodium produces a bright yellow flame in flame tests, which is why it's used in street lamps."
-             },
-             'potassium': {
-                 question: "How does Potassium react with water?",
-                 options: ["No reaction", "Fizzes steadily", "Fizzes violently and may ignite", "Explodes"],
-                 correct: 2,
-                 explanation: "Potassium reacts violently with water, producing hydrogen gas that often ignites with a lilac flame."
-             },
-             'alkali-metals': {
-                 question: "Why are Group 1 elements called alkali metals?",
-                 options: ["They are alkaline in nature", "They form alkaline solutions with water", "They are found in alkali", "They react with alkalis"],
-                 correct: 1,
-                 explanation: "Group 1 elements are called alkali metals because they react with water to form alkaline (basic) solutions."
-             },
-             'valence-electron': {
-                 question: "How many valence electrons do Group 1 elements have?",
-                 options: ["1", "2", "3", "7"],
-                 correct: 0,
-                 explanation: "All Group 1 elements have 1 valence electron in their outer shell, which they readily lose to form +1 ions."
-             },
-             'soft': {
-                 question: "Why are Group 1 metals considered soft?",
-                 options: ["They have low density", "They have weak metallic bonds", "They have low melting points", "They are easily cut with a knife"],
-                 correct: 3,
-                 explanation: "Group 1 metals are soft enough to be cut with a knife due to weak metallic bonding between atoms."
-             },
-             'melting-point': {
-                 question: "How does the melting point change down Group 1?",
-                 options: ["Increases", "Decreases", "Remains constant", "Varies randomly"],
-                 correct: 1,
-                 explanation: "The melting point decreases down Group 1 due to increasing atomic size and weaker metallic bonding."
-             },
-             'density': {
-                 question: "Which Group 1 metal is less dense than water?",
-                 options: ["Only Lithium", "Lithium and Sodium", "Lithium, Sodium, and Potassium", "All Group 1 metals"],
-                 correct: 2,
-                 explanation: "Lithium, Sodium, and Potassium are less dense than water and will float on it. Potassium is an exception to the general trend of increasing density down the group."
-             },
-             'reactivity': {
-                 question: "Which Group 1 metal is the most reactive?",
-                 options: ["Lithium", "Sodium", "Potassium", "Cesium"],
-                 correct: 3,
-                 explanation: "Reactivity increases down Group 1, making Cesium the most reactive element in the group."
-             },
-             'flame-test': {
-                 question: "What flame color does Lithium produce?",
-                 options: ["Red", "Yellow", "Green", "Violet"],
-                 correct: 0,
-                 explanation: "Lithium produces a red flame in flame tests, while Sodium produces yellow and Potassium produces violet/lilac."
-             }
-         };
-         
-         // Trend quiz questions
-         const trendQuizQuestions = {
-             'melting-point': {
-                 question: "Why does melting point decrease down Group 1?",
-                 options: [
-                     "Atomic size increases, metallic bonds weaken",
-                     "Atomic size decreases, metallic bonds strengthen",
-                     "Electron configuration changes",
-                     "Nuclear charge increases"
-                 ],
-                 correct: 0,
-                 explanation: "As we move down Group 1, atomic size increases due to additional electron shells. This increases the distance between positive nuclei and delocalized electrons, weakening the metallic bonds and lowering the melting point."
-             },
-             'density': {
-                 question: "Why is potassium less dense than sodium?",
-                 options: [
-                     "Potassium has fewer protons",
-                     "Potassium has a larger atomic radius",
-                     "Potassium has more electron shells",
-                     "Potassium has a different crystal structure"
-                 ],
-                 correct: 1,
-                 explanation: "Potassium has a larger atomic radius than sodium, but the increase in size is proportionally greater than the increase in mass, resulting in a lower density. This is an exception to the general trend of increasing density down the group."
-             },
-             'reactivity': {
-                 question: "Why does reactivity increase down Group 1?",
-                 options: [
-                     "Nuclear charge increases",
-                     "Atomic radius increases, making it easier to lose the outer electron",
-                     "Electron shielding decreases",
-                     "Ionization energy increases"
-                 ],
-                 correct: 1,
-                 explanation: "As we move down Group 1, the atomic radius increases due to additional electron shells. The outer electron is further from the nucleus and experiences more shielding from inner electrons, making it easier to lose and increasing reactivity."
-             }
-         };
-         
-         // Element details
-         const elementDetails = {
-             'Lithium': {
-                 symbol: 'Li',
-                 atomicNumber: 3,
-                 electronConfig: '2,1',
-                 meltingPoint: '180.5°C',
-                 density: '0.534 g/cm³',
-                 reactivity: 'Lowest in group',
-                 uses: 'Batteries, mood stabilizers, alloys',
-                 fact: 'Lithium is the lightest metal element and can float on water.',
-                 quizQuestion: "What is the primary use of Lithium in modern technology?",
-                 quizOptions: [
-                     "Street lighting",
-                     "Batteries for electric vehicles",
-                     "Atomic clocks",
-                     "Photoelectric cells"
-                 ],
-                 quizCorrect: 1,
-                 quizExplanation: "Lithium is primarily used in rechargeable batteries for electric vehicles due to its high electrochemical potential and light weight."
-             },
-             'Sodium': {
-                 symbol: 'Na',
-                 atomicNumber: 11,
-                 electronConfig: '2,8,1',
-                 meltingPoint: '97.8°C',
-                 density: '0.968 g/cm³',
-                 reactivity: 'Moderate',
-                 uses: 'Street lighting, salt production, chemicals',
-                 fact: 'Sodium produces a bright yellow flame in flame tests.',
-                 quizQuestion: "What compound of Sodium is essential for human health?",
-                 quizOptions: [
-                     "Sodium hydroxide",
-                     "Sodium carbonate",
-                     "Sodium chloride",
-                     "Sodium bicarbonate"
-                 ],
-                 quizCorrect: 2,
-                 quizExplanation: "Sodium chloride (table salt) is essential for human health, helping to maintain fluid balance and nerve function."
-             },
-             'Potassium': {
-                 symbol: 'K',
-                 atomicNumber: 19,
-                 electronConfig: '2,8,8,1',
-                 meltingPoint: '63.5°C',
-                 density: '0.89 g/cm³',
-                 reactivity: 'High',
-                 uses: 'Fertilizers, soaps, explosives',
-                 fact: 'Potassium is vital for plant growth and human health.',
-                 quizQuestion: "Why is Potassium important for the human body?",
-                 quizOptions: [
-                     "It strengthens bones",
-                     "It aids in muscle contraction and nerve function",
-                     "It helps in blood clotting",
-                     "It is a primary energy source"
-                 ],
-                 quizCorrect: 1,
-                 quizExplanation: "Potassium is crucial for proper muscle contraction, nerve function, and maintaining fluid balance in the body."
-             },
-             'Rubidium': {
-                 symbol: 'Rb',
-                 atomicNumber: 37,
-                 electronConfig: '2,8,18,8,1',
-                 meltingPoint: '39.3°C',
-                 density: '1.532 g/cm³',
-                 reactivity: 'Very high',
-                 uses: 'Atomic clocks, research, specialty glasses',
-                 fact: 'Rubidium is used in atomic clocks for precise timekeeping.',
-                 quizQuestion: "What is Rubidium primarily used for?",
-                 quizOptions: [
-                     "Medical imaging",
-                     "Atomic clocks and research",
-                     "Water purification",
-                     "Food preservation"
-                 ],
-                 quizCorrect: 1,
-                 quizExplanation: "Rubidium is primarily used in atomic clocks for precise timekeeping and in various research applications due to its unique properties."
-             },
-             'Cesium': {
-                 symbol: 'Cs',
-                 atomicNumber: 55,
-                 electronConfig: '2,8,18,18,8,1',
-                 meltingPoint: '28.4°C',
-                 density: '1.93 g/cm³',
-                 reactivity: 'Extremely high',
-                 uses: 'Atomic clocks, photoelectric cells, drilling fluids',
-                 fact: 'Cesium is the most reactive metal and can explode on contact with water.',
-                 quizQuestion: "What property makes Cesium useful in photoelectric cells?",
-                 quizOptions: [
-                     "Its low melting point",
-                     "Its ability to emit electrons when exposed to light",
-                     "Its high density",
-                     "Its radioactive properties"
-                 ],
-                 quizCorrect: 1,
-                 quizExplanation: "Cesium is useful in photoelectric cells because it readily emits electrons when exposed to light, making it efficient for converting light energy into electrical energy."
-             },
-             'Francium': {
-                 symbol: 'Fr',
-                 atomicNumber: 87,
-                 electronConfig: '2,8,18,32,18,8,1',
-                 meltingPoint: '27°C',
-                 density: '1.87 g/cm³',
-                 reactivity: 'Highest',
-                 uses: 'Research, potential medical applications',
-                 fact: 'Francium is extremely rare and radioactive, with a half-life of only 22 minutes.',
-                 quizQuestion: "Why is Francium rarely studied or used?",
-                 quizOptions: [
-                     "It is too expensive to extract",
-                     "It has an extremely short half-life",
-                     "It is not reactive enough",
-                     "It is toxic to humans"
-                 ],
-                 quizCorrect: 1,
-                 quizExplanation: "Francium has an extremely short half-life of only 22 minutes, making it difficult to study and virtually impossible to use in practical applications."
-             }
-         };
-         
-         // Reaction details
-         const reactionDetails = {
-             'lithium-water': {
-                 equation: "2Li(s) + 2H₂O(l) → 2LiOH(aq) + H₂(g)",
-                 observations: "Lithium fizzes steadily as it reacts with water. It moves slowly across the surface and does not melt.",
-                 explanation: "Lithium reacts with water to produce lithium hydroxide and hydrogen gas. The reaction is relatively gentle compared to other Group 1 metals due to lithium's small atomic size and strong metallic bonding.",
-                 quizQuestion: "What gas is produced when Lithium reacts with water?",
-                 quizOptions: [
-                     "Oxygen",
-                     "Hydrogen",
-                     "Chlorine",
-                     "Nitrogen"
-                 ],
-                 quizCorrect: 1,
-                 quizExplanation: "Lithium reacts with water to produce hydrogen gas, which can be observed as bubbles during the reaction."
-             },
-             'sodium-water': {
-                 equation: "2Na(s) + 2H₂O(l) → 2NaOH(aq) + H₂(g)",
-                 observations: "Sodium fizzes rapidly and melts into a ball. It moves quickly across the water surface.",
-                 explanation: "Sodium reacts vigorously with water, producing sodium hydroxide and hydrogen gas. The heat of the reaction melts the sodium, and the hydrogen gas propels it across the water surface.",
-                 quizQuestion: "Why does Sodium melt during its reaction with water?",
-                 quizOptions: [
-                     "Water has a high boiling point",
-                     "The reaction is exothermic and produces enough heat to melt Sodium",
-                     "Sodium has a very low melting point",
-                     "The reaction produces steam which melts the Sodium"
-                 ],
-                 quizCorrect: 1,
-                 quizExplanation: "The reaction between Sodium and water is highly exothermic, producing enough heat to melt the Sodium (melting point: 97.8°C)."
-             },
-             'potassium-water': {
-                 equation: "2K(s) + 2H₂O(l) → 2KOH(aq) + H₂(g)",
-                 observations: "Potassium fizzes violently, ignites with a lilac flame, and may explode.",
-                 explanation: "Potassium reacts very violently with water, producing potassium hydroxide and hydrogen gas. The reaction is so exothermic that the hydrogen gas ignites, producing a characteristic lilac flame.",
-                 quizQuestion: "What color flame does Potassium produce when it reacts with water?",
-                 quizOptions: [
-                     "Yellow",
-                     "Red",
-                     "Lilac",
-                     "Green"
-                 ],
-                 quizCorrect: 2,
-                 quizExplanation: "Potassium produces a characteristic lilac flame when it reacts with water due to the excitation of its electrons and subsequent emission of light at specific wavelengths."
-             },
-             'lithium-oxygen': {
-                 equation: "4Li(s) + O₂(g) → 2Li₂O(s)",
-                 observations: "Lithium burns with a red flame to form white lithium oxide.",
-                 explanation: "Lithium is the only Group 1 metal that forms a normal oxide (Li₂O) when burned in oxygen. Other Group 1 metals form peroxides or superoxides.",
-                 quizQuestion: "What type of oxide does Lithium form when burned in oxygen?",
-                 quizOptions: [
-                     "Normal oxide (Li₂O)",
-                     "Peroxide (Li₂O₂)",
-                     "Superoxide (LiO₂)",
-                     "No oxide is formed"
-                 ],
-                 quizCorrect: 0,
-                 quizExplanation: "Lithium forms a normal oxide (Li₂O) when burned in oxygen, which is unique among Group 1 metals. Other Group 1 metals form peroxides or superoxides."
-             },
-             'sodium-oxygen': {
-                 equation: "2Na(s) + O₂(g) → Na₂O₂(s)",
-                 observations: "Sodium burns with a yellow flame to form pale yellow sodium peroxide.",
-                 explanation: "Sodium forms a peroxide (Na₂O₂) when burned in oxygen. This contains the peroxide ion (O₂²⁻) with an oxygen-oxygen single bond.",
-                 quizQuestion: "What ion is present in Sodium peroxide?",
-                 quizOptions: [
-                     "O²⁻",
-                     "O₂²⁻",
-                     "O₂⁻",
-                     "O₃²⁻"
-                 ],
-                 quizCorrect: 1,
-                 quizExplanation: "Sodium peroxide (Na₂O₂) contains the peroxide ion (O₂²⁻), which consists of two oxygen atoms joined by a single bond with a charge of -2."
-             },
-             'potassium-oxygen': {
-                 equation: "K(s) + O₂(g) → KO₂(s)",
-                 observations: "Potassium burns with a lilac flame to form orange potassium superoxide.",
-                 explanation: "Potassium forms a superoxide (KO₂) when burned in oxygen. This contains the superoxide ion (O₂⁻) with an unpaired electron.",
-                 quizQuestion: "What ion is present in Potassium superoxide?",
-                 quizOptions: [
-                     "O²⁻",
-                     "O₂²⁻",
-                     "O₂⁻",
-                     "O₃²⁻"
-                 ],
-                 quizCorrect: 2,
-                 quizExplanation: "Potassium superoxide (KO₂) contains the superoxide ion (O₂⁻), which has an unpaired electron and is paramagnetic."
-             }
-         };
-         
-         // Sound effects
-         const correctSound = new Howl({
-             src: ['https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3']
-         });
-         
-         const incorrectSound = new Howl({
-             src: ['https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3']
-         });
-         
-         const completeSound = new Howl({
-             src: ['https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3']
-         });
-         
-         const badgeSound = new Howl({
-             src: ['https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3']
-         });
-         
-         // All MCQ Quiz Questions
-         quizQuestions = [
-             {
-                 question: "What is the electron configuration of the outer shell of all Group 1 elements?",
-                 options: ["1 electron", "2 electrons", "8 electrons", "Variable number of electrons"],
-                 correct: 0,
-                 explanation: "All Group 1 elements have one electron in their outer shell, which they readily lose to form +1 ions."
-             },
-             {
-                 question: "Which of the following statements about the reactivity of Group 1 metals is correct?",
-                 options: ["Reactivity decreases down the group", "Reactivity increases down the group", "Reactivity stays the same down the group", "Reactivity is highest for lithium"],
-                 correct: 1,
-                 explanation: "Reactivity increases down Group 1 because the outer electron is further from the nucleus and easier to lose."
-             },
-             {
-                 question: "When Group 1 metals react with water, what products are formed?",
-                 options: ["Metal oxide and hydrogen", "Metal hydroxide and hydrogen", "Metal oxide and oxygen", "Metal hydroxide and oxygen"],
-                 correct: 1,
-                 explanation: "The general equation is: 2M(s) + 2H₂O(l) → 2MOH(aq) + H₂(g)"
-             },
-             {
-                 question: "Which Group 1 metal forms a normal oxide when burned in oxygen?",
-                 options: ["Lithium", "Sodium", "Potassium", "Rubidium"],
-                 correct: 0,
-                 explanation: "Lithium forms Li₂O (oxide), while sodium forms Na₂O₂ (peroxide) and potassium forms KO₂ (superoxide)."
-             },
-             {
-                 question: "What color flame does sodium produce in a flame test?",
-                 options: ["Red", "Yellow", "Green", "Purple"],
-                 correct: 1,
-                 explanation: "Sodium produces a bright yellow flame in flame tests, which is why it's used in street lamps and fireworks."
-             },
-             {
-                 question: "Which statement about the melting point of Group 1 metals is correct?",
-                 options: ["Melting point increases down the group", "Melting point decreases down the group", "Melting point is highest for cesium", "Melting point is constant across the group"],
-                 correct: 1,
-                 explanation: "The melting point decreases down Group 1 due to increasing atomic size and weaker metallic bonding."
-             },
-             {
-                 question: "Which Group 1 metal has the lowest density?",
-                 options: ["Lithium", "Sodium", "Potassium", "Cesium"],
-                 correct: 0,
-                 explanation: "Lithium has the lowest density of all metals and is so light that it can float on water!"
-             },
-             {
-                 question: "What happens when a small piece of potassium is dropped into water?",
-                 options: ["It fizzes steadily and moves slowly on the surface", "It fizzes rapidly, melts into a ball, and moves quickly", "It fizzes violently, ignites with a lilac flame, and may explode", "It sinks to the bottom without reacting"],
-                 correct: 2,
-                 explanation: "Potassium reacts violently with water, producing hydrogen gas that often ignites with a characteristic lilac flame."
-             },
-             {
-                 question: "Which Group 1 metal is used in batteries for electric vehicles?",
-                 options: ["Lithium", "Sodium", "Potassium", "Rubidium"],
-                 correct: 0,
-                 explanation: "Lithium is used in rechargeable batteries for electric vehicles due to its high electrochemical potential and light weight."
-             },
-             {
-                 question: "Which Group 1 metal is used in atomic clocks?",
-                 options: ["Lithium", "Sodium", "Potassium", "Cesium"],
-                 correct: 3,
-                 explanation: "Cesium is used in atomic clocks because it has a very precise and stable frequency when excited, making it perfect for timekeeping."
-             }
-         ];
-         
-         // Daily challenges
-         const dailyChallenges = [
-             {
-                 question: "Which Group 1 metal is used in batteries for electric vehicles?",
-                 options: ["Lithium", "Sodium", "Potassium", "Rubidium"],
-                 correct: 0,
-                 explanation: "Lithium is used in rechargeable batteries for electric vehicles due to its high electrochemical potential and light weight."
-             },
-             {
-                 question: "What color flame does sodium produce when burned?",
-                 options: ["Red", "Yellow", "Green", "Purple"],
-                 correct: 1,
-                 explanation: "Sodium produces a bright yellow flame when burned, which is why it's used in street lamps and fireworks."
-             },
-             {
-                 question: "Which Group 1 metal has the lowest density?",
-                 options: ["Lithium", "Sodium", "Potassium", "Rubidium"],
-                 correct: 0,
-                 explanation: "Lithium has the lowest density of all metals and is so light that it can float on water!"
-             },
-             {
-                 question: "What is the main use of potassium in the human body?",
-                 options: ["Bone formation", "Muscle contraction", "Oxygen transport", "Energy production"],
-                 correct: 1,
-                 explanation: "Potassium is essential for proper muscle contraction, nerve function, and maintaining fluid balance in the body."
-             },
-             {
-                 question: "Which Group 1 metal is used in atomic clocks?",
-                 options: ["Lithium", "Sodium", "Potassium", "Cesium"],
-                 correct: 3,
-                 explanation: "Cesium is used in atomic clocks because it has a very precise and stable frequency when excited, making it perfect for timekeeping."
-             }
-         ];
-         
-         // Initialize app
-         function initApp() {
-             // Check authentication state
-             auth.onAuthStateChanged((user) => {
-                 if (user) {
-                     currentUser = user;
-                     loadUserData();
-                 } else {
-                     showLandingPage();
-                 }
-             });
-             
-             // Check for saved dark mode preference
-             if (localStorage.getItem('darkMode') === 'true') {
-                 document.body.classList.add('dark-mode');
-                 document.getElementById('darkModeToggle').checked = true;
-             }
-             
-             // Check for saved sound preference
-             if (localStorage.getItem('soundEnabled') === 'false') {
-                 soundEnabled = false;
-                 document.getElementById('soundToggle').checked = false;
-             }
-             
-             // Initialize search functionality
-             document.getElementById('searchInput').addEventListener('input', function(e) {
-                 const searchTerm = e.target.value.toLowerCase();
-                 // We'll search through the content of the current section
-                 if (searchTerm === '') {
-                     // Show all content
-                     document.querySelectorAll('.content-card').forEach(card => {
-                         card.style.display = 'block';
-                     });
-                 } else {
-                     document.querySelectorAll('.content-card').forEach(card => {
-                         const text = card.textContent.toLowerCase();
-                         if (text.includes(searchTerm)) {
-                             card.style.display = 'block';
-                         } else {
-                             card.style.display = 'none';
-                         }
-                     });
-                 }
-             });
-             
-             // Initialize periodic table interactions
-             document.querySelectorAll('.element').forEach(element => {
-                 element.addEventListener('click', function() {
-                     const elementName = this.querySelector('.element-name').textContent;
-                     showToast('info', 'Element Info', `You clicked on ${elementName}`);
-                 });
-             });
-         }
-         
-         // Navigation functions
-         function navigateToSection(sectionName) {
-             // Check if section is locked
-             const navItem = document.getElementById(`nav-${sectionName}`);
-             if (navItem && navItem.classList.contains('locked')) {
-                 showToast('info', 'Section Locked', 'Please complete previous sections first.');
-                 return;
-             }
-             
-             // Hide all sections
-             const sections = document.querySelectorAll('.content-section');
-             sections.forEach(section => {
-                 section.style.display = 'none';
-             });
-             
-             // Show selected section
-             const sectionElement = document.getElementById(`${sectionName}-section`);
-             if (sectionElement) {
-                 sectionElement.style.display = 'block';
-             }
-             
-             // Update active nav item
-             const navItems = document.querySelectorAll('.nav-item');
-             navItems.forEach(item => {
-                 item.classList.remove('active');
-             });
-             
-             if (navItem) {
-                 navItem.classList.add('active');
-             }
-             
-             currentSection = sectionName;
-             
-             // Load leaderboard if that section is selected
-             if (sectionName === 'leaderboard') {
-                 loadLeaderboard();
-             }
-         }
-         
-         // Show main app
-         function showMainApp() {
-             document.getElementById('landingPage').style.display = 'none';
-             document.getElementById('mainApp').style.display = 'block';
-             
-             // Update user info
-             document.getElementById('userName').textContent = userData.displayName || 'User';
-             document.getElementById('userEmail').textContent = currentUser.email || 'user@example.com';
-             
-             // Update XP and badges
-             updateUserXP();
-             updateUserBadges();
-             
-             // Update progress
-             updateProgressTracker();
-             updateSectionCompletionStatus();
-             
-             // Load discussion posts and study groups
-             loadDiscussionPosts();
-             loadStudyGroups();
-             loadLeaderboard();
-             
-             // Check for daily challenge
-             checkDailyChallenge();
-         }
-         
-         // Load user data from Firebase
-         function loadUserData() {
-             const userRef = database.ref('users/' + currentUser.uid);
-             userRef.once('value').then((snapshot) => {
-                 if (snapshot.exists()) {
-                     userData = snapshot.val();
-                     completedSections = userData.completedSections || [];
-                     showMainApp();
-                 } else {
-                     // Create new user profile
-                     const newUser = {
-                         uid: currentUser.uid,
-                         email: currentUser.email,
-                         displayName: currentUser.displayName || 'User',
-                         completedSections: [],
-                         savedPosts: [],
-                         xp: 0,
-                         badges: [],
-                         createdAt: firebase.database.ServerValue.TIMESTAMP
-                     };
-                     
-                     userRef.set(newUser).then(() => {
-                         userData = newUser;
-                         completedSections = [];
-                         showMainApp();
-                     });
-                 }
-             }).catch((error) => {
-                 console.error("Error loading user data:", error);
-                 showToast('error', 'Error', 'Failed to load your data.');
-             });
-         }
-         
-         // Show landing page
-         function showLandingPage() {
-             document.getElementById('landingPage').style.display = 'flex';
-             document.getElementById('mainApp').style.display = 'none';
-         }
-         
-         // Update user XP display
-         function updateUserXP() {
-             const xp = userData.xp || 0;
-             document.getElementById('userXP').textContent = xp;
-         }
-         
-         // Update user badges display
-         function updateUserBadges() {
-             const badges = userData.badges || [];
-             const badgesContainer = document.getElementById('userBadges');
-             badgesContainer.innerHTML = '';
-             
-             if (badges.length === 0) {
-                 badgesContainer.innerHTML = '<span class="text-sm text-gray-500">No badges yet</span>';
-                 return;
-             }
-             
-             badges.forEach(badge => {
-                 const badgeElement = document.createElement('div');
-                 badgeElement.className = 'badge';
-                 badgeElement.innerHTML = `<i class="fas fa-medal"></i>`;
-                 badgeElement.title = badge;
-                 badgesContainer.appendChild(badgeElement);
-             });
-         }
-         
-         // Check for daily challenge
-         function checkDailyChallenge() {
-             const today = new Date().toISOString().split('T')[0];
-             const challengeRef = database.ref('dailyChallenges/' + today);
-             
-             challengeRef.once('value').then((snapshot) => {
-                 if (snapshot.exists()) {
-                     dailyChallenge = snapshot.val();
-                     
-                     // Check if user has completed today's challenge
-                     const userChallengeRef = database.ref('users/' + currentUser.uid + '/dailyChallenges/' + today);
-                     userChallengeRef.once('value').then((userSnapshot) => {
-                         if (!userSnapshot.exists()) {
-                             // Show daily challenge
-                             document.getElementById('dailyChallenge').style.display = 'block';
-                             document.getElementById('dailyChallengeQuestion').textContent = dailyChallenge.question;
-                         }
-                     });
-                 } else {
-                     // Create a new daily challenge for today
-                     const randomChallenge = dailyChallenges[Math.floor(Math.random() * dailyChallenges.length)];
-                     challengeRef.set(randomChallenge).then(() => {
-                         dailyChallenge = randomChallenge;
-                         document.getElementById('dailyChallenge').style.display = 'block';
-                         document.getElementById('dailyChallengeQuestion').textContent = dailyChallenge.question;
-                     });
-                 }
-             });
-         }
-         
-         // Show daily challenge modal
-         function showDailyChallengeModal() {
-             if (!dailyChallenge) return;
-             
-             document.getElementById('dailyChallengeModal').classList.add('active');
-             document.getElementById('dailyChallengeQuestionText').textContent = dailyChallenge.question;
-             
-             const optionsContainer = document.getElementById('dailyChallengeOptions');
-             optionsContainer.innerHTML = '';
-             
-             dailyChallenge.options.forEach((option, index) => {
-                 const optionDiv = document.createElement('div');
-                 optionDiv.className = 'quiz-option';
-                 optionDiv.dataset.index = index;
-                 
-                 const input = document.createElement('input');
-                 input.type = 'radio';
-                 input.name = 'daily-challenge-option';
-                 input.id = `daily-option-${index}`;
-                 input.value = index;
-                 
-                 const label = document.createElement('label');
-                 label.htmlFor = `daily-option-${index}`;
-                 label.textContent = option;
-                 
-                 optionDiv.appendChild(input);
-                 optionDiv.appendChild(label);
-                 
-                 optionDiv.onclick = () => selectDailyChallengeOption(index);
-                 
-                 optionsContainer.appendChild(optionDiv);
-             });
-             
-             // Reset feedback
-             document.getElementById('dailyChallengeFeedback').classList.add('hidden');
-             document.getElementById('dailyChallengeSubmitBtn').disabled = true;
-             dailyChallengeAnswered = false;
-         }
-         
-         // Close daily challenge modal
-         function closeDailyChallengeModal() {
-             document.getElementById('dailyChallengeModal').classList.remove('active');
-         }
-         
-         // Select daily challenge option
-         function selectDailyChallengeOption(index) {
-             if (dailyChallengeAnswered) return;
-             
-             const options = document.querySelectorAll('#dailyChallengeOptions .quiz-option');
-             options.forEach(option => {
-                 option.classList.remove('selected');
-                 const input = option.querySelector('input');
-                 input.checked = false;
-             });
-             
-             options[index].classList.add('selected');
-             options[index].querySelector('input').checked = true;
-             
-             document.getElementById('dailyChallengeSubmitBtn').disabled = false;
-         }
-         
-         // Submit daily challenge
-         function submitDailyChallenge() {
-             if (dailyChallengeAnswered) return;
-             
-             const selectedOption = document.querySelector('#dailyChallengeOptions .quiz-option.selected');
-             if (!selectedOption) return;
-             
-             const selectedIndex = parseInt(selectedOption.dataset.index);
-             const isCorrect = selectedIndex === dailyChallenge.correct;
-             
-             const feedback = document.getElementById('dailyChallengeFeedback');
-             if (isCorrect) {
-                 feedback.className = 'mb-5 p-4 rounded-lg bg-green-100 text-green-800 text-sm';
-                 feedback.textContent = 'Correct! ' + dailyChallenge.explanation;
-                 
-                 // Award XP
-                 const newXp = (userData.xp || 0) + 5;
-                 const userRef = database.ref('users/' + currentUser.uid);
-                 userRef.update({
-                     xp: newXp
-                 }).then(() => {
-                     userData.xp = newXp;
-                     updateUserXP();
-                     
-                     if (soundEnabled) correctSound.play();
-                     showToast('success', 'Daily Challenge Complete!', 'You earned 5 XP!');
-                 });
-             } else {
-                 feedback.className = 'mb-5 p-4 rounded-lg bg-red-100 text-red-800 text-sm';
-                 feedback.textContent = 'Incorrect. ' + dailyChallenge.explanation;
-                 
-                 if (soundEnabled) incorrectSound.play();
-             }
-             
-             feedback.classList.remove('hidden');
-             document.getElementById('dailyChallengeSubmitBtn').disabled = true;
-             dailyChallengeAnswered = true;
-             
-             // Mark as completed
-             const today = new Date().toISOString().split('T')[0];
-             const userChallengeRef = database.ref('users/' + currentUser.uid + '/dailyChallenges/' + today);
-             userChallengeRef.set(true);
-             
-             // Hide daily challenge banner
-             document.getElementById('dailyChallenge').style.display = 'none';
-         }
-         
-         // Toggle dark mode
-         function toggleDarkMode() {
-             document.body.classList.toggle('dark-mode');
-             const isDarkMode = document.body.classList.contains('dark-mode');
-             localStorage.setItem('darkMode', isDarkMode);
-         }
-         
-         // Toggle sound effects
-         function toggleSound() {
-             soundEnabled = document.getElementById('soundToggle').checked;
-             localStorage.setItem('soundEnabled', soundEnabled);
-         }
-         
-         // Authentication functions
-         function showLoginModal() {
-             document.getElementById('loginModal').classList.add('active');
-         }
-         
-         function closeLoginModal() {
-             document.getElementById('loginModal').classList.remove('active');
-         }
-         
-         function showSignup() {
-             closeLoginModal();
-             document.getElementById('signupModal').classList.add('active');
-         }
-         
-         function showLogin() {
-             closeSignupModal();
-             document.getElementById('loginModal').classList.add('active');
-         }
-         
-         function closeSignupModal() {
-             document.getElementById('signupModal').classList.remove('active');
-         }
-         
-         // Magic Link functions
-         function signInWithMagicLink() {
-             showMagicLinkModal();
-         }
-         
-         function showMagicLinkModal() {
-             document.getElementById('magicLinkModal').classList.add('active');
-         }
-         
-         function closeMagicLinkModal() {
-             document.getElementById('magicLinkModal').classList.remove('active');
-             document.getElementById('magicLinkForm').reset();
-             document.getElementById('magicLinkMessage').style.display = 'none';
-         }
-         
-         function sendMagicLink(event) {
-         event.preventDefault();
-         
-         const email = document.getElementById('magicLinkEmail').value.trim();
-         const messageDiv = document.getElementById('magicLinkMessage');
-         
-         if (!email) {
-         showMagicLinkMessage('Please enter your email address.', 'error');
-         return;
-         }
-         
-         // Use your GitHub Pages URL as the redirect URL
-         const redirectUrl = 'https://andrewung2009.github.io/TheCuriousChemist/alkalimetals/alkalimetals.html';
-         
-         const actionCodeSettings = {
-         url: redirectUrl,
-         handleCodeInApp: true,
-         // Remove dynamic link domain since it's deprecated
-         };
-         
-         auth.sendSignInLinkToEmail(email, actionCodeSettings)
-         .then(() => {
-            // Save the email locally for verification
-            window.localStorage.setItem('emailForSignIn', email);
-            showMagicLinkMessage('Magic link sent! Check your email (including spam folder) to sign in.', 'success');
-            document.getElementById('magicLinkForm').reset();
-         })
-         .catch((error) => {
-            console.error("Error sending magic link:", error);
-            showMagicLinkMessage('Error sending magic link: ' + error.message, 'error');
-         });
-         }
-         
-         function showMagicLinkMessage(message, type) {
-             const messageDiv = document.getElementById('magicLinkMessage');
-             messageDiv.textContent = message;
-             messageDiv.className = 'magic-link-message ' + type;
-             messageDiv.style.display = 'block';
-         }
-         
-         // Check for magic link in URL
-         function checkForMagicLink() {
-         // Check if we're on the magic link verification page
-         if (auth.isSignInWithEmailLink(window.location.href)) {
-         let email = window.localStorage.getItem('emailForSignIn');
-         if (!email) {
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const database = firebase.database();
+
+// Create a reference to the "Group 1 Metals" subset
+const group1MetalsRef = database.ref('Group 1 Metals');
+
+// Global variables
+let currentUser = null;
+let userData = null;
+let currentSection = 'overview';
+let completedSections = [];
+let quizQuestions = [];
+let currentQuestion = 0;
+let score = 0;
+let selectedOption = null;
+let answerSubmitted = false;
+let quizAnswers = []; // To store answers for each question
+let discussionPosts = [];
+let studyGroups = [];
+let currentSort = 'newest';
+let soundEnabled = true;
+let dailyChallenge = null;
+let dailyChallengeAnswered = false;
+
+// Quiz questions for terms
+const termQuizQuestions = {
+    'lithium': {
+        question: "What is the atomic number of Lithium?",
+        options: ["1", "2", "3", "4"],
+        correct: 2,
+        explanation: "Lithium has an atomic number of 3, meaning it has 3 protons in its nucleus."
+    },
+    'sodium': {
+        question: "What color flame does Sodium produce in a flame test?",
+        options: ["Red", "Yellow", "Green", "Blue"],
+        correct: 1,
+        explanation: "Sodium produces a bright yellow flame in flame tests, which is why it's used in street lamps."
+    },
+    'potassium': {
+        question: "How does Potassium react with water?",
+        options: ["No reaction", "Fizzes steadily", "Fizzes violently and may ignite", "Explodes"],
+        correct: 2,
+        explanation: "Potassium reacts violently with water, producing hydrogen gas that often ignites with a lilac flame."
+    },
+    'alkali-metals': {
+        question: "Why are Group 1 elements called alkali metals?",
+        options: ["They are alkaline in nature", "They form alkaline solutions with water", "They are found in alkali", "They react with alkalis"],
+        correct: 1,
+        explanation: "Group 1 elements are called alkali metals because they react with water to form alkaline (basic) solutions."
+    },
+    'valence-electron': {
+        question: "How many valence electrons do Group 1 elements have?",
+        options: ["1", "2", "3", "7"],
+        correct: 0,
+        explanation: "All Group 1 elements have 1 valence electron in their outer shell, which they readily lose to form +1 ions."
+    },
+    'soft': {
+        question: "Why are Group 1 metals considered soft?",
+        options: ["They have low density", "They have weak metallic bonds", "They have low melting points", "They are easily cut with a knife"],
+        correct: 3,
+        explanation: "Group 1 metals are soft enough to be cut with a knife due to weak metallic bonding between atoms."
+    },
+    'melting-point': {
+        question: "How does the melting point change down Group 1?",
+        options: ["Increases", "Decreases", "Remains constant", "Varies randomly"],
+        correct: 1,
+        explanation: "The melting point decreases down Group 1 due to increasing atomic size and weaker metallic bonding."
+    },
+    'density': {
+        question: "Which Group 1 metal is less dense than water?",
+        options: ["Only Lithium", "Lithium and Sodium", "Lithium, Sodium, and Potassium", "All Group 1 metals"],
+        correct: 2,
+        explanation: "Lithium, Sodium, and Potassium are less dense than water and will float on it. Potassium is an exception to the general trend of increasing density down the group."
+    },
+    'reactivity': {
+        question: "Which Group 1 metal is the most reactive?",
+        options: ["Lithium", "Sodium", "Potassium", "Cesium"],
+        correct: 3,
+        explanation: "Reactivity increases down Group 1, making Cesium the most reactive element in the group."
+    },
+    'flame-test': {
+        question: "What flame color does Lithium produce?",
+        options: ["Red", "Yellow", "Green", "Violet"],
+        correct: 0,
+        explanation: "Lithium produces a red flame in flame tests, while Sodium produces yellow and Potassium produces violet/lilac."
+    }
+};
+
+// Trend quiz questions
+const trendQuizQuestions = {
+    'melting-point': {
+        question: "Why does melting point decrease down Group 1?",
+        options: [
+            "Atomic size increases, metallic bonds weaken",
+            "Atomic size decreases, metallic bonds strengthen",
+            "Electron configuration changes",
+            "Nuclear charge increases"
+        ],
+        correct: 0,
+        explanation: "As we move down Group 1, atomic size increases due to additional electron shells. This increases the distance between positive nuclei and delocalized electrons, weakening the metallic bonds and lowering the melting point."
+    },
+    'density': {
+        question: "Why is potassium less dense than sodium?",
+        options: [
+            "Potassium has fewer protons",
+            "Potassium has a larger atomic radius",
+            "Potassium has more electron shells",
+            "Potassium has a different crystal structure"
+        ],
+        correct: 1,
+        explanation: "Potassium has a larger atomic radius than sodium, but the increase in size is proportionally greater than the increase in mass, resulting in a lower density. This is an exception to the general trend of increasing density down the group."
+    },
+    'reactivity': {
+        question: "Why does reactivity increase down Group 1?",
+        options: [
+            "Nuclear charge increases",
+            "Atomic radius increases, making it easier to lose the outer electron",
+            "Electron shielding decreases",
+            "Ionization energy increases"
+        ],
+        correct: 1,
+        explanation: "As we move down Group 1, the atomic radius increases due to additional electron shells. The outer electron is further from the nucleus and experiences more shielding from inner electrons, making it easier to lose and increasing reactivity."
+    }
+};
+
+// Element details
+const elementDetails = {
+    'Lithium': {
+        symbol: 'Li',
+        atomicNumber: 3,
+        electronConfig: '2,1',
+        meltingPoint: '180.5°C',
+        density: '0.534 g/cm³',
+        reactivity: 'Lowest in group',
+        uses: 'Batteries, mood stabilizers, alloys',
+        fact: 'Lithium is the lightest metal element and can float on water.',
+        quizQuestion: "What is the primary use of Lithium in modern technology?",
+        quizOptions: [
+            "Street lighting",
+            "Batteries for electric vehicles",
+            "Atomic clocks",
+            "Photoelectric cells"
+        ],
+        quizCorrect: 1,
+        quizExplanation: "Lithium is primarily used in rechargeable batteries for electric vehicles due to its high electrochemical potential and light weight."
+    },
+    'Sodium': {
+        symbol: 'Na',
+        atomicNumber: 11,
+        electronConfig: '2,8,1',
+        meltingPoint: '97.8°C',
+        density: '0.968 g/cm³',
+        reactivity: 'Moderate',
+        uses: 'Street lighting, salt production, chemicals',
+        fact: 'Sodium produces a bright yellow flame in flame tests.',
+        quizQuestion: "What compound of Sodium is essential for human health?",
+        quizOptions: [
+            "Sodium hydroxide",
+            "Sodium carbonate",
+            "Sodium chloride",
+            "Sodium bicarbonate"
+        ],
+        quizCorrect: 2,
+        quizExplanation: "Sodium chloride (table salt) is essential for human health, helping to maintain fluid balance and nerve function."
+    },
+    'Potassium': {
+        symbol: 'K',
+        atomicNumber: 19,
+        electronConfig: '2,8,8,1',
+        meltingPoint: '63.5°C',
+        density: '0.89 g/cm³',
+        reactivity: 'High',
+        uses: 'Fertilizers, soaps, explosives',
+        fact: 'Potassium is vital for plant growth and human health.',
+        quizQuestion: "Why is Potassium important for the human body?",
+        quizOptions: [
+            "It strengthens bones",
+            "It aids in muscle contraction and nerve function",
+            "It helps in blood clotting",
+            "It is a primary energy source"
+        ],
+        quizCorrect: 1,
+        quizExplanation: "Potassium is crucial for proper muscle contraction, nerve function, and maintaining fluid balance in the body."
+    },
+    'Rubidium': {
+        symbol: 'Rb',
+        atomicNumber: 37,
+        electronConfig: '2,8,18,8,1',
+        meltingPoint: '39.3°C',
+        density: '1.532 g/cm³',
+        reactivity: 'Very high',
+        uses: 'Atomic clocks, research, specialty glasses',
+        fact: 'Rubidium is used in atomic clocks for precise timekeeping.',
+        quizQuestion: "What is Rubidium primarily used for?",
+        quizOptions: [
+            "Medical imaging",
+            "Atomic clocks and research",
+            "Water purification",
+            "Food preservation"
+        ],
+        quizCorrect: 1,
+        quizExplanation: "Rubidium is primarily used in atomic clocks for precise timekeeping and in various research applications due to its unique properties."
+    },
+    'Cesium': {
+        symbol: 'Cs',
+        atomicNumber: 55,
+        electronConfig: '2,8,18,18,8,1',
+        meltingPoint: '28.4°C',
+        density: '1.93 g/cm³',
+        reactivity: 'Extremely high',
+        uses: 'Atomic clocks, photoelectric cells, drilling fluids',
+        fact: 'Cesium is the most reactive metal and can explode on contact with water.',
+        quizQuestion: "What property makes Cesium useful in photoelectric cells?",
+        quizOptions: [
+            "Its low melting point",
+            "Its ability to emit electrons when exposed to light",
+            "Its high density",
+            "Its radioactive properties"
+        ],
+        quizCorrect: 1,
+        quizExplanation: "Cesium is useful in photoelectric cells because it readily emits electrons when exposed to light, making it efficient for converting light energy into electrical energy."
+    },
+    'Francium': {
+        symbol: 'Fr',
+        atomicNumber: 87,
+        electronConfig: '2,8,18,32,18,8,1',
+        meltingPoint: '27°C',
+        density: '1.87 g/cm³',
+        reactivity: 'Highest',
+        uses: 'Research, potential medical applications',
+        fact: 'Francium is extremely rare and radioactive, with a half-life of only 22 minutes.',
+        quizQuestion: "Why is Francium rarely studied or used?",
+        quizOptions: [
+            "It is too expensive to extract",
+            "It has an extremely short half-life",
+            "It is not reactive enough",
+            "It is toxic to humans"
+        ],
+        quizCorrect: 1,
+        quizExplanation: "Francium has an extremely short half-life of only 22 minutes, making it difficult to study and virtually impossible to use in practical applications."
+    }
+};
+
+// Reaction details
+const reactionDetails = {
+    'lithium-water': {
+        equation: "2Li(s) + 2H₂O(l) → 2LiOH(aq) + H₂(g)",
+        observations: "Lithium fizzes steadily as it reacts with water. It moves slowly across the surface and does not melt.",
+        explanation: "Lithium reacts with water to produce lithium hydroxide and hydrogen gas. The reaction is relatively gentle compared to other Group 1 metals due to lithium's small atomic size and strong metallic bonding.",
+        quizQuestion: "What gas is produced when Lithium reacts with water?",
+        quizOptions: [
+            "Oxygen",
+            "Hydrogen",
+            "Chlorine",
+            "Nitrogen"
+        ],
+        quizCorrect: 1,
+        quizExplanation: "Lithium reacts with water to produce hydrogen gas, which can be observed as bubbles during the reaction."
+    },
+    'sodium-water': {
+        equation: "2Na(s) + 2H₂O(l) → 2NaOH(aq) + H₂(g)",
+        observations: "Sodium fizzes rapidly and melts into a ball. It moves quickly across the water surface.",
+        explanation: "Sodium reacts vigorously with water, producing sodium hydroxide and hydrogen gas. The heat of the reaction melts the sodium, and the hydrogen gas propels it across the water surface.",
+        quizQuestion: "Why does Sodium melt during its reaction with water?",
+        quizOptions: [
+            "Water has a high boiling point",
+            "The reaction is exothermic and produces enough heat to melt Sodium",
+            "Sodium has a very low melting point",
+            "The reaction produces steam which melts the Sodium"
+        ],
+        quizCorrect: 1,
+        quizExplanation: "The reaction between Sodium and water is highly exothermic, producing enough heat to melt the Sodium (melting point: 97.8°C)."
+    },
+    'potassium-water': {
+        equation: "2K(s) + 2H₂O(l) → 2KOH(aq) + H₂(g)",
+        observations: "Potassium fizzes violently, ignites with a lilac flame, and may explode.",
+        explanation: "Potassium reacts very violently with water, producing potassium hydroxide and hydrogen gas. The reaction is so exothermic that the hydrogen gas ignites, producing a characteristic lilac flame.",
+        quizQuestion: "What color flame does Potassium produce when it reacts with water?",
+        quizOptions: [
+            "Yellow",
+            "Red",
+            "Lilac",
+            "Green"
+        ],
+        quizCorrect: 2,
+        quizExplanation: "Potassium produces a characteristic lilac flame when it reacts with water due to the excitation of its electrons and subsequent emission of light at specific wavelengths."
+    },
+    'lithium-oxygen': {
+        equation: "4Li(s) + O₂(g) → 2Li₂O(s)",
+        observations: "Lithium burns with a red flame to form white lithium oxide.",
+        explanation: "Lithium is the only Group 1 metal that forms a normal oxide (Li₂O) when burned in oxygen. Other Group 1 metals form peroxides or superoxides.",
+        quizQuestion: "What type of oxide does Lithium form when burned in oxygen?",
+        quizOptions: [
+            "Normal oxide (Li₂O)",
+            "Peroxide (Li₂O₂)",
+            "Superoxide (LiO₂)",
+            "No oxide is formed"
+        ],
+        quizCorrect: 0,
+        quizExplanation: "Lithium forms a normal oxide (Li₂O) when burned in oxygen, which is unique among Group 1 metals. Other Group 1 metals form peroxides or superoxides."
+    },
+    'sodium-oxygen': {
+        equation: "2Na(s) + O₂(g) → Na₂O₂(s)",
+        observations: "Sodium burns with a yellow flame to form pale yellow sodium peroxide.",
+        explanation: "Sodium forms a peroxide (Na₂O₂) when burned in oxygen. This contains the peroxide ion (O₂²⁻) with an oxygen-oxygen single bond.",
+        quizQuestion: "What ion is present in Sodium peroxide?",
+        quizOptions: [
+            "O²⁻",
+            "O₂²⁻",
+            "O₂⁻",
+            "O₃²⁻"
+        ],
+        quizCorrect: 1,
+        quizExplanation: "Sodium peroxide (Na₂O₂) contains the peroxide ion (O₂²⁻), which consists of two oxygen atoms joined by a single bond with a charge of -2."
+    },
+    'potassium-oxygen': {
+        equation: "K(s) + O₂(g) → KO₂(s)",
+        observations: "Potassium burns with a lilac flame to form orange potassium superoxide.",
+        explanation: "Potassium forms a superoxide (KO₂) when burned in oxygen. This contains the superoxide ion (O₂⁻) with an unpaired electron.",
+        quizQuestion: "What ion is present in Potassium superoxide?",
+        quizOptions: [
+            "O²⁻",
+            "O₂²⁻",
+            "O₂⁻",
+            "O₃²⁻"
+        ],
+        quizCorrect: 2,
+        quizExplanation: "Potassium superoxide (KO₂) contains the superoxide ion (O₂⁻), which has an unpaired electron and is paramagnetic."
+    }
+};
+
+// Sound effects
+const correctSound = new Howl({
+    src: ['https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3']
+});
+
+const incorrectSound = new Howl({
+    src: ['https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3']
+});
+
+const completeSound = new Howl({
+    src: ['https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3']
+});
+
+const badgeSound = new Howl({
+    src: ['https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3']
+});
+
+// All MCQ Quiz Questions
+quizQuestions = [
+    {
+        question: "What is the electron configuration of the outer shell of all Group 1 elements?",
+        options: ["1 electron", "2 electrons", "8 electrons", "Variable number of electrons"],
+        correct: 0,
+        explanation: "All Group 1 elements have one electron in their outer shell, which they readily lose to form +1 ions."
+    },
+    {
+        question: "Which of the following statements about the reactivity of Group 1 metals is correct?",
+        options: ["Reactivity decreases down the group", "Reactivity increases down the group", "Reactivity stays the same down the group", "Reactivity is highest for lithium"],
+        correct: 1,
+        explanation: "Reactivity increases down Group 1 because the outer electron is further from the nucleus and easier to lose."
+    },
+    {
+        question: "When Group 1 metals react with water, what products are formed?",
+        options: ["Metal oxide and hydrogen", "Metal hydroxide and hydrogen", "Metal oxide and oxygen", "Metal hydroxide and oxygen"],
+        correct: 1,
+        explanation: "The general equation is: 2M(s) + 2H₂O(l) → 2MOH(aq) + H₂(g)"
+    },
+    {
+        question: "Which Group 1 metal forms a normal oxide when burned in oxygen?",
+        options: ["Lithium", "Sodium", "Potassium", "Rubidium"],
+        correct: 0,
+        explanation: "Lithium forms Li₂O (oxide), while sodium forms Na₂O₂ (peroxide) and potassium forms KO₂ (superoxide)."
+    },
+    {
+        question: "What color flame does sodium produce in a flame test?",
+        options: ["Red", "Yellow", "Green", "Purple"],
+        correct: 1,
+        explanation: "Sodium produces a bright yellow flame in flame tests, which is why it's used in street lamps and fireworks."
+    },
+    {
+        question: "Which statement about the melting point of Group 1 metals is correct?",
+        options: ["Melting point increases down the group", "Melting point decreases down the group", "Melting point is highest for cesium", "Melting point is constant across the group"],
+        correct: 1,
+        explanation: "The melting point decreases down Group 1 due to increasing atomic size and weaker metallic bonding."
+    },
+    {
+        question: "Which Group 1 metal has the lowest density?",
+        options: ["Lithium", "Sodium", "Potassium", "Cesium"],
+        correct: 0,
+        explanation: "Lithium has the lowest density of all metals and is so light that it can float on water!"
+    },
+    {
+        question: "What happens when a small piece of potassium is dropped into water?",
+        options: ["It fizzes steadily and moves slowly on the surface", "It fizzes rapidly, melts into a ball, and moves quickly", "It fizzes violently, ignites with a lilac flame, and may explode", "It sinks to the bottom without reacting"],
+        correct: 2,
+        explanation: "Potassium reacts violently with water, producing hydrogen gas that often ignites with a characteristic lilac flame."
+    },
+    {
+        question: "Which Group 1 metal is used in batteries for electric vehicles?",
+        options: ["Lithium", "Sodium", "Potassium", "Rubidium"],
+        correct: 0,
+        explanation: "Lithium is used in rechargeable batteries for electric vehicles due to its high electrochemical potential and light weight."
+    },
+    {
+        question: "Which Group 1 metal is used in atomic clocks?",
+        options: ["Lithium", "Sodium", "Potassium", "Cesium"],
+        correct: 3,
+        explanation: "Cesium is used in atomic clocks because it has a very precise and stable frequency when excited, making it perfect for timekeeping."
+    }
+];
+
+// Daily challenges
+const dailyChallenges = [
+    {
+        question: "Which Group 1 metal is used in batteries for electric vehicles?",
+        options: ["Lithium", "Sodium", "Potassium", "Rubidium"],
+        correct: 0,
+        explanation: "Lithium is used in rechargeable batteries for electric vehicles due to its high electrochemical potential and light weight."
+    },
+    {
+        question: "What color flame does sodium produce when burned?",
+        options: ["Red", "Yellow", "Green", "Purple"],
+        correct: 1,
+        explanation: "Sodium produces a bright yellow flame when burned, which is why it's used in street lamps and fireworks."
+    },
+    {
+        question: "Which Group 1 metal has the lowest density?",
+        options: ["Lithium", "Sodium", "Potassium", "Rubidium"],
+        correct: 0,
+        explanation: "Lithium has the lowest density of all metals and is so light that it can float on water!"
+    },
+    {
+        question: "What is the main use of potassium in the human body?",
+        options: ["Bone formation", "Muscle contraction", "Oxygen transport", "Energy production"],
+        correct: 1,
+        explanation: "Potassium is essential for proper muscle contraction, nerve function, and maintaining fluid balance in the body."
+    },
+    {
+        question: "Which Group 1 metal is used in atomic clocks?",
+        options: ["Lithium", "Sodium", "Potassium", "Cesium"],
+        correct: 3,
+        explanation: "Cesium is used in atomic clocks because it has a very precise and stable frequency when excited, making it perfect for timekeeping."
+    }
+];
+
+// Initialize app
+function initApp() {
+    // Check authentication state
+    auth.onAuthStateChanged((user) => {
+        if (user) {
+            currentUser = user;
+            loadUserData();
+        } else {
+            showLandingPage();
+        }
+    });
+    
+    // Check for saved dark mode preference
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('darkModeToggle').checked = true;
+    }
+    
+    // Check for saved sound preference
+    if (localStorage.getItem('soundEnabled') === 'false') {
+        soundEnabled = false;
+        document.getElementById('soundToggle').checked = false;
+    }
+    
+    // Initialize search functionality
+    document.getElementById('searchInput').addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        // We'll search through the content of the current section
+        if (searchTerm === '') {
+            // Show all content
+            document.querySelectorAll('.content-card').forEach(card => {
+                card.style.display = 'block';
+            });
+        } else {
+            document.querySelectorAll('.content-card').forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    });
+    
+    // Initialize periodic table interactions
+    document.querySelectorAll('.element').forEach(element => {
+        element.addEventListener('click', function() {
+            const elementName = this.querySelector('.element-name').textContent;
+            showToast('info', 'Element Info', `You clicked on ${elementName}`);
+        });
+    });
+}
+
+// Navigation functions
+function navigateToSection(sectionName) {
+    // Check if section is locked
+    const navItem = document.getElementById(`nav-${sectionName}`);
+    if (navItem && navItem.classList.contains('locked')) {
+        showToast('info', 'Section Locked', 'Please complete previous sections first.');
+        return;
+    }
+    
+    // Hide all sections
+    const sections = document.querySelectorAll('.content-section');
+    sections.forEach(section => {
+        section.style.display = 'none';
+    });
+    
+    // Show selected section
+    const sectionElement = document.getElementById(`${sectionName}-section`);
+    if (sectionElement) {
+        sectionElement.style.display = 'block';
+    }
+    
+    // Update active nav item
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    if (navItem) {
+        navItem.classList.add('active');
+    }
+    
+    currentSection = sectionName;
+    
+    // Load leaderboard if that section is selected
+    if (sectionName === 'leaderboard') {
+        loadLeaderboard();
+    }
+}
+
+// Show main app
+function showMainApp() {
+    document.getElementById('landingPage').style.display = 'none';
+    document.getElementById('mainApp').style.display = 'block';
+    
+    // Update user info
+    document.getElementById('userName').textContent = userData.displayName || 'User';
+    document.getElementById('userEmail').textContent = currentUser.email || 'user@example.com';
+    
+    // Update XP and badges
+    updateUserXP();
+    updateUserBadges();
+    
+    // Update progress
+    updateProgressTracker();
+    updateSectionCompletionStatus();
+    
+    // Load discussion posts and study groups
+    loadDiscussionPosts();
+    loadStudyGroups();
+    loadLeaderboard();
+    
+    // Check for daily challenge
+    checkDailyChallenge();
+}
+
+// Load user data from Firebase
+function loadUserData() {
+    const userRef = group1MetalsRef.child('users').child(currentUser.uid);
+    userRef.once('value').then((snapshot) => {
+        if (snapshot.exists()) {
+            userData = snapshot.val();
+            completedSections = userData.completedSections || [];
+            showMainApp();
+        } else {
+            // Create new user profile
+            const newUser = {
+                uid: currentUser.uid,
+                email: currentUser.email,
+                displayName: currentUser.displayName || 'User',
+                completedSections: [],
+                savedPosts: [],
+                xp: 0,
+                badges: [],
+                createdAt: firebase.database.ServerValue.TIMESTAMP
+            };
+            
+            userRef.set(newUser).then(() => {
+                userData = newUser;
+                completedSections = [];
+                showMainApp();
+            });
+        }
+    }).catch((error) => {
+        console.error("Error loading user data:", error);
+        showToast('error', 'Error', 'Failed to load your data.');
+    });
+}
+
+// Show landing page
+function showLandingPage() {
+    document.getElementById('landingPage').style.display = 'flex';
+    document.getElementById('mainApp').style.display = 'none';
+}
+
+// Update user XP display
+function updateUserXP() {
+    const xp = userData.xp || 0;
+    document.getElementById('userXP').textContent = xp;
+}
+
+// Update user badges display
+function updateUserBadges() {
+    const badges = userData.badges || [];
+    const badgesContainer = document.getElementById('userBadges');
+    badgesContainer.innerHTML = '';
+    
+    if (badges.length === 0) {
+        badgesContainer.innerHTML = '<span class="text-sm text-gray-500">No badges yet</span>';
+        return;
+    }
+    
+    badges.forEach(badge => {
+        const badgeElement = document.createElement('div');
+        badgeElement.className = 'badge';
+        badgeElement.innerHTML = `<i class="fas fa-medal"></i>`;
+        badgeElement.title = badge;
+        badgesContainer.appendChild(badgeElement);
+    });
+}
+
+// Check for daily challenge
+function checkDailyChallenge() {
+    const today = new Date().toISOString().split('T')[0];
+    const challengeRef = group1MetalsRef.child('dailyChallenges').child(today);
+    
+    challengeRef.once('value').then((snapshot) => {
+        if (snapshot.exists()) {
+            dailyChallenge = snapshot.val();
+            
+            // Check if user has completed today's challenge
+            const userChallengeRef = group1MetalsRef.child('users').child(currentUser.uid).child('dailyChallenges').child(today);
+            userChallengeRef.once('value').then((userSnapshot) => {
+                if (!userSnapshot.exists()) {
+                    // Show daily challenge
+                    document.getElementById('dailyChallenge').style.display = 'block';
+                    document.getElementById('dailyChallengeQuestion').textContent = dailyChallenge.question;
+                }
+            });
+        } else {
+            // Create a new daily challenge for today
+            const randomChallenge = dailyChallenges[Math.floor(Math.random() * dailyChallenges.length)];
+            challengeRef.set(randomChallenge).then(() => {
+                dailyChallenge = randomChallenge;
+                document.getElementById('dailyChallenge').style.display = 'block';
+                document.getElementById('dailyChallengeQuestion').textContent = dailyChallenge.question;
+            });
+        }
+    });
+}
+
+// Show daily challenge modal
+function showDailyChallengeModal() {
+    if (!dailyChallenge) return;
+    
+    document.getElementById('dailyChallengeModal').classList.add('active');
+    document.getElementById('dailyChallengeQuestionText').textContent = dailyChallenge.question;
+    
+    const optionsContainer = document.getElementById('dailyChallengeOptions');
+    optionsContainer.innerHTML = '';
+    
+    dailyChallenge.options.forEach((option, index) => {
+        const optionDiv = document.createElement('div');
+        optionDiv.className = 'quiz-option';
+        optionDiv.dataset.index = index;
+        
+        const input = document.createElement('input');
+        input.type = 'radio';
+        input.name = 'daily-challenge-option';
+        input.id = `daily-option-${index}`;
+        input.value = index;
+        
+        const label = document.createElement('label');
+        label.htmlFor = `daily-option-${index}`;
+        label.textContent = option;
+        
+        optionDiv.appendChild(input);
+        optionDiv.appendChild(label);
+        
+        optionDiv.onclick = () => selectDailyChallengeOption(index);
+        
+        optionsContainer.appendChild(optionDiv);
+    });
+    
+    // Reset feedback
+    document.getElementById('dailyChallengeFeedback').classList.add('hidden');
+    document.getElementById('dailyChallengeSubmitBtn').disabled = true;
+    dailyChallengeAnswered = false;
+}
+
+// Close daily challenge modal
+function closeDailyChallengeModal() {
+    document.getElementById('dailyChallengeModal').classList.remove('active');
+}
+
+// Select daily challenge option
+function selectDailyChallengeOption(index) {
+    if (dailyChallengeAnswered) return;
+    
+    const options = document.querySelectorAll('#dailyChallengeOptions .quiz-option');
+    options.forEach(option => {
+        option.classList.remove('selected');
+        const input = option.querySelector('input');
+        input.checked = false;
+    });
+    
+    options[index].classList.add('selected');
+    options[index].querySelector('input').checked = true;
+    
+    document.getElementById('dailyChallengeSubmitBtn').disabled = false;
+}
+
+// Submit daily challenge
+function submitDailyChallenge() {
+    if (dailyChallengeAnswered) return;
+    
+    const selectedOption = document.querySelector('#dailyChallengeOptions .quiz-option.selected');
+    if (!selectedOption) return;
+    
+    const selectedIndex = parseInt(selectedOption.dataset.index);
+    const isCorrect = selectedIndex === dailyChallenge.correct;
+    
+    const feedback = document.getElementById('dailyChallengeFeedback');
+    if (isCorrect) {
+        feedback.className = 'mb-5 p-4 rounded-lg bg-green-100 text-green-800 text-sm';
+        feedback.textContent = 'Correct! ' + dailyChallenge.explanation;
+        
+        // Award XP
+        const newXp = (userData.xp || 0) + 5;
+        const userRef = group1MetalsRef.child('users').child(currentUser.uid);
+        userRef.update({
+            xp: newXp
+        }).then(() => {
+            userData.xp = newXp;
+            updateUserXP();
+            
+            if (soundEnabled) correctSound.play();
+            showToast('success', 'Daily Challenge Complete!', 'You earned 5 XP!');
+        });
+    } else {
+        feedback.className = 'mb-5 p-4 rounded-lg bg-red-100 text-red-800 text-sm';
+        feedback.textContent = 'Incorrect. ' + dailyChallenge.explanation;
+        
+        if (soundEnabled) incorrectSound.play();
+    }
+    
+    feedback.classList.remove('hidden');
+    document.getElementById('dailyChallengeSubmitBtn').disabled = true;
+    dailyChallengeAnswered = true;
+    
+    // Mark as completed
+    const today = new Date().toISOString().split('T')[0];
+    const userChallengeRef = group1MetalsRef.child('users').child(currentUser.uid).child('dailyChallenges').child(today);
+    userChallengeRef.set(true);
+    
+    // Hide daily challenge banner
+    document.getElementById('dailyChallenge').style.display = 'none';
+}
+
+// Toggle dark mode
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    localStorage.setItem('darkMode', isDarkMode);
+}
+
+// Toggle sound effects
+function toggleSound() {
+    soundEnabled = document.getElementById('soundToggle').checked;
+    localStorage.setItem('soundEnabled', soundEnabled);
+}
+
+// Authentication functions
+function showLoginModal() {
+    document.getElementById('loginModal').classList.add('active');
+}
+
+function closeLoginModal() {
+    document.getElementById('loginModal').classList.remove('active');
+}
+
+function showSignup() {
+    closeLoginModal();
+    document.getElementById('signupModal').classList.add('active');
+}
+
+function showLogin() {
+    closeSignupModal();
+    document.getElementById('loginModal').classList.add('active');
+}
+
+function closeSignupModal() {
+    document.getElementById('signupModal').classList.remove('active');
+}
+
+// Magic Link functions
+function signInWithMagicLink() {
+    showMagicLinkModal();
+}
+
+function showMagicLinkModal() {
+    document.getElementById('magicLinkModal').classList.add('active');
+}
+
+function closeMagicLinkModal() {
+    document.getElementById('magicLinkModal').classList.remove('active');
+    document.getElementById('magicLinkForm').reset();
+    document.getElementById('magicLinkMessage').style.display = 'none';
+}
+
+function sendMagicLink(event) {
+    event.preventDefault();
+    
+    const email = document.getElementById('magicLinkEmail').value.trim();
+    const messageDiv = document.getElementById('magicLinkMessage');
+    
+    if (!email) {
+        showMagicLinkMessage('Please enter your email address.', 'error');
+        return;
+    }
+    
+    // Use your GitHub Pages URL as the redirect URL
+    const redirectUrl = 'https://andrewung2009.github.io/TheCuriousChemist/alkalimetals/alkalimetals.html';
+    
+    const actionCodeSettings = {
+        url: redirectUrl,
+        handleCodeInApp: true,
+        // Remove dynamic link domain since it's deprecated
+    };
+    
+    auth.sendSignInLinkToEmail(email, actionCodeSettings)
+    .then(() => {
+        // Save the email locally for verification
+        window.localStorage.setItem('emailForSignIn', email);
+        showMagicLinkMessage('Magic link sent! Check your email (including spam folder) to sign in.', 'success');
+        document.getElementById('magicLinkForm').reset();
+    })
+    .catch((error) => {
+        console.error("Error sending magic link:", error);
+        showMagicLinkMessage('Error sending magic link: ' + error.message, 'error');
+    });
+}
+
+function showMagicLinkMessage(message, type) {
+    const messageDiv = document.getElementById('magicLinkMessage');
+    messageDiv.textContent = message;
+    messageDiv.className = 'magic-link-message ' + type;
+    messageDiv.style.display = 'block';
+}
+
+// Check for magic link in URL
+function checkForMagicLink() {
+    // Check if we're on the magic link verification page
+    if (auth.isSignInWithEmailLink(window.location.href)) {
+        let email = window.localStorage.getItem('emailForSignIn');
+        if (!email) {
             email = window.prompt('Please provide your email for confirmation');
-         }
-         
-         if (email) {
+        }
+        
+        if (email) {
             // Show loading state
             showToast('info', 'Signing in', 'Please wait while we verify your magic link...');
             
@@ -903,131 +907,131 @@
                     console.error("Email link sign-in error:", error);
                     showToast('error', 'Sign in failed', error.message);
                 });
-         }
-         }
-         }
-         function configureEmailSettings() {
-         // Set language for email templates
-         firebase.auth().languageCode = 'en';
-         
-         // Configure email template settings (this is done in Firebase Console)
-         // But we can set some preferences here
-         const settings = {
-         // Use a more friendly sender name
-         displayName: 'Chemistry Mastery Team'
-         };
-         
-         // This would be configured in Firebase Console, not in code
-         console.log('Email settings configured:', settings);
-         }
-         
-         // Call this when initializing Firebase
-         configureEmailSettings();
-         function cleanUrlAfterAuth() {
-         const url = new URL(window.location.href);
-         const paramsToRemove = ['apiKey', 'oobCode', 'mode', 'continueUrl', 'lang'];
-         let paramsRemoved = false;
-         
-         paramsToRemove.forEach(param => {
-         if (url.searchParams.has(param)) {
+        }
+    }
+}
+
+function configureEmailSettings() {
+    // Set language for email templates
+    firebase.auth().languageCode = 'en';
+    
+    // Configure email template settings (this is done in Firebase Console)
+    // But we can set some preferences here
+    const settings = {
+        // Use a more friendly sender name
+        displayName: 'Chemistry Mastery Team'
+    };
+    
+    // This would be configured in Firebase Console, not in code
+    console.log('Email settings configured:', settings);
+}
+
+// Call this when initializing Firebase
+configureEmailSettings();
+
+function cleanUrlAfterAuth() {
+    const url = new URL(window.location.href);
+    const paramsToRemove = ['apiKey', 'oobCode', 'mode', 'continueUrl', 'lang'];
+    let paramsRemoved = false;
+    
+    paramsToRemove.forEach(param => {
+        if (url.searchParams.has(param)) {
             url.searchParams.delete(param);
             paramsRemoved = true;
-         }
-         });
-         
-         if (paramsRemoved) {
-         window.history.replaceState({}, document.title, url.toString());
-         }
-         }
-         
-         // Call this after successful authentication
-         // cleanUrlAfterAuth();
-         // Updated sendMagicLink with better error handling
-         function sendMagicLink(event) {
-         event.preventDefault();
-         
-         const email = document.getElementById('magicLinkEmail').value.trim();
-         const messageDiv = document.getElementById('magicLinkMessage');
-         
-         if (!email) {
-         showMagicLinkMessage('Please enter your email address.', 'error');
-         return;
-         }
-         
-         // Validate email format
-         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-         if (!emailRegex.test(email)) {
-         showMagicLinkMessage('Please enter a valid email address.', 'error');
-         return;
-         }
-         
-         // Use your GitHub Pages URL as the redirect URL
-         const redirectUrl = 'https://andrewung2009.github.io/TheCuriousChemist/alkalimetals/alkalimetals.html';
-         
-         const actionCodeSettings = {
-         url: redirectUrl,
-         handleCodeInApp: true,
-         // Add iOS settings if you have an iOS app
-         iOS: {
+        }
+    });
+    
+    if (paramsRemoved) {
+        window.history.replaceState({}, document.title, url.toString());
+    }
+}
+
+// Updated sendMagicLink with better error handling
+function sendMagicLink(event) {
+    event.preventDefault();
+    
+    const email = document.getElementById('magicLinkEmail').value.trim();
+    const messageDiv = document.getElementById('magicLinkMessage');
+    
+    if (!email) {
+        showMagicLinkMessage('Please enter your email address.', 'error');
+        return;
+    }
+    
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        showMagicLinkMessage('Please enter a valid email address.', 'error');
+        return;
+    }
+    
+    // Use your GitHub Pages URL as the redirect URL
+    const redirectUrl = 'https://andrewung2009.github.io/TheCuriousChemist/alkalimetals/alkalimetals.html';
+    
+    const actionCodeSettings = {
+        url: redirectUrl,
+        handleCodeInApp: true,
+        // Add iOS settings if you have an iOS app
+        iOS: {
             bundleId: 'com.example.ios'
-         },
-         // Add Android settings if you have an Android app
-         android: {
+        },
+        // Add Android settings if you have an Android app
+        android: {
             packageName: 'com.example.android',
             installApp: true,
             minimumVersion: '12'
-         }
-         };
-         
-         // Show loading state
-         showMagicLinkMessage('Sending magic link...', 'info');
-         
-         auth.sendSignInLinkToEmail(email, actionCodeSettings)
-         .then(() => {
-            // Save the email locally for verification
-            window.localStorage.setItem('emailForSignIn', email);
-            showMagicLinkMessage('Magic link sent! Check your email (including spam folder) to sign in.', 'success');
-            document.getElementById('magicLinkForm').reset();
-         })
-         .catch((error) => {
-            console.error("Error sending magic link:", error);
-            let errorMessage = 'Error sending magic link.';
-            
-            switch (error.code) {
-                case 'auth/invalid-email':
-                    errorMessage = 'Please enter a valid email address.';
-                    break;
-                case 'auth/user-not-found':
-                    errorMessage = 'No account found with this email address.';
-                    break;
-                case 'auth/too-many-requests':
-                    errorMessage = 'Too many requests. Please try again later.';
-                    break;
-                default:
-                    errorMessage += ' ' + error.message;
-            }
-            
-            showMagicLinkMessage(errorMessage, 'error');
-         });
-         }
-         
-         // Updated checkForMagicLink with better error handling
-         function checkForMagicLink() {
-         // Check if we're on the magic link verification page
-         if (auth.isSignInWithEmailLink(window.location.href)) {
-         let email = window.localStorage.getItem('emailForSignIn');
-         if (!email) {
+        }
+    };
+    
+    // Show loading state
+    showMagicLinkMessage('Sending magic link...', 'info');
+    
+    auth.sendSignInLinkToEmail(email, actionCodeSettings)
+    .then(() => {
+        // Save the email locally for verification
+        window.localStorage.setItem('emailForSignIn', email);
+        showMagicLinkMessage('Magic link sent! Check your email (including spam folder) to sign in.', 'success');
+        document.getElementById('magicLinkForm').reset();
+    })
+    .catch((error) => {
+        console.error("Error sending magic link:", error);
+        let errorMessage = 'Error sending magic link.';
+        
+        switch (error.code) {
+            case 'auth/invalid-email':
+                errorMessage = 'Please enter a valid email address.';
+                break;
+            case 'auth/user-not-found':
+                errorMessage = 'No account found with this email address.';
+                break;
+            case 'auth/too-many-requests':
+                errorMessage = 'Too many requests. Please try again later.';
+                break;
+            default:
+                errorMessage += ' ' + error.message;
+        }
+        
+        showMagicLinkMessage(errorMessage, 'error');
+    });
+}
+
+// Updated checkForMagicLink with better error handling
+function checkForMagicLink() {
+    // Check if we're on the magic link verification page
+    if (auth.isSignInWithEmailLink(window.location.href)) {
+        let email = window.localStorage.getItem('emailForSignIn');
+        if (!email) {
             email = window.prompt('Please provide your email for confirmation');
             if (!email) {
                 showToast('error', 'Email Required', 'Please provide your email to sign in.');
                 return;
             }
-         }
-         
-         // Show loading state
-         showToast('info', 'Signing in', 'Please wait while we verify your magic link...');
-         
-         auth.signInWithEmailLink(email, window.location.href)
+        }
+        
+        // Show loading state
+        showToast('info', 'Signing in', 'Please wait while we verify your magic link...');
+        
+        auth.signInWithEmailLink(email, window.location.href)
             .then((result) => {
                 // Clear the stored email
                 window.localStorage.removeItem('emailForSignIn');
@@ -1065,702 +1069,685 @@
                 // Clean up the URL even on error
                 cleanUrlAfterAuth();
             });
-         }
-         }
-         
-         function cleanUrlAfterAuth() {
-         const url = new URL(window.location.href);
-         const paramsToRemove = ['apiKey', 'oobCode', 'mode', 'continueUrl', 'lang'];
-         let paramsRemoved = false;
-         
-         paramsToRemove.forEach(param => {
-         if (url.searchParams.has(param)) {
-            url.searchParams.delete(param);
-            paramsRemoved = true;
-         }
-         });
-         
-         if (paramsRemoved) {
-         window.history.replaceState({}, document.title, url.toString());
-         }
-         }
-         
-         function handleEmailLogin(event) {
-             event.preventDefault();
-             
-             const email = document.getElementById('loginEmail').value;
-             const password = document.getElementById('loginPassword').value;
-             
-             auth.signInWithEmailAndPassword(email, password)
-                 .then((userCredential) => {
-                     showToast('success', 'Welcome back!', 'You have been successfully signed in.');
-                     closeLoginModal();
-                 })
-                 .catch((error) => {
-                     console.error("Email login error:", error);
-                     showToast('error', 'Sign in failed', error.message);
-                 });
-         }
-         
-         function handleSignup(event) {
-             event.preventDefault();
-             
-             const name = document.getElementById('signupName').value;
-             const email = document.getElementById('signupEmail').value;
-             const password = document.getElementById('signupPassword').value;
-             const confirmPassword = document.getElementById('signupConfirmPassword').value;
-             
-             if (password !== confirmPassword) {
-                 showToast('error', 'Password Mismatch', 'The passwords you entered do not match.');
-                 return;
-             }
-             
-             auth.createUserWithEmailAndPassword(email, password)
-                 .then((userCredential) => {
-                     const user = userCredential.user;
-                     
-                     // Update profile with display name
-                     return user.updateProfile({
-                         displayName: name
-                     }).then(() => {
-                         showToast('success', 'Account Created!', 'Your account has been created successfully.');
-                         closeSignupModal();
-                     });
-                 })
-                 .catch((error) => {
-                     console.error("Signup error:", error);
-                     showToast('error', 'Sign up failed', error.message);
-                 });
-         }
-         
-         function signOut() {
-             auth.signOut().then(() => {
-                 showToast('info', 'Goodbye!', 'You have been successfully signed out.');
-                 showLandingPage();
-             }).catch((error) => {
-                 console.error("Sign out error:", error);
-                 showToast('error', 'Error', 'Failed to sign out.');
-             });
-         }
-         
-         // Tab functions
-         function showTab(tabName) {
-             // Hide all tab contents
-             const tabContents = document.querySelectorAll('.tab-content');
-             tabContents.forEach(content => {
-                 content.classList.remove('active');
-             });
-             
-             // Remove active class from all tabs
-             const tabs = document.querySelectorAll('.tab');
-             tabs.forEach(tab => {
-                 tab.classList.remove('active');
-             });
-             
-             // Show selected tab content
-             const tabContent = document.getElementById(tabName);
-             if (tabContent) {
-                 tabContent.classList.add('active');
-             }
-             
-             // Add active class to clicked tab
-             const activeTab = document.querySelector(`[onclick="showTab('${tabName}')"]`);
-             if (activeTab) {
-                 activeTab.classList.add('active');
-             }
-         }
-         
-         function completeSection(sectionName) {
-             if (completedSections.includes(sectionName)) {
-                 // If already completed, unmark as complete
-                 unmarkSectionComplete(sectionName);
-                 return;
-             }
-             
-             completedSections.push(sectionName);
-             
-             // Award XP
-             const xpAwarded = 10;
-             const newXp = (userData.xp || 0) + xpAwarded;
-             
-             // Check for badges
-             const newBadges = [...(userData.badges || [])];
-             let badgeEarned = false;
-             
-             if (completedSections.length === 1 && !newBadges.includes('First Steps')) {
-                 newBadges.push('First Steps');
-                 badgeEarned = true;
-             }
-             
-             if (completedSections.length === 4 && !newBadges.includes('Metal Master')) {
-                 newBadges.push('Metal Master');
-                 badgeEarned = true;
-             }
-             
-             // Save to Firebase
-             if (currentUser && userData) {
-                 const userRef = database.ref('users/' + currentUser.uid);
-                 const updates = {
-                     completedSections: completedSections,
-                     xp: newXp
-                 };
-                 
-                 if (badgeEarned) {
-                     updates.badges = newBadges;
-                 }
-                 
-                 userRef.update(updates).then(() => {
-                     userData.xp = newXp;
-                     if (badgeEarned) {
-                         userData.badges = newBadges;
-                     }
-                     
-                     updateUserXP();
-                     updateUserBadges();
-                     
-                     if (soundEnabled) {
-                         completeSound.play();
-                         if (badgeEarned) badgeSound.play();
-                     }
-                     
-                     showToast('success', 'Section Complete!', `Great job! You've completed this section and earned ${xpAwarded} XP.`);
-                     
-                     if (badgeEarned) {
-                         showToast('success', 'Badge Earned!', `You've earned a new badge: ${newBadges[newBadges.length - 1]}`);
-                     }
-                     
-                     updateSectionCompletionStatus();
-                     updateProgressTracker();
-                     
-                     // Navigate to next section if available
-                     const sectionOrder = ['overview', 'elements', 'properties', 'reactions', 'quiz'];
-                     const currentIndex = sectionOrder.indexOf(sectionName);
-                     if (currentIndex < sectionOrder.length - 1) {
-                         const nextSection = sectionOrder[currentIndex + 1];
-                         navigateToSection(nextSection);
-                     }
-                 }).catch((error) => {
-                     console.error("Error saving progress:", error);
-                     showToast('error', 'Error', 'Failed to save your progress.');
-                 });
-             }
-         }
-         
-         function unmarkSectionComplete(sectionName) {
-             // Remove from completed sections
-             completedSections = completedSections.filter(section => section !== sectionName);
-             
-             // Update UI
-             updateSectionCompletionStatus();
-             updateProgressTracker();
-             
-             // Save to Firebase
-             if (currentUser && userData) {
-                 const userRef = database.ref('users/' + currentUser.uid);
-                 userRef.update({
-                     completedSections: completedSections
-                 }).then(() => {
-                     showToast('info', 'Section Unmarked', `You've unmarked ${sectionName} as complete.`);
-                 }).catch((error) => {
-                     console.error("Error updating progress:", error);
-                     showToast('error', 'Error', 'Failed to update your progress.');
-                 });
-             }
-         }
-         
-         function updateSectionCompletionStatus() {
-             // Update nav items
-             const navItems = document.querySelectorAll('.nav-item');
-             navItems.forEach(item => {
-                 const section = item.id.replace('nav-', '');
-                 if (completedSections.includes(section)) {
-                     item.classList.remove('locked');
-                     item.classList.add('completed');
-                 } else {
-                     item.classList.remove('completed');
-                 }
-             });
-             
-             // Unlock next sections
-             const sectionOrder = ['overview', 'elements', 'properties', 'reactions', 'quiz'];
-             sectionOrder.forEach((section, index) => {
-                 if (completedSections.includes(section) && index < sectionOrder.length - 1) {
-                     const nextSection = sectionOrder[index + 1];
-                     const nextNavItem = document.getElementById(`nav-${nextSection}`);
-                     if (nextNavItem) {
-                         nextNavItem.classList.remove('locked');
-                     }
-                 }
-             });
-             
-             // Check if all sections are completed to unlock quiz
-             const allSectionsCompleted = ['overview', 'elements', 'properties', 'reactions'].every(section => 
-                 completedSections.includes(section)
-             );
-             
-             if (allSectionsCompleted) {
-                 const quizNavItem = document.getElementById('nav-quiz');
-                 if (quizNavItem) {
-                     quizNavItem.classList.remove('locked');
-                 }
-             }
-             
-             // Update section buttons
-             updateSectionButtons();
-         }
-         
-         function updateSectionButtons() {
-             // Update each section's complete button
-             const sections = ['overview', 'elements', 'properties', 'reactions', 'quiz'];
-             sections.forEach(section => {
-                 const button = document.getElementById(`${section}-complete-btn`);
-                 if (button) {
-                     if (completedSections.includes(section)) {
-                         button.innerHTML = '<i class="fas fa-times mr-2"></i>Unmark as Complete';
-                         button.classList.remove('btn-success');
-                         button.classList.add('btn-unmark');
-                     } else {
-                         button.innerHTML = '<i class="fas fa-check mr-2"></i>Mark as Complete';
-                         button.classList.remove('btn-unmark');
-                         button.classList.add('btn-success');
-                     }
-                 }
-             });
-         }
-         
-         function updateProgressTracker() {
-             const totalSections = 4; // overview, elements, properties, reactions
-             const completedCount = completedSections.length;
-             const percentage = Math.round((completedCount / totalSections) * 100);
-             
-             document.getElementById('progressPercentage').textContent = `${percentage}%`;
-             document.getElementById('overallProgressFill').style.width = `${percentage}%`;
-             
-             // Update progress items
-             const sections = ['overview', 'elements', 'properties', 'quiz'];
-             sections.forEach(section => {
-                 const progressItem = document.getElementById(`progress-${section}`);
-                 const statusElement = progressItem.querySelector('.text-xs');
-                 
-                 if (completedSections.includes(section)) {
-                     progressItem.classList.add('bg-green-100');
-                     statusElement.textContent = 'Completed';
-                     statusElement.classList.remove('text-gray-500');
-                     statusElement.classList.add('text-green-600');
-                 } else if (section === 'quiz' && completedSections.length === 4) {
-                     progressItem.classList.remove('bg-gray-100');
-                     progressItem.classList.add('bg-blue-100');
-                     statusElement.textContent = 'Available';
-                     statusElement.classList.remove('text-gray-500');
-                     statusElement.classList.add('text-blue-600');
-                 }
-             });
-         }
-         
-         // Interactive element quiz functions
-         function showElementQuiz(element) {
-             const question = termQuizQuestions[element];
-             if (!question) return;
-             
-             const popup = document.getElementById('elementQuizPopup');
-             const title = document.getElementById('elementQuizTitle');
-             const questionText = document.getElementById('elementQuizQuestion');
-             const optionsContainer = document.getElementById('elementQuizOptions');
-             const feedback = document.getElementById('elementQuizFeedback');
-             
-             title.textContent = `${element.charAt(0).toUpperCase() + element.slice(1)} Quiz`;
-             questionText.textContent = question.question;
-             
-             optionsContainer.innerHTML = '';
-             question.options.forEach((option, index) => {
-                 const optionDiv = document.createElement('div');
-                 optionDiv.className = 'quiz-option';
-                 optionDiv.textContent = option;
-                 optionDiv.onclick = () => checkElementQuizAnswer(index, question.correct, question.explanation);
-                 optionsContainer.appendChild(optionDiv);
-             });
-             
-             feedback.classList.add('hidden');
-             popup.classList.remove('hidden');
-         }
-         
-         function checkElementQuizAnswer(selectedIndex, correctIndex, explanation) {
-             const options = document.querySelectorAll('#elementQuizOptions .quiz-option');
-             const feedback = document.getElementById('elementQuizFeedback');
-             
-             options.forEach((option, index) => {
-                 option.onclick = null; // Disable further clicks
-                 if (index === correctIndex) {
-                     option.classList.add('correct');
-                 } else if (index === selectedIndex) {
-                     option.classList.add('incorrect');
-                 }
-             });
-             
-             if (selectedIndex === correctIndex) {
-                 feedback.className = 'mb-5 p-4 rounded-lg bg-green-100 text-green-800';
-                 feedback.textContent = 'Correct! ' + explanation;
-                 if (soundEnabled) correctSound.play();
-             } else {
-                 feedback.className = 'mb-5 p-4 rounded-lg bg-red-100 text-red-800';
-                 feedback.textContent = 'Incorrect. ' + explanation;
-                 if (soundEnabled) incorrectSound.play();
-             }
-             
-             feedback.classList.remove('hidden');
-         }
-         
-         function closeElementQuiz() {
-             document.getElementById('elementQuizPopup').classList.add('hidden');
-         }
-         
-         // Term quiz functions
-         function showTermQuiz(term) {
-             const question = termQuizQuestions[term];
-             if (!question) return;
-             
-             document.getElementById('quizQuestionModal').classList.add('active');
-             document.getElementById('quizQuestionTitle').textContent = `Quick Quiz: ${term.replace('-', ' ')}`;
-             document.getElementById('quizQuestionText').textContent = question.question;
-             
-             const answersContainer = document.getElementById('quizQuestionAnswers');
-             answersContainer.innerHTML = '';
-             
-             question.options.forEach((option, index) => {
-                 const answerDiv = document.createElement('div');
-                 answerDiv.className = 'quiz-option';
-                 answerDiv.textContent = option;
-                 answerDiv.onclick = () => selectTermQuizAnswer(index, question.correct, question.explanation);
-                 answersContainer.appendChild(answerDiv);
-             });
-             
-             // Reset feedback
-             document.getElementById('quizQuestionFeedback').classList.add('hidden');
-         }
-         
-         function selectTermQuizAnswer(index, correctIndex, explanation) {
-             const answers = document.querySelectorAll('#quizQuestionAnswers .quiz-option');
-             const feedback = document.getElementById('quizQuestionFeedback');
-             
-             answers.forEach(answer => {
-                 answer.style.pointerEvents = 'none';
-             });
-             
-             if (index === correctIndex) {
-                 answers[index].classList.add('correct');
-                 feedback.className = 'quiz-feedback correct';
-                 feedback.textContent = 'Correct! ' + explanation;
-                 
-                 if (soundEnabled) correctSound.play();
-             } else {
-                 answers[index].classList.add('incorrect');
-                 feedback.className = 'quiz-feedback incorrect';
-                 feedback.textContent = 'Incorrect. ' + explanation;
-                 
-                 if (soundEnabled) incorrectSound.play();
-             }
-             
-             feedback.classList.remove('hidden');
-         }
-         
-         function closeQuizQuestionModal() {
-             document.getElementById('quizQuestionModal').classList.remove('active');
-         }
-         
-         // Trend quiz functions
-         function showTrendQuiz(trend) {
-             const question = trendQuizQuestions[trend];
-             if (!question) return;
-             
-             document.getElementById('quizQuestionModal').classList.add('active');
-             document.getElementById('quizQuestionTitle').textContent = `Trend Quiz: ${trend.replace('-', ' ')}`;
-             document.getElementById('quizQuestionText').textContent = question.question;
-             
-             const answersContainer = document.getElementById('quizQuestionAnswers');
-             answersContainer.innerHTML = '';
-             
-             question.options.forEach((option, index) => {
-                 const answerDiv = document.createElement('div');
-                 answerDiv.className = 'quiz-option';
-                 answerDiv.textContent = option;
-                 answerDiv.onclick = () => selectTrendQuizAnswer(index, question.correct, question.explanation);
-                 answersContainer.appendChild(answerDiv);
-             });
-             
-             // Reset feedback
-             document.getElementById('quizQuestionFeedback').classList.add('hidden');
-         }
-         
-         function selectTrendQuizAnswer(index, correctIndex, explanation) {
-             const answers = document.querySelectorAll('#quizQuestionAnswers .quiz-option');
-             const feedback = document.getElementById('quizQuestionFeedback');
-             
-             answers.forEach(answer => {
-                 answer.style.pointerEvents = 'none';
-             });
-             
-             if (index === correctIndex) {
-                 answers[index].classList.add('correct');
-                 feedback.className = 'quiz-feedback correct';
-                 feedback.textContent = 'Correct! ' + explanation;
-                 
-                 if (soundEnabled) correctSound.play();
-             } else {
-                 answers[index].classList.add('incorrect');
-                 feedback.className = 'quiz-feedback incorrect';
-                 feedback.textContent = 'Incorrect. ' + explanation;
-                 
-                 if (soundEnabled) incorrectSound.play();
-             }
-             
-             feedback.classList.remove('hidden');
-         }
-         
-         // Element details functions
-         function showElementDetails(name, symbol, atomicNumber, electronConfig) {
-             const details = elementDetails[name];
-             if (!details) return;
-             
-             document.getElementById('elementDetailsName').textContent = name;
-             document.getElementById('elementDetailsSymbol').textContent = symbol;
-             document.getElementById('elementDetailsNumber').textContent = atomicNumber;
-             document.getElementById('elementDetailsConfig').textContent = electronConfig;
-             document.getElementById('elementDetailsMP').textContent = details.meltingPoint;
-             document.getElementById('elementDetailsDensity').textContent = details.density;
-             document.getElementById('elementDetailsReactivity').textContent = details.reactivity;
-             document.getElementById('elementDetailsUses').textContent = details.uses;
-             document.getElementById('elementDetailsFact').textContent = details.fact;
-             
-             // Setup quiz
-             document.getElementById('elementDetailsQuizQuestion').textContent = details.quizQuestion;
-             const optionsContainer = document.getElementById('elementDetailsQuizOptions');
-             optionsContainer.innerHTML = '';
-             
-             details.quizOptions.forEach((option, index) => {
-                 const optionDiv = document.createElement('div');
-                 optionDiv.className = 'quiz-option';
-                 optionDiv.textContent = option;
-                 optionDiv.onclick = () => checkElementDetailsQuizAnswer(index, details.quizCorrect, details.quizExplanation);
-                 optionsContainer.appendChild(optionDiv);
-             });
-             
-             document.getElementById('elementDetailsQuizFeedback').classList.add('hidden');
-             document.getElementById('elementDetailsModal').classList.add('active');
-         }
-         
-         function checkElementDetailsQuizAnswer(selectedIndex, correctIndex, explanation) {
-             const options = document.querySelectorAll('#elementDetailsQuizOptions .quiz-option');
-             const feedback = document.getElementById('elementDetailsQuizFeedback');
-             
-             options.forEach((option, index) => {
-                 option.onclick = null; // Disable further clicks
-                 if (index === correctIndex) {
-                     option.classList.add('correct');
-                 } else if (index === selectedIndex) {
-                     option.classList.add('incorrect');
-                 }
-             });
-             
-             if (selectedIndex === correctIndex) {
-                 feedback.className = 'mt-3 p-4 rounded-lg bg-green-100 text-green-800';
-                 feedback.textContent = 'Correct! ' + explanation;
-                 if (soundEnabled) correctSound.play();
-             } else {
-                 feedback.className = 'mt-3 p-4 rounded-lg bg-red-100 text-red-800';
-                 feedback.textContent = 'Incorrect. ' + explanation;
-                 if (soundEnabled) incorrectSound.play();
-             }
-             
-             feedback.classList.remove('hidden');
-         }
-         
-         function closeElementDetails() {
-             document.getElementById('elementDetailsModal').classList.remove('active');
-         }
-         
-         // Trend explanation functions
-         function showTrendExplanation(trend, element) {
-             let title, heading, content, quizQuestion, quizOptions, quizCorrect, quizExplanation;
-             
-             if (trend === 'melting-point') {
-                 title = 'Melting Point Trend';
-                 heading = `Melting Point of ${element.charAt(0).toUpperCase() + element.slice(1)}`;
-                 
-                 if (element === 'lithium') {
-                     content = 'Lithium has the highest melting point in Group 1 (180.5°C) due to its small atomic size and strong metallic bonding. The small size of lithium atoms means the positive nuclei are closer to the delocalized electrons, resulting in stronger metallic bonds that require more energy to break.';
-                 } else if (element === 'sodium') {
-                     content = 'Sodium has a lower melting point (97.8°C) than lithium due to its larger atomic size. The increased atomic radius means the positive nuclei are further from the delocalized electrons, weakening the metallic bonds and requiring less energy to break them.';
-                 } else if (element === 'potassium') {
-                     content = 'Potassium has an even lower melting point (63.5°C) due to its larger atomic size. The additional electron shell increases the atomic radius significantly, further weakening the metallic bonds.';
-                 } else if (element === 'rubidium') {
-                     content = 'Rubidium has a very low melting point (39.3°C) due to its large atomic size. The increased distance between positive nuclei and delocalized electrons results in very weak metallic bonds.';
-                 } else if (element === 'cesium') {
-                     content = 'Cesium has the lowest melting point in Group 1 (28.4°C) due to its largest atomic size. The significant distance between positive nuclei and delocalized electrons results in extremely weak metallic bonds that require very little energy to break.';
-                 }
-                 
-                 quizQuestion = "Why does melting point decrease down Group 1?";
-                 quizOptions = [
-                     "Atomic size increases, metallic bonds weaken",
-                     "Atomic size decreases, metallic bonds strengthen",
-                     "Electron configuration changes",
-                     "Nuclear charge increases"
-                 ];
-                 quizCorrect = 0;
-                 quizExplanation = "As we move down Group 1, atomic size increases due to additional electron shells. This increases the distance between positive nuclei and delocalized electrons, weakening the metallic bonds and lowering the melting point.";
-             } else if (trend === 'density') {
-                 title = 'Density Trend';
-                 heading = `Density of ${element.charAt(0).toUpperCase() + element.slice(1)}`;
-                 
-                 if (element === 'lithium') {
-                     content = 'Lithium has the lowest density of all metals (0.534 g/cm³) and can float on water. Its low density is due to its small atomic mass combined with a relatively large atomic volume.';
-                 } else if (element === 'sodium') {
-                     content = 'Sodium has a higher density (0.968 g/cm³) than lithium but still floats on water. The increase in atomic mass is proportionally greater than the increase in atomic volume compared to lithium.';
-                 } else if (element === 'potassium') {
-                     content = 'Potassium has a lower density (0.89 g/cm³) than sodium, which is an exception to the general trend. The increase in atomic volume is proportionally greater than the increase in atomic mass compared to sodium.';
-                 } else if (element === 'rubidium') {
-                     content = 'Rubidium has a higher density (1.532 g/cm³) than potassium. The increase in atomic mass is proportionally greater than the increase in atomic volume, following the general trend of increasing density down the group.';
-                 } else if (element === 'cesium') {
-                     content = 'Cesium has the highest density in Group 1 (1.93 g/cm³). The significant increase in atomic mass compared to the increase in atomic volume results in the highest density in the group.';
-                 }
-                 
-                 quizQuestion = "Why is potassium less dense than sodium?";
-                 quizOptions = [
-                     "Potassium has fewer protons",
-                     "Potassium has a larger atomic radius",
-                     "Potassium has more electron shells",
-                     "Potassium has a different crystal structure"
-                 ];
-                 quizCorrect = 1;
-                 quizExplanation = "Potassium has a larger atomic radius than sodium, but the increase in size is proportionally greater than the increase in mass, resulting in a lower density. This is an exception to the general trend of increasing density down the group.";
-             }
-             
-             document.getElementById('trendExplanationTitle').textContent = title;
-             document.getElementById('trendExplanationHeading').textContent = heading;
-             document.getElementById('trendExplanationContent').textContent = content;
-             document.getElementById('trendExplanationQuizQuestion').textContent = quizQuestion;
-             
-             const optionsContainer = document.getElementById('trendExplanationQuizOptions');
-             optionsContainer.innerHTML = '';
-             
-             quizOptions.forEach((option, index) => {
-                 const optionDiv = document.createElement('div');
-                 optionDiv.className = 'quiz-option';
-                 optionDiv.textContent = option;
-                 optionDiv.onclick = () => checkTrendExplanationQuizAnswer(index, quizCorrect, quizExplanation);
-                 optionsContainer.appendChild(optionDiv);
-             });
-             
-             document.getElementById('trendExplanationQuizFeedback').classList.add('hidden');
-             document.getElementById('trendExplanationModal').classList.add('active');
-         }
-         
-         function checkTrendExplanationQuizAnswer(selectedIndex, correctIndex, explanation) {
-             const options = document.querySelectorAll('#trendExplanationQuizOptions .quiz-option');
-             const feedback = document.getElementById('trendExplanationQuizFeedback');
-             
-             options.forEach((option, index) => {
-                 option.onclick = null; // Disable further clicks
-                 if (index === correctIndex) {
-                     option.classList.add('correct');
-                 } else if (index === selectedIndex) {
-                     option.classList.add('incorrect');
-                 }
-             });
-             
-             if (selectedIndex === correctIndex) {
-                 feedback.className = 'mt-3 p-4 rounded-lg bg-green-100 text-green-800';
-                 feedback.textContent = 'Correct! ' + explanation;
-                 if (soundEnabled) correctSound.play();
-             } else {
-                 feedback.className = 'mt-3 p-4 rounded-lg bg-red-100 text-red-800';
-                 feedback.textContent = 'Incorrect. ' + explanation;
-                 if (soundEnabled) incorrectSound.play();
-             }
-             
-             feedback.classList.remove('hidden');
-         }
-         
-         function closeTrendExplanation() {
-             document.getElementById('trendExplanationModal').classList.remove('active');
-         }
-         
-         // Reaction details functions
-         function showReactionDetails(reaction) {
-             const details = reactionDetails[reaction];
-             if (!details) return;
-             
-             document.getElementById('reactionDetailsTitle').textContent = `${reaction.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}`;
-             document.getElementById('reactionDetailsEquation').textContent = details.equation;
-             document.getElementById('reactionDetailsObservations').textContent = details.observations;
-             document.getElementById('reactionDetailsExplanation').textContent = details.explanation;
-             
-             // Setup quiz
-             document.getElementById('reactionDetailsQuizQuestion').textContent = details.quizQuestion;
-             const optionsContainer = document.getElementById('reactionDetailsQuizOptions');
-             optionsContainer.innerHTML = '';
-             
-             details.quizOptions.forEach((option, index) => {
-                 const optionDiv = document.createElement('div');
-                 optionDiv.className = 'quiz-option';
-                 optionDiv.textContent = option;
-                 optionDiv.onclick = () => checkReactionDetailsQuizAnswer(index, details.quizCorrect, details.quizExplanation);
-                 optionsContainer.appendChild(optionDiv);
-             });
-             
-             document.getElementById('reactionDetailsQuizFeedback').classList.add('hidden');
-             document.getElementById('reactionDetailsModal').classList.add('active');
-         }
-         
-         function checkReactionDetailsQuizAnswer(selectedIndex, correctIndex, explanation) {
-             const options = document.querySelectorAll('#reactionDetailsQuizOptions .quiz-option');
-             const feedback = document.getElementById('reactionDetailsQuizFeedback');
-             
-             options.forEach((option, index) => {
-                 option.onclick = null; // Disable further clicks
-                 if (index === correctIndex) {
-                     option.classList.add('correct');
-                 } else if (index === selectedIndex) {
-                     option.classList.add('incorrect');
-                 }
-             });
-             
-             if (selectedIndex === correctIndex) {
-                 feedback.className = 'mt-3 p-4 rounded-lg bg-green-100 text-green-800';
-                 feedback.textContent = 'Correct! ' + explanation;
-                 if (soundEnabled) correctSound.play();
-             } else {
-                 feedback.className = 'mt-3 p-4 rounded-lg bg-red-100 text-red-800';
-                 feedback.textContent = 'Incorrect. ' + explanation;
-                 if (soundEnabled) incorrectSound.play();
-             }
-             
-             feedback.classList.remove('hidden');
-         }
-         
-         function closeReactionDetails() {
-             document.getElementById('reactionDetailsModal').classList.remove('active');
-         }
-         
-         function showReactionVideo(element) {
-         // Create a modal to show the video
-         const modal = document.createElement('div');
-         modal.className = 'modal';
-         modal.style.zIndex = '1001'; // Ensure it's on top
-         
-         // Define video URLs for each element (replace with actual video URLs)
-         const videoUrls = {
-         'lithium': 'https://www.youtube.com/embed/vRKK6pliejs',
-         'sodium': 'https://www.youtube.com/embed/ODf_sPexS2Q',
-         'potassium': 'https://www.youtube.com/embed/Jy1DC6Euqj4',
-         'cesium': 'https://www.youtube.com/embed/YbwtND63tfo'
-         };
-         
-         // Get the video URL for the selected element
-         const videoUrl = videoUrls[element] || 'https://www.youtube.com/embed/TGZs93DzMDY'; // Default video
-         
-         // Set modal content
-         modal.innerHTML = `
-         <div class="modal-content" style="max-width: 900px;">
+    }
+}
+
+function handleEmailLogin(event) {
+    event.preventDefault();
+    
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    
+    auth.signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            showToast('success', 'Welcome back!', 'You have been successfully signed in.');
+            closeLoginModal();
+        })
+        .catch((error) => {
+            console.error("Email login error:", error);
+            showToast('error', 'Sign in failed', error.message);
+        });
+}
+
+function handleSignup(event) {
+    event.preventDefault();
+    
+    const name = document.getElementById('signupName').value;
+    const email = document.getElementById('signupEmail').value;
+    const password = document.getElementById('signupPassword').value;
+    const confirmPassword = document.getElementById('signupConfirmPassword').value;
+    
+    if (password !== confirmPassword) {
+        showToast('error', 'Password Mismatch', 'The passwords you entered do not match.');
+        return;
+    }
+    
+    auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            
+            // Update profile with display name
+            return user.updateProfile({
+                displayName: name
+            }).then(() => {
+                showToast('success', 'Account Created!', 'Your account has been created successfully.');
+                closeSignupModal();
+            });
+        })
+        .catch((error) => {
+            console.error("Signup error:", error);
+            showToast('error', 'Sign up failed', error.message);
+        });
+}
+
+function signOut() {
+    auth.signOut().then(() => {
+        showToast('info', 'Goodbye!', 'You have been successfully signed out.');
+        showLandingPage();
+    }).catch((error) => {
+        console.error("Sign out error:", error);
+        showToast('error', 'Error', 'Failed to sign out.');
+    });
+}
+
+// Tab functions
+function showTab(tabName) {
+    // Hide all tab contents
+    const tabContents = document.querySelectorAll('.tab-content');
+    tabContents.forEach(content => {
+        content.classList.remove('active');
+    });
+    
+    // Remove active class from all tabs
+    const tabs = document.querySelectorAll('.tab');
+    tabs.forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    // Show selected tab content
+    const tabContent = document.getElementById(tabName);
+    if (tabContent) {
+        tabContent.classList.add('active');
+    }
+    
+    // Add active class to clicked tab
+    const activeTab = document.querySelector(`[onclick="showTab('${tabName}')"]`);
+    if (activeTab) {
+        activeTab.classList.add('active');
+    }
+}
+
+function completeSection(sectionName) {
+    if (completedSections.includes(sectionName)) {
+        // If already completed, unmark as complete
+        unmarkSectionComplete(sectionName);
+        return;
+    }
+    
+    completedSections.push(sectionName);
+    
+    // Award XP
+    const xpAwarded = 10;
+    const newXp = (userData.xp || 0) + xpAwarded;
+    
+    // Check for badges
+    const newBadges = [...(userData.badges || [])];
+    let badgeEarned = false;
+    
+    if (completedSections.length === 1 && !newBadges.includes('First Steps')) {
+        newBadges.push('First Steps');
+        badgeEarned = true;
+    }
+    
+    if (completedSections.length === 4 && !newBadges.includes('Metal Master')) {
+        newBadges.push('Metal Master');
+        badgeEarned = true;
+    }
+    
+    // Save to Firebase
+    if (currentUser && userData) {
+        const userRef = group1MetalsRef.child('users').child(currentUser.uid);
+        const updates = {
+            completedSections: completedSections,
+            xp: newXp
+        };
+        
+        if (badgeEarned) {
+            updates.badges = newBadges;
+        }
+        
+        userRef.update(updates).then(() => {
+            userData.xp = newXp;
+            if (badgeEarned) {
+                userData.badges = newBadges;
+            }
+            
+            updateUserXP();
+            updateUserBadges();
+            
+            if (soundEnabled) {
+                completeSound.play();
+                if (badgeEarned) badgeSound.play();
+            }
+            
+            showToast('success', 'Section Complete!', `Great job! You've completed this section and earned ${xpAwarded} XP.`);
+            
+            if (badgeEarned) {
+                showToast('success', 'Badge Earned!', `You've earned a new badge: ${newBadges[newBadges.length - 1]}`);
+            }
+            
+            updateSectionCompletionStatus();
+            updateProgressTracker();
+            
+            // Navigate to next section if available
+            const sectionOrder = ['overview', 'elements', 'properties', 'reactions', 'quiz'];
+            const currentIndex = sectionOrder.indexOf(sectionName);
+            if (currentIndex < sectionOrder.length - 1) {
+                const nextSection = sectionOrder[currentIndex + 1];
+                navigateToSection(nextSection);
+            }
+        }).catch((error) => {
+            console.error("Error saving progress:", error);
+            showToast('error', 'Error', 'Failed to save your progress.');
+        });
+    }
+}
+
+function unmarkSectionComplete(sectionName) {
+    // Remove from completed sections
+    completedSections = completedSections.filter(section => section !== sectionName);
+    
+    // Update UI
+    updateSectionCompletionStatus();
+    updateProgressTracker();
+    
+    // Save to Firebase
+    if (currentUser && userData) {
+        const userRef = group1MetalsRef.child('users').child(currentUser.uid);
+        userRef.update({
+            completedSections: completedSections
+        }).then(() => {
+            showToast('info', 'Section Unmarked', `You've unmarked ${sectionName} as complete.`);
+        }).catch((error) => {
+            console.error("Error updating progress:", error);
+            showToast('error', 'Error', 'Failed to update your progress.');
+        });
+    }
+}
+
+function updateSectionCompletionStatus() {
+    // Update nav items
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        const section = item.id.replace('nav-', '');
+        if (completedSections.includes(section)) {
+            item.classList.remove('locked');
+            item.classList.add('completed');
+        } else {
+            item.classList.remove('completed');
+        }
+    });
+    
+    // Unlock next sections
+    const sectionOrder = ['overview', 'elements', 'properties', 'reactions', 'quiz'];
+    sectionOrder.forEach((section, index) => {
+        if (completedSections.includes(section) && index < sectionOrder.length - 1) {
+            const nextSection = sectionOrder[index + 1];
+            const nextNavItem = document.getElementById(`nav-${nextSection}`);
+            if (nextNavItem) {
+                nextNavItem.classList.remove('locked');
+            }
+        }
+    });
+    
+    // Check if all sections are completed to unlock quiz
+    const allSectionsCompleted = ['overview', 'elements', 'properties', 'reactions'].every(section => 
+        completedSections.includes(section)
+    );
+    
+    if (allSectionsCompleted) {
+        const quizNavItem = document.getElementById('nav-quiz');
+        if (quizNavItem) {
+            quizNavItem.classList.remove('locked');
+        }
+    }
+    
+    // Update section buttons
+    updateSectionButtons();
+}
+
+function updateSectionButtons() {
+    // Update each section's complete button
+    const sections = ['overview', 'elements', 'properties', 'reactions', 'quiz'];
+    sections.forEach(section => {
+        const button = document.getElementById(`${section}-complete-btn`);
+        if (button) {
+            if (completedSections.includes(section)) {
+                button.innerHTML = '<i class="fas fa-times mr-2"></i>Unmark as Complete';
+                button.classList.remove('btn-success');
+                button.classList.add('btn-unmark');
+            } else {
+                button.innerHTML = '<i class="fas fa-check mr-2"></i>Mark as Complete';
+                button.classList.remove('btn-unmark');
+                button.classList.add('btn-success');
+            }
+        }
+    });
+}
+
+function updateProgressTracker() {
+    const totalSections = 4; // overview, elements, properties, reactions
+    const completedCount = completedSections.length;
+    const percentage = Math.round((completedCount / totalSections) * 100);
+    
+    document.getElementById('progressPercentage').textContent = `${percentage}%`;
+    document.getElementById('overallProgressFill').style.width = `${percentage}%`;
+    
+    // Update progress items
+    const sections = ['overview', 'elements', 'properties', 'quiz'];
+    sections.forEach(section => {
+        const progressItem = document.getElementById(`progress-${section}`);
+        const statusElement = progressItem.querySelector('.text-xs');
+        
+        if (completedSections.includes(section)) {
+            progressItem.classList.add('bg-green-100');
+            statusElement.textContent = 'Completed';
+            statusElement.classList.remove('text-gray-500');
+            statusElement.classList.add('text-green-600');
+        } else if (section === 'quiz' && completedSections.length === 4) {
+            progressItem.classList.remove('bg-gray-100');
+            progressItem.classList.add('bg-blue-100');
+            statusElement.textContent = 'Available';
+            statusElement.classList.remove('text-gray-500');
+            statusElement.classList.add('text-blue-600');
+        }
+    });
+}
+
+// Interactive element quiz functions
+function showElementQuiz(element) {
+    const question = termQuizQuestions[element];
+    if (!question) return;
+    
+    const popup = document.getElementById('elementQuizPopup');
+    const title = document.getElementById('elementQuizTitle');
+    const questionText = document.getElementById('elementQuizQuestion');
+    const optionsContainer = document.getElementById('elementQuizOptions');
+    const feedback = document.getElementById('elementQuizFeedback');
+    
+    title.textContent = `${element.charAt(0).toUpperCase() + element.slice(1)} Quiz`;
+    questionText.textContent = question.question;
+    
+    optionsContainer.innerHTML = '';
+    question.options.forEach((option, index) => {
+        const optionDiv = document.createElement('div');
+        optionDiv.className = 'quiz-option';
+        optionDiv.textContent = option;
+        optionDiv.onclick = () => checkElementQuizAnswer(index, question.correct, question.explanation);
+        optionsContainer.appendChild(optionDiv);
+    });
+    
+    feedback.classList.add('hidden');
+    popup.classList.remove('hidden');
+}
+
+function checkElementQuizAnswer(selectedIndex, correctIndex, explanation) {
+    const options = document.querySelectorAll('#elementQuizOptions .quiz-option');
+    const feedback = document.getElementById('elementQuizFeedback');
+    
+    options.forEach((option, index) => {
+        option.onclick = null; // Disable further clicks
+        if (index === correctIndex) {
+            option.classList.add('correct');
+        } else if (index === selectedIndex) {
+            option.classList.add('incorrect');
+        }
+    });
+    
+    if (selectedIndex === correctIndex) {
+        feedback.className = 'mb-5 p-4 rounded-lg bg-green-100 text-green-800';
+        feedback.textContent = 'Correct! ' + explanation;
+        if (soundEnabled) correctSound.play();
+    } else {
+        feedback.className = 'mb-5 p-4 rounded-lg bg-red-100 text-red-800';
+        feedback.textContent = 'Incorrect. ' + explanation;
+        if (soundEnabled) incorrectSound.play();
+    }
+    
+    feedback.classList.remove('hidden');
+}
+
+function closeElementQuiz() {
+    document.getElementById('elementQuizPopup').classList.add('hidden');
+}
+
+// Term quiz functions
+function showTermQuiz(term) {
+    const question = termQuizQuestions[term];
+    if (!question) return;
+    
+    document.getElementById('quizQuestionModal').classList.add('active');
+    document.getElementById('quizQuestionTitle').textContent = `Quick Quiz: ${term.replace('-', ' ')}`;
+    document.getElementById('quizQuestionText').textContent = question.question;
+    
+    const answersContainer = document.getElementById('quizQuestionAnswers');
+    answersContainer.innerHTML = '';
+    
+    question.options.forEach((option, index) => {
+        const answerDiv = document.createElement('div');
+        answerDiv.className = 'quiz-option';
+        answerDiv.textContent = option;
+        answerDiv.onclick = () => selectTermQuizAnswer(index, question.correct, question.explanation);
+        answersContainer.appendChild(answerDiv);
+    });
+    
+    // Reset feedback
+    document.getElementById('quizQuestionFeedback').classList.add('hidden');
+}
+
+function selectTermQuizAnswer(index, correctIndex, explanation) {
+    const answers = document.querySelectorAll('#quizQuestionAnswers .quiz-option');
+    const feedback = document.getElementById('quizQuestionFeedback');
+    
+    answers.forEach(answer => {
+        answer.style.pointerEvents = 'none';
+    });
+    
+    if (index === correctIndex) {
+        answers[index].classList.add('correct');
+        feedback.className = 'quiz-feedback correct';
+        feedback.textContent = 'Correct! ' + explanation;
+        
+        if (soundEnabled) correctSound.play();
+    } else {
+        answers[index].classList.add('incorrect');
+        feedback.className = 'quiz-feedback incorrect';
+        feedback.textContent = 'Incorrect. ' + explanation;
+        
+        if (soundEnabled) incorrectSound.play();
+    }
+    
+    feedback.classList.remove('hidden');
+}
+
+function closeQuizQuestionModal() {
+    document.getElementById('quizQuestionModal').classList.remove('active');
+}
+
+// Trend quiz functions
+function showTrendQuiz(trend) {
+    const question = trendQuizQuestions[trend];
+    if (!question) return;
+    
+    document.getElementById('quizQuestionModal').classList.add('active');
+    document.getElementById('quizQuestionTitle').textContent = `Trend Quiz: ${trend.replace('-', ' ')}`;
+    document.getElementById('quizQuestionText').textContent = question.question;
+    
+    const answersContainer = document.getElementById('quizQuestionAnswers');
+    answersContainer.innerHTML = '';
+    
+    question.options.forEach((option, index) => {
+        const answerDiv = document.createElement('div');
+        answerDiv.className = 'quiz-option';
+        answerDiv.textContent = option;
+        answerDiv.onclick = () => selectTrendQuizAnswer(index, question.correct, question.explanation);
+        answersContainer.appendChild(answerDiv);
+    });
+    
+    // Reset feedback
+    document.getElementById('quizQuestionFeedback').classList.add('hidden');
+}
+
+function selectTrendQuizAnswer(index, correctIndex, explanation) {
+    const answers = document.querySelectorAll('#quizQuestionAnswers .quiz-option');
+    const feedback = document.getElementById('quizQuestionFeedback');
+    
+    answers.forEach(answer => {
+        answer.style.pointerEvents = 'none';
+    });
+    
+    if (index === correctIndex) {
+        answers[index].classList.add('correct');
+        feedback.className = 'quiz-feedback correct';
+        feedback.textContent = 'Correct! ' + explanation;
+        
+        if (soundEnabled) correctSound.play();
+    } else {
+        answers[index].classList.add('incorrect');
+        feedback.className = 'quiz-feedback incorrect';
+        feedback.textContent = 'Incorrect. ' + explanation;
+        
+        if (soundEnabled) incorrectSound.play();
+    }
+    
+    feedback.classList.remove('hidden');
+}
+
+// Element details functions
+function showElementDetails(name, symbol, atomicNumber, electronConfig) {
+    const details = elementDetails[name];
+    if (!details) return;
+    
+    document.getElementById('elementDetailsName').textContent = name;
+    document.getElementById('elementDetailsSymbol').textContent = symbol;
+    document.getElementById('elementDetailsNumber').textContent = atomicNumber;
+    document.getElementById('elementDetailsConfig').textContent = electronConfig;
+    document.getElementById('elementDetailsMP').textContent = details.meltingPoint;
+    document.getElementById('elementDetailsDensity').textContent = details.density;
+    document.getElementById('elementDetailsReactivity').textContent = details.reactivity;
+    document.getElementById('elementDetailsUses').textContent = details.uses;
+    document.getElementById('elementDetailsFact').textContent = details.fact;
+    
+    // Setup quiz
+    document.getElementById('elementDetailsQuizQuestion').textContent = details.quizQuestion;
+    const optionsContainer = document.getElementById('elementDetailsQuizOptions');
+    optionsContainer.innerHTML = '';
+    
+    details.quizOptions.forEach((option, index) => {
+        const optionDiv = document.createElement('div');
+        optionDiv.className = 'quiz-option';
+        optionDiv.textContent = option;
+        optionDiv.onclick = () => checkElementDetailsQuizAnswer(index, details.quizCorrect, details.quizExplanation);
+        optionsContainer.appendChild(optionDiv);
+    });
+    
+    document.getElementById('elementDetailsQuizFeedback').classList.add('hidden');
+    document.getElementById('elementDetailsModal').classList.add('active');
+}
+
+function checkElementDetailsQuizAnswer(selectedIndex, correctIndex, explanation) {
+    const options = document.querySelectorAll('#elementDetailsQuizOptions .quiz-option');
+    const feedback = document.getElementById('elementDetailsQuizFeedback');
+    
+    options.forEach((option, index) => {
+        option.onclick = null; // Disable further clicks
+        if (index === correctIndex) {
+            option.classList.add('correct');
+        } else if (index === selectedIndex) {
+            option.classList.add('incorrect');
+        }
+    });
+    
+    if (selectedIndex === correctIndex) {
+        feedback.className = 'mt-3 p-4 rounded-lg bg-green-100 text-green-800';
+        feedback.textContent = 'Correct! ' + explanation;
+        if (soundEnabled) correctSound.play();
+    } else {
+        feedback.className = 'mt-3 p-4 rounded-lg bg-red-100 text-red-800';
+        feedback.textContent = 'Incorrect. ' + explanation;
+        if (soundEnabled) incorrectSound.play();
+    }
+    
+    feedback.classList.remove('hidden');
+}
+
+function closeElementDetails() {
+    document.getElementById('elementDetailsModal').classList.remove('active');
+}
+
+// Trend explanation functions
+function showTrendExplanation(trend, element) {
+    let title, heading, content, quizQuestion, quizOptions, quizCorrect, quizExplanation;
+    
+    if (trend === 'melting-point') {
+        title = 'Melting Point Trend';
+        heading = `Melting Point of ${element.charAt(0).toUpperCase() + element.slice(1)}`;
+        
+        if (element === 'lithium') {
+            content = 'Lithium has the highest melting point in Group 1 (180.5°C) due to its small atomic size and strong metallic bonding. The small size of lithium atoms means the positive nuclei are closer to the delocalized electrons, resulting in stronger metallic bonds that require more energy to break.';
+        } else if (element === 'sodium') {
+            content = 'Sodium has a lower melting point (97.8°C) than lithium due to its larger atomic size. The increased atomic radius means the positive nuclei are further from the delocalized electrons, weakening the metallic bonds and requiring less energy to break them.';
+        } else if (element === 'potassium') {
+            content = 'Potassium has an even lower melting point (63.5°C) due to its larger atomic size. The additional electron shell increases the atomic radius significantly, further weakening the metallic bonds.';
+        } else if (element === 'rubidium') {
+            content = 'Rubidium has a very low melting point (39.3°C) due to its large atomic size. The increased distance between positive nuclei and delocalized electrons results in very weak metallic bonds.';
+        } else if (element === 'cesium') {
+            content = 'Cesium has the lowest melting point in Group 1 (28.4°C) due to its largest atomic size. The significant distance between positive nuclei and delocalized electrons results in extremely weak metallic bonds that require very little energy to break.';
+        }
+        
+        quizQuestion = "Why does melting point decrease down Group 1?";
+        quizOptions = [
+            "Atomic size increases, metallic bonds weaken",
+            "Atomic size decreases, metallic bonds strengthen",
+            "Electron configuration changes",
+            "Nuclear charge increases"
+        ];
+        quizCorrect = 0;
+        quizExplanation = "As we move down Group 1, atomic size increases due to additional electron shells. This increases the distance between positive nuclei and delocalized electrons, weakening the metallic bonds and lowering the melting point.";
+    } else if (trend === 'density') {
+        title = 'Density Trend';
+        heading = `Density of ${element.charAt(0).toUpperCase() + element.slice(1)}`;
+        
+        if (element === 'lithium') {
+            content = 'Lithium has the lowest density of all metals (0.534 g/cm³) and can float on water. Its low density is due to its small atomic mass combined with a relatively large atomic volume.';
+        } else if (element === 'sodium') {
+            content = 'Sodium has a higher density (0.968 g/cm³) than lithium but still floats on water. The increase in atomic mass is proportionally greater than the increase in atomic volume compared to lithium.';
+        } else if (element === 'potassium') {
+            content = 'Potassium has a lower density (0.89 g/cm³) than sodium, which is an exception to the general trend. The increase in atomic volume is proportionally greater than the increase in atomic mass compared to sodium.';
+        } else if (element === 'rubidium') {
+            content = 'Rubidium has a higher density (1.532 g/cm³) than potassium. The increase in atomic mass is proportionally greater than the increase in atomic volume, following the general trend of increasing density down the group.';
+        } else if (element === 'cesium') {
+            content = 'Cesium has the highest density in Group 1 (1.93 g/cm³). The significant increase in atomic mass compared to the increase in atomic volume results in the highest density in the group.';
+        }
+        
+        quizQuestion = "Why is potassium less dense than sodium?";
+        quizOptions = [
+            "Potassium has fewer protons",
+            "Potassium has a larger atomic radius",
+            "Potassium has more electron shells",
+            "Potassium has a different crystal structure"
+        ];
+        quizCorrect = 1;
+        quizExplanation = "Potassium has a larger atomic radius than sodium, but the increase in size is proportionally greater than the increase in mass, resulting in a lower density. This is an exception to the general trend of increasing density down the group.";
+    }
+    
+    document.getElementById('trendExplanationTitle').textContent = title;
+    document.getElementById('trendExplanationHeading').textContent = heading;
+    document.getElementById('trendExplanationContent').textContent = content;
+    document.getElementById('trendExplanationQuizQuestion').textContent = quizQuestion;
+    
+    const optionsContainer = document.getElementById('trendExplanationQuizOptions');
+    optionsContainer.innerHTML = '';
+    
+    quizOptions.forEach((option, index) => {
+        const optionDiv = document.createElement('div');
+        optionDiv.className = 'quiz-option';
+        optionDiv.textContent = option;
+        optionDiv.onclick = () => checkTrendExplanationQuizAnswer(index, quizCorrect, quizExplanation);
+        optionsContainer.appendChild(optionDiv);
+    });
+    
+    document.getElementById('trendExplanationQuizFeedback').classList.add('hidden');
+    document.getElementById('trendExplanationModal').classList.add('active');
+}
+
+function checkTrendExplanationQuizAnswer(selectedIndex, correctIndex, explanation) {
+    const options = document.querySelectorAll('#trendExplanationQuizOptions .quiz-option');
+    const feedback = document.getElementById('trendExplanationQuizFeedback');
+    
+    options.forEach((option, index) => {
+        option.onclick = null; // Disable further clicks
+        if (index === correctIndex) {
+            option.classList.add('correct');
+        } else if (index === selectedIndex) {
+            option.classList.add('incorrect');
+        }
+    });
+    
+    if (selectedIndex === correctIndex) {
+        feedback.className = 'mt-3 p-4 rounded-lg bg-green-100 text-green-800';
+        feedback.textContent = 'Correct! ' + explanation;
+        if (soundEnabled) correctSound.play();
+    } else {
+        feedback.className = 'mt-3 p-4 rounded-lg bg-red-100 text-red-800';
+        feedback.textContent = 'Incorrect. ' + explanation;
+        if (soundEnabled) incorrectSound.play();
+    }
+    
+    feedback.classList.remove('hidden');
+}
+
+function closeTrendExplanation() {
+    document.getElementById('trendExplanationModal').classList.remove('active');
+}
+
+// Reaction details functions
+function showReactionDetails(reaction) {
+    const details = reactionDetails[reaction];
+    if (!details) return;
+    
+    document.getElementById('reactionDetailsTitle').textContent = `${reaction.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}`;
+    document.getElementById('reactionDetailsEquation').textContent = details.equation;
+    document.getElementById('reactionDetailsObservations').textContent = details.observations;
+    document.getElementById('reactionDetailsExplanation').textContent = details.explanation;
+    
+    // Setup quiz
+    document.getElementById('reactionDetailsQuizQuestion').textContent = details.quizQuestion;
+    const optionsContainer = document.getElementById('reactionDetailsQuizOptions');
+    optionsContainer.innerHTML = '';
+    
+    details.quizOptions.forEach((option, index) => {
+        const optionDiv = document.createElement('div');
+        optionDiv.className = 'quiz-option';
+        optionDiv.textContent = option;
+        optionDiv.onclick = () => checkReactionDetailsQuizAnswer(index, details.quizCorrect, details.quizExplanation);
+        optionsContainer.appendChild(optionDiv);
+    });
+    
+    document.getElementById('reactionDetailsQuizFeedback').classList.add('hidden');
+    document.getElementById('reactionDetailsModal').classList.add('active');
+}
+
+function checkReactionDetailsQuizAnswer(selectedIndex, correctIndex, explanation) {
+    const options = document.querySelectorAll('#reactionDetailsQuizOptions .quiz-option');
+    const feedback = document.getElementById('reactionDetailsQuizFeedback');
+    
+    options.forEach((option, index) => {
+        option.onclick = null; // Disable further clicks
+        if (index === correctIndex) {
+            option.classList.add('correct');
+        } else if (index === selectedIndex) {
+            option.classList.add('incorrect');
+        }
+    });
+    
+    if (selectedIndex === correctIndex) {
+        feedback.className = 'mt-3 p-4 rounded-lg bg-green-100 text-green-800';
+        feedback.textContent = 'Correct! ' + explanation;
+        if (soundEnabled) correctSound.play();
+    } else {
+        feedback.className = 'mt-3 p-4 rounded-lg bg-red-100 text-red-800';
+        feedback.textContent = 'Incorrect. ' + explanation;
+        if (soundEnabled) incorrectSound.play();
+    }
+    
+    feedback.classList.remove('hidden');
+}
+
+function closeReactionDetails() {
+    document.getElementById('reactionDetailsModal').classList.remove('active');
+}
+
+function showReactionVideo(element) {
+    // Create a modal to show the video
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.style.zIndex = '1001'; // Ensure it's on top
+    
+    // Define video URLs for each element (replace with actual video URLs)
+    const videoUrls = {
+        'lithium': 'https://www.youtube.com/embed/vRKK6pliejs',
+        'sodium': 'https://www.youtube.com/embed/ODf_sPexS2Q',
+        'potassium': 'https://www.youtube.com/embed/Jy1DC6Euqj4',
+        'cesium': 'https://www.youtube.com/embed/YbwtND63tfo'
+    };
+    
+    // Get the video URL for the selected element
+    const videoUrl = videoUrls[element] || 'https://www.youtube.com/embed/TGZs93DzMDY'; // Default video
+    
+    // Set modal content
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 900px;">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-bold text-gray-800 capitalize">${element} Reaction with Water</h2>
                 <button class="close-video-modal text-gray-500 hover:text-gray-700 p-3 rounded-full hover:bg-gray-100 transition-colors">
@@ -1782,31 +1769,31 @@
                     Close
                 </button>
             </div>
-         </div>
-         `;
-         
-         // Add modal to the body
-         document.body.appendChild(modal);
-         
-         // Show modal
-         setTimeout(() => {
-         modal.classList.add('active');
-         }, 10);
-         
-         // Set observations based on element
-         const observations = {
-         'lithium': 'Lithium fizzes steadily as it reacts with water. It moves slowly across the surface and does not melt.',
-         'sodium': 'Sodium fizzes rapidly and melts into a ball. It moves quickly across the water surface.',
-         'potassium': 'Potassium fizzes violently, ignites with a lilac flame, and may explode.',
-         'cesium': 'Cesium reacts explosively with water, producing a lot of heat and hydrogen gas.'
-         };
-         
-         document.getElementById('reactionVideoObservations').textContent = observations[element] || 'Observations not available.';
-         
-         // Add event listeners to close buttons
-         const closeButtons = modal.querySelectorAll('.close-video-modal');
-         closeButtons.forEach(button => {
-         button.addEventListener('click', function() {
+        </div>
+    `;
+    
+    // Add modal to the body
+    document.body.appendChild(modal);
+    
+    // Show modal
+    setTimeout(() => {
+        modal.classList.add('active');
+    }, 10);
+    
+    // Set observations based on element
+    const observations = {
+        'lithium': 'Lithium fizzes steadily as it reacts with water. It moves slowly across the surface and does not melt.',
+        'sodium': 'Sodium fizzes rapidly and melts into a ball. It moves quickly across the water surface.',
+        'potassium': 'Potassium fizzes violently, ignites with a lilac flame, and may explode.',
+        'cesium': 'Cesium reacts explosively with water, producing a lot of heat and hydrogen gas.'
+    };
+    
+    document.getElementById('reactionVideoObservations').textContent = observations[element] || 'Observations not available.';
+    
+    // Add event listeners to close buttons
+    const closeButtons = modal.querySelectorAll('.close-video-modal');
+    closeButtons.forEach(button => {
+        button.addEventListener('click', function() {
             // Stop the video by clearing the iframe src
             const iframe = document.getElementById('video-iframe');
             if (iframe) {
@@ -1815,1807 +1802,1814 @@
             
             // Remove the modal from the DOM
             modal.remove();
-         });
-         });
-         }
-         
-         function showOxideTrendQuiz() {
-             const question = {
-                 question: "Which type of oxide does Potassium form when burned in oxygen?",
-                 options: [
-                     "Normal oxide (K₂O)",
-                     "Peroxide (K₂O₂)",
-                     "Superoxide (KO₂)",
-                     "No oxide is formed"
-                 ],
-                 correct: 2,
-                 explanation: "Potassium forms a superoxide (KO₂) when burned in oxygen. This contains the superoxide ion (O₂⁻) with an unpaired electron."
-             };
-             
-             document.getElementById('quizQuestionModal').classList.add('active');
-             document.getElementById('quizQuestionTitle').textContent = 'Oxide Trend Quiz';
-             document.getElementById('quizQuestionText').textContent = question.question;
-             
-             const answersContainer = document.getElementById('quizQuestionAnswers');
-             answersContainer.innerHTML = '';
-             
-             question.options.forEach((option, index) => {
-                 const answerDiv = document.createElement('div');
-                 answerDiv.className = 'quiz-option';
-                 answerDiv.textContent = option;
-                 answerDiv.onclick = () => selectOxideTrendQuizAnswer(index, question.correct, question.explanation);
-                 answersContainer.appendChild(answerDiv);
-             });
-             
-             // Reset feedback
-             document.getElementById('quizQuestionFeedback').classList.add('hidden');
-         }
-         
-         function selectOxideTrendQuizAnswer(index, correctIndex, explanation) {
-             const answers = document.querySelectorAll('#quizQuestionAnswers .quiz-option');
-             const feedback = document.getElementById('quizQuestionFeedback');
-             
-             answers.forEach(answer => {
-                 answer.style.pointerEvents = 'none';
-             });
-             
-             if (index === correctIndex) {
-                 answers[index].classList.add('correct');
-                 feedback.className = 'quiz-feedback correct';
-                 feedback.textContent = 'Correct! ' + explanation;
-                 
-                 if (soundEnabled) correctSound.play();
-             } else {
-                 answers[index].classList.add('incorrect');
-                 feedback.className = 'quiz-feedback incorrect';
-                 feedback.textContent = 'Incorrect. ' + explanation;
-                 
-                 if (soundEnabled) incorrectSound.play();
-             }
-             
-             feedback.classList.remove('hidden');
-         }
-         
-         // Quiz Functions
-         function startQuiz() {
-             currentQuestion = 0;
-             score = 0;
-             selectedOption = null;
-             answerSubmitted = false;
-             quizAnswers = [];
-             
-             document.getElementById('quizModal').classList.add('active');
-             document.getElementById('quizProgress').style.display = 'block';
-             document.getElementById('quizContent').style.display = 'block';
-             document.getElementById('quizResults').style.display = 'none';
-             
-             document.getElementById('currentQuestion').textContent = currentQuestion + 1;
-             document.getElementById('totalQuestions').textContent = quizQuestions.length;
-             document.getElementById('currentScore').textContent = score;
-             document.getElementById('progressFill').style.width = ((currentQuestion + 1) / quizQuestions.length * 100) + '%';
-             
-             loadQuestion();
-             
-             // Add anti-cheating measures
-             addAntiCheatingMeasures();
-         }
-         
-         function addAntiCheatingMeasures() {
-             // Disable right-click
-             document.getElementById('quizModal').addEventListener('contextmenu', e => e.preventDefault());
-             
-             // Disable text selection
-             document.getElementById('quizModal').addEventListener('selectstart', e => e.preventDefault());
-             document.getElementById('quizModal').addEventListener('mousedown', e => e.preventDefault());
-             
-             // Warn before leaving
-             window.addEventListener('beforeunload', preventQuizExit);
-         }
-         
-         function removeAntiCheatingMeasures() {
-             // Re-enable right-click
-             document.getElementById('quizModal').removeEventListener('contextmenu', e => e.preventDefault());
-             
-             // Re-enable text selection
-             document.getElementById('quizModal').removeEventListener('selectstart', e => e.preventDefault());
-             document.getElementById('quizModal').removeEventListener('mousedown', e => e.preventDefault());
-             
-             // Remove beforeunload listener
-             window.removeEventListener('beforeunload', preventQuizExit);
-         }
-         
-         function preventQuizExit(e) {
-             if (document.getElementById('quizModal').classList.contains('active')) {
-                 e.preventDefault();
-                 e.returnValue = '';
-                 return '';
-             }
-         }
-         
-         function loadQuestion() {
-             const question = quizQuestions[currentQuestion];
-             document.getElementById('questionText').textContent = question.question;
-             
-             const optionsContainer = document.getElementById('optionsContainer');
-             optionsContainer.innerHTML = '';
-             
-             // Check if this question has been answered already
-             const answeredQuestion = quizAnswers[currentQuestion];
-             
-             // Load MCQ options
-             question.options.forEach((option, index) => {
-                 const optionDiv = document.createElement('div');
-                 optionDiv.className = 'quiz-option';
-                 if (answeredQuestion) {
-                     optionDiv.classList.add('disabled');
-                     if (answeredQuestion.selected === index) {
-                         optionDiv.classList.add(answeredQuestion.isCorrect ? 'correct' : 'incorrect');
-                     }
-                 }
-                 optionDiv.dataset.index = index;
-                 
-                 const input = document.createElement('input');
-                 input.type = 'radio';
-                 input.name = 'quiz-option';
-                 input.id = `option-${index}`;
-                 input.value = index;
-                 if (answeredQuestion && answeredQuestion.selected === index) {
-                     input.checked = true;
-                 }
-                 if (answeredQuestion) {
-                     input.disabled = true;
-                 }
-                 
-                 const label = document.createElement('label');
-                 label.htmlFor = `option-${index}`;
-                 label.textContent = option;
-                 
-                 optionDiv.appendChild(input);
-                 optionDiv.appendChild(label);
-                 
-                 if (!answeredQuestion) {
-                     optionDiv.onclick = () => selectOption(index);
-                 }
-                 optionsContainer.appendChild(optionDiv);
-             });
-             
-             // Show/hide navigation buttons
-             document.getElementById('prevButton').classList.toggle('hidden', currentQuestion === 0);
-             
-             // Show submit button if not answered, show next button if answered
-             if (answeredQuestion) {
-                 document.getElementById('submitButton').style.display = 'none';
-                 document.getElementById('nextButton').classList.remove('hidden');
-                 
-                 // Show feedback for answered question
-                 const feedback = document.getElementById('feedback');
-                 if (answeredQuestion.isCorrect) {
-                     feedback.className = 'mb-5 p-4 rounded-lg bg-green-100 text-green-800 text-sm';
-                     feedback.textContent = 'Correct! ' + question.explanation;
-                 } else {
-                     feedback.className = 'mb-5 p-4 rounded-lg bg-red-100 text-red-800 text-sm';
-                     feedback.textContent = 'Incorrect. ' + question.explanation;
-                 }
-                 feedback.classList.remove('hidden');
-             } else {
-                 document.getElementById('submitButton').style.display = 'inline-flex';
-                 document.getElementById('submitButton').disabled = true;
-                 document.getElementById('nextButton').classList.add('hidden');
-                 document.getElementById('feedback').classList.add('hidden');
-             }
-             
-             selectedOption = answeredQuestion ? answeredQuestion.selected : null;
-             answerSubmitted = !!answeredQuestion;
-         }
-         
-         function selectOption(index) {
-             if (answerSubmitted) return;
-             
-             const options = document.querySelectorAll('.quiz-option');
-             options.forEach(option => {
-                 option.classList.remove('selected');
-                 const input = option.querySelector('input');
-                 input.checked = false;
-             });
-             
-             options[index].classList.add('selected');
-             options[index].querySelector('input').checked = true;
-             
-             selectedOption = index;
-             document.getElementById('submitButton').disabled = false;
-         }
-         
-         function submitAnswer() {
-             if (answerSubmitted) return;
-             
-             const question = quizQuestions[currentQuestion];
-             const isCorrect = selectedOption === question.correct;
-             const feedback = document.getElementById('feedback');
-             
-             quizAnswers[currentQuestion] = {
-                 selected: selectedOption,
-                 submitted: true,
-                 isCorrect: isCorrect
-             };
-             
-             // Store quiz analytics in Firebase
-             const analyticsRef = database.ref('quizAnalytics/' + currentQuestion);
-             analyticsRef.transaction((analytics) => {
-                 if (!analytics) {
-                     analytics = { correct: 0, incorrect: 0 };
-                 }
-                 if (isCorrect) {
-                     analytics.correct++;
-                 } else {
-                     analytics.incorrect++;
-                 }
-                 return analytics;
-             });
-             
-             if (isCorrect) {
-                 feedback.className = 'mb-5 p-4 rounded-lg bg-green-100 text-green-800 text-sm';
-                 feedback.textContent = 'Correct! ' + question.explanation;
-                 score++;
-                 
-                 if (soundEnabled) correctSound.play();
-             } else {
-                 feedback.className = 'mb-5 p-4 rounded-lg bg-red-100 text-red-800 text-sm';
-                 feedback.textContent = 'Incorrect. ' + question.explanation;
-                 
-                 if (soundEnabled) incorrectSound.play();
-             }
-             
-             feedback.classList.remove('hidden');
-             document.getElementById('submitButton').style.display = 'none';
-             document.getElementById('nextButton').classList.remove('hidden');
-             document.getElementById('currentScore').textContent = score;
-             
-             answerSubmitted = true;
-         }
-         
-         function nextQuestion() {
-             currentQuestion++;
-             
-             if (currentQuestion >= quizQuestions.length) {
-                 showResults();
-                 return;
-             }
-             
-             document.getElementById('currentQuestion').textContent = currentQuestion + 1;
-             document.getElementById('progressFill').style.width = ((currentQuestion + 1) / quizQuestions.length * 100) + '%';
-             loadQuestion();
-         }
-         
-         function previousQuestion() {
-             if (currentQuestion > 0) {
-                 currentQuestion--;
-                 document.getElementById('currentQuestion').textContent = currentQuestion + 1;
-                 document.getElementById('progressFill').style.width = ((currentQuestion + 1) / quizQuestions.length * 100) + '%';
-                 loadQuestion();
-             }
-         }
-         
-         function showResults() {
-             document.getElementById('quizProgress').style.display = 'none';
-             document.getElementById('quizContent').style.display = 'none';
-             document.getElementById('quizResults').style.display = 'block';
-             
-             const percentage = Math.round((score / quizQuestions.length) * 100);
-             document.getElementById('finalScore').textContent = `${score}/${quizQuestions.length}`;
-             
-             let message = '';
-             if (percentage >= 80) {
-                 message = 'Excellent! You have a strong understanding of Group 1 elements.';
-             } else if (percentage >= 60) {
-                 message = 'Good job! You have a solid foundation to build upon.';
-             } else if (percentage >= 40) {
-                 message = 'Not bad! Review the materials to improve your understanding.';
-             } else {
-                 message = 'Keep practicing! Review the materials carefully.';
-             }
-             
-             document.getElementById('scoreMessage').textContent = message;
-             
-             // Award XP for quiz completion
-             const quizXP = Math.round((score / quizQuestions.length) * 20); // Max 20 XP for perfect score
-             const newXp = (userData.xp || 0) + quizXP;
-             
-             // Check for quiz badge
-             const newBadges = [...(userData.badges || [])];
-             let badgeEarned = false;
-             
-             if (percentage >= 80 && !newBadges.includes('Quiz Master')) {
-                 newBadges.push('Quiz Master');
-                 badgeEarned = true;
-             }
-             
-             // Save to Firebase
-             const userRef = database.ref('users/' + currentUser.uid);
-             const updates = {
-                 xp: newXp
-             };
-             
-             if (badgeEarned) {
-                 updates.badges = newBadges;
-             }
-             
-             userRef.update(updates).then(() => {
-                 userData.xp = newXp;
-                 if (badgeEarned) {
-                     userData.badges = newBadges;
-                 }
-                 
-                 updateUserXP();
-                 updateUserBadges();
-                 
-                 if (soundEnabled) {
-                     completeSound.play();
-                     if (badgeEarned) badgeSound.play();
-                 }
-                 
-                 if (badgeEarned) {
-                     showToast('success', 'Badge Earned!', `You've earned a new badge: ${newBadges[newBadges.length - 1]}`);
-                 }
-             });
-             
-             // Remove anti-cheating measures
-             removeAntiCheatingMeasures();
-         }
-         
-         function closeQuiz() {
-             document.getElementById('quizModal').classList.remove('active');
-             removeAntiCheatingMeasures();
-         }
-         
-         // Feedback System Functions
-         function showFeedbackModal() {
-             if (!currentUser) {
-                 showToast('error', 'Sign in required', 'Please sign in to provide feedback.');
-                 showLoginModal();
-                 return;
-             }
-             document.getElementById('feedbackModal').classList.add('active');
-         }
-         
-         function closeFeedbackModal() {
-             document.getElementById('feedbackModal').classList.remove('active');
-             document.getElementById('feedbackForm').reset();
-             document.getElementById('feedbackRating').value = '0';
-             // Reset thumbs
-             document.querySelectorAll('#feedbackModal .fa-thumbs-up, #feedbackModal .fa-thumbs-down').forEach(icon => {
-                 icon.classList.remove('fas', 'text-yellow-500');
-                 icon.classList.add('far', 'text-gray-400');
-             });
-         }
-         
-         function setFeedbackRating(rating) {
-             document.getElementById('feedbackRating').value = rating;
-             // Update the thumbs
-             document.querySelectorAll('#feedbackModal .fa-thumbs-up, #feedbackModal .fa-thumbs-down').forEach(icon => {
-                 icon.classList.remove('fas', 'text-yellow-500');
-                 icon.classList.add('far', 'text-gray-400');
-             });
-             if (rating === 1) {
-                 const thumbsDown = document.querySelector('#feedbackModal .fa-thumbs-down');
-                 thumbsDown.classList.remove('far', 'text-gray-400');
-                 thumbsDown.classList.add('fas', 'text-yellow-500');
-             } else if (rating === 2) {
-                 const thumbsUp = document.querySelector('#feedbackModal .fa-thumbs-up');
-                 thumbsUp.classList.remove('far', 'text-gray-400');
-                 thumbsUp.classList.add('fas', 'text-yellow-500');
-             }
-         }
-         
-         function handleFeedback(event) {
-             event.preventDefault();
-             const text = document.getElementById('feedbackText').value.trim();
-             const rating = document.getElementById('feedbackRating').value;
-             if (!text) {
-                 showToast('error', 'Missing Feedback', 'Please enter your feedback.');
-                 return;
-             }
-             // Save feedback to Firebase
-             const feedbackRef = database.ref('feedback').push();
-             feedbackRef.set({
-                 userId: currentUser.uid,
-                 userName: userData.displayName,
-                 text: text,
-                 rating: rating,
-                 timestamp: firebase.database.ServerValue.TIMESTAMP
-             }).then(() => {
-                 showToast('success', 'Feedback Sent', 'Thank you for your feedback.');
-                 closeFeedbackModal();
-             }).catch((error) => {
-                 console.error("Error sending feedback:", error);
-                 showToast('error', 'Error', 'Failed to send feedback.');
-             });
-         }
-         
-         // Export to PDF
-         function exportToPDF() {
-             // Define the filename of your pre-existing PDF
-             const pdfFileName = "Alkali Metals.pdf";
-             
-             // Create a temporary link element to trigger download
-             const link = document.createElement('a');
-             link.href = pdfFileName;  // Just the filename, no path
-             link.download = pdfFileName;
-             
-             // Append to body, click, and remove
-             document.body.appendChild(link);
-             link.click();
-             document.body.removeChild(link);
-             
-             // Show success notification with filename
-             showToast('success', 'Export Successful', `Downloading: ${pdfFileName}`);
-         }
-         
-         // Discussion functions
-         function showCreatePostModal() {
-             if (!currentUser) {
-                 showToast('error', 'Sign in required', 'Please sign in to create posts.');
-                 showLoginModal();
-                 return;
-             }
-             document.getElementById('createPostModal').classList.add('active');
-         }
-         
-         function closeCreatePostModal() {
-             document.getElementById('createPostModal').classList.remove('active');
-             document.getElementById('createPostForm').reset();
-         }
-         
-         function showEditPostModal(postId) {
-             if (!currentUser) {
-                 showToast('error', 'Sign in required', 'Please sign in to edit posts.');
-                 showLoginModal();
-                 return;
-             }
-             
-             const post = discussionPosts.find(p => p.id === postId);
-             if (!post) return;
-             
-             document.getElementById('editPostId').value = postId;
-             document.getElementById('editPostTitle').value = post.title;
-             document.getElementById('editPostContent').value = post.content;
-             document.getElementById('editPostTags').value = post.tags ? post.tags.join(', ') : '';
-             
-             document.getElementById('editPostModal').classList.add('active');
-         }
-         
-         function closeEditPostModal() {
-             document.getElementById('editPostModal').classList.remove('active');
-             document.getElementById('editPostForm').reset();
-         }
-         
-         function handleCreatePost(event) {
-             event.preventDefault();
-             
-             const title = document.getElementById('postTitle').value.trim();
-             const content = document.getElementById('postContent').value.trim();
-             const tags = document.getElementById('postTags').value.trim();
-             
-             if (!title || !content) {
-                 showToast('error', 'Missing Fields', 'Please fill in all required fields.');
-                 return;
-             }
-             
-             const postsRef = database.ref('discussionPosts').push();
-             const newPost = {
-                 authorId: currentUser.uid,
-                 authorName: userData.displayName,
-                 title: title,
-                 content: content,
-                 tags: tags ? tags.split(',').map(tag => tag.trim()) : [],
-                 upvotes: 0,
-                 downvotes: 0,
-                 votes: {},
-                 comments: 0,
-                 saved: 0,
-                 createdAt: firebase.database.ServerValue.TIMESTAMP
-             };
-             
-             postsRef.set(newPost).then(() => {
-                 showToast('success', 'Post Created!', 'Your post has been published successfully.');
-                 closeCreatePostModal();
-             }).catch((error) => {
-                 console.error("Error creating post:", error);
-                 showToast('error', 'Error', 'Failed to create post.');
-             });
-         }
-         
-         function handleEditPost(event) {
-             event.preventDefault();
-             
-             const postId = document.getElementById('editPostId').value;
-             const title = document.getElementById('editPostTitle').value.trim();
-             const content = document.getElementById('editPostContent').value.trim();
-             const tags = document.getElementById('editPostTags').value.trim();
-             
-             if (!title || !content) {
-                 showToast('error', 'Missing Fields', 'Please fill in all required fields.');
-                 return;
-             }
-             
-             const postRef = database.ref('discussionPosts/' + postId);
-             postRef.once('value').then((snapshot) => {
-                 const post = snapshot.val();
-                 
-                 if (!post) {
-                     showToast('error', 'Error', 'Post not found.');
-                     return;
-                 }
-                 
-                 if (post.authorId !== currentUser.uid) {
-                     showToast('error', 'Permission Denied', 'You can only edit your own posts.');
-                     return;
-                 }
-                 
-                 const updates = {};
-                 updates['/title'] = title;
-                 updates['/content'] = content;
-                 updates['/tags'] = tags ? tags.split(',').map(tag => tag.trim()) : [];
-                 updates['/editedAt'] = firebase.database.ServerValue.TIMESTAMP;
-                 
-                 postRef.update(updates).then(() => {
-                     showToast('success', 'Post Updated!', 'Your post has been updated successfully.');
-                     closeEditPostModal();
-                 }).catch((error) => {
-                     console.error("Error updating post:", error);
-                     showToast('error', 'Error', 'Failed to update post.');
-                 });
-             }).catch((error) => {
-                 console.error("Error getting post:", error);
-                 showToast('error', 'Error', 'Failed to update post.');
-             });
-         }
-         
-         function loadDiscussionPosts() {
-             const postsContainer = document.getElementById('discussionPosts');
-             postsContainer.innerHTML = '<div class="spinner"></div>';
-             
-             const postsRef = database.ref('discussionPosts');
-         
-             postsRef.orderByChild('createdAt').on('value', (snapshot) => {
-                 postsContainer.innerHTML = '';
-                 
-                 if (!snapshot.exists()) {
-                     postsContainer.innerHTML = `
-                         <div class="empty-state">
-                             <div class="empty-state-icon">
-                                 <i class="fas fa-comments"></i>
-                             </div>
-                             <h3 class="empty-state-title">No Posts Yet</h3>
-                             <p class="empty-state-description">Be the first to start a discussion about Group 1 Alkali Metals.</p>
-                         </div>`;
-                     return;
-                 }
-                 
-                 discussionPosts = [];
-                 snapshot.forEach((childSnapshot) => {
-                     discussionPosts.push({
-                         id: childSnapshot.key,
-                         ...childSnapshot.val()
-                     });
-                 });
-                 
-                 // Sort based on current sort option
-                 sortDiscussionPosts();
-                 
-                 discussionPosts.forEach(post => {
-                     const postElement = createDiscussionPostElement(post);
-                     postsContainer.appendChild(postElement);
-                 });
-             }, (error) => {
-                 console.error("Error loading discussion posts:", error);
-                 postsContainer.innerHTML = '<p class="text-gray-500 text-center">Error loading posts.</p>';
-             });
-         }
-         
-         function sortDiscussionPosts() {
-             switch(currentSort) {
-                 case 'newest':
-                     discussionPosts.sort((a, b) => {
-                         return new Date(b.createdAt) - new Date(a.createdAt);
-                     });
-                     break;
-                 case 'oldest':
-                     discussionPosts.sort((a, b) => {
-                         return new Date(a.createdAt) - new Date(b.createdAt);
-                     });
-                     break;
-                 case 'popular':
-                     discussionPosts.sort((a, b) => {
-                         const aScore = (a.upvotes || 0) - (a.downvotes || 0);
-                         const bScore = (b.upvotes || 0) - (b.downvotes || 0);
-                         return bScore - aScore;
-                     });
-                     break;
-             }
-         }
-         
-         function sortDiscussions(sortType) {
-             currentSort = sortType;
-             
-             // Update active button
-             document.querySelectorAll('.filter-btn').forEach(btn => {
-                 btn.classList.remove('active', 'bg-indigo-600', 'text-white');
-                 btn.classList.add('bg-gray-200', 'text-gray-700');
-             });
-             event.target.classList.remove('bg-gray-200', 'text-gray-700');
-             event.target.classList.add('active', 'bg-indigo-600', 'text-white');
-             
-             // Re-sort and re-render
-             sortDiscussionPosts();
-             
-             const postsContainer = document.getElementById('discussionPosts');
-             postsContainer.innerHTML = '';
-             
-             discussionPosts.forEach(post => {
-                 const postElement = createDiscussionPostElement(post);
-                 postsContainer.appendChild(postElement);
-             });
-         }
-         
-         function filterDiscussions() {
-             const searchTerm = document.getElementById('discussionSearch').value.toLowerCase();
-             
-             const postsContainer = document.getElementById('discussionPosts');
-             postsContainer.innerHTML = '';
-             
-             const filteredPosts = discussionPosts.filter(post => {
-                 return post.title.toLowerCase().includes(searchTerm) || 
-                        post.content.toLowerCase().includes(searchTerm) ||
-                        (post.tags && post.tags.some(tag => tag.toLowerCase().includes(searchTerm)));
-             });
-             
-             if (filteredPosts.length === 0) {
-                 postsContainer.innerHTML = `
-                     <div class="empty-state">
-                         <div class="empty-state-icon">
-                             <i class="fas fa-search"></i>
-                         </div>
-                         <h3 class="empty-state-title">No Posts Found</h3>
-                         <p class="empty-state-description">No posts match your search criteria.</p>
-                     </div>`;
-                 return;
-             }
-             
-             filteredPosts.forEach(post => {
-                 const postElement = createDiscussionPostElement(post);
-                 postsContainer.appendChild(postElement);
-             });
-         }
-         
-         function createDiscussionPostElement(post) {
-             const postDiv = document.createElement('div');
-             postDiv.className = 'discussion-post';
-             
-             const date = new Date(post.createdAt);
-             const formattedDate = date.toLocaleDateString();
-             const formattedTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-             
-             const isAuthor = currentUser && post.authorId === currentUser.uid;
-             const userVote = post.votes && post.votes[currentUser.uid];
-             const isSaved = userData && userData.savedPosts && userData.savedPosts.includes(post.id);
-             
-             postDiv.innerHTML = `
-                 <div class="post-header">
-                     <div class="post-avatar">${post.authorName ? post.authorName.charAt(0).toUpperCase() : 'A'}</div>
-                     <div class="post-meta">
-                         <div class="post-author">${post.authorName || 'Anonymous'}</div>
-                         <div class="post-time">${formattedDate} at ${formattedTime}</div>
-                     </div>
-                 </div>
-                 <h3 class="post-title">${post.title}</h3>
-                 <div class="post-content">${post.content}</div>
-                 ${post.tags && post.tags.length > 0 ? `
-                     <div class="mt-3">
-                         ${post.tags.map(tag => `<span class="post-tag">#${tag}</span>`).join('')}
-                     </div>
-                 ` : ''}
-                 <div class="post-actions">
-                     <div class="post-action ${userVote === true ? 'voted' : ''}" onclick="togglePostVote('${post.id}', 'up')">
-                         <i class="fas fa-arrow-up"></i>
-                         <span>${post.upvotes || 0}</span>
-                     </div>
-                     <div class="post-action ${userVote === false ? 'voted' : ''}" onclick="togglePostVote('${post.id}', 'down')">
-                         <i class="fas fa-arrow-down"></i>
-                         <span>${post.downvotes || 0}</span>
-                     </div>
-                     <div class="post-action" onclick="toggleComments('${post.id}')">
-                         <i class="fas fa-comment"></i>
-                         <span>${post.comments || 0}</span>
-                     </div>
-                     <div class="post-action ${isSaved ? 'voted' : ''}" onclick="toggleSavePost('${post.id}')">
-                         <i class="fas fa-bookmark"></i>
-                         <span>${post.saved || 0}</span>
-                     </div>
-                     ${isAuthor ? `
-                         <div class="post-action" onclick="showEditPostModal('${post.id}')">
-                             <i class="fas fa-edit"></i>
-                             Edit
-                         </div>
-                         <div class="post-action text-red-500" onclick="deletePost('${post.id}')">
-                             <i class="fas fa-trash"></i>
-                             Delete
-                         </div>
-                     ` : ''}
-                 </div>
-                 <div id="comments-${post.id}" class="comments-section" style="display: none;">
-                     <div class="mb-4">
-                         <form onsubmit="addComment(event, '${post.id}')" class="flex gap-3">
-                             <input type="text" id="comment-input-${post.id}" class="form-input flex-1" placeholder="Add a comment...">
-                             <button type="submit" class="btn btn-primary">Comment</button>
-                         </form>
-                     </div>
-                     <div id="comments-list-${post.id}"></div>
-                 </div>
-             `;
-             
-             // Load comments for this post
-             loadPostComments(post.id);
-             
-             return postDiv;
-         }
-         
-         function togglePostVote(postId, voteType) {
-             if (!currentUser) {
-                 showToast('error', 'Sign in required', 'Please sign in to vote on posts.');
-                 showLoginModal();
-                 return;
-             }
-             
-             const postRef = database.ref('discussionPosts/' + postId);
-             postRef.once('value').then((snapshot) => {
-                 const post = snapshot.val();
-                 
-                 if (!post) {
-                     showToast('error', 'Error', 'Post not found.');
-                     return;
-                 }
-                 
-                 const votes = post.votes || {};
-                 const currentVote = votes[currentUser.uid];
-                 const upvotes = post.upvotes || 0;
-                 const downvotes = post.downvotes || 0;
-                 
-                 let newUpvotes = upvotes;
-                 let newDownvotes = downvotes;
-                 let newVotes = { ...votes };
-                 
-                 if (voteType === 'up') {
-                     if (currentVote === true) {
-                         // Remove upvote
-                         delete newVotes[currentUser.uid];
-                         newUpvotes = Math.max(0, upvotes - 1);
-                     } else {
-                         // Add or change to upvote
-                         newVotes[currentUser.uid] = true;
-                         newUpvotes = upvotes + 1;
-                         if (currentVote === false) {
-                             // Was downvoted before
-                             newDownvotes = Math.max(0, downvotes - 1);
-                         }
-                     }
-                 } else { // voteType === 'down'
-                     if (currentVote === false) {
-                         // Remove downvote
-                         delete newVotes[currentUser.uid];
-                         newDownvotes = Math.max(0, downvotes - 1);
-                     } else {
-                         // Add or change to downvote
-                         newVotes[currentUser.uid] = false;
-                         newDownvotes = downvotes + 1;
-                         if (currentVote === true) {
-                             // Was upvoted before
-                             newUpvotes = Math.max(0, upvotes - 1);
-                         }
-                     }
-                 }
-                 
-                 const updates = {};
-                 updates['/upvotes'] = newUpvotes;
-                 updates['/downvotes'] = newDownvotes;
-                 updates['/votes'] = newVotes;
-                 
-                 postRef.update(updates).catch((error) => {
-                     console.error("Error voting on post:", error);
-                     showToast('error', 'Error', 'Failed to vote on post.');
-                 });
-             }).catch((error) => {
-                 console.error("Error getting post:", error);
-                 showToast('error', 'Error', 'Failed to vote on post.');
-             });
-         }
-         
-         function toggleSavePost(postId) {
-             if (!currentUser) {
-                 showToast('error', 'Sign in required', 'Please sign in to save posts.');
-                 showLoginModal();
-                 return;
-             }
-             
-             const userRef = database.ref('users/' + currentUser.uid);
-             userRef.once('value').then((snapshot) => {
-                 const userData = snapshot.val();
-                 const savedPosts = userData.savedPosts || [];
-                 
-                 const postIndex = savedPosts.indexOf(postId);
-                 const postRef = database.ref('discussionPosts/' + postId);
-                 
-                 if (postIndex > -1) {
-                     // Remove from saved posts
-                     savedPosts.splice(postIndex, 1);
-                     
-                     // Decrement saved count
-                     postRef.transaction((post) => {
-                         if (post) {
-                             post.saved = Math.max(0, (post.saved || 0) - 1);
-                         }
-                         return post;
-                     });
-                     
-                     showToast('info', 'Post Unsaved', 'This post has been removed from your saved posts.');
-                 } else {
-                     // Add to saved posts
-                     savedPosts.push(postId);
-                     
-                     // Increment saved count
-                     postRef.transaction((post) => {
-                         if (post) {
-                             post.saved = (post.saved || 0) + 1;
-                         }
-                         return post;
-                     });
-                     
-                     showToast('success', 'Post Saved!', 'This post has been added to your saved posts.');
-                 }
-                 
-                 // Update user data
-                 userRef.update({
-                     savedPosts: savedPosts
-                 });
-                 
-                 // Update local user data
-                 userData.savedPosts = savedPosts;
-             }).catch((error) => {
-                 console.error("Error saving post:", error);
-                 showToast('error', 'Error', 'Failed to save post.');
-             });
-         }
-         
-         function deletePost(postId) {
-             if (!confirm('Are you sure you want to delete this post?')) {
-                 return;
-             }
-             
-             const postRef = database.ref('discussionPosts/' + postId);
-             postRef.remove().then(() => {
-                 showToast('success', 'Post Deleted', 'Your post has been deleted successfully.');
-             }).catch((error) => {
-                 console.error("Error deleting post:", error);
-                 showToast('error', 'Error', 'Failed to delete post.');
-             });
-         }
-         
-         function toggleComments(postId) {
-             const commentsSection = document.getElementById(`comments-${postId}`);
-             if (commentsSection.style.display === 'none') {
-                 commentsSection.style.display = 'block';
-                 // Focus on comment input
-                 const commentInput = document.getElementById(`comment-input-${postId}`);
-                 if (commentInput) {
-                     commentInput.focus();
-                 }
-                 
-                 // Ensure comments are loaded and visible
-                 loadPostComments(postId);
-             } else {
-                 commentsSection.style.display = 'none';
-             }
-         }
-         
-         function loadPostComments(postId) {
-             const commentsContainer = document.getElementById(`comments-list-${postId}`);
-             if (!commentsContainer) return;
-             
-             // Show loading indicator
-             commentsContainer.innerHTML = '<div class="text-center py-3"><div class="spinner"></div></div>';
-             
-             const commentsRef = database.ref('postComments').orderByChild('postId').equalTo(postId);
-             commentsRef.on('value', (snapshot) => {
-                 commentsContainer.innerHTML = '';
-                 
-                 if (!snapshot.exists()) {
-                     commentsContainer.innerHTML = '<p class="text-gray-500 text-center py-3">No comments yet. Be the first to comment!</p>';
-                     return;
-                 }
-                 
-                 const commentsArray = [];
-                 snapshot.forEach((childSnapshot) => {
-                     commentsArray.push({
-                         id: childSnapshot.key,
-                         ...childSnapshot.val()
-                     });
-                 });
-                 
-                 // Sort by creation date (oldest first)
-                 commentsArray.sort((a, b) => {
-                     return new Date(a.createdAt) - new Date(b.createdAt);
-                 });
-                 
-                 if (commentsArray.length === 0) {
-                     commentsContainer.innerHTML = '<p class="text-gray-500 text-center py-3">No comments yet. Be the first to comment!</p>';
-                     return;
-                 }
-                 
-                 commentsArray.forEach(comment => {
-                     const commentElement = createCommentElement(comment);
-                     commentsContainer.appendChild(commentElement);
-                 });
-             });
-         }
-         
-         function createCommentElement(comment) {
-             const commentDiv = document.createElement('div');
-             commentDiv.className = 'comment mb-4 p-4 bg-white rounded-lg shadow-sm';
-             
-             const date = new Date(comment.createdAt);
-             const formattedDate = date.toLocaleDateString();
-             const formattedTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-             const isAuthor = currentUser && comment.authorId === currentUser.uid;
-             
-             commentDiv.innerHTML = `
-                 <div class="flex items-start space-x-4">
-                     <div class="comment-avatar flex-shrink-0 w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center">
-                         <span class="text-indigo-800 font-medium">${comment.authorName ? comment.authorName.charAt(0).toUpperCase() : 'A'}</span>
-                     </div>
-                     <div class="flex-1">
-                         <div class="flex items-center justify-between">
-                             <div class="comment-author font-semibold text-gray-800">${comment.authorName || 'Anonymous'}</div>
-                             <div class="comment-time text-xs text-gray-500">${formattedDate} at ${formattedTime}</div>
-                         </div>
-                         <div class="comment-content mt-2 text-gray-700">${comment.content}</div>
-                         ${isAuthor ? `
-                             <div class="mt-3">
-                                 <button onclick="deleteComment('${comment.id}', '${comment.postId}')" class="text-red-500 text-sm hover:text-red-700 flex items-center">
-                                     <i class="fas fa-trash mr-2"></i>Delete
-                                 </button>
-                             </div>
-                         ` : ''}
-                     </div>
-                 </div>
-             `;
-             
-             return commentDiv;
-         }
-         
-         function addComment(event, postId) {
-             event.preventDefault();
-             
-             if (!currentUser) {
-                 showToast('error', 'Sign in required', 'Please sign in to comment.');
-                 showLoginModal();
-                 return;
-             }
-             
-             const commentInput = document.getElementById(`comment-input-${postId}`);
-             const content = commentInput.value.trim();
-             
-             if (!content) {
-                 showToast('error', 'Empty Comment', 'Please enter a comment before posting.');
-                 return;
-             }
-             
-             const commentsRef = database.ref('postComments').push();
-             const newComment = {
-                 postId: postId,
-                 authorId: currentUser.uid,
-                 authorName: userData.displayName,
-                 content: content,
-                 createdAt: firebase.database.ServerValue.TIMESTAMP
-             };
-             
-             commentsRef.set(newComment).then(() => {
-                 // Update comment count on post
-                 const postRef = database.ref('discussionPosts/' + postId);
-                 postRef.transaction((post) => {
-                     if (post) {
-                         post.comments = (post.comments || 0) + 1;
-                     }
-                     return post;
-                 });
-                 
-                 // Clear input field
-                 commentInput.value = '';
-                 
-                 // Show success message
-                 showToast('success', 'Comment Added', 'Your comment has been posted successfully.');
-                 
-                 // Load comments for this post to update the UI
-                 loadPostComments(postId);
-             }).catch((error) => {
-                 console.error("Error adding comment:", error);
-                 showToast('error', 'Error', 'Failed to post comment.');
-             });
-         }
-         
-         function deleteComment(commentId, postId) {
-             if (!confirm('Are you sure you want to delete this comment?')) {
-                 return;
-             }
-             
-             const commentRef = database.ref('postComments/' + commentId);
-             commentRef.remove().then(() => {
-                 // Update comment count on post
-                 const postRef = database.ref('discussionPosts/' + postId);
-                 postRef.transaction((post) => {
-                     if (post) {
-                         post.comments = Math.max(0, (post.comments || 0) - 1);
-                     }
-                     return post;
-                 });
-                 
-                 showToast('success', 'Comment Deleted', 'Your comment has been deleted successfully.');
-                 
-                 // Reload comments to update the UI
-                 loadPostComments(postId);
-             }).catch((error) => {
-                 console.error("Error deleting comment:", error);
-                 showToast('error', 'Error', 'Failed to delete comment.');
-             });
-         }
-         
-         // Study Groups functions
-         function showCreateGroupModal() {
-             if (!currentUser) {
-                 showToast('error', 'Sign in required', 'Please sign in to create study groups.');
-                 showLoginModal();
-                 return;
-             }
-             document.getElementById('createGroupModal').classList.add('active');
-         }
-         
-         function closeCreateGroupModal() {
-             document.getElementById('createGroupModal').classList.remove('active');
-             document.getElementById('createGroupForm').reset();
-         }
-         
-         function handleCreateGroup(event) {
-             event.preventDefault();
-             
-             const name = document.getElementById('groupName').value.trim();
-             const topic = document.getElementById('groupTopic').value;
-             const description = document.getElementById('groupDescription').value.trim();
-             const maxMembers = parseInt(document.getElementById('groupMaxMembers').value);
-             
-             if (!name || !topic || !description) {
-                 showToast('error', 'Missing Fields', 'Please fill in all fields.');
-                 return;
-             }
-             
-             const groupsRef = database.ref('studyGroups').push();
-             const newGroup = {
-                 name: name,
-                 topic: topic,
-                 description: description,
-                 maxMembers: maxMembers,
-                 creatorId: currentUser.uid,
-                 creatorName: userData.displayName,
-                 members: [currentUser.uid],
-                 memberCount: 1,
-                 announcements: [],
-                 resources: [],
-                 createdAt: firebase.database.ServerValue.TIMESTAMP,
-                 lastActivity: firebase.database.ServerValue.TIMESTAMP
-             };
-             
-             groupsRef.set(newGroup).then(() => {
-                 showToast('success', 'Group Created!', 'Your study group has been created successfully.');
-                 closeCreateGroupModal();
-             }).catch((error) => {
-                 console.error("Error creating study group:", error);
-                 showToast('error', 'Error', 'Failed to create study group.');
-             });
-         }
-         
-         function loadStudyGroups() {
-             const groupsContainer = document.getElementById('studyGroupsList');
-             groupsContainer.innerHTML = '<div class="spinner"></div>';
-             
-             // Make spinner visible immediately
-             setTimeout(() => {
-                 const spinner = groupsContainer.querySelector('.spinner');
-                 if (spinner) spinner.style.display = 'block';
-             }, 10);
-             
-             const groupsRef = database.ref('studyGroups');
-             groupsRef.on('value', (snapshot) => {
-                 groupsContainer.innerHTML = '';
-                 
-                 if (!snapshot.exists()) {
-                     groupsContainer.innerHTML = `
-                         <div class="empty-state">
-                             <div class="empty-state-icon">
-                                 <i class="fas fa-users"></i>
-                             </div>
-                             <h3 class="empty-state-title">No Study Groups Yet</h3>
-                             <p class="empty-state-description">Create your first study group to collaborate with peers.</p>
-                         </div>`;
-                     // Force visibility
-                     setTimeout(() => {
-                         groupsContainer.style.display = 'block';
-                         groupsContainer.style.visibility = 'visible';
-                         groupsContainer.style.opacity = '1';
-                     }, 50);
-                     return;
-                 }
-                 
-                 studyGroups = [];
-                 snapshot.forEach((childSnapshot) => {
-                     studyGroups.push({
-                         id: childSnapshot.key,
-                         ...childSnapshot.val()
-                     });
-                 });
-                 
-                 // Create a document fragment to improve performance
-                 const fragment = document.createDocumentFragment();
-                 
-                 studyGroups.forEach(group => {
-                     const groupElement = createStudyGroupElement(group);
-                     fragment.appendChild(groupElement);
-                 });
-                 
-                 // Append all elements at once
-                 groupsContainer.appendChild(fragment);
-                 
-                 // Force visibility of the container and all its children
-                 setTimeout(() => {
-                     groupsContainer.style.display = 'block';
-                     groupsContainer.style.visibility = 'visible';
-                     groupsContainer.style.opacity = '1';
-                     
-                     // Make all child elements visible
-                     Array.from(groupsContainer.children).forEach(child => {
-                         child.style.display = 'block';
-                         child.style.visibility = 'visible';
-                         child.style.opacity = '1';
-                         
-                         // If it's a study group card, make its children visible too
-                         if (child.classList.contains('study-group-card')) {
-                             Array.from(child.children).forEach(grandChild => {
-                                 grandChild.style.display = 'block';
-                                 grandChild.style.visibility = 'visible';
-                                 grandChild.style.opacity = '1';
-                             });
-                         }
-                     });
-                 }, 100);
-             }, (error) => {
-                 console.error("Error loading study groups:", error);
-                 groupsContainer.innerHTML = '<p class="text-gray-500 text-center">Error loading study groups.</p>';
-                 // Force error message visibility
-                 setTimeout(() => {
-                     groupsContainer.style.display = 'block';
-                     groupsContainer.style.visibility = 'visible';
-                     groupsContainer.style.opacity = '1';
-                 }, 50);
-             });
-         }
-         
-         function createStudyGroupElement(group) {
-             const groupDiv = document.createElement('div');
-             groupDiv.className = 'study-group-card';
-             
-             const isMember = currentUser && group.members && group.members.includes(currentUser.uid);
-             const memberCount = group.members ? group.members.length : 0;
-             const maxMembers = group.maxMembers || 10;
-             const isFull = memberCount >= maxMembers;
-             
-             const createdDate = new Date(group.createdAt);
-             const formattedDate = createdDate.toLocaleDateString();
-             
-             // Format topic for display
-             const topicLabels = {
-                 'melting-point': 'Melting Point Trends',
-                 'density': 'Density Trends',
-                 'reactivity': 'Reactivity Series',
-                 'reactions': 'Chemical Reactions',
-                 'electron-configuration': 'Electron Configuration',
-                 'experiments': 'Laboratory Experiments',
-                 'exam-prep': 'Exam Preparation'
-             };
-             
-             groupDiv.innerHTML = `
-                 <div class="group-header">
-                     <div>
-                         <h3 class="group-title">${group.name}</h3>
-                         <span class="group-topic">${topicLabels[group.topic] || group.topic}</span>
-                     </div>
-                 </div>
-                 <p class="group-description">${group.description}</p>
-                 <div class="group-meta">
-                     <div class="group-members">
-                         <div class="flex -space-x-2">
-                             ${(group.members || []).slice(0, 5).map(member =>
-                                 `<div class="member-avatar" title="${member}">${member.charAt(0).toUpperCase()}</div>`
-                             ).join('')}
-                             ${(memberCount || 0) > 5 ?
-                                 `<div class="member-avatar">+${(memberCount || 0) - 5}</div>` : ''
-                             }
-                         </div>
-                         <span class="ml-3 text-sm">${memberCount}/${maxMembers} members</span>
-                     </div>
-                     <div class="group-stats">
-                         Created on ${formattedDate}
-                     </div>
-                 </div>
-                 <div class="group-actions">
-                     <button onclick="showGroupDetails('${group.id}')" class="btn btn-primary btn-sm">
-                         <i class="fas fa-eye mr-2"></i>
-                         View Details
-                     </button>
-                     <button onclick="${isMember ? 'leaveStudyGroup' : 'joinStudyGroup'}('${group.id}')"
-                             class="btn ${isMember ? 'btn-danger' : 'btn-primary'} btn-sm"
-                             ${isFull && !isMember ? 'disabled' : ''}>
-                         ${isMember ? 'Leave Group' : isFull ? 'Full' : 'Join Group'}
-                     </button>
-                 </div>
-             `;
-             
-             return groupDiv;
-         }
-         
-         function showGroupDetails(groupId) {
-             if (!currentUser) {
-                 showToast('error', 'Sign in required', 'Please sign in to view group details.');
-                 showLoginModal();
-                 return;
-             }
-             
-             const group = studyGroups.find(g => g.id === groupId);
-             if (!group) return;
-             
-             const isMember = currentUser && group.members && group.members.includes(currentUser.uid);
-             
-             // Format topic for display
-             const topicLabels = {
-                 'melting-point': 'Melting Point Trends',
-                 'density': 'Density Trends',
-                 'reactivity': 'Reactivity Series',
-                 'reactions': 'Chemical Reactions',
-                 'electron-configuration': 'Electron Configuration',
-                 'experiments': 'Laboratory Experiments',
-                 'exam-prep': 'Exam Preparation'
-             };
-             
-             document.getElementById('groupDetailsTitle').textContent = group.name;
-             
-             let content = `
-                 <div class="group-details-container">
-                    <div class="flex justify-between items-start mb-8">
-                        <div>
-                            <h3 class="text-2xl font-bold text-gray-800">${group.name}</h3>
-                            <span class="group-topic inline-block mt-2">${topicLabels[group.topic] || group.topic}</span>
-                        </div>
-                        <button onclick="closeGroupDetailsModal()" class="text-gray-500 hover:text-gray-700 p-3 rounded-full hover:bg-gray-100 transition-colors">
-                            <i class="fas fa-times text-xl"></i>
+        });
+    });
+}
+
+function showOxideTrendQuiz() {
+    const question = {
+        question: "Which type of oxide does Potassium form when burned in oxygen?",
+        options: [
+            "Normal oxide (K₂O)",
+            "Peroxide (K₂O₂)",
+            "Superoxide (KO₂)",
+            "No oxide is formed"
+        ],
+        correct: 2,
+        explanation: "Potassium forms a superoxide (KO₂) when burned in oxygen. This contains the superoxide ion (O₂⁻) with an unpaired electron."
+    };
+    
+    document.getElementById('quizQuestionModal').classList.add('active');
+    document.getElementById('quizQuestionTitle').textContent = 'Oxide Trend Quiz';
+    document.getElementById('quizQuestionText').textContent = question.question;
+    
+    const answersContainer = document.getElementById('quizQuestionAnswers');
+    answersContainer.innerHTML = '';
+    
+    question.options.forEach((option, index) => {
+        const answerDiv = document.createElement('div');
+        answerDiv.className = 'quiz-option';
+        answerDiv.textContent = option;
+        answerDiv.onclick = () => selectOxideTrendQuizAnswer(index, question.correct, question.explanation);
+        answersContainer.appendChild(answerDiv);
+    });
+    
+    // Reset feedback
+    document.getElementById('quizQuestionFeedback').classList.add('hidden');
+}
+
+function selectOxideTrendQuizAnswer(index, correctIndex, explanation) {
+    const answers = document.querySelectorAll('#quizQuestionAnswers .quiz-option');
+    const feedback = document.getElementById('quizQuestionFeedback');
+    
+    answers.forEach(answer => {
+        answer.style.pointerEvents = 'none';
+    });
+    
+    if (index === correctIndex) {
+        answers[index].classList.add('correct');
+        feedback.className = 'quiz-feedback correct';
+        feedback.textContent = 'Correct! ' + explanation;
+        
+        if (soundEnabled) correctSound.play();
+    } else {
+        answers[index].classList.add('incorrect');
+        feedback.className = 'quiz-feedback incorrect';
+        feedback.textContent = 'Incorrect. ' + explanation;
+        
+        if (soundEnabled) incorrectSound.play();
+    }
+    
+    feedback.classList.remove('hidden');
+}
+
+// Quiz Functions
+function startQuiz() {
+    currentQuestion = 0;
+    score = 0;
+    selectedOption = null;
+    answerSubmitted = false;
+    quizAnswers = [];
+    
+    document.getElementById('quizModal').classList.add('active');
+    document.getElementById('quizProgress').style.display = 'block';
+    document.getElementById('quizContent').style.display = 'block';
+    document.getElementById('quizResults').style.display = 'none';
+    
+    document.getElementById('currentQuestion').textContent = currentQuestion + 1;
+    document.getElementById('totalQuestions').textContent = quizQuestions.length;
+    document.getElementById('currentScore').textContent = score;
+    document.getElementById('progressFill').style.width = ((currentQuestion + 1) / quizQuestions.length * 100) + '%';
+    
+    loadQuestion();
+    
+    // Add anti-cheating measures
+    addAntiCheatingMeasures();
+}
+
+function addAntiCheatingMeasures() {
+    // Disable right-click
+    document.getElementById('quizModal').addEventListener('contextmenu', e => e.preventDefault());
+    
+    // Disable text selection
+    document.getElementById('quizModal').addEventListener('selectstart', e => e.preventDefault());
+    document.getElementById('quizModal').addEventListener('mousedown', e => e.preventDefault());
+    
+    // Warn before leaving
+    window.addEventListener('beforeunload', preventQuizExit);
+}
+
+function removeAntiCheatingMeasures() {
+    // Re-enable right-click
+    document.getElementById('quizModal').removeEventListener('contextmenu', e => e.preventDefault());
+    
+    // Re-enable text selection
+    document.getElementById('quizModal').removeEventListener('selectstart', e => e.preventDefault());
+    document.getElementById('quizModal').removeEventListener('mousedown', e => e.preventDefault());
+    
+    // Remove beforeunload listener
+    window.removeEventListener('beforeunload', preventQuizExit);
+}
+
+function preventQuizExit(e) {
+    if (document.getElementById('quizModal').classList.contains('active')) {
+        e.preventDefault();
+        e.returnValue = '';
+        return '';
+    }
+}
+
+function loadQuestion() {
+    const question = quizQuestions[currentQuestion];
+    document.getElementById('questionText').textContent = question.question;
+    
+    const optionsContainer = document.getElementById('optionsContainer');
+    optionsContainer.innerHTML = '';
+    
+    // Check if this question has been answered already
+    const answeredQuestion = quizAnswers[currentQuestion];
+    
+    // Load MCQ options
+    question.options.forEach((option, index) => {
+        const optionDiv = document.createElement('div');
+        optionDiv.className = 'quiz-option';
+        if (answeredQuestion) {
+            optionDiv.classList.add('disabled');
+            if (answeredQuestion.selected === index) {
+                optionDiv.classList.add(answeredQuestion.isCorrect ? 'correct' : 'incorrect');
+            }
+        }
+        optionDiv.dataset.index = index;
+        
+        const input = document.createElement('input');
+        input.type = 'radio';
+        input.name = 'quiz-option';
+        input.id = `option-${index}`;
+        input.value = index;
+        if (answeredQuestion && answeredQuestion.selected === index) {
+            input.checked = true;
+        }
+        if (answeredQuestion) {
+            input.disabled = true;
+        }
+        
+        const label = document.createElement('label');
+        label.htmlFor = `option-${index}`;
+        label.textContent = option;
+        
+        optionDiv.appendChild(input);
+        optionDiv.appendChild(label);
+        
+        if (!answeredQuestion) {
+            optionDiv.onclick = () => selectOption(index);
+        }
+        optionsContainer.appendChild(optionDiv);
+    });
+    
+    // Show/hide navigation buttons
+    document.getElementById('prevButton').classList.toggle('hidden', currentQuestion === 0);
+    
+    // Show submit button if not answered, show next button if answered
+    if (answeredQuestion) {
+        document.getElementById('submitButton').style.display = 'none';
+        document.getElementById('nextButton').classList.remove('hidden');
+        
+        // Show feedback for answered question
+        const feedback = document.getElementById('feedback');
+        if (answeredQuestion.isCorrect) {
+            feedback.className = 'mb-5 p-4 rounded-lg bg-green-100 text-green-800 text-sm';
+            feedback.textContent = 'Correct! ' + question.explanation;
+        } else {
+            feedback.className = 'mb-5 p-4 rounded-lg bg-red-100 text-red-800 text-sm';
+            feedback.textContent = 'Incorrect. ' + question.explanation;
+        }
+        feedback.classList.remove('hidden');
+    } else {
+        document.getElementById('submitButton').style.display = 'inline-flex';
+        document.getElementById('submitButton').disabled = true;
+        document.getElementById('nextButton').classList.add('hidden');
+        document.getElementById('feedback').classList.add('hidden');
+    }
+    
+    selectedOption = answeredQuestion ? answeredQuestion.selected : null;
+    answerSubmitted = !!answeredQuestion;
+}
+
+function selectOption(index) {
+    if (answerSubmitted) return;
+    
+    const options = document.querySelectorAll('.quiz-option');
+    options.forEach(option => {
+        option.classList.remove('selected');
+        const input = option.querySelector('input');
+        input.checked = false;
+    });
+    
+    options[index].classList.add('selected');
+    options[index].querySelector('input').checked = true;
+    
+    selectedOption = index;
+    document.getElementById('submitButton').disabled = false;
+}
+
+function submitAnswer() {
+    if (answerSubmitted) return;
+    
+    const question = quizQuestions[currentQuestion];
+    const isCorrect = selectedOption === question.correct;
+    const feedback = document.getElementById('feedback');
+    
+    quizAnswers[currentQuestion] = {
+        selected: selectedOption,
+        submitted: true,
+        isCorrect: isCorrect
+    };
+    
+    // Store quiz analytics in Firebase
+    const analyticsRef = group1MetalsRef.child('quizAnalytics').child(currentQuestion);
+    analyticsRef.transaction((analytics) => {
+        if (!analytics) {
+            analytics = { correct: 0, incorrect: 0 };
+        }
+        if (isCorrect) {
+            analytics.correct++;
+        } else {
+            analytics.incorrect++;
+        }
+        return analytics;
+    });
+    
+    if (isCorrect) {
+        feedback.className = 'mb-5 p-4 rounded-lg bg-green-100 text-green-800 text-sm';
+        feedback.textContent = 'Correct! ' + question.explanation;
+        score++;
+        
+        if (soundEnabled) correctSound.play();
+    } else {
+        feedback.className = 'mb-5 p-4 rounded-lg bg-red-100 text-red-800 text-sm';
+        feedback.textContent = 'Incorrect. ' + question.explanation;
+        
+        if (soundEnabled) incorrectSound.play();
+    }
+    
+    feedback.classList.remove('hidden');
+    document.getElementById('submitButton').style.display = 'none';
+    document.getElementById('nextButton').classList.remove('hidden');
+    document.getElementById('currentScore').textContent = score;
+    
+    answerSubmitted = true;
+}
+
+function nextQuestion() {
+    currentQuestion++;
+    
+    if (currentQuestion >= quizQuestions.length) {
+        showResults();
+        return;
+    }
+    
+    document.getElementById('currentQuestion').textContent = currentQuestion + 1;
+    document.getElementById('progressFill').style.width = ((currentQuestion + 1) / quizQuestions.length * 100) + '%';
+    loadQuestion();
+}
+
+function previousQuestion() {
+    if (currentQuestion > 0) {
+        currentQuestion--;
+        document.getElementById('currentQuestion').textContent = currentQuestion + 1;
+        document.getElementById('progressFill').style.width = ((currentQuestion + 1) / quizQuestions.length * 100) + '%';
+        loadQuestion();
+    }
+}
+
+function showResults() {
+    document.getElementById('quizProgress').style.display = 'none';
+    document.getElementById('quizContent').style.display = 'none';
+    document.getElementById('quizResults').style.display = 'block';
+    
+    const percentage = Math.round((score / quizQuestions.length) * 100);
+    document.getElementById('finalScore').textContent = `${score}/${quizQuestions.length}`;
+    
+    let message = '';
+    if (percentage >= 80) {
+        message = 'Excellent! You have a strong understanding of Group 1 elements.';
+    } else if (percentage >= 60) {
+        message = 'Good job! You have a solid foundation to build upon.';
+    } else if (percentage >= 40) {
+        message = 'Not bad! Review the materials to improve your understanding.';
+    } else {
+        message = 'Keep practicing! Review the materials carefully.';
+    }
+    
+    document.getElementById('scoreMessage').textContent = message;
+    
+    // Award XP for quiz completion
+    const quizXP = Math.round((score / quizQuestions.length) * 20); // Max 20 XP for perfect score
+    const newXp = (userData.xp || 0) + quizXP;
+    
+    // Check for quiz badge
+    const newBadges = [...(userData.badges || [])];
+    let badgeEarned = false;
+    
+    if (percentage >= 80 && !newBadges.includes('Quiz Master')) {
+        newBadges.push('Quiz Master');
+        badgeEarned = true;
+    }
+    
+    // Save to Firebase
+    const userRef = group1MetalsRef.child('users').child(currentUser.uid);
+    const updates = {
+        xp: newXp
+    };
+    
+    if (badgeEarned) {
+        updates.badges = newBadges;
+    }
+    
+    userRef.update(updates).then(() => {
+        userData.xp = newXp;
+        if (badgeEarned) {
+            userData.badges = newBadges;
+        }
+        
+        updateUserXP();
+        updateUserBadges();
+        
+        if (soundEnabled) {
+            completeSound.play();
+            if (badgeEarned) badgeSound.play();
+        }
+        
+        if (badgeEarned) {
+            showToast('success', 'Badge Earned!', `You've earned a new badge: ${newBadges[newBadges.length - 1]}`);
+        }
+    });
+    
+    // Remove anti-cheating measures
+    removeAntiCheatingMeasures();
+}
+
+function closeQuiz() {
+    document.getElementById('quizModal').classList.remove('active');
+    removeAntiCheatingMeasures();
+}
+
+// Feedback System Functions
+function showFeedbackModal() {
+    if (!currentUser) {
+        showToast('error', 'Sign in required', 'Please sign in to provide feedback.');
+        showLoginModal();
+        return;
+    }
+    document.getElementById('feedbackModal').classList.add('active');
+}
+
+function closeFeedbackModal() {
+    document.getElementById('feedbackModal').classList.remove('active');
+    document.getElementById('feedbackForm').reset();
+    document.getElementById('feedbackRating').value = '0';
+    // Reset thumbs
+    document.querySelectorAll('#feedbackModal .fa-thumbs-up, #feedbackModal .fa-thumbs-down').forEach(icon => {
+        icon.classList.remove('fas', 'text-yellow-500');
+        icon.classList.add('far', 'text-gray-400');
+    });
+}
+
+function setFeedbackRating(rating) {
+    document.getElementById('feedbackRating').value = rating;
+    // Update the thumbs
+    document.querySelectorAll('#feedbackModal .fa-thumbs-up, #feedbackModal .fa-thumbs-down').forEach(icon => {
+        icon.classList.remove('fas', 'text-yellow-500');
+        icon.classList.add('far', 'text-gray-400');
+    });
+    if (rating === 1) {
+        const thumbsDown = document.querySelector('#feedbackModal .fa-thumbs-down');
+        thumbsDown.classList.remove('far', 'text-gray-400');
+        thumbsDown.classList.add('fas', 'text-yellow-500');
+    } else if (rating === 2) {
+        const thumbsUp = document.querySelector('#feedbackModal .fa-thumbs-up');
+        thumbsUp.classList.remove('far', 'text-gray-400');
+        thumbsUp.classList.add('fas', 'text-yellow-500');
+    }
+}
+
+function handleFeedback(event) {
+    event.preventDefault();
+    const text = document.getElementById('feedbackText').value.trim();
+    const rating = document.getElementById('feedbackRating').value;
+    if (!text) {
+        showToast('error', 'Missing Feedback', 'Please enter your feedback.');
+        return;
+    }
+    // Save feedback to Firebase
+    const feedbackRef = group1MetalsRef.child('feedback').push();
+    feedbackRef.set({
+        userId: currentUser.uid,
+        userName: userData.displayName,
+        text: text,
+        rating: rating,
+        timestamp: firebase.database.ServerValue.TIMESTAMP
+    }).then(() => {
+        showToast('success', 'Feedback Sent', 'Thank you for your feedback.');
+        closeFeedbackModal();
+    }).catch((error) => {
+        console.error("Error sending feedback:", error);
+        showToast('error', 'Error', 'Failed to send feedback.');
+    });
+}
+
+// Export to PDF
+function exportToPDF() {
+    // Define the filename of your pre-existing PDF
+    const pdfFileName = "Alkali Metals.pdf";
+    
+    // Create a temporary link element to trigger download
+    const link = document.createElement('a');
+    link.href = pdfFileName;  // Just the filename, no path
+    link.download = pdfFileName;
+    
+    // Append to body, click, and remove
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Show success notification with filename
+    showToast('success', 'Export Successful', `Downloading: ${pdfFileName}`);
+}
+
+// Discussion functions
+function showCreatePostModal() {
+    if (!currentUser) {
+        showToast('error', 'Sign in required', 'Please sign in to create posts.');
+        showLoginModal();
+        return;
+    }
+    document.getElementById('createPostModal').classList.add('active');
+}
+
+function closeCreatePostModal() {
+    document.getElementById('createPostModal').classList.remove('active');
+    document.getElementById('createPostForm').reset();
+}
+
+function showEditPostModal(postId) {
+    if (!currentUser) {
+        showToast('error', 'Sign in required', 'Please sign in to edit posts.');
+        showLoginModal();
+        return;
+    }
+    
+    const post = discussionPosts.find(p => p.id === postId);
+    if (!post) return;
+    
+    document.getElementById('editPostId').value = postId;
+    document.getElementById('editPostTitle').value = post.title;
+    document.getElementById('editPostContent').value = post.content;
+    document.getElementById('editPostTags').value = post.tags ? post.tags.join(', ') : '';
+    
+    document.getElementById('editPostModal').classList.add('active');
+}
+
+function closeEditPostModal() {
+    document.getElementById('editPostModal').classList.remove('active');
+    document.getElementById('editPostForm').reset();
+}
+
+function handleCreatePost(event) {
+    event.preventDefault();
+    
+    const title = document.getElementById('postTitle').value.trim();
+    const content = document.getElementById('postContent').value.trim();
+    const tags = document.getElementById('postTags').value.trim();
+    
+    if (!title || !content) {
+        showToast('error', 'Missing Fields', 'Please fill in all required fields.');
+        return;
+    }
+    
+    const postsRef = group1MetalsRef.child('discussionPosts').push();
+    const newPost = {
+        authorId: currentUser.uid,
+        authorName: userData.displayName,
+        title: title,
+        content: content,
+        tags: tags ? tags.split(',').map(tag => tag.trim()) : [],
+        upvotes: 0,
+        downvotes: 0,
+        votes: {},
+        comments: 0,
+        saved: 0,
+        createdAt: firebase.database.ServerValue.TIMESTAMP
+    };
+    
+    postsRef.set(newPost).then(() => {
+        showToast('success', 'Post Created!', 'Your post has been published successfully.');
+        closeCreatePostModal();
+    }).catch((error) => {
+        console.error("Error creating post:", error);
+        showToast('error', 'Error', 'Failed to create post.');
+    });
+}
+
+function handleEditPost(event) {
+    event.preventDefault();
+    
+    const postId = document.getElementById('editPostId').value;
+    const title = document.getElementById('editPostTitle').value.trim();
+    const content = document.getElementById('editPostContent').value.trim();
+    const tags = document.getElementById('editPostTags').value.trim();
+    
+    if (!title || !content) {
+        showToast('error', 'Missing Fields', 'Please fill in all required fields.');
+        return;
+    }
+    
+    const postRef = group1MetalsRef.child('discussionPosts').child(postId);
+    postRef.once('value').then((snapshot) => {
+        const post = snapshot.val();
+        
+        if (!post) {
+            showToast('error', 'Error', 'Post not found.');
+            return;
+        }
+        
+        if (post.authorId !== currentUser.uid) {
+            showToast('error', 'Permission Denied', 'You can only edit your own posts.');
+            return;
+        }
+        
+        const updates = {};
+        updates['/title'] = title;
+        updates['/content'] = content;
+        updates['/tags'] = tags ? tags.split(',').map(tag => tag.trim()) : [];
+        updates['/editedAt'] = firebase.database.ServerValue.TIMESTAMP;
+        
+        postRef.update(updates).then(() => {
+            showToast('success', 'Post Updated!', 'Your post has been updated successfully.');
+            closeEditPostModal();
+        }).catch((error) => {
+            console.error("Error updating post:", error);
+            showToast('error', 'Error', 'Failed to update post.');
+        });
+    }).catch((error) => {
+        console.error("Error getting post:", error);
+        showToast('error', 'Error', 'Failed to update post.');
+    });
+}
+
+function loadDiscussionPosts() {
+    const postsContainer = document.getElementById('discussionPosts');
+    postsContainer.innerHTML = '<div class="spinner"></div>';
+    
+    const postsRef = group1MetalsRef.child('discussionPosts');
+
+    postsRef.orderByChild('createdAt').on('value', (snapshot) => {
+        postsContainer.innerHTML = '';
+        
+        if (!snapshot.exists()) {
+            postsContainer.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="empty-state-title">No Posts Yet</h3>
+                    <p class="empty-state-description">Be the first to start a discussion about Group 1 Alkali Metals.</p>
+                </div>`;
+            return;
+        }
+        
+        discussionPosts = [];
+        snapshot.forEach((childSnapshot) => {
+            discussionPosts.push({
+                id: childSnapshot.key,
+                ...childSnapshot.val()
+            });
+        });
+        
+        // Sort based on current sort option
+        sortDiscussionPosts();
+        
+        discussionPosts.forEach(post => {
+            const postElement = createDiscussionPostElement(post);
+            postsContainer.appendChild(postElement);
+        });
+    }, (error) => {
+        console.error("Error loading discussion posts:", error);
+        postsContainer.innerHTML = '<p class="text-gray-500 text-center">Error loading posts.</p>';
+    });
+}
+
+function sortDiscussionPosts() {
+    switch(currentSort) {
+        case 'newest':
+            discussionPosts.sort((a, b) => {
+                return new Date(b.createdAt) - new Date(a.createdAt);
+            });
+            break;
+        case 'oldest':
+            discussionPosts.sort((a, b) => {
+                return new Date(a.createdAt) - new Date(b.createdAt);
+            });
+            break;
+        case 'popular':
+            discussionPosts.sort((a, b) => {
+                const aScore = (a.upvotes || 0) - (a.downvotes || 0);
+                const bScore = (b.upvotes || 0) - (b.downvotes || 0);
+                return bScore - aScore;
+            });
+            break;
+    }
+}
+
+function sortDiscussions(sortType) {
+    currentSort = sortType;
+    
+    // Update active button
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active', 'bg-indigo-600', 'text-white');
+        btn.classList.add('bg-gray-200', 'text-gray-700');
+    });
+    event.target.classList.remove('bg-gray-200', 'text-gray-700');
+    event.target.classList.add('active', 'bg-indigo-600', 'text-white');
+    
+    // Re-sort and re-render
+    sortDiscussionPosts();
+    
+    const postsContainer = document.getElementById('discussionPosts');
+    postsContainer.innerHTML = '';
+    
+    discussionPosts.forEach(post => {
+        const postElement = createDiscussionPostElement(post);
+        postsContainer.appendChild(postElement);
+    });
+}
+
+function filterDiscussions() {
+    const searchTerm = document.getElementById('discussionSearch').value.toLowerCase();
+    
+    const postsContainer = document.getElementById('discussionPosts');
+    postsContainer.innerHTML = '';
+    
+    const filteredPosts = discussionPosts.filter(post => {
+        return post.title.toLowerCase().includes(searchTerm) || 
+               post.content.toLowerCase().includes(searchTerm) ||
+               (post.tags && post.tags.some(tag => tag.toLowerCase().includes(searchTerm)));
+    });
+    
+    if (filteredPosts.length === 0) {
+        postsContainer.innerHTML = `
+            <div class="empty-state">
+                <div class="empty-state-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3 class="empty-state-title">No Posts Found</h3>
+                <p class="empty-state-description">No posts match your search criteria.</p>
+            </div>`;
+        return;
+    }
+    
+    filteredPosts.forEach(post => {
+        const postElement = createDiscussionPostElement(post);
+        postsContainer.appendChild(postElement);
+    });
+}
+
+function createDiscussionPostElement(post) {
+    const postDiv = document.createElement('div');
+    postDiv.className = 'discussion-post';
+    
+    const date = new Date(post.createdAt);
+    const formattedDate = date.toLocaleDateString();
+    const formattedTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    
+    const isAuthor = currentUser && post.authorId === currentUser.uid;
+    const userVote = post.votes && post.votes[currentUser.uid];
+    const isSaved = userData && userData.savedPosts && userData.savedPosts.includes(post.id);
+    
+    postDiv.innerHTML = `
+        <div class="post-header">
+            <div class="post-avatar">${post.authorName ? post.authorName.charAt(0).toUpperCase() : 'A'}</div>
+            <div class="post-meta">
+                <div class="post-author">${post.authorName || 'Anonymous'}</div>
+                <div class="post-time">${formattedDate} at ${formattedTime}</div>
+            </div>
+        </div>
+        <h3 class="post-title">${post.title}</h3>
+        <div class="post-content">${post.content}</div>
+        ${post.tags && post.tags.length > 0 ? `
+            <div class="mt-3">
+                ${post.tags.map(tag => `<span class="post-tag">#${tag}</span>`).join('')}
+            </div>
+        ` : ''}
+        <div class="post-actions">
+            <div class="post-action ${userVote === true ? 'voted' : ''}" onclick="togglePostVote('${post.id}', 'up')">
+                <i class="fas fa-arrow-up"></i>
+                <span>${post.upvotes || 0}</span>
+            </div>
+            <div class="post-action ${userVote === false ? 'voted' : ''}" onclick="togglePostVote('${post.id}', 'down')">
+                <i class="fas fa-arrow-down"></i>
+                <span>${post.downvotes || 0}</span>
+            </div>
+            <div class="post-action" onclick="toggleComments('${post.id}')">
+                <i class="fas fa-comment"></i>
+                <span>${post.comments || 0}</span>
+            </div>
+            <div class="post-action ${isSaved ? 'voted' : ''}" onclick="toggleSavePost('${post.id}')">
+                <i class="fas fa-bookmark"></i>
+                <span>${post.saved || 0}</span>
+            </div>
+            ${isAuthor ? `
+                <div class="post-action" onclick="showEditPostModal('${post.id}')">
+                    <i class="fas fa-edit"></i>
+                    Edit
+                </div>
+                <div class="post-action text-red-500" onclick="deletePost('${post.id}')">
+                    <i class="fas fa-trash"></i>
+                    Delete
+                </div>
+            ` : ''}
+        </div>
+        <div id="comments-${post.id}" class="comments-section" style="display: none;">
+            <div class="mb-4">
+                <form onsubmit="addComment(event, '${post.id}')" class="flex gap-3">
+                    <input type="text" id="comment-input-${post.id}" class="form-input flex-1" placeholder="Add a comment...">
+                    <button type="submit" class="btn btn-primary">Comment</button>
+                </form>
+            </div>
+            <div id="comments-list-${post.id}"></div>
+        </div>
+    `;
+    
+    // Load comments for this post
+    loadPostComments(post.id);
+    
+    return postDiv;
+}
+
+function togglePostVote(postId, voteType) {
+    if (!currentUser) {
+        showToast('error', 'Sign in required', 'Please sign in to vote on posts.');
+        showLoginModal();
+        return;
+    }
+    
+    const postRef = group1MetalsRef.child('discussionPosts').child(postId);
+    postRef.once('value').then((snapshot) => {
+        const post = snapshot.val();
+        
+        if (!post) {
+            showToast('error', 'Error', 'Post not found.');
+            return;
+        }
+        
+        const votes = post.votes || {};
+        const currentVote = votes[currentUser.uid];
+        const upvotes = post.upvotes || 0;
+        const downvotes = post.downvotes || 0;
+        
+        let newUpvotes = upvotes;
+        let newDownvotes = downvotes;
+        let newVotes = { ...votes };
+        
+        if (voteType === 'up') {
+            if (currentVote === true) {
+                // Remove upvote
+                delete newVotes[currentUser.uid];
+                newUpvotes = Math.max(0, upvotes - 1);
+            } else {
+                // Add or change to upvote
+                newVotes[currentUser.uid] = true;
+                newUpvotes = upvotes + 1;
+                if (currentVote === false) {
+                    // Was downvoted before
+                    newDownvotes = Math.max(0, downvotes - 1);
+                }
+            }
+        } else { // voteType === 'down'
+            if (currentVote === false) {
+                // Remove downvote
+                delete newVotes[currentUser.uid];
+                newDownvotes = Math.max(0, downvotes - 1);
+            } else {
+                // Add or change to downvote
+                newVotes[currentUser.uid] = false;
+                newDownvotes = downvotes + 1;
+                if (currentVote === true) {
+                    // Was upvoted before
+                    newUpvotes = Math.max(0, upvotes - 1);
+                }
+            }
+        }
+        
+        const updates = {};
+        updates['/upvotes'] = newUpvotes;
+        updates['/downvotes'] = newDownvotes;
+        updates['/votes'] = newVotes;
+        
+        postRef.update(updates).catch((error) => {
+            console.error("Error voting on post:", error);
+            showToast('error', 'Error', 'Failed to vote on post.');
+        });
+    }).catch((error) => {
+        console.error("Error getting post:", error);
+        showToast('error', 'Error', 'Failed to vote on post.');
+    });
+}
+
+function toggleSavePost(postId) {
+    if (!currentUser) {
+        showToast('error', 'Sign in required', 'Please sign in to save posts.');
+        showLoginModal();
+        return;
+    }
+    
+    const userRef = group1MetalsRef.child('users').child(currentUser.uid);
+    userRef.once('value').then((snapshot) => {
+        const userData = snapshot.val();
+        const savedPosts = userData.savedPosts || [];
+        
+        const postRef = group1MetalsRef.child('discussionPosts').child(postId);
+        
+        if (savedPosts.includes(postId)) {
+            // Remove from saved posts
+            const newSavedPosts = savedPosts.filter(id => id !== postId);
+            
+            // Decrement saved count
+            postRef.transaction((post) => {
+                if (post) {
+                    post.saved = Math.max(0, (post.saved || 0) - 1);
+                }
+                return post;
+            });
+            
+            // Update user data
+            userRef.update({
+                savedPosts: newSavedPosts
+            });
+            
+            // Update local user data
+            userData.savedPosts = newSavedPosts;
+            
+            showToast('info', 'Post Unsaved', 'This post has been removed from your saved posts.');
+        } else {
+            // Add to saved posts
+            const newSavedPosts = [...savedPosts, postId];
+            
+            // Increment saved count
+            postRef.transaction((post) => {
+                if (post) {
+                    post.saved = (post.saved || 0) + 1;
+                }
+                return post;
+            });
+            
+            // Update user data
+            userRef.update({
+                savedPosts: newSavedPosts
+            });
+            
+            // Update local user data
+            userData.savedPosts = newSavedPosts;
+            
+            showToast('success', 'Post Saved!', 'This post has been added to your saved posts.');
+        }
+    }).catch((error) => {
+        console.error("Error saving post:", error);
+        showToast('error', 'Error', 'Failed to save post.');
+    });
+}
+
+function deletePost(postId) {
+    if (!confirm('Are you sure you want to delete this post?')) {
+        return;
+    }
+    
+    const postRef = group1MetalsRef.child('discussionPosts').child(postId);
+    postRef.remove().then(() => {
+        showToast('success', 'Post Deleted', 'Your post has been deleted successfully.');
+    }).catch((error) => {
+        console.error("Error deleting post:", error);
+        showToast('error', 'Error', 'Failed to delete post.');
+    });
+}
+
+function toggleComments(postId) {
+    const commentsSection = document.getElementById(`comments-${postId}`);
+    if (commentsSection.style.display === 'none') {
+        commentsSection.style.display = 'block';
+        // Focus on comment input
+        const commentInput = document.getElementById(`comment-input-${postId}`);
+        if (commentInput) {
+            commentInput.focus();
+        }
+        
+        // Ensure comments are loaded and visible
+        loadPostComments(postId);
+    } else {
+        commentsSection.style.display = 'none';
+    }
+}
+
+function loadPostComments(postId) {
+    const commentsContainer = document.getElementById(`comments-list-${postId}`);
+    if (!commentsContainer) return;
+    
+    // Show loading indicator
+    commentsContainer.innerHTML = '<div class="text-center py-3"><div class="spinner"></div></div>';
+    
+    const commentsRef = group1MetalsRef.child('postComments').orderByChild('postId').equalTo(postId);
+    commentsRef.on('value', (snapshot) => {
+        commentsContainer.innerHTML = '';
+        
+        if (!snapshot.exists()) {
+            commentsContainer.innerHTML = '<p class="text-gray-500 text-center py-3">No comments yet. Be the first to comment!</p>';
+            return;
+        }
+        
+        const commentsArray = [];
+        snapshot.forEach((childSnapshot) => {
+            commentsArray.push({
+                id: childSnapshot.key,
+                ...childSnapshot.val()
+            });
+        });
+        
+        // Sort by creation date (oldest first)
+        commentsArray.sort((a, b) => {
+            return new Date(a.createdAt) - new Date(b.createdAt);
+        });
+        
+        if (commentsArray.length === 0) {
+            commentsContainer.innerHTML = '<p class="text-gray-500 text-center py-3">No comments yet. Be the first to comment!</p>';
+            return;
+        }
+        
+        commentsArray.forEach(comment => {
+            const commentElement = createCommentElement(comment);
+            commentsContainer.appendChild(commentElement);
+        });
+    });
+}
+
+function createCommentElement(comment) {
+    const commentDiv = document.createElement('div');
+    commentDiv.className = 'comment mb-4 p-4 bg-white rounded-lg shadow-sm';
+    
+    const date = new Date(comment.createdAt);
+    const formattedDate = date.toLocaleDateString();
+    const formattedTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const isAuthor = currentUser && comment.authorId === currentUser.uid;
+    
+    commentDiv.innerHTML = `
+        <div class="flex items-start space-x-4">
+            <div class="comment-avatar flex-shrink-0 w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center">
+                <span class="text-indigo-800 font-medium">${comment.authorName ? comment.authorName.charAt(0).toUpperCase() : 'A'}</span>
+            </div>
+            <div class="flex-1">
+                <div class="flex items-center justify-between">
+                    <div class="comment-author font-semibold text-gray-800">${comment.authorName || 'Anonymous'}</div>
+                    <div class="comment-time text-xs text-gray-500">${formattedDate} at ${formattedTime}</div>
+                </div>
+                <div class="comment-content mt-2 text-gray-700">${comment.content}</div>
+                ${isAuthor ? `
+                    <div class="mt-3">
+                        <button onclick="deleteComment('${comment.id}', '${comment.postId}')" class="text-red-500 text-sm hover:text-red-700 flex items-center">
+                            <i class="fas fa-trash mr-2"></i>Delete
                         </button>
                     </div>
-                    
-                    <p class="text-gray-700 mb-8">${group.description}</p>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                        <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
-                            <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
-                                <i class="fas fa-info-circle mr-3 text-indigo-600"></i>
-                                Group Info
-                            </h4>
-                                                        <p><strong>Created by:</strong> ${group.creatorName || 'Unknown'}</p>
-                            <p><strong>Created on:</strong> ${new Date(group.createdAt).toLocaleDateString()}</p>
-                            <p><strong>Members:</strong> ${group.members ? group.members.length : 0}/${group.maxMembers || 10}</p>
-                        </div>
-                        <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
-                            <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
-                                <i class="fas fa-users mr-3 text-indigo-600"></i>
-                                Members
-                            </h4>
-                            <div class="space-y-3">
-                                ${(group.members || []).map(memberId => {
-                                    // In a real app, we would fetch user details from the database
-                                    return `<div class="flex items-center">
-                                        <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center mr-3">
-                                            <span class="text-indigo-800 font-medium text-sm">${memberId.charAt(0).toUpperCase()}</span>
-                                        </div>
-                                        <span>${memberId}</span>
-                                    </div>`;
-                                }).join('')}
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-gray-50 p-6 rounded-lg shadow-sm mb-8">
-                        <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
-                            <i class="fas fa-bullhorn mr-3 text-indigo-600"></i>
-                            Announcements
-                        </h4>
-                        <div id="groupAnnouncements">
-                            ${(group.announcements || []).length > 0 ? 
-                                group.announcements.map(announcement => `
-                                    <div class="group-announcement mb-4">
-                                        <div class="flex justify-between items-start mb-2">
-                                            <h5 class="font-semibold">${announcement.title}</h5>
-                                            <span class="text-sm text-gray-500">${new Date(announcement.createdAt).toLocaleDateString()}</span>
-                                        </div>
-                                        <p>${announcement.content}</p>
-                                    </div>
-                                `).join('') :
-                                '<p class="text-gray-500">No announcements yet.</p>'
-                            }
-                        </div>
-                        ${isMember ? `
-                            <button onclick="showAddAnnouncement('${groupId}')" class="btn btn-primary btn-sm mt-4">
-                                <i class="fas fa-plus mr-2"></i>
-                                Add Announcement
-                            </button>
-                        ` : ''}
-                    </div>
-                    
-                    <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
-                        <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
-                            <i class="fas fa-folder-open mr-3 text-indigo-600"></i>
-                            Resources
-                        </h4>
-                        <div id="groupResources">
-                            ${(group.resources || []).length > 0 ? 
-                                group.resources.map(resource => `
-                                    <div class="resource-item mb-4">
-                                        <div class="resource-icon">
-                                            <i class="fas fa-file-alt"></i>
-                                        </div>
-                                        <div class="resource-info">
-                                            <div class="resource-name">${resource.name}</div>
-                                            <div class="resource-meta">Added by ${resource.addedBy} on ${new Date(resource.addedAt).toLocaleDateString()}</div>
-                                            <div class="resource-description">${resource.description}</div>
-                                        </div>
-                                        <div class="resource-actions">
-                                            <button onclick="downloadResource('${resource.url}')" class="resource-btn">
-                                                <i class="fas fa-download"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                `).join('') :
-                                '<p class="text-gray-500">No resources yet.</p>'
-                            }
-                        </div>
-                        ${isMember ? `
-                            <button onclick="showAddResource('${groupId}')" class="btn btn-primary btn-sm mt-4">
-                                <i class="fas fa-plus mr-2"></i>
-                                Add Resource
-                            </button>
-                        ` : ''}
-                    </div>
-                    
-                    <div class="flex justify-end mt-8">
-                        <button onclick="closeGroupDetailsModal()" class="btn btn-secondary mr-3">
-                            Close
-                        </button>
-                        ${isMember ? `
-                            <button onclick="leaveStudyGroup('${groupId}')" class="btn btn-danger">
-                                Leave Group
-                            </button>
-                        ` : `
-                            <button onclick="joinStudyGroup('${groupId}')" class="btn btn-primary">
-                                Join Group
-                            </button>
-                        `}
-                    </div>
-                </div>
-            `;
-            
-            document.getElementById('groupDetailsContent').innerHTML = content;
-            document.getElementById('groupDetailsModal').classList.add('active');
-         }
-         
-         function closeGroupDetailsModal() {
-            document.getElementById('groupDetailsModal').classList.remove('active');
-         }
-         
-         function joinStudyGroup(groupId) {
-            if (!currentUser) {
-                showToast('error', 'Sign in required', 'Please sign in to join study groups.');
-                showLoginModal();
-                return;
+                ` : ''}
+            </div>
+        </div>
+    `;
+    
+    return commentDiv;
+}
+
+function addComment(event, postId) {
+    event.preventDefault();
+    
+    if (!currentUser) {
+        showToast('error', 'Sign in required', 'Please sign in to comment.');
+        showLoginModal();
+        return;
+    }
+    
+    const commentInput = document.getElementById(`comment-input-${postId}`);
+    const content = commentInput.value.trim();
+    
+    if (!content) {
+        showToast('error', 'Empty Comment', 'Please enter a comment before posting.');
+        return;
+    }
+    
+    const commentsRef = group1MetalsRef.child('postComments').push();
+    const newComment = {
+        postId: postId,
+        authorId: currentUser.uid,
+        authorName: userData.displayName,
+        content: content,
+        createdAt: firebase.database.ServerValue.TIMESTAMP
+    };
+    
+    commentsRef.set(newComment).then(() => {
+        // Update comment count on post
+        const postRef = group1MetalsRef.child('discussionPosts').child(postId);
+        postRef.transaction((post) => {
+            if (post) {
+                post.comments = (post.comments || 0) + 1;
             }
-            
-            const groupRef = database.ref('studyGroups/' + groupId);
-            groupRef.once('value').then((snapshot) => {
-                const group = snapshot.val();
-                
-                if (!group) {
-                    showToast('error', 'Error', 'Study group not found.');
-                    return;
-                }
-                
-                const members = group.members || [];
-                const maxMembers = group.maxMembers || 10;
-                
-                if (members.includes(currentUser.uid)) {
-                    showToast('info', 'Already a Member', 'You are already a member of this study group.');
-                    return;
-                }
-                
-                if (members.length >= maxMembers) {
-                    showToast('error', 'Group Full', 'This study group is already full.');
-                    return;
-                }
-                
-                // Add user to group
-                members.push(currentUser.uid);
-                
-                const updates = {
-                    members: members,
-                    memberCount: members.length,
-                    lastActivity: firebase.database.ServerValue.TIMESTAMP
-                };
-                
-                groupRef.update(updates).then(() => {
-                    showToast('success', 'Joined Group', 'You have successfully joined the study group.');
-                    
-                    // Add notification for group creator
-                    if (group.creatorId && group.creatorId !== currentUser.uid) {
-                        const notificationRef = database.ref('notifications').push();
-                        notificationRef.set({
-                            userId: group.creatorId,
-                            type: 'group_join',
-                            message: `${userData.displayName} joined your study group "${group.name}"`,
-                            groupId: groupId,
-                            timestamp: firebase.database.ServerValue.TIMESTAMP,
-                            read: false
-                        });
-                    }
-                }).catch((error) => {
-                    console.error("Error joining study group:", error);
-                    showToast('error', 'Error', 'Failed to join study group.');
-                });
-            }).catch((error) => {
-                console.error("Error getting study group:", error);
-                showToast('error', 'Error', 'Failed to join study group.');
-            });
-         }
-         
-         function leaveStudyGroup(groupId) {
-            if (!currentUser) {
-                showToast('error', 'Sign in required', 'Please sign in to leave study groups.');
-                showLoginModal();
-                return;
+            return post;
+        });
+        
+        // Clear input field
+        commentInput.value = '';
+        
+        // Show success message
+        showToast('success', 'Comment Added', 'Your comment has been posted successfully.');
+        
+        // Load comments for this post to update the UI
+        loadPostComments(postId);
+    }).catch((error) => {
+        console.error("Error adding comment:", error);
+        showToast('error', 'Error', 'Failed to post comment.');
+    });
+}
+
+function deleteComment(commentId, postId) {
+    if (!confirm('Are you sure you want to delete this comment?')) {
+        return;
+    }
+    
+    const commentRef = group1MetalsRef.child('postComments').child(commentId);
+    commentRef.remove().then(() => {
+        // Update comment count on post
+        const postRef = group1MetalsRef.child('discussionPosts').child(postId);
+        postRef.transaction((post) => {
+            if (post) {
+                post.comments = Math.max(0, (post.comments || 0) - 1);
             }
-            
-            if (!confirm('Are you sure you want to leave this study group?')) {
-                return;
-            }
-            
-            const groupRef = database.ref('studyGroups/' + groupId);
-            groupRef.once('value').then((snapshot) => {
-                const group = snapshot.val();
-                
-                if (!group) {
-                    showToast('error', 'Error', 'Study group not found.');
-                    return;
-                }
-                
-                const members = group.members || [];
-                
-                if (!members.includes(currentUser.uid)) {
-                    showToast('info', 'Not a Member', 'You are not a member of this study group.');
-                    return;
-                }
-                
-                // Remove user from group
-                const updatedMembers = members.filter(member => member !== currentUser.uid);
-                
-                const updates = {
-                    members: updatedMembers,
-                    memberCount: updatedMembers.length,
-                    lastActivity: firebase.database.ServerValue.TIMESTAMP
-                };
-                
-                groupRef.update(updates).then(() => {
-                    showToast('success', 'Left Group', 'You have successfully left the study group.');
-                    
-                    // If the user was the creator and there are no members left, delete the group
-                    if (group.creatorId === currentUser.uid && updatedMembers.length === 0) {
-                        groupRef.remove().then(() => {
-                            showToast('info', 'Group Deleted', 'The study group has been deleted as it had no members.');
-                        }).catch((error) => {
-                            console.error("Error deleting study group:", error);
-                        });
-                    }
-                    
-                    // Add notification for group creator if they're not the one leaving
-                    if (group.creatorId && group.creatorId !== currentUser.uid) {
-                        const notificationRef = database.ref('notifications').push();
-                        notificationRef.set({
-                            userId: group.creatorId,
-                            type: 'group_leave',
-                            message: `${userData.displayName} left your study group "${group.name}"`,
-                            groupId: groupId,
-                            timestamp: firebase.database.ServerValue.TIMESTAMP,
-                            read: false
-                        });
-                    }
-                }).catch((error) => {
-                    console.error("Error leaving study group:", error);
-                    showToast('error', 'Error', 'Failed to leave study group.');
-                });
-            }).catch((error) => {
-                console.error("Error getting study group:", error);
-                showToast('error', 'Error', 'Failed to leave study group.');
-            });
-         }
-         
-         function showAddAnnouncement(groupId) {
-            // This would open a modal to add an announcement
-            // For simplicity, we'll just show a prompt
-            const title = prompt('Announcement Title:');
-            if (!title) return;
-            
-            const content = prompt('Announcement Content:');
-            if (!content) return;
-            
-            const groupRef = database.ref('studyGroups/' + groupId);
-            groupRef.once('value').then((snapshot) => {
-                const group = snapshot.val();
-                
-                if (!group) {
-                    showToast('error', 'Error', 'Study group not found.');
-                    return;
-                }
-                
-                const announcements = group.announcements || [];
-                announcements.push({
-                    title: title,
-                    content: content,
-                    addedBy: userData.displayName,
-                    createdAt: firebase.database.ServerValue.TIMESTAMP
-                });
-                
-                groupRef.update({
-                    announcements: announcements,
-                    lastActivity: firebase.database.ServerValue.TIMESTAMP
-                }).then(() => {
-                    showToast('success', 'Announcement Added', 'Your announcement has been added to the group.');
-                    
-                    // Refresh group details
-                    showGroupDetails(groupId);
-                    
-                    // Notify group members
-                    (group.members || []).forEach(memberId => {
-                        if (memberId !== currentUser.uid) {
-                            const notificationRef = database.ref('notifications').push();
-                            notificationRef.set({
-                                userId: memberId,
-                                type: 'group_announcement',
-                                message: `New announcement in "${group.name}": ${title}`,
-                                groupId: groupId,
-                                timestamp: firebase.database.ServerValue.TIMESTAMP,
-                                read: false
-                            });
-                        }
-                    });
-                }).catch((error) => {
-                    console.error("Error adding announcement:", error);
-                    showToast('error', 'Error', 'Failed to add announcement.');
-                });
-            }).catch((error) => {
-                console.error("Error getting study group:", error);
-                showToast('error', 'Error', 'Failed to add announcement.');
-            });
-         }
-         
-         function showAddResource(groupId) {
-            // This would open a modal to add a resource
-            // For simplicity, we'll just show prompts
-            const name = prompt('Resource Name:');
-            if (!name) return;
-            
-            const description = prompt('Resource Description:');
-            if (!description) return;
-            
-            const url = prompt('Resource URL:');
-            if (!url) return;
-            
-            const groupRef = database.ref('studyGroups/' + groupId);
-            groupRef.once('value').then((snapshot) => {
-                const group = snapshot.val();
-                
-                if (!group) {
-                    showToast('error', 'Error', 'Study group not found.');
-                    return;
-                }
-                
-                const resources = group.resources || [];
-                resources.push({
-                    name: name,
-                    description: description,
-                    url: url,
-                    addedBy: userData.displayName,
-                    addedAt: firebase.database.ServerValue.TIMESTAMP
-                });
-                
-                groupRef.update({
-                    resources: resources,
-                    lastActivity: firebase.database.ServerValue.TIMESTAMP
-                }).then(() => {
-                    showToast('success', 'Resource Added', 'Your resource has been added to the group.');
-                    
-                    // Refresh group details
-                    showGroupDetails(groupId);
-                    
-                    // Notify group members
-                    (group.members || []).forEach(memberId => {
-                        if (memberId !== currentUser.uid) {
-                            const notificationRef = database.ref('notifications').push();
-                            notificationRef.set({
-                                userId: memberId,
-                                type: 'group_resource',
-                                message: `New resource added to "${group.name}": ${name}`,
-                                groupId: groupId,
-                                timestamp: firebase.database.ServerValue.TIMESTAMP,
-                                read: false
-                            });
-                        }
-                    });
-                }).catch((error) => {
-                    console.error("Error adding resource:", error);
-                    showToast('error', 'Error', 'Failed to add resource.');
-                });
-            }).catch((error) => {
-                console.error("Error getting study group:", error);
-                showToast('error', 'Error', 'Failed to add resource.');
-            });
-         }
-         
-         function downloadResource(url) {
-            // In a real app, this would handle file downloads
-            window.open(url, '_blank');
-         }
-         
-         // Leaderboard functions
-         function loadLeaderboard() {
-            const leaderboardContent = document.getElementById('leaderboardContent');
-            leaderboardContent.innerHTML = '<div class="spinner"></div>';
-            
-            const usersRef = database.ref('users');
-            usersRef.orderByChild('xp').limitToLast(10).on('value', (snapshot) => {
-                leaderboardContent.innerHTML = '';
-                
-                if (!snapshot.exists()) {
-                    leaderboardContent.innerHTML = '<p class="text-gray-500 text-center">No users found.</p>';
-                    return;
-                }
-                
-                const users = [];
-                snapshot.forEach((childSnapshot) => {
-                    users.push({
-                        id: childSnapshot.key,
-                        ...childSnapshot.val()
-                    });
-                });
-                
-                // Sort by XP (descending)
-                users.sort((a, b) => (b.xp || 0) - (a.xp || 0));
-                
-                // Create leaderboard table
-                const table = document.createElement('table');
-                table.className = 'leaderboard-table';
-                
-                // Create table header
-                const thead = document.createElement('thead');
-                thead.innerHTML = `
-                    <tr>
-                        <th>Rank</th>
-                        <th>User</th>
-                        <th>XP</th>
-                        <th>Badges</th>
-                    </tr>
-                `;
-                table.appendChild(thead);
-                
-                // Create table body
-                const tbody = document.createElement('tbody');
-                users.forEach((user, index) => {
-                    const row = document.createElement('tr');
-                    row.className = 'leaderboard-entry';
-                    
-                    // Determine rank class for special styling
-                    let rankClass = '';
-                    if (index === 0) rankClass = 'first';
-                    else if (index === 1) rankClass = 'second';
-                    else if (index === 2) rankClass = 'third';
-                    
-                    row.innerHTML = `
-                        <td>
-                            <div class="leaderboard-rank ${rankClass}">${index + 1}</div>
-                        </td>
-                        <td>${user.displayName || 'Anonymous'}</td>
-                        <td>${user.xp || 0}</td>
-                        <td>${(user.badges || []).length}</td>
-                    `;
-                    
-                    tbody.appendChild(row);
-                });
-                table.appendChild(tbody);
-                
-                leaderboardContent.appendChild(table);
-            }, (error) => {
-                console.error("Error loading leaderboard:", error);
-                leaderboardContent.innerHTML = '<p class="text-gray-500 text-center">Error loading leaderboard.</p>';
-            });
-         }
-         
-         // Toast notification function
-         function showToast(type, title, message) {
-            const toastContainer = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            
-            let icon = '';
-            if (type === 'success') {
-                icon = '<i class="fas fa-check-circle toast-icon"></i>';
-            } else if (type === 'error') {
-                icon = '<i class="fas fa-exclamation-circle toast-icon"></i>';
-            } else if (type === 'info') {
-                icon = '<i class="fas fa-info-circle toast-icon"></i>';
-            }
-            
-            toast.innerHTML = `
-                ${icon}
-                <div class="toast-message">
-                    <div class="toast-title">${title}</div>
-                    <div class="toast-description">${message}</div>
-                </div>
-            `;
-            
-            toastContainer.appendChild(toast);
-            
-            // Show toast
+            return post;
+        });
+        
+        showToast('success', 'Comment Deleted', 'Your comment has been deleted successfully.');
+        
+        // Reload comments to update the UI
+        loadPostComments(postId);
+    }).catch((error) => {
+        console.error("Error deleting comment:", error);
+        showToast('error', 'Error', 'Failed to delete comment.');
+    });
+}
+
+// Study Groups functions
+function showCreateGroupModal() {
+    if (!currentUser) {
+        showToast('error', 'Sign in required', 'Please sign in to create study groups.');
+        showLoginModal();
+        return;
+    }
+    document.getElementById('createGroupModal').classList.add('active');
+}
+
+function closeCreateGroupModal() {
+    document.getElementById('createGroupModal').classList.remove('active');
+    document.getElementById('createGroupForm').reset();
+}
+
+function handleCreateGroup(event) {
+    event.preventDefault();
+    
+    const name = document.getElementById('groupName').value.trim();
+    const topic = document.getElementById('groupTopic').value;
+    const description = document.getElementById('groupDescription').value.trim();
+    const maxMembers = parseInt(document.getElementById('groupMaxMembers').value);
+    
+    if (!name || !topic || !description) {
+        showToast('error', 'Missing Fields', 'Please fill in all fields.');
+        return;
+    }
+    
+    const groupsRef = group1MetalsRef.child('studyGroups').push();
+    const newGroup = {
+        name: name,
+        topic: topic,
+        description: description,
+        maxMembers: maxMembers,
+        creatorId: currentUser.uid,
+        creatorName: userData.displayName,
+        members: [currentUser.uid],
+        memberCount: 1,
+        announcements: [],
+        resources: [],
+        createdAt: firebase.database.ServerValue.TIMESTAMP,
+        lastActivity: firebase.database.ServerValue.TIMESTAMP
+    };
+    
+    groupsRef.set(newGroup).then(() => {
+        showToast('success', 'Group Created!', 'Your study group has been created successfully.');
+        closeCreateGroupModal();
+    }).catch((error) => {
+        console.error("Error creating study group:", error);
+        showToast('error', 'Error', 'Failed to create study group.');
+    });
+}
+
+function loadStudyGroups() {
+    const groupsContainer = document.getElementById('studyGroupsList');
+    groupsContainer.innerHTML = '<div class="spinner"></div>';
+    
+    // Make spinner visible immediately
+    setTimeout(() => {
+        const spinner = groupsContainer.querySelector('.spinner');
+        if (spinner) spinner.style.display = 'block';
+    }, 10);
+    
+    const groupsRef = group1MetalsRef.child('studyGroups');
+    groupsRef.on('value', (snapshot) => {
+        groupsContainer.innerHTML = '';
+        
+        if (!snapshot.exists()) {
+            groupsContainer.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="empty-state-title">No Study Groups Yet</h3>
+                    <p class="empty-state-description">Create your first study group to collaborate with peers.</p>
+                </div>`;
+            // Force visibility
             setTimeout(() => {
-                toast.classList.add('show');
-            }, 10);
+                groupsContainer.style.display = 'block';
+                groupsContainer.style.visibility = 'visible';
+                groupsContainer.style.opacity = '1';
+            }, 50);
+            return;
+        }
+        
+        studyGroups = [];
+        snapshot.forEach((childSnapshot) => {
+            studyGroups.push({
+                id: childSnapshot.key,
+                ...childSnapshot.val()
+            });
+        });
+        
+        // Create a document fragment to improve performance
+        const fragment = document.createDocumentFragment();
+        
+        studyGroups.forEach(group => {
+            const groupElement = createStudyGroupElement(group);
+            fragment.appendChild(groupElement);
+        });
+        
+        // Append all elements at once
+        groupsContainer.appendChild(fragment);
+        
+        // Force visibility of the container and all its children
+        setTimeout(() => {
+            groupsContainer.style.display = 'block';
+            groupsContainer.style.visibility = 'visible';
+            groupsContainer.style.opacity = '1';
             
-            // Hide toast after 4 seconds
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => {
-                    toastContainer.removeChild(toast);
-                }, 400);
-            }, 4000);
-         }
-         
-         // Initialize the app when the page loads
-         window.onload = function() {
-            initApp();
-            checkForMagicLink();
-         };
-         // Add this function to your existing JavaScript
-         function toggleSidebar() {
-         const sidebar = document.getElementById('sidebar');
-         sidebar.classList.toggle('active');
-         }
-         
-         // Add this to your window.onload function
-         window.onload = function() {
-         initApp();
-         checkForMagicLink();
-         
-         // Add mobile menu toggle
-         const mobileMenuBtn = document.createElement('button');
-         mobileMenuBtn.className = 'mobile-menu-btn';
-         mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-         mobileMenuBtn.onclick = toggleSidebar;
-         document.querySelector('.main-content').prepend(mobileMenuBtn);
-         };
-      
+            // Make all child elements visible
+            Array.from(groupsContainer.children).forEach(child => {
+                child.style.display = 'block';
+                child.style.visibility = 'visible';
+                child.style.opacity = '1';
+                
+                // If it's a study group card, make its children visible too
+                if (child.classList.contains('study-group-card')) {
+                    Array.from(child.children).forEach(grandChild => {
+                        grandChild.style.display = 'block';
+                        grandChild.style.visibility = 'visible';
+                        grandChild.style.opacity = '1';
+                    });
+                }
+            });
+        }, 100);
+    }, (error) => {
+        console.error("Error loading study groups:", error);
+        groupsContainer.innerHTML = '<p class="text-gray-500 text-center">Error loading study groups.</p>';
+        // Force error message visibility
+        setTimeout(() => {
+            groupsContainer.style.display = 'block';
+            groupsContainer.style.visibility = 'visible';
+            groupsContainer.style.opacity = '1';
+        }, 50);
+    });
+}
+
+function createStudyGroupElement(group) {
+    const groupDiv = document.createElement('div');
+    groupDiv.className = 'study-group-card';
+    
+    const isMember = currentUser && group.members && group.members.includes(currentUser.uid);
+    const memberCount = group.members ? group.members.length : 0;
+    const maxMembers = group.maxMembers || 10;
+    const isFull = memberCount >= maxMembers;
+    
+    const createdDate = new Date(group.createdAt);
+    const formattedDate = createdDate.toLocaleDateString();
+    
+    // Format topic for display
+    const topicLabels = {
+        'melting-point': 'Melting Point Trends',
+        'density': 'Density Trends',
+        'reactivity': 'Reactivity Series',
+        'reactions': 'Chemical Reactions',
+        'electron-configuration': 'Electron Configuration',
+        'experiments': 'Laboratory Experiments',
+        'exam-prep': 'Exam Preparation'
+    };
+    
+    groupDiv.innerHTML = `
+        <div class="group-header">
+            <div>
+                <h3 class="group-title">${group.name}</h3>
+                <span class="group-topic">${topicLabels[group.topic] || group.topic}</span>
+            </div>
+        </div>
+        <p class="group-description">${group.description}</p>
+        <div class="group-meta">
+            <div class="group-members">
+                <div class="flex -space-x-2">
+                    ${(group.members || []).slice(0, 5).map(member =>
+                        `<div class="member-avatar" title="${member}">${member.charAt(0).toUpperCase()}</div>`
+                    ).join('')}
+                    ${(memberCount || 0) > 5 ?
+                        `<div class="member-avatar">+${(memberCount || 0) - 5}</div>` : ''
+                    }
+                </div>
+                <span class="ml-3 text-sm">${memberCount}/${maxMembers} members</span>
+            </div>
+            <div class="group-stats">
+                Created on ${formattedDate}
+            </div>
+        </div>
+        <div class="group-actions">
+            <button onclick="showGroupDetails('${group.id}')" class="btn btn-primary btn-sm">
+                <i class="fas fa-eye mr-2"></i>
+                View Details
+            </button>
+            <button onclick="${isMember ? 'leaveStudyGroup' : 'joinStudyGroup'}('${group.id}')"
+                    class="btn ${isMember ? 'btn-danger' : 'btn-primary'} btn-sm"
+                    ${isFull && !isMember ? 'disabled' : ''}>
+                ${isMember ? 'Leave Group' : isFull ? 'Full' : 'Join Group'}
+            </button>
+        </div>
+    `;
+    
+    return groupDiv;
+}
+
+function showGroupDetails(groupId) {
+    if (!currentUser) {
+        showToast('error', 'Sign in required', 'Please sign in to view group details.');
+        showLoginModal();
+        return;
+    }
+    
+    const group = studyGroups.find(g => g.id === groupId);
+    if (!group) return;
+    
+    const isMember = currentUser && group.members && group.members.includes(currentUser.uid);
+    
+    // Format topic for display
+    const topicLabels = {
+        'melting-point': 'Melting Point Trends',
+        'density': 'Density Trends',
+        'reactivity': 'Reactivity Series',
+        'reactions': 'Chemical Reactions',
+        'electron-configuration': 'Electron Configuration',
+        'experiments': 'Laboratory Experiments',
+        'exam-prep': 'Exam Preparation'
+    };
+    
+    document.getElementById('groupDetailsTitle').textContent = group.name;
+    
+    let content = `
+        <div class="group-details-container">
+           <div class="flex justify-between items-start mb-8">
+               <div>
+                   <h3 class="text-2xl font-bold text-gray-800">${group.name}</h3>
+                   <span class="group-topic inline-block mt-2">${topicLabels[group.topic] || group.topic}</span>
+               </div>
+               <button onclick="closeGroupDetailsModal()" class="text-gray-500 hover:text-gray-700 p-3 rounded-full hover:bg-gray-100 transition-colors">
+                   <i class="fas fa-times text-xl"></i>
+               </button>
+           </div>
+           
+           <p class="text-gray-700 mb-8">${group.description}</p>
+           
+           <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+               <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+                   <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
+                       <i class="fas fa-info-circle mr-3 text-indigo-600"></i>
+                       Group Info
+                   </h4>
+                   <p><strong>Created by:</strong> ${group.creatorName || 'Unknown'}</p>
+                   <p><strong>Created on:</strong> ${new Date(group.createdAt).toLocaleDateString()}</p>
+                   <p><strong>Members:</strong> ${group.members ? group.members.length : 0}/${group.maxMembers || 10}</p>
+               </div>
+               <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+                   <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
+                       <i class="fas fa-users mr-3 text-indigo-600"></i>
+                       Members
+                   </h4>
+                   <div class="space-y-3">
+                       ${(group.members || []).map(memberId => {
+                           // In a real app, we would fetch user details from the database
+                           return `<div class="flex items-center">
+                               <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center mr-3">
+                                   <span class="text-indigo-800 font-medium text-sm">${memberId.charAt(0).toUpperCase()}</span>
+                               </div>
+                               <span>${memberId}</span>
+                           </div>`;
+                       }).join('')}
+                   </div>
+               </div>
+           </div>
+           
+           <div class="bg-gray-50 p-6 rounded-lg shadow-sm mb-8">
+               <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
+                   <i class="fas fa-bullhorn mr-3 text-indigo-600"></i>
+                   Announcements
+               </h4>
+               <div id="groupAnnouncements">
+                   ${(group.announcements || []).length > 0 ? 
+                       group.announcements.map(announcement => `
+                           <div class="group-announcement mb-4">
+                               <div class="flex justify-between items-start mb-2">
+                                   <h5 class="font-semibold">${announcement.title}</h5>
+                                   <span class="text-sm text-gray-500">${new Date(announcement.createdAt).toLocaleDateString()}</span>
+                               </div>
+                               <p>${announcement.content}</p>
+                           </div>
+                       `).join('') :
+                       '<p class="text-gray-500">No announcements yet.</p>'
+                   }
+               </div>
+               ${isMember ? `
+                   <button onclick="showAddAnnouncement('${groupId}')" class="btn btn-primary btn-sm mt-4">
+                       <i class="fas fa-plus mr-2"></i>
+                       Add Announcement
+                   </button>
+               ` : ''}
+           </div>
+           
+           <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+               <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
+                   <i class="fas fa-folder-open mr-3 text-indigo-600"></i>
+                   Resources
+               </h4>
+               <div id="groupResources">
+                   ${(group.resources || []).length > 0 ? 
+                       group.resources.map(resource => `
+                           <div class="resource-item mb-4">
+                               <div class="resource-icon">
+                                   <i class="fas fa-file-alt"></i>
+                               </div>
+                               <div class="resource-info">
+                                   <div class="resource-name">${resource.name}</div>
+                                   <div class="resource-meta">Added by ${resource.addedBy} on ${new Date(resource.addedAt).toLocaleDateString()}</div>
+                                   <div class="resource-description">${resource.description}</div>
+                               </div>
+                               <div class="resource-actions">
+                                   <button onclick="downloadResource('${resource.url}')" class="resource-btn">
+                                       <i class="fas fa-download"></i>
+                                   </button>
+                               </div>
+                           </div>
+                       `).join('') :
+                       '<p class="text-gray-500">No resources yet.</p>'
+                   }
+               </div>
+               ${isMember ? `
+                   <button onclick="showAddResource('${groupId}')" class="btn btn-primary btn-sm mt-4">
+                       <i class="fas fa-plus mr-2"></i>
+                       Add Resource
+                   </button>
+               ` : ''}
+           </div>
+           
+           <div class="flex justify-end mt-8">
+               <button onclick="closeGroupDetailsModal()" class="btn btn-secondary mr-3">
+                   Close
+               </button>
+               ${isMember ? `
+                   <button onclick="leaveStudyGroup('${groupId}')" class="btn btn-danger">
+                       Leave Group
+                   </button>
+               ` : `
+                   <button onclick="joinStudyGroup('${groupId}')" class="btn btn-primary">
+                       Join Group
+                   </button>
+               `}
+           </div>
+       </div>
+   `;
+   
+   document.getElementById('groupDetailsContent').innerHTML = content;
+   document.getElementById('groupDetailsModal').classList.add('active');
+}
+
+function closeGroupDetailsModal() {
+   document.getElementById('groupDetailsModal').classList.remove('active');
+}
+
+function joinStudyGroup(groupId) {
+   if (!currentUser) {
+       showToast('error', 'Sign in required', 'Please sign in to join study groups.');
+       showLoginModal();
+       return;
+   }
+   
+   const groupRef = group1MetalsRef.child('studyGroups').child(groupId);
+   groupRef.once('value').then((snapshot) => {
+       const group = snapshot.val();
+       
+       if (!group) {
+           showToast('error', 'Error', 'Study group not found.');
+           return;
+       }
+       
+       const members = group.members || [];
+       const maxMembers = group.maxMembers || 10;
+       
+       if (members.includes(currentUser.uid)) {
+           showToast('info', 'Already a Member', 'You are already a member of this study group.');
+           return;
+       }
+       
+       if (members.length >= maxMembers) {
+           showToast('error', 'Group Full', 'This study group is already full.');
+           return;
+       }
+       
+       // Add user to group
+       members.push(currentUser.uid);
+       
+       const updates = {
+           members: members,
+           memberCount: members.length,
+           lastActivity: firebase.database.ServerValue.TIMESTAMP
+       };
+       
+       groupRef.update(updates).then(() => {
+           showToast('success', 'Joined Group', 'You have successfully joined the study group.');
+           
+           // Add notification for group creator
+           if (group.creatorId && group.creatorId !== currentUser.uid) {
+               const notificationRef = group1MetalsRef.child('notifications').push();
+               notificationRef.set({
+                   userId: group.creatorId,
+                   type: 'group_join',
+                   message: `${userData.displayName} joined your study group "${group.name}"`,
+                   groupId: groupId,
+                   timestamp: firebase.database.ServerValue.TIMESTAMP,
+                   read: false
+               });
+           }
+       }).catch((error) => {
+           console.error("Error joining study group:", error);
+           showToast('error', 'Error', 'Failed to join study group.');
+       });
+   }).catch((error) => {
+       console.error("Error getting study group:", error);
+       showToast('error', 'Error', 'Failed to join study group.');
+   });
+}
+
+function leaveStudyGroup(groupId) {
+   if (!currentUser) {
+       showToast('error', 'Sign in required', 'Please sign in to leave study groups.');
+       showLoginModal();
+       return;
+   }
+   
+   if (!confirm('Are you sure you want to leave this study group?')) {
+       return;
+   }
+   
+   const groupRef = group1MetalsRef.child('studyGroups').child(groupId);
+   groupRef.once('value').then((snapshot) => {
+       const group = snapshot.val();
+       
+       if (!group) {
+           showToast('error', 'Error', 'Study group not found.');
+           return;
+       }
+       
+       const members = group.members || [];
+       
+       if (!members.includes(currentUser.uid)) {
+           showToast('info', 'Not a Member', 'You are not a member of this study group.');
+           return;
+       }
+       
+       // Remove user from group
+       const updatedMembers = members.filter(member => member !== currentUser.uid);
+       
+       const updates = {
+           members: updatedMembers,
+           memberCount: updatedMembers.length,
+           lastActivity: firebase.database.ServerValue.TIMESTAMP
+       };
+       
+       groupRef.update(updates).then(() => {
+           showToast('success', 'Left Group', 'You have successfully left the study group.');
+           
+           // If the user was the creator and there are no members left, delete the group
+           if (group.creatorId === currentUser.uid && updatedMembers.length === 0) {
+               groupRef.remove().then(() => {
+                   showToast('info', 'Group Deleted', 'The study group has been deleted as it had no members.');
+               }).catch((error) => {
+                   console.error("Error deleting study group:", error);
+               });
+           }
+           
+           // Add notification for group creator if they're not the one leaving
+           if (group.creatorId && group.creatorId !== currentUser.uid) {
+               const notificationRef = group1MetalsRef.child('notifications').push();
+               notificationRef.set({
+                   userId: group.creatorId,
+                   type: 'group_leave',
+                   message: `${userData.displayName} left your study group "${group.name}"`,
+                   groupId: groupId,
+                   timestamp: firebase.database.ServerValue.TIMESTAMP,
+                   read: false
+               });
+           }
+       }).catch((error) => {
+           console.error("Error leaving study group:", error);
+           showToast('error', 'Error', 'Failed to leave study group.');
+       });
+   }).catch((error) => {
+       console.error("Error getting study group:", error);
+       showToast('error', 'Error', 'Failed to leave study group.');
+   });
+}
+
+function showAddAnnouncement(groupId) {
+   // This would open a modal to add an announcement
+   // For simplicity, we'll just show a prompt
+   const title = prompt('Announcement Title:');
+   if (!title) return;
+   
+   const content = prompt('Announcement Content:');
+   if (!content) return;
+   
+   const groupRef = group1MetalsRef.child('studyGroups').child(groupId);
+   groupRef.once('value').then((snapshot) => {
+       const group = snapshot.val();
+       
+       if (!group) {
+           showToast('error', 'Error', 'Study group not found.');
+           return;
+       }
+       
+       const announcements = group.announcements || [];
+       announcements.push({
+           title: title,
+           content: content,
+           addedBy: userData.displayName,
+           createdAt: firebase.database.ServerValue.TIMESTAMP
+       });
+       
+       groupRef.update({
+           announcements: announcements,
+           lastActivity: firebase.database.ServerValue.TIMESTAMP
+       }).then(() => {
+           showToast('success', 'Announcement Added', 'Your announcement has been added to the group.');
+           
+           // Refresh group details
+           showGroupDetails(groupId);
+           
+           // Notify group members
+           (group.members || []).forEach(memberId => {
+               if (memberId !== currentUser.uid) {
+                   const notificationRef = group1MetalsRef.child('notifications').push();
+                   notificationRef.set({
+                       userId: memberId,
+                       type: 'group_announcement',
+                       message: `New announcement in "${group.name}": ${title}`,
+                       groupId: groupId,
+                       timestamp: firebase.database.ServerValue.TIMESTAMP,
+                       read: false
+                   });
+               }
+           });
+       }).catch((error) => {
+           console.error("Error adding announcement:", error);
+           showToast('error', 'Error', 'Failed to add announcement.');
+       });
+   }).catch((error) => {
+       console.error("Error getting study group:", error);
+       showToast('error', 'Error', 'Failed to add announcement.');
+   });
+}
+
+function showAddResource(groupId) {
+   // This would open a modal to add a resource
+   // For simplicity, we'll just show prompts
+   const name = prompt('Resource Name:');
+   if (!name) return;
+   
+   const description = prompt('Resource Description:');
+   if (!description) return;
+   
+   const url = prompt('Resource URL:');
+   if (!url) return;
+   
+   const groupRef = group1MetalsRef.child('studyGroups').child(groupId);
+   groupRef.once('value').then((snapshot) => {
+       const group = snapshot.val();
+       
+       if (!group) {
+           showToast('error', 'Error', 'Study group not found.');
+           return;
+       }
+       
+       const resources = group.resources || [];
+       resources.push({
+           name: name,
+           description: description,
+           url: url,
+           addedBy: userData.displayName,
+           addedAt: firebase.database.ServerValue.TIMESTAMP
+       });
+       
+       groupRef.update({
+           resources: resources,
+           lastActivity: firebase.database.ServerValue.TIMESTAMP
+       }).then(() => {
+           showToast('success', 'Resource Added', 'Your resource has been added to the group.');
+           
+           // Refresh group details
+           showGroupDetails(groupId);
+           
+           // Notify group members
+           (group.members || []).forEach(memberId => {
+               if (memberId !== currentUser.uid) {
+                   const notificationRef = group1MetalsRef.child('notifications').push();
+                   notificationRef.set({
+                       userId: memberId,
+                       type: 'group_resource',
+                       message: `New resource added to "${group.name}": ${name}`,
+                       groupId: groupId,
+                       timestamp: firebase.database.ServerValue.TIMESTAMP,
+                       read: false
+                   });
+               }
+           });
+       }).catch((error) => {
+           console.error("Error adding resource:", error);
+           showToast('error', 'Error', 'Failed to add resource.');
+       });
+   }).catch((error) => {
+       console.error("Error getting study group:", error);
+       showToast('error', 'Error', 'Failed to add resource.');
+   });
+}
+
+function downloadResource(url) {
+   // In a real app, this would handle file downloads
+   window.open(url, '_blank');
+}
+
+// Leaderboard functions
+function loadLeaderboard() {
+   const leaderboardContent = document.getElementById('leaderboardContent');
+   leaderboardContent.innerHTML = '<div class="spinner"></div>';
+   
+   const usersRef = group1MetalsRef.child('users');
+   usersRef.orderByChild('xp').limitToLast(10).on('value', (snapshot) => {
+       leaderboardContent.innerHTML = '';
+       
+       if (!snapshot.exists()) {
+           leaderboardContent.innerHTML = '<p class="text-gray-500 text-center">No users found.</p>';
+           return;
+       }
+       
+       const users = [];
+       snapshot.forEach((childSnapshot) => {
+           users.push({
+               id: childSnapshot.key,
+               ...childSnapshot.val()
+           });
+       });
+       
+       // Sort by XP (descending)
+       users.sort((a, b) => (b.xp || 0) - (a.xp || 0));
+       
+       // Create leaderboard table
+       const table = document.createElement('table');
+       table.className = 'leaderboard-table';
+       
+       // Create table header
+       const thead = document.createElement('thead');
+       thead.innerHTML = `
+           <tr>
+               <th>Rank</th>
+               <th>User</th>
+               <th>XP</th>
+               <th>Badges</th>
+           </tr>
+       `;
+       table.appendChild(thead);
+       
+       // Create table body
+       const tbody = document.createElement('tbody');
+       users.forEach((user, index) => {
+           const row = document.createElement('tr');
+           row.className = 'leaderboard-entry';
+           
+           // Determine rank class for special styling
+           let rankClass = '';
+           if (index === 0) rankClass = 'first';
+           else if (index === 1) rankClass = 'second';
+           else if (index === 2) rankClass = 'third';
+           
+           row.innerHTML = `
+               <td>
+                   <div class="leaderboard-rank ${rankClass}">${index + 1}</div>
+               </td>
+               <td>${user.displayName || 'Anonymous'}</td>
+               <td>${user.xp || 0}</td>
+               <td>${(user.badges || []).length}</td>
+           `;
+           
+           tbody.appendChild(row);
+       });
+       table.appendChild(tbody);
+       
+       leaderboardContent.appendChild(table);
+   }, (error) => {
+       console.error("Error loading leaderboard:", error);
+       leaderboardContent.innerHTML = '<p class="text-gray-500 text-center">Error loading leaderboard.</p>';
+   });
+}
+
+// Toast notification function
+function showToast(type, title, message) {
+   const toastContainer = document.getElementById('toastContainer');
+   const toast = document.createElement('div');
+   toast.className = `toast ${type}`;
+   
+   let icon = '';
+   if (type === 'success') {
+       icon = '<i class="fas fa-check-circle toast-icon"></i>';
+   } else if (type === 'error') {
+       icon = '<i class="fas fa-exclamation-circle toast-icon"></i>';
+   } else if (type === 'info') {
+       icon = '<i class="fas fa-info-circle toast-icon"></i>';
+   }
+   
+   toast.innerHTML = `
+       ${icon}
+       <div class="toast-message">
+           <div class="toast-title">${title}</div>
+           <div class="toast-description">${message}</div>
+       </div>
+   `;
+   
+   toastContainer.appendChild(toast);
+   
+   // Show toast
+   setTimeout(() => {
+       toast.classList.add('show');
+   }, 10);
+   
+   // Hide toast after 4 seconds
+   setTimeout(() => {
+       toast.classList.remove('show');
+       setTimeout(() => {
+           toastContainer.removeChild(toast);
+       }, 400);
+   }, 4000);
+}
+
+// Initialize the app when the page loads
+window.onload = function() {
+   initApp();
+   checkForMagicLink();
+};
+
+// Add this function to your existing JavaScript
+function toggleSidebar() {
+   const sidebar = document.getElementById('sidebar');
+   sidebar.classList.toggle('active');
+}
+
+// Add this to your window.onload function
+window.onload = function() {
+   initApp();
+   checkForMagicLink();
+   
+   // Add mobile menu toggle
+   const mobileMenuBtn = document.createElement('button');
+   mobileMenuBtn.className = 'mobile-menu-btn';
+   mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+   mobileMenuBtn.onclick = toggleSidebar;
+   document.querySelector('.main-content').prepend(mobileMenuBtn);
+};
