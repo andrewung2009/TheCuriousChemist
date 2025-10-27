@@ -189,6 +189,12 @@ function showOverviewQuiz(quizKey) {
     const optionsContainer = document.getElementById('elementQuizOptions');
     const feedbackEl = document.getElementById('elementQuizFeedback');
 
+    // FIX: Added defensive checks for all child elements
+    if (!titleEl || !questionEl || !optionsContainer || !feedbackEl) {
+        console.error('One or more modal child elements are missing!');
+        return;
+    }
+
     // Populate modal content
     titleEl.textContent = quiz.title;
     questionEl.textContent = quiz.question;
@@ -205,6 +211,8 @@ function showOverviewQuiz(quizKey) {
         optionsContainer.appendChild(button);
     });
 
+    // FIX: Added a log to confirm this line is reached
+    console.log('Showing modal...');
     // Show the modal
     popup.classList.remove('hidden');
 }
