@@ -1,1 +1,1291 @@
 
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Group 2 Alkaline Earth Metals - Chemistry</title>
+      <meta name="description" content="Interactive learning platform for mastering Group 2 Alkaline Earth Metals in chemistry">
+      <!-- Tailwind CSS -->
+      <script src="https://cdn.tailwindcss.com"></script>
+      <!-- Font Awesome -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+      <!-- Firebase SDKs -->
+      <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+      <!-- Add Google Auth Provider -->
+      <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+      <!-- jsPDF for PDF export -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+      <!-- Howler for sound effects -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+      <!-- Chart.js for data visualization -->
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+      <link rel="icon" type="image/png" href="https://andrewung2009.github.io/TheCuriousChemist/TheCuriousChemist.png">
+      <!-- Custom Styles -->
+      <link rel="stylesheet" href="styles.css">
+      <style>
+         /* Additional styles for data visualization */
+         .graph-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+         }
+         
+         .graph-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            background-color: #e5e7eb;
+            color: #374151;
+            border: none;
+            cursor: pointer;
+         }
+         
+         .graph-btn:hover {
+            background-color: #d1d5db;
+         }
+         
+         .graph-btn.active {
+            background-color: #4f46e5;
+            color: white;
+         }
+         
+         .graph-container {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+         }
+         
+         .graph-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+         }
+         
+         .graph-actions {
+            display: flex;
+            gap: 0.5rem;
+         }
+         
+         .graph-action-btn {
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            background-color: #f3f4f6;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+         }
+         
+         .graph-action-btn:hover {
+            background-color: #e5e7eb;
+         }
+         
+         .chart-wrapper {
+            position: relative;
+            height: 400px;
+         }
+         
+         .element-selector {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+         }
+         
+         .element-checkboxes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+         }
+         
+         .element-checkbox {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+         }
+         
+         .element-checkbox input {
+            margin-right: 0.5rem;
+         }
+         
+         .element-color {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+         }
+         
+         .data-table-container {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+         }
+         
+         .data-table-wrapper {
+            overflow-x: auto;
+         }
+         
+         .data-table {
+            width: 100%;
+            border-collapse: collapse;
+         }
+         
+         .data-table th, .data-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+         }
+         
+         .data-table th {
+            background-color: #f9fafb;
+            font-weight: 600;
+         }
+         
+         .data-table tr:hover {
+            background-color: #f9fafb;
+         }
+         
+         .graph-quiz-container {
+            margin-top: 2rem;
+         }
+         
+         /* Google Sign-In Button Styles */
+         .google-signin-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            background-color: white;
+            color: #3c4043;
+            border: 1px solid #dadce0;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+         }
+         
+         .google-signin-btn:hover {
+            background-color: #f8f9fa;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+         }
+         
+         .google-signin-btn i {
+            font-size: 1.25rem;
+         }
+      </style>
+   </head>
+   <body>
+      <!-- Landing Page -->
+      <div id="landingPage" class="min-h-screen flex items-center justify-center p-6">
+         <div class="bg-white rounded-2xl p-8 max-w-2xl w-full text-center shadow-2xl transform transition-all duration-500 hover:scale-105">
+            <div class="text-6xl mb-6 text-indigo-600 animate-pulse">
+               <i class="fas fa-atom"></i>
+            </div>
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">Group 2 Alkaline Earth Metals</h1>
+            <p class="text-lg text-gray-600 mb-8">Master Chemistry through Interactive Learning</p>
+            <div class="grid grid-cols-3 gap-8 mb-8">
+               <div class="bg-blue-50 p-6 rounded-xl transform transition-all duration-300 hover:scale-110 hover:shadow-lg">
+                  <i class="fas fa-book-open text-3xl text-blue-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
+                  <h3 class="font-semibold">Learn</h3>
+                  <p class="text-sm text-gray-600">Interactive content</p>
+               </div>
+               <div class="bg-green-50 p-6 rounded-xl transform transition-all duration-300 hover:scale-110 hover:shadow-lg">
+                  <i class="fas fa-chart-line text-3xl text-green-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
+                  <h3 class="font-semibold">Track</h3>
+                  <p class="text-sm text-gray-600">Progress monitoring</p>
+               </div>
+               <div class="bg-purple-50 p-6 rounded-xl transform transition-all duration-300 hover:scale-110 hover:shadow-lg">
+                  <i class="fas fa-graduation-cap text-3xl text-purple-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
+                  <h3 class="font-semibold">Test</h3>
+                  <p class="text-sm text-gray-600">Innovative quiz</p>
+               </div>
+            </div>
+            <div class="space-y-6">
+               <button onclick="showLoginModal()" class="btn btn-primary w-full transform transition-all duration-300 hover:scale-105">
+               <i class="fas fa-sign-in-alt mr-2"></i>
+               Sign In to Begin
+               </button>
+            </div>
+         </div>
+      </div>
+      <!-- Main App -->
+      <div id="mainApp" style="display: none;">
+         <!-- Sidebar -->
+         <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+               <div class="logo-container">
+                  <i class="fas fa-atom text-indigo-600 text-2xl mr-3 transform transition-all duration-300 hover:rotate-180"></i>
+                  <div>
+                     <h1 class="text-xl font-bold text-gray-800">Group 2 Alkaline Earth Metals</h1>
+                     <p class="text-sm text-gray-600">Chemistry</p>
+                  </div>
+               </div>
+            </div>
+            <!-- Search Bar -->
+            <!-- Main Navigation -->
+            <div class="nav-section">
+               <h3 class="nav-section-title">Learning Path</h3>
+               <div class="nav-items">
+                  <a href="#" class="nav-item active" id="nav-overview" onclick="navigateToSection('overview')">
+                  <i class="fas fa-home nav-icon"></i>
+                  <span>Overview</span>
+                  <i class="fas fa-check nav-check"></i>
+                  </a>
+                  <a href="#" class="nav-item locked" id="nav-elements" onclick="navigateToSection('elements')">
+                  <i class="fas fa-th nav-icon"></i>
+                  <span>Elements</span>
+                  <i class="fas fa-lock nav-lock"></i>
+                  <i class="fas fa-check nav-check"></i>
+                  </a>
+                  <a href="#" class="nav-item locked" id="nav-properties" onclick="navigateToSection('properties')">
+                  <i class="fas fa-chart-line nav-icon"></i>
+                  <span>Properties</span>
+                  <i class="fas fa-lock nav-lock"></i>
+                  <i class="fas fa-check nav-check"></i>
+                  </a>
+                  <a href="#" class="nav-item locked" id="nav-reactions" onclick="navigateToSection('reactions')">
+                  <i class="fas fa-flask nav-icon"></i>
+                  <span>Reactions</span>
+                  <i class="fas fa-lock nav-lock"></i>
+                  <i class="fas fa-check nav-check"></i>
+                  </a>
+                  <a href="#" class="nav-item locked" id="nav-quiz" onclick="navigateToSection('quiz')">
+                  <i class="fas fa-graduation-cap nav-icon"></i>
+                  <span>Quiz</span>
+                  <i class="fas fa-lock nav-lock"></i>
+                  <i class="fas fa-check nav-check"></i>
+                  </a>
+               </div>
+            </div>
+            <!-- Community Section -->
+            <div class="nav-section">
+               <h3 class="nav-section-title">Community</h3>
+               <div class="nav-items">
+                  <a href="#" class="nav-item" id="nav-discussion" onclick="navigateToSection('discussion')">
+                  <i class="fas fa-comments nav-icon"></i>
+                  <span>Discussion</span>
+                  <span class="nav-badge">3</span>
+                  </a>
+                  <a href="#" class="nav-item" id="nav-study-groups" onclick="navigateToSection('study-groups')">
+                  <i class="fas fa-users nav-icon"></i>
+                  <span>Study Groups</span>
+                  <span class="nav-badge">2</span>
+                  </a>
+                  <a href="#" class="nav-item" id="nav-leaderboard" onclick="navigateToSection('leaderboard')">
+                  <i class="fas fa-trophy nav-icon"></i>
+                  <span>Leaderboard</span>
+                  </a>
+               </div>
+            </div>
+            <!-- Tools Section -->
+            <div class="nav-section">
+               <h3 class="nav-section-title">Tools</h3>
+               <div class="nav-items">
+                  <a href="#" class="nav-item" onclick="showFeedbackModal()">
+                  <i class="fas fa-comment-dots nav-icon"></i>
+                  <span>Feedback</span>
+                  </a>
+                  <a href="#" class="nav-item" onclick="exportToPDF()">
+                  <i class="fas fa-file-pdf nav-icon"></i>
+                  <span>Export Notes</span>
+                  </a>
+               </div>
+            </div>
+            <!-- User Section -->
+            <div class="user-section">
+               <div class="xp-container">
+                  <div class="xp-label">
+                     <i class="fas fa-star text-yellow-500"></i>
+                     <span>Your XP</span>
+                  </div>
+                  <div class="xp-value" id="userXP">0</div>
+               </div>
+               <div class="badges-container">
+                  <div class="badges-label">Badges</div>
+                  <div id="userBadges" class="badges-list">
+                     <!-- Badges will be loaded here -->
+                  </div>
+               </div>
+               <div class="user-info">
+                  <div class="user-details">
+                     <div class="user-name" id="userName">User</div>
+                     <div class="user-email" id="userEmail">user@example.com</div>
+                  </div>
+                  <button onclick="signOut()" class="logout-btn">
+                  <i class="fas fa-sign-out-alt"></i>
+                  </button>
+               </div>
+            </div>
+         </nav>
+         <!-- Main Content -->
+         <main class="main-content">
+            <!-- Daily Challenge -->
+            <div id="dailyChallenge" class="daily-challenge" style="display: none;">
+               <h3><i class="fas fa-calendar-day mr-2"></i> Daily Challenge</h3>
+               <p id="dailyChallengeQuestion">Loading daily challenge...</p>
+               <button onclick="showDailyChallengeModal()" class="btn btn-secondary transform transition-all duration-300 hover:scale-105">
+               <i class="fas fa-play mr-2"></i>
+               Take Challenge
+               </button>
+            </div>
+            <!-- Progress Tracker -->
+            <div class="content-card">
+               <div class="flex justify-between items-center mb-6">
+                  <h3 class="text-xl font-bold text-gray-800">Your Progress</h3>
+                  <div class="text-xl font-bold text-indigo-600" id="progressPercentage">0%</div>
+               </div>
+               <div class="progress-bar">
+                  <div class="progress-fill" id="overallProgressFill" style="width: 0%"></div>
+               </div>
+               <div class="grid grid-cols-4 gap-6 mt-6">
+                  <div class="text-center p-4 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105" id="progress-overview">
+                     <i class="fas fa-home text-gray-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
+                     <div class="text-sm font-medium text-gray-700">Overview</div>
+                     <div class="text-xs text-gray-500 mt-1">Not Started</div>
+                  </div>
+                  <div class="text-center p-4 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105" id="progress-elements">
+                     <i class="fas fa-th text-gray-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
+                     <div class="text-sm font-medium text-gray-700">Elements</div>
+                     <div class="text-xs text-gray-500 mt-1">Locked</div>
+                  </div>
+                  <div class="text-center p-4 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105" id="progress-properties">
+                     <i class="fas fa-chart-line text-gray-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
+                     <div class="text-sm font-medium text-gray-700">Properties</div>
+                     <div class="text-xs text-gray-500 mt-1">Locked</div>
+                  </div>
+                  <div class="text-center p-4 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105" id="progress-quiz">
+                     <i class="fas fa-graduation-cap text-gray-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
+                     <div class="text-sm font-medium text-gray-700">Quiz</div>
+                     <div class="text-xs text-gray-500 mt-1">Locked</div>
+                  </div>
+               </div>
+            </div>
+            <!-- Overview Section -->
+            <section id="overview-section" class="content-section">
+               <div class="content-card">
+                  <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                     <i class="fas fa-info-circle mr-3 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
+                     Introduction to Group 2 Alkaline Earth Metals
+                  </h3>
+                  <div class="mb-8">
+                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <h4 class="font-semibold text-indigo-800 mb-3">Key Concepts</h4>
+                        <ul class="space-y-3 text-gray-700">
+                           <li class="flex items-start">
+                              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                              <span>Group 2 elements: <span class="interactive-element font-semibold text-indigo-600" onclick="showElementQuiz('beryllium')">Beryllium (Be)</span>, <span class="interactive-element font-semibold text-indigo-600" onclick="showElementQuiz('magnesium')">Magnesium (Mg)</span>, <span class="interactive-element font-semibold text-indigo-600" onclick="showElementQuiz('calcium')">Calcium (Ca)</span>, Strontium (Sr), Barium (Ba), Radium (Ra)</span>
+                           </li>
+                           <li class="flex items-start">
+                              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                              <span>Known as <span class="interactive-element font-semibold text-indigo-600" onclick="showTermQuiz('alkaline-earth-metals')">alkaline earth metals</span></span>
+                           </li>
+                           <li class="flex items-start">
+                              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                              <span>Outer shell: <span class="interactive-element font-semibold text-indigo-600" onclick="showTermQuiz('valence-electrons')">2 valence electrons</span></span>
+                           </li>
+                           <li class="flex items-start">
+                              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                              <span>Form +2 ions by losing these electrons</span>
+                           </li>
+                           <li class="flex items-start">
+                              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                              <span>Less reactive than Group 1 metals</span>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+                  <!-- Key Properties with Tooltips -->
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                     <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <h4 class="font-semibold text-indigo-800 mb-3 flex items-center">
+                           <i class="fas fa-atom mr-2"></i> Key Properties
+                        </h4>
+                        <ul class="space-y-3 text-gray-700">
+                           <li><span class="interactive-element font-medium text-indigo-600" onclick="showTermQuiz('hardness')">Harder than Group 1 metals</span></li>
+                           <li><span class="interactive-element font-medium text-indigo-600" onclick="showTermQuiz('melting-point')">Higher melting points</span></li>
+                           <li><span class="interactive-element font-medium text-indigo-600" onclick="showTermQuiz('density')">Higher densities</span></li>
+                           <li><span class="interactive-element font-medium text-indigo-600" onclick="showTermQuiz('reactivity')">Reactive with water and oxygen</span></li>
+                           <li><span class="interactive-element font-medium text-indigo-600" onclick="showTermQuiz('flame-test')">Characteristic flame test colors</span></li>
+                        </ul>
+                     </div>
+                     <div class="bg-gradient-to-br from-purple-50 to-indigo-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <h4 class="font-semibold text-indigo-800 mb-3 flex items-center">
+                           <i class="fas fa-chart-line mr-2"></i> Trends
+                        </h4>
+                        <ul class="space-y-3 text-gray-700">
+                           <li><span class="interactive-element font-medium text-indigo-600" onclick="showTrendQuiz('melting-point')">Melting Point</span> <i class="fas fa-arrow-down text-red-500"></i> down group</li>
+                           <li><span class="interactive-element font-medium text-indigo-600" onclick="showTrendQuiz('density')">Density</span> <i class="fas fa-arrow-up text-green-500"></i> down group</li>
+                           <li><span class="interactive-element font-medium text-indigo-600" onclick="showTrendQuiz('reactivity')">Reactivity</span> <i class="fas fa-arrow-up text-green-500"></i> down group</li>
+                           <li>Atomic radius <i class="fas fa-arrow-up text-green-500"></i> down group</li>
+                        </ul>
+                     </div>
+                  </div>
+                  <!-- Interactive Element Quiz Popup -->
+                  <div id="elementQuizPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                     <div class="bg-white rounded-lg p-6 max-w-md w-full shadow-xl">
+                        <h3 class="text-xl font-bold mb-4" id="elementQuizTitle">Element Quiz</h3>
+                        <p id="elementQuizQuestion" class="mb-4"></p>
+                        <div id="elementQuizOptions" class="space-y-2 mb-4"></div>
+                        <div id="elementQuizFeedback" class="mb-4 p-3 rounded-lg hidden"></div>
+                        <button onclick="closeElementQuiz()" class="btn btn-primary w-full">Close</button>
+                     </div>
+                  </div>
+                  <!-- YouTube Video -->
+                  <div class="mt-8">
+                     <h4 class="font-semibold mb-3">Learn More:</h4>
+                     <div class="aspect-w-16 aspect-h-9">
+                        <iframe src="https://www.youtube.com/embed/5M1d2g7d4i8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-64 rounded-lg transform transition-all duration-300 hover:scale-105"></iframe>
+                     </div>
+                  </div>
+                  <div class="flex justify-center mt-6">
+                     <button id="overview-complete-btn" class="btn btn-success section-complete-btn transform transition-all duration-300 hover:scale-105" onclick="completeSection('overview')">
+                     <i class="fas fa-check mr-2"></i>
+                     Mark as Complete
+                     </button>
+                  </div>
+               </div>
+            </section>
+            <!-- Elements Section -->
+            <section id="elements-section" class="content-section" style="display: none;">
+               <div class="content-card">
+                  <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                     <i class="fas fa-th mr-3 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
+                     Group 2 Elements
+                  </h3>
+                  <!-- Interactive Periodic Table -->
+                  <div class="mb-8">
+                     <h4 class="font-semibold mb-3">Interactive Periodic Table</h4>
+                     <div class="periodic-table">
+                        <!-- Simplified periodic table with Group 2 highlighted -->
+                        <div class="element group2" data-element="Be" onclick="showElementDetails('Beryllium', 'Be', 4, '2,2')">
+                           <span class="element-number">4</span>
+                           <span class="element-symbol">Be</span>
+                           <span class="element-name">Beryllium</span>
+                        </div>
+                        <div class="element" data-element="Mg" onclick="showElementDetails('Magnesium', 'Mg', 12, '2,8,2')">
+                           <span class="element-number">12</span>
+                           <span class="element-symbol">Mg</span>
+                           <span class="element-name">Magnesium</span>
+                        </div>
+                        <div class="element" data-element="Ca" onclick="showElementDetails('Calcium', 'Ca', 20, '2,8,8,2')">
+                           <span class="element-number">20</span>
+                           <span class="element-symbol">Ca</span>
+                           <span class="element-name">Calcium</span>
+                        </div>
+                        <div class="element" data-element="Sr" onclick="showElementDetails('Strontium', 'Sr', 38, '2,8,18,8,2')">
+                           <span class="element-number">38</span>
+                           <span class="element-symbol">Sr</span>
+                           <span class="element-name">Strontium</span>
+                        </div>
+                        <div class="element" data-element="Ba" onclick="showElementDetails('Barium', 'Ba', 56, '2,8,18,18,8,2')">
+                           <span class="element-number">56</span>
+                           <span class="element-symbol">Ba</span>
+                           <span class="element-name">Barium</span>
+                        </div>
+                        <div class="element" data-element="Ra" onclick="showElementDetails('Radium', 'Ra', 88, '2,8,18,32,18,8,2')">
+                           <span class="element-number">88</span>
+                           <span class="element-symbol">Ra</span>
+                           <span class="element-name">Radium</span>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- Element Details Modal -->
+                  <div id="elementDetailsModal" class="modal">
+                     <div class="modal-content">
+                        <div class="flex justify-between items-center mb-6">
+                          ="text-2xl font-bold text <h2 class-gray-800" id="elementDetailsName">Element Details</h2>
+                           <button onclick="closeElementDetails()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
+                           <i class="fas fa-times text-xl"></i>
+                           </button>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                           <div>
+                              <div class="bg-gray-100 p-5 rounded-lg mb-5">
+                                 <h3 class="font-semibold text-gray-800 mb-3">Atomic Information</h3>
+                                 <p><strong>Symbol:</strong> <span id="elementDetailsSymbol"></span></p>
+                                 <p><strong>Atomic Number:</strong> <span id="elementDetailsNumber"></span></p>
+                                 <p><strong>Electron Configuration:</strong> <span id="elementDetailsConfig"></span></p>
+                              </div>
+                              <div class="bg-gray-100 p-5 rounded-lg">
+                                 <h3 class="font-semibold text-gray-800 mb-3">Properties</h3>
+                                 <p><strong>Melting Point:</strong> <span id="elementDetailsMP"></span></p>
+                                 <p><strong>Density:</strong> <span id="elementDetailsDensity"></span></p>
+                                 <p><strong>Reactivity:</strong> <span id="elementDetailsReactivity"></span></p>
+                              </div>
+                           </div>
+                           <div>
+                              <div class="bg-gray-100 p-5 rounded-lg mb-5">
+                                 <h3 class="font-semibold text-gray-800 mb-3">Uses</h3>
+                                 <p id="elementDetailsUses"></p>
+                              </div>
+                              <div class="bg-gray-100 p-5 rounded-lg">
+                                 <h3 class="font-semibold text-gray-800 mb-3">Fun Fact</h3>
+                                 <p id="elementDetailsFact"></p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="bg-blue-50 p-5 rounded-lg border-l-4 border-blue-500">
+                           <h3 class="font-semibold text-blue-800 mb-3">Quick Quiz</h3>
+                           <p id="elementDetailsQuizQuestion"></p>
+                           <div id="elementDetailsQuizOptions" class="mt-3 space-y-2"></div>
+                           <div id="elementDetailsQuizFeedback" class="mt-3 p-3 rounded-lg hidden"></div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="element-grid">
+                     <div class="element-card" onclick="showElementDetails('Beryllium', 'Be', 4, '2,2')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Beryllium_crystal_bar_and_1cm3_cube.jpg/1200px-Beryllium_crystal_bar_and_1cm3_cube.jpg" alt="Beryllium" class="element-image">
+                        <h4 class="font-bold text-lg">Beryllium (Be)</h4>
+                        <p class="text-sm text-gray-600">Atomic: 4</p>
+                        <p class="text-sm text-gray-600">Electron: 2,2</p>
+                        <div class="text-xs text-gray-500 mt-2">Lightest structural metal, used in aerospace</div>
+                     </div>
+                     <div class="element-card" onclick="showElementDetails('Magnesium', 'Mg', 12, '2,8,2')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Magnesium_crystal_and_1cm3_cube.jpg/1200px-Magnesium_crystal_and_1cm3_cube.jpg" alt="Magnesium" class="element-image">
+                        <h4 class="font-bold text-lg">Magnesium (Mg)</h4>
+                        <p class="text-sm text-gray-600">Atomic: 12</p>
+                        <p class="text-sm text-gray-600">Electron: 2,8,2</p>
+                        <div class="text-xs text-gray-500 mt-2">Bright white flame, essential for life</div>
+                     </div>
+                     <div class="element-card" onclick="showElementDetails('Calcium', 'Ca', 20, '2,8,8,2')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Calcium_crystal_and_1cm3_cube.jpg/1200px-Calcium_crystal_and_1cm3_cube.jpg" alt="Calcium" class="element-image">
+                        <h4 class="font-bold text-lg">Calcium (Ca)</h4>
+                        <p class="text-sm text-gray-600">Atomic: 20</p>
+                        <p class="text-sm text-gray-600">Electron: 2,8,8,2</p>
+                        <div class="text-xs text-gray-500 mt-2">Brick-red flame, bones and teeth</div>
+                     </div>
+                     <div class="element-card" onclick="showElementDetails('Strontium', 'Sr', 38, '2,8,18,8,2')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Strontium_crystal_and_1cm3_cube.jpg/1200px-Strontium_crystal_and_1cm3_cube.jpg" alt="Strontium" class="element-image">
+                        <h4 class="font-bold text-lg">Strontium (Sr)</h4>
+                        <p class="text-sm text-gray-600">Atomic: 38</p>
+                        <p class="text-sm text-gray-600">Electron: 2,8,18,8,2</p>
+                        <div class="text-xs text-gray-500 mt-2">Crimson flame, fireworks</div>
+                     </div>
+                     <div class="element-card" onclick="showElementDetails('Barium', 'Ba', 56, '2,8,18,18,8,2')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Barium_crystal_and_1cm3_cube.jpg/1200px-Barium_crystal_and_1cm3_cube.jpg" alt="Barium" class="element-image">
+                        <h4 class="font-bold text-lg">Barium (Ba)</h4>
+                        <p class="text-sm text-gray-600">Atomic: 56</p>
+                        <p class="text-sm text-gray-600">Electron: 2,8,18,18,8,2</p>
+                        <div class="text-xs text-gray-500 mt-2">Green flame, medical imaging</div>
+                     </div>
+                     <div class="element-card" onclick="showElementDetails('Radium', 'Ra', 88, '2,8,18,32,18,8,2')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Radium_crystal.jpg/1200px-Radium_crystal.jpg" alt="Radium" class="element-image">
+                        <h4 class="font-bold text-lg">Radium (Ra)</h4>
+                        <p class="text-sm text-gray-600">Atomic: 88</p>
+                        <p class="text-sm text-gray-600">Electron: 2,8,18,32,18,8,2</p>
+                        <div class="text-xs text-gray-500 mt-2">Radioactive, glow-in-the-dark</div>
+                     </div>
+                  </div>
+                  <div class="flex justify-center mt-6">
+                     <button id="elements-complete-btn" class="btn btn-success section-complete-btn transform transition-all duration-300 hover:scale-105" onclick="completeSection('elements')">
+                     <i class="fas fa-check mr-2"></i>
+                     Mark as Complete
+                     </button>
+                  </div>
+               </div>
+            </section>
+            <!-- Properties Section -->
+            <section id="properties-section" class="content-section" style="display: none;">
+               <div class="content-card">
+                  <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                     <i class="fas fa-chart-line mr-3 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
+                     Trends in Group 2
+                  </h3>
+                  <div class="tabs">
+                     <button class="tab active" onclick="showTab('melting-point')">Melting Point</button>
+                     <button class="tab" onclick="showTab('density')">Density</button>
+                     <button class="tab" onclick="showTab('reactivity')">Reactivity</button>
+                     <button class="tab" onclick="showTab('data-visualization')">Data Visualization</button>
+                  </div>
+                  <div id="melting-point" class="tab-content active">
+                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-6">
+                        <h4 class="font-semibold text-indigo-800 mb-3">Key Points</h4>
+                        <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                           <li>Melting point <strong>decreases</strong> down Group 2</li>
+                           <li>Due to increasing atomic size and weaker metallic bonding</li>
+                           <li>Be: 1287°C → Ra: 700°C</li>
+                        </ul>
+                     </div>
+                     <!-- Trend Explanation Modal -->
+                     <div id="trendExplanationModal" class="modal">
+                        <div class="modal-content">
+                           <div class="flex justify-between items-center mb-6">
+                              <h2 class="text-2xl font-bold text-gray-800" id="trendExplanationTitle">Trend Explanation</h2>
+                              <button onclick="closeTrendExplanation()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
+                              <i class="fas fa-times text-xl"></i>
+                              </button>
+                           </div>
+                           <div class="mb-6">
+                              <h3 class="text-lg font-semibold mb-3" id="trendExplanationHeading">Heading</h3>
+                              <p id="trendExplanationContent" class="text-gray-700 mb-5"></p>
+                              <div class="bg-blue-50 p-5 rounded-lg border-l-4 border-blue-500">
+                                 <h4 class="font-semibold text-blue-800 mb-3">Quick Quiz</h4>
+                                 <p id="trendExplanationQuizQuestion"></p>
+                                 <div id="trendExplanationQuizOptions" class="mt-3 space-y-2"></div>
+                                 <div id="trendExplanationQuizFeedback" class="mt-3 p-3 rounded-lg hidden"></div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div id="density" class="tab-content">
+                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-6">
+                        <h4 class="font-semibold text-indigo-800 mb-3">Key Points</h4>
+                        <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                           <li>Density <strong>increases</strong> down Group 2</li>
+                           <li>All Group 2 elements are denser than water</li>
+                           <li>Be: 1.85 g/cm³ → Ra: 5.5 g/cm³</li>
+                        </ul>
+                     </div>
+                     <table class="trend-table">
+                        <thead>
+                           <tr>
+                              <th>Element</th>
+                              <th>Density (g/cm³)</th>
+                              <th>Trend Explanation</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr onclick="showTrendExplanation('density', 'beryllium')">
+                              <td>Beryllium</td>
+                              <td>1.85</td>
+                              <td>Lightest in the group, still denser than water</td>
+                           </tr>
+                           <tr onclick="showTrendExplanation('density', 'magnesium')">
+                              <td>Magnesium</td>
+                              <td>1.74</td>
+                              <td>Slightly less dense than beryllium</td>
+                           </tr>
+                           <tr onclick="showTrendExplanation('density', 'calcium')">
+                              <td>Calcium</td>
+                              <td>1.55</td>
+                              <td>Continuing the trend</td>
+                           </tr>
+                           <tr onclick="showTrendExplanation('density', 'strontium')">
+                              <td>Strontium</td>
+                              <td>2.64</td>
+                              <td>Significant increase in density</td>
+                           </tr>
+                           <tr onclick="showTrendExplanation('density', 'barium')">
+                              <td>Barium</td>
+                              <td>3.62</td>
+                              <td>Continuing the trend</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <div id="reactivity" class="tab-content">
+                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-6">
+                        <h4 class="font-semibold text-indigo-800 mb-3">Key Points</h4>
+                        <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                           <li>Reactivity <strong>increases</strong> down Group 2</li>
+                           <li>Outer electrons further from nucleus, easier to lose</li>
+                           <li>Reaction with water becomes more vigorous</li>
+                        </ul>
+                     </div>
+                     <div class="highlight-box">
+                        <h4>Reactivity Series</h4>
+                        <p>Most Reactive: Barium > Strontium > Calcium > Magnesium > Beryllium :Least Reactive</p>
+                     </div>
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                        <div class="bg-gradient-to-br from-red-50 to-orange-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                           <h4 class="font-semibold text-red-800 mb-3">Beryllium Reaction</h4>
+                           <p class="text-gray-700">Does not react with water at room temperature</p>
+                           <button onclick="showReactionVideo('beryllium')" class="btn btn-primary btn-sm mt-3">Watch Reaction</button>
+                        </div>
+                        <div class="bg-gradient-to-br from-orange-50 to-yellow-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                           <h4 class="font-semibold text-orange-800 mb-3">Magnesium Reaction</h4>
+                           <p class="text-gray-700">Reacts slowly with hot water, steam</p>
+                           <button onclick="showReactionVideo('magnesium')" class="btn btn-primary btn-sm mt-3">Watch Reaction</button>
+                        </div>
+                        <div class="bg-gradient-to-br from-yellow-50 to-green-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                           <h4 class="font-semibold text-yellow-800 mb-3">Calcium Reaction</h4>
+                           <p class="text-gray-700">Reacts steadily with cold water</p>
+                           <button onclick="showReactionVideo('calcium')" class="btn btn-primary btn-sm mt-3">Watch Reaction</button>
+                        </div>
+                        <div class="bg-gradient-to-br from-green-50 to-blue-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                           <h4 class="font-semibold text-green-800 mb-3">Barium Reaction</h4>
+                           <p class="text-gray-700">Reacts vigorously with water</p>
+                           <button onclick="showReactionVideo('barium')" class="btn btn-primary btn-sm mt-3">Watch Reaction</button>
+                        </div>
+                     </div>
+                  </div>
+                  <!-- Data Visualization Tab -->
+                  <div id="data-visualization" class="tab-content">
+                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-6">
+                        <h4 class="font-semibold text-indigo-800 mb-3">Interactive Data Visualization</h4>
+                        <p class="text-gray-700">Explore Group 2 element properties through interactive graphs. Click on elements to highlight them across all visualizations.</p>
+                     </div>
+                     
+                     <!-- Graph Controls -->
+                     <div class="graph-controls mb-6">
+                        <div class="flex flex-wrap gap-3">
+                           <button onclick="switchGraph('melting-point')" class="graph-btn active" id="melting-point-btn">
+                              <i class="fas fa-temperature-high mr-2"></i>Melting Point
+                           </button>
+                           <button onclick="switchGraph('density')" class="graph-btn" id="density-btn">
+                              <i class="fas fa-weight mr-2"></i>Density
+                           </button>
+                           <button onclick="switchGraph('reactivity')" class="graph-btn" id="reactivity-btn">
+                              <i class="fas fa-flask mr-2"></i>Reactivity
+                           </button>
+                           <button onclick="switchGraph('comparison')" class="graph-btn" id="comparison-btn">
+                              <i class="fas fa-chart-bar mr-2"></i>Comparison
+                           </button>
+                           <button onclick="switchGraph('correlation')" class="graph-btn" id="correlation-btn">
+                              <i class="fas fa-project-diagram mr-2"></i>Correlation
+                           </button>
+                        </div>
+                     </div>
+                     
+                     <!-- Main Graph Container -->
+                     <div class="graph-container mb-8">
+                        <div class="graph-header">
+                           <h3 id="graph-title">Melting Point Trend</h3>
+                           <div class="graph-actions">
+                              <button onclick="resetZoom()" class="graph-action-btn" title="Reset Zoom">
+                                 <i class="fas fa-search-minus"></i>
+                              </button>
+                              <button onclick="downloadGraph()" class="graph-action-btn" title="Download Graph">
+                                 <i class="fas fa-download"></i>
+                              </button>
+                              <button onclick="toggleAnimation()" class="graph-action-btn" title="Toggle Animation">
+                                 <i class="fas fa-play"></i>
+                              </button>
+                           </div>
+                        </div>
+                        <div class="chart-wrapper">
+                           <canvas id="mainChart"></canvas>
+                        </div>
+                     </div>
+                     
+                     <!-- Element Selector -->
+                     <div class="element-selector mb-6">
+                        <h4 class="text-lg font-semibold mb-3">Select Elements to Highlight</h4>
+                        <div class="element-checkboxes">
+                           <label class="element-checkbox">
+                              <input type="checkbox" value="Be" onchange="toggleElement('Be')" checked>
+                              <span class="element-color" style="background-color: #FF6384;"></span>
+                              Beryllium
+                           </label>
+                           <label class="element-checkbox">
+                              <input type="checkbox" value="Mg" onchange="toggleElement('Mg')" checked>
+                              <span class="element-color" style="background-color: #36A2EB;"></span>
+                              Magnesium
+                           </label>
+                           <label class="element-checkbox">
+                              <input type="checkbox" value="Ca" onchange="toggleElement('Ca')" checked>
+                              <span class="element-color" style="background-color: #FFCE56;"></span>
+                              Calcium
+                           </label>
+                           <label class="element-checkbox">
+                              <input type="checkbox" value="Sr" onchange="toggleElement('Sr')" checked>
+                              <span class="element-color" style="background-color: #4BC0C0;"></span>
+                              Strontium
+                           </label>
+                           <label class="element-checkbox">
+                              <input type="checkbox" value="Ba" onchange="toggleElement('Ba')" checked>
+                              <span class="element-color" style="background-color: #9966FF;"></span>
+                              Barium
+                           </label>
+                           <label class="element-checkbox">
+                              <input type="checkbox" value="Ra" onchange="toggleElement('Ra')" checked>
+                              <span class="element-color" style="background-color: #FF9F40;"></span>
+                              Radium
+                           </label>
+                        </div>
+                     </div>
+                     
+                     <!-- Data Table -->
+                     <div class="data-table-container">
+                        <h4 class="text-lg font-semibold mb-3">Property Data</h4>
+                        <div class="data-table-wrapper">
+                           <table class="data-table" id="propertyTable">
+                              <thead>
+                                 <tr>
+                                    <th>Element</th>
+                                    <th>Atomic Number</th>
+                                    <th>Melting Point (°C)</th>
+                                    <th>Density (g/cm³)</th>
+                                    <th>Reactivity Index</th>
+                                    <th>Atomic Radius (pm)</th>
+                                 </tr>
+                              </thead>
+                              <tbody id="dataTableBody">
+                                 <!-- Data will be populated by JavaScript -->
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     
+                     <!-- Quiz Integration -->
+                     <div class="graph-quiz-container mt-8">
+                        <div class="bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-lg border-l-4 border-green-500 shadow-sm hover:shadow-md transition-shadow duration-300">
+                           <h4 class="font-semibold text-green-800 mb-3">
+                              <i class="fas fa-question-circle mr-2"></i>Graph-Based Quiz
+                           </h4>
+                           <p id="graph-quiz-question" class="mb-4">Loading question...</p>
+                           <div id="graph-quiz-options" class="space-y-2"></div>
+                           <div id="graph-quiz-feedback" class="mt-4 p-3 rounded-lg hidden"></div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="flex justify-center mt-6">
+                     <button id="properties-complete-btn" class="btn btn-success section-complete-btn transform transition-all duration-300 hover:scale-105" onclick="completeSection('properties')">
+                     <i class="fas fa-check mr-2"></i>
+                     Mark as Complete
+                     </button>
+                  </div>
+               </div>
+            </section>
+            <!-- Reactions Section -->
+            <section id="reactions-section" class="content-section" style="display: none;">
+               <div class="content-card">
+                  <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                     <i class="fas fa-flask mr-3 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
+                     Reactions of Group 2 Metals
+                  </h3>
+                  <div class="tabs">
+                     <button class="tab active" onclick="showTab('water')">With Water</button>
+                     <button class="tab" onclick="showTab('oxygen')">With Oxygen</button>
+                  </div>
+                  <div id="water" class="tab-content active">
+                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-6">
+                        <h4 class="font-semibold text-indigo-800 mb-3">Key Points</h4>
+                        <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                           <li>Group 2 metals react with water (except Be)</li>
+                           <li>Products: Metal hydroxide + Hydrogen gas</li>
+                           <li>Reactivity increases down the group</li>
+                        </ul>
+                     </div>
+                     <div class="equation-box">
+                        <p class="text-gray-700 mb-3">General equation:</p>
+                        <p class="equation">M(s) + 2H₂O(l) → M(OH)₂(aq) + H₂(g)</p>
+                     </div>
+                     <div class="highlight-box">
+                        <h4>Observations</h4>
+                        <ul class="list-disc pl-6 space-y-1">
+                           <li><strong>Beryllium:</strong> Does not react with water</li>
+                           <li><strong>Magnesium:</strong> Reacts slowly with hot water/steam</li>
+                           <li><strong>Calcium:</strong> Reacts steadily with cold water</li>
+                        </ul>
+                     </div>
+                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                           <h4 class="font-semibold text-blue-800 mb-3">Magnesium + Water</h4>
+                           <p class="equation text-sm">Mg(s) + 2H₂O(l) → Mg(OH)₂(aq) + H₂(g)</p>
+                           <button onclick="showReactionDetails('magnesium-water')" class="btn btn-primary btn-sm mt-3">View Details</button>
+                        </div>
+                        <div class="bg-gradient-to-br from-purple-50 to-indigo-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                           <h4 class="font-semibold text-purple-800 mb-3">Calcium + Water</h4>
+                           <p class="equation text-sm">Ca(s) + 2H₂O(l) → Ca(OH)₂(aq) + H₂(g)</p>
+                           <button onclick="showReactionDetails('calcium-water')" class="btn btn-primary btn-sm mt-3">View Details</button>
+                        </div>
+                        <div class="bg-gradient-to-br from-pink-50 to-purple-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                           <h4 class="font-semibold text-pink-800 mb-3">Barium + Water</h4>
+                           <p class="equation text-sm">Ba(s) + 2H₂O(l) → Ba(OH)₂(aq) + H₂(g)</p>
+                           <button onclick="showReactionDetails('barium-water')" class="btn btn-primary btn-sm mt-3">View Details</button>
+                        </div>
+                     </div>
+                  </div>
+                  <div id="oxygen" class="tab-content">
+                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-6">
+                        <h4 class="font-semibold text-indigo-800 mb-3">Key Points</h4>
+                        <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                           <li>Group 2 metals react with oxygen when heated</li>
+                           <li>Form oxides (MO) when heated in oxygen</li>
+                        </ul>
+                     </div>
+                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                           <h5 class="font-semibold text-blue-800">Magnesium</h5>
+                           <p class="text-blue-600">Forms MgO (oxide)</p>
+                           <p class="equation text-sm mt-3">2Mg(s) + O₂(g) → 2MgO(s)</p>
+                           <button onclick="showReactionDetails('magnesium-oxygen')" class="btn btn-primary btn-sm mt-3">View Details</button>
+                        </div>
+                        <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                           <h5 class="font-semibold text-green-800">Calcium</h5>
+                           <p class="text-green-600">Forms CaO (oxide)</p>
+                           <p class="equation text-sm mt-3">2Ca(s) + O₂(g) → 2CaO(s)</p>
+                           <button onclick="showReactionDetails('calcium-oxygen')" class="btn btn-primary btn-sm mt-3">View Details</button>
+                        </div>
+                        <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                           <h5 class="font-semibold text-purple-800">Barium</h5>
+                           <p class="text-purple-600">Forms BaO (oxide)</p>
+                           <p class="equation text-sm mt-3">2Ba(s) + O₂(g) → 2BaO(s)</p>
+                           <button onclick="showReactionDetails('barium-oxygen')" class="btn btn-primary btn-sm mt-3">View Details</button>
+                        </div>
+                     </div>
+                     <div class="bg-gradient-to-r from-yellow-50 to-orange-50 p-6 rounded-lg border-l-4 border-orange-500 shadow-sm hover:shadow-md transition-shadow duration-300 mt-8">
+                        <h4 class="font-semibold text-orange-800 mb-3">Trend in Oxide Formation</h4>
+                        <p class="text-gray-700">All Group 2 metals form simple oxides (MO) when heated in oxygen. These oxides are basic and react with water to form metal hydroxides.</p>
+                        <button onclick="showOxideTrendQuiz()" class="btn btn-primary btn-sm mt-3">Test Your Knowledge</button>
+                     </div>
+                  </div>
+                  <!-- Reaction Details Modal -->
+                  <div id="reactionDetailsModal" class="modal">
+                     <div class="modal-content">
+                        <div class="flex justify-between items-center mb-6">
+                           <h2 class="text-2xl font-bold text-gray-800" id="reactionDetailsTitle">Reaction Details</h2>
+                           <button onclick="closeReactionDetails()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
+                           <i class="fas fa-times text-xl"></i>
+                           </button>
+                        </div>
+                        <div class="mb-6">
+                           <div class="bg-gray-100 p-5 rounded-lg mb-5">
+                              <h3 class="font-semibold text-gray-800 mb-3">Chemical Equation</h3>
+                              <p class="equation text-lg" id="reactionDetailsEquation"></p>
+                           </div>
+                           <div class="bg-gray-100 p-5 rounded-lg mb-5">
+                              <h3 class="font-semibold text-gray-800 mb-3">Observations</h3>
+                              <p id="reactionDetailsObservations"></p>
+                           </div>
+                           <div class="bg-gray-100 p-5 rounded-lg mb-5">
+                              <h3 class="font-semibold text-gray-800 mb-3">Explanation</h3>
+                              <p id="reactionDetailsExplanation"></p>
+                           </div>
+                           <div class="bg-blue-50 p-5 rounded-lg border-l-4 border-blue-500">
+                              <h4 class="font-semibold text-blue-800 mb-3">Quick Quiz</h4>
+                              <p id="reactionDetailsQuizQuestion"></p>
+                              <div id="reactionDetailsQuizOptions" class="mt-3 space-y-2"></div>
+                              <div id="reactionDetailsQuizFeedback" class="mt-3 p-3 rounded-lg hidden"></div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="flex justify-center mt-6">
+                     <button id="reactions-complete-btn" class="btn btn-success section-complete-btn transform transition-all duration-300 hover:scale-105" onclick="completeSection('reactions')">
+                     <i class="fas fa-check mr-2"></i>
+                     Mark as Complete
+                     </button>
+                  </div>
+               </div>
+            </section>
+            <!-- Quiz Section -->
+            <section id="quiz-section" class="content-section" style="display: none;">
+               <div class="content-card">
+                  <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                     <i class="fas fa-graduation-cap mr-3 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
+                     Test Your Knowledge
+                  </h3>
+                  <div class="bg-gradient-to-r from-indigo-50 to-purple-50 p-8 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-8">
+                     <div class="flex items-center mb-6">
+                        <i class="fas fa-info-circle text-indigo-600 text-3xl mr-4"></i>
+                        <div>
+                           <h4 class="font-semibold text-indigo-800">Quiz Instructions</h4>
+                           <p class="text-gray-700">This quiz contains 10 multiple-choice questions about Group 2 Alkaline Earth Metals. Take your time to answer each question carefully. You can navigate between questions using the Previous and Next buttons.</p>
+                        </div>
+                     </div>
+                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                        <div class="bg-white p-5 rounded-lg shadow-sm">
+                           <div class="text-3xl font-bold text-indigo-600">10</div>
+                           <div class="text-sm text-gray-600">Questions</div>
+                        </div>
+                        <div class="bg-white p-5 rounded-lg shadow-sm">
+                           <div class="text-3xl font-bold text-indigo-600">5 min</div>
+                           <div class="text-sm text-gray-600">Time Limit</div>
+                        </div>
+                        <div class="bg-white p-5 rounded-lg shadow-sm">
+                           <div class="text-3xl font-bold text-indigo-600">80%</div>
+                           <div class="text-sm text-gray-600">Passing Score</div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                     <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <h4 class="font-semibold text-green-800 mb-3 flex items-center">
+                           <i class="fas fa-trophy mr-2"></i> Rewards
+                        </h4>
+                        <ul class="space-y-3 text-gray-700">
+                           <li class="flex items-start">
+                              <i class="fas fa-star text-yellow-500 mt-1 mr-3"></i>
+                              <span>Earn up to 20 XP points</span>
+                           </li>
+                           <li class="flex items-start">
+                              <i class="fas fa-medal text-yellow-500 mt-1 mr-3"></i>
+                              <span>Unlock "Quiz Master" badge with 80%+ score</span>
+                           </li>
+                           <li class="flex items-start">
+                              <i class="fas fa-certificate text-yellow-500 mt-1 mr-3"></i>
+                              <span>Get completion certificate</span>
+                           </li>
+                        </ul>
+                     </div>
+                     <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <h4 class="font-semibold text-blue-800 mb-3 flex items-center">
+                           <i class="fas fa-lightbulb mr-2"></i> Tips
+                        </h4>
+                        <ul class="space-y-3 text-gray-700">
+                           <li class="flex items-start">
+                              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                              <span>Review all sections before attempting</span>
+                           </li>
+                           <li class="flex items-start">
+                              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                              <span>Pay attention to trends down the group</span>
+                           </li>
+                           <li class="flex items-start">
+                              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                              <span>Remember the exceptions (like beryllium's reactivity)</span>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="text-center">
+                     <button onclick="startQuiz()" class="btn btn-primary transform transition-all duration-300 hover:scale-105">
+                     <i class="fas fa-play mr-2"></i>
+                     Start Quiz
+                     </button>
+                  </div>
+               </div>
+            </section>
+            <!-- Discussion Section -->
+            <section id="discussion-section" class="content-section" style="display: none;">
+               <div class="content-card">
+                  <div class="flex justify-between items-center mb-8">
+                     <h3 class="text-2xl font-bold text-gray-800 flex items-center">
+                        <i class="fas fa-comments mr-3 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
+                        Discussion Forum
+                     </h3>
+                     <button onclick="showCreatePostModal()" class="btn btn-primary transform transition-all duration-300 hover:scale-105">
+                     <i class="fas fa-plus mr-2"></i>
+                     New Post
+                     </button>
+                  </div>
+                  <!-- Discussion Controls -->
+                  <div class="flex flex-col md:flex-row gap-4 mb-8">
+                     <div class="search-box flex-1">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="discussionSearch" placeholder="Search discussions..." onkeyup="filterDiscussions()">
+                     </div>
+                     <div class="flex gap-3">
+                        <button class="filter-btn active px-5 py-2 bg-indigo-600 text-white rounded-lg" onclick="sortDiscussions('newest')">Newest</button>
+                        <button class="filter-btn px-5 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300" onclick="sortDiscussions('oldest')">Oldest</button>
+                        <button class="filter-btn px-5 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300" onclick="sortDiscussions('popular')">Most Popular</button>
+                     </div>
+                  </div>
+                  <div id="discussionPosts">
+                     <div class="empty-state">
+                        <div class="empty-state-icon">
+                           <i class="fas fa-comments"></i>
+                        </div>
+                        <h3 class="empty-state-title">No Posts Yet</h3>
+                        <p class="empty-state-description">Be the first to start a discussion about Group 2 Alkaline Earth Metals.</p>
+                     </div>
+                  </div>
+               </div>
+            </section>
+            <!-- Study Groups Section -->
+            <section id="study-groups-section" class="content-section" style="display: none;">
+               <div class="content-card">
+                  <div class="flex justify-between items-center mb-8">
+                     <h3 class="text-2xl font-bold text-gray-800 flex items-center">
+                        <i class="fas fa-users mr-3 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
+                        Study Groups
+                     </h3>
+                     <button onclick="showCreateGroupModal()" class="btn btn-primary transform transition-all duration-300 hover:scale-105">
+                     <i class="fas fa-plus mr-2"></i>
+                     Create Group
+                     </button>
+                  </div>
+                  <div id="studyGroupsList">
+                     <div class="empty-state">
+                        <div class="empty-state-icon">
+                           <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="empty-state-title">No Study Groups Yet</h3>
+                        <p class="empty-state-description">Create your first study group to collaborate with peers.</p>
+                     </div>
+                  </div>
+               </div>
+            </section>
+            <!-- Leaderboard Section -->
+            <section id="leaderboard-section" class="content-section" style="display: none;">
+               <div class="content-card">
+                  <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                     <i class="fas fa-trophy mr-3 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
+                     Leaderboard
+                  </h3>
+                  <div id="leaderboardContent">
+                     <div class="spinner"></div>
+                  </div>
+               </div>
+            </section>
+         </main>
+         <!-- Feedback Button -->
+         <button class="feedback-button" onclick="showFeedbackModal()" title="Leave Feedback">
+         <i class="fas fa-comment-alt"></i>
+         </button>
+      </div>
+      <!-- Login Modal -->
+      <div id="loginModal" class="modal">
+         <div class="modal-content">
+            <div class="flex justify-between items-center mb-8">
+               <h2 class="text-2xl font-bold text-gray-800">Welcome to Chemistry Mastery</h2>
+               <button onclick="closeLoginModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
+               <i class="fas fa-times text-xl"></i>
+               </button>
+            </div>
+            <div class="mb-8">
+               <button onclick="signInWithGoogle()" class="google-signin-btn">
+                  <i class="fab fa-google"></i>
+                  Sign in with Google
+               </button>
+            </div>
+            <div class="text-center text-gray-600">
+               <p>By signing in, you agree to our Terms of Service and Privacy Policy.</p>
+            </div>
+         </div>
+      </div>
+      <!-- Quiz Modal -->
+      <div id="quizModal" class="modal quiz-modal">
+         <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+               <h2 class="text-xl font-bold text-gray-800">Group 2 Quiz</h2>
+               <button onclick="closeQuiz()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
+               <i class="fas fa-times text-xl"></i>
+               </button>
+            </div>
+            <div id="quizProgress" class="mb-6">
+               <div class="flex justify-between items-center mb-3">
+                  <span class="text-sm text-gray-600">Question <span id="currentQuestion">1</span> of <span id="totalQuestions">10</span></span>
+                  <span class="text-sm text-gray-600">Score: <span id="currentScore">0</span></span>
+               </div>
+               <div class="progress-bar">
+                  <div class="progress-fill" id="progressFill" style="width: 10%"></div>
+               </div>
+            </div>
+            <div id="quizContent">
+               <div class="mb-8">
+                  <h3 class="text-lg font-semibold mb-5" id="questionText">Loading question...</h3>
+                  <div id="optionsContainer"></div>
+               </div>
+               <div id="feedback" class="hidden mb-5 p-4 rounded-lg text-sm"></div>
+               <div class="flex justify-between items-center">
+                  <button id="prevButton" class="btn btn-secondary hidden" onclick="previousQuestion()">
+                  <i class="fas fa-arrow-left"></i>
+                  Previous
+                  </button>
+                  <div class="flex gap-3">
+                     <button id="submitButton" class="btn btn-primary" onclick="submitAnswer()">
+                     Submit Answer
+                     </button>
+                     <button id="nextButton" class="btn btn-primary hidden" onclick="nextQuestion()">
+                     Next
+                     <i class="fas fa-arrow-right ml-1"></i>
+                     </button>
+                  </div>
+               </div>
+            </div>
+            <div id="quizResults" class="hidden text-center">
+               <i class="fas fa-trophy text-5xl text-yellow-500 mb-6"></i>
+               <h3 class="text-2xl font-bold mb-4">Quiz Complete!</h3>
+               <div class="text-4xl font-bold text-indigo-600 mb-4" id="finalScore">0/10</div>
+               <p class="text-gray-600 mb-8" id="scoreMessage">Great job!</p>
+               <button onclick="closeQuiz()" class="btn btn-primary transform transition-all duration-300 hover:scale-105">
+               <i class="fas fa-check"></i>
+               Finish
+               </button>
+            </div>
+         </div>
+      </div>
+      <!-- Feedback Modal -->
+      <div id="feedbackModal" class="modal">
+         <div class="modal-content">
+            <div class="flex justify-between items-center mb-8">
+               <h2 class="text-2xl font-bold text-gray-800">Send Feedback</h2>
+               <button onclick="closeFeedbackModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
+               <i class="fas fa-times text-xl"></i>
+               </button>
+            </div>
+            <form id="feedbackForm" class="space-y-5" onsubmit="handleFeedback(event)">
+               <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Your Feedback</label>
+                  <textarea id="feedbackText" class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 form-textarea" placeholder="What do you think about this app?" required></textarea>
+               </div>
+               <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Rate your experience</label>
+                  <div class="reaction-buttons">
+                     <button type="button" class="reaction-btn" id="thumbsDownBtn" onclick="setFeedbackRating(1)">
+                     <i class="fas fa-thumbs-down"></i>
+                     <span>Thumbs Down</span>
+                     </button>
+                     <button type="button" class="reaction-btn" id="thumbsUpBtn" onclick="setFeedbackRating(2)">
+                     <i class="fas fa-thumbs-up"></i>
+                     <span>Thumbs Up</span>
+                     </button>
+                  </div>
+                  <input type="hidden" id="feedbackRating" value="0">
+               </div>
+               <button type="submit" class="btn btn-primary w-full transform transition-all duration-300 hover:scale-105">
+               <i class="fas fa-paper-plane mr-2"></i>
+               Send Feedback
+               </button>
+            </form>
+         </div>
+      </div>
+      <!-- Daily Challenge Modal -->
+      <div id="dailyChallengeModal" class="modal">
+         <div class="modal-content">
+            <div class="flex justify-between items-center mb-8">
+               <h2 class="text-2xl font-bold text-gray-800">Daily Challenge</h2>
+               <button onclick="closeDailyChallengeModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
+               <i class="fas fa-times text-xl"></i>
+               </button>
+            </div>
+            <div class="mb-6">
+               <h3 class="text-lg font-semibold mb-4" id="dailyChallengeQuestionText">Loading daily challenge...</h3>
+               <div id="dailyChallengeOptions"></div>
+            </div>
+            <div id="dailyChallengeFeedback" class="hidden mb-5 p-4 rounded-lg text-sm"></div>
+            <div class="flex justify-between items-center">
+               <button onclick="closeDailyChallengeModal()" class="btn btn-secondary transform transition-all duration-300 hover:scale-105">
+               Skip
+               </button>
+               <button id="dailyChallengeSubmitBtn" class="btn btn-primary transform transition-all duration-300 hover:scale-105" onclick="submitDailyChallenge()">
+               Submit Answer
+               </button>
+            </div>
+         </div>
+      </div>
+      <!-- Quiz Question Modal -->
+      <div id="quizQuestionModal" class="modal quiz-question-modal">
+         <div class="modal-content">
+            <div class="flex justify-between items-center mb-8">
+               <h2 class="text-2xl font-bold text-gray-800" id="quizQuestionTitle">Quick Quiz</h2>
+               <button onclick="closeQuizQuestionModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
+               <i class="fas fa-times text-xl"></i>
+               </button>
+            </div>
+            <div class="mb-8">
+               <div class="quiz-question" id="quizQuestionText">Loading question...</div>
+               <div id="quizQuestionAnswers"></div>
+               <div id="quizQuestionFeedback" class="quiz-feedback hidden"></div>
+            </div>
+            <div class="flex justify-end">
+               <button onclick="closeQuizQuestionModal()" class="btn btn-secondary mr-3 transform transition-all duration-300 hover:scale-105">
+               Close
+               </button>
+            </div>
+         </div>
+      </div>
+      <!-- Toast Container -->
+      <div id="toastContainer"></div>
+      <script src="script.js"></script>
+   </body>
+</html>
