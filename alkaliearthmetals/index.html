@@ -434,15 +434,28 @@
                         </ul>
                      </div>
                   </div>
+                  <!-- Interactive Element Quiz Popup -->
+                  <div id="elementQuizPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                     <div class="bg-white rounded-lg p-6 max-w-md w-full shadow-xl">
+                        <h3 class="text-xl font-bold mb-4" id="elementQuizTitle">Element Quiz</h3>
+                        <p id="elementQuizQuestion" class="mb-4"></p>
+                        <div id="elementQuizOptions" class="space-y-2 mb-4"></div>
+                        <div id="elementQuizFeedback" class="mb-4 p-3 rounded-lg hidden"></div>
+                        <button onclick="closeElementQuiz()" class="btn btn-primary w-full">Close</button>
+                     </div>
+                  </div>
                   <!-- YouTube Video -->
                   <div class="mt-8">
                      <h4 class="font-semibold mb-3">Learn More:</h4>
                      <div class="aspect-w-16 aspect-h-9">
-                        <iframe src="https://www.youtube.com/embed/5M1d2g7d4i8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="w-full h-64 rounded-lg transform transition-all duration-300 hover:scale-105"></iframe>
+                        <iframe src="https://www.youtube.com/embed/5M1d2g7d4i8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-64 rounded-lg transform transition-all duration-300 hover:scale-105"></iframe>
                      </div>
                   </div>
                   <div class="flex justify-center mt-6">
-                     <button id="overview-complete-btn" class="btn section-complete-btn transform transition-all duration-300 hover:scale-105 btn-unmark" onclick="completeSection('overview')"><i class="fas fa-times mr-2"></i>Unmark as Complete</button>
+                     <button id="overview-complete-btn" class="btn btn-success section-complete-btn transform transition-all duration-300 hover:scale-105" onclick="completeSection('overview')">
+                     <i class="fas fa-check mr-2"></i>
+                     Mark as Complete
+                     </button>
                   </div>
                </div>
             </section>
@@ -1272,44 +1285,6 @@
       </div>
       <!-- Toast Container -->
       <div id="toastContainer"></div>
-      
-      <!-- MODAL FIX: The quiz popup is now here, at the end of the body -->
-      <!-- Interactive Element Quiz Popup -->
-      <div id="elementQuizPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-         <div class="bg-white rounded-lg p-6 max-w-md w-full shadow-xl">
-            <h3 class="text-xl font-bold mb-4" id="elementQuizTitle">Element Quiz</h3>
-            <p id="elementQuizQuestion" class="mb-4"></p>
-            <div id="elementQuizOptions" class="space-y-2 mb-4"></div>
-            <div id="elementQuizFeedback" class="mb-4 p-3 rounded-lg hidden"></div>
-            <button onclick="closeElementQuiz()" class="btn btn-primary w-full">Close</button>
-         </div>
-      </div>
-      
-      <!-- JavaScript Files -->
-      <!-- Firebase Configuration -->
-      <script src="firebase-config.js"></script>
-      
-      <!-- Authentication -->
-      <script src="auth.js"></script>
-      
-      <!-- Core App -->
-      <script src="app-core.js"></script>
-      
-      <!-- User Data Management -->
-      <script src="user-data.js"></script>
-      
-      <!-- Section-Specific Scripts -->
-      <script src="overview.js"></script>
-      <script src="elements.js"></script>
-      <script src="properties-graphs.js"></script>
-      <script src="quiz.js"></script>
-      <script src="discussion.js"></script>
-      <script src="study-groups.js"></script>
-      <script src="leaderboard.js"></script>
-      <script src="feedback.js"></script>
-      <script src="reactions.js"></script>
-      
-      <!-- Utilities -->
-      <script src="utilities.js"></script>
+      <script src="script.js"></script>
    </body>
 </html>
