@@ -170,6 +170,8 @@ const overviewQuizzes = {
  * @param {string} quizKey - The key for the quiz in the overviewQuizzes object.
  */
 function showOverviewQuiz(quizKey) {
+    console.log(`Attempting to show quiz for key: ${quizKey}`); // Debug log
+
     const quiz = overviewQuizzes[quizKey];
     if (!quiz) {
         console.error('Quiz not found for key:', quizKey);
@@ -177,6 +179,11 @@ function showOverviewQuiz(quizKey) {
     }
 
     const popup = document.getElementById('elementQuizPopup');
+    if (!popup) {
+        console.error('Modal element with ID "elementQuizPopup" not found!');
+        return;
+    }
+
     const titleEl = document.getElementById('elementQuizTitle');
     const questionEl = document.getElementById('elementQuizQuestion');
     const optionsContainer = document.getElementById('elementQuizOptions');
@@ -252,13 +259,21 @@ function checkOverviewAnswer(clickedButton, selectedIndex, correctIndex, feedbac
  */
 function closeElementQuiz() {
     const popup = document.getElementById('elementQuizPopup');
-    popup.classList.add('hidden');
+    if (popup) {
+        popup.classList.add('hidden');
+    }
     // Reset content for next time
-    document.getElementById('elementQuizTitle').textContent = '';
-    document.getElementById('elementQuizQuestion').textContent = '';
-    document.getElementById('elementQuizOptions').innerHTML = '';
-    document.getElementById('elementQuizFeedback').classList.add('hidden');
+    const titleEl = document.getElementById('elementQuizTitle');
+    const questionEl = document.getElementById('elementQuizQuestion');
+    const optionsContainer = document.getElementById('elementQuizOptions');
+    const feedbackEl = document.getElementById('elementQuizFeedback');
+
+    if(titleEl) titleEl.textContent = '';
+    if(questionEl) questionEl.textContent = '';
+    if(optionsContainer) optionsContainer.innerHTML = '';
+    if(feedbackEl) feedbackEl.classList.add('hidden');
 }
+
 
 // --- Event Handlers for HTML onclick attributes ---
 
