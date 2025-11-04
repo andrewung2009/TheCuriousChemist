@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Group 2 Alkaline Earth Metals</title>
+    <meta name="description" content="Test your knowledge of Group 2 Alkaline Earth Metals">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="https://andrewung2009.github.io/TheCuriousChemist/TheCuriousChemist.png">
+</head>
+<body>
+    <!-- Main App -->
+    <div id="mainApp">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <i class="fas fa-atom text-indigo-600 text-2xl mr-3 transform transition-all duration-300 hover:rotate-180"></i>
+                    <div>
+                        <h1 class="text-xl font-bold text-gray-800">Group 2 Alkaline Earth Metals</h1>
+                        <p class="text-sm text-gray-600">Chemistry</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Search Bar -->
+            <div class="search-container">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search content...">
+                </div>
+            </div>
+            <!-- Main Navigation -->
+            <div class="nav-section">
+                <h3 class="nav-section-title">Learning Path</h3>
+                <div class="nav-items">
+                    <a href="overview.html" class="nav-item" id="nav-overview">
+                        <i class="fas fa-home nav-icon"></i>
+                        <span>Overview</span>
+                        <i class="fas fa-check nav-check"></i>
+                    </a>
+                    <a href="elements.html" class="nav-item" id="nav-elements">
+                        <i class="fas fa-th nav-icon"></i>
+                        <span>Elements</span>
+                        <i class="fas fa-check nav-check"></i>
+                    </a>
+                    <a href="properties.html" class="nav-item" id="nav-properties">
+                        <i class="fas fa-chart-line nav-icon"></i>
+                        <span>Properties</span>
+                        <i class="fas fa-check nav-check"></i>
+                    </a>
+                    <a href="reactions.html" class="nav-item" id="nav-reactions">
+                        <i class="fas fa-flask nav-icon"></i>
+                        <span>Reactions</span>
+                        <i class="fas fa-check nav-check"></i>
+                    </a>
+                    <a href="quiz.html" class="nav-item active" id="nav-quiz">
+                        <i class="fas fa-graduation-cap nav-icon"></i>
+                        <span>Quiz</span>
+                        <i class="fas fa-check nav-check"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- Community Section -->
+            <div class="nav-section">
+                <h3 class="nav-section-title">Community</h3>
+                <div class="nav-items">
+                    <a href="discussion.html" class="nav-item" id="nav-discussion">
+                        <i class="fas fa-comments nav-icon"></i>
+                        <span>Discussion</span>
+                        <span class="nav-badge">3</span>
+                    </a>
+                    <a href="study-groups.html" class="nav-item" id="nav-study-groups">
+                        <i class="fas fa-users nav-icon"></i>
+                        <span>Study Groups</span>
+                        <span class="nav-badge">2</span>
+                    </a>
+                    <a href="leaderboard.html" class="nav-item" id="nav-leaderboard">
+                        <i class="fas fa-trophy nav-icon"></i>
+                        <span>Leaderboard</span>
+                    </a>
+                </div>
+            </div>
+            <!-- Tools Section -->
+            <div class="nav-section">
+                <h3 class="nav-section-title">Tools</h3>
+                <div class="nav-items">
+                    <a href="#" class="nav-item" onclick="showFeedbackModal()">
+                        <i class="fas fa-comment-dots nav-icon"></i>
+                        <span>Feedback</span>
+                    </a>
+                    <a href="#" class="nav-item" onclick="exportToPDF()">
+                        <i class="fas fa-file-pdf nav-icon"></i>
+                        <span>Export Notes</span>
+                    </a>
+                </div>
+            </div>
+            <!-- User Section -->
+            <div class="user-section">
+                <div class="xp-container">
+                    <div class="xp-label">
+                        <i class="fas fa-star text-yellow-500"></i>
+                        <span>Your XP</span>
+                    </div>
+                    <div class="xp-value" id="userXP">0</div>
+                </div>
+                <div class="badges-container">
+                    <div class="badges-label">Badges</div>
+                    <div id="userBadges" class="badges-list">
+                        <!-- Badges will be loaded here -->
+                    </div>
+                </div>
+                <div class="user-info">
+                    <div class="user-details">
+                        <div class="user-name" id="userName">User</div>
+                        <div class="user-email" id="userEmail">user@example.com</div>
+                    </div>
+                    <button onclick="signOut()" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Daily Challenge -->
+            <div id="dailyChallenge" class="daily-challenge" style="display: none;">
+                <h3><i class="fas fa-calendar-day mr-2"></i> Daily Challenge</h3>
+                <p id="dailyChallengeQuestion">Loading daily challenge...</p>
+                <button onclick="showDailyChallengeModal()" class="btn btn-secondary transform transition-all duration-300 hover:scale-105">
+                    <i class="fas fa-play mr-2"></i>
+                    Take Challenge
+                </button>
+            </div>
+            <!-- Progress Tracker -->
+            <div class="content-card">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-bold text-gray-800">Your Progress</h3>
+                    <div class="text-xl font-bold text-indigo-600" id="progressPercentage">0%</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="overallProgressFill" style="width: 0%"></div>
+                </div>
+                <div class="grid grid-cols-4 gap-6 mt-6">
+                    <div class="text-center p-4 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105" id="progress-overview">
+                        <i class="fas fa-home text-gray-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
+                        <div class="text-sm font-medium text-gray-700">Overview</div>
+                        <div class="text-xs text-gray-500 mt-1">Not Started</div>
+                    </div>
+                    <div class="text-center p-4 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105" id="progress-elements">
+                        <i class="fas fa-th text-gray-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
+                        <div class="text-sm font-medium text-gray-700">Elements</div>
+                        <div class="text-xs text-gray-500 mt-1">Locked</div>
+                    </div>
+                    <div class="text-center p-4 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105" id="progress-properties">
+                        <i class="fas fa-chart-line text-gray-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
+                        <div class="text-sm font-medium text-gray-700">Properties</div>
+                        <div class="text-xs text-gray-500 mt-1">Locked</div>
+                    </div>
+                    <div class="text-center p-4 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105" id="progress-quiz">
+                        <i class="fas fa-graduation-cap text-gray-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
+                        <div class="text-sm font-medium text-gray-700">Quiz</div>
+                        <div class="text-xs text-gray-500 mt-1">Locked</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Quiz Section -->
+            <section id="quiz-section" class="content-section">
+                <div class="content-card">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                        <i class="fas fa-graduation-cap mr-3 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
+                        Test Your Knowledge
+                    </h3>
+                    <div class="bg-gradient-to-r from-indigo-50 to-purple-50 p-8 rounded-lg border-l-4 border-indigo-500 shadow-sm hover:shadow-md transition-shadow duration-300 mb-8">
+                        <div class="flex items-center mb-6">
+                            <i class="fas fa-info-circle text-indigo-600 text-3xl mr-4"></i>
+                            <div>
+                                <h4 class="font-semibold text-indigo-800">Quiz Instructions</h4>
+                                <p class="text-gray-700">This quiz contains 10 multiple-choice questions about Group 2 Alkaline Earth Metals. Take your time to answer each question carefully. You can navigate between questions using the Previous and Next buttons.</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                            <div class="bg-white p-5 rounded-lg shadow-sm">
+                                <div class="text-3xl font-bold text-indigo-600">10</div>
+                                <div class="text-sm text-gray-600">Questions</div>
+                            </div>
+                            <div class="bg-white p-5 rounded-lg shadow-sm">
+                                <div class="text-3xl font-bold text-indigo-600">5 min</div>
+                                <div class="text-sm text-gray-600">Time Limit</div>
+                            </div>
+                            <div class="bg-white p-5 rounded-lg shadow-sm">
+                                <div class="text-3xl font-bold text-indigo-600">80%</div>
+                                <div class="text-sm text-gray-600">Passing Score</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                        <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                            <h4 class="font-semibold text-green-800 mb-3 flex items-center">
+                                <i class="fas fa-trophy mr-2"></i> Rewards
+                            </h4>
+                            <ul class="space-y-3 text-gray-700">
+                                <li class="flex items-start">
+                                    <i class="fas fa-star text-yellow-500 mt-1 mr-3"></i>
+                                    <span>Earn up to 20 XP points</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-medal text-yellow-500 mt-1 mr-3"></i>
+                                    <span>Unlock "Quiz Master" badge with 80%+ score</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-certificate text-yellow-500 mt-1 mr-3"></i>
+                                    <span>Get completion certificate</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                            <h4 class="font-semibold text-blue-800 mb-3 flex items-center">
+                                <i class="fas fa-lightbulb mr-2"></i> Tips
+                            </h4>
+                            <ul class="space-y-3 text-gray-700">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                    <span>Review all sections before attempting</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                    <span>Pay attention to trends down the group</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                    <span>Remember the exceptions (like beryllium's reactivity)</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button onclick="startQuiz()" class="btn btn-primary transform transition-all duration-300 hover:scale-105">
+                            <i class="fas fa-play mr-2"></i>
+                            Start Quiz
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <!-- Feedback Button -->
+        <button class="feedback-button" onclick="showFeedbackModal()" title="Leave Feedback">
+            <i class="fas fa-comment-alt"></i>
+        </button>
+    </div>
+
+    <!-- Quiz Modal -->
+    <div id="quizModal" class="modal quiz-modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-gray-800">Group 2 Quiz</h2>
+                <button onclick="closeQuiz()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div id="quizProgress" class="mb-6">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-sm text-gray-600">Question <span id="currentQuestion">1</span> of <span id="totalQuestions">10</span></span>
+                    <span class="text-sm text-gray-600">Score: <span id="currentScore">0</span></span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 10%"></div>
+                </div>
+            </div>
+            <div id="quizContent">
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold mb-5" id="questionText">Loading question...</h3>
+                    <div id="optionsContainer"></div>
+                </div>
+                <div id="feedback" class="hidden mb-5 p-4 rounded-lg text-sm"></div>
+                <div class="flex justify-between items-center">
+                    <button id="prevButton" class="btn btn-secondary hidden" onclick="previousQuestion()">
+                        <i class="fas fa-arrow-left"></i>
+                        Previous
+                    </button>
+                    <div class="flex gap-3">
+                        <button id="submitButton" class="btn btn-primary" onclick="submitAnswer()">
+                            Submit Answer
+                        </button>
+                        <button id="nextButton" class="btn btn-primary hidden" onclick="nextQuestion()">
+                            Next
+                            <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="quizResults" class="hidden text-center">
+                <i class="fas fa-trophy text-5xl text-yellow-500 mb-6"></i>
+                <h3 class="text-2xl font-bold mb-4">Quiz Complete!</h3>
+                <div class="text-4xl font-bold text-indigo-600 mb-4" id="finalScore">0/10</div>
+                <p class="text-gray-600 mb-8" id="scoreMessage">Great job!</p>
+                <button onclick="closeQuiz()" class="btn btn-primary transform transition-all duration-300 hover:scale-105">
+                    <i class="fas fa-check"></i>
+                    Finish
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback Modal -->
+    <div id="feedbackModal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-800">Send Feedback</h2>
+                <button onclick="closeFeedbackModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <form id="feedbackForm" class="space-y-5" onsubmit="handleFeedback(event)">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Your Feedback</label>
+                    <textarea id="feedbackText" class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 form-textarea" placeholder="What do you think about this app?" required></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Rate your experience</label>
+                    <div class="reaction-buttons">
+                        <button type="button" class="reaction-btn" id="thumbsDownBtn" onclick="setFeedbackRating(1)">
+                            <i class="fas fa-thumbs-down"></i>
+                            <span>Thumbs Down</span>
+                        </button>
+                        <button type="button" class="reaction-btn" id="thumbsUpBtn" onclick="setFeedbackRating(2)">
+                            <i class="fas fa-thumbs-up"></i>
+                            <span>Thumbs Up</span>
+                        </button>
+                    </div>
+                    <input type="hidden" id="feedbackRating" value="0">
+                </div>
+                <button type="submit" class="btn btn-primary w-full transform transition-all duration-300 hover:scale-105">
+                    <i class="fas fa-paper-plane mr-2"></i>
+                    Send Feedback
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Daily Challenge Modal -->
+    <div id="dailyChallengeModal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-800">Daily Challenge</h2>
+                <button onclick="closeDailyChallengeModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-4" id="dailyChallengeQuestionText">Loading daily challenge...</h3>
+                <div id="dailyChallengeOptions"></div>
+            </div>
+            <div id="dailyChallengeFeedback" class="hidden mb-5 p-4 rounded-lg text-sm"></div>
+            <div class="flex justify-between items-center">
+                <button onclick="closeDailyChallengeModal()" class="btn btn-secondary transform transition-all duration-300 hover:scale-105">
+                    Skip
+                </button>
+                <button id="dailyChallengeSubmitBtn" class="btn btn-primary transform transition-all duration-300 hover:scale-105" onclick="submitDailyChallenge()">
+                    Submit Answer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer"></div>
+
+    <!-- External Scripts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

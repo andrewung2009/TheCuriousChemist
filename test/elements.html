@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elements - Group 2 Alkaline Earth Metals</title>
+    <meta name="description" content="Explore the elements of Group 2 Alkaline Earth Metals">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="https://andrewung2009.github.io/TheCuriousChemist/TheCuriousChemist.png">
+</head>
+<body>
+    <!-- Main App -->
+    <div id="mainApp">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <i class="fas fa-atom text-indigo-600 text-2xl mr-3 transform transition-all duration-300 hover:rotate-180"></i>
+                    <div>
+                        <h1 class="text-xl font-bold text-gray-800">Group 2 Alkaline Earth Metals</h1>
+                        <p class="text-sm text-gray-600">Chemistry</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Search Bar -->
+            <div class="search-container">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search content...">
+                </div>
+            </div>
+            <!-- Main Navigation -->
+            <div class="nav-section">
+                <h3 class="nav-section-title">Learning Path</h3>
+                <div class="nav-items">
+                    <a href="overview.html" class="nav-item" id="nav-overview">
+                        <i class="fas fa-home nav-icon"></i>
+                        <span>Overview</span>
+                        <i class="fas fa-check nav-check"></i>
+                    </a>
+                    <a href="elements.html" class="nav-item active" id="nav-elements">
+                        <i class="fas fa-th nav-icon"></i>
+                        <span>Elements</span>
+                        <i class="fas fa-check nav-check"></i>
+                    </a>
+                    <a href="properties.html" class="nav-item locked" id="nav-properties">
+                        <i class="fas fa-chart-line nav-icon"></i>
+                        <span>Properties</span>
+                        <i class="fas fa-lock nav-lock"></i>
+                        <i class="fas fa-check nav-check"></i>
+                    </a>
+                    <a href="reactions.html" class="nav-item locked" id="nav-reactions">
+                        <i class="fas fa-flask nav-icon"></i>
+                        <span>Reactions</span>
+                        <i class="fas fa-lock nav-lock"></i>
+                        <i class="fas fa-check nav-check"></i>
+                    </a>
+                    <a href="quiz.html" class="nav-item locked" id="nav-quiz">
+                        <i class="fas fa-graduation-cap nav-icon"></i>
+                        <span>Quiz</span>
+                        <i class="fas fa-lock nav-lock"></i>
+                        <i class="fas fa-check nav-check"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- Community Section -->
+            <div class="nav-section">
+                <h3 class="nav-section-title">Community</h3>
+                <div class="nav-items">
+                    <a href="discussion.html" class="nav-item" id="nav-discussion">
+                        <i class="fas fa-comments nav-icon"></i>
+                        <span>Discussion</span>
+                        <span class="nav-badge">3</span>
+                    </a>
+                    <a href="study-groups.html" class="nav-item" id="nav-study-groups">
+                        <i class="fas fa-users nav-icon"></i>
+                        <span>Study Groups</span>
+                        <span class="nav-badge">2</span>
+                    </a>
+                    <a href="leaderboard.html" class="nav-item" id="nav-leaderboard">
+                        <i class="fas fa-trophy nav-icon"></i>
+                        <span>Leaderboard</span>
+                    </a>
+                </div>
+            </div>
+            <!-- Tools Section -->
+            <div class="nav-section">
+                <h3 class="nav-section-title">Tools</h3>
+                <div class="nav-items">
+                    <a href="#" class="nav-item" onclick="showFeedbackModal()">
+                        <i class="fas fa-comment-dots nav-icon"></i>
+                        <span>Feedback</span>
+                    </a>
+                    <a href="#" class="nav-item" onclick="exportToPDF()">
+                        <i class="fas fa-file-pdf nav-icon"></i>
+                        <span>Export Notes</span>
+                    </a>
+                </div>
+            </div>
+            <!-- User Section -->
+            <div class="user-section">
+                <div class="xp-container">
+                    <div class="xp-label">
+                        <i class="fas fa-star text-yellow-500"></i>
+                        <span>Your XP</span>
+                    </div>
+                    <div class="xp-value" id="userXP">0</div>
+                </div>
+                <div class="badges-container">
+                    <div class="badges-label">Badges</div>
+                    <div id="userBadges" class="badges-list">
+                        <!-- Badges will be loaded here -->
+                    </div>
+                </div>
+                <div class="user-info">
+                    <div class="user-details">
+                        <div class="user-name" id="userName">User</div>
+                        <div class="user-email" id="userEmail">user@example.com</div>
+                    </div>
+                    <button onclick="signOut()" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Daily Challenge -->
+            <div id="dailyChallenge" class="daily-challenge" style="display: none;">
+                <h3><i class="fas fa-calendar-day mr-2"></i> Daily Challenge</h3>
+                <p id="dailyChallengeQuestion">Loading daily challenge...</p>
+                <button onclick="showDailyChallengeModal()" class="btn btn-secondary transform transition-all duration-300 hover:scale-105">
+                    <i class="fas fa-play mr-2"></i>
+                    Take Challenge
+                </button>
+            </div>
+            <!-- Progress Tracker -->
+            <div class="content-card">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-bold text-gray-800">Your Progress</h3>
+                    <div class="text-xl font-bold text-indigo-600" id="progressPercentage">0%</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="overallProgressFill" style="width: 0%"></div>
+                </div>
+                <div class="grid grid-cols-4 gap-6 mt-6">
+                    <div class="text-center p-4 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105" id="progress-overview">
+                        <i class="fas fa-home text-gray-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
+                        <div class="text-sm font-medium text-gray-700">Overview</div>
+                        <div class="text-xs text-gray-500 mt-1">Not Started</div>
+                    </div>
+                    <div class="text-center p-4 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105" id="progress-elements">
+                        <i class="fas fa-th text-gray-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
+                        <div class="text-sm font-medium text-gray-700">Elements</div>
+                        <div class="text-xs text-gray-500 mt-1">Locked</div>
+                    </div>
+                    <div class="text-center p-4 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105" id="progress-properties">
+                        <i class="fas fa-chart-line text-gray-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
+                        <div class="text-sm font-medium text-gray-700">Properties</div>
+                        <div class="text-xs text-gray-500 mt-1">Locked</div>
+                    </div>
+                    <div class="text-center p-4 bg-gray-100 rounded-lg transform transition-all duration-300 hover:scale-105" id="progress-quiz">
+                        <i class="fas fa-graduation-cap text-gray-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
+                        <div class="text-sm font-medium text-gray-700">Quiz</div>
+                        <div class="text-xs text-gray-500 mt-1">Locked</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Elements Section -->
+            <section id="elements-section" class="content-section">
+                <div class="content-card">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                        <i class="fas fa-th mr-3 text-indigo-600 transform transition-all duration-300 hover:scale-110"></i>
+                        Group 2 Elements
+                    </h3>
+                    <!-- Interactive Periodic Table -->
+                    <div class="mb-8">
+                        <h4 class="font-semibold mb-3">Interactive Periodic Table</h4>
+                        <div class="periodic-table">
+                            <!-- Simplified periodic table with Group 2 highlighted -->
+                            <div class="element group2" data-element="Be" onclick="showElementDetails('Beryllium', 'Be', 4, '2,2')">
+                                <span class="element-number">4</span>
+                                <span class="element-symbol">Be</span>
+                                <span class="element-name">Beryllium</span>
+                            </div>
+                            <div class="element" data-element="Mg" onclick="showElementDetails('Magnesium', 'Mg', 12, '2,8,2')">
+                                <span class="element-number">12</span>
+                                <span class="element-symbol">Mg</span>
+                                <span class="element-name">Magnesium</span>
+                            </div>
+                            <div class="element" data-element="Ca" onclick="showElementDetails('Calcium', 'Ca', 20, '2,8,8,2')">
+                                <span class="element-number">20</span>
+                                <span class="element-symbol">Ca</span>
+                                <span class="element-name">Calcium</span>
+                            </div>
+                            <div class="element" data-element="Sr" onclick="showElementDetails('Strontium', 'Sr', 38, '2,8,18,8,2')">
+                                <span class="element-number">38</span>
+                                <span class="element-symbol">Sr</span>
+                                <span class="element-name">Strontium</span>
+                            </div>
+                            <div class="element" data-element="Ba" onclick="showElementDetails('Barium', 'Ba', 56, '2,8,18,18,8,2')">
+                                <span class="element-number">56</span>
+                                <span class="element-symbol">Ba</span>
+                                <span class="element-name">Barium</span>
+                            </div>
+                            <div class="element" data-element="Ra" onclick="showElementDetails('Radium', 'Ra', 88, '2,8,18,32,18,8,2')">
+                                <span class="element-number">88</span>
+                                <span class="element-symbol">Ra</span>
+                                <span class="element-name">Radium</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Element Details Modal -->
+                    <div id="elementDetailsModal" class="modal">
+                        <div class="modal-content">
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-2xl font-bold text-gray-800" id="elementDetailsName">Element Details</h2>
+                                <button onclick="closeElementDetails()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
+                                    <i class="fas fa-times text-xl"></i>
+                                </button>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <div class="bg-gray-100 p-5 rounded-lg mb-5">
+                                        <h3 class="font-semibold text-gray-800 mb-3">Atomic Information</h3>
+                                        <p><strong>Symbol:</strong> <span id="elementDetailsSymbol"></span></p>
+                                        <p><strong>Atomic Number:</strong> <span id="elementDetailsNumber"></span></p>
+                                        <p><strong>Electron Configuration:</strong> <span id="elementDetailsConfig"></span></p>
+                                    </div>
+                                    <div class="bg-gray-100 p-5 rounded-lg">
+                                        <h3 class="font-semibold text-gray-800 mb-3">Properties</h3>
+                                        <p><strong>Melting Point:</strong> <span id="elementDetailsMP"></span></p>
+                                        <p><strong>Density:</strong> <span id="elementDetailsDensity"></span></p>
+                                        <p><strong>Reactivity:</strong> <span id="elementDetailsReactivity"></span></p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="bg-gray-100 p-5 rounded-lg mb-5">
+                                        <h3 class="font-semibold text-gray-800 mb-3">Uses</h3>
+                                        <p id="elementDetailsUses"></p>
+                                    </div>
+                                    <div class="bg-gray-100 p-5 rounded-lg">
+                                        <h3 class="font-semibold text-gray-800 mb-3">Fun Fact</h3>
+                                        <p id="elementDetailsFact"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-blue-50 p-5 rounded-lg border-l-4 border-blue-500">
+                                <h3 class="font-semibold text-blue-800 mb-3">Quick Quiz</h3>
+                                <p id="elementDetailsQuizQuestion"></p>
+                                <div id="elementDetailsQuizOptions" class="mt-3 space-y-2"></div>
+                                <div id="elementDetailsQuizFeedback" class="mt-3 p-3 rounded-lg hidden"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="element-grid">
+                        <div class="element-card" onclick="showElementDetails('Beryllium', 'Be', 4, '2,2')">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Beryllium_crystal_bar_and_1cm3_cube.jpg/1200px-Beryllium_crystal_bar_and_1cm3_cube.jpg" alt="Beryllium" class="element-image">
+                            <h4 class="font-bold text-lg">Beryllium (Be)</h4>
+                            <p class="text-sm text-gray-600">Atomic: 4</p>
+                            <p class="text-sm text-gray-600">Electron: 2,2</p>
+                            <div class="text-xs text-gray-500 mt-2">Lightest structural metal, used in aerospace</div>
+                        </div>
+                        <div class="element-card" onclick="showElementDetails('Magnesium', 'Mg', 12, '2,8,2')">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Magnesium_crystal_and_1cm3_cube.jpg/1200px-Magnesium_crystal_and_1cm3_cube.jpg" alt="Magnesium" class="element-image">
+                            <h4 class="font-bold text-lg">Magnesium (Mg)</h4>
+                            <p class="text-sm text-gray-600">Atomic: 12</p>
+                            <p class="text-sm text-gray-600">Electron: 2,8,2</p>
+                            <div class="text-xs text-gray-500 mt-2">Bright white flame, essential for life</div>
+                        </div>
+                        <div class="element-card" onclick="showElementDetails('Calcium', 'Ca', 20, '2,8,8,2')">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Calcium_crystal_and_1cm3_cube.jpg/1200px-Calcium_crystal_and_1cm3_cube.jpg" alt="Calcium" class="element-image">
+                            <h4 class="font-bold text-lg">Calcium (Ca)</h4>
+                            <p class="text-sm text-gray-600">Atomic: 20</p>
+                            <p class="text-sm text-gray-600">Electron: 2,8,8,2</p>
+                            <div class="text-xs text-gray-500 mt-2">Brick-red flame, bones and teeth</div>
+                        </div>
+                        <div class="element-card" onclick="showElementDetails('Strontium', 'Sr', 38, '2,8,18,8,2')">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Strontium_crystal_and_1cm3_cube.jpg/1200px-Strontium_crystal_and_1cm3_cube.jpg" alt="Strontium" class="element-image">
+                            <h4 class="font-bold text-lg">Strontium (Sr)</h4>
+                            <p class="text-sm text-gray-600">Atomic: 38</p>
+                            <p class="text-sm text-gray-600">Electron: 2,8,18,8,2</p>
+                            <div class="text-xs text-gray-500 mt-2">Crimson flame, fireworks</div>
+                        </div>
+                        <div class="element-card" onclick="showElementDetails('Barium', 'Ba', 56, '2,8,18,18,8,2')">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Barium_crystal_and_1cm3_cube.jpg/1200px-Barium_crystal_and_1cm3_cube.jpg" alt="Barium" class="element-image">
+                            <h4 class="font-bold text-lg">Barium (Ba)</h4>
+                            <p class="text-sm text-gray-600">Atomic: 56</p>
+                            <p class="text-sm text-gray-600">Electron: 2,8,18,18,8,2</p>
+                            <div class="text-xs text-gray-500 mt-2">Green flame, medical imaging</div>
+                        </div>
+                        <div class="element-card" onclick="showElementDetails('Radium', 'Ra', 88, '2,8,18,32,18,8,2')">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Radium_crystal.jpg/1200px-Radium_crystal.jpg" alt="Radium" class="element-image">
+                            <h4 class="font-bold text-lg">Radium (Ra)</h4>
+                            <p class="text-sm text-gray-600">Atomic: 88</p>
+                            <p class="text-sm text-gray-600">Electron: 2,8,18,32,18,8,2</p>
+                            <div class="text-xs text-gray-500 mt-2">Radioactive, glow-in-the-dark</div>
+                        </div>
+                    </div>
+                    <div class="flex justify-center mt-6">
+                        <button id="elements-complete-btn" class="btn btn-success section-complete-btn transform transition-all duration-300 hover:scale-105" onclick="completeSection('elements')">
+                            <i class="fas fa-check mr-2"></i>
+                            Mark as Complete
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <!-- Feedback Button -->
+        <button class="feedback-button" onclick="showFeedbackModal()" title="Leave Feedback">
+            <i class="fas fa-comment-alt"></i>
+        </button>
+    </div>
+
+    <!-- Feedback Modal -->
+    <div id="feedbackModal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-800">Send Feedback</h2>
+                <button onclick="closeFeedbackModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <form id="feedbackForm" class="space-y-5" onsubmit="handleFeedback(event)">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Your Feedback</label>
+                    <textarea id="feedbackText" class="w-full px-5 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 form-textarea" placeholder="What do you think about this app?" required></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Rate your experience</label>
+                    <div class="reaction-buttons">
+                        <button type="button" class="reaction-btn" id="thumbsDownBtn" onclick="setFeedbackRating(1)">
+                            <i class="fas fa-thumbs-down"></i>
+                            <span>Thumbs Down</span>
+                        </button>
+                        <button type="button" class="reaction-btn" id="thumbsUpBtn" onclick="setFeedbackRating(2)">
+                            <i class="fas fa-thumbs-up"></i>
+                            <span>Thumbs Up</span>
+                        </button>
+                    </div>
+                    <input type="hidden" id="feedbackRating" value="0">
+                </div>
+                <button type="submit" class="btn btn-primary w-full transform transition-all duration-300 hover:scale-105">
+                    <i class="fas fa-paper-plane mr-2"></i>
+                    Send Feedback
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Daily Challenge Modal -->
+    <div id="dailyChallengeModal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-800">Daily Challenge</h2>
+                <button onclick="closeDailyChallengeModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-4" id="dailyChallengeQuestionText">Loading daily challenge...</h3>
+                <div id="dailyChallengeOptions"></div>
+            </div>
+            <div id="dailyChallengeFeedback" class="hidden mb-5 p-4 rounded-lg text-sm"></div>
+            <div class="flex justify-between items-center">
+                <button onclick="closeDailyChallengeModal()" class="btn btn-secondary transform transition-all duration-300 hover:scale-105">
+                    Skip
+                </button>
+                <button id="dailyChallengeSubmitBtn" class="btn btn-primary transform transition-all duration-300 hover:scale-105" onclick="submitDailyChallenge()">
+                    Submit Answer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Question Modal -->
+    <div id="quizQuestionModal" class="modal quiz-question-modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-800" id="quizQuestionTitle">Quick Quiz</h2>
+                <button onclick="closeQuizQuestionModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="mb-8">
+                <div class="quiz-question" id="quizQuestionText">Loading question...</div>
+                <div id="quizQuestionAnswers"></div>
+                <div id="quizQuestionFeedback" class="quiz-feedback hidden"></div>
+            </div>
+            <div class="flex justify-end">
+                <button onclick="closeQuizQuestionModal()" class="btn btn-secondary mr-3 transform transition-all duration-300 hover:scale-105">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer"></div>
+
+    <!-- External Scripts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
