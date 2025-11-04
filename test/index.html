@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group 2 Alkaline Earth Metals - Chemistry</title>
+    <meta name="description" content="Interactive learning platform for mastering Group 2 Alkaline Earth Metals in chemistry">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="https://andrewung2009.github.io/TheCuriousChemist/TheCuriousChemist.png">
+</head>
+<body>
+    <!-- Landing Page -->
+    <div id="landingPage" class="min-h-screen flex items-center justify-center p-6">
+        <div class="bg-white rounded-2xl p-8 max-w-2xl w-full text-center shadow-2xl transform transition-all duration-500 hover:scale-105">
+            <div class="text-6xl mb-6 text-indigo-600 animate-pulse">
+                <i class="fas fa-atom"></i>
+            </div>
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">Group 2 Alkaline Earth Metals</h1>
+            <p class="text-lg text-gray-600 mb-8">Master Chemistry through Interactive Learning</p>
+            <div class="grid grid-cols-3 gap-8 mb-8">
+                <div class="bg-blue-50 p-6 rounded-xl transform transition-all duration-300 hover:scale-110 hover:shadow-lg">
+                    <i class="fas fa-book-open text-3xl text-blue-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
+                    <h3 class="font-semibold">Learn</h3>
+                    <p class="text-sm text-gray-600">Interactive content</p>
+                </div>
+                <div class="bg-green-50 p-6 rounded-xl transform transition-all duration-300 hover:scale-110 hover:shadow-lg">
+                    <i class="fas fa-chart-line text-3xl text-green-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
+                    <h3 class="font-semibold">Track</h3>
+                    <p class="text-sm text-gray-600">Progress monitoring</p>
+                </div>
+                <div class="bg-purple-50 p-6 rounded-xl transform transition-all duration-300 hover:scale-110 hover:shadow-lg">
+                    <i class="fas fa-graduation-cap text-3xl text-purple-600 mb-3 transform transition-all duration-300 hover:scale-110"></i>
+                    <h3 class="font-semibold">Test</h3>
+                    <p class="text-sm text-gray-600">Innovative quiz</p>
+                </div>
+            </div>
+            <div class="space-y-6">
+                <button onclick="showLoginModal()" class="btn btn-primary w-full transform transition-all duration-300 hover:scale-105">
+                    <i class="fas fa-sign-in-alt mr-2"></i>
+                    Sign In to Begin
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-800">Welcome to Chemistry Mastery</h2>
+                <button onclick="closeLoginModal()" class="text-gray-500 hover:text-gray-700 transform transition-all duration-300 hover:scale-110">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="mb-8">
+                <button onclick="signInWithGoogle()" class="google-signin-btn">
+                    <i class="fab fa-google"></i>
+                    Sign in with Google
+                </button>
+            </div>
+            <div class="text-center text-gray-600">
+                <p>By signing in, you agree to our Terms of Service and Privacy Policy.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer"></div>
+
+    <!-- External Scripts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
