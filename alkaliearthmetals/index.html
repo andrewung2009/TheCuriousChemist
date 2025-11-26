@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6139,7 +6140,21 @@ function completeSection(sectionName) {
         badgeEarned = true;
     }
     
-    // Save to Firebase
+    // Update UI IMMEDIATELY for better UX
+    updateSectionCompletionStatus();
+    updateProgressTracker();
+    updateSectionButtons();
+    
+    // Show immediate success feedback
+    showToast('success', 'Section Complete!', `Great job! You've completed this section and earned ${xpAwarded} XP.`);
+    
+    if (badgeEarned) {
+        setTimeout(() => {
+            showToast('success', 'Badge Earned!', `You've earned a new badge: ${newBadges[newBadges.length - 1]}`);
+        }, 500);
+    }
+    
+    // Save to Firebase (after UI update)
     if (currentUser && userData) {
         const userRef = group2MetalsRef.child('users').child(currentUser.uid);
         const updates = {
@@ -6151,7 +6166,7 @@ function completeSection(sectionName) {
             updates.badges = newBadges;
         }
         
-        // Use set instead of update to ensure the data is saved correctly
+        // Use set instead of update to ensure data is saved correctly
         userRef.set({
             ...userData,
             ...updates
@@ -6176,55 +6191,66 @@ function completeSection(sectionName) {
                 console.log("Sound playback failed:", e);
             }
             
-            showToast('success', 'Section Complete!', `Great job! You've completed this section and earned ${xpAwarded} XP.`);
-            
-            if (badgeEarned) {
-                showToast('success', 'Badge Earned!', `You've earned a new badge: ${newBadges[newBadges.length - 1]}`);
-            }
-            
-            updateSectionCompletionStatus();
-            updateProgressTracker();
-            updateSectionButtons();
-            
             // Navigate to next section if available
             const sectionOrder = ['overview', 'elements', 'properties', 'reactions', 'quiz'];
             const currentIndex = sectionOrder.indexOf(sectionName);
             if (currentIndex < sectionOrder.length - 1) {
                 const nextSection = sectionOrder[currentIndex + 1];
-                navigateToSection(nextSection);
+                setTimeout(() => {
+                    navigateToSection(nextSection);
+                }, 1500); // Delay to show success message
             }
         }).catch((error) => {
             console.error("Error saving progress:", error);
             
-            // Try an alternative approach if the first one fails
-            userRef.update(updates).then(() => {
-                // Update local userData
-                userData.completedSections = completedSections;
-                userData.xp = newXp;
-                if (badgeEarned) {
-                    userData.badges = newBadges;
-                }
-                
-                updateUserXP();
-                updateUserBadges();
-                
-                showToast('success', 'Section Complete!', `Great job! You've completed this section and earned ${xpAwarded} XP.`);
-                
-                updateSectionCompletionStatus();
-                updateProgressTracker();
-                updateSectionButtons();
-            }).catch((updateError) => {
-                console.error("Error with alternative save:", updateError);
-                showToast('error', 'Error', 'Failed to save your progress. Please try again.');
-                
-                // Revert the local changes if save failed
-                completedSections = completedSections.filter(section => section !== sectionName);
-            });
+            // Revert UI changes if save failed
+            completedSections = completedSections.filter(section => section !== sectionName);
+            updateSectionCompletionStatus();
+            updateProgressTracker();
+            updateSectionButtons();
+            
+            showToast('error', 'Error', 'Failed to save your progress. Please try again.');
         });
     } else {
         showToast('error', 'Error', 'You must be signed in to save progress.');
     }
 }
+document.addEventListener('DOMContentLoaded', function() {
+    // Ensure nav items have initial proper styling
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        // Set initial styles
+        item.style.transition = 'all 0.3s ease';
+    });
+    
+    // Initialize progress items with proper icons
+    const progressItems = document.querySelectorAll('.progress-tracker > div');
+    progressItems.forEach((item, index) => {
+        const icon = item.querySelector('i');
+        if (icon) {
+            // Set initial icon classes
+            icon.className = 'fas mb-3 transform transition-all duration-300 hover:scale-110 text-gray-600';
+            
+            const sections = ['overview', 'elements', 'properties', 'quiz'];
+            const section = sections[index];
+            
+            switch(section) {
+                case 'overview':
+                    icon.classList.add('fa-home');
+                    break;
+                case 'elements':
+                    icon.classList.add('fa-th');
+                    break;
+                case 'properties':
+                    icon.classList.add('fa-chart-line');
+                    break;
+                case 'quiz':
+                    icon.classList.add('fa-graduation-cap');
+                    break;
+            }
+        }
+    });
+});
 
 function unmarkSectionComplete(sectionName) {
     // Remove from completed sections
@@ -6239,7 +6265,7 @@ function unmarkSectionComplete(sectionName) {
     if (currentUser && userData) {
         const userRef = group2MetalsRef.child('users').child(currentUser.uid);
         
-        // Use set instead of update to ensure the data is saved correctly
+        // Use set instead of update to ensure data is saved correctly
         userRef.set({
             ...userData,
             completedSections: completedSections
@@ -6263,7 +6289,7 @@ function unmarkSectionComplete(sectionName) {
                 console.error("Error with alternative update:", updateError);
                 showToast('error', 'Error', 'Failed to update your progress. Please try again.');
                 
-                // Revert the local changes if update failed
+                // Revert local changes if update failed
                 completedSections.push(sectionName);
                 updateSectionCompletionStatus();
                 updateProgressTracker();
@@ -6282,83 +6308,120 @@ function updateSectionButtons() {
     sections.forEach(section => {
         const button = document.getElementById(`${section}-complete-btn`);
         if (button) {
+            // Remove existing event listeners
+            const newButton = button.cloneNode(true);
+            button.parentNode.replaceChild(newButton, button);
+            
             if (completedSections.includes(section)) {
-                button.innerHTML = '<i class="fas fa-times mr-2"></i>Unmark as Complete';
-                button.classList.remove('btn-success');
-                button.classList.add('btn-unmark');
-                button.setAttribute('onclick', `completeSection('${section}')`);
+                newButton.innerHTML = '<i class="fas fa-times mr-2"></i>Unmark as Complete';
+                newButton.classList.remove('btn-success');
+                newButton.classList.add('btn-unmark');
+                
+                // Add event listener for unmarking
+                newButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    unmarkSectionComplete(section);
+                });
             } else {
-                button.innerHTML = '<i class="fas fa-check mr-2"></i>Mark as Complete';
-                button.classList.remove('btn-unmark');
-                button.classList.add('btn-success');
-                button.setAttribute('onclick', `completeSection('${section}')`);
+                newButton.innerHTML = '<i class="fas fa-check mr-2"></i>Mark as Complete';
+                newButton.classList.remove('btn-unmark');
+                newButton.classList.add('btn-success');
+                
+                // Add event listener for marking
+                newButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    completeSection(section);
+                });
             }
         }
     });
 }
+// 3. Initialize the buttons properly when the app loads
+window.addEventListener('DOMContentLoaded', function() {
+    // Make sure buttons are properly set up after login
+    if (currentUser && userData) {
+        updateSectionButtons();
+    }
+});
 
 // Enhanced updateSectionCompletionStatus function
 function updateSectionCompletionStatus() {
-    // Update nav items
-    const navItems = document.querySelectorAll('.nav-item');
-    navItems.forEach(item => {
+    // Create a map for quick lookup of completed status
+    const completedMap = {};
+    completedSections.forEach(section => {
+        completedMap[section] = true;
+    });
+    
+    // Define the order of sections to handle unlocking logic correctly
+    const sectionOrder = ['overview', 'elements', 'properties', 'reactions', 'quiz'];
+    
+    // First, reset all nav items to their default (incomplete) state
+    const allNavItems = document.querySelectorAll('.nav-item');
+    allNavItems.forEach(item => {
         const section = item.id.replace('nav-', '');
-        if (completedSections.includes(section)) {
-            item.classList.remove('locked');
-            item.classList.add('completed');
-        } else {
-            item.classList.remove('completed');
+        
+        // Remove completed/locked classes as a baseline
+        item.classList.remove('completed', 'locked');
+        
+        // Reset inline styles
+        item.style.background = '';
+        item.style.borderLeft = '';
+        item.style.color = '';
+        
+        // Reset icons to default state
+        const checkIcon = item.querySelector('.nav-check');
+        const lockIcon = item.querySelector('.nav-lock');
+        
+        if (checkIcon) {
+            checkIcon.style.opacity = '0';
+            checkIcon.style.color = '';
+        }
+        
+        if (lockIcon) {
+            lockIcon.style.opacity = '1';
+            lockIcon.style.color = '';
         }
     });
     
-    // Unlock next sections
-    const sectionOrder = ['overview', 'elements', 'properties', 'reactions', 'quiz'];
+    // Now, apply styles for completed sections
+    completedSections.forEach(section => {
+        const navItem = document.getElementById(`nav-${section}`);
+        if (navItem) {
+            // Add 'completed' class and apply green styles
+            navItem.classList.add('completed');
+            navItem.style.background = 'linear-gradient(90deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05))';
+            navItem.style.borderLeft = '4px solid #10b981';
+            navItem.style.color = '#10b981';
+            
+            // Show checkmark and hide lock
+            const checkIcon = navItem.querySelector('.nav-check');
+            const lockIcon = navItem.querySelector('.nav-lock');
+            
+            if (checkIcon) {
+                checkIcon.style.opacity = '1';
+                checkIcon.style.color = '#10b981';
+            }
+            
+            if (lockIcon) {
+                lockIcon.style.opacity = '0';
+            }
+        }
+    });
+    
+    // Finally, handle unlocking the next section in the sequence
     sectionOrder.forEach((section, index) => {
         if (completedSections.includes(section) && index < sectionOrder.length - 1) {
             const nextSection = sectionOrder[index + 1];
             const nextNavItem = document.getElementById(`nav-${nextSection}`);
-            if (nextNavItem) {
-                nextNavItem.classList.remove('locked');
-            }
-        }
-    });
-    
-    // Check if all sections are completed to unlock quiz
-    const allSectionsCompleted = ['overview', 'elements', 'properties', 'reactions'].every(section => 
-        completedSections.includes(section)
-    );
-    
-    if (allSectionsCompleted) {
-        const quizNavItem = document.getElementById('nav-quiz');
-        if (quizNavItem) {
-            quizNavItem.classList.remove('locked');
-        }
-    }
-    
-    // Update progress items
-    const sections = ['overview', 'elements', 'properties', 'quiz'];
-    sections.forEach(section => {
-        const progressItem = document.getElementById(`progress-${section}`);
-        if (progressItem) {
-            const statusElement = progressItem.querySelector('.text-xs');
             
-            if (completedSections.includes(section)) {
-                progressItem.classList.add('bg-green-100');
-                statusElement.textContent = 'Completed';
-                statusElement.classList.remove('text-gray-500');
-                statusElement.classList.add('text-green-600');
-            } else if (section === 'quiz' && completedSections.length === 4) {
-                progressItem.classList.remove('bg-gray-100');
-                progressItem.classList.add('bg-blue-100');
-                statusElement.textContent = 'Available';
-                statusElement.classList.remove('text-gray-500');
-                statusElement.classList.add('text-blue-600');
+            // Only unlock if the next section hasn't been completed yet
+            if (nextNavItem && !completedSections.includes(nextSection)) {
+                nextNavItem.classList.remove('locked');
+                // No special styling needed for unlocked but incomplete items
             }
         }
     });
-}
-
-// Enhanced updateProgressTracker function
+}// Enhanced updateProgressTracker function
 function updateProgressTracker() {
     const totalSections = 4; // overview, elements, properties, reactions
     const completedCount = completedSections.length;
