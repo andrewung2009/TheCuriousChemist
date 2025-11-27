@@ -5748,13 +5748,25 @@ const graphQuizQuestions = [
 
 // Initialize app
 function initApp() {
-    // Check authentication state
+    // Check authentication state but don't require it
     auth.onAuthStateChanged((user) => {
         if (user) {
             currentUser = user;
             loadUserData();
         } else {
-            showLandingPage();
+            // Create a guest user profile
+            currentUser = null;
+            userData = {
+                uid: 'guest-' + Math.random().toString(36).substr(2, 9),
+                displayName: 'Guest User',
+                email: 'guest@example.com',
+                completedSections: [],
+                savedPosts: [],
+                xp: 0,
+                badges: [],
+                createdAt: new Date().toISOString()
+            };
+            showMainApp();
         }
     });
     
@@ -5798,7 +5810,6 @@ function initApp() {
         }
     });
 }
-
 // Navigation functions
 function navigateToSection(sectionName) {
     // Check if section is locked
@@ -5853,8 +5864,8 @@ function showMainApp() {
     document.getElementById('mainApp').style.display = 'block';
     
     // Update user info
-    document.getElementById('userName').textContent = userData.displayName || 'User';
-    document.getElementById('userEmail').textContent = currentUser.email || 'user@example.com';
+    document.getElementById('userName').textContent = userData.displayName || 'Guest User';
+    document.getElementById('userEmail').textContent = currentUser ? (currentUser.email || 'user@example.com') : 'Not signed in';
     
     // Update XP and badges
     updateUserXP();
@@ -5871,8 +5882,24 @@ function showMainApp() {
     
     // Check for daily challenge
     checkDailyChallenge();
+    
+    // Show a sign-in prompt in the sidebar for guest users
+    if (!currentUser) {
+        const userSection = document.querySelector('.user-section');
+        if (userSection) {
+            const signInPrompt = document.createElement('div');
+            signInPrompt.className = 'mt-4 p-3 bg-blue-50 rounded-lg text-center';
+            signInPrompt.innerHTML = `
+                <p class="text-sm text-blue-800 mb-2">Sign in to save your progress and unlock all features</p>
+                <button onclick="showLoginModal()" class="btn btn-primary btn-sm">
+                    <i class="fas fa-sign-in-alt mr-2"></i>
+                    Sign In
+                </button>
+            `;
+            userSection.appendChild(signInPrompt);
+        }
+    }
 }
-
 // Load user data from Firebase
 function loadUserData() {
     const userRef = group2MetalsRef.child('users').child(currentUser.uid);
@@ -5908,10 +5935,15 @@ function loadUserData() {
 
 // Show landing page
 function showLandingPage() {
-    document.getElementById('landingPage').style.display = 'flex';
-    document.getElementById('mainApp').style.display = 'none';
+    // Instead of showing landing page, show the main app directly
+    showMainApp();
+    
+    // Show a welcome toast for first-time visitors
+    if (!localStorage.getItem('visitedBefore')) {
+        showToast('info', 'Welcome!', 'You can explore all content without signing in. Sign in to save your progress.');
+        localStorage.setItem('visitedBefore', 'true');
+    }
 }
-
 // Update user XP display
 function updateUserXP() {
     const xp = userData.xp || 0;
@@ -6122,40 +6154,35 @@ function completeSection(sectionName) {
     
     completedSections.push(sectionName);
     
-    // Award XP
-    const xpAwarded = 10;
-    const newXp = (userData.xp || 0) + xpAwarded;
-    
-    // Check for badges
-    const newBadges = [...(userData.badges || [])];
-    let badgeEarned = false;
-    
-    if (completedSections.length === 1 && !newBadges.includes('First Steps')) {
-        newBadges.push('First Steps');
-        badgeEarned = true;
-    }
-    
-    if (completedSections.length === 4 && !newBadges.includes('Metal Master')) {
-        newBadges.push('Metal Master');
-        badgeEarned = true;
-    }
-    
     // Update UI IMMEDIATELY for better UX
     updateSectionCompletionStatus();
     updateProgressTracker();
     updateSectionButtons();
     
     // Show immediate success feedback
-    showToast('success', 'Section Complete!', `Great job! You've completed this section and earned ${xpAwarded} XP.`);
+    showToast('success', 'Section Complete!', `Great job! You've completed this section.`);
     
-    if (badgeEarned) {
-        setTimeout(() => {
-            showToast('success', 'Badge Earned!', `You've earned a new badge: ${newBadges[newBadges.length - 1]}`);
-        }, 500);
-    }
-    
-    // Save to Firebase (after UI update)
+    // Save to Firebase only if user is logged in
     if (currentUser && userData) {
+        // Award XP
+        const xpAwarded = 10;
+        const newXp = (userData.xp || 0) + xpAwarded;
+        
+        // Check for badges
+        const newBadges = [...(userData.badges || [])];
+        let badgeEarned = false;
+        
+        if (completedSections.length === 1 && !newBadges.includes('First Steps')) {
+            newBadges.push('First Steps');
+            badgeEarned = true;
+        }
+        
+        if (completedSections.length === 4 && !newBadges.includes('Metal Master')) {
+            newBadges.push('Metal Master');
+            badgeEarned = true;
+        }
+        
+        // Save to Firebase
         const userRef = group2MetalsRef.child('users').child(currentUser.uid);
         const updates = {
             completedSections: completedSections,
@@ -6166,11 +6193,7 @@ function completeSection(sectionName) {
             updates.badges = newBadges;
         }
         
-        // Use set instead of update to ensure data is saved correctly
-        userRef.set({
-            ...userData,
-            ...updates
-        }).then(() => {
+        userRef.update(updates).then(() => {
             // Update local userData
             userData.completedSections = completedSections;
             userData.xp = newXp;
@@ -6202,20 +6225,25 @@ function completeSection(sectionName) {
             }
         }).catch((error) => {
             console.error("Error saving progress:", error);
-            
-            // Revert UI changes if save failed
-            completedSections = completedSections.filter(section => section !== sectionName);
-            updateSectionCompletionStatus();
-            updateProgressTracker();
-            updateSectionButtons();
-            
             showToast('error', 'Error', 'Failed to save your progress. Please try again.');
         });
     } else {
-        showToast('error', 'Error', 'You must be signed in to save progress.');
+        // For guest users, just show a message about signing in
+        setTimeout(() => {
+            showToast('info', 'Progress Not Saved', 'Sign in to save your progress and earn badges.');
+            
+            // Navigate to next section if available
+            const sectionOrder = ['overview', 'elements', 'properties', 'reactions', 'quiz'];
+            const currentIndex = sectionOrder.indexOf(sectionName);
+            if (currentIndex < sectionOrder.length - 1) {
+                const nextSection = sectionOrder[currentIndex + 1];
+                setTimeout(() => {
+                    navigateToSection(nextSection);
+                }, 1500);
+            }
+        }, 500);
     }
-}
-document.addEventListener('DOMContentLoaded', function() {
+}document.addEventListener('DOMContentLoaded', function() {
     // Ensure nav items have initial proper styling
     const navItems = document.querySelectorAll('.nav-item');
     navItems.forEach(item => {
@@ -7395,20 +7423,11 @@ function handleCreatePost(event) {
         return;
     }
     
-    const postsRef = group2MetalsRef.child('discussionPosts').push();
-    const newPost = {
-        authorId: currentUser.uid,
-        authorName: userData.displayName,
-        title: title,
-        content: content,
-        tags: tags ? tags.split(',').map(tag => tag.trim()) : [],
-        upvotes: 0,
-        downvotes: 0,
-        votes: {},
-        comments: 0,
-        saved: 0,
-        createdAt: firebase.database.ServerValue.TIMESTAMP
-    };
+    if (!currentUser) {
+        showToast('error', 'Sign in required', 'Please sign in to create posts.');
+        showLoginModal();
+        return;
+    }
     
     postsRef.set(newPost).then(() => {
         showToast('success', 'Post Created!', 'Your post has been published successfully.');
